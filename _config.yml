@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 橡胶童话
-subtitle: '探求投资交易的秘诀'
+title: Hexo
+subtitle: ''
 description: ''
 keywords:
-author: 童长征
-language: cn
-timezone: Asia/Shanghai 
+author: John Doe
+language: en
+timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
