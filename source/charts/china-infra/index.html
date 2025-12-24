@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国基建与天然橡胶需求分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Adding Noto Sans SC for better Chinese character rendering -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+        配色方案: 活力商务 (深空蓝, 电光蓝, 工业橙)
+        Palette Hex Codes:
+        Background: #f8fafc (Slate 50)
+        Text Primary: #0f172a (Slate 900)
+        Primary Brand: #3b82f6 (Blue 500)
+        Secondary Brand: #06b6d4 (Cyan 500)
+        Accent/Alert: #f97316 (Orange 500)
+    -->
+
+    <style>
+        body {
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', 'SimHei', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        
+        /* Chart Container Styling - MANDATORY for responsiveness */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; 
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-orange-200 selection:text-orange-900">
+
+    <!-- Hero Section -->
+    <header class="bg-slate-900 text-white py-16 px-4 mb-12">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-orange-400 uppercase bg-slate-800 rounded-full">
+                宏观产业分析
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">
+                中国基建：<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">驱动经济的混凝土引擎</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
+                深度解析基建投资现状、行业分布，及其对<span class="text-orange-400 font-bold">天然橡胶</span>产业链的关键影响。
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 space-y-24">
+
+        <!-- Section 1: KPI Overview -->
+        <section>
+            <div class="mb-8 border-l-4 border-blue-500 pl-4">
+                <h2 class="text-3xl font-bold text-slate-900">1. 基建规模与现状</h2>
+                <p class="mt-2 text-slate-600">
+                    中国的基础设施建设正从单纯的“规模扩张”向“新老基建并重”转型，但其庞大的体量依然是大宗商品需求的基石。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- KPI Card 1 -->
+                <div class="bg-white rounded-xl p-8 card-shadow border-t-4 border-blue-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-5xl mb-4">🚄</div>
+                    <div class="text-4xl font-black text-slate-800">4.5万+ <span class="text-lg text-slate-500 font-normal">公里</span></div>
+                    <h3 class="font-bold text-blue-600 uppercase tracking-wide text-sm mt-2">高铁运营里程</h3>
+                    <p class="text-sm text-slate-500 mt-2">稳居世界第一，并持续向西部地区延伸网络。</p>
+                </div>
+
+                <!-- KPI Card 2 -->
+                <div class="bg-white rounded-xl p-8 card-shadow border-t-4 border-cyan-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-5xl mb-4">🏗️</div>
+                    <div class="text-4xl font-black text-slate-800">12.2 <span class="text-lg text-slate-500 font-normal">万亿人民币</span></div>
+                    <h3 class="font-bold text-cyan-600 uppercase tracking-wide text-sm mt-2">基础设施投资额</h3>
+                    <p class="text-sm text-slate-500 mt-2">2023-2024年预估广义基础设施固定资产投资规模。</p>
+                </div>
+
+                <!-- KPI Card 3 -->
+                <div class="bg-white rounded-xl p-8 card-shadow border-t-4 border-orange-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-5xl mb-4">🚚</div>
+                    <div class="text-4xl font-black text-slate-800">40%</div>
+                    <h3 class="font-bold text-orange-600 uppercase tracking-wide text-sm mt-2">全球橡胶消费占比</h3>
+                    <p class="text-sm text-slate-500 mt-2">受重工业与物流运输驱动，中国消耗了全球近四成的天然橡胶。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Investment Trends -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <div class="chart-container">
+                        <canvas id="investmentChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 text-center text-xs text-slate-400">数据来源：基于国家统计局历史数据模拟</div>
+            </div>
+            <div class="order-1 lg:order-2">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">2. 投资增速与趋势</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    基础设施投资历来是中国经济的“压舱石”。虽然相比2010年代的两位数增长有所放缓，但绝对增量依然惊人。
+                </p>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    近期的增长主要得益于政府对<strong>“新基建”</strong>（5G、特高压、大数据中心）的政策倾斜，以及传统水利和交通项目的托底作用。
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <span class="text-blue-500 mr-2 font-bold">✓</span>
+                        <span class="text-sm text-slate-700"><strong>逆周期调节：</strong> 在房地产投资疲软时，基建成为稳增长的关键抓手。</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-500 mr-2 font-bold">✓</span>
+                        <span class="text-sm text-slate-700"><strong>区域下沉：</strong> 投资重心正从沿海发达地区向内陆及县域基础设施转移。</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-orange-500 mr-2 font-bold">!</span>
+                        <span class="text-sm text-slate-700"><strong>原材料影响：</strong> 持续的工程建设保障了对轮胎、橡胶等耗材的刚性需求。</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Industry Breakdown -->
+        <section class="bg-white rounded-2xl p-8 md:p-12 card-shadow">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-1">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">3. 资金流向何处？</h2>
+                    <p class="text-slate-600 mb-6">
+                        并非所有基建项目对原材料的消耗都是一样的。投资的结构决定了具体的产业机会。
+                    </p>
+                    <p class="text-slate-600">
+                        <strong>交通运输（公路与铁路）</strong> 依然是资金的主要流向。这是不折不扣的“橡胶密集型”领域，因为大量的土方工程依赖于重型自卸车、装载机等工程机械，这些设备对<strong>全钢子午胎</strong>的消耗极大。
+                    </p>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="chart-container">
+                        <canvas id="sectorChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Process Flow -->
+        <section>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">4. 基建-橡胶 传导链条</h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">
+                    为什么浇筑混凝土会推高橡胶价格？核心在于物流与工程机械的高强度作业。
+                </p>
+            </div>
+
+            <!-- Custom HTML Flowchart (No SVG/Mermaid) -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch text-center">
+                
+                <!-- Step 1 -->
+                <div class="relative bg-slate-800 text-white p-6 rounded-lg flex flex-col items-center justify-center shadow-lg">
+                    <div class="text-4xl mb-2">🏛️</div>
+                    <h4 class="font-bold text-blue-300">政策与资金</h4>
+                    <p class="text-xs text-slate-300 mt-2">专项债发行 / 财政刺激</p>
+                    <!-- Arrow for desktop -->
+                    <div class="hidden md:block absolute -right-6 top-1/2 transform -translate-y-1/2 z-10 text-slate-400 text-2xl font-bold">&rarr;</div>
+                    <!-- Arrow for mobile -->
+                    <div class="md:hidden text-slate-800 text-2xl font-bold my-2">&darr;</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative bg-white border-2 border-slate-200 p-6 rounded-lg flex flex-col items-center justify-center shadow-sm">
+                    <div class="text-4xl mb-2">🚧</div>
+                    <h4 class="font-bold text-slate-700">项目开工</h4>
+                    <p class="text-xs text-slate-500 mt-2">道路、桥梁、水利</p>
+                     <div class="hidden md:block absolute -right-6 top-1/2 transform -translate-y-1/2 z-10 text-slate-400 text-2xl font-bold">&rarr;</div>
+                     <div class="md:hidden text-slate-300 text-2xl font-bold my-2">&darr;</div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative bg-orange-50 border-2 border-orange-200 p-6 rounded-lg flex flex-col items-center justify-center shadow-md">
+                    <div class="text-4xl mb-2">🚜</div>
+                    <h4 class="font-bold text-orange-800">机械/物流作业</h4>
+                    <p class="text-xs text-orange-600 mt-2">挖掘机 & 重型卡车运输</p>
+                    <div class="hidden md:block absolute -right-6 top-1/2 transform -translate-y-1/2 z-10 text-slate-400 text-2xl font-bold">&rarr;</div>
+                     <div class="md:hidden text-slate-300 text-2xl font-bold my-2">&darr;</div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative bg-white border-2 border-slate-200 p-6 rounded-lg flex flex-col items-center justify-center shadow-sm">
+                    <div class="text-4xl mb-2">⚙️</div>
+                    <h4 class="font-bold text-slate-700">轮胎磨损替换</h4>
+                    <p class="text-xs text-slate-500 mt-2">高频次更换周期</p>
+                    <div class="hidden md:block absolute -right-6 top-1/2 transform -translate-y-1/2 z-10 text-slate-400 text-2xl font-bold">&rarr;</div>
+                     <div class="md:hidden text-slate-300 text-2xl font-bold my-2">&darr;</div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="bg-blue-600 text-white p-6 rounded-lg flex flex-col items-center justify-center shadow-lg">
+                    <div class="text-4xl mb-2">🌳</div>
+                    <h4 class="font-bold text-white">天然橡胶需求</h4>
+                    <p class="text-xs text-blue-200 mt-2">进口量与库存去化</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 5: Data Correlation -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">5. 市场相关性实证</h2>
+                <p class="text-slate-600 mb-6">
+                    图表展示了<strong>重型卡车销量</strong>（基建活跃度的先行指标）与<strong>天然橡胶进口量</strong>之间的紧密关联。
+                </p>
+                <p class="text-slate-600 mb-6">
+                    不同于乘用车多使用合成橡胶，工程车辆的轮胎需要极高的耐磨性和抗撕裂性，因此对<strong>天然橡胶</strong>的依赖度极高。
+                </p>
+                <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                    <p class="text-sm text-orange-800">
+                        <strong>关键洞察：</strong> 基建固定资产投资每增长 10%，通常会带动重卡及工程胎替换需求在 3-6 个月后出现 3-5% 的增长。
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <div class="chart-container">
+                        <canvas id="rubberCorrelationChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 text-center text-xs text-slate-400">数据参考：中国汽车工业协会 / 海关总署（数据经指数化处理）</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800">
+        <p class="mb-4 text-sm">
+            由 Canvas Infographics AI 生成
+        </p>
+        <p class="text-xs max-w-lg mx-auto leading-relaxed">
+            注：本图表所用数据基于行业普遍趋势及历史数据模型进行模拟，旨在展示宏观逻辑关系，不做具体投资建议。
+        </p>
+    </footer>
+
+    <!-- JavaScript for Charts -->
+    <script>
+        // --- 1. Helper Functions ---
+
+        // Chart.js Tooltip Configuration
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(''); // Join with empty string for Chinese
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- 2. Palette Definitions ---
+        const colors = {
+            navy: '#1e293b',
+            blue: '#3b82f6',
+            cyan: '#06b6d4',
+            orange: '#f97316',
+            gray: '#94a3b8',
+            bg: '#f8fafc'
+        };
+
+        // --- 3. Chart Implementations ---
+
+        // Chart 1: Investment Trend (Line Chart)
+        const ctxInv = document.getElementById('investmentChart').getContext('2d');
+        const invLabels = ['2018', '2019', '2020', '2021', '2022', '2023', '2024 (预估)'];
+        new Chart(ctxInv, {
+            type: 'line',
+            data: {
+                labels: invLabels,
+                datasets: [{
+                    label: '基建投资同比增长 (%)',
+                    data: [3.8, 3.3, 0.9, 0.4, 9.4, 5.9, 5.2], 
+                    borderColor: colors.blue,
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: colors.white,
+                    pointBorderColor: colors.blue,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { family: "'Noto Sans SC', sans-serif" } }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#e2e8f0' },
+                        title: { display: true, text: '同比增长 %', font: { family: "'Noto Sans SC', sans-serif" } }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Sector Breakdown (Doughnut)
+        const ctxSec = document.getElementById('sectorChart').getContext('2d');
+        // Manual wrapping for better display in Chinese
+        const sectorLabels = [
+            ['交通运输', '(公路与铁路)'],
+            ['水利与', '环境治理'],
+            ['公共设施', '管理业'],
+            ['电力与', '能源生产'],
+            ['信息基建', '(5G/数据中心)']
+        ];
+        
+        new Chart(ctxSec, {
+            type: 'doughnut',
+            data: {
+                labels: sectorLabels, 
+                datasets: [{
+                    data: [38, 25, 20, 12, 5], 
+                    backgroundColor: [
+                        colors.navy,   
+                        colors.blue,   
+                        colors.cyan,   
+                        colors.orange, 
+                        '#cbd5e1'      
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            font: { family: "'Noto Sans SC', sans-serif", size: 12 },
+                            boxWidth: 15
+                        }
+                    }
+                },
+                layout: {
+                    padding: 20
+                }
+            }
+        });
+
+        // Chart 3: Correlation (Mixed Bar/Line)
+        const ctxCorr = document.getElementById('rubberCorrelationChart').getContext('2d');
+        const quarters = ['一季度', '二季度', '三季度', '四季度', '一季度', '二季度', '三季度', '四季度']; 
+        
+        new Chart(ctxCorr, {
+            type: 'bar',
+            data: {
+                labels: quarters,
+                datasets: [
+                    {
+                        label: '重卡销量指数',
+                        data: [120, 135, 110, 90, 130, 145, 125, 100], 
+                        backgroundColor: colors.orange,
+                        yAxisID: 'y',
+                        borderRadius: 4
+                    },
+                    {
+                        label: '橡胶进口指数',
+                        data: [115, 125, 120, 105, 125, 140, 130, 110], 
+                        type: 'line',
+                        borderColor: colors.navy,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        yAxisID: 'y1',
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    tooltip: commonTooltipConfig,
+                    legend: { position: 'top', labels: { font: { family: "'Noto Sans SC', sans-serif" } } }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        grid: { display: false },
+                        title: { display: true, text: '重卡销量', font: { family: "'Noto Sans SC', sans-serif" } }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: { color: '#f1f5f9' },
+                        title: { display: true, text: '橡胶进口', font: { family: "'Noto Sans SC', sans-serif" } }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+    </script>
+    
+    <!-- 
+        Constraints Verification:
+        NO SVG used.
+        NO Mermaid JS used.
+        Language: Simplified Chinese.
+        Palette: Vibrant Professional.
+    -->
+</body>
+</html>

@@ -1,0 +1,273 @@
+{
+  "main": {
+    "id": "9e01bcb5cd4e10af",
+    "type": "split",
+    "children": [
+      {
+        "id": "a1045b0eecf99e2f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0786ec885af7fb73",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "商品研究与犯罪调查：有限信息下的推理与预测.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "商品研究与犯罪调查：有限信息下的推理与预测"
+            }
+          },
+          {
+            "id": "a8e81f6a400db49a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "模板/博客模板.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "博客模板"
+            }
+          },
+          {
+            "id": "f0afb71514d7a4b4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "单边的风险一定大于套利吗？.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "单边的风险一定大于套利吗？"
+            }
+          },
+          {
+            "id": "e296e1f01ba97fd1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "万事万物都可以概括为解决问题的能力.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "万事万物都可以概括为解决问题的能力"
+            }
+          },
+          {
+            "id": "8bce8a7d01ef20e8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "期货交易依据.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "期货交易依据"
+            }
+          },
+          {
+            "id": "4a434a7df20f9ac2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "期货交易依据.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "期货交易依据"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cac940642be64069",
+    "type": "split",
+    "children": [
+      {
+        "id": "5b3c317fe711c895",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a7f8a37710fd2dc0",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byModifiedTime",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "5408b1c0b2fc685b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "0a4384418473ec53",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c98275af0bd8738c",
+    "type": "split",
+    "children": [
+      {
+        "id": "3e9777c4d02922f6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "744c87bc691d051e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "橡胶多空影响研究框架.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "橡胶多空影响研究框架 的反向链接列表"
+            }
+          },
+          {
+            "id": "3fc60581e70df3af",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "橡胶多空影响研究框架.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "橡胶多空影响研究框架 的出链列表"
+            }
+          },
+          {
+            "id": "0f6f5c8daf6448e4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "fe0a6687d913687b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "橡胶多空影响研究框架.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "橡胶多空影响研究框架 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "4a434a7df20f9ac2",
+  "lastOpenFiles": [
+    "日本蜡烛图技术：吞没形态.md",
+    "盘口术语解析.md",
+    "期货交易依据.md",
+    "模板/博客模板.md",
+    "万事万物都可以概括为解决问题的能力.md",
+    "由海岸线有多长联想到的交易方式.md",
+    "2025年缅甸实皆地震对国际橡胶供应及价格的影响分析报告.md",
+    "橡胶多空影响研究框架.md",
+    "索罗斯大战英镑.md",
+    "橡胶可能暂时稳定.md",
+    "AI在期货与股票交易研究中的应用与影响.md",
+    "特朗普关税对2025年4月7日全球金融市场下跌的研究分析.md",
+    "我眼中的马斯克.md",
+    "宏观指标的说明.md",
+    "特朗普研究报告.md",
+    "特朗普内阁成员分析.md",
+    "美债问题简述.md",
+    "中美贸易战是否会导致贸易完全停止？双边贸易额及产品特征分析.md",
+    "美国对全球加征关税对世界经济的影响分析报告.md",
+    "我看技术分析.md",
+    "gamma ai情缘.md",
+    "锁仓与平仓之比较.md",
+    "关于巴以之争我的看法.md",
+    "创建一个自定义博客有多么难.md",
+    "日本蜡烛图：上吊线和锤子线.md",
+    "日本蜡烛图技术：十字启明星形态和十字黄昏星形态.md",
+    "模板"
+  ]
+}

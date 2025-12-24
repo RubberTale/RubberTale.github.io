@@ -1,0 +1,16 @@
+{
+    "Blog Post Metadata": {
+        "prefix": "mnote", // 触发代码片段的关键词，你可以自定义
+        "body": [
+            "---",
+            "title: ${1:Your Blog Post Title}",
+            "date: ${2:${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}}",
+            "categories: [${3:Category 1}, ${4:Category 2}]",
+            "tags: [${5:Tag 1}, ${6:Tag 2}]",
+            "layout: ${7:post}", // 如果你的博客有布局概念
+            "---",
+            "$0" // 光标最终停留的位置
+        ],
+        "description": "快速插入博客文章元数据"
+    }
+}

@@ -1,0 +1,3 @@
+# _config.yml (示例，具体参数取决于您的主题)
+excerpt_length: 150  # 设置摘要长度为 150 个字符
+excerpt_type: truncate # 设置摘要类型为截断 (truncate) 或自动摘要 (auto)
