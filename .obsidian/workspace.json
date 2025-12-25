@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/这是一篇测试文.md",
+                "file": "source/_posts/期货交易依据.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "这是一篇测试文"
+              "title": "期货交易依据"
             }
           }
         ],
@@ -211,8 +211,8 @@
   },
   "active": "e4aa4f6c697f962b",
   "lastOpenFiles": [
-    "source/_posts/由海岸线有多长联想到的交易方式.md",
     "source/_posts/这是一篇测试文.md",
+    "source/_posts/由海岸线有多长联想到的交易方式.md",
     "source/_posts/2025-12-23-market-summary.md",
     "source/_posts/万事万物都可以概括为解决问题的能力.md"
   ]
