@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2025-12-26-futures-summary.md",
-                "mode": "preview",
+                "file": "source/_posts/关于巴以之争我的看法.md",
+                "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2025-12-26-futures-summary"
+              "title": "关于巴以之争我的看法"
             }
           }
         ]
@@ -40,7 +40,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
+                "sortOrder": "byModifiedTime",
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
@@ -196,21 +196,31 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
+    "source/_posts/AI在期货与股票交易研究中的应用与影响.md",
+    "source/_posts/debug_clean.py",
+    "source/charts/ag-arbitrage/index.html",
+    "source/charts/ag-arbitrage",
+    "source/charts/新建文件夹",
+    "source/_posts/万事万物都可以概括为解决问题的能力.md",
+    "source/_posts/2025-12-26-futures-summary.md",
+    "source/_posts/2025年缅甸实皆地震对国际橡胶供应及价格的影响分析报告.md",
+    "source/_posts/clean_files.py",
+    "source/_posts/期货交易依据.md",
+    "source/_posts/中国基建与橡胶产业深度分析.md",
+    "source/模板/博客模板.md",
+    "source/_posts/update_dates.py",
+    "source/_posts/橡胶可能暂时稳定.md",
+    "source/_posts/关于巴以之争我的看法.md",
     "source/_posts/2025-12-23-market-summary.md",
     "source/_posts/2025-12-25-market-summary.md",
-    "source/_posts/关于巴以之争我的看法.md",
     "source/_posts/单边的风险一定大于套利吗？.md",
-    "source/_posts/2025年缅甸实皆地震对国际橡胶供应及价格的影响分析报告.md",
-    "source/_posts/橡胶可能暂时稳定.md",
     "Untitled.md",
     "source/_posts/研究应该像破案.md",
     "source/_posts/伊朗简史.md",
     "source/_posts/橡胶多空影响研究框架.md",
     "Untitled 1.base",
     "Untitled.base",
-    "source/_posts/期货交易依据.md",
     "source/_posts/这是一篇测试文.md",
-    "source/_posts/由海岸线有多长联想到的交易方式.md",
-    "source/_posts/万事万物都可以概括为解决问题的能力.md"
+    "source/_posts/由海岸线有多长联想到的交易方式.md"
   ]
 }

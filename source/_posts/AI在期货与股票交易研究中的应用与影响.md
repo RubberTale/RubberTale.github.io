@@ -5,8 +5,7 @@
 标签: 
 title: AI在期货与股票交易研究中的应用与影响
 author: adt
-date:
-  "{ \"date:\" }": 
+date: 2025-04-13 07:43:36
 tags:
   - Hexo
   - Landscape
