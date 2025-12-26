@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/我眼中的马斯克.md",
-                "mode": "preview",
+                "file": "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
+                "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "我眼中的马斯克"
+              "title": "2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈"
             }
           }
         ]
@@ -196,7 +196,11 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
+    "source/charts/spforcast/index.html",
+    "source/charts/spforcast",
     "source/_posts/橡胶多空影响研究框架.md",
+    "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
+    "source/_posts/我眼中的马斯克.md",
     "source/_posts/特朗普内阁成员分析.md",
     "source/_posts/关于巴以之争我的看法.md",
     "source/_posts/2025年缅甸实皆地震对国际橡胶供应及价格的影响分析报告.md",
@@ -219,9 +223,6 @@
     "source/_posts/日本蜡烛图技术：星线.md",
     "source/_posts/日本蜡烛图技术：吞没形态.md",
     "source/_posts/日本蜡烛图技术：乌云盖顶形态及刺进形态.md",
-    "source/_posts/我看技术分析.md",
-    "source/_posts/我为什么写公众号？.md",
-    "source/_posts/宏观指标的说明.md",
     "source/fbdd31bb6967dcec4f6c36a0ff2f1128.txt",
     "source/_posts/debug_clean.py",
     "source/charts/ag-arbitrage/index.html",
