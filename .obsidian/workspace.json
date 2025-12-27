@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
-                "mode": "source",
+                "file": "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈"
+              "title": "2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命"
             }
           },
           {
@@ -49,8 +49,7 @@
               "title": "嵌入网站"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +81,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "贵金属",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -224,8 +223,11 @@
       "obsidian-shellcommands:Shell commands: Custom variables": false
     }
   },
-  "active": "f40d80a9b83595d8",
+  "active": "3aa2153d944ca84e",
   "lastOpenFiles": [
+    "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
+    "source/index.md",
+    "source/模板/嵌入网站.md",
     "source/charts/preciousmetals/测试标题_20251228012103/index.html",
     "source/charts/preciousmetals/测试标题_20251228012103",
     "source/charts/preciousmetals/手动测试标题_20251228011916/index.html",
@@ -234,14 +236,10 @@
     "source/charts/preciousmetals/index_20251228011822",
     "source/charts/preciousmetals/index.html",
     "source/charts/preciousmetals",
-    "2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
-    "source/index.md",
-    "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
+    "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
     "scripts/chart_tag.js",
     "scripts",
-    "source/模板/嵌入网站.md",
     "Pasted image 20251227093005.png",
-    "source/charts/blackoutlook2026/index.html",
     "source/模板/博客模板.md",
     "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
     "source/_posts/橡胶多空影响研究框架.md",
