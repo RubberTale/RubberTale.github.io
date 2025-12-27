@@ -5,6 +5,7 @@
 menu:
   Home: /
   Archives: /archives
+  图表库: /charts/
 # RSS link
 rss: /atom.xml
 # Path of title banner image of page top
