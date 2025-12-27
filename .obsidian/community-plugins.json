@@ -1,5 +1,7 @@
 [
   "obsidian-git",
   "obsidian-regex-replace",
-  "obsidian-image-auto-upload-plugin"
+  "obsidian-image-auto-upload-plugin",
+  "obsidian-linter",
+  "obsidian-shellcommands"
 ]

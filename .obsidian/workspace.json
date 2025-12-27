@@ -22,6 +22,20 @@
             }
           },
           {
+            "id": "f40d80a9b83595d8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          },
+          {
             "id": "0a3b4eec2d279827",
             "type": "leaf",
             "state": {
@@ -35,7 +49,8 @@
               "title": "嵌入网站"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -205,22 +220,32 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "obsidian-shellcommands:Shell commands: Custom variables": false
     }
   },
-  "active": "e95b8039e26e6542",
+  "active": "f40d80a9b83595d8",
   "lastOpenFiles": [
-    "source/模板/嵌入网站.md",
+    "source/charts/preciousmetals/测试标题_20251228012103/index.html",
+    "source/charts/preciousmetals/测试标题_20251228012103",
+    "source/charts/preciousmetals/手动测试标题_20251228011916/index.html",
+    "source/charts/preciousmetals/手动测试标题_20251228011916",
+    "source/charts/preciousmetals/index_20251228011822/index.html",
+    "source/charts/preciousmetals/index_20251228011822",
+    "source/charts/preciousmetals/index.html",
+    "source/charts/preciousmetals",
+    "2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
+    "source/index.md",
     "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
+    "scripts/chart_tag.js",
+    "scripts",
+    "source/模板/嵌入网站.md",
     "Pasted image 20251227093005.png",
     "source/charts/blackoutlook2026/index.html",
-    "source/charts/blackoutlook2026",
     "source/模板/博客模板.md",
     "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
     "source/_posts/橡胶多空影响研究框架.md",
     "source/_posts/2025-12-25-market-summary.md",
-    "source/charts/spforcast/index.html",
-    "source/charts/spforcast",
     "source/_posts/我眼中的马斯克.md",
     "source/_posts/特朗普内阁成员分析.md",
     "source/_posts/关于巴以之争我的看法.md",
@@ -237,14 +262,6 @@
     "source/_posts/索罗斯大战英镑.md",
     "source/_posts/由海岸线有多长联想到的交易方式.md",
     "source/_posts/研究应该像破案.md",
-    "source/_posts/特朗普关税对2025年4月7日全球金融市场下跌的研究分析.md",
-    "source/_posts/泰国南部降雨形成机制.md",
-    "source/_posts/橡胶可能暂时稳定.md",
-    "source/fbdd31bb6967dcec4f6c36a0ff2f1128.txt",
-    "source/_posts/debug_clean.py",
-    "source/charts/ag-arbitrage/index.html",
-    "source/charts/ag-arbitrage",
-    "source/charts/新建文件夹",
-    "source/_posts/clean_files.py"
+    "source/_posts/特朗普关税对2025年4月7日全球金融市场下跌的研究分析.md"
   ]
 }
