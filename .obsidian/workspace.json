@@ -15,7 +15,7 @@
               "state": {
                 "file": "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
                 "mode": "preview",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
               "title": "2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命"
@@ -223,7 +223,7 @@
       "obsidian-shellcommands:Shell commands: Custom variables": false
     }
   },
-  "active": "3aa2153d944ca84e",
+  "active": "e95b8039e26e6542",
   "lastOpenFiles": [
     "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
     "source/index.md",
