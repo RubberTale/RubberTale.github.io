@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
-                "mode": "source",
+                "file": "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
+                "mode": "preview",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈"
+              "title": "2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈"
             }
           }
         ]
@@ -196,8 +196,10 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
-    "source/_posts/橡胶多空影响研究框架.md",
+    "source/模板/博客模板.md",
+    "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
     "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
+    "source/_posts/橡胶多空影响研究框架.md",
     "source/_posts/2025-12-25-market-summary.md",
     "source/charts/spforcast/index.html",
     "source/charts/spforcast",
@@ -222,8 +224,6 @@
     "source/_posts/橡胶可能暂时稳定.md",
     "source/_posts/日本蜡烛图：上吊线和锤子线.md",
     "source/_posts/日本蜡烛图技术：星线.md",
-    "source/_posts/日本蜡烛图技术：吞没形态.md",
-    "source/_posts/日本蜡烛图技术：乌云盖顶形态及刺进形态.md",
     "source/fbdd31bb6967dcec4f6c36a0ff2f1128.txt",
     "source/_posts/debug_clean.py",
     "source/charts/ag-arbitrage/index.html",
