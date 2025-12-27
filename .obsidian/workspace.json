@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
+                "file": "source/模板/嵌入网站.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈"
+              "title": "嵌入网站"
             }
           },
           {
@@ -210,8 +210,8 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
-    "source/模板/嵌入网站.md",
     "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
+    "source/模板/嵌入网站.md",
     "Pasted image 20251227093005.png",
     "source/charts/blackoutlook2026/index.html",
     "source/charts/blackoutlook2026",
