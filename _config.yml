@@ -110,3 +110,9 @@ theme: landscape
 #   repo: git@github.com:RubberTale/RubberTale.github.io.git
 #   branch: master
   
+  # 在根目录 _config.yml 的最下方添加：
+theme_config:
+menu:
+  Home: /
+  Archives: /archives
+  图表库: /charts/
