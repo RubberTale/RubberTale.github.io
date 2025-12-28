@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
+                "file": "source/charts/index.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命"
+              "title": "index"
             }
           },
           {
@@ -225,8 +225,10 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
-    "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
     "source/index.md",
+    "source/charts/index.md",
+    "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
+    "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
     "source/模板/嵌入网站.md",
     "source/charts/preciousmetals/测试标题_20251228012103/index.html",
     "source/charts/preciousmetals/测试标题_20251228012103",
@@ -236,7 +238,6 @@
     "source/charts/preciousmetals/index_20251228011822",
     "source/charts/preciousmetals/index.html",
     "source/charts/preciousmetals",
-    "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
     "scripts/chart_tag.js",
     "scripts",
     "Pasted image 20251227093005.png",
