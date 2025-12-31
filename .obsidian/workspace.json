@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
+                "file": "source/_posts/科技胶定义辨析与监管.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命"
+              "title": "科技胶定义辨析与监管"
             }
           },
           {
@@ -225,8 +225,12 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
-    "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
+    "source/_posts/2025-12-31-daily-summary.md",
+    "source/_posts/科技胶定义辨析与监管.md",
+    "source/_posts/2025-12-26-futures-comprehensive-report.md",
     "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
+    "scripts/remove_obsidian_comments.js",
+    "source/_posts/2026年全球纸浆市场深度研究报告：供需大分流与结构性重构下的价格博弈.md",
     "public/2025/02/14/锁仓与平仓之比较/index.html",
     "public/2025/02/14/通用语言模型（AI)与商品投资策略/index.html",
     "public/2025/02/14/研究应该像破案/index.html",
@@ -236,7 +240,6 @@
     "public/2025/02/14/日本蜡烛图技术：乌云盖顶形态及刺进形态/index.html",
     "public/2025/02/14/单边的风险一定大于套利吗？/index.html",
     "public/2025/02/14/伊朗简史/index.html",
-    "public/2025/02/14/gamma ai情缘/index.html",
     "public/charts/index.md",
     "source/charts/index.md",
     "source/index.md",
@@ -258,8 +261,6 @@
     "source/_posts/锁仓与平仓之比较.md",
     "source/_posts/那些短剧中的爱情故事.md",
     "source/_posts/通用语言模型（AI)与商品投资策略.md",
-    "source/_posts/美债问题简述.md",
-    "source/_posts/索罗斯大战英镑.md",
-    "source/_posts/由海岸线有多长联想到的交易方式.md"
+    "source/_posts/美债问题简述.md"
   ]
 }
