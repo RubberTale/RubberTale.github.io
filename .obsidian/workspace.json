@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/charts/index.md",
+                "file": "source/_posts/伊朗伊斯兰共和国2026年战略态势评估：政权稳定性危机、继承困境与全球大宗商品市场冲击深度报告.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "伊朗伊斯兰共和国2026年战略态势评估：政权稳定性危机、继承困境与全球大宗商品市场冲击深度报告"
             }
           },
           {
@@ -225,9 +225,11 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
+    "source/charts/index.md",
+    "source/_posts/伊朗伊斯兰共和国2026年战略态势评估：政权稳定性危机、继承困境与全球大宗商品市场冲击深度报告.md",
+    "source/_posts/Untitled.md",
     "source/charts/agent/index.html",
     "source/charts/agent/index.html.md",
-    "source/charts/index.md",
     "source/_posts/科技胶定义辨析与监管.md",
     "source/charts/agent",
     "source/_posts/2025-12-31-daily-summary.md",
@@ -242,7 +244,6 @@
     "public/2025/02/14/日本蜡烛图：上吊线和锤子线/index.html",
     "public/2025/02/14/日本蜡烛图技术：星线/index.html",
     "public/2025/02/14/日本蜡烛图技术：乌云盖顶形态及刺进形态/index.html",
-    "public/2025/02/14/单边的风险一定大于套利吗？/index.html",
     "public/charts/index.md",
     "source/index.md",
     "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
@@ -260,7 +261,6 @@
     "source/_posts/期货交易依据.md",
     "source/_posts/盘口术语解析.md",
     "source/_posts/美国对全球加征关税对世界经济的影响分析报告.md",
-    "source/_posts/锁仓与平仓之比较.md",
-    "source/_posts/那些短剧中的爱情故事.md"
+    "source/_posts/锁仓与平仓之比较.md"
   ]
 }
