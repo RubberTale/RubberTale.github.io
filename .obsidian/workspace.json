@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/科技胶定义辨析与监管.md",
+                "file": "source/charts/index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "科技胶定义辨析与监管"
+              "title": "index"
             }
           },
           {
@@ -225,8 +225,12 @@
   },
   "active": "e95b8039e26e6542",
   "lastOpenFiles": [
-    "source/_posts/2025-12-31-daily-summary.md",
+    "source/charts/agent/index.html",
+    "source/charts/agent/index.html.md",
+    "source/charts/index.md",
     "source/_posts/科技胶定义辨析与监管.md",
+    "source/charts/agent",
+    "source/_posts/2025-12-31-daily-summary.md",
     "source/_posts/2025-12-26-futures-comprehensive-report.md",
     "source/_posts/2025全球贵金属市场年度深度报告：宏观范式重构、工业需求爆发与广期所（GFEX）的定价革命.md",
     "scripts/remove_obsidian_comments.js",
@@ -239,9 +243,7 @@
     "public/2025/02/14/日本蜡烛图技术：星线/index.html",
     "public/2025/02/14/日本蜡烛图技术：乌云盖顶形态及刺进形态/index.html",
     "public/2025/02/14/单边的风险一定大于套利吗？/index.html",
-    "public/2025/02/14/伊朗简史/index.html",
     "public/charts/index.md",
-    "source/charts/index.md",
     "source/index.md",
     "source/_posts/2026年黑色产业链深度展望报告：新均衡下的结构性重塑与全球博弈.md",
     "source/模板/嵌入网站.md",
@@ -259,8 +261,6 @@
     "source/_posts/盘口术语解析.md",
     "source/_posts/美国对全球加征关税对世界经济的影响分析报告.md",
     "source/_posts/锁仓与平仓之比较.md",
-    "source/_posts/那些短剧中的爱情故事.md",
-    "source/_posts/通用语言模型（AI)与商品投资策略.md",
-    "source/_posts/美债问题简述.md"
+    "source/_posts/那些短剧中的爱情故事.md"
   ]
 }
