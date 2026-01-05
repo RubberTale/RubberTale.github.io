@@ -116,3 +116,7 @@ menu:
   Home: /
   Archives: /archives
   图表库: /charts/
+
+waline:
+  # ... 其他设置 ...
+  serverURL: 'https://144.24.80.205.sslip.io'
