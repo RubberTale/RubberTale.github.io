@@ -173,7 +173,7 @@ subtitle:
   # If you close the typewriter effect, the subtitle will only show the first line of sub
   sub:
     - 探索期货交易的秘密
-    
+
 
 # Article layout on the homepage
 # 1: Cover on the left, info on the right
@@ -298,7 +298,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/RubberTale
   card_announcement:
     enable: true
     content: This is my Blog
@@ -312,7 +312,7 @@ aside:
   card_newest_comments:
     enable: false
     sort_order:
-    limit: 6
+    limit: 50
     # Unit: mins, save data to localStorage
     storage: 10
     avatar: true
