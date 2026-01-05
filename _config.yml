@@ -102,7 +102,8 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 
-theme: landscape
+# theme: landscape
+theme: butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 # deploy:
@@ -110,13 +111,3 @@ theme: landscape
 #   repo: git@github.com:RubberTale/RubberTale.github.io.git
 #   branch: master
   
-  # 在根目录 _config.yml 的最下方添加：
-theme_config:
-menu:
-  Home: /
-  Archives: /archives
-  图表库: /charts/
-
-waline:
-  # ... 其他设置 ...
-  serverURL: 'https://144.24.80.205.sslip.io'
