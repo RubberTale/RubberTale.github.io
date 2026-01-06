@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2026-01-05-daily-futures.md",
+                "file": "source/_posts/2025-12-31-daily-summary.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-01-05-daily-futures"
+              "title": "2025-12-31-daily-summary"
             }
           },
           {
@@ -240,8 +240,12 @@
   },
   "active": "fccd1622d8878153",
   "lastOpenFiles": [
-    "source/_posts/委内瑞拉玻利瓦尔共和国国家犯罪体系与 系统性人权侵犯调查报告 (2013–2026).md",
     "source/_posts/2026-01-05-daily-futures.md",
+    "source/_posts/2025-12-26-futures-comprehensive-report.md",
+    "source/_posts/2025-12-25-market-summary.md",
+    "source/_posts/2025-12-26-futures-summary.md",
+    "source/_posts/2026年拉丁美洲地缘政治格局重塑：左翼政府的退潮、生存与转型深度研究报告.md",
+    "source/_posts/委内瑞拉玻利瓦尔共和国国家犯罪体系与 系统性人权侵犯调查报告 (2013–2026).md",
     "node_modules/is-promise/index.mjs",
     "node_modules/is-promise/package.json",
     "node_modules/is-promise/readme.md",
@@ -272,10 +276,6 @@
     "node_modules/pug-strip-comments/CHANGELOG.md",
     "node_modules/pug-error/README.md",
     "node_modules/has-tostringtag/README.md",
-    "node_modules/has-tostringtag/CHANGELOG.md",
-    "node_modules/call-bind-apply-helpers/CHANGELOG.md",
-    "node_modules/call-bind-apply-helpers/README.md",
-    "node_modules/dunder-proto/README.md",
     "node_modules/hexo-theme-butterfly/source/img/friend_404.gif",
     "node_modules/hexo-theme-butterfly/source/img/error-page.png",
     "node_modules/hexo-theme-butterfly/source/img/butterfly-icon.png",
