@@ -310,12 +310,12 @@ aside:
     sort: date
     sort_order:
   card_newest_comments:
-    enable: false
-    sort_order:
-    limit: 50
+    enable: true   <-- 改成 true
+    sort_order: 1  <-- 数字越小越靠前，建议填 1 或 2，让它排在最上面
+    limit: 10       # 显示最近 5 条
     # Unit: mins, save data to localStorage
     storage: 10
-    avatar: true
+    avatar: true   # 显示评论者头像
   card_categories:
     enable: true
     # If set 0 will show all
@@ -594,15 +594,30 @@ valine:
   visitor: false
   option:
 
-# Waline - A simple comment system with backend support fork from Valine
-# https://waline.js.org/
+# Waline
+# https://waline.js.org
 waline:
-  serverURL: 'https://144.24.80.205.sslip.io'
-  bg:
-  # Use Waline pageview count as the page view count
-  pageview: true
+  serverURL: 'https://144.24.80.205.sslip.io' # 你的服务器地址
+  bg: # 评论框背景图，留空就是白色
+  
+  # 开启阅读量统计 (记得要把 busuanzi 的 page_pv 关掉)
+  pageview: true 
+  
+  # 这里是高级功能的开关
   option:
-  enable: true
+    # 1. 开启文章反应 (点赞/踩/哈哈)
+    reaction: true 
+    
+    # 2. 引入 B站 和 微博 的表情包
+    emoji: 
+      - https://unpkg.com/@waline/emojis@1.2.0/bilibili
+      - https://unpkg.com/@waline/emojis@1.2.0/weibo
+      - https://unpkg.com/@waline/emojis@1.2.0/qq
+      
+    # 3. 必填项 (默认只需昵称，为了防垃圾评论，建议加上 mail)
+    requiredMeta: 
+      - nick
+      # - mail (如果你想强制别人留邮箱，把这行前面的 # 去掉)
   
   # 其他保持默认
 
