@@ -18,5 +18,13 @@
       ],
       "key": "C"
     }
+  ],
+  "templater-obsidian:source/模板/Blog_Post_Header.md": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "Q"
+    }
   ]
 }
