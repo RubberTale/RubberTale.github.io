@@ -449,7 +449,7 @@ wordcount:
 busuanzi:
   site_uv: true
   site_pv: true
-  page_pv: true
+  page_pv: false
 
 # --------------------------------------
 # Math
@@ -600,7 +600,7 @@ waline:
   serverURL: 'https://144.24.80.205.sslip.io'
   bg:
   # Use Waline pageview count as the page view count
-  pageview: false
+  pageview: true
   option:
   enable: true
   
