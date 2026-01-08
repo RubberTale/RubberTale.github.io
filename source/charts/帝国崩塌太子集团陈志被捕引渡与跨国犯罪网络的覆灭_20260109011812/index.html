@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>终局档案：陈志被捕与引渡全记录 (2026)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <!-- Phosphor Icons for high-quality iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #991b1b; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(220, 38, 38, 0.2); /* Red tint for arrest theme */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .alert-pulse {
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+
+        .stamped {
+            position: relative;
+        }
+        .stamped::after {
+            content: 'ARRESTED';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(220, 38, 38, 0.3);
+            border: 4px solid rgba(220, 38, 38, 0.3);
+            padding: 0.5rem 1rem;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+    <!-- Chosen Palette: Red Alert (Slate 950 base, Red 600 primary, Amber 500 warnings) -->
+    <!-- Application Structure Plan:
+         1. Hero Header: UPDATED STATUS - CONFIRMED ARREST. Immediate visual confirmation.
+         2. The Dossier: Specifics of the Jan 7, 2026 arrest and extradition.
+         3. Timeline of Collapse: From Tycoon to Prisoner (2025-2026).
+         4. Asset Seizure Map: Visualizing the $15 Billion Bitcoin seizure.
+         5. Network Graph: The dismantling of the Prince Group syndicate.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased selection:bg-red-900 selection:text-white pb-12">
+
+    <!-- Emergency Banner -->
+    <div class="bg-red-900/90 text-red-100 px-4 py-2 text-center text-xs md:text-sm font-bold tracking-widest uppercase animate-pulse border-b border-red-500">
+        <i class="ph ph-siren mr-2"></i> Official Intelligence Update: Status Changed to CONFIRMED ARREST
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-red-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-3 h-3 bg-red-600 rounded-full alert-pulse"></div>
+                <h1 class="text-lg md:text-xl font-bold tracking-wider text-white">RED NOTICE ARCHIVE <span class="text-red-500">| CHEN ZHI</span></h1>
+            </div>
+            <div class="text-xs text-slate-400 font-mono hidden sm:block">
+                LAST UPDATED: 2026-01-09
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- SECTION 1: THE ARREST REPORT (HERO) -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Mugshot & Status -->
+            <div class="glass-panel rounded-xl p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-red-500/5 z-0"></div>
+                <div class="w-32 h-32 bg-slate-800 rounded-full border-4 border-red-600 flex items-center justify-center mb-4 relative z-10 shadow-[0_0_20px_rgba(220,38,38,0.5)]">
+                    <i class="ph ph-user text-5xl text-slate-500"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-1 relative z-10">陈志 (Chen Zhi)</h1>
+                <p class="text-sm text-red-400 font-mono mb-4 relative z-10">前太子集团董事长 | 柬埔寨公爵 (已剥夺)</p>
+                
+                <div class="w-full bg-red-600/20 border border-red-600 rounded-lg p-3 mb-4 relative z-10">
+                    <span class="block text-xs text-red-300 uppercase tracking-widest">当前状态 Current Status</span>
+                    <span class="block text-2xl font-black text-red-500 tracking-wider">已逮捕 / 引渡</span>
+                    <span class="block text-xs text-red-400 mt-1">CUSTODY OF CHINA MPS</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 w-full text-xs text-left relative z-10">
+                    <div class="bg-slate-900/50 p-2 rounded border border-slate-700">
+                        <span class="text-slate-500 block">逮捕日期</span>
+                        <span class="text-white font-mono">2026-01-07</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-2 rounded border border-slate-700">
+                        <span class="text-slate-500 block">逮捕地点</span>
+                        <span class="text-white">柬埔寨金边</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-2 rounded border border-slate-700">
+                        <span class="text-slate-500 block">涉嫌罪名</span>
+                        <span class="text-white">跨国诈骗/洗钱</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-2 rounded border border-slate-700">
+                        <span class="text-slate-500 block">同案犯</span>
+                        <span class="text-white">Xu Ji Liang, Shao Ji Hui</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Breaking News Details -->
+            <div class="lg:col-span-2 glass-panel rounded-xl p-6 stamped">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="ph ph-newspaper-clipping mr-2 text-red-500"></i> 
+                        官方通报摘要 (Official Briefing)
+                    </h2>
+                    <span class="bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">VERIFIED</span>
+                </div>
+                <div class="prose prose-invert prose-sm max-w-none text-slate-300 space-y-4">
+                    <p class="border-l-4 border-red-600 pl-4 bg-red-900/10 py-2">
+                        <strong>2026年1月7日确认：</strong> 柬埔寨内政部与中国公安部联合宣布，太子集团（Prince Group）创始人陈志已在金边被捕，并于当日移交中方工作组引渡回国。
+                    </p>
+                    <p>
+                        根据美国司法部（DOJ）2025年10月的起诉书及后续中柬联合执法行动，陈志被指控为<strong>“史上最大规模跨国网络犯罪集团”</strong>的幕后主脑。该集团涉及“杀猪盘”（Pig Butchering）加密货币诈骗、强迫劳动及巨额洗钱活动。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <h3 class="text-amber-500 font-bold text-xs mb-1">关键行动 Key Actions</h3>
+                            <ul class="list-disc list-inside text-xs text-slate-400 space-y-1">
+                                <li>2025年12月：柬埔寨皇室发布法令，剥夺陈志入籍公民身份。</li>
+                                <li>2026年1月7日：中柬警方联合收网，陈志及两名核心骨干被捕。</li>
+                                <li>2026年1月8日：中国公安部发布移交画面（戴头套、手铐）。</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <h3 class="text-amber-500 font-bold text-xs mb-1">涉案规模 Scale</h3>
+                            <ul class="list-disc list-inside text-xs text-slate-400 space-y-1">
+                                <li>受害者遍布全球100多个国家。</li>
+                                <li>美国查封约12.7万枚比特币（市值约150亿美元）。</li>
+                                <li>被称为“工业化网络诈骗”的典型案例。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TIMELINE OF THE FALL -->
+        <section>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-white flex items-center">
+                    <i class="ph ph-clock-countdown mr-2 text-amber-500"></i> 
+                    崩塌时间线：从首富到囚徒
+                </h2>
+            </div>
+            <div class="glass-panel rounded-xl p-6 relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-6 md:left-1/2 top-6 bottom-6 w-0.5 bg-slate-700 md:-ml-0.5"></div>
+
+                <!-- Timeline Items -->
+                <div class="space-y-8 relative">
+                    <!-- Item 1 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between w-full group">
+                        <div class="w-full md:w-5/12 text-left md:text-right pl-12 md:pl-0 pr-0 md:pr-8">
+                            <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 group-hover:border-slate-500 transition-colors">
+                                <span class="text-xs text-slate-500 font-mono">2025年10月15日</span>
+                                <h3 class="text-lg font-bold text-white">美国司法部起诉</h3>
+                                <p class="text-sm text-slate-400 mt-1">纽约东区联邦法院解封起诉书，指控陈志利用强制劳动营地进行数十亿美元的加密货币诈骗。US/UK 宣布制裁。</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-slate-900 border-2 border-slate-500 rounded-full md:-ml-2 z-10"></div>
+                        <div class="w-full md:w-5/12 hidden md:block"></div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between w-full group">
+                        <div class="w-full md:w-5/12 hidden md:block"></div>
+                        <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-slate-900 border-2 border-amber-500 rounded-full md:-ml-2 z-10 shadow-[0_0_10px_rgba(245,158,11,0.5)]"></div>
+                        <div class="w-full md:w-5/12 pl-12 md:pl-8">
+                            <div class="bg-slate-800 p-4 rounded-lg border border-amber-500/30 group-hover:border-amber-500 transition-colors">
+                                <span class="text-xs text-amber-500 font-mono">2025年12月</span>
+                                <h3 class="text-lg font-bold text-white">剥夺国籍与资产冻结</h3>
+                                <p class="text-sm text-slate-400 mt-1">柬埔寨皇家法令撤销其公民身份，切断其政治保护伞。新加坡与泰国相继冻结其关联账户数亿美元资金。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="flex flex-col md:flex-row items-center justify-between w-full group">
+                        <div class="w-full md:w-5/12 text-left md:text-right pl-12 md:pl-0 pr-0 md:pr-8">
+                            <div class="bg-slate-800 p-4 rounded-lg border border-red-600 group-hover:bg-red-900/10 transition-colors">
+                                <span class="text-xs text-red-500 font-mono">2026年1月7日</span>
+                                <h3 class="text-lg font-bold text-red-500">金边逮捕与引渡</h3>
+                                <p class="text-sm text-slate-300 mt-1">陈志在金边落网。中柬警方在机场完成移交，直接押送至中国。官方媒体随后发布通告。</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-6 md:left-1/2 w-6 h-6 bg-red-600 border-4 border-slate-900 rounded-full md:-ml-3 z-10 animate-pulse"></div>
+                        <div class="w-full md:w-5/12 hidden md:block"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE ASSET EMPIRE (DATA VIZ) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Chart 1: The Bitcoin Hoard -->
+            <div class="glass-panel rounded-xl p-6">
+                <h3 class="text-sm font-bold text-slate-300 mb-4 flex items-center">
+                    <i class="ph ph-currency-btc mr-2 text-amber-500"></i> 被查封资产构成 (The Seized Fortune)
+                </h3>
+                <div class="chart-container">
+                    <canvas id="assetChart"></canvas>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-xs text-slate-500">注：$150亿比特币为美国司法部历史上最大规模的加密货币查封行动。</p>
+                </div>
+            </div>
+
+            <!-- Chart 2: Global Reach Map (Abstract) -->
+            <div class="glass-panel rounded-xl p-6 flex flex-col">
+                <h3 class="text-sm font-bold text-slate-300 mb-4 flex items-center">
+                    <i class="ph ph-globe-hemisphere-east mr-2 text-cyan-500"></i> 犯罪网络辐射与打击点
+                </h3>
+                <div class="flex-1 bg-slate-900 rounded border border-slate-800 p-4 relative overflow-hidden" id="network-map">
+                    <!-- Interactive Elements -->
+                    <div class="grid grid-cols-2 gap-4 h-full">
+                        <div class="space-y-4">
+                            <button onclick="highlightZone('cambodia')" class="w-full text-left p-3 rounded bg-slate-800 hover:bg-slate-700 transition border-l-2 border-red-500">
+                                <span class="block text-xs text-slate-400">运营中心 HQ</span>
+                                <span class="block font-bold text-white">🇰🇭 柬埔寨 (西港/金边)</span>
+                                <span class="text-[10px] text-red-400">状态：园区被查封</span>
+                            </button>
+                            <button onclick="highlightZone('china')" class="w-full text-left p-3 rounded bg-slate-800 hover:bg-slate-700 transition border-l-2 border-cyan-500">
+                                <span class="block text-xs text-slate-400">审判地 Trial</span>
+                                <span class="block font-bold text-white">🇨🇳 中国</span>
+                                <span class="text-[10px] text-cyan-400">状态：引渡完成，审讯中</span>
+                            </button>
+                            <button onclick="highlightZone('us')" class="w-full text-left p-3 rounded bg-slate-800 hover:bg-slate-700 transition border-l-2 border-amber-500">
+                                <span class="block text-xs text-slate-400">资产没收 Seizure</span>
+                                <span class="block font-bold text-white">🇺🇸 美国 / 🇬🇧 英国</span>
+                                <span class="text-[10px] text-amber-400">状态：查封 $150亿+</span>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-center border border-slate-700 rounded bg-slate-950 p-4 text-center" id="zone-detail">
+                            <p class="text-slate-500 text-sm">点击左侧区域查看执法细节</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: IMPLICATIONS -->
+        <section class="glass-panel rounded-xl p-6 border-t-4 border-red-600">
+            <h2 class="text-xl font-bold text-white mb-4">事态分析：为何这次是“动真格”？</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="text-red-400 font-bold mb-2">保护伞彻底失效</h3>
+                    <p class="text-sm text-slate-400">
+                        不同于以往的“做做样子”，此次陈志被剥夺国籍并引渡，显示中柬在最高政治层面的反诈共识已超越了单一权贵的经济影响力。太子集团的“免死金牌”已不复存在。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-red-400 font-bold mb-2">证据链的国际闭环</h3>
+                    <p class="text-sm text-slate-400">
+                        美国提供的区块链证据（比特币流向）与中国掌握的受害者证词形成了完整闭环。陈志即使在柬埔寨也无法辩驳这些铁证，这导致了柬方不得不放人。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-red-400 font-bold mb-2">杀鸡儆猴的终极信号</h3>
+                    <p class="text-sm text-slate-400">
+                        作为东南亚最大的灰产大亨之一，陈志的落网向该地区所有仍在运营的园区发出了最后通牒：无论多高的爵位或财富，都无法在新的国际执法合作框架下幸存。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-7xl mx-auto px-4 py-6 border-t border-slate-800 text-center">
+        <p class="text-slate-600 text-xs">
+            资料来源：柬埔寨内政部公告、中国公安部通报、美国司法部(DOJ)起诉书、以及国际主流媒体(AP/CNA)报道。<br>
+            最后更新时间: 2026年1月9日
+        </p>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // --- DATA VISUALIZATION ---
+        function initCharts() {
+            // Chart 1: Assets
+            const ctxAsset = document.getElementById('assetChart').getContext('2d');
+            new Chart(ctxAsset, {
+                type: 'doughnut',
+                data: {
+                    labels: ['加密货币 (比特币/USDT)', '英国地产', '新加坡存款/基金', '其他全球资产'],
+                    datasets: [{
+                        data: [15000, 150, 115, 300], // Approximate millions USD
+                        backgroundColor: [
+                            '#f59e0b', // Amber (Bitcoin)
+                            '#3b82f6', // Blue
+                            '#10b981', // Emerald
+                            '#64748b'  // Slate
+                        ],
+                        borderColor: '#0f172a',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#cbd5e1', font: { size: 10 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) { label += ': '; }
+                                    label += '$' + context.raw + ' Million';
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        // --- INTERACTIVITY ---
+        function highlightZone(zone) {
+            const display = document.getElementById('zone-detail');
+            let content = "";
+            
+            if (zone === 'cambodia') {
+                content = `
+                    <div class="text-left animate-fade-in">
+                        <h4 class="text-red-500 font-bold mb-2">🇰🇭 柬埔寨行动细节</h4>
+                        <p class="text-xs text-white mb-2">太子集团总部被搜查，大量服务器与文件被扣押。陈志在金边某豪华公寓被特警带走。</p>
+                        <p class="text-xs text-slate-400">此前，该集团在西港拥有多个所谓“科技园区”，实为封闭式诈骗工厂。</p>
+                    </div>
+                `;
+            } else if (zone === 'china') {
+                content = `
+                    <div class="text-left animate-fade-in">
+                        <h4 class="text-cyan-400 font-bold mb-2">🇨🇳 中国司法程序</h4>
+                        <p class="text-xs text-white mb-2">陈志已被押解至某地看守所。预计将面临“组织、领导黑社会性质组织罪”、“诈骗罪”等多项重罪指控。</p>
+                        <p class="text-xs text-slate-400">参考此前类似案件，其可能面临无期徒刑甚至更重刑罚。</p>
+                    </div>
+                `;
+            } else if (zone === 'us') {
+                content = `
+                    <div class="text-left animate-fade-in">
+                        <h4 class="text-amber-400 font-bold mb-2">🇺🇸 资金链切断</h4>
+                        <p class="text-xs text-white mb-2">FBI与美国司法部通过链上追踪，锁定了12.7万枚BTC。这些资金被认定为受害者被骗资金。</p>
+                        <p class="text-xs text-slate-400">这是切断犯罪集团造血功能的关键一击。</p>
+                    </div>
+                `;
+            }
+
+            display.innerHTML = content;
+        }
+
+        // --- INIT ---
+        window.addEventListener('load', () => {
+            initCharts();
+            // Default load
+            highlightZone('cambodia');
+        });
+    </script>
+</body>
+</html>
