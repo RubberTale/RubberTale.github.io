@@ -1,0 +1,21 @@
+# 4. 生成嵌入代码 (已适配 Butterfly 主题全屏功能)
+    # 使用 Hexo Butterfly 自带的 Fancybox 实现弹窗全屏
+    embed_code = f"""
+<div class="chart-container" style="position: relative; width: 100%; height: 0; padding-bottom: 75%; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 10px;">
+    <iframe src="/charts/{folder_name}/index.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"></iframe>
+</div>
+
+<div style="text-align: right; margin-bottom: 20px;">
+    <a data-fancybox data-type="iframe" href="/charts/{folder_name}/index.html" style="
+        display: inline-block;
+        padding: 5px 12px;
+        background-color: #49b1f5;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s;">
+        <i class="fas fa-expand-arrows-alt"></i> 全屏查看高清图表
+    </a>
+</div>
+"""
