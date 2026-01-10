@@ -83,16 +83,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
+                "file": "source/_posts/2026-01-09-futures-report.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告"
+              "title": "2026-01-09-futures-report"
+            }
+          },
+          {
+            "id": "2f9a825c22e15913",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -267,10 +281,12 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "0a3b4eec2d279827",
+  "active": "2f9a825c22e15913",
   "lastOpenFiles": [
-    "source/_posts/帝国崩塌：太子集团陈志被捕、引渡与跨国犯罪网络的覆灭.md",
+    "source/_posts/2026-01-09-futures-report.md",
+    "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
     "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
+    "source/_posts/帝国崩塌：太子集团陈志被捕、引渡与跨国犯罪网络的覆灭.md",
     "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109083906/index.html",
     "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109083906",
     "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109083355/index.html",
@@ -303,7 +319,6 @@
     "node_modules/pug-filters/CHANGELOG.md",
     "node_modules/pug-walk/README.md",
     "node_modules/pug-walk/HISTORY.md",
-    "node_modules/pug-load/README.md",
     "node_modules/hexo-theme-butterfly/source/img/friend_404.gif",
     "node_modules/hexo-theme-butterfly/source/img/error-page.png",
     "node_modules/hexo-theme-butterfly/source/img/butterfly-icon.png",
