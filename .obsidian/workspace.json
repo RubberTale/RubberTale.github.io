@@ -99,7 +99,7 @@
               "state": {
                 "file": "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
               "title": "极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告"
@@ -138,7 +138,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "贵金属",
+                "query": "左翼",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -283,8 +283,12 @@
   },
   "active": "2f9a825c22e15913",
   "lastOpenFiles": [
-    "source/_posts/2026-01-09-futures-report.md",
+    "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告/index.html.md",
+    "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告",
+    "source/模板/新建图表页面.md",
     "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
+    "source/_posts/2026年拉丁美洲地缘政治格局重塑：左翼政府的退潮、生存与转型深度研究报告.md",
+    "source/_posts/2026-01-09-futures-report.md",
     "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
     "source/_posts/帝国崩塌：太子集团陈志被捕、引渡与跨国犯罪网络的覆灭.md",
     "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109083906/index.html",
@@ -306,10 +310,8 @@
     "source/_posts/2025-12-26-futures-comprehensive-report.md",
     "source/_posts/2025-12-25-market-summary.md",
     "source/_posts/2025-12-26-futures-summary.md",
-    "source/_posts/2026年拉丁美洲地缘政治格局重塑：左翼政府的退潮、生存与转型深度研究报告.md",
     "source/_posts/委内瑞拉玻利瓦尔共和国国家犯罪体系与 系统性人权侵犯调查报告 (2013–2026).md",
     "node_modules/is-promise/index.mjs",
-    "node_modules/is-promise/package.json",
     "node_modules/is-promise/readme.md",
     "node_modules/promise/Readme.md",
     "node_modules/jstransformer/README.md",
@@ -317,8 +319,6 @@
     "node_modules/jstransformer/CHANGELOG.md",
     "node_modules/pug-filters/README.md",
     "node_modules/pug-filters/CHANGELOG.md",
-    "node_modules/pug-walk/README.md",
-    "node_modules/pug-walk/HISTORY.md",
     "node_modules/hexo-theme-butterfly/source/img/friend_404.gif",
     "node_modules/hexo-theme-butterfly/source/img/error-page.png",
     "node_modules/hexo-theme-butterfly/source/img/butterfly-icon.png",
