@@ -1,0 +1,19 @@
+if theme.aside.card_webinfo.post_count
+  .webinfo-item
+    .item-name= _p('card_webinfo.post_count_name')
+    .item-count= site.posts.length
+if theme.busuanzi.site_uv
+  .webinfo-item
+    .item-name= _p('card_webinfo.site_uv_name')
+    .item-count.waline-site-uv
+      i.fa-solid.fa-spinner.fa-spin
+if theme.busuanzi.site_pv
+  .webinfo-item
+    .item-name= _p('card_webinfo.site_pv_name')
+    .item-count.waline-site-pv
+      i.fa-solid.fa-spinner.fa-spin
+if theme.aside.card_webinfo.last_push_date
+  .webinfo-item
+    .item-name= _p('card_webinfo.last_push_date_name')
+    .item-count#last-push-date(data-lastPushDate=date(Date.now(), config.date_format))
+      i.fa-solid.fa-spinner.fa-spin
