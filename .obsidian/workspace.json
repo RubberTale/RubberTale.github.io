@@ -8,6 +8,22 @@
         "type": "tabs",
         "children": [
           {
+            "id": "2f9a825c22e15913",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/模板/新建图表页面.md",
+                "mode": "source",
+                "source": true
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "新建图表页面"
+            }
+          },
+          {
             "id": "e95b8039e26e6542",
             "type": "leaf",
             "state": {
@@ -92,21 +108,21 @@
             }
           },
           {
-            "id": "2f9a825c22e15913",
+            "id": "763b2d91094360d2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
+                "file": "source/_posts/穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告"
+              "title": "穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告"
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -241,13 +257,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/万事万物都可以概括为解决问题的能力.md",
+                "file": "source/_posts/穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 万事万物都可以概括为解决问题的能力"
+              "title": "Outline of 穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告"
             }
           },
           {
@@ -261,7 +277,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -281,15 +297,18 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "2f9a825c22e15913",
+  "active": "763b2d91094360d2",
   "lastOpenFiles": [
+    "source/_posts/《铁雨》影评：武戏精彩、文戏亦不逊色.md",
+    "source/_posts/穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告.md",
+    "source/模板/嵌入网站.md",
+    "source/模板/新建图表页面.md",
+    "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
     "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求之综合评估报告/index.html",
     "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求之综合评估报告",
     "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
-    "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
     "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告/index.html",
     "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告",
-    "source/模板/新建图表页面.md",
     "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告/index.html.md",
     "source/_posts/2026年拉丁美洲地缘政治格局重塑：左翼政府的退潮、生存与转型深度研究报告.md",
     "source/_posts/2026-01-09-futures-report.md",
@@ -298,10 +317,8 @@
     "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109083906",
     "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109083355/index.html",
     "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109083355",
-    "source/模板/嵌入网站.md",
     "source/charts/Untitled_20260109011949/index.html",
     "source/charts/Untitled_20260109011949",
-    "source/charts/帝国崩塌太子集团陈志被捕引渡与跨国犯罪网络的覆灭_20260109011812/index.html",
     "source/_posts/2026年中国经济展望：跨越周期的结构性重塑与“十五五”规划下的动能转换.md",
     "source/_posts/宏观经济波动的多维图景：真实经济周期（RBC）理论与经典周期体系的综合研究.md",
     "source/模板/Blog_Post_Header.md",
@@ -318,7 +335,6 @@
     "node_modules/jstransformer/README.md",
     "node_modules/jstransformer/LICENSE.md",
     "node_modules/jstransformer/CHANGELOG.md",
-    "node_modules/pug-filters/README.md",
     "node_modules/hexo-theme-butterfly/source/img/friend_404.gif",
     "node_modules/hexo-theme-butterfly/source/img/error-page.png",
     "node_modules/hexo-theme-butterfly/source/img/butterfly-icon.png",
