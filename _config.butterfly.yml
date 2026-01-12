@@ -449,7 +449,7 @@ wordcount:
 busuanzi:
   site_uv: true
   site_pv: true
-  page_pv: false
+  page_pv: true
 
 # --------------------------------------
 # Math
