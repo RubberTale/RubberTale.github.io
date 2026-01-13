@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合成橡胶商品研究框架 | Synthetic Rubber Research Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 100%; 
+            height: 350px; 
+            max-height: 400px; 
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 400px; }
+        }
+        .active-tab {
+            border-bottom: 2px solid #ea580c; /* orange-600 */
+            color: #ea580c;
+            font-weight: 600;
+        }
+        .node-card {
+            transition: all 0.3s ease;
+        }
+        .node-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutrals with Industrial Orange Accents. Background: Slate-50. Text: Slate-800. Accents: Orange-600, Blue-600. -->
+    <!-- Application Structure Plan: 
+         1. Header: Title and Scope.
+         2. Navigation: Tab-based navigation for 4 core modules (Industry Chain, Cost Logic, Supply/Demand, Strategy).
+         3. Dynamic Content Area:
+            - Industry Chain: Interactive HTML nodes representing the value chain. Clicking nodes updates a detail pane.
+            - Cost Logic: Interactive 'Spread Calculator' and Price Correlation Chart (Chart.js).
+            - Supply/Demand: Bar/Line charts for Capacity and Tire Production seasonality.
+            - Strategy: Summary cards of key drivers.
+         4. Footer: Disclaimer.
+         Reasoning: A tabbed dashboard is best for commodity research to separate distinct analytical frameworks (Cost vs. S&D) while keeping them accessible on one page. -->
+    <!-- Visualization & Content Choices:
+         - Industry Chain: HTML Grid + JS Interaction. Goal: Show relationships. Interaction: Click to reveal details (e.g., "Butadiene impacts SBR cost by..."). No SVG used.
+         - Cost Chart: Chart.js Line Chart. Goal: Visualize high correlation between Feedstock and Product.
+         - Margin Calculator: JS Input/Output. Goal: Allow user to simulate theoretical margins.
+         - Seasonality Chart: Chart.js Line Chart. Goal: Show cyclical nature of tire demand.
+         - Visualization Library: Chart.js (Canvas). No SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-orange-600 rounded flex items-center justify-center text-white font-bold text-lg">SR</div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">合成橡胶商品研究框架</h1>
+                    <p class="text-xs text-slate-500">Synthetic Rubber Commodity Research Dashboard</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <button onclick="switchTab('chain')" id="nav-chain" class="nav-btn active-tab px-2 py-1 hover:text-orange-600 transition-colors">产业链全景</button>
+                <button onclick="switchTab('cost')" id="nav-cost" class="nav-btn px-2 py-1 hover:text-orange-600 transition-colors text-slate-500">成本与利润</button>
+                <button onclick="switchTab('supply')" id="nav-supply" class="nav-btn px-2 py-1 hover:text-orange-600 transition-colors text-slate-500">供需平衡</button>
+                <button onclick="switchTab('strategy')" id="nav-strategy" class="nav-btn px-2 py-1 hover:text-orange-600 transition-colors text-slate-500">交易策略</button>
+            </nav>
+            <!-- Mobile Menu Button (simplified) -->
+            <button class="md:hidden text-slate-600" onclick="alert('请使用桌面端以获得最佳图表体验')">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container mx-auto px-4 py-8 min-h-screen">
+
+        <!-- Introduction Section -->
+        <section id="intro-section" class="mb-8 max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-slate-800 mb-3">深度透视：合成橡胶 (Synthetic Rubber)</h2>
+            <p class="text-slate-600 leading-relaxed">
+                合成橡胶（主要指丁苯橡胶 SBR 和顺丁橡胶 BR）是石化产业链中承上启下的关键品种。
+                本仪表盘旨在通过交互式数据可视化，解构其<strong>成本传导机制</strong>、<strong>供需周期特性</strong>及<strong>宏观驱动逻辑</strong>，
+                帮助投资者建立完整的投研框架。
+            </p>
+        </section>
+
+        <!-- VIEW 1: INDUSTRY CHAIN (产业链) -->
+        <div id="view-chain" class="view-section animate-fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Interactive Diagram -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-semibold text-slate-800 flex items-center">
+                            <span class="w-2 h-6 bg-orange-600 mr-2 rounded-sm"></span>
+                            产业链传导机制 (点击节点查看详情)
+                        </h3>
+                        <p class="text-sm text-slate-500 mt-1">从原油端到终端消费的价值流向图谱</p>
+                    </div>
+
+                    <!-- Flowchart Grid -->
+                    <div class="relative pt-4 pb-8">
+                        <!-- Upstream -->
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 relative">
+                            <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-100 -z-10 hidden md:block"></div>
+                            
+                            <div class="w-full md:w-1/3 p-4 bg-slate-50 rounded-lg border border-slate-200 cursor-pointer node-card hover:border-orange-300" onclick="showDetail('crude')">
+                                <div class="text-xs font-bold text-slate-400 uppercase mb-1">上游成本端</div>
+                                <div class="font-bold text-slate-800 text-lg">原油 / 石脑油</div>
+                                <div class="text-xs text-slate-500 mt-2">Crude Oil / Naphtha</div>
+                            </div>
+                            <div class="text-slate-300 text-xl font-bold">→</div>
+                            
+                            <div class="w-full md:w-1/3 p-4 bg-orange-50 rounded-lg border border-orange-200 cursor-pointer node-card hover:border-orange-400 ring-2 ring-orange-100" onclick="showDetail('monomer')">
+                                <div class="text-xs font-bold text-orange-400 uppercase mb-1">核心原料</div>
+                                <div class="font-bold text-slate-800 text-lg">丁二烯</div>
+                                <div class="text-xs text-slate-500 mt-2">Butadiene (BD)</div>
+                            </div>
+                            <div class="text-slate-300 text-xl font-bold">→</div>
+
+                            <div class="w-full md:w-1/3 p-4 bg-white rounded-lg border border-slate-200 cursor-pointer node-card hover:border-blue-300" onclick="showDetail('rubber')">
+                                <div class="text-xs font-bold text-blue-500 uppercase mb-1">中游制造</div>
+                                <div class="font-bold text-slate-800 text-lg">合成橡胶 (SBR/BR)</div>
+                                <div class="text-xs text-slate-500 mt-2">Synthetic Rubber</div>
+                            </div>
+                        </div>
+
+                        <!-- Arrow Down -->
+                        <div class="flex justify-center mb-4">
+                            <div class="text-slate-300 text-2xl font-bold">↓</div>
+                        </div>
+
+                        <!-- Downstream -->
+                        <div class="flex flex-col md:flex-row justify-center gap-6">
+                            <div class="w-full md:w-5/12 p-4 bg-slate-50 rounded-lg border border-slate-200 cursor-pointer node-card hover:border-green-300" onclick="showDetail('tire')">
+                                <div class="text-xs font-bold text-green-600 uppercase mb-1">核心需求 (70%)</div>
+                                <div class="font-bold text-slate-800 text-lg">轮胎制造</div>
+                                <div class="text-xs text-slate-500 mt-2">Tire Industry</div>
+                            </div>
+                            <div class="w-full md:w-5/12 p-4 bg-slate-50 rounded-lg border border-slate-200 cursor-pointer node-card hover:border-green-300" onclick="showDetail('auto')">
+                                <div class="text-xs font-bold text-green-600 uppercase mb-1">终端驱动</div>
+                                <div class="font-bold text-slate-800 text-lg">汽车产销</div>
+                                <div class="text-xs text-slate-500 mt-2">Automotive Market</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Panel -->
+                <div class="bg-slate-800 text-white p-6 rounded-xl shadow-lg flex flex-col justify-between h-auto lg:h-full">
+                    <div>
+                        <div class="text-orange-400 text-xs font-bold tracking-widest uppercase mb-4">Research Insight</div>
+                        <h4 id="detail-title" class="text-2xl font-bold mb-4">丁二烯 (Butadiene)</h4>
+                        <div id="detail-content" class="text-slate-300 text-sm leading-relaxed space-y-4">
+                            <p>丁二烯是合成橡胶最核心的成本来源。对于顺丁橡胶（BR），丁二烯几乎占据了90%以上的原料成本；对于丁苯橡胶（SBR），丁二烯约占70%，苯乙烯占30%。</p>
+                            <p><strong>关键逻辑：</strong>丁二烯价格波动极大，通常是合成橡胶价格的先行指标。需密切关注乙烯裂解装置的开工率（副产丁二烯）以及远洋船货的到港情况。</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-700">
+                        <div class="flex items-center justify-between text-xs text-slate-400">
+                            <span>关注指标</span>
+                            <span>Correlation: >0.9</span>
+                        </div>
+                        <div class="mt-2 flex gap-2 flex-wrap">
+                            <span class="px-2 py-1 bg-slate-700 rounded text-xs">外盘价格</span>
+                            <span class="px-2 py-1 bg-slate-700 rounded text-xs">港口库存</span>
+                            <span class="px-2 py-1 bg-slate-700 rounded text-xs">裂解价差</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: COST & MARGIN (成本) -->
+        <div id="view-cost" class="view-section hidden">
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-slate-800">成本驱动与利润模拟</h3>
+                <p class="text-slate-500 text-sm">合成橡胶是典型的"成本推动型"品种，原料价格决定了价格中枢。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Calculator -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-700 mb-4 flex items-center">
+                        <span class="text-xl mr-2">🧮</span> 理论生产利润测算器
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">丁二烯价格 (元/吨)</label>
+                            <input type="number" id="input-bd" value="8500" class="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:border-orange-500 font-mono text-slate-700" oninput="calculateMargin()">
+                            <input type="range" id="range-bd" min="5000" max="15000" step="100" value="8500" class="w-full mt-2 accent-orange-600" oninput="updateInput('input-bd', this.value); calculateMargin()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">苯乙烯价格 (元/吨) [仅SBR]</label>
+                            <input type="number" id="input-sm" value="9200" class="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:border-orange-500 font-mono text-slate-700" oninput="calculateMargin()">
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded border border-slate-200 mt-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-slate-600">SBR 理论成本:</span>
+                                <span class="font-bold text-slate-800" id="result-sbr-cost">--</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-slate-600">BR 理论成本:</span>
+                                <span class="font-bold text-slate-800" id="result-br-cost">--</span>
+                            </div>
+                            <div class="text-xs text-slate-400 mt-2 border-t border-slate-200 pt-2">
+                                *注：SBR公式 ≈ 0.72*BD + 0.28*SM + 2000(加工费)<br>
+                                *注：BR公式 ≈ 1.02*BD + 2000(加工费)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost Chart -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-slate-700">价格相关性分析 (模拟数据)</h4>
+                        <div class="flex gap-2 text-xs">
+                            <span class="flex items-center"><span class="w-3 h-3 bg-orange-500 rounded-full mr-1"></span> 丁苯橡胶</span>
+                            <span class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-1"></span> 丁二烯</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: SUPPLY & DEMAND (供需) -->
+        <div id="view-supply" class="view-section hidden">
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-slate-800">供需平衡与季节性特征</h3>
+                <p class="text-slate-500 text-sm">关注开工率变化与下游轮胎的季节性生产节奏。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Capacity/Output Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-700 mb-4">SBR/BR 行业开工率季节性 (YoY)</h4>
+                    <div class="chart-container">
+                        <canvas id="supplyChart"></canvas>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-50 text-blue-800 text-sm rounded border border-blue-100">
+                        <strong>供给逻辑：</strong> 合成橡胶装置通常在二季度（4-5月）进行集中检修，此时供应收缩，往往支撑价格走强。
+                    </div>
+                </div>
+
+                <!-- Downstream Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h4 class="font-bold text-slate-700 mb-4">下游：全钢胎与半钢胎开工率</h4>
+                    <div class="chart-container">
+                        <canvas id="demandChart"></canvas>
+                    </div>
+                    <div class="mt-4 p-3 bg-green-50 text-green-800 text-sm rounded border border-green-100">
+                        <strong>需求逻辑：</strong> "金九银十"是传统的汽车和轮胎销售旺季，需求端通常在Q3末发力。Q1受春节影响通常为低点。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 4: STRATEGY (策略) -->
+        <div id="view-strategy" class="view-section hidden">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">交易策略与核心驱动因子</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Driver 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow border-l-4 border-orange-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-slate-800">原油-石脑油成本塌陷</h4>
+                            <span class="px-2 py-1 bg-red-100 text-red-600 text-xs font-bold rounded">看空风险</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">若国际油价大幅下跌，将通过石脑油-丁二烯链条快速打压合成橡胶成本支撑。</p>
+                        <div class="text-xs text-slate-400 font-mono">关注：Brent 原油, 石脑油裂解价差</div>
+                    </div>
+
+                    <!-- Driver 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow border-l-4 border-green-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-slate-800">汽车政策刺激</h4>
+                            <span class="px-2 py-1 bg-green-100 text-green-600 text-xs font-bold rounded">看多机会</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">国家出台汽车以旧换新政策或购置税减免时，直接利好半钢胎需求，拉动SBR消费。</p>
+                        <div class="text-xs text-slate-400 font-mono">关注：乘用车产销数据, 政策公告</div>
+                    </div>
+
+                    <!-- Driver 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow border-l-4 border-blue-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-slate-800">基差回归逻辑</h4>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded">套利策略</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">当期货价格大幅升水现货（基差为负）时，存在期现套利机会；反之亦然。</p>
+                        <div class="text-xs text-slate-400 font-mono">关注：BR期货主力合约 vs 华东现货</div>
+                    </div>
+
+                    <!-- Driver 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow border-l-4 border-purple-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-lg font-bold text-slate-800">出口替代效应</h4>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-600 text-xs font-bold rounded">宏观扰动</span>
+                        </div>
+                        <p class="text-slate-600 text-sm mb-3">关注中国轮胎出口数据（尤其是对美、欧、一带一路国家）。出口受阻将导致国内胶价承压。</p>
+                        <div class="text-xs text-slate-400 font-mono">关注：轮胎出口集装箱运价, 海关数据</div>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-slate-100 rounded-xl text-center">
+                    <h5 class="font-bold text-slate-700 mb-2">研究总结</h5>
+                    <p class="text-sm text-slate-600 max-w-2xl mx-auto">
+                        合成橡胶的研究核心在于<strong>"成本定底，需求定顶"</strong>。
+                        短期交易需紧盯<strong>丁二烯</strong>价格波动与装置检修动态；
+                        中长期配置则需研判<strong>汽车周期</strong>与全球宏观经济复苏节奏。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // State Management
+        const state = {
+            currentTab: 'chain',
+            inputs: {
+                bd: 8500,
+                sm: 9200
+            }
+        };
+
+        // Data Models (Mock Data simulating realistic market trends)
+        const chartData = {
+            cost: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                bd: [7200, 7500, 8100, 9500, 9200, 8800, 8400, 8900, 9600, 9100, 8500, 8200],
+                sbr: [10500, 10800, 11500, 12800, 12500, 12100, 11800, 12200, 12900, 12400, 11800, 11500]
+            },
+            supply: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                rate2024: [65, 58, 72, 75],
+                rate2025: [68, 62, 70, 78]
+            },
+            demand: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                allSteel: [55, 40, 68, 70, 69, 65, 63, 66, 72, 70, 68, 65], // Full-steel (Trucks)
+                semiSteel: [65, 45, 75, 78, 77, 76, 75, 78, 82, 80, 79, 78] // Semi-steel (Passenger cars)
+            }
+        };
+
+        // DOM Elements
+        const views = {
+            chain: document.getElementById('view-chain'),
+            cost: document.getElementById('view-cost'),
+            supply: document.getElementById('view-supply'),
+            strategy: document.getElementById('view-strategy')
+        };
+        const navBtns = {
+            chain: document.getElementById('nav-chain'),
+            cost: document.getElementById('nav-cost'),
+            supply: document.getElementById('nav-supply'),
+            strategy: document.getElementById('nav-strategy')
+        };
+
+        // Detail Content Data
+        const details = {
+            crude: {
+                title: "原油 / 石脑油 (Crude Oil / Naphtha)",
+                content: "源头定价锚。石脑油是裂解装置生产乙烯和丁二烯的原料。油价上涨会抬升整个化工产业链的成本重心。通常原油价格传导至合成橡胶有1-2个月的滞后期。",
+                tags: ["宏观因子", "成本支撑"]
+            },
+            monomer: {
+                title: "丁二烯 (Butadiene)",
+                content: "核心与瓶颈。丁二烯价格波动剧烈，是影响合成橡胶盈亏的关键。SBR成本中丁二烯占比约70%，BR成本中占比超90%。关注国内外裂解装置的检修计划及意外停车。",
+                tags: ["高波动", "直接成本", "相关性极高"]
+            },
+            rubber: {
+                title: "合成橡胶 (Synthetic Rubber)",
+                content: "主要研究对象。丁苯橡胶(SBR)耐磨、耐热、耐老化；顺丁橡胶(BR)弹性好、耐寒。两者在轮胎生产中常并用。价格受成本端支撑和需求端拉动的双重挤压。",
+                tags: ["SBR 1502", "BR 9000", "上期所期货"]
+            },
+            tire: {
+                title: "轮胎制造 (Tire Industry)",
+                content: "绝对主力需求。约70%的合成橡胶用于轮胎。全钢胎（卡客车）对天然橡胶依赖度高，半钢胎（乘用车）对合成橡胶依赖度更高。关注轮胎厂成品库存天数。",
+                tags: ["开工率", "成品库存", "出口订单"]
+            },
+            auto: {
+                title: "汽车产销 (Automotive)",
+                content: "终端驱动力。新车配套市场（OE）和替换市场（RE）是主要消费场景。全球汽车保有量的增长是合成橡胶长期需求的基石。配套需求看新车销量，替换需求看保有量及行驶里程。",
+                tags: ["乘联会数据", "重卡销量", "以旧换新"]
+            }
+        };
+
+        // Functions
+        function switchTab(tabName) {
+            // Update State
+            state.currentTab = tabName;
+
+            // Update UI
+            Object.keys(views).forEach(key => {
+                if (key === tabName) {
+                    views[key].classList.remove('hidden');
+                    navBtns[key].classList.add('active-tab', 'text-orange-600');
+                    navBtns[key].classList.remove('text-slate-500');
+                } else {
+                    views[key].classList.add('hidden');
+                    navBtns[key].classList.remove('active-tab', 'text-orange-600');
+                    navBtns[key].classList.add('text-slate-500');
+                }
+            });
+
+            // Trigger Chart Rendering if needed
+            if (tabName === 'cost') initCostChart();
+            if (tabName === 'supply') initSupplyCharts();
+        }
+
+        function showDetail(key) {
+            const data = details[key];
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-content').innerHTML = `<p>${data.content}</p>`;
+            
+            // Highlight active node visual logic could go here
+        }
+
+        function updateInput(id, value) {
+            document.getElementById(id).value = value;
+        }
+
+        function calculateMargin() {
+            const bd = parseFloat(document.getElementById('input-bd').value) || 0;
+            const sm = parseFloat(document.getElementById('input-sm').value) || 0;
+
+            // Formulas (Simplified theoretical estimates)
+            // SBR Cost = BD*0.72 + SM*0.28 + 2000 (Processing)
+            const sbrCost = (bd * 0.72) + (sm * 0.28) + 2000;
+            
+            // BR Cost = BD*1.02 + 2000 (Processing)
+            const brCost = (bd * 1.02) + 2000;
+
+            document.getElementById('result-sbr-cost').innerText = sbrCost.toFixed(0) + " 元/吨";
+            document.getElementById('result-br-cost').innerText = brCost.toFixed(0) + " 元/吨";
+        }
+
+        // Charts Initialization
+        let costChartInstance = null;
+        let supplyChartInstance = null;
+        let demandChartInstance = null;
+
+        function initCostChart() {
+            if (costChartInstance) return; // Prevent re-render
+            const ctx = document.getElementById('costChart').getContext('2d');
+            costChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.cost.labels,
+                    datasets: [
+                        {
+                            label: '丁苯橡胶 (SBR) 价格',
+                            data: chartData.cost.sbr,
+                            borderColor: '#f97316', // orange-500
+                            backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '丁二烯 (BD) 价格',
+                            data: chartData.cost.bd,
+                            borderColor: '#3b82f6', // blue-500
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            tension: 0.4,
+                            yAxisID: 'y'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { 
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' 元/吨';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: '价格 (元/吨)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initSupplyCharts() {
+            if (supplyChartInstance) return;
+
+            // Supply Chart
+            const ctxSupply = document.getElementById('supplyChart').getContext('2d');
+            supplyChartInstance = new Chart(ctxSupply, {
+                type: 'bar',
+                data: {
+                    labels: chartData.supply.labels,
+                    datasets: [
+                        {
+                            label: '2024 开工率',
+                            data: chartData.supply.rate2024,
+                            backgroundColor: '#cbd5e1', // slate-300
+                            borderRadius: 4
+                        },
+                        {
+                            label: '2025E 开工率',
+                            data: chartData.supply.rate2025,
+                            backgroundColor: '#f97316', // orange-500
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            title: { display: true, text: '开工率 (%)' } 
+                        }
+                    }
+                }
+            });
+
+            // Demand Chart
+            const ctxDemand = document.getElementById('demandChart').getContext('2d');
+            demandChartInstance = new Chart(ctxDemand, {
+                type: 'line',
+                data: {
+                    labels: chartData.demand.labels,
+                    datasets: [
+                        {
+                            label: '半钢胎开工率 (乘用车)',
+                            data: chartData.demand.semiSteel,
+                            borderColor: '#10b981', // green-500
+                            tension: 0.3,
+                            borderWidth: 2
+                        },
+                        {
+                            label: '全钢胎开工率 (重卡)',
+                            data: chartData.demand.allSteel,
+                            borderColor: '#64748b', // slate-500
+                            borderDash: [5, 5],
+                            tension: 0.3,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: {
+                        y: { 
+                            min: 30,
+                            max: 100,
+                            title: { display: true, text: '开工率 (%)' } 
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        calculateMargin();
+        // Pre-load default tab details? No, let user interact.
+    </script>
+</body>
+</html>
