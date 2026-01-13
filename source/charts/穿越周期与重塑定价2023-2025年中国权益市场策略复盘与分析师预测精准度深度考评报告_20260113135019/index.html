@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股指期货投研框架 | Stock Index Futures Research Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 100%; 
+            height: 350px; 
+            max-height: 400px; 
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 400px; }
+        }
+        .nav-item.active {
+            color: #2563eb; /* blue-600 */
+            border-bottom-color: #2563eb;
+        }
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #2563eb;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+    <!-- Chosen Palette: Financial Blue & Slate. Background: Slate-50. Text: Slate-900. Accents: Blue-600 (Growth/Long), Red-600 (Risk/Short). -->
+    <!-- Application Structure Plan:
+         1. Header: Title and Ticker selection (IF/IH/IC/IM context).
+         2. Macro Logic (DDM): The core theoretical framework. Interactive DDM formula.
+         3. Valuation & Flows: PE/PB bands and Capital Flows (Northbound).
+         4. Basis & Arbitrage: Understanding the spread between Futures and Spot.
+         5. Footer: Risk Disclaimer.
+         Reasoning: Financial analysis moves from Macro (Theory) -> Meso (Valuation) -> Micro (Basis/Trading). -->
+    <!-- Visualization & Content Choices:
+         - DDM Simulator: HTML Inputs + JS Logic. Goal: Visualize P = E / (r-g).
+         - Valuation Chart: Chart.js Combo Chart. Goal: Show Price vs PE.
+         - Basis Calculator: JS Input/Output. Goal: Calculate annualized basis yield.
+         - Style Matrix: HTML Grid. Goal: Differentiate the 4 futures contracts.
+         - NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-3 mb-4 md:mb-0">
+                <div class="w-10 h-10 bg-blue-700 rounded text-white flex items-center justify-center font-bold text-xl">IF</div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">股指期货投研框架</h1>
+                    <p class="text-xs text-slate-500">Stock Index Futures Research Dashboard</p>
+                </div>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <nav class="flex space-x-6 text-sm font-medium border-b border-transparent md:border-none w-full md:w-auto overflow-x-auto">
+                <button onclick="switchTab('macro')" id="nav-macro" class="nav-item active px-2 py-2 border-b-2 border-blue-600 text-blue-600 whitespace-nowrap transition-colors">定价逻辑 (DDM)</button>
+                <button onclick="switchTab('valuation')" id="nav-valuation" class="nav-item px-2 py-2 border-b-2 border-transparent text-slate-500 hover:text-blue-600 whitespace-nowrap transition-colors">估值与资金</button>
+                <button onclick="switchTab('basis')" id="nav-basis" class="nav-item px-2 py-2 border-b-2 border-transparent text-slate-500 hover:text-blue-600 whitespace-nowrap transition-colors">基差与套利</button>
+                <button onclick="switchTab('style')" id="nav-style" class="nav-item px-2 py-2 border-b-2 border-transparent text-slate-500 hover:text-blue-600 whitespace-nowrap transition-colors">品种对比</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 pb-20">
+
+        <!-- VIEW 1: MACRO / DDM (宏观定价) -->
+        <div id="view-macro" class="view-section animate-fade-in">
+            <!-- Context Header -->
+            <div class="mb-8 text-center max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">核心定价模型：分子与分母的博弈</h2>
+                <p class="text-slate-600 text-sm">
+                    股指走势长期遵循 <strong>DDM (股利贴现模型)</strong>。
+                    <span class="text-red-600 font-bold">分子端</span>代表企业盈利（经济增长），
+                    <span class="text-blue-600 font-bold">分母端</span>代表无风险利率与风险偏好（流动性）。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Interactive Formula Card -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="text-center mb-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs text-slate-500 uppercase tracking-wide mb-2">Fair Value Formula</div>
+                        <div class="text-3xl font-serif italic text-slate-800">
+                            P = <span class="text-red-500 border-b-2 border-red-200">EPS × (1+g)</span> / <span class="text-blue-500 border-b-2 border-blue-200">(r - g)</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Numerator Control -->
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-bold text-red-600 text-sm flex items-center">
+                                    <span class="mr-2">📈</span> 盈利增速 (g) / EPS Growth
+                                </label>
+                                <span id="val-g" class="font-mono font-bold text-slate-700">5.0%</span>
+                            </div>
+                            <input type="range" id="input-g" min="0" max="15" step="0.5" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer" oninput="updateDDM()">
+                            <p class="text-xs text-slate-400 mt-1">驱动因子：GDP增速, PPI, 企业利润</p>
+                        </div>
+
+                        <!-- Denominator Control -->
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-bold text-blue-600 text-sm flex items-center">
+                                    <span class="mr-2">🏦</span> 无风险利率 (r) / 10Y Yield
+                                </label>
+                                <span id="val-r" class="font-mono font-bold text-slate-700">2.8%</span>
+                            </div>
+                            <input type="range" id="input-r" min="1.5" max="6" step="0.1" value="2.8" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer" oninput="updateDDM()">
+                            <p class="text-xs text-slate-400 mt-1">驱动因子：MLF, LPR, 国债收益率, 货币政策</p>
+                        </div>
+
+                        <!-- Risk Premium Control -->
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="font-bold text-purple-600 text-sm flex items-center">
+                                    <span class="mr-2">❤️‍🔥</span> 风险溢价 (ERP) / Sentiment
+                                </label>
+                                <span id="val-erp" class="font-mono font-bold text-slate-700">4.0%</span>
+                            </div>
+                            <input type="range" id="input-erp" min="2" max="8" step="0.1" value="4" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer" oninput="updateDDM()">
+                            <p class="text-xs text-slate-400 mt-1">驱动因子：地缘政治, 政策监管, 市场情绪</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Output -->
+                <div class="lg:col-span-7 flex flex-col justify-center">
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-8 rounded-xl shadow-lg relative overflow-hidden">
+                        <!-- Decorative bg elements -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16"></div>
+                        
+                        <h3 class="text-slate-300 text-sm uppercase tracking-widest mb-2">Implied Index Level</h3>
+                        <div class="flex items-baseline gap-4">
+                            <span id="result-price" class="text-6xl font-bold text-white transition-all duration-300">3500</span>
+                            <span id="result-change" class="text-lg font-medium text-green-400">+0.0%</span>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-700 grid grid-cols-2 gap-4">
+                            <div>
+                                <div class="text-xs text-slate-400 mb-1">当前情景解读</div>
+                                <div id="scenario-text" class="text-sm font-medium text-blue-200">
+                                    中性环境：盈利温和增长，流动性合理充裕。
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-slate-400 mb-1">理论市盈率 (PE)</div>
+                                <div id="result-pe" class="text-xl font-mono text-white">14.7x</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2">利好环境 (Bull Case)</h4>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• 宽信用 (社融↑)</li>
+                                <li>• 经济复苏 (PMI > 50)</li>
+                                <li>• 利率下行 (降息)</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2">利空环境 (Bear Case)</h4>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li>• 紧货币 (加息/回笼)</li>
+                                <li>• 滞胀 (通胀↑ 增长↓)</li>
+                                <li>• 外部冲击 (汇率贬值)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: VALUATION (估值) -->
+        <div id="view-valuation" class="view-section hidden">
+            <div class="mb-6 flex justify-between items-end">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800">估值水位与资金流向</h3>
+                    <p class="text-slate-500 text-sm">判断指数是"便宜"还是"贵"，并跟踪"聪明钱"（北向资金）的动向。</p>
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-bold">IF (沪深300)</button>
+                    <button class="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full hover:bg-slate-200">IC (中证500)</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Chart -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-700 mb-4 text-sm">指数走势 vs 北向资金累计净买入 (亿元)</h4>
+                    <div class="chart-container">
+                        <canvas id="valuationChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Valuation Indicators -->
+                <div class="space-y-6">
+                    <!-- PE Gauge Logic (Simplified as Bar) -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h4 class="font-bold text-slate-700 mb-4 text-sm">当前 PE-TTM 分位点</h4>
+                        <div class="relative pt-6 pb-2">
+                            <div class="h-4 bg-gradient-to-r from-green-400 via-yellow-400 to-red-500 rounded-full w-full"></div>
+                            <!-- Marker -->
+                            <div class="absolute top-4 left-[30%] -ml-1 flex flex-col items-center">
+                                <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-slate-800"></div>
+                                <span class="text-xs font-bold text-slate-800 mt-1">30% (低估)</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-xs text-slate-400 mt-2">
+                            <span>历史极低</span>
+                            <span>中位数</span>
+                            <span>历史极高</span>
+                        </div>
+                        <div class="mt-4 text-sm text-slate-600 bg-slate-50 p-3 rounded">
+                            <p>当前PE: <span class="font-mono font-bold text-slate-900">11.2x</span></p>
+                            <p>机会值: < 10x</p>
+                            <p>危险值: > 16x</p>
+                        </div>
+                    </div>
+
+                    <!-- Market Width -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h4 class="font-bold text-slate-700 mb-2 text-sm">市场拥挤度指标</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600">成交额占比 (前10%)</span>
+                                    <span class="text-red-500 font-bold">42% (拥挤)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600">换手率分位</span>
+                                    <span class="text-blue-500 font-bold">25% (冷清)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: BASIS (基差) -->
+        <div id="view-basis" class="view-section hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8 text-center">
+                    <h3 class="text-xl font-bold text-slate-800">基差 (Basis) 与 期现套利</h3>
+                    <p class="text-slate-500 text-sm">基差 = 现货价格 - 期货价格。深刻理解升贴水结构是获得Alpha收益的关键。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- Concept Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow border-t-4 border-green-500">
+                        <h4 class="font-bold text-slate-800 mb-2">贴水结构 (Backwardation)</h4>
+                        <div class="text-sm text-slate-600 mb-4">
+                            <span class="font-bold text-green-600">期货 price < 现货 price</span> (基差 > 0)。
+                            常见于IC(中证500)和IM(中证1000)。
+                        </div>
+                        <ul class="text-xs text-slate-500 list-disc list-inside space-y-1">
+                            <li>成因：对冲需求强烈，空头愿意支付"保险费"。</li>
+                            <li>策略：<strong>多头滚贴水</strong>。长期持有期货多头，赚取基差收敛的收益。</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Concept Card 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow border-t-4 border-red-500">
+                        <h4 class="font-bold text-slate-800 mb-2">升水结构 (Contango)</h4>
+                        <div class="text-sm text-slate-600 mb-4">
+                            <span class="font-bold text-red-600">期货 price > 现货 price</span> (基差 < 0)。
+                            常见于大牛市中的IF/IH。
+                        </div>
+                        <ul class="text-xs text-slate-500 list-disc list-inside space-y-1">
+                            <li>成因：做多情绪高涨，资金买入期货加杠杆。</li>
+                            <li>策略：<strong>期现正套</strong>。买入现货，卖出期货，锁定无风险价差。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Calculator -->
+                <div class="bg-slate-800 text-white rounded-xl p-6 shadow-lg">
+                    <h4 class="font-bold text-blue-300 mb-4 flex items-center">
+                        <span class="text-xl mr-2">🧮</span> 年化基差收益率计算器
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">现货指数点位 (Spot)</label>
+                            <input type="number" id="calc-spot" value="3800" class="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" oninput="calcBasis()">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">期货合约点位 (Futures)</label>
+                            <input type="number" id="calc-fut" value="3750" class="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" oninput="calcBasis()">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">剩余天数 (Days)</label>
+                            <input type="number" id="calc-days" value="20" class="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" oninput="calcBasis()">
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-700 flex justify-between items-center">
+                        <div>
+                            <div class="text-xs text-slate-400">当前基差 (Points)</div>
+                            <div id="res-basis-abs" class="text-xl font-bold text-green-400">+50.00</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs text-slate-400">年化基差率 (Annualized Yield)</div>
+                            <div id="res-basis-ann" class="text-3xl font-bold text-white">24.01%</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 italic">*若做多贴水合约持有至到期，理论年化收益参考此值。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 4: STYLE (风格对比) -->
+        <div id="view-style" class="view-section hidden">
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-slate-800">四大期指品种特征矩阵</h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- IH -->
+                <div class="bg-white p-5 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="bg-blue-100 text-blue-800 font-bold px-2 py-1 rounded text-lg">IH</div>
+                        <div class="text-xs text-slate-500">上证50 / SSE 50</div>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">超级蓝筹 / 价值防御</h4>
+                    <p class="text-xs text-slate-600 mb-3">金融地产、食品饮料占比极高。主要受宏观经济总量指标影响。</p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">高分红</span>
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">低波动</span>
+                    </div>
+                </div>
+
+                <!-- IF -->
+                <div class="bg-white p-5 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="bg-indigo-100 text-indigo-800 font-bold px-2 py-1 rounded text-lg">IF</div>
+                        <div class="text-xs text-slate-500">沪深300 / CSI 300</div>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">核心资产 / 市场标杆</h4>
+                    <p class="text-xs text-slate-600 mb-3">代表中国经济核心资产。行业分布均衡，机构持仓最重。</p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">行业龙头</span>
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">外资首选</span>
+                    </div>
+                </div>
+
+                <!-- IC -->
+                <div class="bg-white p-5 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="bg-orange-100 text-orange-800 font-bold px-2 py-1 rounded text-lg">IC</div>
+                        <div class="text-xs text-slate-500">中证500 / CSI 500</div>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">中盘成长 / 细分龙头</h4>
+                    <p class="text-xs text-slate-600 mb-3">医药生物、电子、基础化工占比较高。对流动性和产业政策敏感。</p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">高弹性</span>
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">常年贴水</span>
+                    </div>
+                </div>
+
+                <!-- IM -->
+                <div class="bg-white p-5 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="bg-purple-100 text-purple-800 font-bold px-2 py-1 rounded text-lg">IM</div>
+                        <div class="text-xs text-slate-500">中证1000 / CSI 1000</div>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">小盘活跃 / 专精特新</h4>
+                    <p class="text-xs text-slate-600 mb-3">市值小，波动大，量化资金最活跃的战场。超额收益获取难度低。</p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">高波动</span>
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded text-slate-600">量化增强</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-6 bg-white rounded-xl border border-slate-200">
+                <h4 class="font-bold text-slate-700 mb-4">大小盘轮动逻辑图谱</h4>
+                <div class="flex justify-between items-center text-xs text-slate-500">
+                    <div class="text-center w-1/3">
+                        <div class="font-bold text-blue-600 mb-2">宽信用初期</div>
+                        <div class="bg-slate-100 p-2 rounded">利好大盘 (IH/IF)</div>
+                        <div class="mt-1">基建/地产修复</div>
+                    </div>
+                    <div class="text-xl text-slate-300">→</div>
+                    <div class="text-center w-1/3">
+                        <div class="font-bold text-orange-600 mb-2">宽流动性/复苏</div>
+                        <div class="bg-slate-100 p-2 rounded">利好中小盘 (IC/IM)</div>
+                        <div class="mt-1">科技/制造爆发</div>
+                    </div>
+                    <div class="text-xl text-slate-300">→</div>
+                    <div class="text-center w-1/3">
+                        <div class="font-bold text-red-600 mb-2">衰退/滞胀</div>
+                        <div class="bg-slate-100 p-2 rounded">防守配置 (IH)</div>
+                        <div class="mt-1">高股息/低估值</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- Tab Switching Logic ---
+        const tabs = ['macro', 'valuation', 'basis', 'style'];
+        
+        function switchTab(tabId) {
+            tabs.forEach(t => {
+                const btn = document.getElementById(`nav-${t}`);
+                const view = document.getElementById(`view-${t}`);
+                
+                if (t === tabId) {
+                    btn.classList.add('active', 'border-blue-600', 'text-blue-600');
+                    btn.classList.remove('border-transparent', 'text-slate-500');
+                    view.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active', 'border-blue-600', 'text-blue-600');
+                    btn.classList.add('border-transparent', 'text-slate-500');
+                    view.classList.add('hidden');
+                }
+            });
+
+            // Init charts if needed
+            if (tabId === 'valuation' && !valuationChartInstance) {
+                initValuationChart();
+            }
+        }
+
+        // --- DDM Simulator Logic ---
+        function updateDDM() {
+            const g = parseFloat(document.getElementById('input-g').value);
+            const r = parseFloat(document.getElementById('input-r').value);
+            const erp = parseFloat(document.getElementById('input-erp').value);
+
+            // Update UI Labels
+            document.getElementById('val-g').innerText = g.toFixed(1) + "%";
+            document.getElementById('val-r').innerText = r.toFixed(1) + "%";
+            document.getElementById('val-erp').innerText = erp.toFixed(1) + "%";
+
+            // Calculation: P = Base * (1+g) / (r + erp - g)
+            // Note: This is a simplified "Fair Value Sensitivity" model, not absolute price
+            // Assume Base EPS = 100 for simplicity
+            
+            const costOfEquity = r + erp;
+            let fairValue = 0;
+            let scenario = "";
+            let pe = 0;
+
+            // Avoid division by zero or negative denominator in perpetuity model
+            // If (r + erp) <= g, price goes to infinity theoretically. We cap it.
+            const denominator = costOfEquity - g;
+            
+            if (denominator <= 0.1) {
+                fairValue = 10000; // Cap
+                pe = 100;
+                scenario = "泡沫极值：在此参数下，估值趋向无穷大。";
+            } else {
+                fairValue = (100 * (1 + g/100)) / (denominator/100);
+                pe = fairValue / 100;
+                
+                if (g > 8 && r < 3) scenario = "完美风暴：高增长 + 低利率，大牛市格局。";
+                else if (g < 3 && r > 4) scenario = "戴维斯双杀：低增长 + 高利率，熊市格局。";
+                else if (Math.abs(g - (r+erp)) < 2) scenario = "震荡市：多空因素交织，市场寻找方向。";
+                else scenario = "中性环境：盈利与流动性处于合理区间。";
+            }
+
+            // Animate Number (Simple)
+            document.getElementById('result-price').innerText = Math.round(fairValue);
+            document.getElementById('result-pe').innerText = pe.toFixed(1) + "x";
+            document.getElementById('scenario-text').innerText = scenario;
+        }
+
+        // --- Basis Calculator Logic ---
+        function calcBasis() {
+            const spot = parseFloat(document.getElementById('calc-spot').value);
+            const fut = parseFloat(document.getElementById('calc-fut').value);
+            const days = parseFloat(document.getElementById('calc-days').value);
+
+            const basis = spot - fut; // Basis = Spot - Fut
+            const basisDisplay = basis.toFixed(2);
+            
+            // Annualized Yield = (Basis / Spot) * (365 / Days) * 100%
+            // Note: Usually Future Discount Yield = (Spot - Fut) / Spot... or (Fut - Spot)/Spot.
+            // If Futures < Spot (Discount/Backwardation), Buying Futures is cheaper.
+            // Yield = (Spot - Futures) / Spot * (365/Days)
+            
+            let yieldVal = 0;
+            if (spot > 0 && days > 0) {
+                yieldVal = (basis / spot) * (365 / days) * 100;
+            }
+
+            const yieldElem = document.getElementById('res-basis-ann');
+            const basisElem = document.getElementById('res-basis-abs');
+
+            basisElem.innerText = (basis > 0 ? "+" : "") + basisDisplay;
+            basisElem.className = basis > 0 ? "text-xl font-bold text-green-400" : "text-xl font-bold text-red-400";
+
+            yieldElem.innerText = yieldVal.toFixed(2) + "%";
+        }
+
+        // --- Charts ---
+        let valuationChartInstance = null;
+
+        function initValuationChart() {
+            const ctx = document.getElementById('valuationChart').getContext('2d');
+            
+            // Mock Data
+            const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const priceData = [3800, 3750, 3600, 3900, 4000, 3950, 3850, 3700, 3650, 3500, 3600, 3700];
+            const flowData = [50, -20, -50, 100, 80, 40, -10, -30, -10, -60, 20, 50]; // Net Flows
+
+            valuationChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: '北向资金净买入 (亿元) [右轴]',
+                            data: flowData,
+                            backgroundColor: (ctx) => {
+                                const v = ctx.raw;
+                                return v >= 0 ? 'rgba(34, 197, 94, 0.6)' : 'rgba(239, 68, 68, 0.6)';
+                            },
+                            yAxisID: 'y1',
+                            order: 2
+                        },
+                        {
+                            type: 'line',
+                            label: '沪深300指数 [左轴]',
+                            data: priceData,
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            yAxisID: 'y',
+                            order: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: '指数点位' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            title: { display: true, text: '资金流 (亿元)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize DDM on load
+        window.onload = function() {
+            updateDDM();
+            calcBasis();
+        };
+
+    </script>
+</body>
+</html>
