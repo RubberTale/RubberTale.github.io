@@ -449,7 +449,7 @@ wordcount:
 busuanzi:
   site_uv: true
   site_pv: true
-  page_pv: false
+  page_pv: true
 
 # --------------------------------------
 # Math
@@ -601,7 +601,7 @@ waline:
   bg: # 评论框背景图，留空就是白色
   
   # 开启阅读量统计 (记得要把 busuanzi 的 page_pv 关掉)
-  pageview: true 
+  pageview: false 
   
   # 这里是高级功能的开关
   option:
@@ -1079,30 +1079,7 @@ css_prefix: true
 inject:
   head:
   bottom:
-    # 1. Waline 初始化脚本 (负责评论和文章阅读量)
-    - <script type="module">import { init } from 'https://unpkg.com/@waline/client/v2/dist/waline.mjs'; init({ el: '#waline', serverURL: 'https://144.24.80.205.sslip.io', visitor: true });</script>
-    
-    # 2. 【关键】侧边栏全站统计补丁 (负责把转圈圈变成数字)
-    - <script>
-      (function() {
-        // 设置你的 Waline 地址
-        const serverURL = 'https://144.24.80.205.sslip.io';
-        
-        // 主动去取全站数据
-        fetch(`${serverURL}/stats/site`)
-          .then(res => res.json())
-          .then(data => {
-            // 找到侧边栏的元素
-            const uvElements = document.querySelectorAll('.waline-site-uv');
-            const pvElements = document.querySelectorAll('.waline-site-pv');
-            
-            // 填入数据 (把转圈的图标覆盖掉)
-            uvElements.forEach(el => el.innerText = data.site_uv);
-            pvElements.forEach(el => el.innerText = data.site_pv);
-          })
-          .catch(err => console.error('Waline 统计获取失败:', err));
-      })();
-      </script>
+   
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work
