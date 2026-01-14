@@ -1089,6 +1089,7 @@ CDN:
   # Note: When setting third-party scripts to 'local', you need to install hexo-butterfly-extjs
   internal_provider: local
   third_party_provider: jsdelivr
+  mermaid: https://cdn.bootcdn.net/ajax/libs/mermaid/10.6.1/mermaid.min.js
 
   # Add version number to url, true or false
   version: true
