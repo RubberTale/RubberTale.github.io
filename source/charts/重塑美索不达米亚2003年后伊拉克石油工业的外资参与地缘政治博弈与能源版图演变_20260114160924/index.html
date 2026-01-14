@@ -1,0 +1,607 @@
+import React, { useState } from 'react';
+import { 
+  Leaf, 
+  CloudRain, 
+  TrendingUp, 
+  Activity, 
+  Truck, 
+  Box, 
+  Globe, 
+  DollarSign, 
+  BarChart2, 
+  Layers,
+  Droplet,
+  Anchor,
+  Wind,
+  Settings,
+  Search,
+  ChevronDown,
+  ChevronUp,
+  Info,
+  Zap,
+  RefreshCw,
+  Database,
+  Link as LinkIcon, 
+  Shield,
+  Calendar, 
+  Scale,
+  PieChart // Added icon
+} from 'lucide-react';
+
+// --- 组件定义 ---
+
+const Section = ({ title, icon: Icon, children, colorClass = "bg-white", className = "" }) => (
+  <div className={`rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full flex flex-col ${colorClass} ${className}`}>
+    {/* 标题栏始终横向铺满 */}
+    <div className="p-4 border-b border-slate-100 flex items-center gap-2 bg-slate-50/50 flex-shrink-0 w-full">
+      <Icon className="w-5 h-5 text-slate-600" />
+      <h2 className="text-lg font-bold text-slate-800">{title}</h2>
+    </div>
+    {/* 内容区域，flex-1 确保填充剩余高度 */}
+    <div className="p-5 flex-1 w-full">
+      {children}
+    </div>
+  </div>
+);
+
+const Card = ({ title, items, subtitle, icon: Icon, extraClass = "" }) => (
+  <div className={`bg-white p-5 rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col ${extraClass}`}>
+    <h3 className="font-semibold text-slate-700 mb-4 flex items-center justify-between border-b border-slate-50 pb-2">
+      <span className="flex items-center gap-2 text-lg">
+        {Icon && <Icon className="w-5 h-5 text-emerald-600" />}
+        {title}
+      </span>
+      {subtitle && <span className="text-xs font-normal text-slate-500 bg-slate-100 px-3 py-1 rounded-full">{subtitle}</span>}
+    </h3>
+    <ul className="space-y-4 flex-1">
+      {items.map((item, idx) => (
+        <li key={idx} className="text-sm text-slate-600 flex items-start gap-3 leading-relaxed">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 mt-2 flex-shrink-0 shadow-sm shadow-emerald-200" />
+          <div className="flex-1">{item}</div>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const Badge = ({ text, color = "bg-slate-100 text-slate-600" }) => (
+  <span className={`text-xs px-2 py-0.5 rounded-md font-medium ${color} ml-auto`}>
+    {text}
+  </span>
+);
+
+const StatBox = ({ label, value, subtext, trend }) => (
+  <div className="p-3 bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col h-full justify-between">
+    <div className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">{label}</div>
+    <div className="text-xl font-bold text-slate-800 mb-1">{value}</div>
+    <div className="flex items-center justify-between">
+       <span className="text-xs text-slate-400">{subtext}</span>
+       {trend && <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${trend === 'up' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`}>{trend === 'up' ? '↑ High' : '↓ Low'}</span>}
+    </div>
+  </div>
+);
+
+// --- 主程序 ---
+
+export default function RubberResearchFramework() {
+  const [activeTab, setActiveTab] = useState('all');
+  const [expandedLogic, setExpandedLogic] = useState(true);
+
+  const navigation = [
+    { id: 'all', label: '全景视图 Dashboard' },
+    { id: 'fundamental', label: '基本面 Fundamental' },
+    { id: 'macro', label: '宏观面 Macro' },
+    { id: 'capital', label: '资金/技术 Tech & Flow' },
+  ];
+
+  // 布局控制逻辑
+  const isAll = activeTab === 'all';
+  const isFund = activeTab === 'fundamental';
+  const isMacro = activeTab === 'macro';
+  const isTech = activeTab === 'capital';
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
+      {/* Header */}
+      <header className="bg-emerald-900 text-white sticky top-0 z-30 shadow-xl border-b border-emerald-800">
+        <div className="w-full px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="bg-emerald-500 p-2 rounded-lg shadow-lg shadow-emerald-900/50">
+              <Leaf className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold tracking-tight">天然橡胶期货投研体系</h1>
+              <p className="text-xs text-emerald-200 font-medium">RU / NR Futures Research Framework</p>
+            </div>
+          </div>
+          <div className="hidden md:flex space-x-2">
+            {navigation.map((nav) => (
+              <button
+                key={nav.id}
+                onClick={() => setActiveTab(nav.id)}
+                className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  activeTab === nav.id 
+                    ? 'bg-emerald-100 text-emerald-900 shadow-lg transform scale-105' 
+                    : 'text-emerald-100 hover:bg-emerald-800/50 hover:text-white'
+                }`}
+              >
+                {nav.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Nav */}
+      <div className="md:hidden bg-white border-b border-slate-200 sticky top-16 z-20 overflow-x-auto shadow-sm">
+        <div className="flex px-4 py-3 gap-3 min-w-max">
+          {navigation.map((nav) => (
+            <button
+              key={nav.id}
+              onClick={() => setActiveTab(nav.id)}
+              className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-colors ${
+                activeTab === nav.id 
+                  ? 'bg-emerald-600 text-white shadow-md' 
+                  : 'text-slate-600 bg-slate-100 border border-slate-200'
+              }`}
+            >
+              {nav.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <main className="w-full max-w-[1920px] mx-auto px-4 md:px-6 py-6">
+        
+        {/* Logic Flow Bar */}
+        {isAll && (
+          <div className="bg-white border border-slate-200 rounded-xl p-4 mb-6 shadow-sm">
+            <div className="flex justify-between items-center cursor-pointer mb-2" onClick={() => setExpandedLogic(!expandedLogic)}>
+              <div className="flex items-center gap-2">
+                <Activity className="w-5 h-5 text-emerald-600" />
+                <h3 className="font-bold text-slate-800">核心研究逻辑链条 Research Logic Chain</h3>
+              </div>
+              {expandedLogic ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+            </div>
+            
+            {expandedLogic && (
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
+                {[
+                  { step: "1. 定基调", desc: "宏观/政策", detail: "多空背景", color: "border-l-4 border-blue-500" },
+                  { step: "2. 看供需", desc: "天气/产能/轮胎", detail: "基本面松紧", color: "border-l-4 border-emerald-500" },
+                  { step: "3. 验库存", desc: "青岛/交易所", detail: "去库/累库", color: "border-l-4 border-orange-500" },
+                  { step: "4. 找位置", desc: "技术/资金", detail: "买卖时机", color: "border-l-4 border-purple-500" }
+                ].map((item, idx) => (
+                  <div key={idx} className={`p-3 bg-slate-50 rounded shadow-sm ${item.color} flex flex-col justify-center`}>
+                    <div className="font-bold text-slate-800 text-sm">{item.step}</div>
+                    <div className="text-xs font-semibold text-slate-600 mt-1">{item.desc}</div>
+                    <div className="text-xs text-slate-400 mt-0.5">{item.detail}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* --- Main Grid Layout --- */}
+        <div className="grid grid-cols-12 gap-6">
+          
+          {/* === 左侧/主区域：基本面 (Left/Main Column) === */}
+          {/* 在全景视图占 9/12，在基本面视图占 12/12 (全屏) */}
+          <div className={`${(isAll || isFund) ? 'block' : 'hidden'} ${isFund ? 'col-span-12' : 'col-span-12 xl:col-span-9'} space-y-6 transition-all duration-300`}>
+            
+            {/* 供应与需求容器 */}
+            <div className={`grid ${isFund ? 'grid-cols-1 xl:grid-cols-2' : 'grid-cols-1'} gap-6`}>
+              
+              {/* --- SUPPLY SECTION --- */}
+              <Section title="供应端 (Supply Side)" icon={Leaf} className="h-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+                  <div className="space-y-4 flex flex-col">
+                    <Card 
+                      title="核心主产国 (Core Producers)" 
+                      subtitle="占比 > 80%"
+                      icon={Globe}
+                      extraClass="flex-1"
+                      items={[
+                        <span key="th">
+                          <b>🇹🇭 泰国 (Thailand):</b> 全球最大产胶国，定价中心。需重点关注南部雨季洪水影响；
+                          <span className="text-emerald-600 font-bold block mt-1 bg-emerald-50 p-1 rounded">⚠️ 东北部新增种植已进入旺产开割期，供应增量明显。</span>
+                        </span>,
+                        <span key="id">
+                          <b>🇮🇩 印尼 (Indonesia):</b> 第二大产国，以小农种植为主。面临树龄老化严重及真菌病害问题，产量长期趋稳甚至缓慢下降，翻种意愿低。
+                        </span>,
+                        <span key="vn">
+                          <b>🇻🇳 越南 (Vietnam):</b> 3L胶与10号胶主要来源国，高产树种普及率高，出口强劲，是全球主要的新增供应源之一。
+                        </span>,
+                        <span key="ci">
+                          <b>🇨🇮 科特迪瓦 (Ivory Coast):</b> 非洲橡胶新星，产量维持两位数高增速，全球供应边际增量的核心贡献者。
+                        </span>,
+                        <span key="cn">
+                          <b>🇨🇳 中国 (China):</b> 自身产量仅满足约20%需求。云南产全乳胶(RU交割品)，海南产乳胶。每年11月至次年3月为逐步停割期。
+                        </span>
+                      ]} 
+                    />
+                    
+                    {/* 替代品逻辑小卡片 */}
+                    <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 mt-2">
+                      <h4 className="font-bold text-slate-700 text-sm mb-2 flex items-center gap-2">
+                        <LinkIcon className="w-4 h-4 text-slate-500" /> 替代品逻辑
+                      </h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        合成橡胶 (SBR/BR) 与天胶存在替代关系。
+                        <br/>
+                        <span className="text-slate-500 font-medium">原油价格 ↑ → 合成胶成本 ↑ → 利多天胶</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-4">
+                     {/* 季节性日历 (New & Enhanced) */}
+                     <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100 shadow-sm">
+                      <h4 className="font-bold text-emerald-900 text-sm mb-3 flex items-center gap-2">
+                        <Calendar className="w-4 h-4" /> 全球季节性日历 (Phenology)
+                      </h4>
+                      <div className="space-y-3 text-xs">
+                        {/* China Seasonality */}
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="font-bold text-slate-700">中国产区</span>
+                            <span className="text-[10px] text-slate-400">RU交割品逻辑</span>
+                          </div>
+                          <div className="flex h-3 bg-white rounded-full overflow-hidden border border-emerald-100">
+                            <div className="w-[25%] bg-red-400 flex items-center justify-center text-[8px] text-white font-bold" title="停割">停割</div> 
+                            <div className="w-[60%] bg-emerald-500 flex items-center justify-center text-[8px] text-white font-bold" title="开割">开割</div>
+                            <div className="w-[15%] bg-red-400 flex items-center justify-center text-[8px] text-white font-bold" title="停割">停割</div> 
+                          </div>
+                          <div className="flex justify-between text-[10px] text-slate-400 px-1 mt-0.5">
+                             <span>1月</span><span>12月</span>
+                          </div>
+                        </div>
+
+                        {/* Thailand Seasonality */}
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="font-bold text-slate-700">泰国产区</span>
+                            <span className="text-[10px] text-slate-400">全球供应核心</span>
+                          </div>
+                          <div className="flex h-3 bg-white rounded-full overflow-hidden border border-emerald-100">
+                             <div className="w-[15%] bg-emerald-500"></div> 
+                             <div className="w-[25%] bg-orange-400 flex items-center justify-center text-[8px] text-white font-bold" title="低产停割">低产</div>
+                             <div className="w-[60%] bg-emerald-600 flex items-center justify-center text-[8px] text-white font-bold" title="旺产期">旺产期</div>
+                          </div>
+                        </div>
+                        
+                        <div className="text-[10px] text-emerald-800 pt-1 flex gap-3">
+                          <span className="flex items-center gap-1"><span className="w-2 h-2 bg-red-400 rounded-full"></span>停割</span>
+                          <span className="flex items-center gap-1"><span className="w-2 h-2 bg-orange-400 rounded-full"></span>低产</span>
+                          <span className="flex items-center gap-1"><span className="w-2 h-2 bg-emerald-600 rounded-full"></span>旺产</span>
+                        </div>
+                      </div>
+                    </div>
+
+                     {/* Weather Block */}
+                     <div className="bg-orange-50 p-4 rounded-lg border border-orange-100 flex-1">
+                        <h4 className="font-semibold text-orange-900 flex items-center gap-2 mb-3">
+                          <CloudRain className="w-4 h-4" /> 天气与产量
+                        </h4>
+                        <div className="space-y-2">
+                           <div className="flex items-center justify-between bg-white p-2.5 rounded border border-orange-100 shadow-sm">
+                              <span className="text-sm font-bold text-red-500">El Niño (厄尔尼诺)</span>
+                              <span className="text-xs text-slate-500">干旱 → 减产 (Yield ↓)</span>
+                           </div>
+                           <div className="flex items-center justify-between bg-white p-2.5 rounded border border-orange-100 shadow-sm">
+                              <span className="text-sm font-bold text-blue-500">La Niña (拉尼娜)</span>
+                              <span className="text-xs text-slate-500">多雨 → 割胶受阻 (Tap X)</span>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     {/* Capacity Block */}
+                     <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100 flex-1">
+                        <h4 className="font-semibold text-emerald-900 flex items-center gap-2 mb-2">
+                          <Database className="w-4 h-4" /> 成本与周期
+                        </h4>
+                        <ul className="text-sm space-y-2 text-slate-700">
+                          <li className="flex justify-between border-b border-emerald-100 pb-1">
+                            <span>种植周期</span>
+                            <span className="font-mono text-xs bg-emerald-100 px-1 rounded">7年开割，20年旺产</span>
+                          </li>
+                          <li className="flex justify-between">
+                            <span>成本支撑</span>
+                            <span className="font-mono text-xs bg-emerald-100 px-1 rounded">原料收购价 / 胶农人工</span>
+                          </li>
+                        </ul>
+                     </div>
+                  </div>
+                </div>
+              </Section>
+
+              {/* --- DEMAND SECTION --- */}
+              <Section title="需求端 (Demand Side)" icon={TrendingUp} className="h-full">
+                <div className="flex flex-col h-full gap-4">
+                  {/* Tire Sector */}
+                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 flex-1">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                        <Truck className="w-5 h-5 text-blue-600" /> 轮胎产业 (Tire)
+                      </h3>
+                      <Badge text="总需求 > 70%" color="bg-blue-100 text-blue-700" />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Heavy Duty - UPDATED WITH RATIO */}
+                      <div className="bg-white p-3 rounded border border-slate-200 shadow-sm">
+                        <div className="flex justify-between items-center mb-2 border-b border-slate-100 pb-1">
+                          <h4 className="font-bold text-sm text-slate-700">全钢胎 (重卡/客车)</h4>
+                          <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-bold">天胶耗用: ~70%</span>
+                        </div>
+                        <ul className="text-xs text-slate-500 space-y-1.5 list-disc pl-3">
+                          <li><strong>耗胶量大:</strong> 主要是天然橡胶</li>
+                          <li><strong>驱动:</strong> 基建开工、房地产物流</li>
+                          <li><strong>指标:</strong> 全钢胎开工率 (周频)</li>
+                        </ul>
+                      </div>
+
+                      {/* Passenger Car - UPDATED WITH RATIO */}
+                      <div className="bg-white p-3 rounded border border-slate-200 shadow-sm">
+                        <div className="flex justify-between items-center mb-2 border-b border-slate-100 pb-1">
+                          <h4 className="font-bold text-sm text-slate-700">半钢胎 (乘用车)</h4>
+                          <span className="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-bold">天胶耗用: ~30%</span>
+                        </div>
+                        <ul className="text-xs text-slate-500 space-y-1.5 list-disc pl-3">
+                          <li><strong>新能源车 (NEV):</strong> <span>自重↑ = 磨损↑ = 需求↑</span></li>
+                          <li><strong>替换市场:</strong> 汽车保有量决定基数</li>
+                          <li><strong>出口:</strong> 关注欧美关税政策</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Non-Tire Sector */}
+                  <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
+                     <div className="flex items-center justify-between mb-2">
+                       <h3 className="font-bold text-purple-900 flex items-center gap-2">
+                          <Droplet className="w-4 h-4" /> 乳胶制品 (Latex)
+                        </h3>
+                        <span className="text-xs text-purple-700">占比 ~15%</span>
+                     </div>
+                     <div className="grid grid-cols-3 gap-2 text-xs text-center">
+                        <span className="bg-white p-1 rounded border border-purple-100 text-purple-800">发泡 (床垫/枕头)</span>
+                        <span className="bg-white p-1 rounded border border-purple-100 text-purple-800">医用手套</span>
+                        <span className="bg-white p-1 rounded border border-purple-100 text-purple-800">气球/胶带</span>
+                     </div>
+                  </div>
+                </div>
+              </Section>
+            </div>
+
+            {/* --- INVENTORY SECTION (Full Width) --- */}
+            <Section title="库存监控体系 (Inventory Monitor)" icon={Box} colorClass="bg-gradient-to-r from-white to-slate-50">
+              <div className="flex flex-col xl:flex-row gap-6">
+                
+                {/* Inventory Data Points */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 flex-1">
+                   <StatBox 
+                      label="上期所仓单 (SHFE)" 
+                      value="显性" 
+                      subtext="直接压制盘面价格" 
+                      trend="up"
+                   />
+                   <StatBox 
+                      label="青岛保税区" 
+                      value="港口(美金)" 
+                      subtext="进口压力 / 融资胶" 
+                      trend="down"
+                   />
+                   <StatBox 
+                      label="一般贸易库存" 
+                      value="现货流通" 
+                      subtext="实际工厂采购力度" 
+                   />
+                   <StatBox 
+                      label="老胶注销" 
+                      value="9月/11月" 
+                      subtext="老仓单注销带来的压力减轻" 
+                   />
+                </div>
+
+                {/* Inventory Logic */}
+                <div className="w-full xl:w-80 bg-slate-100 p-4 rounded-lg border border-slate-200 flex flex-col justify-center">
+                  <h4 className="font-bold text-slate-700 mb-3 flex items-center gap-2">
+                    <RefreshCw className="w-4 h-4" /> 库存-价格 传导机制
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-2 bg-white rounded border border-green-100">
+                       <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-xs">累库</div>
+                       <div className="text-xs text-slate-600">
+                          供 &gt; 需 → 现货贴水扩大 → <span className="font-bold text-red-500">利空</span>
+                       </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-white rounded border border-red-100">
+                       <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-700 font-bold text-xs">去库</div>
+                       <div className="text-xs text-slate-600">
+                          供 &lt; 需 → 现货升水 → <span className="font-bold text-green-600">利多</span>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Section>
+          </div>
+
+          {/* === 右侧/副区域：宏观、资金、技术 (Right Column) === */}
+          {/* 在全景视图占 3/12，在宏观/技术视图占 12/12 (全屏) */}
+          <div className={`${(isAll || isMacro || isTech) ? 'block' : 'hidden'} ${(!isAll) ? 'col-span-12' : 'col-span-12 xl:col-span-3'} space-y-6 transition-all duration-300`}>
+            
+            {/* --- MACRO SECTION --- */}
+            <div className={`${(isAll || isMacro) ? 'block' : 'hidden'} h-full`}>
+              <Section 
+                title="宏观驱动 (Macro)" 
+                icon={Globe} 
+                colorClass="bg-blue-50/30 border-blue-100 h-full"
+              >
+                {/* 修复布局：在全屏模式下使用Grid，在Dashboard下使用Stack */}
+                <div className={isMacro ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 h-full" : "space-y-4"}>
+                  
+                  {/* 1. China Policy */}
+                  <div className="h-full">
+                    {/* 在Dashboard模式下增加标题，在全屏模式下通过Card展示 */}
+                    <div className={isMacro ? "h-full" : "mb-0"}>
+                      <div className={`bg-white p-3 rounded shadow-sm border border-blue-100 space-y-2 h-full flex flex-col ${isMacro ? 'p-6' : ''}`}>
+                        <div className="flex items-center gap-2 mb-1">
+                          <Anchor className="w-4 h-4 text-blue-500" /> 
+                          <span className="font-bold text-slate-800 text-sm uppercase">中国政策 (CN)</span>
+                        </div>
+                        <div className="text-sm font-bold text-blue-900 mt-2">财政/货币刺激</div>
+                        <p className="text-xs text-slate-500 flex-1">
+                          基建专项债发放速率、房地产“白名单”政策。
+                          <span className="block mt-2 text-emerald-600 font-medium bg-emerald-50 p-1 rounded">影响: 重卡全钢胎需求</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 2. US Policy */}
+                  <div className="h-full">
+                    <div className={`bg-white p-3 rounded shadow-sm border border-red-100 space-y-2 h-full flex flex-col ${isMacro ? 'p-6' : ''}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Shield className="w-4 h-4 text-red-600" />
+                        <span className="font-bold text-slate-800 text-sm uppercase">美国政策 (US)</span>
+                      </div>
+                      <div className="text-sm font-bold text-red-900 mt-2">关税与贸易壁垒</div>
+                      <p className="text-xs text-slate-500 flex-1">
+                        对华轮胎“双反”及高额关税。
+                        <span className="block mt-2 text-red-600 font-medium bg-red-50 p-1 rounded">影响: 抑制直接出口/迫使产能转移</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 3. FX */}
+                  <div className="h-full">
+                    <div className={`bg-white p-3 rounded shadow-sm border border-indigo-100 space-y-2 h-full flex flex-col ${isMacro ? 'p-6' : ''}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <DollarSign className="w-4 h-4 text-indigo-500" />
+                        <span className="font-bold text-slate-800 text-sm uppercase">汇率因子 (FX)</span>
+                      </div>
+                      <div className="flex justify-between text-xs font-bold text-slate-700 mt-2 bg-indigo-50 p-2 rounded">
+                        <span>USD/THB (泰铢)</span>
+                        <span>USD/CNY (人民币)</span>
+                      </div>
+                      <p className="text-xs text-slate-500 flex-1 mt-2">
+                        <span className="block mb-1">• 泰铢贬值 → 泰国出口成本↓ → 胶价承压</span>
+                        <span className="block">• 美元升值 → 进口成本↑</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 4. External Risks */}
+                  <div className="h-full">
+                     <div className={`bg-white p-3 rounded border border-slate-200 shadow-sm h-full flex flex-col ${isMacro ? 'p-6' : ''}`}>
+                        <div className="flex items-center gap-2 mb-3">
+                          <Wind className="w-4 h-4 text-red-500" />
+                          <span className="font-bold text-slate-800 text-sm uppercase">外部风险</span>
+                        </div>
+                        <ul className="text-xs text-slate-600 space-y-3 flex-1">
+                            <li className="flex items-start gap-2 bg-slate-50 p-2 rounded">
+                              <span className="text-red-500 font-bold">!</span>
+                              <span>欧盟 EUDR 法案 (零毁林) 增加合规成本</span>
+                            </li>
+                            <li className="flex items-start gap-2 bg-slate-50 p-2 rounded">
+                              <span className="text-red-500 font-bold">!</span>
+                              <span>海运费波动 / 航运堵塞</span>
+                            </li>
+                        </ul>
+                     </div>
+                  </div>
+
+                </div>
+              </Section>
+            </div>
+
+            {/* --- CAPITAL & TECH SECTION --- */}
+            <div className={`${(isAll || isTech) ? 'block' : 'hidden'}`}>
+              <Section 
+                 title="资金与技术 (Trade)" 
+                 icon={Layers}
+              >
+                {/* 修复布局：同上 */}
+                <div className={isTech ? "grid grid-cols-1 md:grid-cols-2 gap-6 h-full" : "space-y-4"}>
+                  
+                  {/* Capital Flow */}
+                  <div className={isTech ? "col-span-1" : "mb-6"}>
+                    <h4 className="font-bold text-slate-700 mb-3 flex items-center gap-2 text-sm">
+                      <Zap className="w-4 h-4 text-yellow-500" /> 资金博弈
+                    </h4>
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      <div className="p-2 bg-slate-50 rounded border border-slate-100 text-center">
+                        <div className="text-[10px] text-slate-500 uppercase">Open Interest</div>
+                        <div className="font-bold text-slate-700 text-xs">持仓量 OI</div>
+                      </div>
+                      <div className="p-2 bg-slate-50 rounded border border-slate-100 text-center">
+                        <div className="text-[10px] text-slate-500 uppercase">Volume</div>
+                        <div className="font-bold text-slate-700 text-xs">成交量 Vol</div>
+                      </div>
+                    </div>
+                    
+                    {/* NEW: Arbitrage Strategies (Enhanced) */}
+                    <div className="bg-yellow-50 p-4 rounded border border-yellow-100 text-xs text-slate-700 space-y-3 shadow-sm">
+                       <div className="flex items-center gap-2 font-bold text-yellow-900 text-sm border-b border-yellow-200 pb-2">
+                          <Scale className="w-4 h-4" /> 套利与价差结构
+                       </div>
+                       <div className="grid grid-cols-1 gap-2.5">
+                          <div className="flex justify-between items-center bg-white p-2 rounded border border-yellow-100">
+                             <span className="font-bold text-slate-600">基差 (Basis)</span>
+                             <span className="font-mono text-slate-500 bg-slate-50 px-2 rounded">现货 - 期货</span>
+                          </div>
+                          <div className="flex justify-between items-center bg-white p-2 rounded border border-yellow-100">
+                             <span className="font-bold text-slate-600">月间差 (Spread)</span>
+                             <span className="font-mono text-slate-500 bg-slate-50 px-2 rounded">1-5, 9-1 (近强远弱?)</span>
+                          </div>
+                          <div className="flex justify-between items-center bg-white p-2 rounded border border-yellow-100">
+                             <span className="font-bold text-slate-600">品种差 (Arb)</span>
+                             <span className="font-mono text-slate-500 bg-slate-50 px-2 rounded">RU (全乳) vs NR (20号)</span>
+                          </div>
+                       </div>
+                       <div className="text-[10px] text-yellow-800 leading-tight">
+                          <span className="font-bold">策略提示：</span>关注非标套利机会，当价差偏离历史均值 2σ 时介入。
+                       </div>
+                    </div>
+                  </div>
+
+                  {/* Technical Indicators */}
+                  <div className={isTech ? "col-span-1" : ""}>
+                    <h4 className="font-bold text-slate-700 mb-3 flex items-center gap-2 text-sm">
+                      <BarChart2 className="w-4 h-4 text-purple-500" /> 技术指标
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-2 bg-white border border-slate-200 rounded text-xs">
+                        <span className="font-bold text-slate-700">均线排列 (MA)</span>
+                        <span className="text-slate-500">多头/空头趋势确认</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 bg-white border border-slate-200 rounded text-xs">
+                        <span className="font-bold text-slate-700">K线结构</span>
+                        <span className="text-slate-500">关键位顶底分型</span>
+                      </div>
+                      <div className="flex items-center justify-between p-2 bg-white border border-slate-200 rounded text-xs">
+                        <span className="font-bold text-slate-700">MACD / RSI</span>
+                        <span className="text-slate-500">背离与超买超卖</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </Section>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 border-t border-slate-200 pt-6 text-center">
+          <p className="text-slate-400 text-sm">© 2024 天然橡胶期货投研系统 v2.0 | Integrated Research Framework</p>
+          <p className="text-slate-300 text-xs mt-1">数据来源: 交易所披露、海关总署、主产国农业部</p>
+        </div>
+      </main>
+    </div>
+  );
+}

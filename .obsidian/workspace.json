@@ -69,14 +69,14 @@
             "id": "763b2d91094360d2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "source/_posts/重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变.md",
-                "mode": "source",
-                "source": false
+                "aFile": ".obsidian/workspace.json",
+                "bFile": ".obsidian/workspace.json",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变"
+              "icon": "diff",
+              "title": "Diff: workspace.json"
             }
           }
         ],
@@ -215,13 +215,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变"
+              "title": "Outline"
             }
           },
           {
@@ -257,6 +256,10 @@
   },
   "active": "763b2d91094360d2",
   "lastOpenFiles": [
+    "source/_posts/《铁雨》影评：武戏精彩、文戏亦不逊色.md",
+    "source/charts/重塑美索不达米亚2003年后伊拉克石油工业的外资参与地缘政治博弈与能源版图演变_20260114160924/index.html",
+    "source/charts/重塑美索不达米亚2003年后伊拉克石油工业的外资参与地缘政治博弈与能源版图演变_20260114160924",
+    "source/_posts/重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变.md",
     "source/charts/重塑美索不达米亚2003年后伊拉克石油工业的外资参与地缘政治博弈与能源版图演变_20260114155609/index.html",
     "source/charts/重塑美索不达米亚2003年后伊拉克石油工业的外资参与地缘政治博弈与能源版图演变_20260114155609",
     "source/charts/股指期货投研框架/index.html",
@@ -266,10 +269,7 @@
     "source/charts/全球与中国合成橡胶产业链深度研究报告供需重构价格机制与市场演变 2026版_20260114084218/index.html",
     "source/charts/全球与中国合成橡胶产业链深度研究报告供需重构价格机制与市场演变 2026版_20260114084218",
     "source/_posts/全球与中国合成橡胶产业链深度研究报告：供需重构、价格机制与市场演变 (2026版).md",
-    "public/tags/韩国/index.html",
-    "public/tags/韩国",
     "source/_posts/穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告.md",
-    "source/charts/穿越周期与重塑定价2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告_20260113135019/index.html",
     "node_modules/hexo-filter-mermaid-diagrams/img/header.png",
     "node_modules/hexo-filter-mermaid-diagrams/img/git.png",
     "node_modules/hexo-filter-mermaid-diagrams/img/gantt.png",
@@ -277,14 +277,12 @@
     "node_modules/hexo-filter-mermaid-diagrams/README.md",
     "node_modules/deep-assign/readme.md",
     "node_modules/is-obj/readme.md",
-    "source/_posts/重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变.md",
     "source/模板/博客模板.md",
     "source/_posts/2026-01-09-futures-report.md",
     "source/模板/Blog_Post_Header.md",
     "source/_posts/“南矛行动”与马杜罗政权的覆灭：2026年美国军事干预行动的地缘政治、法理逻辑与经济影响深度研究报告.md",
     "source/_posts/2026年中国经济展望：跨越周期的结构性重塑与“十五五”规划下的动能转换.md",
     "source/_posts/帝国崩塌：太子集团陈志被捕、引渡与跨国犯罪网络的覆灭.md",
-    "source/_posts/《铁雨》影评：武戏精彩、文戏亦不逊色.md",
     "source/模板/嵌入网站.md",
     "source/模板/新建图表页面.md",
     "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
