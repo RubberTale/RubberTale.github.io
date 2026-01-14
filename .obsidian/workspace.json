@@ -64,23 +64,9 @@
               "icon": "lucide-file",
               "title": "全球与中国合成橡胶产业链深度研究报告：供需重构、价格机制与市场演变 (2026版)"
             }
-          },
-          {
-            "id": "763b2d91094360d2",
-            "type": "leaf",
-            "state": {
-              "type": "split-diff-view",
-              "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
-              },
-              "icon": "diff",
-              "title": "Diff: workspace.json"
-            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -215,12 +201,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "source/_posts/全球与中国合成橡胶产业链深度研究报告：供需重构、价格机制与市场演变 (2026版).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of 全球与中国合成橡胶产业链深度研究报告：供需重构、价格机制与市场演变 (2026版)"
             }
           },
           {
@@ -254,7 +241,7 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "763b2d91094360d2",
+  "active": "0a3b4eec2d279827",
   "lastOpenFiles": [
     "source/_posts/《铁雨》影评：武戏精彩、文戏亦不逊色.md",
     "source/charts/重塑美索不达米亚2003年后伊拉克石油工业的外资参与地缘政治博弈与能源版图演变_20260114160924/index.html",
