@@ -597,7 +597,7 @@ valine:
 # Waline
 # https://waline.js.org
 waline:
-  serverURL: 'https://144.24.80.205.sslip.io' # 你的服务器地址
+  serverURL: 'https://140.245.65.111.sslip.io' # 你的服务器地址
   bg: # 评论框背景图，留空就是白色
   
   # 开启阅读量统计 (记得要把 busuanzi 的 page_pv 关掉)
