@@ -33,7 +33,8 @@ skip_render:
   - '博客模板.md'  # Skip render for this file
   - "charts/!(*.md)"
   - '嵌入网站.md' # Skip render for this file
-
+  - '新建图表页面.md'
+  - 'Blog_Post_Header.md'
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
