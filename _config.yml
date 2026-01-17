@@ -29,12 +29,10 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render: 
-  - '博客模板.md'  # Skip render for this file
+skip_render:
+  - '模板/**'             # 👈 加上文件夹名，**代表忽略里面所有文件
   - "charts/!(*.md)"
-  - '嵌入网站.md' # Skip render for this file
-  - '新建图表页面.md'
-  - 'Blog_Post_Header.md'
+  # 其他单独的文件名如果也在模板文件夹里，就都不用写了，上面一行全包了
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
