@@ -57,12 +57,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
+                "file": "source/_posts/天然橡胶需求面深度研究：针对轮胎（全钢半钢重量差异）及非胎（乳胶工业制品）领域的多元化研究方法与数据交叉验证体系构建.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告"
+              "title": "天然橡胶需求面深度研究：针对轮胎（全钢半钢重量差异）及非胎（乳胶工业制品）领域的多元化研究方法与数据交叉验证体系构建"
             }
           }
         ],
@@ -201,13 +201,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
+                "file": "source/_posts/天然橡胶需求面深度研究：针对轮胎（全钢半钢重量差异）及非胎（乳胶工业制品）领域的多元化研究方法与数据交叉验证体系构建.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告"
+              "title": "Outline of 天然橡胶需求面深度研究：针对轮胎（全钢半钢重量差异）及非胎（乳胶工业制品）领域的多元化研究方法与数据交叉验证体系构建"
             }
           },
           {
@@ -221,7 +221,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -241,8 +241,9 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "1d2d21bc3385ca1c",
+  "active": "0f576a349b9d01a6",
   "lastOpenFiles": [
+    "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
     "source/charts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告_20260115134834/index.html",
     "source/charts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告_20260115134834",
     "source/_posts/帝国崩塌：太子集团陈志被捕、引渡与跨国犯罪网络的覆灭.md",
@@ -257,7 +258,6 @@
     "source/charts/股指期货投研框架",
     "source/charts/2026年PVC出口退税取消政策影响分析/index.html",
     "source/charts/2026年PVC出口退税取消政策影响分析",
-    "source/charts/全球与中国合成橡胶产业链深度研究报告供需重构价格机制与市场演变 2026版_20260114084218/index.html",
     "source/_posts/穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告.md",
     "node_modules/hexo-filter-mermaid-diagrams/img/header.png",
     "node_modules/hexo-filter-mermaid-diagrams/img/git.png",
@@ -274,7 +274,6 @@
     "source/模板/嵌入网站.md",
     "source/模板/新建图表页面.md",
     "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
-    "source/_posts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告.md",
     "source/charts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告/index.html.md",
     "source/_posts/2026年拉丁美洲地缘政治格局重塑：左翼政府的退潮、生存与转型深度研究报告.md",
     "source/_posts/宏观经济波动的多维图景：真实经济周期（RBC）理论与经典周期体系的综合研究.md",
