@@ -113,16 +113,86 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告.md",
+                "file": "source/_posts/Market Analysis 20260203.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告"
+              "title": "Market Analysis 20260203"
+            }
+          },
+          {
+            "id": "b343e2df0f1f1f87",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/A股强势反弹，商品期货波动剧烈！2月3日市场回顾与明日展望.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "A股强势反弹，商品期货波动剧烈！2月3日市场回顾与明日展望"
+            }
+          },
+          {
+            "id": "f1f5e267b2239892",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/A股V型回暖站上4100，顺周期接力科技，贵金属止跌反弹.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "A股V型回暖站上4100，顺周期接力科技，贵金属止跌反弹"
+            }
+          },
+          {
+            "id": "f3746eec29472c26",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/自动化的进化史.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "自动化的进化史"
+            }
+          },
+          {
+            "id": "a8c2a49843e4b805",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/中国轮胎行业季节性波动、驱动机制与全球竞争格局演进深度研究报告.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "中国轮胎行业季节性波动、驱动机制与全球竞争格局演进深度研究报告"
+            }
+          },
+          {
+            "id": "948ce0f76a926e7c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/全网寻找“高频交易者”：万0.86全包佣金，更有VIP快速通道，助你快人一步！.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "全网寻找“高频交易者”：万0.86全包佣金，更有VIP快速通道，助你快人一步！"
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 12
       }
     ],
     "direction": "vertical"
@@ -214,12 +284,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "source/_posts/制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告.md",
+                "file": "source/_posts/AI时代，我们将学得更多还是更少？.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告"
+              "title": "Outgoing links from AI时代，我们将学得更多还是更少？"
             }
           },
           {
@@ -257,13 +327,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告.md",
+                "file": "source/_posts/全网寻找“高频交易者”：万0.86全包佣金，更有VIP快速通道，助你快人一步！.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告"
+              "title": "Outline of 全网寻找“高频交易者”：万0.86全包佣金，更有VIP快速通道，助你快人一步！"
             }
           },
           {
@@ -297,19 +367,28 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "ddc36906c00c827a",
+  "active": "948ce0f76a926e7c",
   "lastOpenFiles": [
+    "source/_posts/中国轮胎行业季节性波动、驱动机制与全球竞争格局演进深度研究报告.md",
+    "source/_posts/当同福客栈开始炒房：那个被低估的2011年，早已写好了今天的结局.md",
+    "source/img/武林外传电影读后感.png",
+    "source/img/中国轮胎的季节性.png",
+    "source/_posts/全网寻找“高频交易者”：万0.86全包佣金，更有VIP快速通道，助你快人一步！.md",
+    "source/_posts/().md",
+    "source/_posts/自动化的进化史.md",
+    "source/_posts/A股V型回暖站上4100，顺周期接力科技，贵金属止跌反弹.md",
+    "source/_posts/A股强势反弹，商品期货波动剧烈！2月3日市场回顾与明日展望.md",
+    "source/_posts/Market Analysis 20260203.md",
+    "source/_posts/AI时代，我们将学得更多还是更少？.md",
+    "source/_posts/【深度干货】选股的照妖镜：为什么巴菲特只看自由现金流？.md",
+    "source/_posts/2026年1月底全球黄金价格剧震与政经共振深度研究报告.md",
+    "source/_posts/全球大宗商品市场交易时间微观结构与流动性周期深度研究报告.md",
+    "source/_posts/制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告.md",
     "source/img/凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告.png",
     "source/img/20260202_warsh_cover.png",
     "source/_posts/gen_cover.py",
-    "source/_posts/全球大宗商品市场交易时间微观结构与流动性周期深度研究报告.md",
-    "source/_posts/制度范式转移：凯文·沃什继任美联储主席对宏观经济逻辑的重塑研究报告.md",
-    "source/_posts/AI时代，我们将学得更多还是更少？.md",
-    "source/_posts/2026年1月底全球黄金价格剧震与政经共振深度研究报告.md",
     "source/_posts/黄金大跌与政治经济事件.md",
     "source/_posts/AI Skills：定义、起源、作用与安装.md",
-    "source/_posts/().md",
-    "source/_posts/【深度干货】选股的照妖镜：为什么巴菲特只看自由现金流？.md",
     "source/_posts/深度解码米其林2025趋势：-20%的北美寒冬与+9%的中国韧性：米其林2026年1月核心观点总结.md",
     "source/_posts/2026年全球顺丁橡胶（BR）市场深度供需错配分析及趋势展望报告.md",
     "source/_posts/玻璃与纯碱品种间套利策略深度研究报告.md",
@@ -320,13 +399,6 @@
     "source/_posts/极地霸权与生存空间：美国对格陵兰岛地缘战略诉求的综合评估报告.md",
     "source/_posts/《铁雨》影评：武戏精彩、文戏亦不逊色.md",
     "source/_posts/穿越周期与重塑定价：2023-2025年中国权益市场策略复盘与分析师预测精准度深度考评报告.md",
-    "source/_posts/全球与中国合成橡胶产业链深度研究报告：供需重构、价格机制与市场演变 (2026版).md",
-    "source/_posts/重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变.md",
-    "source/_posts/天然橡胶需求面深度研究：针对轮胎（全钢半钢重量差异）及非胎（乳胶工业制品）领域的多元化研究方法与数据交叉验证体系构建.md",
-    "source/_posts/印尼天然橡胶产业全景深度研究报告：历史沿革、结构性困境与未来路径.md",
-    "source/_posts/湄公河次区域天然橡胶产业深度战略报告：地缘政治经济学、农艺技术演进与全球合规性挑战下的老挝、缅甸与柬埔寨.md",
-    "source/_posts/美国联邦主权债务危机深度研究报告：2025-2026年财政架构、政策震荡与宏观经济路径.md",
-    "source/_posts/全乳胶（SCR WF）深度研究报告：产业定位、供需逻辑与未来演变.md",
     "source/charts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告_20260115134834/index.html",
     "source/charts/国内商品期货动态升贴水机制深度研究与非洲胶交割可行性分析报告_20260115134834",
     "source/charts/重塑美索不达米亚2003年后伊拉克石油工业的外资参与地缘政治博弈与能源版图演变_20260114160924/index.html",
@@ -341,9 +413,6 @@
     "node_modules/hexo-filter-mermaid-diagrams/img/gantt.png",
     "node_modules/hexo-filter-mermaid-diagrams/img/class.png",
     "node_modules/hexo-theme-butterfly/source/img/friend_404.gif",
-    "node_modules/hexo-theme-butterfly/source/img/error-page.png",
-    "node_modules/hexo-theme-butterfly/source/img/butterfly-icon.png",
-    "node_modules/hexo-theme-butterfly/source/img/404.jpg",
-    "source/img/avatar.png"
+    "node_modules/hexo-theme-butterfly/source/img/error-page.png"
   ]
 }
