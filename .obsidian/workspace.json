@@ -125,15 +125,14 @@
             "id": "b343e2df0f1f1f87",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "source/_posts/离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究.md",
-                "bFile": "source/_posts/离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究.md",
-                "aRef": "6cd9b76a3294a8f10e0199928c48bd210e1a910e^",
-                "bRef": "6cd9b76a3294a8f10e0199928c48bd210e1a910e"
+                "file": "source/_posts/离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: 离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究"
+              "icon": "lucide-file",
+              "title": "离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究"
             }
           }
         ],
@@ -272,12 +271,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "source/_posts/离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of 离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究"
             }
           },
           {
