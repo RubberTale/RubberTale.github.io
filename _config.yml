@@ -33,6 +33,7 @@ skip_render:
   - '模板/**'             # 👈 加上文件夹名，**代表忽略里面所有文件
   - "charts/**"
   - "candlestick-analyzer/**"
+  - "Prompts/**"
   # 其他单独的文件名如果也在模板文件夹里，就都不用写了，上面一行全包了
 # Writing
 new_post_name: :title.md # File name of new posts
