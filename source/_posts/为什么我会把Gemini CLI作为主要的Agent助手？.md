@@ -1,3 +1,10 @@
+---
+title: 为什么我会把Gemini CLI作为主要的Agent助手？
+date: 2026-02-25 22:11:10
+tags: []
+categories: AI
+---
+
 ![image.png](https://cdn.jsdelivr.net/gh/rubbertale/pic-go/img/202602240810615.png)
 
 

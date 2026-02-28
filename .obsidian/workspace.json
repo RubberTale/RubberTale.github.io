@@ -57,12 +57,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/海湾潮起：地缘局势如何重塑全球原油价格走势？.md",
+                "file": "source/_posts/建立云数据库.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "海湾潮起：地缘局势如何重塑全球原油价格走势？"
+              "title": "建立云数据库"
             }
           }
         ],
@@ -253,9 +253,11 @@
   },
   "active": "c6877f7c0ae7915c",
   "lastOpenFiles": [
+    "source/_posts/为什么我会把Gemini CLI作为主要的Agent助手？.md",
+    "source/_posts/建立云数据库.md",
+    "source/_posts/海湾潮起：地缘局势如何重塑全球原油价格走势？.md",
     "source/img/伊朗局势与原油的关系.jpg",
     "source/_posts/揭秘BR厂库仓单：是“凭空印钱”还是“信誉担保”？.md",
-    "source/_posts/海湾潮起：地缘局势如何重塑全球原油价格走势？.md",
     "source/img/BR厂库仓单.jpg",
     "source/_posts/全球天然橡胶主产区转移的历史沿革、底层逻辑与未来趋势深度研判.md",
     "source/_posts/零关税后，非洲胶如何影响未来天然橡胶市场？.md",
@@ -275,15 +277,12 @@
     "source/_posts/重磅：零关税落地！非洲橡胶能否重塑全球供应版图？.md",
     "source/_posts/首富的窘境：坐拥6760亿美金，马斯克为什么却成了世界上最“缺钱”的人？.md",
     "source/_posts/2026年全球及中国机器人产业深度研究报告：从技术突围到具身智能商业化元年.md",
-    "source/_posts/我用ai都干了啥？.md",
-    "source/_posts/为什么我会把Gemini CLI作为主要的Agent助手？.md",
     "source/img/Gemini CLI VS Claude Code.jpg",
     "source/img/我用ai做了啥.jpg",
     "source/img/我用ai做了啥.jpg.crdownload",
     "source/img/股票手续费大起底.jpg",
     "source/img/机器人产业深度研究报告.jpg",
     "source/_posts/反超ChatGPT只是开始？从“被羞辱的棋手”到诺奖得主，这个男人早就写好了AI的终局.md",
-    "source/img/马斯克是最有钱的人又是最缺钱的人.jpg",
     "Prompts/001-非洲53个建交国零关税.md",
     "source/_posts/离岸人民币（CNH）定价机制、跨市场套利与全球离岸货币体系的深度比较研究.md",
     "Prompts",
