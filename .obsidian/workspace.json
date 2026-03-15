@@ -293,8 +293,11 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "7c5d0630cc049aa6",
+  "active": "832f3516d5379cc5",
   "lastOpenFiles": [
+    "Prompts/figure机器人.md",
+    "source/_posts/prompt/figure机器人.md",
+    "source/_posts/prompt",
     "source/_posts/claude的公众号文章.md",
     "source/_posts/上海东京房价走势分析.md",
     "source/img/Anthropic的开创和发展.png",
@@ -329,7 +332,6 @@
     "source/index.md",
     "source/_posts/2026年全球顺丁橡胶（BR）市场深度供需错配分析及趋势展望报告.md",
     "source/_posts/深度解码米其林2025趋势：-20%的北美寒冬与+9%的中国韧性：米其林2026年1月核心观点总结.md",
-    "source/_posts/全球大宗商品市场交易时间微观结构与流动性周期深度研究报告.md",
     "source/img/我用ai做了啥.jpg.crdownload",
     "Prompts",
     "Clippings",
@@ -338,7 +340,6 @@
     "source/_posts/candlestick-analyzer.skill",
     "source/_posts/candlestick-analyzer/scripts/example_script.cjs",
     "source/_posts/candlestick-analyzer/assets/example_asset.txt",
-    "candlestick-analyzer/references",
-    "candlestick-analyzer/scripts"
+    "candlestick-analyzer/references"
   ]
 }
