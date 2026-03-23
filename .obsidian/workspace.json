@@ -234,7 +234,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
-              "title": "Tags"
+              "title": "标签"
             }
           },
           {
@@ -257,13 +257,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/2026-03-15-figure-ai-the-robot-that-learns-like-human.md",
+                "file": "source/_posts/2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2026-03-15-figure-ai-the-robot-that-learns-like-human 的大纲"
+              "title": "2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来 的大纲"
             }
           },
           {
@@ -287,7 +287,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -307,7 +307,7 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "8ab0a9cba92bc784",
+  "active": "0f576a349b9d01a6",
   "lastOpenFiles": [
     "source/_posts/硅基流动的免费token软文推荐.md",
     "source/_posts/2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来.md",
