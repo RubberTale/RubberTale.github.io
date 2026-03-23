@@ -113,16 +113,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来.md",
+                "file": "source/_posts/2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来"
+              "title": "2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧"
+            }
+          },
+          {
+            "id": "0f9137889bb90f42",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/中国期货的影响因素.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "中国期货的影响因素"
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -257,13 +271,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来.md",
+                "file": "source/_posts/中国期货的影响因素.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来 的大纲"
+              "title": "中国期货的影响因素 的大纲"
             }
           },
           {
@@ -307,9 +321,11 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "8ab0a9cba92bc784",
+  "active": "0f9137889bb90f42",
   "lastOpenFiles": [
     "source/_posts/2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧.md",
+    "source/_posts/中国期货的影响因素.md",
+    "source/_posts/2026波斯湾地缘观察：治理重组与航道博弈的深度推演.md",
     "source/_posts/2026年伊朗地缘政治与军事安全深度评估报告：政权更迭、武装力量现状与霍尔木兹海峡的未来.md",
     "source/_posts/硅基流动的免费token软文推荐.md",
     "source/img/龙虾免费token.png",
@@ -344,8 +360,6 @@
     "source/_posts/全球天然橡胶主产区转移的历史沿革、底层逻辑与未来趋势深度研判.md",
     "source/_posts/零关税后，非洲胶如何影响未来天然橡胶市场？.md",
     "source/_posts/资本、生态与技术的百年博弈：全球橡胶产业的演进逻辑与未来重塑.md",
-    "source/_posts/联邦储备系统的新纪元：凯文·沃什（Kevin Warsh）的政策逻辑、权力博弈与全球大宗商品市场重构.md",
-    "source/_posts/巨象的觉醒与跨越：印度基础设施建设全景剖析及中印模式深度比较.md",
     "source/img/我用ai做了啥.jpg.crdownload",
     "Prompts",
     "Clippings",
