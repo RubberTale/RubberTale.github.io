@@ -1,3 +1,11 @@
+---
+title: Claude的公众号文章
+date: 2026-03-24 16:00:00
+tags:
+  - AI
+  - Anthropic
+categories: 科技深度
+---
 写一篇介绍Anthropic的文章。
 1. 创始人Dario原来在openai工作，但由于理念不同，希望能够保证安全后再推出市场。
 他为什么会做ai，因为父亲癌症过世，他觉得如果当时有更智能的ai，也许能救活父亲。
@@ -14,4 +22,3 @@
 7. Anthropic是一个公益类公司，这类公司对它的好处是？
 8. 做安全的ai写进了公司章程里
 9. Openai, Xai, Anthropic, Gemini，他们的理念各有什么不同？
-
