@@ -38,6 +38,17 @@ jobs:
       - name: 生成静态文件 (Hexo Generate)
         run: hexo generate
 
+      - name: 构建 Reverse App
+        working-directory: ./reverse-app
+        run: |
+          npm install
+          npm run build
+
+      - name: 将 Reverse App 移动到 public 目录
+        run: |
+          mkdir -p public/reverse-app
+          cp -r reverse-app/dist/* public/reverse-app/
+
       - name: 上传构建产物
         uses: actions/upload-pages-artifact@v3
         with:
