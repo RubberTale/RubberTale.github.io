@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/橡胶大事记/橡胶大事记提纲.md",
+                "file": "source/_posts/黄金大跌与政治经济事件.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "橡胶大事记提纲"
+              "title": "黄金大跌与政治经济事件"
             }
           }
         ],
@@ -309,23 +309,27 @@
   },
   "active": "8ab0a9cba92bc784",
   "lastOpenFiles": [
+    "source/_posts/2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧.md",
+    "source/_posts/吴计划：那个推倒北大南墙的人，与他心中的《资本论》.md",
+    "source/_posts/2026-03-13-anthropic-the-story-behind-claude.md",
+    "source/_posts/2026-03-15-figure-ai-the-robot-that-learns-like-human.md",
+    "source/_posts/我用ai都干了啥？.md",
+    "source/_posts/中国期货的影响因素.md",
+    "source/_posts/待ai完善修改：太空堡垒的一些想法.md",
+    "source/_posts/claude的公众号文章.md",
+    "source/_posts/橡胶大事记/橡胶大事记提纲.md",
     "source/_posts/橡胶大事记/正文/1.1 橡胶树的起源.md",
     "source/_posts/日本蜡烛图技术：十字启明星形态和十字黄昏星形态.md",
     "source/_posts/xlj.md",
     "source/_posts/Untitled.md",
     "source/_posts/这是一篇测试文.md",
     "source/_posts/2025-12-23-market-summary.md",
-    "source/_posts/建立云数据库.md",
-    "source/_posts/中国期货的影响因素.md",
-    "source/_posts/claude的公众号文章.md",
-    "source/_posts/待ai完善修改：太空堡垒的一些想法.md",
     "source/_posts/上海东京房价走势分析.md",
     "source/_posts/橡胶大事记/正文/2.1 中美洲文明与橡胶.md",
     "source/_posts/橡胶大事记/正文/1.4 橡胶树的自然分布与生态环境.md",
     "source/_posts/橡胶大事记/正文/1.2 橡胶的自然属性.md",
     "source/_posts/橡胶大事记/正文/1.3 远古时代的橡胶.md",
     "source/_posts/资本配置的艺术：深度解析伯克希尔·哈撒韦重仓日本股市的战略逻辑与套利机制.md",
-    "source/_posts/2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧.md",
     "source/_posts/2026波斯湾地缘观察：治理重组与航道博弈的深度推演.md",
     "source/img/中国期货的影响因素.png",
     "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/semver/functions/rcompare.js",
@@ -342,10 +346,6 @@
     "reverse-app/node_modules/@typescript-eslint/visitor-keys/node_modules/eslint-visitor-keys/README.md",
     "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/semver/README.md",
     "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/balanced-match/README.md",
-    "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/balanced-match/LICENSE.md",
-    "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch/README.md",
-    "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch/LICENSE.md",
-    "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion/README.md",
     "reverse-app/src/assets/vite.svg",
     "reverse-app/src/assets/react.svg",
     "reverse-app/src/assets/hero.png",
