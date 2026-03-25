@@ -127,12 +127,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧.md",
+                "file": "source/_posts/橡胶大事记/正文/1.2 橡胶的自然属性.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧"
+              "title": "1.2 橡胶的自然属性"
             }
           }
         ],
@@ -323,6 +323,10 @@
   },
   "active": "0f9137889bb90f42",
   "lastOpenFiles": [
+    "source/_posts/橡胶大事记/正文/1.3 远古时代的橡胶.md",
+    "source/_posts/橡胶大事记/正文/1.1 橡胶树的起源.md",
+    "source/_posts/橡胶大事记/正文/1.4 橡胶树的自然分布与生态环境.md",
+    "source/_posts/2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧.md",
     "source/_posts/2026波斯湾地缘观察：治理重组与航道博弈的深度推演.md",
     "source/_posts/中国期货的影响因素.md",
     "source/img/中国期货的影响因素.png",
@@ -356,10 +360,6 @@
     "reverse-app/node_modules/@typescript-eslint/typescript-estree/README.md",
     "reverse-app/node_modules/@eslint/eslintrc/README.md",
     "reverse-app/node_modules/@typescript-eslint/tsconfig-utils/README.md",
-    "reverse-app/node_modules/@typescript-eslint/types/README.md",
-    "reverse-app/node_modules/@typescript-eslint/scope-manager/README.md",
-    "reverse-app/node_modules/@typescript-eslint/project-service/README.md",
-    "reverse-app/node_modules/@typescript-eslint/parser/README.md",
     "reverse-app/src/assets/vite.svg",
     "reverse-app/src/assets/react.svg",
     "reverse-app/src/assets/hero.png",
