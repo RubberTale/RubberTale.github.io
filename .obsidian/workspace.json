@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/黄金大跌与政治经济事件.md",
+                "file": "source/_posts/中国期货主力合约切换规律分析报告 —— 以天然橡胶（RU）为例.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "黄金大跌与政治经济事件"
+              "title": "中国期货主力合约切换规律分析报告 —— 以天然橡胶（RU）为例"
             }
           }
         ],
@@ -309,6 +309,8 @@
   },
   "active": "8ab0a9cba92bc784",
   "lastOpenFiles": [
+    "source/_posts/黄金大跌与政治经济事件.md",
+    "source/_posts/中国期货主力合约切换规律分析报告 —— 以天然橡胶（RU）为例.md",
     "source/_posts/2026年伊朗战时处决：萨利赫·穆罕默迪与赛义德·达乌迪的悲剧.md",
     "source/_posts/吴计划：那个推倒北大南墙的人，与他心中的《资本论》.md",
     "source/_posts/2026-03-13-anthropic-the-story-behind-claude.md",
@@ -344,8 +346,6 @@
     "reverse-app/node_modules/eslint/lib/languages/js/source-code/token-store/decorative-cursor.js",
     "reverse-app/node_modules/rolldown/node_modules/@rolldown/pluginutils/README.md",
     "reverse-app/node_modules/@typescript-eslint/visitor-keys/node_modules/eslint-visitor-keys/README.md",
-    "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/semver/README.md",
-    "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/balanced-match/README.md",
     "reverse-app/src/assets/vite.svg",
     "reverse-app/src/assets/react.svg",
     "reverse-app/src/assets/hero.png",
