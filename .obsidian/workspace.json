@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/橡胶大事记/正文/4.1 查尔斯·麦金托什与防水外套.md",
+                "file": "source/_posts/2.3 土著民族对橡胶的原始加工与日常应用.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4.1 查尔斯·麦金托什与防水外套"
+              "title": "2.3 土著民族对橡胶的原始加工与日常应用"
             }
           }
         ],
@@ -309,6 +309,7 @@
   },
   "active": "8ab0a9cba92bc784",
   "lastOpenFiles": [
+    "source/_posts/橡胶大事记/正文/4.1 查尔斯·麦金托什与防水外套.md",
     "source/_posts/橡胶大事记/正文/3.1 哥伦布与西班牙探险者的记录.md",
     "source/_posts/橡胶大事记/正文/3.2 拉·孔达明的南美考察.md",
     "source/_posts/橡胶大事记/正文/1.4 橡胶树的自然分布与生态环境.md",
@@ -336,7 +337,6 @@
     "source/_posts/2026-03-15-figure-ai-the-robot-that-learns-like-human.md",
     "source/_posts/我用ai都干了啥？.md",
     "source/_posts/中国期货的影响因素.md",
-    "source/_posts/待ai完善修改：太空堡垒的一些想法.md",
     "source/img/中国期货的影响因素.png",
     "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/semver/functions/rcompare.js",
     "reverse-app/node_modules/eslint/lib/languages/js/source-code/token-store/utils.js",
