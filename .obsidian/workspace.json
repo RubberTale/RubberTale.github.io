@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/橡胶大事记/正文/4.2 托马斯·汉考克的橡胶加工实验.md",
+                "file": "source/_posts/橡胶大事记/正文/4.1 查尔斯·麦金托什与防水外套.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4.2 托马斯·汉考克的橡胶加工实验"
+              "title": "4.1 查尔斯·麦金托什与防水外套"
             }
           }
         ],
@@ -309,6 +309,11 @@
   },
   "active": "8ab0a9cba92bc784",
   "lastOpenFiles": [
+    "source/_posts/橡胶大事记/正文/3.1 哥伦布与西班牙探险者的记录.md",
+    "source/_posts/橡胶大事记/正文/3.2 拉·孔达明的南美考察.md",
+    "source/_posts/橡胶大事记/正文/1.4 橡胶树的自然分布与生态环境.md",
+    "source/_posts/橡胶大事记/正文/1.3 远古时代的橡胶.md",
+    "source/_posts/橡胶大事记/正文/4.2 托马斯·汉考克的橡胶加工实验.md",
     "source/_posts/橡胶大事记/正文/2.2 橡胶在古代宗教仪式与球赛中的角色.md",
     "source/_posts/橡胶大事记/正文/2.1 中美洲文明与橡胶.md",
     "source/_posts/橡胶大事记/正文/1.1 橡胶树的起源.md",
@@ -332,11 +337,6 @@
     "source/_posts/我用ai都干了啥？.md",
     "source/_posts/中国期货的影响因素.md",
     "source/_posts/待ai完善修改：太空堡垒的一些想法.md",
-    "source/_posts/claude的公众号文章.md",
-    "source/_posts/橡胶大事记/橡胶大事记提纲.md",
-    "source/_posts/xlj.md",
-    "source/_posts/Untitled.md",
-    "source/_posts/这是一篇测试文.md",
     "source/img/中国期货的影响因素.png",
     "reverse-app/node_modules/@typescript-eslint/typescript-estree/node_modules/semver/functions/rcompare.js",
     "reverse-app/node_modules/eslint/lib/languages/js/source-code/token-store/utils.js",
