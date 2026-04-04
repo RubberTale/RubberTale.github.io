@@ -1,6 +1,7 @@
 ---
 title: 图表库
 date: 2025-12-28
+layout: page
 ---
 
 ## 我的图表
