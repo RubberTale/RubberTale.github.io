@@ -1,14 +1,16 @@
 ---
 title: 重塑美索不达米亚：2003年后伊拉克石油工业的外资参与、地缘政治博弈与能源版图演变
 date: 2026-01-13 13:18:31
-tags: []
+tags: [地缘政治, 石油, 伊拉克]
 categories: 
+  - 地缘政治
 ---
-%% ```mermaid
+
+```mermaid
 graph TD;
   A[终于] --> B{成功了吗?};
   B -- Yes --> C[搞定!];
-``` %%
+```
 
 ![image.png](https://cdn.jsdelivr.net/gh/rubbertale/pic-go/img/20260113082524.png)
 
