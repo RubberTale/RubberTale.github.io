@@ -352,6 +352,8 @@ aside:
     enable: true
     post_count: true
     last_push_date: true
+    site_uv: true
+    site_pv: true
     sort_order:
     # Time difference between publish date and now
     # Formal: Month/Day/Year Time or Year/Month/Day Time
