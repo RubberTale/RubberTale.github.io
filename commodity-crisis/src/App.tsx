@@ -188,26 +188,26 @@ const App: React.FC = () => {
   return (
     <div className={getContainerClass()}>
       <header className="header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-          <Activity size={32} color="#ffd700" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <Activity size={28} color="#ffd700" />
           <div>
-            <h1 style={{ margin: 0, fontSize: '24px' }}>期货风云</h1>
-            <div style={{ display: 'flex', gap: '10px', marginTop: '4px', flexWrap: 'wrap' }}>
-              <a href="/" style={{ color: '#aaa', fontSize: '12px', textDecoration: 'none', border: '1px solid #444', padding: '2px 8px', borderRadius: '4px' }}>返回博客主页</a>
+            <h1 style={{ margin: 0, fontSize: '22px' }}>期货风云</h1>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
+              <a href="/" style={{ color: '#aaa', fontSize: '11px', textDecoration: 'none', border: '1px solid #444', padding: '1px 6px', borderRadius: '3px' }}>返回首页</a>
               <button 
                 onClick={() => setViewMode(prev => prev === 'mobile' ? 'desktop' : 'mobile')}
-                style={{ background: 'none', border: '1px solid #444', color: '#ffd700', fontSize: '12px', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' }}
+                style={{ background: 'none', border: '1px solid #444', color: '#ffd700', fontSize: '11px', padding: '1px 6px', borderRadius: '3px', cursor: 'pointer' }}
               >
-                切换至{viewMode === 'mobile' ? '电脑版' : '手机版'}
+                切至{viewMode === 'mobile' ? '电脑' : '手机'}
               </button>
-              <span id="busuanzi_container_page_pv" style={{ color: '#666', fontSize: '12px' }}>
+              <span id="busuanzi_container_page_pv" style={{ color: '#666', fontSize: '11px' }}>
                 访客: <span id="busuanzi_value_page_pv"></span>
               </span>
             </div>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '30px', fontSize: '18px' }}>
-          <div style={{ color: '#888' }}>净资产: <span style={{ color: equity > 10000 ? '#26a69a' : '#ef5350' }}>${equity.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></div>
+        <div className="header-stats">
+          <div style={{ color: '#888' }}>净资产: <span style={{ color: equity > 10000 ? '#26a69a' : '#ef5350', fontWeight: 'bold' }}>${equity.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></div>
           <div style={{ color: '#888' }}>可用余额: <span style={{ color: '#fff' }}>${balance.toLocaleString(undefined, {maximumFractionDigits: 0})}</span></div>
         </div>
       </header>
@@ -221,23 +221,23 @@ const App: React.FC = () => {
               </div>
             ))}
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-            <div style={{ fontSize: '24px', fontWeight: 'bold' }}>{prices[activeAsset].toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <div style={{ fontSize: '22px', fontWeight: 'bold' }}>{prices[activeAsset].toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
             <div className={prices[activeAsset] >= priceHistory[activeAsset][0] ? 'price-up' : 'price-down'}>
               {((prices[activeAsset] / priceHistory[activeAsset][0] - 1) * 100).toFixed(2)}%
             </div>
           </div>
-          <div style={{ height: '300px', width: '100%', background: '#111', borderRadius: '4px' }}>{renderChart()}</div>
+          <div style={{ height: '260px', width: '100%', background: '#111', borderRadius: '4px' }}>{renderChart()}</div>
         </div>
 
         <div className="card news-panel">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px', color: '#ffd700' }}>
-            <Newspaper size={20} /><h3 style={{ margin: 0 }}>实时新闻快讯</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', color: '#ffd700' }}>
+            <Newspaper size={18} /><h3 style={{ margin: 0, fontSize: '16px' }}>实时快讯</h3>
           </div>
-          {news.length === 0 && <div style={{ color: '#555', textAlign: 'center', marginTop: '20px' }}>等待市场行情事件...</div>}
+          {news.length === 0 && <div style={{ color: '#555', textAlign: 'center', marginTop: '10px' }}>等待市场行情...</div>}
           {news.map(item => (
             <div key={item.id} className="news-item">
-              <span style={{ color: '#888', marginRight: '10px' }}>[{new Date(item.id).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}]</span>
+              <span style={{ color: '#888', marginRight: '8px', fontSize: '12px' }}>[{new Date(item.id).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}]</span>
               {item.text}
             </div>
           ))}
@@ -246,48 +246,48 @@ const App: React.FC = () => {
 
       <aside className="sidebar">
         <div className="card trading-panel">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-            <Wallet size={20} color="#ffd700" /><h3 style={{ margin: 0 }}>交易 {ASSET_CONFIG[activeAsset].name}</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <Wallet size={18} color="#ffd700" /><h3 style={{ margin: 0, fontSize: '16px' }}>交易 {ASSET_CONFIG[activeAsset].name}</h3>
           </div>
-          <div style={{ fontSize: '14px', color: '#888', marginBottom: '10px' }}>杠杆倍数: {LEVERAGE}x</div>
-          <div style={{ marginBottom: '15px' }}>
-            <div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>资金使用率: {(utilizationRate * 100).toFixed(0)}%</div>
+          <div style={{ fontSize: '13px', color: '#888', marginBottom: '8px' }}>杠杆倍数: {LEVERAGE}x</div>
+          <div style={{ marginBottom: '12px' }}>
+            <div style={{ fontSize: '12px', color: '#888', marginBottom: '6px' }}>资金使用率: {(utilizationRate * 100).toFixed(0)}%</div>
             <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
               {[0.1, 0.3, 0.5, 0.8, 1.0].map(rate => (
-                <button key={rate} onClick={() => setUtilizationRate(rate)} style={{ padding: '4px 6px', fontSize: '11px', background: utilizationRate === rate ? '#444' : '#222', border: utilizationRate === rate ? '1px solid #ffd700' : '1px solid #444', borderRadius: '4px', color: '#fff', cursor: 'pointer', flex: '1 0 30%' }}>
+                <button key={rate} onClick={() => setUtilizationRate(rate)} style={{ padding: '4px 0', fontSize: '11px', background: utilizationRate === rate ? '#444' : '#222', border: utilizationRate === rate ? '1px solid #ffd700' : '1px solid #444', borderRadius: '4px', color: '#fff', cursor: 'pointer', flex: '1 0 30%', minWidth: '50px' }}>
                   {rate * 100}%
                 </button>
               ))}
             </div>
           </div>
-          <button className="btn btn-long" onClick={() => openPosition(1)} disabled={!!position} style={{ width: '100%', marginBottom: '10px' }}>买入 / 做多</button>
-          <button className="btn btn-short" onClick={() => openPosition(-1)} disabled={!!position} style={{ width: '100%' }}>卖出 / 做空</button>
+          <button className="btn btn-long" onClick={() => openPosition(1)} disabled={!!position}>买入 / 做多</button>
+          <button className="btn btn-short" onClick={() => openPosition(-1)} disabled={!!position} style={{ marginTop: '8px' }}>卖出 / 做空</button>
           {position && (
-            <div style={{ marginTop: '20px', padding: '15px', background: '#222', borderRadius: '4px', borderLeft: `4px solid ${position.direction === 1 ? '#26a69a' : '#ef5350'}` }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                <span>{position.direction === 1 ? '做多' : '做空'} {ASSET_CONFIG[position.asset].name}</span>
-                <span className={unrealizedPnL >= 0 ? 'price-up' : 'price-down'}>{unrealizedPnL >= 0 ? '+' : ''}{unrealizedPnL.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            <div style={{ marginTop: '15px', padding: '12px', background: '#222', borderRadius: '4px', borderLeft: `4px solid ${position.direction === 1 ? '#26a69a' : '#ef5350'}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <span style={{ fontSize: '14px' }}>{position.direction === 1 ? '做多' : '做空'} {ASSET_CONFIG[position.asset].name}</span>
+                <span className={unrealizedPnL >= 0 ? 'price-up' : 'price-down'} style={{ fontWeight: 'bold' }}>{unrealizedPnL >= 0 ? '+' : ''}{unrealizedPnL.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
               </div>
-              <div style={{ fontSize: '12px', color: '#888' }}>开仓价: ${position.entryPrice.toFixed(2)}</div>
-              <button className="btn btn-close" style={{ width: '100%', marginTop: '15px' }} onClick={closePosition}>平仓</button>
+              <div style={{ fontSize: '11px', color: '#888' }}>开仓价: ${position.entryPrice.toFixed(2)}</div>
+              <button className="btn btn-close" style={{ marginTop: '10px', padding: '8px' }} onClick={closePosition}>平仓</button>
             </div>
           )}
         </div>
         <div className="card">
-          <h3 style={{ margin: '0 0 15px 0', fontSize: '16px' }}>实时风控</h3>
-          <div style={{ height: '10px', background: '#333', borderRadius: '5px', overflow: 'hidden' }}>
+          <h3 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>实时风控</h3>
+          <div style={{ height: '8px', background: '#333', borderRadius: '4px', overflow: 'hidden' }}>
             <div style={{ height: '100%', width: `${Math.min(100, (currentUtilization / 1.2) * 100)}%`, background: currentUtilization > 1.0 ? '#ef5350' : '#26a69a' }} />
           </div>
-          <div style={{ fontSize: '12px', color: '#888', marginTop: '10px', textAlign: 'center' }}>实时资金使用率: {(currentUtilization * 100).toFixed(1)}% / 120%</div>
+          <div style={{ fontSize: '11px', color: '#888', marginTop: '8px', textAlign: 'center' }}>资金使用率: {(currentUtilization * 100).toFixed(1)}% / 120%</div>
         </div>
       </aside>
 
       {isLiquidated && (
         <div className="liquidation-overlay">
-          <AlertTriangle size={64} color="#ef5350" />
-          <h1 style={{ color: '#ef5350', fontSize: '48px', margin: '20px 0' }}>爆仓！</h1>
-          <p style={{ fontSize: '20px', color: '#888' }}>您的净资产已亏损殆尽，账户已被强制平仓。</p>
-          <button className="btn btn-long" style={{ marginTop: '30px', padding: '15px 40px' }} onClick={() => window.location.reload()}>重新开始职业生涯</button>
+          <AlertTriangle size={48} color="#ef5350" />
+          <h1 style={{ color: '#ef5350', fontSize: '36px', margin: '15px 0' }}>爆仓！</h1>
+          <p style={{ fontSize: '16px', color: '#888' }}>您的净资产已亏损殆尽。</p>
+          <button className="btn btn-long" style={{ marginTop: '20px', padding: '12px 30px', width: 'auto' }} onClick={() => window.location.reload()}>重新开始职业生涯</button>
         </div>
       )}
     </div>
