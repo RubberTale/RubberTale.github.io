@@ -4,6 +4,31 @@ date: 2026-04-06 10:00:00
 aside: false
 ---
 
+<style>
+/* 强制内容区域全宽 */
+#content-inner {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 10px !important;
+}
+#page {
+  width: 100% !important;
+  padding: 20px 0 !important;
+}
+.flink-list-item {
+  width: calc(25% - 15px) !important; /* 让一行显示更多卡片 */
+}
+@media screen and (max-width: 1200px) {
+  .flink-list-item { width: calc(33.333% - 15px) !important; }
+}
+@media screen and (max-width: 768px) {
+  .flink-list-item { width: calc(50% - 15px) !important; }
+}
+@media screen and (max-width: 500px) {
+  .flink-list-item { width: 100% !important; }
+}
+</style>
+
 欢迎来到期货实验室！这里收集了一些互动的期货交易小游戏，帮助你在娱乐中理解市场逻辑。
 
 <div class="flink">
