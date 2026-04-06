@@ -15,7 +15,7 @@ interface NewsEvent {
 
 interface Position {
   asset: AssetType;
-  direction: 1 | -1; // 1 for Long, -1 for Short
+  direction: 1 | -1;
   entryPrice: number;
   size: number;
 }
@@ -48,73 +48,51 @@ const NEWS_POOL: Omit<NewsEvent, 'id' | 'type'>[] = [
 ];
 
 const App: React.FC = () => {
-  // --- State ---
   const [balance, setBalance] = useState(10000);
   const [viewMode, setViewMode] = useState<ViewMode>('auto');
   const [prices, setPrices] = useState<Record<AssetType, number>>({
-    OIL: ASSET_CONFIG.OIL.basePrice,
-    GOLD: ASSET_CONFIG.GOLD.basePrice,
-    WHEAT: ASSET_CONFIG.WHEAT.basePrice,
-    MA: ASSET_CONFIG.MA.basePrice,
-    CU: ASSET_CONFIG.CU.basePrice,
-    RU: ASSET_CONFIG.RU.basePrice,
-    TBOND: ASSET_CONFIG.TBOND.basePrice,
+    OIL: ASSET_CONFIG.OIL.basePrice, GOLD: ASSET_CONFIG.GOLD.basePrice, WHEAT: ASSET_CONFIG.WHEAT.basePrice,
+    MA: ASSET_CONFIG.MA.basePrice, CU: ASSET_CONFIG.CU.basePrice, RU: ASSET_CONFIG.RU.basePrice, TBOND: ASSET_CONFIG.TBOND.basePrice
   });
   const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>({
-    OIL: [ASSET_CONFIG.OIL.basePrice],
-    GOLD: [ASSET_CONFIG.GOLD.basePrice],
-    WHEAT: [ASSET_CONFIG.WHEAT.basePrice],
-    MA: [ASSET_CONFIG.MA.basePrice],
-    CU: [ASSET_CONFIG.CU.basePrice],
-    RU: [ASSET_CONFIG.RU.basePrice],
-    TBOND: [ASSET_CONFIG.TBOND.basePrice],
+    OIL: [ASSET_CONFIG.OIL.basePrice], GOLD: [ASSET_CONFIG.GOLD.basePrice], WHEAT: [ASSET_CONFIG.WHEAT.basePrice],
+    MA: [ASSET_CONFIG.MA.basePrice], CU: [ASSET_CONFIG.CU.basePrice], RU: [ASSET_CONFIG.RU.basePrice], TBOND: [ASSET_CONFIG.TBOND.basePrice]
   });
   const [activeAsset, setActiveAsset] = useState<AssetType>('OIL');
   const [position, setPosition] = useState<Position | null>(null);
   const [news, setNews] = useState<NewsEvent[]>([]);
   const [ticks, setTicks] = useState(0);
-  const [isLiquidated, setIsLiquated] = useState(false);
+  const [isLiquated, setIsLiquated] = useState(false);
   const [utilizationRate, setUtilizationRate] = useState(0.8); 
 
-  // --- Refs ---
   const activeImpactsRef = useRef<Record<AssetType, number>>({ 
     OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 
   });
 
-  // --- Calculations ---
   const unrealizedPnL = useMemo(() => {
     if (!position) return 0;
-    const currentPrice = prices[position.asset];
-    return (currentPrice - position.entryPrice) * position.direction * position.size * LEVERAGE;
+    return (prices[position.asset] - position.entryPrice) * position.direction * position.size * LEVERAGE;
   }, [position, prices]);
 
   const equity = balance + unrealizedPnL;
-
   const currentUtilization = useMemo(() => {
     if (!position) return 0;
-    const initialMargin = position.entryPrice * position.size;
-    return initialMargin / Math.max(0.001, equity);
+    return (position.entryPrice * position.size) / Math.max(0.001, equity);
   }, [position, equity]);
 
-  // --- Market Engine ---
   useEffect(() => {
-    if (isLiquidated) return;
-
+    if (isLiquated) return;
     const timer = setInterval(() => {
       setTicks(t => t + 1);
-
-      setPrices(prevPrices => {
-        const nextPrices = { ...prevPrices };
+      setPrices(prev => {
+        const next = { ...prev };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
-          const config = ASSET_CONFIG[asset];
-          const randomWalk = (Math.random() - 0.5) * 2 * config.vol;
-          const newsImpact = activeImpactsRef.current[asset];
-          nextPrices[asset] = prevPrices[asset] * (1 + randomWalk + newsImpact);
+          const randomWalk = (Math.random() - 0.5) * 2 * ASSET_CONFIG[asset].vol;
+          next[asset] = prev[asset] * (1 + randomWalk + activeImpactsRef.current[asset]);
           activeImpactsRef.current[asset] *= 0.85;
         });
-        return nextPrices;
+        return next;
       });
-
       setPriceHistory(prev => {
         const next = { ...prev };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
@@ -122,172 +100,125 @@ const App: React.FC = () => {
         });
         return next;
       });
-
       if (ticks > 0 && ticks % NEWS_INTERVAL_TICKS === 0) {
-        const randomNews = NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)];
         const rand = Math.random();
-        const type = (rand > 0.85 ? 'INVERSE' : (rand > 0.7 ? 'NONE' : 'NORMAL')) as 'NORMAL' | 'INVERSE' | 'NONE';
-        const newEvent: NewsEvent = { ...randomNews, id: Date.now(), type };
+        const type = (rand > 0.85 ? 'INVERSE' : (rand > 0.7 ? 'NONE' : 'NORMAL')) as any;
+        const newEvent = { ...NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)], id: Date.now(), type };
         setNews(prev => [newEvent, ...prev].slice(0, 5));
         (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
-          let factor = 1;
-          if (type === 'INVERSE') factor = -0.6;
-          if (type === 'NONE') factor = 0.05;
+          let factor = type === 'INVERSE' ? -0.6 : (type === 'NONE' ? 0.05 : 1);
           activeImpactsRef.current[asset] += (newEvent.impact[asset] * factor) / 4; 
         });
       }
-
-      if (currentUtilization > 1.2) {
-        setIsLiquated(true);
-        clearInterval(timer);
-      }
+      if (currentUtilization > 1.2) { setIsLiquated(true); clearInterval(timer); }
     }, TICK_MS);
-
     return () => clearInterval(timer);
-  }, [ticks, prices, isLiquidated, currentUtilization]);
+  }, [ticks, prices, isLiquated, currentUtilization]);
 
-  // --- Trading Actions ---
   const openPosition = (dir: 1 | -1) => {
     if (position) return;
-    const currentPrice = prices[activeAsset];
-    const size = (balance * utilizationRate) / currentPrice;
-    setPosition({ asset: activeAsset, direction: dir, entryPrice: currentPrice, size: size });
+    const price = prices[activeAsset];
+    setPosition({ asset: activeAsset, direction: dir, entryPrice: price, size: (balance * utilizationRate) / price });
   };
 
-  const closePosition = () => {
-    if (!position) return;
-    setBalance(prev => prev + unrealizedPnL);
-    setPosition(null);
-  };
-
-  // --- Rendering Helpers ---
-  const renderChart = () => {
-    const data = priceHistory[activeAsset];
-    const min = Math.min(...data) * 0.99;
-    const max = Math.max(...data) * 1.01;
-    const range = max - min;
-    return (
-      <svg width="100%" height="100%" viewBox="0 0 500 300" preserveAspectRatio="none">
-        <polyline
-          fill="none"
-          stroke={data[data.length-1] >= data[0] ? "#26a69a" : "#ef5350"}
-          strokeWidth="2"
-          points={data.map((p, i) => `${(i / (data.length - 1)) * 500},${300 - ((p - min) / range) * 300}`).join(' ')}
-        />
-      </svg>
-    );
-  };
-
-  const getContainerClass = () => {
-    let base = "app-container";
-    if (viewMode === 'mobile') return `${base} force-mobile`;
-    if (viewMode === 'desktop') return `${base} force-desktop`;
-    return base;
-  };
+  const closePosition = () => { if (position) { setBalance(prev => prev + unrealizedPnL); setPosition(null); } };
 
   return (
-    <div className={getContainerClass()}>
+    <div className={`app-container ${viewMode === 'mobile' ? 'force-mobile' : viewMode === 'desktop' ? 'force-desktop' : ''}`}>
       <header className="header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Activity size={28} color="#ffd700" />
+          <Activity size={32} color="#ffd700" />
           <div>
-            <h1 style={{ margin: 0, fontSize: '22px' }}>期货风云</h1>
+            <h1 style={{ margin: 0, fontSize: '24px' }}>期货风云</h1>
             <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
-              <a href="/" style={{ color: '#aaa', fontSize: '11px', textDecoration: 'none', border: '1px solid #444', padding: '1px 6px', borderRadius: '3px' }}>返回首页</a>
-              <button 
-                onClick={() => setViewMode(prev => prev === 'mobile' ? 'desktop' : 'mobile')}
-                style={{ background: 'none', border: '1px solid #444', color: '#ffd700', fontSize: '11px', padding: '1px 6px', borderRadius: '3px', cursor: 'pointer' }}
-              >
+              <a href="/" style={{ color: '#aaa', fontSize: '12px', textDecoration: 'none', border: '1px solid #444', padding: '2px 8px', borderRadius: '4px' }}>返回首页</a>
+              <button onClick={() => setViewMode(prev => prev === 'mobile' ? 'desktop' : 'mobile')} style={{ background: 'none', border: '1px solid #444', color: '#ffd700', fontSize: '12px', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' }}>
                 切至{viewMode === 'mobile' ? '电脑' : '手机'}
               </button>
-              <span id="busuanzi_container_page_pv" style={{ color: '#666', fontSize: '11px' }}>
-                访客: <span id="busuanzi_value_page_pv"></span>
-              </span>
+              <span id="busuanzi_container_page_pv" style={{ color: '#666', fontSize: '12px' }}>访客: <span id="busuanzi_value_page_pv"></span></span>
             </div>
           </div>
         </div>
         <div className="header-stats">
-          <div style={{ color: '#888' }}>净资产: <span style={{ color: equity > 10000 ? '#26a69a' : '#ef5350', fontWeight: 'bold' }}>${equity.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></div>
-          <div style={{ color: '#888' }}>可用余额: <span style={{ color: '#fff' }}>${balance.toLocaleString(undefined, {maximumFractionDigits: 0})}</span></div>
+          <div style={{ color: '#888' }}>净资产: <span style={{ color: equity > 10000 ? '#26a69a' : '#ef5350', fontWeight: 'bold' }}>${equity.toLocaleString(undefined, {minimumFractionDigits: 2})}</span></div>
+          <div style={{ color: '#888' }}>余额: <span style={{ color: '#fff' }}>${balance.toLocaleString(undefined, {maximumFractionDigits: 0})}</span></div>
         </div>
       </header>
 
-      <main className="main-content">
-        <div className="card chart-container">
-          <div className="asset-selector">
-            {(Object.keys(ASSET_CONFIG) as AssetType[]).map(asset => (
-              <div key={asset} className={`asset-tab ${activeAsset === asset ? 'active' : ''}`} onClick={() => setActiveAsset(asset)}>
-                {ASSET_CONFIG[asset].icon} {ASSET_CONFIG[asset].name}
-              </div>
-            ))}
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <div style={{ fontSize: '22px', fontWeight: 'bold' }}>{prices[activeAsset].toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
-            <div className={prices[activeAsset] >= priceHistory[activeAsset][0] ? 'price-up' : 'price-down'}>
-              {((prices[activeAsset] / priceHistory[activeAsset][0] - 1) * 100).toFixed(2)}%
+      <div className="card chart-card">
+        <div className="asset-selector">
+          {(Object.keys(ASSET_CONFIG) as AssetType[]).map(asset => (
+            <div key={asset} className={`asset-tab ${activeAsset === asset ? 'active' : ''}`} onClick={() => setActiveAsset(asset)}>
+              {ASSET_CONFIG[asset].icon} {ASSET_CONFIG[asset].name}
             </div>
-          </div>
-          <div style={{ height: '260px', width: '100%', background: '#111', borderRadius: '4px' }}>{renderChart()}</div>
+          ))}
         </div>
-
-        <div className="card news-panel">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', color: '#ffd700' }}>
-            <Newspaper size={18} /><h3 style={{ margin: 0, fontSize: '16px' }}>实时快讯</h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+          <div style={{ fontSize: '24px', fontWeight: 'bold' }}>{prices[activeAsset].toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+          <div className={prices[activeAsset] >= priceHistory[activeAsset][0] ? 'price-up' : 'price-down'}>
+            {((prices[activeAsset] / priceHistory[activeAsset][0] - 1) * 100).toFixed(2)}%
           </div>
-          {news.length === 0 && <div style={{ color: '#555', textAlign: 'center', marginTop: '10px' }}>等待市场行情...</div>}
+        </div>
+        <div className="chart-container">
+          <svg width="100%" height="100%" viewBox="0 0 500 300" preserveAspectRatio="none">
+            <polyline fill="none" stroke={priceHistory[activeAsset][priceHistory[activeAsset].length-1] >= priceHistory[activeAsset][0] ? "#26a69a" : "#ef5350"} strokeWidth="2"
+              points={priceHistory[activeAsset].map((p, i) => `${(i / (priceHistory[activeAsset].length - 1)) * 500},${300 - ((p - (Math.min(...priceHistory[activeAsset])*0.99)) / (Math.max(...priceHistory[activeAsset])*1.01 - Math.min(...priceHistory[activeAsset])*0.99)) * 300}`).join(' ')} />
+          </svg>
+        </div>
+      </div>
+
+      <div className="card trading-card">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+          <Wallet size={20} color="#ffd700" /><h3 style={{ margin: 0 }}>交易 {ASSET_CONFIG[activeAsset].name}</h3>
+        </div>
+        <div style={{ fontSize: '14px', color: '#888', marginBottom: '10px' }}>杠杆: {LEVERAGE}x | 使用率: {(utilizationRate * 100).toFixed(0)}%</div>
+        <div style={{ display: 'flex', gap: '5px', marginBottom: '15px', flexWrap: 'wrap' }}>
+          {[0.1, 0.3, 0.5, 0.8, 1.0].map(rate => (
+            <button key={rate} onClick={() => setUtilizationRate(rate)} style={{ flex: 1, padding: '6px', fontSize: '12px', background: utilizationRate === rate ? '#444' : '#222', border: utilizationRate === rate ? '1px solid #ffd700' : '1px solid #444', borderRadius: '4px', color: '#fff', cursor: 'pointer' }}>{rate*100}%</button>
+          ))}
+        </div>
+        <button className="btn btn-long" onClick={() => openPosition(1)} disabled={!!position} style={{ marginBottom: '10px' }}>买入 / 做多</button>
+        <button className="btn btn-short" onClick={() => openPosition(-1)} disabled={!!position}>卖出 / 做空</button>
+        {position && (
+          <div style={{ marginTop: '15px', padding: '15px', background: '#222', borderRadius: '4px', borderLeft: `4px solid ${position.direction === 1 ? '#26a69a' : '#ef5350'}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
+              <span>{position.direction === 1 ? '做多' : '做空'} {ASSET_CONFIG[position.asset].name}</span>
+              <span className={unrealizedPnL >= 0 ? 'price-up' : 'price-down'}>{unrealizedPnL >= 0 ? '+' : ''}{unrealizedPnL.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
+            </div>
+            <button className="btn btn-close" style={{ marginTop: '10px' }} onClick={closePosition}>平仓结算</button>
+          </div>
+        )}
+      </div>
+
+      <div className="card news-card">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px', color: '#ffd700' }}>
+          <Newspaper size={20} /><h3 style={{ margin: 0 }}>实时快讯</h3>
+        </div>
+        <div className="news-panel">
+          {news.length === 0 && <div style={{ color: '#555', textAlign: 'center' }}>等待行情事件...</div>}
           {news.map(item => (
             <div key={item.id} className="news-item">
-              <span style={{ color: '#888', marginRight: '8px', fontSize: '12px' }}>[{new Date(item.id).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'})}]</span>
+              <span style={{ color: '#888', marginRight: '8px' }}>[{new Date(item.id).toLocaleTimeString()}]</span>
               {item.text}
             </div>
           ))}
         </div>
-      </main>
+      </div>
 
-      <aside className="sidebar">
-        <div className="card trading-panel">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            <Wallet size={18} color="#ffd700" /><h3 style={{ margin: 0, fontSize: '16px' }}>交易 {ASSET_CONFIG[activeAsset].name}</h3>
-          </div>
-          <div style={{ fontSize: '13px', color: '#888', marginBottom: '8px' }}>杠杆倍数: {LEVERAGE}x</div>
-          <div style={{ marginBottom: '12px' }}>
-            <div style={{ fontSize: '12px', color: '#888', marginBottom: '6px' }}>资金使用率: {(utilizationRate * 100).toFixed(0)}%</div>
-            <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-              {[0.1, 0.3, 0.5, 0.8, 1.0].map(rate => (
-                <button key={rate} onClick={() => setUtilizationRate(rate)} style={{ padding: '4px 0', fontSize: '11px', background: utilizationRate === rate ? '#444' : '#222', border: utilizationRate === rate ? '1px solid #ffd700' : '1px solid #444', borderRadius: '4px', color: '#fff', cursor: 'pointer', flex: '1 0 30%', minWidth: '50px' }}>
-                  {rate * 100}%
-                </button>
-              ))}
-            </div>
-          </div>
-          <button className="btn btn-long" onClick={() => openPosition(1)} disabled={!!position}>买入 / 做多</button>
-          <button className="btn btn-short" onClick={() => openPosition(-1)} disabled={!!position} style={{ marginTop: '8px' }}>卖出 / 做空</button>
-          {position && (
-            <div style={{ marginTop: '15px', padding: '12px', background: '#222', borderRadius: '4px', borderLeft: `4px solid ${position.direction === 1 ? '#26a69a' : '#ef5350'}` }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                <span style={{ fontSize: '14px' }}>{position.direction === 1 ? '做多' : '做空'} {ASSET_CONFIG[position.asset].name}</span>
-                <span className={unrealizedPnL >= 0 ? 'price-up' : 'price-down'} style={{ fontWeight: 'bold' }}>{unrealizedPnL >= 0 ? '+' : ''}{unrealizedPnL.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
-              </div>
-              <div style={{ fontSize: '11px', color: '#888' }}>开仓价: ${position.entryPrice.toFixed(2)}</div>
-              <button className="btn btn-close" style={{ marginTop: '10px', padding: '8px' }} onClick={closePosition}>平仓</button>
-            </div>
-          )}
+      <div className="card risk-card">
+        <h3 style={{ margin: '0 0 15px 0', fontSize: '16px' }}>实时风控</h3>
+        <div style={{ height: '10px', background: '#333', borderRadius: '5px', overflow: 'hidden' }}>
+          <div style={{ height: '100%', width: `${Math.min(100, (currentUtilization / 1.2) * 100)}%`, background: currentUtilization > 1.0 ? '#ef5350' : '#26a69a' }} />
         </div>
-        <div className="card">
-          <h3 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>实时风控</h3>
-          <div style={{ height: '8px', background: '#333', borderRadius: '4px', overflow: 'hidden' }}>
-            <div style={{ height: '100%', width: `${Math.min(100, (currentUtilization / 1.2) * 100)}%`, background: currentUtilization > 1.0 ? '#ef5350' : '#26a69a' }} />
-          </div>
-          <div style={{ fontSize: '11px', color: '#888', marginTop: '8px', textAlign: 'center' }}>资金使用率: {(currentUtilization * 100).toFixed(1)}% / 120%</div>
-        </div>
-      </aside>
+        <div style={{ fontSize: '12px', color: '#888', marginTop: '10px', textAlign: 'center' }}>资金使用率: {(currentUtilization * 100).toFixed(1)}% / 120%</div>
+      </div>
 
-      {isLiquidated && (
+      {isLiquated && (
         <div className="liquidation-overlay">
-          <AlertTriangle size={48} color="#ef5350" />
-          <h1 style={{ color: '#ef5350', fontSize: '36px', margin: '15px 0' }}>爆仓！</h1>
-          <p style={{ fontSize: '16px', color: '#888' }}>您的净资产已亏损殆尽。</p>
-          <button className="btn btn-long" style={{ marginTop: '20px', padding: '12px 30px', width: 'auto' }} onClick={() => window.location.reload()}>重新开始职业生涯</button>
+          <AlertTriangle size={64} color="#ef5350" />
+          <h1 style={{ color: '#ef5350', fontSize: '48px', margin: '20px 0' }}>爆仓！</h1>
+          <p style={{ fontSize: '20px', color: '#888' }}>您的净资产已亏损殆尽。</p>
+          <button className="btn btn-long" style={{ marginTop: '30px', padding: '15px 40px', width: 'auto' }} onClick={() => window.location.reload()}>重新开始职业生涯</button>
         </div>
       )}
     </div>

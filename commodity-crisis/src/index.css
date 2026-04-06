@@ -12,12 +12,13 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* 严禁横向滚动 */
+  min-height: 100vh;
+  background-color: #0a0a0a;
 }
 
 body {
   display: flex;
-  min-height: 100vh;
+  flex-direction: column;
 }
 
 #root {
@@ -28,89 +29,82 @@ body {
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: 10px;
+  padding: 15px;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: auto 1fr;
-  gap: 15px;
-  height: 100vh;
-  overflow-x: hidden;
+  gap: 20px;
+  min-height: 100vh;
 }
 
-/* --- Mobile / Responsive Core --- */
+/* --- Responsive Layout --- */
 @media (max-width: 768px) {
   .app-container:not(.force-desktop) {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 15px;
     height: auto;
-    padding: 8px;
-    gap: 10px;
   }
 
-  .header {
+  .app-container:not(.force-desktop) .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     flex-direction: column;
     align-items: flex-start;
-    padding: 12px !important;
-    gap: 12px !important;
+    padding: 12px;
+    gap: 10px;
+    order: 1; /* 1. 头部 */
   }
 
-  /* 手机端头部数值改为垂直堆叠 */
+  .app-container:not(.force-desktop) .chart-card {
+    order: 2; /* 2. 图表 */
+  }
+
+  .app-container:not(.force-desktop) .trading-card {
+    order: 3; /* 3. 交易面板 (按钮在这里) */
+  }
+
+  .app-container:not(.force-desktop) .news-card {
+    order: 4; /* 4. 新闻 */
+  }
+
+  .app-container:not(.force-desktop) .risk-card {
+    order: 5; /* 5. 风控 */
+  }
+
   .header-stats {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px !important;
+    gap: 5px;
     width: 100%;
-  }
-
-  .chart-container {
-    min-height: 280px;
-    width: 100%;
-  }
-
-  .asset-selector {
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    display: flex;
-    gap: 8px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .asset-tab {
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  .sidebar {
-    order: -1;
-    width: 100%;
-  }
-
-  .card {
-    width: 100% !important;
-    padding: 15px !important;
+    font-size: 14px;
   }
 }
 
-/* 强制手机模式 (针对桌面浏览器模拟) */
+/* --- Forced Modes --- */
 .app-container.force-mobile {
-  grid-template-columns: 1fr;
-  max-width: 100%;
-  width: 414px;
+  display: flex !important;
+  flex-direction: column !important;
+  max-width: 414px;
   margin: 0 auto;
-  height: auto;
-  min-height: 100vh;
   border-left: 1px solid #333;
   border-right: 1px solid #333;
+  padding: 10px;
+  gap: 15px;
 }
+.app-container.force-mobile .header { position: sticky; top: 0; z-index: 100; flex-direction: column; align-items: flex-start; padding: 12px; }
+.app-container.force-mobile .header-stats { flex-direction: column; align-items: flex-start; width: 100%; gap: 5px; }
 
-/* 强制电脑模式 (即便在窄屏下也能撑开) */
 .app-container.force-desktop {
   grid-template-columns: 3fr 1fr !important;
   min-width: 1000px !important;
   height: 100vh !important;
-  overflow-x: auto !important; /* 允许在手机上横向滚动看全貌 */
+  display: grid !important;
 }
 
+/* --- Components --- */
 .header {
   grid-column: 1 / span 2;
   display: flex;
@@ -128,12 +122,6 @@ body {
   font-size: 18px;
 }
 
-.main-content, .sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .card {
   background: #1a1a1a;
   border-radius: 8px;
@@ -143,9 +131,10 @@ body {
 }
 
 .chart-container {
-  flex-grow: 1;
-  min-height: 400px;
-  position: relative;
+  height: 300px;
+  width: 100%;
+  background: #111;
+  border-radius: 4px;
 }
 
 .news-panel {
@@ -153,27 +142,19 @@ body {
   overflow-y: auto;
 }
 
-.trading-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
 .btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px; /* 增大点击区域 */
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
-  transition: opacity 0.2s;
+  font-size: 16px;
+  transition: transform 0.1s;
 }
 
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
+.btn:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-long { background: #26a69a; color: white; }
 .btn-short { background: #ef5350; color: white; }
 .btn-close { background: #78909c; color: white; }
@@ -185,22 +166,25 @@ body {
   padding: 10px;
   border-bottom: 1px solid #333;
   font-size: 14px;
-  line-height: 1.4;
 }
 
 .asset-selector {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.asset-selector::-webkit-scrollbar { display: none; }
 
 .asset-tab {
   padding: 8px 16px;
   background: #2a2a2a;
   border-radius: 4px;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-
 .asset-tab.active {
   background: #4a4a4a;
   border: 1px solid #ffd700;
@@ -208,13 +192,13 @@ body {
 
 .liquidation-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.9);
+  inset: 0;
+  background: rgba(0,0,0,0.95);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
 }
