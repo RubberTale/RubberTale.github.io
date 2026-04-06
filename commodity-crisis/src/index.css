@@ -14,11 +14,7 @@ html, body {
   width: 100%;
   min-height: 100vh;
   background-color: #0a0a0a;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
+  overflow-x: hidden;
 }
 
 #root {
@@ -27,168 +23,253 @@ body {
 
 .app-container {
   width: 100%;
-  max-width: 100%;
-  margin: 0;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 15px;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: auto 1fr;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   min-height: 100vh;
 }
 
-/* --- Responsive Layout --- */
-@media (max-width: 768px) {
-  .app-container:not(.force-desktop) {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    gap: 15px;
-    height: auto;
-  }
-
-  .app-container:not(.force-desktop) .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px;
-    gap: 10px;
-    order: 1; /* 1. 头部 */
-  }
-
-  .app-container:not(.force-desktop) .chart-card {
-    order: 2; /* 2. 图表 */
-  }
-
-  .app-container:not(.force-desktop) .trading-card {
-    order: 3; /* 3. 交易面板 (按钮在这里) */
-  }
-
-  .app-container:not(.force-desktop) .news-card {
-    order: 4; /* 4. 新闻 */
-  }
-
-  .app-container:not(.force-desktop) .risk-card {
-    order: 5; /* 5. 风控 */
-  }
-
-  .header-stats {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-    width: 100%;
-    font-size: 14px;
-  }
-}
-
-/* --- Forced Modes --- */
-.app-container.force-mobile {
-  display: flex !important;
-  flex-direction: column !important;
-  max-width: 414px;
-  margin: 0 auto;
-  border-left: 1px solid #333;
-  border-right: 1px solid #333;
-  padding: 10px;
-  gap: 15px;
-}
-.app-container.force-mobile .header { position: sticky; top: 0; z-index: 100; flex-direction: column; align-items: flex-start; padding: 12px; }
-.app-container.force-mobile .header-stats { flex-direction: column; align-items: flex-start; width: 100%; gap: 5px; }
-
-.app-container.force-desktop {
-  grid-template-columns: 3fr 1fr !important;
-  min-width: 1000px !important;
-  height: 100vh !important;
-  display: grid !important;
-}
-
-/* --- Components --- */
+/* --- Header Styling --- */
 .header {
-  grid-column: 1 / span 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #1a1a1a;
-  padding: 15px 25px;
+  padding: 10px 15px;
   border-radius: 8px;
   border-bottom: 2px solid #333;
 }
 
-.header-stats {
+.header-left {
   display: flex;
-  gap: 30px;
-  font-size: 18px;
+  align-items: center;
+  gap: 8px;
 }
 
+.header-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: 10px;
+}
+
+.small-link, .small-btn {
+  font-size: 11px;
+  color: #aaa;
+  text-decoration: none;
+  border: 1px solid #444;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+
+.small-btn { color: #ffd700; }
+
+.header-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.stat-line span {
+  font-weight: bold;
+  font-family: monospace;
+}
+
+/* --- Card Base --- */
 .card {
   background: #1a1a1a;
   border-radius: 8px;
-  padding: 20px;
+  padding: 12px;
   border: 1px solid #333;
-  width: 100%;
 }
 
-.chart-container {
-  height: 300px;
-  width: 100%;
+/* --- Chart Section --- */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.chart-price-box {
+  text-align: right;
+}
+
+.current-price {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+}
+
+.price-change { font-size: 12px; }
+.price-change.up { color: #26a69a; }
+.price-change.down { color: #ef5350; }
+
+.mini-chart {
+  height: 180px !important; /* 显著压缩图表高度 */
   background: #111;
   border-radius: 4px;
 }
 
-.news-panel {
-  height: 200px;
-  overflow-y: auto;
+/* --- Trading Section --- */
+.trading-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.btn {
-  width: 100%;
-  padding: 14px; /* 增大点击区域 */
+.trading-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.asset-name { font-weight: bold; font-size: 16px; }
+
+.trading-buttons-inline {
+  display: flex;
+  gap: 6px;
+}
+
+.mini-btn {
+  padding: 6px 15px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
-  transition: transform 0.1s;
+  font-size: 13px;
 }
 
-.btn:active { transform: scale(0.98); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.trading-settings {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.active-position {
+  background: #222;
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 4px solid #ffd700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pos-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+.btn-close-compact {
+  background: #78909c;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* --- Select Styling --- */
+.select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.styled-select, .styled-select-small {
+  appearance: none;
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 4px 24px 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.styled-select-small {
+  font-size: 12px;
+  padding: 2px 20px 2px 6px;
+}
+
+.select-icon {
+  position: absolute;
+  right: 6px;
+  pointer-events: none;
+  color: #888;
+}
+
+/* --- News Section --- */
+.news-header-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #ffd700;
+}
+
+.visitor-count {
+  margin-left: auto;
+  font-size: 11px;
+  color: #666;
+}
+
+.news-panel-compact {
+  height: 100px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+.news-item-mini {
+  padding: 6px 0;
+  border-bottom: 1px solid #222;
+  color: #bbb;
+}
+
+/* --- Risk Section --- */
+.risk-card-mini {
+  padding: 8px 12px !important;
+}
+
+.risk-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.risk-bar-container {
+  flex-grow: 1;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.risk-bar {
+  height: 100%;
+  transition: width 0.3s;
+}
+
+/* --- Common UI --- */
 .btn-long { background: #26a69a; color: white; }
 .btn-short { background: #ef5350; color: white; }
-.btn-close { background: #78909c; color: white; }
-
 .price-up { color: #26a69a; }
 .price-down { color: #ef5350; }
-
-.news-item {
-  padding: 10px;
-  border-bottom: 1px solid #333;
-  font-size: 14px;
-}
-
-.asset-selector {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.asset-selector::-webkit-scrollbar { display: none; }
-
-.asset-tab {
-  padding: 8px 16px;
-  background: #2a2a2a;
-  border-radius: 4px;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.asset-tab.active {
-  background: #4a4a4a;
-  border: 1px solid #ffd700;
-}
 
 .liquidation-overlay {
   position: fixed;
@@ -201,4 +282,21 @@ body {
   z-index: 1000;
   padding: 30px;
   text-align: center;
+}
+
+/* --- Desktop Specific (restore 2 columns) --- */
+@media (min-width: 769px) {
+  .app-container:not(.force-mobile) {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 20px;
+  }
+  .header { grid-column: 1 / span 2; }
+}
+
+.app-container.force-desktop {
+  display: grid !important;
+  grid-template-columns: 3fr 1fr !important;
+  min-width: 1000px !important;
 }
