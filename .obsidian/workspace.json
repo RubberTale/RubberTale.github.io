@@ -307,8 +307,10 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "8ab0a9cba92bc784",
+  "active": "1d2d21bc3385ca1c",
   "lastOpenFiles": [
+    "commodity-crisis/dist/assets/index-qMKPHBUE.css",
+    "commodity-crisis/dist/assets/index-DJZjaj_k.js",
     "source/games/commodity-crisis/assets/index-qMKPHBUE.css",
     "source/games/commodity-crisis/assets/index-DJZjaj_k.js",
     "commodity-crisis/dist/assets/index-DwnJhM1k.js",
@@ -318,8 +320,6 @@
     "source/games/commodity-crisis/assets",
     "source/games/commodity-crisis",
     "commodity-crisis/node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js.map",
-    "commodity-crisis/node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js",
-    "commodity-crisis/node_modules/lucide-react/dist/esm/shared/src/utils/toPascalCase.js.map",
     "commodity-crisis/node_modules/rolldown/node_modules/@rolldown/pluginutils/README.md",
     "commodity-crisis/node_modules/micromatch/node_modules/picomatch/README.md",
     "commodity-crisis/node_modules/@vitejs/plugin-react/README.md",
