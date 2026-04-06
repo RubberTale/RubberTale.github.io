@@ -1,0 +1,134 @@
+:root {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  height: 95vh;
+}
+
+.header {
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 15px 25px;
+  border-radius: 8px;
+  border-bottom: 2px solid #333;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #333;
+}
+
+.chart-container {
+  flex-grow: 1;
+  min-height: 400px;
+  position: relative;
+}
+
+.news-panel {
+  height: 200px;
+  overflow-y: auto;
+}
+
+.trading-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.btn {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-long { background: #26a69a; color: white; }
+.btn-short { background: #ef5350; color: white; }
+.btn-close { background: #78909c; color: white; }
+
+.price-up { color: #26a69a; }
+.price-down { color: #ef5350; }
+
+.news-item {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.asset-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.asset-tab {
+  padding: 8px 16px;
+  background: #2a2a2a;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.asset-tab.active {
+  background: #4a4a4a;
+  border: 1px solid #ffd700;
+}
+
+.liquidation-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}

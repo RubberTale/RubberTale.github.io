@@ -17,6 +17,15 @@ aside: false
         <div class="flink-item-desc">测试你的反向思维，在极端行情中寻找转机。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/commodity-crisis/" title="期货风云 - 模拟器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://lucide.dev/api/icons/activity" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货风云">
+        </div>
+        <div class="flink-item-name">期货风云</div>
+        <div class="flink-item-desc">高杠杆商品期货模拟，在新闻波动中博弈。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
