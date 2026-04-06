@@ -135,9 +135,9 @@ const App: React.FC = () => {
         
         // 随机分配新闻质量：NORMAL(正常), INVERSE(反转), NONE(失效)
         const rand = Math.random();
-        const type = rand > 0.85 ? 'INVERSE' : (rand > 0.7 ? 'NONE' : 'NORMAL');
+        const type = (rand > 0.85 ? 'INVERSE' : (rand > 0.7 ? 'NONE' : 'NORMAL')) as 'NORMAL' | 'INVERSE' | 'NONE';
         
-        const newEvent = { ...randomNews, id: Date.now(), type };
+        const newEvent: NewsEvent = { ...randomNews, id: Date.now(), type };
         setNews(prev => [newEvent, ...prev].slice(0, 5));
         
         // Apply immediate impact based on type
@@ -152,7 +152,7 @@ const App: React.FC = () => {
 
       // Check Liquidation: 资金使用率超过 120% 爆仓
       if (currentUtilization > 1.2) {
-        setIsLiquidated(true);
+        setIsLiquated(true);
         clearInterval(timer);
       }
     }, TICK_MS);
