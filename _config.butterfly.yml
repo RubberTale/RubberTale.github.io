@@ -270,6 +270,8 @@ footer:
     enable: true
     version: true
   custom_text:
+  site_uv: true
+  site_pv: true
 
 # --------------------------------------
 # Aside Settings
@@ -445,6 +447,7 @@ wordcount:
 
 # Busuanzi count for PV / UV in site
 busuanzi:
+  enable: true
   site_uv: true
   site_pv: true
   page_pv: true
@@ -1149,5 +1152,8 @@ CDN:
     # typed:
     # utils:
     # valine:
+    # waline_css:
+    # waline_js:
+aline:
     # waline_css:
     # waline_js:
