@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { TrendingUp, TrendingDown, Newspaper, Wallet, Activity, AlertTriangle } from 'lucide-react';
 
 // --- Constants & Types ---
-type AssetType = 'OIL' | 'GOLD' | 'WHEAT';
+type AssetType = 'OIL' | 'GOLD' | 'WHEAT' | 'MA' | 'CU' | 'RU' | 'TBOND';
 
 interface NewsEvent {
   id: number;
   text: string;
   impact: Record<AssetType, number>;
   duration: number;
+  type: 'NORMAL' | 'INVERSE' | 'NONE'; // 新增新闻类型
 }
 
 interface Position {
@@ -26,17 +27,23 @@ const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, vol: nu
   OIL: { name: '原油', basePrice: 75, vol: 0.02, icon: '🛢️' },
   GOLD: { name: '黄金', basePrice: 2000, vol: 0.008, icon: '✨' },
   WHEAT: { name: '小麦', basePrice: 600, vol: 0.012, icon: '🌾' },
+  MA: { name: '甲醇', basePrice: 2500, vol: 0.025, icon: '🧪' },
+  CU: { name: '沪铜', basePrice: 70000, vol: 0.015, icon: '🧱' },
+  RU: { name: '橡胶', basePrice: 13000, vol: 0.022, icon: '🌲' },
+  TBOND: { name: '国债', basePrice: 100, vol: 0.003, icon: '📜' },
 };
 
-const NEWS_POOL: Omit<NewsEvent, 'id'>[] = [
-  { text: "中东局势升级，原油供应链面临严重威胁。", impact: { OIL: 0.15, GOLD: 0.05, WHEAT: 0 }, duration: 10 },
-  { text: "美联储暗示将在更长时间内维持高利率。", impact: { OIL: -0.05, GOLD: -0.10, WHEAT: -0.02 }, duration: 15 },
-  { text: "美国中西部地区报告小麦产量创历史新高。", impact: { OIL: 0, GOLD: 0, WHEAT: -0.12 }, duration: 12 },
-  { text: "全球经济衰退担忧加剧，工业需求疲软。", impact: { OIL: -0.12, GOLD: 0.02, WHEAT: -0.05 }, duration: 20 },
-  { text: "南非发现特大型金矿，黄金供应预期大增。", impact: { OIL: 0, GOLD: -0.08, WHEAT: 0 }, duration: 10 },
-  { text: "电动汽车电池技术取得突破，长期石油依赖度降低。", impact: { OIL: -0.08, GOLD: 0, WHEAT: 0 }, duration: 25 },
-  { text: "南美遭遇严重旱灾，大宗农作物减产严重。", impact: { OIL: 0, GOLD: 0, WHEAT: 0.18 }, duration: 15 },
-  { text: "多国央行近期大幅增持黄金储备。", impact: { OIL: 0, GOLD: 0.12, WHEAT: 0 }, duration: 15 },
+const NEWS_POOL: Omit<NewsEvent, 'id' | 'type'>[] = [
+  { text: "中东局势升级，原油供应链面临严重威胁。", impact: { OIL: 0.15, GOLD: 0.05, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: -0.01 }, duration: 10 },
+  { text: "美联储暗示将在更长时间内维持高利率。", impact: { OIL: -0.05, GOLD: -0.10, WHEAT: -0.02, MA: -0.04, CU: -0.06, RU: -0.03, TBOND: -0.05 }, duration: 15 },
+  { text: "南美遭遇严重旱灾，大宗农作物减产严重。", impact: { OIL: 0, GOLD: 0, WHEAT: 0.18, MA: 0, CU: 0, RU: 0, TBOND: 0 }, duration: 15 },
+  { text: "多国央行近期大幅增持黄金储备。", impact: { OIL: 0, GOLD: 0.12, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0.01 }, duration: 15 },
+  { text: "煤炭价格大幅波动，甲醇生产成本支撑增强。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0.12, CU: 0, RU: 0, TBOND: 0 }, duration: 10 },
+  { text: "全球最大铜矿罢工，供应中断忧虑加剧。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0.18, RU: 0, TBOND: 0 }, duration: 15 },
+  { text: "产胶国降雨过多，橡胶收割工作大面积停滞。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0.15, TBOND: 0 }, duration: 12 },
+  { text: "避险情绪升温，资金疯狂涌入长久期国债。", impact: { OIL: -0.03, GOLD: 0.08, WHEAT: 0, MA: -0.02, CU: -0.04, RU: -0.03, TBOND: 0.06 }, duration: 15 },
+  { text: "市场传闻：主要经济体计划联合释放原油储备。", impact: { OIL: -0.10, GOLD: -0.02, WHEAT: 0, MA: -0.03, CU: -0.02, RU: 0, TBOND: 0.01 }, duration: 10 },
+  { text: "房地产业复苏迹象明显，工业金属需求看涨。", impact: { OIL: 0.04, GOLD: -0.02, WHEAT: 0, MA: 0.06, CU: 0.12, RU: 0.08, TBOND: -0.03 }, duration: 15 },
 ];
 
 const App: React.FC = () => {
@@ -46,20 +53,31 @@ const App: React.FC = () => {
     OIL: ASSET_CONFIG.OIL.basePrice,
     GOLD: ASSET_CONFIG.GOLD.basePrice,
     WHEAT: ASSET_CONFIG.WHEAT.basePrice,
+    MA: ASSET_CONFIG.MA.basePrice,
+    CU: ASSET_CONFIG.CU.basePrice,
+    RU: ASSET_CONFIG.RU.basePrice,
+    TBOND: ASSET_CONFIG.TBOND.basePrice,
   });
   const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>({
     OIL: [ASSET_CONFIG.OIL.basePrice],
     GOLD: [ASSET_CONFIG.GOLD.basePrice],
     WHEAT: [ASSET_CONFIG.WHEAT.basePrice],
+    MA: [ASSET_CONFIG.MA.basePrice],
+    CU: [ASSET_CONFIG.CU.basePrice],
+    RU: [ASSET_CONFIG.RU.basePrice],
+    TBOND: [ASSET_CONFIG.TBOND.basePrice],
   });
   const [activeAsset, setActiveAsset] = useState<AssetType>('OIL');
   const [position, setPosition] = useState<Position | null>(null);
   const [news, setNews] = useState<NewsEvent[]>([]);
   const [ticks, setTicks] = useState(0);
   const [isLiquidated, setIsLiquated] = useState(false);
+  const [utilizationRate, setUtilizationRate] = useState(0.8); // 默认80%使用率
 
   // --- Refs ---
-  const activeImpactsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0 });
+  const activeImpactsRef = useRef<Record<AssetType, number>>({ 
+    OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 
+  });
 
   // --- Calculations ---
   const unrealizedPnL = useMemo(() => {
@@ -69,7 +87,13 @@ const App: React.FC = () => {
   }, [position, prices]);
 
   const equity = balance + unrealizedPnL;
-  const marginUsed = position ? (position.entryPrice * position.size) : 0;
+
+  // 实时资金使用率计算：(开仓占用的保证金 / 当前净资产)
+  const currentUtilization = useMemo(() => {
+    if (!position) return 0;
+    const initialMargin = position.entryPrice * position.size;
+    return initialMargin / Math.max(0.001, equity); // 避免除以0
+  }, [position, equity]);
 
   // --- Market Engine ---
   useEffect(() => {
@@ -86,11 +110,11 @@ const App: React.FC = () => {
           const randomWalk = (Math.random() - 0.5) * 2 * config.vol;
           const newsImpact = activeImpactsRef.current[asset];
           
-          // Apply movement
+          // 模拟市场多变性：小概率新闻被其他隐性因素抵消或反转
           nextPrices[asset] = prevPrices[asset] * (1 + randomWalk + newsImpact);
           
-          // Slowly decay news impact
-          activeImpactsRef.current[asset] *= 0.9;
+          // 缓慢衰减新闻影响
+          activeImpactsRef.current[asset] *= 0.85;
         });
 
         return nextPrices;
@@ -108,30 +132,39 @@ const App: React.FC = () => {
       // Spawn News
       if (ticks > 0 && ticks % NEWS_INTERVAL_TICKS === 0) {
         const randomNews = NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)];
-        const newEvent = { ...randomNews, id: Date.now() };
+        
+        // 随机分配新闻质量：NORMAL(正常), INVERSE(反转), NONE(失效)
+        const rand = Math.random();
+        const type = rand > 0.85 ? 'INVERSE' : (rand > 0.7 ? 'NONE' : 'NORMAL');
+        
+        const newEvent = { ...randomNews, id: Date.now(), type };
         setNews(prev => [newEvent, ...prev].slice(0, 5));
         
-        // Apply immediate impact
+        // Apply immediate impact based on type
         (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
-          activeImpactsRef.current[asset] += newEvent.impact[asset] / 5; // Spread impact
+          let factor = 1;
+          if (type === 'INVERSE') factor = -0.6; // 反着来，且程度稍轻
+          if (type === 'NONE') factor = 0.05;    // 几乎没反应
+          
+          activeImpactsRef.current[asset] += (newEvent.impact[asset] * factor) / 4; 
         });
       }
 
-      // Check Liquidation
-      if (equity <= 0) {
-        setIsLiquated(true);
+      // Check Liquidation: 资金使用率超过 120% 爆仓
+      if (currentUtilization > 1.2) {
+        setIsLiquidated(true);
         clearInterval(timer);
       }
     }, TICK_MS);
 
     return () => clearInterval(timer);
-  }, [ticks, prices, isLiquidated, equity]);
+  }, [ticks, prices, isLiquidated, currentUtilization]);
 
   // --- Trading Actions ---
   const openPosition = (dir: 1 | -1) => {
     if (position) return;
     const currentPrice = prices[activeAsset];
-    const size = (balance * 0.8) / currentPrice; // Use 80% of balance for margin
+    const size = (balance * utilizationRate) / currentPrice; // 使用自定义使用率
     setPosition({
       asset: activeAsset,
       direction: dir,
@@ -170,7 +203,15 @@ const App: React.FC = () => {
       <header className="header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           <Activity size={32} color="#ffd700" />
-          <h1 style={{ margin: 0, fontSize: '24px' }}>期货风云</h1>
+          <div>
+            <h1 style={{ margin: 0, fontSize: '24px' }}>期货风云</h1>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+              <a href="/" style={{ color: '#aaa', fontSize: '12px', textDecoration: 'none', border: '1px solid #444', padding: '2px 8px', borderRadius: '4px' }}>返回博客主页</a>
+              <span id="busuanzi_container_page_pv" style={{ color: '#666', fontSize: '12px', display: 'none' }}>
+                访客: <span id="busuanzi_value_page_pv"></span>
+              </span>
+            </div>
+          </div>
         </div>
         <div style={{ display: 'flex', gap: '30px', fontSize: '18px' }}>
           <div style={{ color: '#888' }}>净资产: <span style={{ color: equity > 10000 ? '#26a69a' : '#ef5350' }}>${equity.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></div>
@@ -227,11 +268,36 @@ const App: React.FC = () => {
           </div>
           
           <div style={{ fontSize: '14px', color: '#888', marginBottom: '10px' }}>杠杆倍数: {LEVERAGE}x</div>
+
+          <div style={{ marginBottom: '15px' }}>
+            <div style={{ fontSize: '12px', color: '#888', marginBottom: '8px' }}>资金使用率: {(utilizationRate * 100).toFixed(0)}%</div>
+            <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+              {[0.1, 0.3, 0.5, 0.8, 1.0].map(rate => (
+                <button 
+                  key={rate}
+                  onClick={() => setUtilizationRate(rate)}
+                  style={{ 
+                    padding: '4px 6px', 
+                    fontSize: '11px', 
+                    background: utilizationRate === rate ? '#444' : '#222',
+                    border: utilizationRate === rate ? '1px solid #ffd700' : '1px solid #444',
+                    borderRadius: '4px',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    flex: '1 0 30%'
+                  }}
+                >
+                  {rate * 100}%
+                </button>
+              ))}
+            </div>
+          </div>
           
           <button 
             className="btn btn-long" 
             onClick={() => openPosition(1)}
             disabled={!!position}
+            style={{ width: '100%', marginBottom: '10px' }}
           >
             买入 / 做多
           </button>
@@ -239,6 +305,7 @@ const App: React.FC = () => {
             className="btn btn-short" 
             onClick={() => openPosition(-1)}
             disabled={!!position}
+            style={{ width: '100%' }}
           >
             卖出 / 做空
           </button>
