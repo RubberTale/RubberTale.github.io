@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { TrendingUp, TrendingDown, Newspaper, Wallet, Activity, AlertTriangle, ChevronDown, Cloud, User, LogOut } from 'lucide-react';
+import { TrendingUp, TrendingDown, Newspaper, Wallet, Activity, AlertTriangle, ChevronDown, Cloud, User, LogOut, Trophy } from 'lucide-react';
 
 // --- Constants & Config ---
 const API_BASE = 'https://emails-pharmacy-sunrise-outline.trycloudflare.com/api';
@@ -29,6 +29,7 @@ const NEWS_POOL = [
 ];
 
 const App: React.FC = () => {
+  // --- States ---
   const [balance, setBalance] = useState(10000);
   const [viewMode, setViewMode] = useState<ViewMode>('auto');
   const [activeAsset, setActiveAsset] = useState<AssetType>('OIL');
@@ -44,13 +45,17 @@ const App: React.FC = () => {
     Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, [v.basePrice]])) as any
   );
 
+  // --- Auth & Leaderboard States ---
   const [user, setUser] = useState<{username: string, token: string} | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [leaderboardData, setLeaderboardData] = useState<any[]>([]);
   const [authForm, setAuthForm] = useState({ username: '', password: '', isLogin: true });
   const [authMsg, setAuthMsg] = useState('');
 
   const activeImpactsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 });
 
+  // --- Logic ---
   useEffect(() => {
     const saved = localStorage.getItem('cc_user');
     if (saved) {
@@ -70,6 +75,17 @@ const App: React.FC = () => {
         setBalance(data.balance);
       }
     } catch (e) { console.error('Profile fetch failed'); }
+  };
+
+  const fetchLeaderboard = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/user/leaderboard`);
+      if (res.ok) {
+        const data = await res.json();
+        setLeaderboardData(data);
+        setShowLeaderboard(true);
+      }
+    } catch (e) { console.error('Leaderboard fetch failed'); }
   };
 
   const handleAuth = async () => {
@@ -187,6 +203,7 @@ const App: React.FC = () => {
             ) : (
               <button onClick={() => setShowAuthModal(true)} className="small-btn" style={{ color: '#ffd700' }}><Cloud size={12} />存档</button>
             )}
+            <button onClick={fetchLeaderboard} className="small-btn" style={{ color: '#ffd700' }}><Trophy size={12} />榜单</button>
           </div>
         </div>
         <div className="header-stats">
@@ -269,6 +286,36 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* --- Leaderboard Modal --- */}
+      {showLeaderboard && (
+        <div className="auth-overlay">
+          <div className="auth-card" style={{ maxWidth: '400px' }}>
+            <h3 style={{ color: '#ffd700', marginBottom: '15px' }}><Trophy size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }}/>财富排行榜 (前十)</h3>
+            <div style={{ maxHeight: '300px', overflowY: 'auto', marginBottom: '20px' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid #444', color: '#888' }}>
+                    <th style={{ padding: '8px', textAlign: 'left' }}>排名</th>
+                    <th style={{ padding: '8px', textAlign: 'left' }}>玩家</th>
+                    <th style={{ padding: '8px', textAlign: 'right' }}>净资产</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {leaderboardData.map((row, i) => (
+                    <tr key={i} style={{ borderBottom: '1px solid #222' }}>
+                      <td style={{ padding: '10px 8px' }}>{i + 1}</td>
+                      <td style={{ padding: '10px 8px', fontWeight: 'bold' }}>{row.username}</td>
+                      <td style={{ padding: '10px 8px', textAlign: 'right', color: '#26a69a' }}>${row.balance.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <button className="btn btn-long" onClick={() => setShowLeaderboard(false)}>关闭</button>
+          </div>
+        </div>
+      )}
 
       {showAuthModal && (
         <div className="auth-overlay">
