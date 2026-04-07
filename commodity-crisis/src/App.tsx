@@ -11,25 +11,24 @@ type AssetType = 'OIL' | 'GOLD' | 'WHEAT' | 'MA' | 'CU' | 'RU' | 'TBOND';
 type ViewMode = 'auto' | 'mobile' | 'desktop';
 
 const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, vol: number, icon: string }> = {
-  OIL: { name: '原油', basePrice: 75, vol: 0.02, icon: '🛢️' },
-  GOLD: { name: '黄金', basePrice: 2000, vol: 0.008, icon: '✨' },
-  WHEAT: { name: '小麦', basePrice: 600, vol: 0.012, icon: '🌾' },
-  MA: { name: '甲醇', basePrice: 2500, vol: 0.025, icon: '🧪' },
-  CU: { name: '沪铜', basePrice: 70000, vol: 0.015, icon: '🧱' },
-  RU: { name: '橡胶', basePrice: 13000, vol: 0.022, icon: '🌲' },
-  TBOND: { name: '国债', basePrice: 100, vol: 0.003, icon: '📜' },
+  OIL: { name: '原油', basePrice: 75, vol: 0.025, icon: '🛢️' },
+  GOLD: { name: '黄金', basePrice: 2000, vol: 0.012, icon: '✨' },
+  WHEAT: { name: '小麦', basePrice: 600, vol: 0.018, icon: '🌾' },
+  MA: { name: '甲醇', basePrice: 2500, vol: 0.035, icon: '🧪' },
+  CU: { name: '沪铜', basePrice: 70000, vol: 0.02, icon: '🧱' },
+  RU: { name: '橡胶', basePrice: 13000, vol: 0.03, icon: '🌲' },
+  TBOND: { name: '国债', basePrice: 100, vol: 0.005, icon: '📜' },
 };
 
 const NEWS_POOL = [
-  { text: "中东局势升级，原油供应链面临威胁。", impact: { OIL: 0.15, GOLD: 0.05, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: -0.01 } },
-  { text: "美联储暗示将在更长时间内维持高利率。", impact: { OIL: -0.05, GOLD: -0.10, WHEAT: -0.02, MA: -0.04, CU: -0.06, RU: -0.03, TBOND: -0.05 } },
-  { text: "全球最大铜矿罢工，供应中断忧虑加剧。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0.18, RU: 0, TBOND: 0 } },
-  { text: "煤炭价格大幅波动，甲醇成本支撑增强。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0.12, CU: 0, RU: 0, TBOND: 0 } },
-  { text: "避险情绪升温，资金疯狂涌入长久期国债。", impact: { OIL: -0.03, GOLD: 0.08, WHEAT: 0, MA: -0.02, CU: -0.04, RU: -0.03, TBOND: 0.06 } },
+  { text: "中东局势升级，供应担忧缓解。", impact: { OIL: 0.12, GOLD: 0.04, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: -0.01 } },
+  { text: "美联储维持现状，暗示政策转向仍需时日。", impact: { OIL: -0.04, GOLD: -0.08, WHEAT: -0.02, MA: -0.03, CU: -0.05, RU: -0.02, TBOND: -0.04 } },
+  { text: "全球最大铜矿进入紧急状态。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0.15, RU: 0, TBOND: 0 } },
+  { text: "煤化工行业新规发布，产能受限。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0.15, CU: 0, RU: 0, TBOND: 0 } },
+  { text: "避险需求回落，黄金价格承压。", impact: { OIL: 0.02, GOLD: -0.10, WHEAT: 0, MA: 0.01, CU: 0.03, RU: 0.02, TBOND: -0.02 } },
 ];
 
 const App: React.FC = () => {
-  // --- States ---
   const [balance, setBalance] = useState(10000);
   const [viewMode, setViewMode] = useState<ViewMode>('auto');
   const [activeAsset, setActiveAsset] = useState<AssetType>('OIL');
@@ -45,7 +44,6 @@ const App: React.FC = () => {
     Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, [v.basePrice]])) as any
   );
 
-  // --- Auth & Leaderboard States ---
   const [user, setUser] = useState<{username: string, token: string} | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
@@ -54,8 +52,8 @@ const App: React.FC = () => {
   const [authMsg, setAuthMsg] = useState('');
 
   const activeImpactsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 });
+  const lastDirectionsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 });
 
-  // --- Logic ---
   useEffect(() => {
     const saved = localStorage.getItem('cc_user');
     if (saved) {
@@ -67,24 +65,15 @@ const App: React.FC = () => {
 
   const fetchProfile = async (token: string) => {
     try {
-      const res = await fetch(`${API_BASE}/user/profile`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setBalance(data.balance);
-      }
+      const res = await fetch(`${API_BASE}/user/profile`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setBalance(data.balance); }
     } catch (e) { console.error('Profile fetch failed'); }
   };
 
   const fetchLeaderboard = async () => {
     try {
       const res = await fetch(`${API_BASE}/user/leaderboard`);
-      if (res.ok) {
-        const data = await res.json();
-        setLeaderboardData(data);
-        setShowLeaderboard(true);
-      }
+      if (res.ok) { const data = await res.json(); setLeaderboardData(data); setShowLeaderboard(true); }
     } catch (e) { console.error('Leaderboard fetch failed'); }
   };
 
@@ -99,7 +88,6 @@ const App: React.FC = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || '请求失败');
-      
       if (authForm.isLogin) {
         setUser({ username: data.username, token: data.token });
         setBalance(data.balance);
@@ -144,12 +132,33 @@ const App: React.FC = () => {
       setPrices(prev => {
         const next = { ...prev };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
-          const randomWalk = (Math.random() - 0.5) * 2 * ASSET_CONFIG[asset].vol;
-          next[asset] = prev[asset] * (1 + randomWalk + activeImpactsRef.current[asset]);
-          activeImpactsRef.current[asset] *= 0.85;
+          const config = ASSET_CONFIG[asset];
+          
+          // 1. 高频噪音 (制造曲折感)
+          const randomNoise = (Math.random() - 0.5) * 2.5 * config.vol;
+          
+          // 2. 动量因子 (继承上一秒的一点趋势，但容易被打断)
+          const momentum = lastDirectionsRef.current[asset] * 0.3 * config.vol;
+          
+          // 3. 均值回归 (价格离基准太远会产生拉力，防止单边一头走死)
+          const reversion = (config.basePrice - prev[asset]) * 0.005;
+          
+          // 4. 新闻影响 (带噪音的新闻反应)
+          const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
+          
+          // 总波动计算
+          const delta = randomNoise + momentum + reversion + newsPower;
+          next[asset] = prev[asset] * (1 + delta);
+          
+          // 记录方向用于下一秒动量
+          lastDirectionsRef.current[asset] = delta > 0 ? 1 : -1;
+          
+          // 新闻影响衰减
+          activeImpactsRef.current[asset] *= 0.82;
         });
         return next;
       });
+
       setPriceHistory(prev => {
         const next = { ...prev };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
@@ -157,14 +166,21 @@ const App: React.FC = () => {
         });
         return next;
       });
+
       if (ticks > 0 && ticks % NEWS_INTERVAL_TICKS === 0) {
         const rand = Math.random();
-        const type = (rand > 0.85 ? 'INVERSE' : (rand > 0.7 ? 'NONE' : 'NORMAL')) as any;
-        const newEvent = { ...NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)], id: Date.now(), type };
+        // 增加“陷阱”逻辑：20%概率是反转新闻
+        const type = (rand > 0.8 ? 'INVERSE' : (rand > 0.65 ? 'NONE' : 'NORMAL')) as any;
+        const rawNews = NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)];
+        const newEvent = { ...rawNews, id: Date.now(), type };
         setNews(prev => [newEvent, ...prev].slice(0, 5));
+        
         (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
-          let factor = type === 'INVERSE' ? -0.6 : (type === 'NONE' ? 0.05 : 1);
-          activeImpactsRef.current[asset] += (newEvent.impact[asset as AssetType] * factor) / 4; 
+          let factor = type === 'INVERSE' ? -0.7 : (type === 'NONE' ? 0.05 : 1);
+          // 增加“延迟反应”感：新闻刚出时不一定立刻大涨，可能先震荡
+          setTimeout(() => {
+            activeImpactsRef.current[asset] += (newEvent.impact[asset as AssetType] * factor) / 3;
+          }, Math.random() * 2000); 
         });
       }
       if (currentUtilization > 1.2) { setIsLiquated(true); clearInterval(timer); }
@@ -181,9 +197,7 @@ const App: React.FC = () => {
   const closePosition = () => {
     if (position) {
       const newBalance = balance + unrealizedPnL;
-      setBalance(newBalance);
-      setPosition(null);
-      syncBalance(newBalance);
+      setBalance(newBalance); setPosition(null); syncBalance(newBalance);
     }
   };
 
@@ -232,7 +246,7 @@ const App: React.FC = () => {
         <div className="chart-container mini-chart">
           <svg width="100%" height="100%" viewBox="0 0 500 300" preserveAspectRatio="none">
             <polyline fill="none" stroke={priceHistory[activeAsset][priceHistory[activeAsset].length-1] >= priceHistory[activeAsset][0] ? "#26a69a" : "#ef5350"} strokeWidth="2"
-              points={priceHistory[activeAsset].map((p, i) => `${(i / (priceHistory[activeAsset].length - 1)) * 500},${300 - ((p - (Math.min(...priceHistory[activeAsset])*0.99)) / (Math.max(...priceHistory[activeAsset])*1.01 - Math.min(...priceHistory[activeAsset])*0.99)) * 300}`).join(' ')} />
+              points={priceHistory[activeAsset].map((p, i) => `${(i / (priceHistory[activeAsset].length - 1)) * 500},${300 - ((p - (Math.min(...priceHistory[activeAsset])*0.995)) / (Math.max(...priceHistory[activeAsset])*1.005 - Math.min(...priceHistory[activeAsset])*0.995)) * 300}`).join(' ')} />
           </svg>
         </div>
       </div>
@@ -287,29 +301,14 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* --- Leaderboard Modal --- */}
       {showLeaderboard && (
         <div className="auth-overlay">
           <div className="auth-card" style={{ maxWidth: '400px' }}>
-            <h3 style={{ color: '#ffd700', marginBottom: '15px' }}><Trophy size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }}/>财富排行榜 (前十)</h3>
+            <h3 style={{ color: '#ffd700', marginBottom: '15px' }}><Trophy size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }}/>财富排行榜</h3>
             <div style={{ maxHeight: '300px', overflowY: 'auto', marginBottom: '20px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid #444', color: '#888' }}>
-                    <th style={{ padding: '8px', textAlign: 'left' }}>排名</th>
-                    <th style={{ padding: '8px', textAlign: 'left' }}>玩家</th>
-                    <th style={{ padding: '8px', textAlign: 'right' }}>净资产</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {leaderboardData.map((row, i) => (
-                    <tr key={i} style={{ borderBottom: '1px solid #222' }}>
-                      <td style={{ padding: '10px 8px' }}>{i + 1}</td>
-                      <td style={{ padding: '10px 8px', fontWeight: 'bold' }}>{row.username}</td>
-                      <td style={{ padding: '10px 8px', textAlign: 'right', color: '#26a69a' }}>${row.balance.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
-                    </tr>
-                  ))}
-                </tbody>
+                <thead><tr style={{ borderBottom: '1px solid #444', color: '#888' }}><th style={{ padding: '8px', textAlign: 'left' }}>排名</th><th style={{ padding: '8px', textAlign: 'left' }}>玩家</th><th style={{ padding: '8px', textAlign: 'right' }}>净资产</th></tr></thead>
+                <tbody>{leaderboardData.map((row, i) => (<tr key={i} style={{ borderBottom: '1px solid #222' }}><td style={{ padding: '10px 8px' }}>{i + 1}</td><td style={{ padding: '10px 8px', fontWeight: 'bold' }}>{row.username}</td><td style={{ padding: '10px 8px', textAlign: 'right', color: '#26a69a' }}>${row.balance.toLocaleString(undefined, {maximumFractionDigits: 0})}</td></tr>))}</tbody>
               </table>
             </div>
             <button className="btn btn-long" onClick={() => setShowLeaderboard(false)}>关闭</button>
