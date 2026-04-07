@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { TrendingUp, TrendingDown, Newspaper, Wallet, Activity, AlertTriangle, ChevronDown, Cloud, User, LogOut } from 'lucide-react';
 
 // --- Constants & Config ---
-const API_BASE = 'http://140.245.65.111:3000/api';
+const API_BASE = 'https://emails-pharmacy-sunrise-outline.trycloudflare.com/api';
 const LEVERAGE = 10;
 const TICK_MS = 1000;
 const NEWS_INTERVAL_TICKS = 15;
