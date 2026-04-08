@@ -55,6 +55,7 @@ const App: React.FC = () => {
   const lastDirectionsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 });
 
   useEffect(() => {
+    console.log("期货风云核心逻辑版本: 2.0 - 低波动百分比回归版");
     const saved = localStorage.getItem('cc_user');
     if (saved) {
       const parsed = JSON.parse(saved);
