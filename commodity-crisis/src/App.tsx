@@ -7,20 +7,28 @@ const LEVERAGE = 10;
 const TICK_MS = 1000;
 const NEWS_INTERVAL_TICKS = 15;
 
-type AssetType = 'OIL' | 'TBOND';
+type AssetType = 'OIL' | 'GOLD' | 'SILVER' | 'BR' | 'RU' | 'MA' | 'UR' | 'TBOND';
 type ViewMode = 'auto' | 'mobile' | 'desktop';
 
 const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, minPrice: number, maxPrice: number, vol: number, icon: string }> = {
   OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.0025, icon: '🛢️' },
+  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.00012, icon: '✨' },
+  SILVER: { name: '白银', basePrice: 30, minPrice: 15, maxPrice: 60, vol: 0.0015, icon: '🥈' },
+  BR: { name: '合成胶', basePrice: 12000, minPrice: 8000, maxPrice: 20000, vol: 0.002, icon: '🧪' },
+  RU: { name: '天然胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.002, icon: '🌲' },
+  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4000, vol: 0.002, icon: '🔥' },
+  UR: { name: '尿素', basePrice: 2200, minPrice: 1500, maxPrice: 3500, vol: 0.0018, icon: '🌾' },
   TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.0005, icon: '📜' },
 };
 
 const NEWS_POOL = [
-  { text: "中东局势升级，供应担忧缓解。", impact: { OIL: 0.012, TBOND: -0.001 } },
-  { text: "美联储维持现状，暗示政策转向仍需时日。", impact: { OIL: -0.004, TBOND: -0.004 } },
-  { text: "避险需求回落，市场情绪回暖。", impact: { OIL: 0.002, TBOND: -0.002 } },
-  { text: "原油库存超预期增加，需求端疲软。", impact: { OIL: -0.015, TBOND: 0.001 } },
-  { text: "地缘政治溢价消退，油价震荡回调。", impact: { OIL: -0.008, TBOND: 0 } },
+  { text: "中东局势升级，原油供应担忧加剧。", impact: { OIL: 0.015, GOLD: 0.005, SILVER: 0.003, BR: 0.002 } as any },
+  { text: "美联储维持利率不变，贵金属高位震荡。", impact: { GOLD: -0.002, SILVER: -0.004, TBOND: -0.001 } as any },
+  { text: "主产区降雨充沛，天然橡胶供应前景改善。", impact: { RU: -0.012, BR: -0.005 } as any },
+  { text: "甲醇港口库存大幅下降，现货挺价意愿强。", impact: { MA: 0.01, UR: 0.003 } as any },
+  { text: "化肥出口政策收紧，国内尿素供应增加。", impact: { UR: -0.015, MA: -0.002 } as any },
+  { text: "丁二烯价格走高，合成胶成本支撑转强。", impact: { BR: 0.008, RU: 0.003 } as any },
+  { text: "全球避险情绪回落，国债收益率小幅回升。", impact: { GOLD: -0.005, SILVER: -0.008, TBOND: -0.003 } as any },
 ];
 
 const App: React.FC = () => {
@@ -33,16 +41,14 @@ const App: React.FC = () => {
   const [isLiquated, setIsLiquated] = useState(false);
   const [utilizationRate, setUtilizationRate] = useState(0.8);
   
-  const pricesRef = useRef<Record<AssetType, number>>({
-    OIL: ASSET_CONFIG.OIL.basePrice,
-    TBOND: ASSET_CONFIG.TBOND.basePrice
-  });
+  const pricesRef = useRef<Record<AssetType, number>>(
+    Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, v.basePrice])) as any
+  );
   const [prices, setPrices] = useState<Record<AssetType, number>>(pricesRef.current);
   
-  const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>({
-    OIL: [ASSET_CONFIG.OIL.basePrice],
-    TBOND: [ASSET_CONFIG.TBOND.basePrice]
-  });
+  const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>(
+    Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, [v.basePrice]])) as any
+  );
 
   const [user, setUser] = useState<{username: string, token: string} | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -51,11 +57,15 @@ const App: React.FC = () => {
   const [authForm, setAuthForm] = useState({ username: '', password: '', isLogin: true });
   const [authMsg, setAuthMsg] = useState('');
 
-  const activeImpactsRef = useRef<Record<AssetType, number>>({ OIL: 0, TBOND: 0 });
-  const lastDirectionsRef = useRef<Record<AssetType, number>>({ OIL: 0, TBOND: 0 });
+  const activeImpactsRef = useRef<Record<AssetType, number>>(
+    Object.fromEntries(Object.keys(ASSET_CONFIG).map(k => [k, 0])) as any
+  );
+  const lastDirectionsRef = useRef<Record<AssetType, number>>(
+    Object.fromEntries(Object.keys(ASSET_CONFIG).map(k => [k, 0])) as any
+  );
 
   useEffect(() => {
-    console.log("期货风云核心逻辑版本: 3.1 - 精简版 (OIL & TBOND)");
+    console.log("期货风云核心逻辑版本: 3.2 - 多品种扩充版");
     const saved = localStorage.getItem('cc_user');
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -146,7 +156,7 @@ const App: React.FC = () => {
           const randomNoise = (Math.random() - 0.5) * 2.5 * config.vol;
           const momentum = lastDirectionsRef.current[asset] * 0.3 * config.vol;
           const reversion = ((config.basePrice - prevP) / config.basePrice) * 0.002;
-          const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
+          const newsPower = (activeImpactsRef.current[asset] || 0) * (0.7 + Math.random() * 0.6);
           
           let delta = randomNoise + momentum + reversion + newsPower;
           delta = Math.max(-0.005, Math.min(0.005, delta));
@@ -166,7 +176,7 @@ const App: React.FC = () => {
         setPriceHistory(prevH => {
           const nextH = { ...prevH };
           (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
-            nextH[asset] = [...prevH[asset].slice(-49), newPrices[asset]];
+            nextH[asset] = [...(prevH[asset] || [ASSET_CONFIG[asset].basePrice]).slice(-49), newPrices[asset]];
           });
           return nextH;
         });
@@ -178,10 +188,11 @@ const App: React.FC = () => {
           const newEvent = { ...rawNews, id: Date.now(), type };
           setNews(prevN => [newEvent, ...prevN].slice(0, 5));
           
-          (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
+          (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
+            let impact = (newEvent.impact && (newEvent.impact as any)[asset]) || 0;
             let factor = type === 'INVERSE' ? -0.7 : (type === 'NONE' ? 0.05 : 1);
             setTimeout(() => {
-              activeImpactsRef.current[asset] += (newEvent.impact[asset as AssetType] * factor) / 3;
+              activeImpactsRef.current[asset] += (impact * factor) / 3;
             }, Math.random() * 2000); 
           });
         }
@@ -201,7 +212,7 @@ const App: React.FC = () => {
 
   const priceChangePercent = useMemo(() => {
     const current = prices[activeAsset];
-    const initial = priceHistory[activeAsset][0] || ASSET_CONFIG[activeAsset].basePrice;
+    const initial = (priceHistory[activeAsset] ? priceHistory[activeAsset][0] : ASSET_CONFIG[activeAsset].basePrice) || ASSET_CONFIG[activeAsset].basePrice;
     const pc = ((current / initial - 1) * 100);
     return isFinite(pc) ? pc.toFixed(2) : "0.00";
   }, [prices, priceHistory, activeAsset]);
@@ -264,15 +275,15 @@ const App: React.FC = () => {
           </div>
           <div className="chart-price-box">
             <span className="current-price">{prices[activeAsset].toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
-            <span className={`price-change ${prices[activeAsset] >= priceHistory[activeAsset][0] ? 'up' : 'down'}`}>
+            <span className={`price-change ${prices[activeAsset] >= (priceHistory[activeAsset] ? priceHistory[activeAsset][0] : prices[activeAsset]) ? 'up' : 'down'}`}>
               {priceChangePercent}%
             </span>
           </div>
         </div>
         <div className="chart-container mini-chart">
           <svg width="100%" height="100%" viewBox="0 0 500 300" preserveAspectRatio="none">
-            <polyline fill="none" stroke={priceHistory[activeAsset][priceHistory[activeAsset].length-1] >= priceHistory[activeAsset][0] ? "#26a69a" : "#ef5350"} strokeWidth="2"
-              points={priceHistory[activeAsset].map((p, i) => `${(i / (priceHistory[activeAsset].length - 1)) * 500},${300 - ((p - (Math.min(...priceHistory[activeAsset])*0.995)) / (Math.max(...priceHistory[activeAsset])*1.005 - Math.min(...priceHistory[activeAsset])*0.995 + 0.001)) * 300}`).join(' ')} />
+            <polyline fill="none" stroke={(priceHistory[activeAsset] && priceHistory[activeAsset][priceHistory[activeAsset].length-1] >= priceHistory[activeAsset][0]) ? "#26a69a" : "#ef5350"} strokeWidth="2"
+              points={(priceHistory[activeAsset] || [prices[activeAsset]]).map((p, i) => `${(i / (Math.max(1, (priceHistory[activeAsset] ? priceHistory[activeAsset].length : 1) - 1))) * 500},${300 - ((p - (Math.min(...(priceHistory[activeAsset] || [p]))*0.995)) / (Math.max(...(priceHistory[activeAsset] || [p]))*1.005 - Math.min(...(priceHistory[activeAsset] || [p]))*0.995 + 0.001)) * 300}`).join(' ')} />
           </svg>
         </div>
       </div>
