@@ -156,8 +156,8 @@ const App: React.FC = () => {
           const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
           
           let delta = randomNoise + momentum + reversion + newsPower;
-          // 防溢出保护：单秒变动严禁超过 20%
-          delta = Math.max(-0.2, Math.min(0.2, delta));
+          // 严格限制：单秒变动严禁超过 0.5%
+          delta = Math.max(-0.005, Math.min(0.005, delta));
           
           let p = prevP * (1 + delta);
           
