@@ -11,21 +11,21 @@ type AssetType = 'OIL' | 'GOLD' | 'WHEAT' | 'MA' | 'CU' | 'RU' | 'TBOND';
 type ViewMode = 'auto' | 'mobile' | 'desktop';
 
 const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, minPrice: number, maxPrice: number, vol: number, icon: string }> = {
-  OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.025, icon: '🛢️' },
-  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.012, icon: '✨' },
-  WHEAT: { name: '小麦', basePrice: 600, minPrice: 300, maxPrice: 1200, vol: 0.018, icon: '🌾' },
-  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4500, vol: 0.035, icon: '🧪' },
-  CU: { name: '沪铜', basePrice: 70000, minPrice: 40000, maxPrice: 100000, vol: 0.02, icon: '🧱' },
-  RU: { name: '橡胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.03, icon: '🌲' },
-  TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.005, icon: '📜' },
+  OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.0025, icon: '🛢️' },
+  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.0012, icon: '✨' },
+  WHEAT: { name: '小麦', basePrice: 600, minPrice: 300, maxPrice: 1200, vol: 0.0018, icon: '🌾' },
+  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4500, vol: 0.0035, icon: '🧪' },
+  CU: { name: '沪铜', basePrice: 70000, minPrice: 40000, maxPrice: 100000, vol: 0.002, icon: '🧱' },
+  RU: { name: '橡胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.003, icon: '🌲' },
+  TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.0005, icon: '📜' },
 };
 
 const NEWS_POOL = [
-  { text: "中东局势升级，供应担忧缓解。", impact: { OIL: 0.12, GOLD: 0.04, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: -0.01 } },
-  { text: "美联储维持现状，暗示政策转向仍需时日。", impact: { OIL: -0.04, GOLD: -0.08, WHEAT: -0.02, MA: -0.03, CU: -0.05, RU: -0.02, TBOND: -0.04 } },
-  { text: "全球最大铜矿进入紧急状态。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0.15, RU: 0, TBOND: 0 } },
-  { text: "煤化工行业新规发布，产能受限。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0.15, CU: 0, RU: 0, TBOND: 0 } },
-  { text: "避险需求回落，黄金价格承压。", impact: { OIL: 0.02, GOLD: -0.10, WHEAT: 0, MA: 0.01, CU: 0.03, RU: 0.02, TBOND: -0.02 } },
+  { text: "中东局势升级，供应担忧缓解。", impact: { OIL: 0.012, GOLD: 0.004, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: -0.001 } },
+  { text: "美联储维持现状，暗示政策转向仍需时日。", impact: { OIL: -0.004, GOLD: -0.008, WHEAT: -0.002, MA: -0.003, CU: -0.005, RU: -0.002, TBOND: -0.004 } },
+  { text: "全球最大铜矿进入紧急状态。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0.015, RU: 0, TBOND: 0 } },
+  { text: "煤化工行业新规发布，产能受限。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0.015, CU: 0, RU: 0, TBOND: 0 } },
+  { text: "避险需求回落，黄金价格承压。", impact: { OIL: 0.002, GOLD: -0.010, WHEAT: 0, MA: 0.001, CU: 0.003, RU: 0.002, TBOND: -0.002 } },
 ];
 
 const App: React.FC = () => {
@@ -141,7 +141,7 @@ const App: React.FC = () => {
           const momentum = lastDirectionsRef.current[asset] * 0.3 * config.vol;
           
           // 3. 均值回归 (价格离基准太远会产生拉力，防止单边一头走死)
-          const reversion = (config.basePrice - prev[asset]) * 0.005;
+          const reversion = (config.basePrice - prev[asset]) * 0.0005;
           
           // 4. 新闻影响 (带噪音的新闻反应)
           const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
@@ -149,6 +149,9 @@ const App: React.FC = () => {
           // 总波动计算
           const delta = randomNoise + momentum + reversion + newsPower;
           next[asset] = prev[asset] * (1 + delta);
+          
+          // 强制限制在 min/max 范围内
+          next[asset] = Math.min(config.maxPrice, Math.max(config.minPrice, next[asset]));
           
           // 记录方向用于下一秒动量
           lastDirectionsRef.current[asset] = delta > 0 ? 1 : -1;
