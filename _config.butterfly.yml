@@ -445,9 +445,9 @@ wordcount:
 
 # Busuanzi count for PV / UV in site
 busuanzi:
-  site_uv: true
-  site_pv: true
-  page_pv: true
+  site_uv: false
+  site_pv: false
+  page_pv: false
 
 # --------------------------------------
 # Math
@@ -599,7 +599,7 @@ waline:
   bg: # 评论框背景图，留空就是白色
   
   # 开启阅读量统计 (记得要把 busuanzi 的 page_pv 关掉)
-  pageview: false 
+  pageview: true 
   
   # 这里是高级功能的开关
   option:
