@@ -37,10 +37,14 @@ const App: React.FC = () => {
   const [ticks, setTicks] = useState(0);
   const [isLiquated, setIsLiquated] = useState(false);
   const [utilizationRate, setUtilizationRate] = useState(0.8);
-  const [prices, setPrices] = useState<Record<AssetType, number>>(() => 
+  
+  // 使用 Ref 存储实时价格，避免闭包过时
+  const pricesRef = useRef<Record<AssetType, number>>(
     Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, v.basePrice])) as any
   );
-  const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>(() => 
+  const [prices, setPrices] = useState<Record<AssetType, number>>(pricesRef.current);
+  
+  const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>(
     Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, [v.basePrice]])) as any
   );
 
@@ -55,7 +59,7 @@ const App: React.FC = () => {
   const lastDirectionsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 });
 
   useEffect(() => {
-    console.log("期货风云核心逻辑版本: 2.0 - 低波动百分比回归版");
+    console.log("期货风云核心逻辑版本: 3.0 - 防溢出增强版");
     const saved = localStorage.getItem('cc_user');
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -67,7 +71,10 @@ const App: React.FC = () => {
   const fetchProfile = async (token: string) => {
     try {
       const res = await fetch(`${API_BASE}/user/profile`, { headers: { 'Authorization': `Bearer ${token}` } });
-      if (res.ok) { const data = await res.json(); setBalance(data.balance); }
+      if (res.ok) { 
+        const data = await res.json(); 
+        if (isFinite(data.balance)) setBalance(data.balance); 
+      }
     } catch (e) { console.error('Profile fetch failed'); }
   };
 
@@ -91,7 +98,7 @@ const App: React.FC = () => {
       if (!res.ok) throw new Error(data.error || '请求失败');
       if (authForm.isLogin) {
         setUser({ username: data.username, token: data.token });
-        setBalance(data.balance);
+        if (isFinite(data.balance)) setBalance(data.balance);
         localStorage.setItem('cc_user', JSON.stringify({ username: data.username, token: data.token }));
         setShowAuthModal(false);
       } else {
@@ -102,7 +109,7 @@ const App: React.FC = () => {
   };
 
   const syncBalance = async (newBalance: number) => {
-    if (!user) return;
+    if (!user || !isFinite(newBalance)) return;
     try {
       await fetch(`${API_BASE}/user/save-balance`, {
         method: 'POST',
@@ -117,90 +124,119 @@ const App: React.FC = () => {
   const unrealizedPnL = useMemo(() => {
     if (!position) return 0;
     const assetKey = position.asset as AssetType;
-    return (prices[assetKey] - position.entryPrice) * position.direction * position.size * LEVERAGE;
+    const currentPrice = prices[assetKey];
+    const pnl = (currentPrice - position.entryPrice) * position.direction * position.size * LEVERAGE;
+    return isFinite(pnl) ? pnl : 0;
   }, [position, prices]);
 
   const equity = balance + unrealizedPnL;
   const currentUtilization = useMemo(() => {
     if (!position) return 0;
-    return (position.entryPrice * position.size) / Math.max(0.001, equity);
+    const util = (position.entryPrice * position.size) / Math.max(0.001, equity);
+    return isFinite(util) ? util : 0;
   }, [position, equity]);
 
+  // 核心循环：使用单个 interval 确保稳定性
   useEffect(() => {
     if (isLiquated) return;
     const timer = setInterval(() => {
-      setTicks(t => t + 1);
-      
-      let nextPrices: Record<AssetType, number>;
-      
-      setPrices(prev => {
-        const next = { ...prev };
+      setTicks(t => {
+        const nextTick = t + 1;
+        
+        // 更新价格逻辑
+        const newPrices = { ...pricesRef.current };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
           const config = ASSET_CONFIG[asset];
+          const prevP = pricesRef.current[asset];
+          
           const randomNoise = (Math.random() - 0.5) * 2.5 * config.vol;
           const momentum = lastDirectionsRef.current[asset] * 0.3 * config.vol;
-          
-          // 数学修正：拉力改为基于百分比，防止黄金/沪铜等高价品种产生超巨额拉力
-          const reversion = ((config.basePrice - prev[asset]) / config.basePrice) * 0.002;
-          
+          // 百分比回归逻辑：偏离 10% 产生 0.02% 的拉力
+          const reversion = ((config.basePrice - prevP) / config.basePrice) * 0.002;
           const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
-          const delta = randomNoise + momentum + reversion + newsPower;
           
-          let p = prev[asset] * (1 + delta);
+          let delta = randomNoise + momentum + reversion + newsPower;
+          // 防溢出保护：单秒变动严禁超过 20%
+          delta = Math.max(-0.2, Math.min(0.2, delta));
+          
+          let p = prevP * (1 + delta);
+          
+          // 硬性边界与非法值检查
+          if (!isFinite(p) || p <= 0) p = config.basePrice;
           p = Math.min(config.maxPrice, Math.max(config.minPrice, p));
-          next[asset] = p;
           
+          newPrices[asset] = p;
           lastDirectionsRef.current[asset] = delta > 0 ? 1 : -1;
           activeImpactsRef.current[asset] *= 0.82;
         });
-        nextPrices = next;
-        return next;
-      });
-
-      setPriceHistory(prev => {
-        const next = { ...prev };
-        (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
-          const currentP = nextPrices ? nextPrices[asset] : ASSET_CONFIG[asset].basePrice;
-          next[asset] = [...prev[asset].slice(-49), currentP];
-        });
-        return next;
-      });
-
-      if (ticks > 0 && ticks % NEWS_INTERVAL_TICKS === 0) {
-        const rand = Math.random();
-        const type = (rand > 0.8 ? 'INVERSE' : (rand > 0.65 ? 'NONE' : 'NORMAL')) as any;
-        const rawNews = NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)];
-        const newEvent = { ...rawNews, id: Date.now(), type };
-        setNews(prev => [newEvent, ...prev].slice(0, 5));
         
-        (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
-          let factor = type === 'INVERSE' ? -0.7 : (type === 'NONE' ? 0.05 : 1);
-          setTimeout(() => {
-            activeImpactsRef.current[asset] += (newEvent.impact[asset as AssetType] * factor) / 3;
-          }, Math.random() * 2000); 
+        pricesRef.current = newPrices;
+        setPrices(newPrices);
+        
+        // 更新历史记录
+        setPriceHistory(prevH => {
+          const nextH = { ...prevH };
+          (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
+            nextH[asset] = [...prevH[asset].slice(-49), newPrices[asset]];
+          });
+          return nextH;
         });
-      }
-      if (currentUtilization > 1.2) { setIsLiquated(true); clearInterval(timer); }
+
+        // 生成新闻
+        if (nextTick % NEWS_INTERVAL_TICKS === 0) {
+          const rand = Math.random();
+          const type = (rand > 0.8 ? 'INVERSE' : (rand > 0.65 ? 'NONE' : 'NORMAL')) as any;
+          const rawNews = NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)];
+          const newEvent = { ...rawNews, id: Date.now(), type };
+          setNews(prevN => [newEvent, ...prevN].slice(0, 5) as any);
+          
+          (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
+            let factor = type === 'INVERSE' ? -0.7 : (type === 'NONE' ? 0.05 : 1);
+            setTimeout(() => {
+              activeImpactsRef.current[asset] += (newEvent.impact[asset as AssetType] * factor) / 3;
+            }, Math.random() * 2000); 
+          });
+        }
+
+        return nextTick;
+      });
     }, TICK_MS);
+
     return () => clearInterval(timer);
-  }, [ticks, isLiquated, currentUtilization]);
+  }, [isLiquated]);
+
+  // 强风险控制：独立检测爆仓
+  useEffect(() => {
+    if (currentUtilization > 1.2 && !isLiquated) {
+      setIsLiquated(true);
+    }
+  }, [currentUtilization, isLiquated]);
 
   const priceChangePercent = useMemo(() => {
     const current = prices[activeAsset];
     const initial = priceHistory[activeAsset][0] || ASSET_CONFIG[activeAsset].basePrice;
-    return ((current / initial - 1) * 100).toFixed(2);
+    const pc = ((current / initial - 1) * 100);
+    return isFinite(pc) ? pc.toFixed(2) : "0.00";
   }, [prices, priceHistory, activeAsset]);
 
   const openPosition = (dir: 1 | -1) => {
-    if (position) return;
-    const price = prices[activeAsset];
-    setPosition({ asset: activeAsset, direction: dir, entryPrice: price, size: (balance * utilizationRate) / price });
+    if (position || isLiquated) return;
+    const price = pricesRef.current[activeAsset];
+    if (price <= 0) return;
+    const size = (balance * utilizationRate) / price;
+    if (!isFinite(size) || size <= 0) return;
+    setPosition({ asset: activeAsset, direction: dir, entryPrice: price, size });
   };
 
   const closePosition = () => {
     if (position) {
-      const newBalance = balance + unrealizedPnL;
-      setBalance(newBalance); setPosition(null); syncBalance(newBalance);
+      const pnl = unrealizedPnL;
+      const newBalance = balance + pnl;
+      if (isFinite(newBalance)) {
+        setBalance(newBalance);
+        syncBalance(newBalance);
+      }
+      setPosition(null);
     }
   };
 
@@ -249,7 +285,7 @@ const App: React.FC = () => {
         <div className="chart-container mini-chart">
           <svg width="100%" height="100%" viewBox="0 0 500 300" preserveAspectRatio="none">
             <polyline fill="none" stroke={priceHistory[activeAsset][priceHistory[activeAsset].length-1] >= priceHistory[activeAsset][0] ? "#26a69a" : "#ef5350"} strokeWidth="2"
-              points={priceHistory[activeAsset].map((p, i) => `${(i / (priceHistory[activeAsset].length - 1)) * 500},${300 - ((p - (Math.min(...priceHistory[activeAsset])*0.995)) / (Math.max(...priceHistory[activeAsset])*1.005 - Math.min(...priceHistory[activeAsset])*0.995)) * 300}`).join(' ')} />
+              points={priceHistory[activeAsset].map((p, i) => `${(i / (priceHistory[activeAsset].length - 1)) * 500},${300 - ((p - (Math.min(...priceHistory[activeAsset])*0.995)) / (Math.max(...priceHistory[activeAsset])*1.005 - Math.min(...priceHistory[activeAsset])*0.995 + 0.001)) * 300}`).join(' ')} />
           </svg>
         </div>
       </div>
@@ -285,11 +321,10 @@ const App: React.FC = () => {
       <div className="card news-card">
         <div className="news-header-mini">
           <Newspaper size={16} /> <span>快讯</span>
-          <span id="busuanzi_container_page_pv" className="visitor-count"> 访客: <span id="busuanzi_value_page_pv"></span></span>
         </div>
         <div className="news-panel-compact">
           {news.length === 0 && <div className="news-placeholder">等待消息...</div>}
-          {news.map(item => (
+          {news.map((item: any) => (
             <div key={item.id} className="news-item-mini">{item.text}</div>
           ))}
         </div>
