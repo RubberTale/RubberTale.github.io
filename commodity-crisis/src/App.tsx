@@ -129,50 +129,42 @@ const App: React.FC = () => {
     if (isLiquated) return;
     const timer = setInterval(() => {
       setTicks(t => t + 1);
+      
+      let nextPrices: Record<AssetType, number>;
+      
       setPrices(prev => {
         const next = { ...prev };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
           const config = ASSET_CONFIG[asset];
-          
-          // 1. 高频噪音 (制造曲折感)
           const randomNoise = (Math.random() - 0.5) * 2.5 * config.vol;
-          
-          // 2. 动量因子 (继承上一秒的一点趋势，但容易被打断)
           const momentum = lastDirectionsRef.current[asset] * 0.3 * config.vol;
-          
-          // 3. 均值回归 (价格离基准太远会产生拉力，防止单边一头走死)
           const reversion = (config.basePrice - prev[asset]) * 0.0005;
-          
-          // 4. 新闻影响 (带噪音的新闻反应)
           const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
-          
-          // 总波动计算
           const delta = randomNoise + momentum + reversion + newsPower;
-          next[asset] = prev[asset] * (1 + delta);
           
-          // 强制限制在 min/max 范围内
-          next[asset] = Math.min(config.maxPrice, Math.max(config.minPrice, next[asset]));
+          let p = prev[asset] * (1 + delta);
+          p = Math.min(config.maxPrice, Math.max(config.minPrice, p));
+          next[asset] = p;
           
-          // 记录方向用于下一秒动量
           lastDirectionsRef.current[asset] = delta > 0 ? 1 : -1;
-          
-          // 新闻影响衰减
           activeImpactsRef.current[asset] *= 0.82;
         });
+        nextPrices = next;
         return next;
       });
 
+      // 确保在更新历史记录时使用最新的价格快照，而不是旧的 prices 状态
       setPriceHistory(prev => {
         const next = { ...prev };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
-          next[asset] = [...prev[asset].slice(-49), prices[asset]];
+          const currentP = nextPrices ? nextPrices[asset] : ASSET_CONFIG[asset].basePrice;
+          next[asset] = [...prev[asset].slice(-49), currentP];
         });
         return next;
       });
 
       if (ticks > 0 && ticks % NEWS_INTERVAL_TICKS === 0) {
         const rand = Math.random();
-        // 增加“陷阱”逻辑：20%概率是反转新闻
         const type = (rand > 0.8 ? 'INVERSE' : (rand > 0.65 ? 'NONE' : 'NORMAL')) as any;
         const rawNews = NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)];
         const newEvent = { ...rawNews, id: Date.now(), type };
@@ -180,7 +172,6 @@ const App: React.FC = () => {
         
         (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
           let factor = type === 'INVERSE' ? -0.7 : (type === 'NONE' ? 0.05 : 1);
-          // 增加“延迟反应”感：新闻刚出时不一定立刻大涨，可能先震荡
           setTimeout(() => {
             activeImpactsRef.current[asset] += (newEvent.impact[asset as AssetType] * factor) / 3;
           }, Math.random() * 2000); 
@@ -189,20 +180,14 @@ const App: React.FC = () => {
       if (currentUtilization > 1.2) { setIsLiquated(true); clearInterval(timer); }
     }, TICK_MS);
     return () => clearInterval(timer);
-  }, [ticks, prices, isLiquated, currentUtilization]);
+  }, [ticks, isLiquated, currentUtilization]); // 移除了对 prices 的直接依赖，防止无限重启 interval
 
-  const openPosition = (dir: 1 | -1) => {
-    if (position) return;
-    const price = prices[activeAsset];
-    setPosition({ asset: activeAsset, direction: dir, entryPrice: price, size: (balance * utilizationRate) / price });
-  };
-
-  const closePosition = () => {
-    if (position) {
-      const newBalance = balance + unrealizedPnL;
-      setBalance(newBalance); setPosition(null); syncBalance(newBalance);
-    }
-  };
+  // 在计算涨跌幅处增加保护
+  const priceChangePercent = useMemo(() => {
+    const current = prices[activeAsset];
+    const initial = priceHistory[activeAsset][0] || ASSET_CONFIG[activeAsset].basePrice;
+    return ((current / initial - 1) * 100).toFixed(2);
+  }, [prices, priceHistory, activeAsset]);
 
   return (
     <div className={`app-container ${viewMode === 'mobile' ? 'force-mobile' : viewMode === 'desktop' ? 'force-desktop' : ''}`}>
