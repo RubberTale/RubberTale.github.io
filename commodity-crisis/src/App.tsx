@@ -7,25 +7,20 @@ const LEVERAGE = 10;
 const TICK_MS = 1000;
 const NEWS_INTERVAL_TICKS = 15;
 
-type AssetType = 'OIL' | 'GOLD' | 'WHEAT' | 'MA' | 'CU' | 'RU' | 'TBOND';
+type AssetType = 'OIL' | 'TBOND';
 type ViewMode = 'auto' | 'mobile' | 'desktop';
 
 const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, minPrice: number, maxPrice: number, vol: number, icon: string }> = {
   OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.0025, icon: '🛢️' },
-  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.00012, icon: '✨' },
-  WHEAT: { name: '小麦', basePrice: 600, minPrice: 300, maxPrice: 1200, vol: 0.00018, icon: '🌾' },
-  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4500, vol: 0.00035, icon: '🧪' },
-  CU: { name: '沪铜', basePrice: 70000, minPrice: 40000, maxPrice: 100000, vol: 0.0002, icon: '🧱' },
-  RU: { name: '橡胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.0003, icon: '🌲' },
   TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.0005, icon: '📜' },
 };
 
 const NEWS_POOL = [
-  { text: "中东局势升级，供应担忧缓解。", impact: { OIL: 0.012, GOLD: 0.004, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: -0.001 } },
-  { text: "美联储维持现状，暗示政策转向仍需时日。", impact: { OIL: -0.004, GOLD: -0.008, WHEAT: -0.002, MA: -0.003, CU: -0.005, RU: -0.002, TBOND: -0.004 } },
-  { text: "全球最大铜矿进入紧急状态。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0.015, RU: 0, TBOND: 0 } },
-  { text: "煤化工行业新规发布，产能受限。", impact: { OIL: 0, GOLD: 0, WHEAT: 0, MA: 0.015, CU: 0, RU: 0, TBOND: 0 } },
-  { text: "避险需求回落，黄金价格承压。", impact: { OIL: 0.002, GOLD: -0.010, WHEAT: 0, MA: 0.001, CU: 0.003, RU: 0.002, TBOND: -0.002 } },
+  { text: "中东局势升级，供应担忧缓解。", impact: { OIL: 0.012, TBOND: -0.001 } },
+  { text: "美联储维持现状，暗示政策转向仍需时日。", impact: { OIL: -0.004, TBOND: -0.004 } },
+  { text: "避险需求回落，市场情绪回暖。", impact: { OIL: 0.002, TBOND: -0.002 } },
+  { text: "原油库存超预期增加，需求端疲软。", impact: { OIL: -0.015, TBOND: 0.001 } },
+  { text: "地缘政治溢价消退，油价震荡回调。", impact: { OIL: -0.008, TBOND: 0 } },
 ];
 
 const App: React.FC = () => {
@@ -38,15 +33,16 @@ const App: React.FC = () => {
   const [isLiquated, setIsLiquated] = useState(false);
   const [utilizationRate, setUtilizationRate] = useState(0.8);
   
-  // 使用 Ref 存储实时价格，避免闭包过时
-  const pricesRef = useRef<Record<AssetType, number>>(
-    Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, v.basePrice])) as any
-  );
+  const pricesRef = useRef<Record<AssetType, number>>({
+    OIL: ASSET_CONFIG.OIL.basePrice,
+    TBOND: ASSET_CONFIG.TBOND.basePrice
+  });
   const [prices, setPrices] = useState<Record<AssetType, number>>(pricesRef.current);
   
-  const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>(
-    Object.fromEntries(Object.entries(ASSET_CONFIG).map(([k, v]) => [k, [v.basePrice]])) as any
-  );
+  const [priceHistory, setPriceHistory] = useState<Record<AssetType, number[]>>({
+    OIL: [ASSET_CONFIG.OIL.basePrice],
+    TBOND: [ASSET_CONFIG.TBOND.basePrice]
+  });
 
   const [user, setUser] = useState<{username: string, token: string} | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -55,11 +51,11 @@ const App: React.FC = () => {
   const [authForm, setAuthForm] = useState({ username: '', password: '', isLogin: true });
   const [authMsg, setAuthMsg] = useState('');
 
-  const activeImpactsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 });
-  const lastDirectionsRef = useRef<Record<AssetType, number>>({ OIL: 0, GOLD: 0, WHEAT: 0, MA: 0, CU: 0, RU: 0, TBOND: 0 });
+  const activeImpactsRef = useRef<Record<AssetType, number>>({ OIL: 0, TBOND: 0 });
+  const lastDirectionsRef = useRef<Record<AssetType, number>>({ OIL: 0, TBOND: 0 });
 
   useEffect(() => {
-    console.log("期货风云核心逻辑版本: 3.0 - 防溢出增强版");
+    console.log("期货风云核心逻辑版本: 3.1 - 精简版 (OIL & TBOND)");
     const saved = localStorage.getItem('cc_user');
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -136,14 +132,12 @@ const App: React.FC = () => {
     return isFinite(util) ? util : 0;
   }, [position, equity]);
 
-  // 核心循环：使用单个 interval 确保稳定性
   useEffect(() => {
     if (isLiquated) return;
     const timer = setInterval(() => {
       setTicks(t => {
         const nextTick = t + 1;
         
-        // 更新价格逻辑
         const newPrices = { ...pricesRef.current };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
           const config = ASSET_CONFIG[asset];
@@ -151,17 +145,13 @@ const App: React.FC = () => {
           
           const randomNoise = (Math.random() - 0.5) * 2.5 * config.vol;
           const momentum = lastDirectionsRef.current[asset] * 0.3 * config.vol;
-          // 百分比回归逻辑：偏离 10% 产生 0.02% 的拉力
           const reversion = ((config.basePrice - prevP) / config.basePrice) * 0.002;
           const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
           
           let delta = randomNoise + momentum + reversion + newsPower;
-          // 严格限制：单秒变动严禁超过 0.5%
           delta = Math.max(-0.005, Math.min(0.005, delta));
           
           let p = prevP * (1 + delta);
-          
-          // 硬性边界与非法值检查
           if (!isFinite(p) || p <= 0) p = config.basePrice;
           p = Math.min(config.maxPrice, Math.max(config.minPrice, p));
           
@@ -173,7 +163,6 @@ const App: React.FC = () => {
         pricesRef.current = newPrices;
         setPrices(newPrices);
         
-        // 更新历史记录
         setPriceHistory(prevH => {
           const nextH = { ...prevH };
           (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
@@ -182,13 +171,12 @@ const App: React.FC = () => {
           return nextH;
         });
 
-        // 生成新闻
         if (nextTick % NEWS_INTERVAL_TICKS === 0) {
           const rand = Math.random();
           const type = (rand > 0.8 ? 'INVERSE' : (rand > 0.65 ? 'NONE' : 'NORMAL')) as any;
           const rawNews = NEWS_POOL[Math.floor(Math.random() * NEWS_POOL.length)];
           const newEvent = { ...rawNews, id: Date.now(), type };
-          setNews(prevN => [newEvent, ...prevN].slice(0, 5) as any);
+          setNews(prevN => [newEvent, ...prevN].slice(0, 5));
           
           (Object.keys(newEvent.impact) as AssetType[]).forEach(asset => {
             let factor = type === 'INVERSE' ? -0.7 : (type === 'NONE' ? 0.05 : 1);
@@ -205,7 +193,6 @@ const App: React.FC = () => {
     return () => clearInterval(timer);
   }, [isLiquated]);
 
-  // 强风险控制：独立检测爆仓
   useEffect(() => {
     if (currentUtilization > 1.2 && !isLiquated) {
       setIsLiquated(true);
