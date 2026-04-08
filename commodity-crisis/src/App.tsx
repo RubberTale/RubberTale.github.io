@@ -12,11 +12,11 @@ type ViewMode = 'auto' | 'mobile' | 'desktop';
 
 const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, minPrice: number, maxPrice: number, vol: number, icon: string }> = {
   OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.0025, icon: '🛢️' },
-  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.0012, icon: '✨' },
-  WHEAT: { name: '小麦', basePrice: 600, minPrice: 300, maxPrice: 1200, vol: 0.0018, icon: '🌾' },
-  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4500, vol: 0.0035, icon: '🧪' },
-  CU: { name: '沪铜', basePrice: 70000, minPrice: 40000, maxPrice: 100000, vol: 0.002, icon: '🧱' },
-  RU: { name: '橡胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.003, icon: '🌲' },
+  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.00012, icon: '✨' },
+  WHEAT: { name: '小麦', basePrice: 600, minPrice: 300, maxPrice: 1200, vol: 0.00018, icon: '🌾' },
+  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4500, vol: 0.00035, icon: '🧪' },
+  CU: { name: '沪铜', basePrice: 70000, minPrice: 40000, maxPrice: 100000, vol: 0.0002, icon: '🧱' },
+  RU: { name: '橡胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.0003, icon: '🌲' },
   TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.0005, icon: '📜' },
 };
 
