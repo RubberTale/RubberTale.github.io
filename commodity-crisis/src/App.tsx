@@ -10,14 +10,14 @@ const NEWS_INTERVAL_TICKS = 15;
 type AssetType = 'OIL' | 'GOLD' | 'WHEAT' | 'MA' | 'CU' | 'RU' | 'TBOND';
 type ViewMode = 'auto' | 'mobile' | 'desktop';
 
-const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, vol: number, icon: string }> = {
-  OIL: { name: '原油', basePrice: 75, vol: 0.025, icon: '🛢️' },
-  GOLD: { name: '黄金', basePrice: 2000, vol: 0.012, icon: '✨' },
-  WHEAT: { name: '小麦', basePrice: 600, vol: 0.018, icon: '🌾' },
-  MA: { name: '甲醇', basePrice: 2500, vol: 0.035, icon: '🧪' },
-  CU: { name: '沪铜', basePrice: 70000, vol: 0.02, icon: '🧱' },
-  RU: { name: '橡胶', basePrice: 13000, vol: 0.03, icon: '🌲' },
-  TBOND: { name: '国债', basePrice: 100, vol: 0.005, icon: '📜' },
+const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, minPrice: number, maxPrice: number, vol: number, icon: string }> = {
+  OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.025, icon: '🛢️' },
+  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.012, icon: '✨' },
+  WHEAT: { name: '小麦', basePrice: 600, minPrice: 300, maxPrice: 1200, vol: 0.018, icon: '🌾' },
+  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4500, vol: 0.035, icon: '🧪' },
+  CU: { name: '沪铜', basePrice: 70000, minPrice: 40000, maxPrice: 100000, vol: 0.02, icon: '🧱' },
+  RU: { name: '橡胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.03, icon: '🌲' },
+  TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.005, icon: '📜' },
 };
 
 const NEWS_POOL = [
