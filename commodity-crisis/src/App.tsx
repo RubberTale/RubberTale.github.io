@@ -138,7 +138,10 @@ const App: React.FC = () => {
           const config = ASSET_CONFIG[asset];
           const randomNoise = (Math.random() - 0.5) * 2.5 * config.vol;
           const momentum = lastDirectionsRef.current[asset] * 0.3 * config.vol;
-          const reversion = (config.basePrice - prev[asset]) * 0.0005;
+          
+          // 数学修正：拉力改为基于百分比，防止黄金/沪铜等高价品种产生超巨额拉力
+          const reversion = ((config.basePrice - prev[asset]) / config.basePrice) * 0.002;
+          
           const newsPower = activeImpactsRef.current[asset] * (0.7 + Math.random() * 0.6);
           const delta = randomNoise + momentum + reversion + newsPower;
           
@@ -153,7 +156,6 @@ const App: React.FC = () => {
         return next;
       });
 
-      // 确保在更新历史记录时使用最新的价格快照，而不是旧的 prices 状态
       setPriceHistory(prev => {
         const next = { ...prev };
         (Object.keys(ASSET_CONFIG) as AssetType[]).forEach(asset => {
@@ -180,14 +182,26 @@ const App: React.FC = () => {
       if (currentUtilization > 1.2) { setIsLiquated(true); clearInterval(timer); }
     }, TICK_MS);
     return () => clearInterval(timer);
-  }, [ticks, isLiquated, currentUtilization]); // 移除了对 prices 的直接依赖，防止无限重启 interval
+  }, [ticks, isLiquated, currentUtilization]);
 
-  // 在计算涨跌幅处增加保护
   const priceChangePercent = useMemo(() => {
     const current = prices[activeAsset];
     const initial = priceHistory[activeAsset][0] || ASSET_CONFIG[activeAsset].basePrice;
     return ((current / initial - 1) * 100).toFixed(2);
   }, [prices, priceHistory, activeAsset]);
+
+  const openPosition = (dir: 1 | -1) => {
+    if (position) return;
+    const price = prices[activeAsset];
+    setPosition({ asset: activeAsset, direction: dir, entryPrice: price, size: (balance * utilizationRate) / price });
+  };
+
+  const closePosition = () => {
+    if (position) {
+      const newBalance = balance + unrealizedPnL;
+      setBalance(newBalance); setPosition(null); syncBalance(newBalance);
+    }
+  };
 
   return (
     <div className={`app-container ${viewMode === 'mobile' ? 'force-mobile' : viewMode === 'desktop' ? 'force-desktop' : ''}`}>
@@ -227,7 +241,7 @@ const App: React.FC = () => {
           <div className="chart-price-box">
             <span className="current-price">{prices[activeAsset].toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
             <span className={`price-change ${prices[activeAsset] >= priceHistory[activeAsset][0] ? 'up' : 'down'}`}>
-              {((prices[activeAsset] / priceHistory[activeAsset][0] - 1) * 100).toFixed(2)}%
+              {priceChangePercent}%
             </span>
           </div>
         </div>
