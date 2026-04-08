@@ -10,15 +10,26 @@ const NEWS_INTERVAL_TICKS = 15;
 type AssetType = 'OIL' | 'GOLD' | 'SILVER' | 'BR' | 'RU' | 'MA' | 'UR' | 'TBOND';
 type ViewMode = 'auto' | 'mobile' | 'desktop';
 
-const ASSET_CONFIG: Record<AssetType, { name: string, basePrice: number, minPrice: number, maxPrice: number, vol: number, icon: string }> = {
-  OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.0025, icon: '🛢️' },
-  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.00012, icon: '✨' },
-  SILVER: { name: '白银', basePrice: 30, minPrice: 15, maxPrice: 60, vol: 0.0015, icon: '🥈' },
-  BR: { name: '合成胶', basePrice: 12000, minPrice: 8000, maxPrice: 20000, vol: 0.002, icon: '🧪' },
-  RU: { name: '天然胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.002, icon: '🌲' },
-  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4000, vol: 0.002, icon: '🔥' },
-  UR: { name: '尿素', basePrice: 2200, minPrice: 1500, maxPrice: 3500, vol: 0.0018, icon: '🌾' },
-  TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.0005, icon: '📜' },
+interface AssetConfig {
+  name: string;
+  basePrice: number;
+  minPrice: number;
+  maxPrice: number;
+  vol: number;
+  icon: string;
+  precision: number; // 小数点位数
+  step: number;      // 最小变动价位
+}
+
+const ASSET_CONFIG: Record<AssetType, AssetConfig> = {
+  OIL: { name: '原油', basePrice: 75, minPrice: 20, maxPrice: 150, vol: 0.0025, icon: '🛢️', precision: 2, step: 0.01 },
+  GOLD: { name: '黄金', basePrice: 2000, minPrice: 1200, maxPrice: 3000, vol: 0.00012, icon: '✨', precision: 2, step: 0.01 },
+  SILVER: { name: '白银', basePrice: 30, minPrice: 15, maxPrice: 60, vol: 0.0015, icon: '🥈', precision: 0, step: 1 },
+  BR: { name: '合成胶', basePrice: 12000, minPrice: 8000, maxPrice: 20000, vol: 0.002, icon: '🧪', precision: 0, step: 5 },
+  RU: { name: '天然胶', basePrice: 13000, minPrice: 8000, maxPrice: 25000, vol: 0.002, icon: '🌲', precision: 0, step: 5 },
+  MA: { name: '甲醇', basePrice: 2500, minPrice: 1500, maxPrice: 4000, vol: 0.002, icon: '🔥', precision: 0, step: 1 },
+  UR: { name: '尿素', basePrice: 2200, minPrice: 1500, maxPrice: 3500, vol: 0.0018, icon: '🌾', precision: 0, step: 1 },
+  TBOND: { name: '国债', basePrice: 100, minPrice: 80, maxPrice: 120, vol: 0.0005, icon: '📜', precision: 3, step: 0.005 },
 };
 
 const NEWS_POOL = [
@@ -65,7 +76,7 @@ const App: React.FC = () => {
   );
 
   useEffect(() => {
-    console.log("期货风云核心逻辑版本: 3.2 - 多品种扩充版");
+    console.log("期货风云核心逻辑版本: 3.3 - 拟真报价版 (精度与步长优化)");
     const saved = localStorage.getItem('cc_user');
     if (saved) {
       const parsed = JSON.parse(saved);
@@ -162,6 +173,10 @@ const App: React.FC = () => {
           delta = Math.max(-0.005, Math.min(0.005, delta));
           
           let p = prevP * (1 + delta);
+          
+          // 核心修正：按照步长和精度修约价格
+          p = Math.round(p / config.step) * config.step;
+          
           if (!isFinite(p) || p <= 0) p = config.basePrice;
           p = Math.min(config.maxPrice, Math.max(config.minPrice, p));
           
@@ -274,7 +289,12 @@ const App: React.FC = () => {
             <ChevronDown size={14} className="select-icon" />
           </div>
           <div className="chart-price-box">
-            <span className="current-price">{prices[activeAsset].toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
+            <span className="current-price">
+              {prices[activeAsset].toLocaleString(undefined, {
+                minimumFractionDigits: ASSET_CONFIG[activeAsset].precision,
+                maximumFractionDigits: ASSET_CONFIG[activeAsset].precision
+              })}
+            </span>
             <span className={`price-change ${prices[activeAsset] >= (priceHistory[activeAsset] ? priceHistory[activeAsset][0] : prices[activeAsset]) ? 'up' : 'down'}`}>
               {priceChangePercent}%
             </span>
