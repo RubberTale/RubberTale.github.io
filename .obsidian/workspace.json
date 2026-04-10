@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/橡胶大事记/正文/4.1 查尔斯·麦金托什与防水外套.md",
+                "file": "source/_posts/2026年美伊“伊斯兰堡协议”全景剖析：地缘重构、多边博弈与巴基斯坦的战略崛起.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4.1 查尔斯·麦金托什与防水外套"
+              "title": "2026年美伊“伊斯兰堡协议”全景剖析：地缘重构、多边博弈与巴基斯坦的战略崛起"
             }
           }
         ],
@@ -307,8 +307,9 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "1d2d21bc3385ca1c",
+  "active": "8ab0a9cba92bc784",
   "lastOpenFiles": [
+    "source/_posts/橡胶大事记/正文/4.1 查尔斯·麦金托什与防水外套.md",
     "commodity-crisis/dist/assets/index-qMKPHBUE.css",
     "commodity-crisis/dist/assets/index-DJZjaj_k.js",
     "source/games/commodity-crisis/assets/index-qMKPHBUE.css",
@@ -319,7 +320,6 @@
     "source/games/commodity-crisis/assets/index-DwnJhM1k.js",
     "source/games/commodity-crisis/assets",
     "source/games/commodity-crisis",
-    "commodity-crisis/node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.js.map",
     "commodity-crisis/node_modules/rolldown/node_modules/@rolldown/pluginutils/README.md",
     "commodity-crisis/node_modules/micromatch/node_modules/picomatch/README.md",
     "commodity-crisis/node_modules/@vitejs/plugin-react/README.md",
