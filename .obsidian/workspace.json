@@ -83,14 +83,14 @@
             "id": "bf1be691ff88c236",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
-                "bFile": "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
-                "aRef": ""
+                "file": "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: 暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！"
+              "icon": "lucide-file",
+              "title": "暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！"
             }
           }
         ],
