@@ -71,16 +71,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/橡胶大事记/正文/10.2 中国橡胶产业的发展.md",
+                "file": "source/_posts/埃隆·马斯克的商业版图.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "10.2 中国橡胶产业的发展"
+              "title": "埃隆·马斯克的商业版图"
+            }
+          },
+          {
+            "id": "bf1be691ff88c236",
+            "type": "leaf",
+            "state": {
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
+                "bFile": "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: 暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -265,8 +279,12 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "92e5b726493b5b6e",
+  "active": "bf1be691ff88c236",
   "lastOpenFiles": [
+    "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
+    "source/_posts/未命名.md",
+    "source/_posts/埃隆·马斯克的商业版图.md",
+    "source/_posts/橡胶大事记/正文/10.2 中国橡胶产业的发展.md",
     "source/_posts/橡胶大事记/正文/10.4 现代割胶技术与高产品种.md",
     "source/_posts/橡胶大事记/正文/10.1 全球天然橡胶产区分布.md",
     "source/_posts/橡胶大事记/正文/9.5 二者共存的现代格局.md",
@@ -289,10 +307,6 @@
     "source/_posts/橡胶大事记/正文/6.3 种子如何从邱园传播到锡兰和马来亚.md",
     "source/_posts/橡胶大事记/正文/6.2 伦敦邱园的育苗实验.md",
     "source/_posts/橡胶大事记/正文/6.1 亨利·威克汉姆偷运七万颗种子.md",
-    "source/_posts/橡胶大事记/正文/5.2 亚马逊橡胶采集业的兴起.md",
-    "source/_posts/橡胶大事记/正文/5.1 工业革命催生的橡胶需求.md",
-    "source/_posts/橡胶大事记/正文/5.5 刚果自由邦的橡胶恐怖.md",
-    "source/_posts/橡胶大事记/正文/5.4 橡胶工人的血泪.md",
     "source/img/马斯克的商业版图.png",
     "source/img/账户保卫战.png",
     "pic/Pasted image 20251227093005.png",
