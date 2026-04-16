@@ -85,16 +85,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
+                "file": "source/_posts/2026年西北太平洋及南海热带气旋活动趋势、气候动力学机制与社会经济影响综合评估报告.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！"
+              "title": "2026年西北太平洋及南海热带气旋活动趋势、气候动力学机制与社会经济影响综合评估报告"
+            }
+          },
+          {
+            "id": "1c2a7f3943323add",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/ai辅助研究例子.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "ai辅助研究例子"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -279,10 +293,23 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "bf1be691ff88c236",
+  "active": "1c2a7f3943323add",
   "lastOpenFiles": [
+    "source/_posts/2026年西北太平洋及南海热带气旋活动趋势、气候动力学机制与社会经济影响综合评估报告.md",
+    "source/_posts/ai辅助研究例子.md",
+    "source/img/今年的台风会更多吗？.png",
+    "md-citation-formatter.skill",
+    "md-citation-formatter/scripts/format_citations.cjs",
+    "md-citation-formatter/scripts/example_script.cjs",
+    "md-citation-formatter/references/example_reference.md",
+    "md-citation-formatter/assets/example_asset.txt",
+    "md-citation-formatter/SKILL.md",
+    "md-citation-formatter/scripts",
+    "md-citation-formatter/references",
+    "md-citation-formatter/assets",
+    "md-citation-formatter",
     "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
-    "source/_posts/未命名.md",
+    "source/img/马斯克商业帝国.png",
     "source/_posts/埃隆·马斯克的商业版图.md",
     "source/_posts/橡胶大事记/正文/10.2 中国橡胶产业的发展.md",
     "source/_posts/橡胶大事记/正文/10.4 现代割胶技术与高产品种.md",
@@ -304,28 +331,15 @@
     "source/_posts/橡胶大事记/正文/6.4 东南亚橡胶种植园的崛起.md",
     "source/_posts/橡胶大事记/正文/4.4 硫化技术的意义.md",
     "source/_posts/橡胶大事记/正文/4.5 专利之争.md",
-    "source/_posts/橡胶大事记/正文/6.3 种子如何从邱园传播到锡兰和马来亚.md",
-    "source/_posts/橡胶大事记/正文/6.2 伦敦邱园的育苗实验.md",
-    "source/_posts/橡胶大事记/正文/6.1 亨利·威克汉姆偷运七万颗种子.md",
     "source/img/马斯克的商业版图.png",
     "source/img/账户保卫战.png",
     "pic/Pasted image 20251227093005.png",
     "pic/Claude.png",
     "pic",
     "Untitled.base",
-    "Untitled 1.base",
-    "commodity-crisis/dist/assets/index-qMKPHBUE.css",
-    "commodity-crisis/dist/assets/index-DJZjaj_k.js",
-    "source/games/commodity-crisis/assets/index-qMKPHBUE.css",
-    "source/games/commodity-crisis/assets/index-DJZjaj_k.js",
-    "commodity-crisis/dist/assets/index-DwnJhM1k.js",
-    "source/games/commodity-crisis/index.html",
-    "source/games/commodity-crisis/assets/index-NpnwUV57.css",
     "source/img/橡胶大事记.png",
     "source/img/中国期货的影响因素.png",
     "reverse-app/src/assets/vite.svg",
-    "reverse-app/src/assets/react.svg",
-    "reverse-app/src/assets/hero.png",
-    "reverse-app/public/icons.svg"
+    "reverse-app/src/assets/react.svg"
   ]
 }
