@@ -18,12 +18,12 @@ nav:
   fixed: false
 
 menu:
-  Home: / || fas fa-home
-  Archives: /archives/ || fas fa-archive
-  Categories: /categories/ || fas fa-folder-open
-  Tags: /tags/ || fas fa-tags
-  Charts: /charts/ || fas fa-chart-bar
-  Games: /games/ || fas fa-gamepad
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  分类: /categories/ || fas fa-folder-open
+  标签: /tags/ || fas fa-tags
+  图表: /charts/ || fas fa-chart-bar
+  游戏: /games/ || fas fa-gamepad
   # ...其他你不需要的可以在前面加 # 注释掉
 
 # --------------------------------------
@@ -447,10 +447,9 @@ wordcount:
 
 # Busuanzi count for PV / UV in site
 busuanzi:
-  enable: true
-  site_uv: true
-  site_pv: true
-  page_pv: true
+  site_uv: false
+  site_pv: false
+  page_pv: false
 
 # --------------------------------------
 # Math
@@ -602,7 +601,7 @@ waline:
   bg: # 评论框背景图，留空就是白色
   
   # 开启阅读量统计 (记得要把 busuanzi 的 page_pv 关掉)
-  pageview: false 
+  pageview: true 
   
   # 这里是高级功能的开关
   option:

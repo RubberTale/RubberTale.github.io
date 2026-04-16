@@ -6,3 +6,10 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+游戏说明.txt
+dist/
+package-lock.json
+source/games/commodity-crisis/
+commodity-crisis/dist/
+*.js.map
+*.css.map
