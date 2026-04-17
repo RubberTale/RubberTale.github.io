@@ -85,12 +85,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/厄尔尼诺与橡胶价格分析.md",
+                "file": "source/_posts/futures-research-ru.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "厄尔尼诺与橡胶价格分析"
+              "title": "futures-research-ru"
             }
           }
         ],
@@ -281,6 +281,12 @@
   },
   "active": "bf1be691ff88c236",
   "lastOpenFiles": [
+    "source/charts/ru1-9_seasonality/index.html",
+    "source/charts/ru1-9_seasonality",
+    "source/_posts/气候异象与大宗农产品市场：厄尔尼诺现象对全球天然橡胶主产区降雨及价格波动的长周期实证研究.md",
+    "source/_posts/futures-research-ru.md",
+    "source/reports/ru1-9_seasonality.html",
+    "source/reports",
     "source/_posts/2026年西北太平洋及南海热带气旋活动趋势、气候动力学机制与社会经济影响综合评估报告.md",
     "source/_posts/ai辅助研究例子.md",
     "conflict-files-obsidian-git.md",
@@ -294,10 +300,7 @@
     "md-citation-formatter/scripts/format_citations.cjs",
     "md-citation-formatter/scripts/example_script.cjs",
     "md-citation-formatter/references/example_reference.md",
-    "md-citation-formatter/assets/example_asset.txt",
     "md-citation-formatter/SKILL.md",
-    "md-citation-formatter/scripts",
-    "md-citation-formatter/references",
     "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
     "source/img/马斯克商业帝国.png",
     "source/_posts/埃隆·马斯克的商业版图.md",
@@ -316,9 +319,6 @@
     "source/_posts/橡胶大事记/正文/7.4 橡胶轮胎巨头的崛起.md",
     "source/_posts/橡胶大事记/正文/7.3 亨利·福特的福特兰迪亚.md",
     "source/_posts/橡胶大事记/正文/7.2 米其林兄弟与汽车轮胎的推广.md",
-    "source/_posts/橡胶大事记/正文/7.1 约翰·邓禄普发明充气轮胎.md",
-    "source/_posts/橡胶大事记/正文/6.5 亚马逊橡胶帝国的崩塌.md",
-    "source/_posts/橡胶大事记/正文/6.4 东南亚橡胶种植园的崛起.md",
     "source/img/马斯克的商业版图.png",
     "source/img/账户保卫战.png",
     "pic/Pasted image 20251227093005.png",

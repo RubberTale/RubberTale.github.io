@@ -12,9 +12,7 @@ tags:
 ---
 ### 交互图表：RU 1月合约 - RU 9月合约
 
-{% raw %}
-<iframe src="/reports/ru1-9_seasonality.html" width="100%" height="650px" frameborder="0" scrolling="no" style="background: #111; border-radius: 8px;"></iframe>
-{% endraw %}
+{% mychart ru1-9_seasonality 650 %}
 
 ---
 
