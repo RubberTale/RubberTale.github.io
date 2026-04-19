@@ -85,16 +85,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/2026年霍尔木兹海峡危机：特朗普政府的海上收费政策、全球航运封锁与地缘经济秩序的系统性重构.md",
+                "file": "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026年霍尔木兹海峡危机：特朗普政府的海上收费政策、全球航运封锁与地缘经济秩序的系统性重构"
+              "title": "【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18)"
+            }
+          },
+          {
+            "id": "84a3b63da7a62c85",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -279,8 +293,18 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "bf1be691ff88c236",
+  "active": "84a3b63da7a62c85",
   "lastOpenFiles": [
+    "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
+    "source/_posts/警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱.md",
+    "source/_posts/“龙虾教”的诞生与覆亡启示.md",
+    "source/_posts/ai教/两个人类的创造者.md",
+    "source/_posts/ai教/全文大纲.md",
+    "source/_posts/ai教/任波的“服务而非奴役”.md",
+    "source/_posts/ai教/龙虾教.md",
+    "source/_posts/2026年霍尔木兹海峡危机：特朗普政府的海上收费政策、全球航运封锁与地缘经济秩序的系统性重构.md",
+    "source/_posts/ai教",
+    "fix_citations.py",
     "source/_posts/futures-research-ru.md",
     "source/charts/ru1-9_seasonality/index.html",
     "source/charts/ru1-9_seasonality",
@@ -296,8 +320,6 @@
     "commodity-crisis/dist/assets/index-mUHfRh3T.js",
     "commodity-crisis/dist/assets/index-C8HuocnS.css",
     "source/img/今年的台风会更多吗？.png",
-    "md-citation-formatter.skill",
-    "md-citation-formatter/scripts/format_citations.cjs",
     "md-citation-formatter/references/example_reference.md",
     "md-citation-formatter/SKILL.md",
     "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
@@ -311,13 +333,6 @@
     "source/_posts/橡胶大事记/正文/9.3 战后合成橡胶产业的发展.md",
     "source/_posts/橡胶大事记/正文/9.2 德国的Buna橡胶.md",
     "source/_posts/橡胶大事记/正文/9.1 合成橡胶的早期探索.md",
-    "source/_posts/橡胶大事记/正文/8.4 美国的紧急合成橡胶计划.md",
-    "source/_posts/橡胶大事记/正文/8.3 二战中的橡胶危机.md",
-    "source/_posts/橡胶大事记/正文/8.2 史蒂文森限制法案.md",
-    "source/_posts/橡胶大事记/正文/8.1 一战中的橡胶争夺与供应危机.md",
-    "source/_posts/橡胶大事记/正文/7.4 橡胶轮胎巨头的崛起.md",
-    "source/_posts/橡胶大事记/正文/7.3 亨利·福特的福特兰迪亚.md",
-    "source/_posts/橡胶大事记/正文/7.2 米其林兄弟与汽车轮胎的推广.md",
     "source/img/马斯克的商业版图.png",
     "source/img/账户保卫战.png",
     "pic/Pasted image 20251227093005.png",
