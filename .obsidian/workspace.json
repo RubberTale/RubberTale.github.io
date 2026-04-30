@@ -106,9 +106,23 @@
               "icon": "lucide-file",
               "title": "乳胶市场供需与利润分析"
             }
+          },
+          {
+            "id": "ba3c0d53d77af529",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/橡胶交响曲之20260430(ru2609).md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "橡胶交响曲之20260430(ru2609)"
+            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -293,12 +307,13 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "84a3b63da7a62c85",
+  "active": "ba3c0d53d77af529",
   "lastOpenFiles": [
+    "source/_posts/乳胶市场供需与利润分析.md",
+    "source/_posts/橡胶交响曲之20260430(ru2609).md",
     "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
     "source/_posts/我是如何使用Ai Agent的？.md",
     "source/_posts/警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱.md",
-    "source/_posts/乳胶市场供需与利润分析.md",
     "source/_posts/2026年山姆波斯战争地缘政治与山姆大叔国内政治经济风险综合评估报告.md",
     "source/_posts/气候异象与大宗农产品市场：厄尔尼诺现象对全球天然橡胶主产区降雨及价格波动的长周期实证研究.md",
     "source/_posts/ai教/两个人类的创造者.md",
@@ -332,7 +347,6 @@
     "source/_posts/埃隆·马斯克的商业版图.md",
     "source/_posts/橡胶大事记/正文/10.2 中国橡胶产业的发展.md",
     "source/_posts/橡胶大事记/正文/10.4 现代割胶技术与高产品种.md",
-    "source/_posts/橡胶大事记/正文/10.1 全球天然橡胶产区分布.md",
     "source/img/马斯克的商业版图.png",
     "source/img/账户保卫战.png",
     "pic/Pasted image 20251227093005.png",
