@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/橡胶交响曲之20260430(ru2609).md",
+                "file": "source/_posts/2026年中国人工智能产业深度研究报告：底层重构、跨界渗透与灰产治理的演进逻辑.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "橡胶交响曲之20260430(ru2609)"
+              "title": "2026年中国人工智能产业深度研究报告：底层重构、跨界渗透与灰产治理的演进逻辑"
             }
           }
         ],
@@ -257,13 +257,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
+                "file": "source/_posts/2026年中国人工智能产业深度研究报告：底层重构、跨界渗透与灰产治理的演进逻辑.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18) 的大纲"
+              "title": "2026年中国人工智能产业深度研究报告：底层重构、跨界渗透与灰产治理的演进逻辑 的大纲"
             }
           },
           {
@@ -287,7 +287,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -309,8 +309,12 @@
   },
   "active": "ba3c0d53d77af529",
   "lastOpenFiles": [
-    "source/_posts/乳胶市场供需与利润分析.md",
+    "source/_posts/image2.md",
+    "source/_posts/2026年中国人工智能产业深度研究报告：底层重构、跨界渗透与灰产治理的演进逻辑.md",
+    "source/_posts/image1.md",
     "source/_posts/橡胶交响曲之20260430(ru2609).md",
+    "source/img/橡胶交响曲0430.png",
+    "source/_posts/乳胶市场供需与利润分析.md",
     "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
     "source/_posts/我是如何使用Ai Agent的？.md",
     "source/_posts/警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱.md",
@@ -344,16 +348,12 @@
     "md-citation-formatter/SKILL.md",
     "source/_posts/暴利63%！马斯克真正的“超级印钞机”曝光，不仅仅是特斯拉！.md",
     "source/img/马斯克商业帝国.png",
-    "source/_posts/埃隆·马斯克的商业版图.md",
-    "source/_posts/橡胶大事记/正文/10.2 中国橡胶产业的发展.md",
-    "source/_posts/橡胶大事记/正文/10.4 现代割胶技术与高产品种.md",
     "source/img/马斯克的商业版图.png",
     "source/img/账户保卫战.png",
     "pic/Pasted image 20251227093005.png",
     "pic/Claude.png",
     "source/img/橡胶大事记.png",
     "source/img/中国期货的影响因素.png",
-    "reverse-app/src/assets/vite.svg",
-    "reverse-app/src/assets/react.svg"
+    "reverse-app/src/assets/vite.svg"
   ]
 }
