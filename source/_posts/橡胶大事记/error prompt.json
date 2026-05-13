@@ -1,0 +1,49 @@
+Trajectory ID: 378ac16c-354e-4f8c-a889-8f9e60224c72
+Error: HTTP 400 Bad Request
+Sherlog: 
+TraceID: 0x23cd7bdb770d68b0
+Headers: {
+    "Alt-Svc": [
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+    ],
+    "Content-Length": [
+        "328"
+    ],
+    "Content-Type": [
+        "text/event-stream"
+    ],
+    "Date": [
+        "Tue, 12 May 2026 03:53:55 GMT"
+    ],
+    "Server": [
+        "ESF"
+    ],
+    "Server-Timing": [
+        "gfet4t7; dur=926"
+    ],
+    "Vary": [
+        "Origin",
+        "X-Origin",
+        "Referer"
+    ],
+    "X-Cloudaicompanion-Trace-Id": [
+        "23cd7bdb770d68b0"
+    ],
+    "X-Content-Type-Options": [
+        "nosniff"
+    ],
+    "X-Frame-Options": [
+        "SAMEORIGIN"
+    ],
+    "X-Xss-Protection": [
+        "0"
+    ]
+}
+
+{
+    "error": {
+        "code": 400,
+        "message": "{\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"This model does not support assistant message prefill. The conversation must end with a user message.\"},\"request_id\":\"req_vrtx_011CawzrkJDxaEbqY6NvCQ6o\"}",
+        "status": "INVALID_ARGUMENT"
+    }
+}

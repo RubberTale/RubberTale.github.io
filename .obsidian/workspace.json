@@ -99,16 +99,65 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/宏观经济与地缘政治视角下的全球算力扩张与电力基础设施重构：中美双边市场深度剖析与投资启示.md",
+                "file": "source/_posts/我是如何使用Ai Agent的？.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "宏观经济与地缘政治视角下的全球算力扩张与电力基础设施重构：中美双边市场深度剖析与投资启示"
+              "title": "我是如何使用Ai Agent的？"
+            }
+          },
+          {
+            "id": "7a458228a13a117f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”"
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
+      },
+      {
+        "id": "483da2dc6098b0d7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "18f77e798b53115e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18)"
+            }
+          },
+          {
+            "id": "4916a6766cbd8a2a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/算力扩张与电力机构设施重构.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "算力扩张与电力机构设施重构"
+            }
+          }
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -277,7 +326,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 360.5
+    "width": 360.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -293,10 +343,14 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "84a3b63da7a62c85",
+  "active": "7a458228a13a117f",
   "lastOpenFiles": [
-    "source/_posts/科技巨头的资本重构：基于人工智能基础设施导向的2026年裁员潮深度解析.md",
+    "source/_posts/我是如何使用Ai Agent的？.md",
+    "source/_posts/告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”.md",
     "source/_posts/宏观经济与地缘政治视角下的全球算力扩张与电力基础设施重构：中美双边市场深度剖析与投资启示.md",
+    "source/_posts/算力扩张与电力机构设施重构.md",
+    "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
+    "source/_posts/科技巨头的资本重构：基于人工智能基础设施导向的2026年裁员潮深度解析.md",
     "source/_posts/2026年全球天然乳胶市场深度研究报告：利润重构、产能分流与产业链供需博弈.md",
     "source/_posts/橡胶大事记/正文/11.6 新加坡商品交易所（SICOM）：东南亚产区的定价话语权.md",
     "source/_posts/2026年中国人工智能产业深度研究报告：底层重构、跨界渗透与灰产治理的演进逻辑.md",
@@ -306,8 +360,6 @@
     "source/_posts/image2.md",
     "source/_posts/image1.md",
     "source/img/橡胶交响曲0430.png",
-    "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
-    "source/_posts/我是如何使用Ai Agent的？.md",
     "source/_posts/警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱.md",
     "source/_posts/2026年山姆波斯战争地缘政治与山姆大叔国内政治经济风险综合评估报告.md",
     "source/_posts/气候异象与大宗农产品市场：厄尔尼诺现象对全球天然橡胶主产区降雨及价格波动的长周期实证研究.md",
@@ -331,8 +383,6 @@
     "source/_posts/ai教/龙虾教.md",
     "source/_posts/2026年霍尔木兹海峡危机：特朗普政府的海上收费政策、全球航运封锁与地缘经济秩序的系统性重构.md",
     "source/_posts/futures-research-ru.md",
-    "source/_posts/2026年西北太平洋及南海热带气旋活动趋势、气候动力学机制与社会经济影响综合评估报告.md",
-    "source/_posts/ai辅助研究例子.md",
     "source/img/今年的台风会更多吗？.png",
     "source/img/马斯克商业帝国.png",
     "source/img/马斯克的商业版图.png",
