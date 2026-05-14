@@ -113,21 +113,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”.md",
+                "file": "source/_posts/日本历史专题/日本的道歉列表及历史认知.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”"
+              "title": "日本的道歉列表及历史认知"
             }
-          }
-        ],
-        "currentTab": 7
-      },
-      {
-        "id": "483da2dc6098b0d7",
-        "type": "tabs",
-        "children": [
+          },
           {
             "id": "18f77e798b53115e",
             "type": "leaf",
@@ -141,23 +134,9 @@
               "icon": "lucide-file",
               "title": "【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18)"
             }
-          },
-          {
-            "id": "4916a6766cbd8a2a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "source/_posts/算力扩张与电力机构设施重构.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "算力扩张与电力机构设施重构"
-            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -345,11 +324,16 @@
   },
   "active": "7a458228a13a117f",
   "lastOpenFiles": [
-    "source/_posts/我是如何使用Ai Agent的？.md",
     "source/_posts/告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”.md",
-    "source/_posts/宏观经济与地缘政治视角下的全球算力扩张与电力基础设施重构：中美双边市场深度剖析与投资启示.md",
-    "source/_posts/算力扩张与电力机构设施重构.md",
+    "source/_posts/橡胶大事记/正文/1.2 橡胶的自然属性.md",
+    "source/_posts/日本历史专题/日本的道歉列表及历史认知.md",
+    "source/_posts/日本历史专题",
+    "source/_posts/橡胶大事记/正文/1.1 橡胶树的起源.md",
     "source/_posts/【Quantamental 投研周报】全品种预测回顾与地缘溢价重构 (2026-04-18).md",
+    "source/_posts/算力扩张与电力机构设施重构.md",
+    "source/_posts/橡胶大事记/正文/12.8 泰国、印尼、马来西亚：产胶国如何参与全球期货定价.md",
+    "source/_posts/我是如何使用Ai Agent的？.md",
+    "source/_posts/宏观经济与地缘政治视角下的全球算力扩张与电力基础设施重构：中美双边市场深度剖析与投资启示.md",
     "source/_posts/科技巨头的资本重构：基于人工智能基础设施导向的2026年裁员潮深度解析.md",
     "source/_posts/2026年全球天然乳胶市场深度研究报告：利润重构、产能分流与产业链供需博弈.md",
     "source/_posts/橡胶大事记/正文/11.6 新加坡商品交易所（SICOM）：东南亚产区的定价话语权.md",
@@ -377,12 +361,7 @@
     "content-audit-formatter/scripts",
     "content-audit-formatter/references",
     "content-audit-formatter/assets",
-    "content-audit-formatter",
     "博客修改.md",
-    "source/_posts/ai教/全文大纲.md",
-    "source/_posts/ai教/龙虾教.md",
-    "source/_posts/2026年霍尔木兹海峡危机：特朗普政府的海上收费政策、全球航运封锁与地缘经济秩序的系统性重构.md",
-    "source/_posts/futures-research-ru.md",
     "source/img/今年的台风会更多吗？.png",
     "source/img/马斯克商业帝国.png",
     "source/img/马斯克的商业版图.png",

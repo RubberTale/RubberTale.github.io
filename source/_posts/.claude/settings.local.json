@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "WebFetch(domain:en.wikipedia.org)"
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:www.japantimes.co.jp)",
+      "WebFetch(domain:www.bbc.com)",
+      "WebFetch(domain:www.cfr.org)",
+      "WebFetch(domain:www.nippon.com)"
     ]
   }
 }
