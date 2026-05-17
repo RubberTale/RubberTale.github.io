@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/橡胶大事记/正文/12.3 上海期货交易所（SHFE）天然橡胶期货的诞生（1993年）.md",
+                "file": "source/_posts/算力扩张与电力机构设施重构.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "12.3 上海期货交易所（SHFE）天然橡胶期货的诞生（1993年）"
+              "title": "算力扩张与电力机构设施重构"
             }
           },
           {
@@ -323,9 +323,10 @@
   },
   "active": "7a458228a13a117f",
   "lastOpenFiles": [
+    "source/_posts/橡胶大事记/正文/12.3 上海期货交易所（SHFE）天然橡胶期货的诞生（1993年）.md",
+    "source/_posts/橡胶大事记/正文/错误信息.md",
     "source/_posts/橡胶大事记/正文/12.4 海南中商所、上海商品交易所的早期探索与整合.md",
     "source/_posts/橡胶大事记/正文/12.5 SHFE天然橡胶期货的制度演化与市场成长.md",
-    "source/_posts/橡胶大事记/正文/12.3 上海期货交易所（SHFE）天然橡胶期货的诞生（1993年）.md",
     "source/_posts/橡胶大事记/正文/11.5 伦敦：全球天然橡胶定价中心的形成.md",
     "source/_posts/橡胶大事记/正文/12.2 日本橡胶期货的黄金年代与经典行情回顾.md",
     "source/_posts/橡胶大事记/正文/12.1 东京工业品交易所（TOCOM）橡胶期货：亚洲最早的橡胶期货市场.md",
@@ -352,7 +353,6 @@
     "source/img/橡胶交响曲0430.png",
     "source/_posts/警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱.md",
     "source/_posts/2026年山姆波斯战争地缘政治与山姆大叔国内政治经济风险综合评估报告.md",
-    "source/_posts/气候异象与大宗农产品市场：厄尔尼诺现象对全球天然橡胶主产区降雨及价格波动的长周期实证研究.md",
     "content-audit-formatter.skill",
     "zia24964",
     "content-audit-formatter/scripts/audit_replace.cjs",
