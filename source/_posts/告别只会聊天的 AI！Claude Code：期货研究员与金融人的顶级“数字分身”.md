@@ -1,6 +1,7 @@
 ---
 title: 告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”
 date: 2026-05-13 10:45:40
+sticky: 100
 tags: []
 categories: 
 ---
