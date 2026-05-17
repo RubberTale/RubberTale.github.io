@@ -113,12 +113,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”.md",
+                "file": "source/_posts/橡胶大事记/正文/12.3 上海期货交易所（SHFE）天然橡胶期货的诞生（1993年）.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”"
+              "title": "12.3 上海期货交易所（SHFE）天然橡胶期货的诞生（1993年）"
             }
           },
           {
@@ -323,9 +323,15 @@
   },
   "active": "7a458228a13a117f",
   "lastOpenFiles": [
+    "source/_posts/橡胶大事记/正文/12.4 海南中商所、上海商品交易所的早期探索与整合.md",
+    "source/_posts/橡胶大事记/正文/12.5 SHFE天然橡胶期货的制度演化与市场成长.md",
+    "source/_posts/橡胶大事记/正文/12.3 上海期货交易所（SHFE）天然橡胶期货的诞生（1993年）.md",
+    "source/_posts/橡胶大事记/正文/11.5 伦敦：全球天然橡胶定价中心的形成.md",
+    "source/_posts/橡胶大事记/正文/12.2 日本橡胶期货的黄金年代与经典行情回顾.md",
+    "source/_posts/橡胶大事记/正文/12.1 东京工业品交易所（TOCOM）橡胶期货：亚洲最早的橡胶期货市场.md",
+    "source/_posts/告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”.md",
     "source/_posts/橡胶大事记/error prompt.txt",
     "source/_posts/日本历史专题/日本的道歉列表及历史认知.md",
-    "source/_posts/告别只会聊天的 AI！Claude Code：期货研究员与金融人的顶级“数字分身”.md",
     "source/_posts/橡胶大事记/正文/1.2 橡胶的自然属性.md",
     "source/_posts/日本历史专题",
     "source/_posts/橡胶大事记/正文/1.1 橡胶树的起源.md",
@@ -347,20 +353,14 @@
     "source/_posts/警惕“平庸”的代价：深度解读2026年波斯极限模式下的全球陷阱.md",
     "source/_posts/2026年山姆波斯战争地缘政治与山姆大叔国内政治经济风险综合评估报告.md",
     "source/_posts/气候异象与大宗农产品市场：厄尔尼诺现象对全球天然橡胶主产区降雨及价格波动的长周期实证研究.md",
-    "source/_posts/ai教/两个人类的创造者.md",
-    "source/_posts/ai教/任波的“服务而非奴役”.md",
-    "source/_posts/“龙虾教”的诞生与覆亡启示.md",
     "content-audit-formatter.skill",
     "zia24964",
     "content-audit-formatter/scripts/audit_replace.cjs",
     "content-audit-formatter/references/sensitive_words.json",
     "content-audit-formatter/scripts/example_script.cjs",
-    "content-audit-formatter/references/example_reference.md",
     "content-audit-formatter/assets/example_asset.txt",
-    "content-audit-formatter/SKILL.md",
     "content-audit-formatter/scripts",
     "content-audit-formatter/references",
-    "content-audit-formatter/assets",
     "source/img/今年的台风会更多吗？.png",
     "source/img/马斯克商业帝国.png",
     "source/img/马斯克的商业版图.png",
