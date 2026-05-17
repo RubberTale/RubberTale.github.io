@@ -63,7 +63,7 @@ Claude Code 可以自主编写并运行 Python 脚本，帮你完成数据清洗
 
 **扫码下方二维码，加入 Claude Code 学习社群，让我们一起率先开启“AI 自动驾驶”办公时代！**
 
-![](https://cdn.jsdelivr.net/gh/rubbertale/pic-go/img/202605131055334.jpg)
+![faa34efa926d4a25e5e53b5a6dd671ef.jpg](https://cdn.jsdelivr.net/gh/rubbertale/pic-go/img/202605171237192.jpg)
 
 ---
 > **“未来的职场竞争力，不在于你懂多少知识，而在于你指挥 Agent 的能力。”** 

@@ -13,3 +13,17 @@ source/games/commodity-crisis/
 commodity-crisis/dist/
 *.js.map
 *.css.map
+
+# Machine-specific or backup package-locks
+package-lock-*.json
+
+# AI generation outputs
+nanobanana-output/
+
+# Duplicate/Temp folders
+candlestick-analyzer 1/
+
+# Obsidian local state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
