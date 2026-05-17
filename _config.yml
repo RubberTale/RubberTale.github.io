@@ -120,7 +120,7 @@ ignore:
 theme: butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-# deploy:
-#   type: git
-#   repo: git@github.com:RubberTale/RubberTale.github.io.git
-#   branch: master
+deploy:
+  type: git
+  repo: git@github.com:RubberTale/RubberTale.github.io.git
+  branch: master
