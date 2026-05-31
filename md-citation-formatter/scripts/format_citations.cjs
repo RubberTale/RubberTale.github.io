@@ -43,7 +43,7 @@ function processFile(filePath) {
     let changed = false;
 
     // 分割正文和参考文献部分
-    const refSectionMarkers = ['## 引用的著作', '## 参考文献', '## References'];
+    const refSectionMarkers = ['## 引用的著作', '## 参考文献', '## References', '#### **引用的著作**'];
     let mainContent = content;
     let refContent = '';
     let frontMatter = '';
