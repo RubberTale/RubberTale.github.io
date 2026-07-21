@@ -23,6 +23,7 @@ menu:
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
   图表: /charts/ || fas fa-chart-bar
+  橡胶仪表盘: /rubber/ || fas fa-tachometer-alt
   游戏: /games/ || fas fa-gamepad
   # ...其他你不需要的可以在前面加 # 注释掉
 
