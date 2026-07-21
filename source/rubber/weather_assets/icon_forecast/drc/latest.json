@@ -1,0 +1,1093 @@
+{
+  "generated_at": "2026-07-20T13:11:23.604164+00:00",
+  "model": "DWD ICON Global",
+  "region_key": "drc",
+  "region_name_cn": "刚果金",
+  "region_focus_cn": "铜钴矿带 / 中非降雨扰动",
+  "native_resolution": "approximately 13 km",
+  "remapped_resolution_degrees": 0.125,
+  "run_utc": "2026-07-20T00:00:00+00:00",
+  "run_china": "2026-07-20 08:00",
+  "forecast_hours": 168,
+  "step_hours": 2,
+  "bbox": {
+    "west": 5.0,
+    "east": 41.0,
+    "south": -18.0,
+    "north": 12.0
+  },
+  "frames": [
+    {
+      "max_rain_mm": 8.29,
+      "mean_rain_mm": 0.1,
+      "wet_share_pct": 5.7,
+      "step_hour": 2,
+      "valid_time_utc": "2026-07-20T02:00:00+00:00",
+      "valid_time_china": "2026-07-20 10:00",
+      "source_steps": [
+        2
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 11.31,
+      "mean_rain_mm": 0.1,
+      "wet_share_pct": 5.5,
+      "step_hour": 4,
+      "valid_time_utc": "2026-07-20T04:00:00+00:00",
+      "valid_time_china": "2026-07-20 12:00",
+      "source_steps": [
+        4
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 12.54,
+      "mean_rain_mm": 0.08,
+      "wet_share_pct": 5.1,
+      "step_hour": 6,
+      "valid_time_utc": "2026-07-20T06:00:00+00:00",
+      "valid_time_china": "2026-07-20 14:00",
+      "source_steps": [
+        6
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 11.27,
+      "mean_rain_mm": 0.08,
+      "wet_share_pct": 7.0,
+      "step_hour": 8,
+      "valid_time_utc": "2026-07-20T08:00:00+00:00",
+      "valid_time_china": "2026-07-20 16:00",
+      "source_steps": [
+        8
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 12.59,
+      "mean_rain_mm": 0.11,
+      "wet_share_pct": 11.5,
+      "step_hour": 10,
+      "valid_time_utc": "2026-07-20T10:00:00+00:00",
+      "valid_time_china": "2026-07-20 18:00",
+      "source_steps": [
+        10
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 14.11,
+      "mean_rain_mm": 0.12,
+      "wet_share_pct": 9.7,
+      "step_hour": 12,
+      "valid_time_utc": "2026-07-20T12:00:00+00:00",
+      "valid_time_china": "2026-07-20 20:00",
+      "source_steps": [
+        12
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 18.23,
+      "mean_rain_mm": 0.16,
+      "wet_share_pct": 10.8,
+      "step_hour": 14,
+      "valid_time_utc": "2026-07-20T14:00:00+00:00",
+      "valid_time_china": "2026-07-20 22:00",
+      "source_steps": [
+        14
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 18.73,
+      "mean_rain_mm": 0.27,
+      "wet_share_pct": 17.8,
+      "step_hour": 16,
+      "valid_time_utc": "2026-07-20T16:00:00+00:00",
+      "valid_time_china": "2026-07-21 00:00",
+      "source_steps": [
+        16
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 11.59,
+      "mean_rain_mm": 0.16,
+      "wet_share_pct": 10.9,
+      "step_hour": 18,
+      "valid_time_utc": "2026-07-20T18:00:00+00:00",
+      "valid_time_china": "2026-07-21 02:00",
+      "source_steps": [
+        18
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 11.29,
+      "mean_rain_mm": 0.11,
+      "wet_share_pct": 7.0,
+      "step_hour": 20,
+      "valid_time_utc": "2026-07-20T20:00:00+00:00",
+      "valid_time_china": "2026-07-21 04:00",
+      "source_steps": [
+        20
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 10.66,
+      "mean_rain_mm": 0.09,
+      "wet_share_pct": 6.0,
+      "step_hour": 22,
+      "valid_time_utc": "2026-07-20T22:00:00+00:00",
+      "valid_time_china": "2026-07-21 06:00",
+      "source_steps": [
+        22
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 8.71,
+      "mean_rain_mm": 0.09,
+      "wet_share_pct": 6.1,
+      "step_hour": 24,
+      "valid_time_utc": "2026-07-21T00:00:00+00:00",
+      "valid_time_china": "2026-07-21 08:00",
+      "source_steps": [
+        24
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 8.2,
+      "mean_rain_mm": 0.09,
+      "wet_share_pct": 6.3,
+      "step_hour": 26,
+      "valid_time_utc": "2026-07-21T02:00:00+00:00",
+      "valid_time_china": "2026-07-21 10:00",
+      "source_steps": [
+        26
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 14.34,
+      "mean_rain_mm": 0.09,
+      "wet_share_pct": 6.0,
+      "step_hour": 28,
+      "valid_time_utc": "2026-07-21T04:00:00+00:00",
+      "valid_time_china": "2026-07-21 12:00",
+      "source_steps": [
+        28
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 10.83,
+      "mean_rain_mm": 0.08,
+      "wet_share_pct": 5.7,
+      "step_hour": 30,
+      "valid_time_utc": "2026-07-21T06:00:00+00:00",
+      "valid_time_china": "2026-07-21 14:00",
+      "source_steps": [
+        30
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 16.73,
+      "mean_rain_mm": 0.09,
+      "wet_share_pct": 7.3,
+      "step_hour": 32,
+      "valid_time_utc": "2026-07-21T08:00:00+00:00",
+      "valid_time_china": "2026-07-21 16:00",
+      "source_steps": [
+        32
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 19.2,
+      "mean_rain_mm": 0.14,
+      "wet_share_pct": 14.6,
+      "step_hour": 34,
+      "valid_time_utc": "2026-07-21T10:00:00+00:00",
+      "valid_time_china": "2026-07-21 18:00",
+      "source_steps": [
+        34
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 15.34,
+      "mean_rain_mm": 0.17,
+      "wet_share_pct": 14.4,
+      "step_hour": 36,
+      "valid_time_utc": "2026-07-21T12:00:00+00:00",
+      "valid_time_china": "2026-07-21 20:00",
+      "source_steps": [
+        36
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 18.17,
+      "mean_rain_mm": 0.23,
+      "wet_share_pct": 14.5,
+      "step_hour": 38,
+      "valid_time_utc": "2026-07-21T14:00:00+00:00",
+      "valid_time_china": "2026-07-21 22:00",
+      "source_steps": [
+        38
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 19.0,
+      "mean_rain_mm": 0.35,
+      "wet_share_pct": 22.9,
+      "step_hour": 40,
+      "valid_time_utc": "2026-07-21T16:00:00+00:00",
+      "valid_time_china": "2026-07-22 00:00",
+      "source_steps": [
+        40
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 15.85,
+      "mean_rain_mm": 0.25,
+      "wet_share_pct": 15.0,
+      "step_hour": 42,
+      "valid_time_utc": "2026-07-21T18:00:00+00:00",
+      "valid_time_china": "2026-07-22 02:00",
+      "source_steps": [
+        42
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 17.18,
+      "mean_rain_mm": 0.18,
+      "wet_share_pct": 9.5,
+      "step_hour": 44,
+      "valid_time_utc": "2026-07-21T20:00:00+00:00",
+      "valid_time_china": "2026-07-22 04:00",
+      "source_steps": [
+        44
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 15.67,
+      "mean_rain_mm": 0.21,
+      "wet_share_pct": 9.5,
+      "step_hour": 46,
+      "valid_time_utc": "2026-07-21T22:00:00+00:00",
+      "valid_time_china": "2026-07-22 06:00",
+      "source_steps": [
+        46
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 21.41,
+      "mean_rain_mm": 0.22,
+      "wet_share_pct": 10.3,
+      "step_hour": 48,
+      "valid_time_utc": "2026-07-22T00:00:00+00:00",
+      "valid_time_china": "2026-07-22 08:00",
+      "source_steps": [
+        48
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 21.48,
+      "mean_rain_mm": 0.23,
+      "wet_share_pct": 10.9,
+      "step_hour": 50,
+      "valid_time_utc": "2026-07-22T02:00:00+00:00",
+      "valid_time_china": "2026-07-22 10:00",
+      "source_steps": [
+        50
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 17.06,
+      "mean_rain_mm": 0.19,
+      "wet_share_pct": 10.4,
+      "step_hour": 52,
+      "valid_time_utc": "2026-07-22T04:00:00+00:00",
+      "valid_time_china": "2026-07-22 12:00",
+      "source_steps": [
+        52
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 13.27,
+      "mean_rain_mm": 0.15,
+      "wet_share_pct": 9.6,
+      "step_hour": 54,
+      "valid_time_utc": "2026-07-22T06:00:00+00:00",
+      "valid_time_china": "2026-07-22 14:00",
+      "source_steps": [
+        54
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 10.47,
+      "mean_rain_mm": 0.14,
+      "wet_share_pct": 11.8,
+      "step_hour": 56,
+      "valid_time_utc": "2026-07-22T08:00:00+00:00",
+      "valid_time_china": "2026-07-22 16:00",
+      "source_steps": [
+        56
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 13.14,
+      "mean_rain_mm": 0.19,
+      "wet_share_pct": 19.3,
+      "step_hour": 58,
+      "valid_time_utc": "2026-07-22T10:00:00+00:00",
+      "valid_time_china": "2026-07-22 18:00",
+      "source_steps": [
+        58
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 28.45,
+      "mean_rain_mm": 0.2,
+      "wet_share_pct": 18.2,
+      "step_hour": 60,
+      "valid_time_utc": "2026-07-22T12:00:00+00:00",
+      "valid_time_china": "2026-07-22 20:00",
+      "source_steps": [
+        60
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 25.47,
+      "mean_rain_mm": 0.25,
+      "wet_share_pct": 17.9,
+      "step_hour": 62,
+      "valid_time_utc": "2026-07-22T14:00:00+00:00",
+      "valid_time_china": "2026-07-22 22:00",
+      "source_steps": [
+        62
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 21.8,
+      "mean_rain_mm": 0.33,
+      "wet_share_pct": 22.8,
+      "step_hour": 64,
+      "valid_time_utc": "2026-07-22T16:00:00+00:00",
+      "valid_time_china": "2026-07-23 00:00",
+      "source_steps": [
+        64
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 13.27,
+      "mean_rain_mm": 0.2,
+      "wet_share_pct": 13.6,
+      "step_hour": 66,
+      "valid_time_utc": "2026-07-22T18:00:00+00:00",
+      "valid_time_china": "2026-07-23 02:00",
+      "source_steps": [
+        66
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 15.73,
+      "mean_rain_mm": 0.18,
+      "wet_share_pct": 9.5,
+      "step_hour": 68,
+      "valid_time_utc": "2026-07-22T20:00:00+00:00",
+      "valid_time_china": "2026-07-23 04:00",
+      "source_steps": [
+        68
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 17.67,
+      "mean_rain_mm": 0.22,
+      "wet_share_pct": 10.2,
+      "step_hour": 70,
+      "valid_time_utc": "2026-07-22T22:00:00+00:00",
+      "valid_time_china": "2026-07-23 06:00",
+      "source_steps": [
+        70
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 18.03,
+      "mean_rain_mm": 0.22,
+      "wet_share_pct": 10.8,
+      "step_hour": 72,
+      "valid_time_utc": "2026-07-23T00:00:00+00:00",
+      "valid_time_china": "2026-07-23 08:00",
+      "source_steps": [
+        72
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 16.02,
+      "mean_rain_mm": 0.18,
+      "wet_share_pct": 10.6,
+      "step_hour": 74,
+      "valid_time_utc": "2026-07-23T02:00:00+00:00",
+      "valid_time_china": "2026-07-23 10:00",
+      "source_steps": [
+        74
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 14.66,
+      "mean_rain_mm": 0.15,
+      "wet_share_pct": 9.2,
+      "step_hour": 76,
+      "valid_time_utc": "2026-07-23T04:00:00+00:00",
+      "valid_time_china": "2026-07-23 12:00",
+      "source_steps": [
+        76
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 10.5,
+      "mean_rain_mm": 0.12,
+      "wet_share_pct": 7.7,
+      "step_hour": 78,
+      "valid_time_utc": "2026-07-23T06:00:00+00:00",
+      "valid_time_china": "2026-07-23 14:00",
+      "source_steps": [
+        78
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 10.3,
+      "mean_rain_mm": 0.11,
+      "wet_share_pct": 12.4,
+      "step_hour": 80,
+      "valid_time_utc": "2026-07-23T08:00:00+00:00",
+      "valid_time_china": "2026-07-23 16:00",
+      "source_steps": [
+        78,
+        81
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 9.12,
+      "mean_rain_mm": 0.14,
+      "wet_share_pct": 16.1,
+      "step_hour": 82,
+      "valid_time_utc": "2026-07-23T10:00:00+00:00",
+      "valid_time_china": "2026-07-23 18:00",
+      "source_steps": [
+        81,
+        84
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 14.25,
+      "mean_rain_mm": 0.16,
+      "wet_share_pct": 16.2,
+      "step_hour": 84,
+      "valid_time_utc": "2026-07-23T12:00:00+00:00",
+      "valid_time_china": "2026-07-23 20:00",
+      "source_steps": [
+        84
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 28.32,
+      "mean_rain_mm": 0.26,
+      "wet_share_pct": 17.9,
+      "step_hour": 86,
+      "valid_time_utc": "2026-07-23T14:00:00+00:00",
+      "valid_time_china": "2026-07-23 22:00",
+      "source_steps": [
+        84,
+        87
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 16.8,
+      "mean_rain_mm": 0.24,
+      "wet_share_pct": 20.2,
+      "step_hour": 88,
+      "valid_time_utc": "2026-07-23T16:00:00+00:00",
+      "valid_time_china": "2026-07-24 00:00",
+      "source_steps": [
+        87,
+        90
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 15.8,
+      "mean_rain_mm": 0.21,
+      "wet_share_pct": 15.9,
+      "step_hour": 90,
+      "valid_time_utc": "2026-07-23T18:00:00+00:00",
+      "valid_time_china": "2026-07-24 02:00",
+      "source_steps": [
+        90
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 12.82,
+      "mean_rain_mm": 0.16,
+      "wet_share_pct": 9.8,
+      "step_hour": 92,
+      "valid_time_utc": "2026-07-23T20:00:00+00:00",
+      "valid_time_china": "2026-07-24 04:00",
+      "source_steps": [
+        90,
+        93
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 15.48,
+      "mean_rain_mm": 0.19,
+      "wet_share_pct": 12.1,
+      "step_hour": 94,
+      "valid_time_utc": "2026-07-23T22:00:00+00:00",
+      "valid_time_china": "2026-07-24 06:00",
+      "source_steps": [
+        93,
+        96
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 25.79,
+      "mean_rain_mm": 0.21,
+      "wet_share_pct": 10.2,
+      "step_hour": 96,
+      "valid_time_utc": "2026-07-24T00:00:00+00:00",
+      "valid_time_china": "2026-07-24 08:00",
+      "source_steps": [
+        96
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 49.15,
+      "mean_rain_mm": 0.17,
+      "wet_share_pct": 9.6,
+      "step_hour": 98,
+      "valid_time_utc": "2026-07-24T02:00:00+00:00",
+      "valid_time_china": "2026-07-24 10:00",
+      "source_steps": [
+        96,
+        99
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 25.33,
+      "mean_rain_mm": 0.15,
+      "wet_share_pct": 11.1,
+      "step_hour": 100,
+      "valid_time_utc": "2026-07-24T04:00:00+00:00",
+      "valid_time_china": "2026-07-24 12:00",
+      "source_steps": [
+        99,
+        102
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 14.23,
+      "mean_rain_mm": 0.12,
+      "wet_share_pct": 8.1,
+      "step_hour": 102,
+      "valid_time_utc": "2026-07-24T06:00:00+00:00",
+      "valid_time_china": "2026-07-24 14:00",
+      "source_steps": [
+        102
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 9.15,
+      "mean_rain_mm": 0.11,
+      "wet_share_pct": 13.4,
+      "step_hour": 104,
+      "valid_time_utc": "2026-07-24T08:00:00+00:00",
+      "valid_time_china": "2026-07-24 16:00",
+      "source_steps": [
+        102,
+        105
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 6.94,
+      "mean_rain_mm": 0.14,
+      "wet_share_pct": 17.2,
+      "step_hour": 106,
+      "valid_time_utc": "2026-07-24T10:00:00+00:00",
+      "valid_time_china": "2026-07-24 18:00",
+      "source_steps": [
+        105,
+        108
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 13.22,
+      "mean_rain_mm": 0.17,
+      "wet_share_pct": 16.2,
+      "step_hour": 108,
+      "valid_time_utc": "2026-07-24T12:00:00+00:00",
+      "valid_time_china": "2026-07-24 20:00",
+      "source_steps": [
+        108
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 17.81,
+      "mean_rain_mm": 0.3,
+      "wet_share_pct": 20.3,
+      "step_hour": 110,
+      "valid_time_utc": "2026-07-24T14:00:00+00:00",
+      "valid_time_china": "2026-07-24 22:00",
+      "source_steps": [
+        108,
+        111
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 10.56,
+      "mean_rain_mm": 0.28,
+      "wet_share_pct": 21.3,
+      "step_hour": 112,
+      "valid_time_utc": "2026-07-24T16:00:00+00:00",
+      "valid_time_china": "2026-07-25 00:00",
+      "source_steps": [
+        111,
+        114
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 17.08,
+      "mean_rain_mm": 0.26,
+      "wet_share_pct": 15.2,
+      "step_hour": 114,
+      "valid_time_utc": "2026-07-24T18:00:00+00:00",
+      "valid_time_china": "2026-07-25 02:00",
+      "source_steps": [
+        114
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 18.59,
+      "mean_rain_mm": 0.18,
+      "wet_share_pct": 9.6,
+      "step_hour": 116,
+      "valid_time_utc": "2026-07-24T20:00:00+00:00",
+      "valid_time_china": "2026-07-25 04:00",
+      "source_steps": [
+        114,
+        117
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 16.21,
+      "mean_rain_mm": 0.19,
+      "wet_share_pct": 11.9,
+      "step_hour": 118,
+      "valid_time_utc": "2026-07-24T22:00:00+00:00",
+      "valid_time_china": "2026-07-25 06:00",
+      "source_steps": [
+        117,
+        120
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 15.71,
+      "mean_rain_mm": 0.2,
+      "wet_share_pct": 10.2,
+      "step_hour": 120,
+      "valid_time_utc": "2026-07-25T00:00:00+00:00",
+      "valid_time_china": "2026-07-25 08:00",
+      "source_steps": [
+        120
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 15.31,
+      "mean_rain_mm": 0.19,
+      "wet_share_pct": 10.9,
+      "step_hour": 122,
+      "valid_time_utc": "2026-07-25T02:00:00+00:00",
+      "valid_time_china": "2026-07-25 10:00",
+      "source_steps": [
+        120,
+        123
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 11.47,
+      "mean_rain_mm": 0.17,
+      "wet_share_pct": 12.8,
+      "step_hour": 124,
+      "valid_time_utc": "2026-07-25T04:00:00+00:00",
+      "valid_time_china": "2026-07-25 12:00",
+      "source_steps": [
+        123,
+        126
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 13.92,
+      "mean_rain_mm": 0.16,
+      "wet_share_pct": 10.2,
+      "step_hour": 126,
+      "valid_time_utc": "2026-07-25T06:00:00+00:00",
+      "valid_time_china": "2026-07-25 14:00",
+      "source_steps": [
+        126
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 21.08,
+      "mean_rain_mm": 0.18,
+      "wet_share_pct": 17.2,
+      "step_hour": 128,
+      "valid_time_utc": "2026-07-25T08:00:00+00:00",
+      "valid_time_china": "2026-07-25 16:00",
+      "source_steps": [
+        126,
+        129
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 16.11,
+      "mean_rain_mm": 0.2,
+      "wet_share_pct": 21.0,
+      "step_hour": 130,
+      "valid_time_utc": "2026-07-25T10:00:00+00:00",
+      "valid_time_china": "2026-07-25 18:00",
+      "source_steps": [
+        129,
+        132
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 17.15,
+      "mean_rain_mm": 0.21,
+      "wet_share_pct": 18.9,
+      "step_hour": 132,
+      "valid_time_utc": "2026-07-25T12:00:00+00:00",
+      "valid_time_china": "2026-07-25 20:00",
+      "source_steps": [
+        132
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 15.51,
+      "mean_rain_mm": 0.33,
+      "wet_share_pct": 21.4,
+      "step_hour": 134,
+      "valid_time_utc": "2026-07-25T14:00:00+00:00",
+      "valid_time_china": "2026-07-25 22:00",
+      "source_steps": [
+        132,
+        135
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 14.23,
+      "mean_rain_mm": 0.28,
+      "wet_share_pct": 23.4,
+      "step_hour": 136,
+      "valid_time_utc": "2026-07-25T16:00:00+00:00",
+      "valid_time_china": "2026-07-26 00:00",
+      "source_steps": [
+        135,
+        138
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 24.08,
+      "mean_rain_mm": 0.23,
+      "wet_share_pct": 17.3,
+      "step_hour": 138,
+      "valid_time_utc": "2026-07-25T18:00:00+00:00",
+      "valid_time_china": "2026-07-26 02:00",
+      "source_steps": [
+        138
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 17.09,
+      "mean_rain_mm": 0.16,
+      "wet_share_pct": 9.2,
+      "step_hour": 140,
+      "valid_time_utc": "2026-07-25T20:00:00+00:00",
+      "valid_time_china": "2026-07-26 04:00",
+      "source_steps": [
+        138,
+        141
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 12.98,
+      "mean_rain_mm": 0.17,
+      "wet_share_pct": 11.2,
+      "step_hour": 142,
+      "valid_time_utc": "2026-07-25T22:00:00+00:00",
+      "valid_time_china": "2026-07-26 06:00",
+      "source_steps": [
+        141,
+        144
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 12.26,
+      "mean_rain_mm": 0.18,
+      "wet_share_pct": 9.0,
+      "step_hour": 144,
+      "valid_time_utc": "2026-07-26T00:00:00+00:00",
+      "valid_time_china": "2026-07-26 08:00",
+      "source_steps": [
+        144
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 14.85,
+      "mean_rain_mm": 0.18,
+      "wet_share_pct": 10.0,
+      "step_hour": 146,
+      "valid_time_utc": "2026-07-26T02:00:00+00:00",
+      "valid_time_china": "2026-07-26 10:00",
+      "source_steps": [
+        144,
+        147
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 22.35,
+      "mean_rain_mm": 0.17,
+      "wet_share_pct": 11.8,
+      "step_hour": 148,
+      "valid_time_utc": "2026-07-26T04:00:00+00:00",
+      "valid_time_china": "2026-07-26 12:00",
+      "source_steps": [
+        147,
+        150
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 38.09,
+      "mean_rain_mm": 0.17,
+      "wet_share_pct": 9.3,
+      "step_hour": 150,
+      "valid_time_utc": "2026-07-26T06:00:00+00:00",
+      "valid_time_china": "2026-07-26 14:00",
+      "source_steps": [
+        150
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 35.81,
+      "mean_rain_mm": 0.19,
+      "wet_share_pct": 14.9,
+      "step_hour": 152,
+      "valid_time_utc": "2026-07-26T08:00:00+00:00",
+      "valid_time_china": "2026-07-26 16:00",
+      "source_steps": [
+        150,
+        153
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 21.23,
+      "mean_rain_mm": 0.21,
+      "wet_share_pct": 19.2,
+      "step_hour": 154,
+      "valid_time_utc": "2026-07-26T10:00:00+00:00",
+      "valid_time_china": "2026-07-26 18:00",
+      "source_steps": [
+        153,
+        156
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 30.38,
+      "mean_rain_mm": 0.23,
+      "wet_share_pct": 18.8,
+      "step_hour": 156,
+      "valid_time_utc": "2026-07-26T12:00:00+00:00",
+      "valid_time_china": "2026-07-26 20:00",
+      "source_steps": [
+        156
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 35.15,
+      "mean_rain_mm": 0.35,
+      "wet_share_pct": 20.8,
+      "step_hour": 158,
+      "valid_time_utc": "2026-07-26T14:00:00+00:00",
+      "valid_time_china": "2026-07-26 22:00",
+      "source_steps": [
+        156,
+        159
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 22.35,
+      "mean_rain_mm": 0.31,
+      "wet_share_pct": 23.4,
+      "step_hour": 160,
+      "valid_time_utc": "2026-07-26T16:00:00+00:00",
+      "valid_time_china": "2026-07-27 00:00",
+      "source_steps": [
+        159,
+        162
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 14.89,
+      "mean_rain_mm": 0.26,
+      "wet_share_pct": 18.8,
+      "step_hour": 162,
+      "valid_time_utc": "2026-07-26T18:00:00+00:00",
+      "valid_time_china": "2026-07-27 02:00",
+      "source_steps": [
+        162
+      ],
+      "time_interpolated": false
+    },
+    {
+      "max_rain_mm": 13.85,
+      "mean_rain_mm": 0.2,
+      "wet_share_pct": 11.7,
+      "step_hour": 164,
+      "valid_time_utc": "2026-07-26T20:00:00+00:00",
+      "valid_time_china": "2026-07-27 04:00",
+      "source_steps": [
+        162,
+        165
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 11.72,
+      "mean_rain_mm": 0.22,
+      "wet_share_pct": 14.1,
+      "step_hour": 166,
+      "valid_time_utc": "2026-07-26T22:00:00+00:00",
+      "valid_time_china": "2026-07-27 06:00",
+      "source_steps": [
+        165,
+        168
+      ],
+      "time_interpolated": true
+    },
+    {
+      "max_rain_mm": 16.3,
+      "mean_rain_mm": 0.23,
+      "wet_share_pct": 11.6,
+      "step_hour": 168,
+      "valid_time_utc": "2026-07-27T00:00:00+00:00",
+      "valid_time_china": "2026-07-27 08:00",
+      "source_steps": [
+        168
+      ],
+      "time_interpolated": false
+    }
+  ],
+  "field_metadata": {
+    "precipitation": {
+      "short_name": "tp",
+      "units": "kg m**-2",
+      "step": 168,
+      "grid_type": "unstructured_grid",
+      "number_of_points": 2949120,
+      "source_steps": [
+        168
+      ],
+      "time_interpolated": false
+    },
+    "cloud_cover": {
+      "short_name": "CLCT",
+      "units": "%",
+      "step": 168,
+      "grid_type": "unstructured_grid",
+      "number_of_points": 2949120,
+      "source_steps": [
+        168
+      ],
+      "time_interpolated": false
+    }
+  },
+  "outputs": {
+    "webp": "latest.webp",
+    "mp4": "latest.mp4",
+    "preview": "latest_preview.png"
+  },
+  "source": "Deutscher Wetterdienst (DWD) Open Data",
+  "source_url": "https://opendata.dwd.de/weather/nwp/icon/",
+  "licence": "CC BY 4.0",
+  "interpolation_note": "ICON Global native output is hourly through +78 h and every 3 hours thereafter; late-horizon 2-hour display frames are linearly time-interpolated between adjacent native outputs.",
+  "note": "Model forecast, not satellite observation or weather warning."
+}

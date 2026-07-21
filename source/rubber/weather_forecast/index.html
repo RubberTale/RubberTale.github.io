@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef5e8">
+  <title>重点资源区域卫星云图观察</title>
+  <link rel="icon" href="../icons/icon-192.png">
+  <link rel="stylesheet" href="weather.css?v=20260720weather2h1">
+</head>
+<body>
+  <main class="weather-shell">
+    <nav class="topbar" aria-label="页面导航">
+      <a class="brand" href="../index.html"><span>NR</span><strong>重点云图观察</strong></a>
+      <div class="nav-links">
+        <a href="../weather_multi_country.html">降雨量化</a>
+        <a href="../terminal.html#module-weather">研究终端</a>
+      </div>
+    </nav>
+
+    <header class="page-head">
+      <div>
+        <p class="eyebrow">RUBBER OBSERVER · ICON WEATHER</p>
+        <h1>重点资源区域<br><span>卫星云图观察</span></h1>
+        <p>聚焦六组天然橡胶、农产与资源关键区域，逐 2 小时观察云量和降水带变化。</p>
+      </div>
+      <div class="cycle-box">
+        <span>本次模型起报</span>
+        <strong id="cycle-time">读取中</strong>
+        <small>北京时间 · 最新完整 7 天批次</small>
+      </div>
+    </header>
+
+    <section class="region-tabs" role="tablist" aria-label="选择区域">
+      <button class="region-tab is-active" type="button" role="tab" aria-selected="true" data-region="southeast_asia">
+        <span class="region-tab-index">01 / 06</span><strong>东南亚</strong><small>橡胶 / 棕榈油</small>
+        <span class="region-tab-stats"><span><em>七天峰值</em><b data-tab-peak>--</b></span><span><em>预报至</em><b data-tab-end>--</b></span></span>
+      </button>
+      <button class="region-tab" type="button" role="tab" aria-selected="false" data-region="drc">
+        <span class="region-tab-index">02 / 06</span><strong>刚果金</strong><small>铜钴矿带</small>
+        <span class="region-tab-stats"><span><em>七天峰值</em><b data-tab-peak>--</b></span><span><em>预报至</em><b data-tab-end>--</b></span></span>
+      </button>
+      <button class="region-tab" type="button" role="tab" aria-selected="false" data-region="cote_divoire">
+        <span class="region-tab-index">03 / 06</span><strong>科特迪瓦</strong><small>橡胶 / 可可</small>
+        <span class="region-tab-stats"><span><em>七天峰值</em><b data-tab-peak>--</b></span><span><em>预报至</em><b data-tab-end>--</b></span></span>
+      </button>
+      <button class="region-tab" type="button" role="tab" aria-selected="false" data-region="china">
+        <span class="region-tab-index">04 / 06</span><strong>中国</strong><small>农产 / 能源资源</small>
+        <span class="region-tab-stats"><span><em>七天峰值</em><b data-tab-peak>--</b></span><span><em>预报至</em><b data-tab-end>--</b></span></span>
+      </button>
+      <button class="region-tab" type="button" role="tab" aria-selected="false" data-region="brazil_chile">
+        <span class="region-tab-index">05 / 06</span><strong>巴西 × 智利</strong><small>甘蔗 / 铜带</small>
+        <span class="region-tab-stats"><span><em>七天峰值</em><b data-tab-peak>--</b></span><span><em>预报至</em><b data-tab-end>--</b></span></span>
+      </button>
+      <button class="region-tab" type="button" role="tab" aria-selected="false" data-region="india_south">
+        <span class="region-tab-index">06 / 06</span><strong>印度南部</strong><small>甘蔗 / 橡胶</small>
+        <span class="region-tab-stats"><span><em>七天峰值</em><b data-tab-peak>--</b></span><span><em>预报至</em><b data-tab-end>--</b></span></span>
+      </button>
+    </section>
+
+    <section class="forecast-stage" aria-labelledby="stage-title">
+      <div class="stage-head">
+        <div>
+          <p id="stage-focus" class="stage-kicker">天然橡胶 / 棕榈油主产区</p>
+          <h2 id="stage-title">东南亚未来 7 天</h2>
+        </div>
+        <div class="model-pills" aria-label="模型信息">
+          <span>ICON 13 km</span><span>2 小时</span><span>84 帧</span>
+        </div>
+      </div>
+
+      <div class="media-wrap">
+        <video id="forecast-video" muted loop autoplay playsinline preload="metadata" aria-label="区域未来七天降水云图动画"></video>
+        <img id="forecast-fallback" alt="区域未来七天降水云图动画备用图像" hidden>
+        <div id="media-loading" class="media-loading">正在读取天气动画…</div>
+        <div id="media-controls" class="media-controls" hidden>
+          <div class="media-timeline">
+            <input id="video-progress" class="media-progress" type="range" min="0" max="83" step="1" value="0" aria-label="选择天气动画帧">
+            <div class="media-control-meta">
+              <span><strong id="playback-mode">自动播放</strong><i aria-hidden="true">·</i><span id="control-valid-time">--</span></span>
+              <span id="video-clock">00:00 / 00:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="playback-row">
+        <div class="time-readout">
+          <span>当前有效时间</span>
+          <strong id="valid-time">--</strong>
+        </div>
+        <div class="range-readout">
+          <span>预报范围</span>
+          <strong id="forecast-range">--</strong>
+        </div>
+        <button id="download-video" class="download-link" type="button" disabled>导出 MP4</button>
+      </div>
+
+      <div class="metric-grid" aria-label="当前画面降水指标">
+        <article><span>单格最大降水</span><strong id="metric-max">--</strong><small>2 小时累计</small></article>
+        <article><span>区域平均降水</span><strong id="metric-mean">--</strong><small>2 小时累计</small></article>
+        <article><span>有雨面积</span><strong id="metric-wet">--</strong><small>阈值 ≥ 0.2 mm</small></article>
+        <article><span>七天峰值</span><strong id="metric-peak">--</strong><small id="metric-peak-time">--</small></article>
+      </div>
+    </section>
+
+    <details class="method-note">
+      <summary>数据口径与使用边界</summary>
+      <p>数据来自德国气象局 DWD ICON Global，原生分辨率约 13 km，重映射至 0.125° 经纬网格。白灰色为总云量，彩色为 2 小时累计降水。模型预报用于研究跟踪，不替代实时卫星、雷达和官方气象预警。</p>
+      <p>ICON Global 在 +78 小时后转为每 3 小时输出；该时段的 2 小时展示帧由相邻原生时点做线性时间插值，方便统一查看节奏。</p>
+      <p>许可：DWD Open Data，CC BY 4.0；每帧均保留来源署名。</p>
+    </details>
+  </main>
+
+  <dialog id="export-dialog" class="export-dialog" aria-labelledby="export-dialog-title">
+    <form id="export-form" class="export-dialog-card">
+      <div class="export-dialog-head">
+        <span class="export-lock" aria-hidden="true">↓</span>
+        <div>
+          <p>SECURE EXPORT</p>
+          <h2 id="export-dialog-title">导出天气动画</h2>
+        </div>
+      </div>
+      <label class="export-password-label" for="export-password">导出密码</label>
+      <input id="export-password" class="export-password-input" type="password" autocomplete="current-password" required aria-describedby="export-status" placeholder="请输入密码">
+      <p id="export-status" class="export-status" aria-live="polite">仅验证本次导出，不会保存密码。</p>
+      <div class="export-dialog-actions">
+        <button id="export-cancel" class="export-cancel" type="button">取消</button>
+        <button id="export-confirm" class="export-confirm" type="submit">验证并导出</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="../weather_assets/icon_forecast/metadata_data.js?v=20260720weather2h1"></script>
+  <script src="weather.js?v=20260720weather2h1"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "name": "summer",
+  "short_name": "summer",
+  "description": "summer：天然橡胶、天气、库存、贸易流与跨品种气候信号的手机看板。",
+  "id": "/mobile.html",
+  "start_url": "/mobile.html",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#eef3f7",
+  "theme_color": "#183f68",
+  "orientation": "portrait",
+  "lang": "zh-CN",
+  "categories": ["finance", "business", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/summer-blue-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/summer-blue-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/summer-blue-icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "研究终端",
+      "short_name": "终端",
+      "url": "/terminal.html",
+      "icons": [{ "src": "/icons/summer-blue-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "天气扰动",
+      "short_name": "天气",
+      "url": "/weather_multi_country.html",
+      "icons": [{ "src": "/icons/summer-blue-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "支持创作者",
+      "short_name": "支持",
+      "url": "/mobile.html#support",
+      "icons": [{ "src": "/icons/summer-blue-icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
