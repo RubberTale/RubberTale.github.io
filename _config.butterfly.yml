@@ -70,7 +70,7 @@ disable_top_img: false
 default_top_img:
 
 # The banner image of index page
-index_img: /img/index.png
+index_img: false
 
 # The banner image of archive page
 archive_img:
