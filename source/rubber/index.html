@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#183f68">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="summer">
+    <title>厄尔尼诺及天胶跟踪专题 | Macro-Rubber Terminal</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/png" href="icons/summer-blue-icon-192.png">
+    <link rel="apple-touch-icon" href="icons/summer-blue-apple-touch-180.png">
+    <script src="vendor-chart-3.9.1.min.js?v=20260606_local"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css?v=20260719_mobile_quote_focus1">
+</head>
+
+<body>
+    <div class="page-glow page-glow-a"></div>
+    <div class="page-glow page-glow-b"></div>
+
+    <div class="dashboard-container">
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <img class="desktop-brand-icon" src="icons/summer-blue-icon-192.png" alt="">
+                <div class="desktop-brand-copy">
+                    <p class="eyebrow">Commodity Research Desk</p>
+                    <h2>Macro-Rubber</h2>
+                    <span class="badge">Source-Market Monitor</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active">
+                        <span class="icon">总览</span>
+                        <span>核心看板</span>
+                    </li>
+                    <li>
+                        <span class="icon">AG</span>
+                        <span>行情演绎</span>
+                    </li>
+                    <li>
+                        <span class="icon">TW</span>
+                        <span>产区权重</span>
+                    </li>
+                    <li>
+                        <span class="icon">EN</span>
+                        <span>厄尔尼诺</span>
+                    </li>
+                    <li>
+                        <span class="icon">WX</span>
+                        <span>天气扰动</span>
+                    </li>
+                    <li>
+                        <span class="icon">TH</span>
+                        <span>泰国现货</span>
+                    </li>
+                    <li>
+                        <span class="icon">TF</span>
+                        <span>贸易流</span>
+                    </li>
+                    <li>
+                        <span class="icon">IV</span>
+                        <span>国内库存</span>
+                    </li>
+                    <li>
+                        <span class="icon">KL</span>
+                        <span>K线量价</span>
+                    </li>
+                    <li>
+                        <span class="icon">SV</span>
+                        <span>成交量季节性</span>
+                    </li>
+                    <li>
+                        <span class="icon">CI</span>
+                        <span>科特迪瓦底价</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="futures-ticker-wrapper">
+                <div class="sidebar-section-header">
+                    <h3>国内期货跟踪</h3>
+                    <button id="refresh-quotes-btn" class="mini-refresh-btn" title="刷新行情">刷新</button>
+                </div>
+                <div id="quote-refresh-status" class="quote-refresh-status">最新价 · 较昨结算 · 每30秒刷新</div>
+                <div id="futures-ticker-container">
+                    <div class="loading-spinner">Loading quotes...</div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="footer-row">
+                    <span>刷新</span>
+                    <strong id="last-update" class="footer-value">Loading...</strong>
+                </div>
+                <div class="footer-row">
+                    <span>状态</span>
+                    <strong class="footer-status"><span class="status-indicator online"></span>Online</strong>
+                </div>
+                <div class="footer-row footer-meta-row">
+                    <span>max_77</span>
+                    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">沪ICP备2026009216号</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header glass-panel">
+                <div class="header-copy">
+                    <p class="eyebrow">Natural Rubber Source Data Terminal</p>
+                    <h1>厄尔尼诺及天胶跟踪专题</h1>
+                    <p class="subtitle">天气、现货、库存、贸易流与跨品种气候信号。</p>
+                </div>
+                <div class="header-actions site-refresh-actions">
+                    <button id="site-refresh-btn" class="action-btn site-refresh-btn" type="button" title="输入密码后触发云端全站刷新">主动刷新</button>
+                    <span id="site-refresh-status" class="site-refresh-status">输入密码后刷新云端</span>
+                </div>
+            </header>
+
+            <section id="module-agri-urea-enso" class="agri-enso-panel glass-panel">
+                <div class="agri-enso-head">
+                    <div>
+                        <p class="eyebrow">Cross Commodity Climate Map</p>
+                        <h3>中国内盘农产品 + 国际尿素 + 厄尔尼诺指数</h3>
+                        <p id="agri-enso-status" class="agri-enso-status">读取最新底稿中...</p>
+                    </div>
+                    <span id="agri-enso-updated" class="module-update-badge">更新：--</span>
+                </div>
+                <div class="agri-enso-layout">
+                    <div class="agri-enso-chart-column">
+                        <div class="agri-enso-chart-frame">
+                            <div class="agri-enso-chart-toolbar" aria-label="农产品尿素 ENSO 图表控制">
+                                <div class="agri-enso-control-group" role="group" aria-label="图表尺度">
+                                    <button type="button" class="agri-enso-control is-active" data-agri-chart-mode="indexed">相对指数</button>
+                                    <button type="button" class="agri-enso-control" data-agri-chart-mode="absolute">绝对价格</button>
+                                </div>
+                                <div class="agri-enso-control-group" role="group" aria-label="图表周期">
+                                    <button type="button" class="agri-enso-control is-active" data-agri-chart-window="all">全部</button>
+                                    <button type="button" class="agri-enso-control" data-agri-chart-window="120">近10年</button>
+                                    <button type="button" class="agri-enso-control" data-agri-chart-window="60">近5年</button>
+                                </div>
+                            </div>
+                            <div class="agri-enso-canvas-wrap agri-enso-main-wrap">
+                                <canvas id="agri-enso-interactive-chart" aria-label="中国内盘农产品、国际尿素与厄尔尼诺指数交互图"></canvas>
+                                <img id="agri-enso-chart" class="agri-enso-fallback-image" src="agri_urea_enso/chart_latest.png" alt="中国内盘农产品、国际尿素与厄尔尼诺指数长周期图">
+                            </div>
+                            <div class="agri-enso-subchart-head">
+                                <span>Nino3.4 官方月频</span>
+                                <strong id="agri-enso-nino-note">未发布月份不补 0</strong>
+                            </div>
+                            <div class="agri-enso-nino-wrap">
+                                <canvas id="agri-enso-nino-chart" aria-label="NOAA CPC Nino3.4 anomaly 副图"></canvas>
+                            </div>
+                            <p id="agri-enso-chart-caption" class="agri-enso-chart-caption">上图默认使用相对指数视图，1982 年起展示；国内期货上市前使用现货代理折算，上市后切换国内连续期货。下图单独显示 Nino3.4。</p>
+                        </div>
+                        <p id="agri-enso-source-note" class="data-source-note">数据来源：1982 年起长周期采用 World Bank Pink Sheet 玉米、棕榈油、世界糖价、RSS3 橡胶现货代理，并按首个可用国内期货月缩放；期货上市后切换 ChoiceAPI / Sina 国内连续合约。尿素使用 Investing.com 中东 FOB 期货与 World Bank，ENSO 使用 NOAA CPC Niño3.4。</p>
+                    </div>
+                    <aside class="agri-enso-side">
+                        <div id="agri-enso-specs" class="module-specs">
+                            <span class="spec-pill">ChoiceAPI</span>
+                            <span class="spec-pill">中东FOB尿素</span>
+                            <span class="spec-pill">NOAA CPC</span>
+                        </div>
+                        <div id="agri-enso-latest" class="agri-enso-metrics"></div>
+                        <div class="agri-enso-note">
+                            <strong>口径提示</strong>
+                            <p>国内期货为最新有效交易日；尿素最新价/当月 MTD 采用中东 FOB 期货，World Bank 保留为长周期官方基准。</p>
+                        </div>
+                        <div class="nitrogen-framework-card" aria-label="氮肥二维判断框架">
+                            <div class="nitrogen-framework-head">
+                                <div>
+                                    <strong>氮肥二维框架</strong>
+                                    <span>成本压力 × 减氮产量刚性</span>
+                                </div>
+                                <p>横轴看高价氮肥下“划不划算”，纵轴看减少施氮后的产量惩罚。</p>
+                            </div>
+                            <div class="nitrogen-framework-body">
+                                <div class="nitrogen-plot-wrap">
+                                    <div class="nitrogen-plot" aria-label="氮肥成本压力与减氮产量惩罚二维矩阵">
+                                        <span class="plot-axis plot-axis-y">减氮产量惩罚</span>
+                                        <span class="plot-axis plot-axis-x">氮肥成本压力</span>
+                                        <span class="plot-zone zone-top-left">成本轻<br>刚性强</span>
+                                        <span class="plot-zone zone-top-right">利润挤压<br>刚性强</span>
+                                        <span class="plot-zone zone-bottom-left">压力较轻<br>可观察</span>
+                                        <span class="plot-zone zone-bottom-right">成本压力<br>但有缓冲</span>
+                                        <span id="nitrogen-dot-corn" class="nitrogen-dot dot-corn" style="--x: 88%; --y: 88%;"><b>玉米</b></span>
+                                        <span id="nitrogen-dot-sugar" class="nitrogen-dot dot-sugar" style="--x: 44%; --y: 72%;"><b>白糖</b></span>
+                                        <span id="nitrogen-dot-rubber" class="nitrogen-dot dot-rubber" style="--x: 42%; --y: 56%;"><b>天胶</b></span>
+                                        <span id="nitrogen-dot-palm_oil" class="nitrogen-dot dot-palm" style="--x: 36%; --y: 52%;"><b>棕榈油</b></span>
+                                    </div>
+                                </div>
+                                <div class="nitrogen-framework-side">
+                                    <div class="nitrogen-axis-block">
+                                        <div class="axis-block-head">
+                                            <span>维度一</span>
+                                            <strong>氮肥成本压力</strong>
+                                        </div>
+                                        <div id="urea-intensity-bars" class="urea-bars nitrogen-pressure-bars">
+                                            <div class="urea-bar-row">
+                                                <span class="urea-crop">玉米</span>
+                                                <div class="urea-track"><i style="width: 100%;"></i></div>
+                                            </div>
+                                            <div class="urea-bar-row">
+                                                <span class="urea-crop">白糖</span>
+                                                <div class="urea-track"><i style="width: 41%;"></i></div>
+                                            </div>
+                                            <div class="urea-bar-row">
+                                                <span class="urea-crop">天胶</span>
+                                                <div class="urea-track"><i style="width: 39%;"></i></div>
+                                            </div>
+                                            <div class="urea-bar-row">
+                                                <span class="urea-crop">棕榈油</span>
+                                                <div class="urea-track"><i style="width: 30%;"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nitrogen-axis-block">
+                                        <div class="axis-block-head">
+                                            <span>维度二</span>
+                                            <strong>减氮产量刚性</strong>
+                                        </div>
+                                        <div class="nitrogen-rigidity-list">
+                                            <div><span>玉米</span><em class="rigidity-high">高刚性</em></div>
+                                            <div><span>白糖</span><em class="rigidity-mid-high">中高</em></div>
+                                            <div><span>天胶</span><em>中等滞后</em></div>
+                                            <div><span>棕榈油</span><em>钾肥联动</em></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nitrogen-framework-notes">
+                                <span>玉米：更像利润挤压；白糖：蔗量弹性更直接但过量氮会压含糖；天胶：短期有树体缓冲，长期伤树势；棕榈油：尿素信号需配合钾肥观察。</span>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section class="summary-ticker glass-panel" aria-label="核心高频指标">
+                <article class="summary-ticker-item">
+                    <span class="summary-label">泰国现货</span>
+                    <strong id="stat-songkhla-latest" class="summary-value">--</strong>
+                    <em id="stat-songkhla-delta" class="summary-meta">等待数据</em>
+                </article>
+                <article class="summary-ticker-item">
+                    <span class="summary-label">科特迪瓦底价</span>
+                    <strong id="stat-apromac-latest" class="summary-value">--</strong>
+                    <em id="stat-apromac-year" class="summary-meta">等待数据</em>
+                </article>
+                <article class="summary-ticker-item">
+                    <span class="summary-label">RAOT 完整周</span>
+                    <strong id="stat-raot-week" class="summary-value compact">--</strong>
+                    <em id="stat-raot-week-range" class="summary-meta">等待数据</em>
+                </article>
+                <article class="summary-ticker-item">
+                    <span class="summary-label">RAOT 价格偏离</span>
+                    <strong id="stat-raot-price-deviation" class="summary-value compact">--</strong>
+                    <em id="stat-raot-price-context" class="summary-meta">等待数据</em>
+                </article>
+                <article class="summary-ticker-item">
+                    <span class="summary-label">RAOT 量能偏离</span>
+                    <strong id="stat-raot-volume-deviation" class="summary-value compact">--</strong>
+                    <em id="stat-raot-volume-context" class="summary-meta">等待数据</em>
+                </article>
+            </section>
+
+            <section id="ai-summary-panel" class="ai-summary-panel glass-panel">
+                <div class="ai-summary-topline">
+                    <span class="ai-summary-tag">边际情况</span>
+                    <div id="ai-summary-auth" class="ai-summary-auth">
+                        <input id="ai-summary-password" type="password" autocomplete="off" placeholder="输入密码查看">
+                        <button id="ai-summary-unlock" type="button">查看</button>
+                    </div>
+                </div>
+                <p id="ai-summary-analysis" class="ai-summary-analysis is-locked">请输入密码查看边际情况。</p>
+            </section>
+
+            <div class="grid-content">
+                <section id="module-thai-supply" class="module-card glass-panel span-2-col">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Origin Weight</p>
+                            <h3>泰国天然橡胶产区权重</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag warning">OAE 2025 预测</span>
+                            <span id="supply-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="module-supply-specs" class="module-specs">
+                            <span class="spec-pill">来源：OAE</span>
+                            <span class="spec-pill">口径：分府产量</span>
+                            <span class="spec-pill">等待数据</span>
+                        </div>
+                        <div class="supply-layout">
+                            <div class="chart-container supply-chart-container">
+                                <canvas id="thaiSupplyChart"></canvas>
+                            </div>
+                            <div class="supply-side-panel">
+                                <div class="supply-metric">
+                                    <span>全国总产量</span>
+                                    <strong id="supply-total-production">--</strong>
+                                </div>
+                                <div class="supply-metric">
+                                    <span>最大区域权重</span>
+                                    <strong id="supply-top5-share">--</strong>
+                                </div>
+                                <div class="supply-metric">
+                                    <span>同比变化</span>
+                                    <strong id="supply-price-coverage">--</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="supply-source-note" class="data-source-note">数据来源：Thailand Office of Agricultural Economics（OAE）2025 年天然橡胶产量预测文件；更新频率：年度/官方文件发布时更新，本站每日校验源文件变动。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>OAE 2025 文件给出全国和四大区域预测口径，不提供分府排名，因此这里不再保留分府模板表。</li>
+                                    <li>这组数据用于判断年度供给重心，高频报价仍放在 THAINR 和 RAOT 模块里单独看。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-enso" class="module-card glass-panel span-2-col mt-4 enso-module">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Climate Driver</p>
+                            <h3>厄尔尼诺指标跟踪</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag alert">NOAA/CPC 月度 + IRI 半月更</span>
+                            <span id="enso-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="enso-specs" class="module-specs">
+                            <span class="spec-pill">来源：NOAA/CPC · IRI/Columbia</span>
+                            <span class="spec-pill">等待官方数据刷新</span>
+                        </div>
+                        <div class="enso-metrics">
+                            <div class="enso-metric">
+                                <span>CPC 状态</span>
+                                <strong id="enso-alert-status">--</strong>
+                                <small id="enso-cpc-release">--</small>
+                            </div>
+                            <div class="enso-metric signal">
+                                <span id="enso-probability-label">El Niño 形成概率</span>
+                                <strong id="enso-probability">--</strong>
+                                <small id="enso-near-period">NOAA/CPC 近期季节窗口</small>
+                            </div>
+                            <div class="enso-metric">
+                                <span>最新周 Niño3.4</span>
+                                <strong id="enso-nino34">--</strong>
+                                <small>Diagnostic Discussion 披露值</small>
+                            </div>
+                            <div class="enso-metric">
+                                <span>IRI 更新日期</span>
+                                <strong id="enso-iri-release">--</strong>
+                                <small>Quick Look / Technical Update</small>
+                            </div>
+                        </div>
+                        <div class="enso-overview">
+                            <article class="enso-source-panel">
+                                <div class="enso-panel-head">
+                                    <div>
+                                        <h4>NOAA/CPC 官方概率表</h4>
+                                        <p>ENSO Diagnostic Discussion · 月度官方定性与概率</p>
+                                    </div>
+                                    <a id="enso-cpc-link" class="module-link-btn" target="_blank" rel="noreferrer">官方原页</a>
+                                </div>
+                                <div class="enso-cpc-crop">
+                                    <img id="enso-cpc-probability-image" class="enso-main-image" alt="NOAA CPC official ENSO probabilities">
+                                </div>
+                                <p id="enso-cpc-summary" class="enso-note">正在读取 NOAA/CPC 官方诊断摘要。</p>
+                            </article>
+                            <article class="enso-source-panel">
+                                <div class="enso-panel-head">
+                                    <div>
+                                        <h4>IRI/Columbia 半月更新</h4>
+                                        <p>Quick Look · Technical Update · 概率分布</p>
+                                    </div>
+                                    <a id="enso-iri-link" class="module-link-btn" target="_blank" rel="noreferrer">IRI 原页</a>
+                                </div>
+                                <div class="enso-iri-images">
+                                    <figure>
+                                        <img id="enso-iri-probability-image" alt="IRI ENSO probability distribution">
+                                        <figcaption>概率分布</figcaption>
+                                    </figure>
+                                    <figure>
+                                        <img id="enso-iri-technical-image" alt="IRI ENSO technical update distribution">
+                                        <figcaption>Technical Update</figcaption>
+                                    </figure>
+                                </div>
+                                <p id="enso-iri-summary" class="enso-note">正在读取 IRI Quick Look 摘要。</p>
+                            </article>
+                        </div>
+                        <details class="module-disclosure module-disclosure-slim">
+                            <summary>CPC / IRI 数据口径</summary>
+                            <p id="enso-source-note" class="data-source-note">数据来源：NOAA/CPC ENSO Diagnostic Discussion 官方概率表、IRI/Columbia Quick Look 与 Technical Update；更新频率：CPC 月度，IRI 通常半月更新且发布时间常晚于 CPC 数日。</p>
+                        </details>
+                        <div class="enso-weekly-header">
+                            <h4>周度耦合跟踪</h4>
+                            <span>提取 NOAA/CPC 最新文字诊断，随官方更新自动刷新</span>
+                        </div>
+                        <div class="enso-weekly-grid">
+                            <article class="enso-weekly-signal">
+                                <span class="enso-signal-label">周度海温</span>
+                                <strong>Niño3.4 <em id="enso-weekly-nino34">--</em></strong>
+                                <p id="enso-sst-note">正在读取最新周度 Niño3.4 披露值。</p>
+                            </article>
+                            <article class="enso-weekly-signal">
+                                <span class="enso-signal-label">暖水储备</span>
+                                <strong>次表层暖水</strong>
+                                <p id="enso-subsurface-note">观察暖水储备向东传播</p>
+                            </article>
+                            <article class="enso-weekly-signal">
+                                <span class="enso-signal-label">大气响应</span>
+                                <strong>风场耦合</strong>
+                                <p id="enso-wind-note">低层/高层西风异常协同验证</p>
+                            </article>
+                        </div>
+                        <details class="module-disclosure module-disclosure-slim">
+                            <summary>周度耦合数据口径</summary>
+                            <p id="enso-weekly-source-note" class="data-source-note">数据来源：NOAA/CPC ENSO Update 与 Diagnostic Discussion 文字披露；更新频率：周度/随 CPC 官方页面更新，本站定时抓取并提取 Niño3.4、次表层暖水与风场耦合描述。</p>
+                        </details>
+                        <div class="iod-section">
+                            <div class="enso-weekly-header">
+                                <h4>印度洋偶极子 IOD</h4>
+                                <span>BoM 周频 DMI + JMA 月频确认 + IRI/NMME 预测</span>
+                            </div>
+                            <div class="iod-metrics">
+                                <article class="iod-metric">
+                                    <span>当前 DMI</span>
+                                    <strong id="iod-current-dmi">--</strong>
+                                    <small id="iod-current-window">BoM 周频</small>
+                                </article>
+                                <article class="iod-metric signal">
+                                    <span>当前位相</span>
+                                    <strong id="iod-current-phase">--</strong>
+                                    <small id="iod-current-streak">等待持续性验证</small>
+                                </article>
+                                <article class="iod-metric">
+                                    <span>JMA 月频确认</span>
+                                    <strong id="iod-jma-latest">--</strong>
+                                    <small id="iod-jma-3rmean">3个月均值 --</small>
+                                </article>
+                                <article class="iod-metric forward">
+                                    <span>未来几个月</span>
+                                    <strong id="iod-forecast-label">--</strong>
+                                    <small id="iod-forecast-window">IRI/NMME 概率展望</small>
+                                </article>
+                            </div>
+                            <div class="iod-layout">
+                                <div class="iod-chart-panel">
+                                    <div class="iod-panel-head">
+                                        <div>
+                                            <h5>历史变化：BoM 周频 DMI</h5>
+                                            <p>近 3 年周度序列，阈值带为 ±0.4°C</p>
+                                        </div>
+                                        <a id="iod-bom-link" class="module-link-btn" target="_blank" rel="noreferrer">BoM 原页</a>
+                                    </div>
+                                    <div class="iod-chart-wrap">
+                                        <canvas id="iod-dmi-chart" aria-label="印度洋偶极子 DMI 历史变化"></canvas>
+                                    </div>
+                                    <p id="iod-current-note" class="enso-note">正在读取 IOD 周频数据。</p>
+                                    <div class="iod-history-note" aria-label="IOD 历史灾害锚点">
+                                        <strong>历史灾害锚点</strong>
+                                        <p>历史上，强 El Niño 与正 IOD 同期并不常见，但一旦共振，影响往往跨越农业、渔业与公共安全。1972 年印度季风偏弱、Sahel 旱灾饥荒，秘鲁鳀鱼崩塌并放大全球饲料链压力；1982-83 年秘鲁、厄瓜多尔洪水滑坡与澳洲、印尼、非洲干旱山火并发；1997-98 年印尼林火烟霾、东非和秘鲁洪灾同现，全球死亡和经济损失均显著上升。</p>
+                                        <span>资料来源：NOAA / NASA / BoM / JMA / PMEL；灾害影响为多因子结果。</span>
+                                    </div>
+                                </div>
+                                <aside class="iod-forecast-panel">
+                                    <div class="iod-panel-head">
+                                        <div>
+                                            <h5>未来展望：IRI/NMME</h5>
+                                            <p>预测只看概率，不作为已发生事实</p>
+                                        </div>
+                                        <a id="iod-iri-link" class="module-link-btn" target="_blank" rel="noreferrer">IRI 原页</a>
+                                    </div>
+                                    <p id="iod-bom-outlook" class="enso-note">等待 BoM 模型展望。</p>
+                                    <div id="iod-probability-list" class="iod-probability-list"></div>
+                                    <img id="iod-forecast-image" class="iod-forecast-image" alt="IRI IOD model based forecast">
+                                    <p id="iod-forecast-summary" class="enso-note">等待 IRI/NMME 预测摘要。</p>
+                                </aside>
+                            </div>
+                            <details class="module-disclosure module-disclosure-slim">
+                                <summary>IOD 数据口径</summary>
+                                <p id="iod-source-note" class="data-source-note">数据来源：BoM 周频 Dipole Mode Index（DMI）为当前主指标；JMA 月频 DMI 和 3个月均值用于确认持续性；IRI/Columbia CCSR NMME 用于未来几个月正/中性/负 IOD 概率展望。</p>
+                            </details>
+                        </div>
+                        <div class="enso-methodology" id="enso-methodology"></div>
+                    </div>
+                </section>
+
+                <section id="module-weather" class="module-card glass-panel span-2-col mt-4 weather-module">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Weather Disruption</p>
+                            <h3>印尼 / 泰国 / 印度主产区降雨量化跟踪</h3>
+                        </div>
+                        <div class="weather-actions">
+                            <span id="weather-updated" class="module-update-badge">更新：--</span>
+                            <span class="tag alert">三国拆分 / 周度 / 预测</span>
+                            <button id="weather-toggle" class="module-link-btn module-toggle-btn" type="button" aria-expanded="true">收起</button>
+                            <a class="module-link-btn" href="weather_forecast/index.html" target="_blank" rel="noreferrer">7天动态云图</a>
+                            <a class="module-link-btn" href="weather_multi_country.html" target="_blank" rel="noreferrer">打开全屏</a>
+                            <a class="module-link-btn" href="weather_thailand_rainfall.html?v=theme2" target="_blank" rel="noreferrer">泰国详情</a>
+                        </div>
+                    </div>
+                    <div class="card-body weather-module-body">
+                        <div class="module-specs">
+                            <span class="spec-pill">区域：印尼 / 泰国 / 印度</span>
+                            <span class="spec-pill">频率：日度聚合至周度/月度</span>
+                            <span class="spec-pill">信号：干旱 / 正常 / 潮湿</span>
+                            <span class="spec-pill">来源：Open-Meteo 网格降雨</span>
+                        </div>
+                        <div class="weather-frame-container">
+                            <iframe id="weather-iframe" data-src="weather_multi_country.html?compact=1&v=weather_auto" frameborder="0" loading="lazy"></iframe>
+                        </div>
+                        <details class="module-disclosure module-disclosure-slim">
+                            <summary>降雨量化口径</summary>
+                            <p id="weather-source-note" class="data-source-note">数据来源：Open-Meteo 网格降雨与预报数据，按印尼、泰国、印度重点产区做省区/站点口径聚合；更新频率：日度自动更新，日度数据滚动汇总至周度、月度与未来预测。</p>
+                        </details>
+                        <div class="weather-map-section">
+                            <div class="weather-map-head">
+                                <div>
+                                    <p class="module-kicker">Moisture / Temperature Snapshots</p>
+                                    <h4>东南亚 / 全球土壤湿度与温度距平</h4>
+                                </div>
+                                <span>只保留距平图，辅助识别偏湿 / 偏干背景</span>
+                            </div>
+                            <div class="weather-map-grid weather-map-grid-sea">
+                                <article class="weather-map-card">
+                                    <img src="weather_assets/soil_maps/sea_cpc_soil_moisture_anom_latest.png" alt="东南亚 CPC 当前土壤湿度距平裁剪图">
+                                    <div class="weather-map-caption"><strong>东南亚局部：CPC 当前墒情距平</strong><span>从 CPC 当前状态图裁剪；有效日：<span data-weather-map-date="cpc_soil">最新</span>。</span></div>
+                                </article>
+                                <article class="weather-map-card">
+                                    <img src="weather_assets/soil_maps/sea_cpc_temperature_anom_latest.png" alt="东南亚 CPC 当前温度距平裁剪图">
+                                    <div class="weather-map-caption"><strong>东南亚局部：CPC 当前温度距平</strong><span>从 CPC 当前状态图裁剪；有效日：<span data-weather-map-date="cpc_temp">最新</span>。</span></div>
+                                </article>
+                            </div>
+                            <div class="weather-map-grid weather-map-grid-global">
+                                <article class="weather-map-card">
+                                    <img src="weather_assets/soil_maps/cpc_current_soil_moisture_anom_latest.gif" alt="CPC 当前全球土壤湿度距平图">
+                                    <div class="weather-map-caption"><strong>CPC 全球当前土壤湿度距平</strong><span>当前状态图，来源：NOAA CPC；有效日：<span data-weather-map-date="cpc_soil">最新</span>。</span></div>
+                                </article>
+                                <article class="weather-map-card">
+                                    <img src="weather_assets/soil_maps/cpc_current_temperature_anom_latest.gif" alt="CPC 当前全球温度距平图">
+                                    <div class="weather-map-caption"><strong>CPC 全球当前 2m 温度距平</strong><span>当前状态图，来源：NOAA CPC；有效日：<span data-weather-map-date="cpc_temp">最新</span>。</span></div>
+                                </article>
+                            </div>
+                            <details class="module-disclosure module-disclosure-slim">
+                                <summary>天气图口径</summary>
+                                <p class="data-source-note">数据来源：NOAA CPC 当前陆面状态图；更新频率：随每日任务自动拉取。此处只保留土壤湿度距平与温度距平，用于观察主产区偏湿、偏干与热量背景。</p>
+                            </details>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>交易解读</summary>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>优先比较三国最近 4 周累计雨量、历史分位和未来 14 天预报扰动。</li>
+                                    <li>若某国降雨转为潮湿且干扰雨日偏多，通常意味着割胶窗口收窄；若转为干旱，短期割胶较顺但需观察树体压力。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-thai" class="module-card glass-panel span-2-col">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">High Frequency Spot</p>
+                            <h3>泰国胶水现货（泰铢/kg）</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag alert">短周期现货锚</span>
+                            <span id="thai-spot-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="module-specs">
+                            <span class="spec-pill">来源：泰国 Songkhla CRM</span>
+                            <span class="spec-pill">品类：胶水现货</span>
+                            <span class="spec-pill">单位：THB/kg</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="songkhlaChart"></canvas>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="thai-spot-source-note" class="data-source-note">数据来源：泰国 Songkhla CRM / THAINR 胶水现货报价；更新频率：交易日/工作日高频跟踪，本站每日自动校验并保留多年同期对照。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>优先关注本年曲线相对历史同期的偏离幅度，而不是单日波动。</li>
+                                    <li>若泰国现货领先国内外盘面走强，通常意味着现货补库或天气扰动先于期货定价反映。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-trade-flow" class="module-card glass-panel span-2-col mt-4 trade-flow-module">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Trade Flow Radar</p>
+                            <h3>天然橡胶贸易流验证</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag neutral">2026月度对照</span>
+                            <span id="trade-flow-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="trade-flow-specs" class="module-specs">
+                            <span class="spec-pill">口径：泰国MOC天然橡胶</span>
+                            <span class="spec-pill">指标：数量 + 隐含均价</span>
+                            <span class="spec-pill">来源：Thailand MOC OpenData</span>
+                        </div>
+                        <div class="trade-flow-brief">
+                            <div>
+                                <span>研究含义</span>
+                                <strong id="trade-flow-verdict">等待贸易流数据</strong>
+                                <p id="trade-flow-summary">用主产国出口和消费国进口，验证产区天气、现货和成交变化是否真正进入跨境贸易。</p>
+                            </div>
+                            <div id="trade-flow-evidence" class="trade-flow-evidence-grid"></div>
+                        </div>
+
+                        <div class="trade-flow-chart-grid trade-flow-primary-charts">
+                            <div class="trade-flow-chart-panel">
+                                <div class="mini-panel-header">
+                                    <h4>泰国出口量月度对照</h4>
+                                    <span>2026实际 · 近五年均值 · 近五年区间</span>
+                                </div>
+                                <div class="trade-flow-chart-wrap">
+                                    <canvas id="trade-flow-export-chart"></canvas>
+                                </div>
+                                <div id="trade-flow-export-strip" class="trade-flow-country-strip"></div>
+                            </div>
+                            <div class="trade-flow-chart-panel">
+                                <div class="mini-panel-header">
+                                    <h4>泰国出口均价月度对照</h4>
+                                    <span>2026实际 · 近五年均值 · 近五年区间</span>
+                                </div>
+                                <div class="trade-flow-chart-wrap">
+                                    <canvas id="trade-flow-import-chart"></canvas>
+                                </div>
+                                <div id="trade-flow-import-strip" class="trade-flow-country-strip"></div>
+                            </div>
+                        </div>
+                        <div class="trade-flow-reading-grid">
+                            <article>
+                                <span>2026同月对照</span>
+                                <strong>量弱价强</strong>
+                                <p>今年出口量低于近五年同月区间、均价仍高于均值时，说明供给扰动有进入外流环节的可能。</p>
+                            </article>
+                            <article>
+                                <span>空值处理</span>
+                                <strong>未发布不补0</strong>
+                                <p>官方接口未发布月份不进入图表，避免把未来或空值误读成贸易量归零。</p>
+                            </article>
+                            <article>
+                                <span>交叉验证</span>
+                                <strong>天气 × 现货 × 贸易</strong>
+                                <p>贸易流不单独给方向，用来确认天气和泰国现货变化是否进入真实跨境外流。</p>
+                            </article>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="trade-flow-source-note" class="data-source-note">数据来源：Thailand MOC OpenData；口径：泰国MOC天然橡胶商品口径；指标只展示数量与隐含均价，未发布月份不补0。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>当前主图只放已接入的 2026 官方月频，不再把 2023/2024 年度数据作为主信号。</li>
+                                    <li>先看泰国出口量是否低于历史同月区间，再看均价是否仍高于历史均值。</li>
+                                    <li>后续其他国家月频源接通后再加入同一套 2026 vs 历史同期框架。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-inventory" class="module-card glass-panel span-2-col mt-4">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Inventory Radar</p>
+                            <h3>国内库存压力雷达</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag neutral">官方仓单 / 季节性 / 社会库存接入</span>
+                            <span id="inventory-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="inventory-specs" class="module-specs">
+                            <span class="spec-pill">来源：上期所 / 能源中心</span>
+                            <span class="spec-pill">口径：RU仓单季节性 + 青岛社会库存</span>
+                            <span class="spec-pill">频率：日频 / 周频</span>
+                        </div>
+                        <div id="inventory-metrics" class="inventory-metric-grid"></div>
+                        <div class="inventory-layout">
+                            <div>
+                                <div class="chart-container inventory-chart-container">
+                                    <canvas id="inventorySeasonalityChart"></canvas>
+                                </div>
+                                <p id="inventory-chart-note" class="data-source-note compact-note">数据来源：上期所/能源中心仓单日报；更新频率：交易日日频；主图按 ISO 周对齐。</p>
+                            </div>
+                            <aside class="inventory-side">
+                                <div class="chart-container inventory-structure-container">
+                                    <canvas id="inventoryStructureChart"></canvas>
+                                </div>
+                                <div class="inventory-readout">
+                                    <h4>交易读法</h4>
+                                    <p id="inventory-implication">等待库存数据生成。</p>
+                                </div>
+                            </aside>
+                        </div>
+                        <div class="inventory-lower-grid">
+                            <div class="inventory-table-panel">
+                                <div class="mini-panel-header">
+                                    <h4>青岛/社会库存跟踪</h4>
+                                    <span>周频公开口径</span>
+                                </div>
+                                <div class="table-scroll">
+                                    <table id="inventory-weekly-table" class="compact-data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>日期</th>
+                                                <th>青岛合计</th>
+                                                <th>保税区</th>
+                                                <th>一般贸易</th>
+                                                <th>中国社会库存</th>
+                                                <th>信号</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="inventory-source-panel">
+                                <div class="mini-panel-header">
+                                    <h4>数据源状态</h4>
+                                    <span>接入与更新频率</span>
+                                </div>
+                                <div id="inventory-source-status" class="inventory-source-status"></div>
+                            </div>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="inventory-source-note" class="data-source-note">数据来源：上期所/能源中心仓单日报、隆众资讯公开转载口径、站内行情 JSON；更新频率：仓单交易日日频，青岛/社会库存周频。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>先看 RU 仓单同周分位，再看近4周变化，最后用泰国天气、泰国现货和 RU/NR 盘面反馈确认。</li>
+                                    <li>低分位去库叠加主产区扰动，通常提升供给收紧向盘面传导的概率。</li>
+                                    <li>社会库存接入后将与官方仓单合成总库存压力，避免只看可交割仓单造成偏差。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-kline" class="module-card glass-panel span-2-col mt-4">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Price &amp; Volume</p>
+                            <h3>RAOT 周K线与成交量</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag neutral danger">量价共振</span>
+                            <span id="raot-kline-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="module-kline-specs" class="module-specs"></div>
+                        <div class="raot-focus-strip">
+                            <div class="raot-focus-strip-head">
+                                <span>RAOT 观察品种</span>
+                                <div id="raot-product-pills" class="product-pills"></div>
+                            </div>
+                            <p id="raot-focus-note" class="focus-note">加载品种视角中...</p>
+                            <p class="product-brief-inline">
+                                <strong id="raot-product-brief-title">产品解读</strong>
+                                <span class="brief-label-inline">形态：</span>
+                                <span id="raot-product-form" class="brief-inline-text">加载中...</span>
+                                <span class="brief-separator"> / </span>
+                                <span class="brief-label-inline">角色：</span>
+                                <span id="raot-product-role" class="brief-inline-text">加载中...</span>
+                                <span class="brief-separator"> / </span>
+                                <span class="brief-label-inline">信号：</span>
+                                <span id="raot-product-signal" class="brief-inline-text">加载中...</span>
+                            </p>
+                        </div>
+                        <div class="iframe-chart-container iframe-kline">
+                            <iframe id="kline-iframe" src="kline.html" frameborder="0" loading="lazy"></iframe>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="raot-kline-source-note" class="data-source-note">数据来源：RAOT 公开周度价格与成交结算量；更新频率：周度完整周更新，本站每日校验最新完整周并同步刷新周K与成交量图。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>放量突破更有参考意义，缩量新高则更偏向情绪推动。</li>
+                                    <li>均线系统更适合做节奏判断，仍需和现货端数据交叉验证。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-raot-quick-seasonal" class="module-card glass-panel span-2-col mt-4">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Product Seasonality</p>
+                            <h3>RAOT 多品种季节性快览</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag neutral">RSS3 / USS / 杯凝胶 / 胶水</span>
+                            <span id="raot-seasonal-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="module-seasonal-specs" class="module-specs">
+                            <span class="spec-pill">来源：RAOT</span>
+                            <span class="spec-pill">口径：周均价</span>
+                            <span class="spec-pill">单位：THB/kg</span>
+                        </div>
+                        <div class="mini-seasonal-grid">
+                            <article class="mini-seasonal-card">
+                                <div class="mini-seasonal-head">
+                                    <h4>RSS3 烟片胶</h4>
+                                    <p>标准品定价对照</p>
+                                </div>
+                                <div class="mini-seasonal-frame">
+                                    <iframe src="seasonal.html?type=Ribbed%20smoked%20sheet3&compact=1&v=20260508a" frameborder="0" loading="lazy"></iframe>
+                                </div>
+                            </article>
+                            <article class="mini-seasonal-card">
+                                <div class="mini-seasonal-head">
+                                    <h4>USS 生胶片</h4>
+                                    <p>初加工传导观察</p>
+                                </div>
+                                <div class="mini-seasonal-frame">
+                                    <iframe src="seasonal.html?type=Unsmoked%20sheet&compact=1&v=20260508a" frameborder="0" loading="lazy"></iframe>
+                                </div>
+                            </article>
+                            <article class="mini-seasonal-card">
+                                <div class="mini-seasonal-head">
+                                    <h4>杯凝胶 CupLump</h4>
+                                    <p>原料底部节奏</p>
+                                </div>
+                                <div class="mini-seasonal-frame">
+                                    <iframe src="seasonal.html?type=Cup%20lump%20%28DRC%20100%25%29&compact=1&v=20260508a" frameborder="0" loading="lazy"></iframe>
+                                </div>
+                            </article>
+                            <article class="mini-seasonal-card">
+                                <div class="mini-seasonal-head">
+                                    <h4>胶水 FieldLatex</h4>
+                                    <p>源头现货张力</p>
+                                </div>
+                                <div class="mini-seasonal-frame">
+                                    <iframe src="seasonal.html?type=Field%20Latex&compact=1&v=20260508a" frameborder="0" loading="lazy"></iframe>
+                                </div>
+                            </article>
+                            <article class="mini-seasonal-card mini-seasonal-card-wide domestic-futures-seasonal-card">
+                                <div class="mini-seasonal-head">
+                                    <h4>内盘期货 RU连续</h4>
+                                    <p>盘面反馈季节性验证</p>
+                                </div>
+                                <div class="mini-seasonal-frame mini-seasonal-chart-frame">
+                                    <canvas id="domesticFuturesSeasonalityChart"></canvas>
+                                </div>
+                                <p id="domestic-futures-seasonality-note" class="data-source-note compact-note">数据来源：ChoiceAPI 国内连续合约日线底稿；更新频率：交易日日频，按周度重建季节性。</p>
+                            </article>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="raot-seasonal-source-note" class="data-source-note">数据来源：RAOT 多品种周均价；更新频率：周度完整周更新，本站每日校验最新完整周，按同一日历周进行多年季节性对照。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>这里把 RSS3、USS、杯凝胶固定展开，避免来回切换 K 线或单一品种视角。</li>
+                                    <li>更适合看“当前完整周”相对历史同期的位置，作为 K 线之外的节奏补充。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-volume-seasonal" class="module-card glass-panel span-2-col mt-4">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Volume Seasonality</p>
+                            <h3>RAOT 成交结算量季节性对照</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag neutral">非单一市场</span>
+                            <span id="raot-volume-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="module-volume-specs" class="module-specs"></div>
+                        <div class="iframe-chart-container">
+                            <iframe id="volume-seasonal-iframe" src="volume_seasonal.html?v=20260401b" frameborder="0" loading="lazy"></iframe>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="raot-volume-source-note" class="data-source-note">数据来源：RAOT 成交结算量字段；更新频率：周度完整周更新，本站每日校验并按同周历史均值/季节性位置比较。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>这里是 RAOT 表内的成交结算量字段，不是单一市场成交量。</li>
+                                    <li>如果价格走强但成交量弱于历史同期，通常说明报价抬升快于真实成交放大，信号质量要更谨慎看待。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="module-af" class="module-card glass-panel span-2-col mt-4">
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <p class="module-kicker">Supply Floor</p>
+                            <h3>科特迪瓦底价</h3>
+                        </div>
+                        <div class="module-header-meta">
+                            <span class="tag warning">中长期成本底</span>
+                            <span id="apromac-updated" class="module-update-badge">更新：--</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="module-specs">
+                            <span class="spec-pill">来源口径：APROMAC</span>
+                            <span class="spec-pill">品类：科特迪瓦指导收购价</span>
+                            <span class="spec-pill">单位：FCFA/kg</span>
+                            <span class="spec-pill">频率：月度</span>
+                            <span class="spec-pill">更新：通常当月 1-5 号，本站 1-7 号每日补抓</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="apromacChart"></canvas>
+                        </div>
+                        <details class="module-disclosure">
+                            <summary>口径 / 解读</summary>
+                            <p id="apromac-source-note" class="data-source-note">数据来源：APROMAC 科特迪瓦指导收购价；更新频率：月度，通常当月 1-5 日发布，本站每月 1-7 日每日补抓，月内未发布则沿用上一期。</p>
+                            <div class="insight-panel">
+                                <h4>观察提示</h4>
+                                <ul>
+                                    <li>这组数据更适合观察供给侧成本中枢，而不是交易性高频择时。</li>
+                                    <li>若当年底价曲线持续高于历史区间，通常意味着全球供给成本的底部正在抬升。</li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="index.js?v=20260719_mobile_quote_focus1"></script>
+    <script src="visit-context.js?v=20260720_device_stats1"></script>
+    <script src="pwa-register.js?v=20260719_prod1"></script>
+</body>
+
+</html>

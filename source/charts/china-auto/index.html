@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国汽车产销与天然橡胶需求分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', 'SimHei', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-orange-200 selection:text-orange-900">
+
+    <!-- Hero Section -->
+    <header class="bg-slate-900 text-white py-16 px-4 mb-12">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-orange-400 uppercase bg-slate-800 rounded-full">
+                宏观产业分析
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">
+                中国汽车工业：<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">天胶需求的二元驱动轮</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
+                深度解析汽车产销、出口趋势，及其对<span class="text-orange-400 font-bold">天然橡胶</span>产业链（全钢/半钢胎）的二元权重博弈。
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 space-y-24">
+
+        <!-- Section 1: KPI Overview -->
+        <section>
+            <div class="mb-8 border-l-4 border-blue-500 pl-4">
+                <h2 class="text-3xl font-bold text-slate-900">1. 汽车销量与构成 (最新数据：2026-06)</h2>
+                <p class="mt-2 text-slate-600">
+                    中国汽车销售已进入微增长时代，但内部结构的演变——特别是乘用车的新能源化和商用车（重卡）的周期性波动——深刻影响着天然橡胶的需求。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- KPI Card 1 -->
+                <div class="bg-white rounded-xl p-8 card-shadow border-t-4 border-blue-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-5xl mb-4">🚗</div>
+                    <div class="text-4xl font-black text-slate-800">240.2 <span class="text-lg text-slate-500 font-normal">万辆</span></div>
+                    <h3 class="font-bold text-blue-600 uppercase tracking-wide text-sm mt-2">当月乘用车销量</h3>
+                    <p class="text-sm text-slate-500 mt-2">新能源渗透率持续上升，驱动半钢胎（PCR）的高性能需求。</p>
+                </div>
+
+                <!-- KPI Card 2 -->
+                <div class="bg-white rounded-xl p-8 card-shadow border-t-4 border-cyan-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-5xl mb-4">🚛</div>
+                    <div class="text-4xl font-black text-slate-800">40.8 <span class="text-lg text-slate-500 font-normal">万辆</span></div>
+                    <h3 class="font-bold text-cyan-600 uppercase tracking-wide text-sm mt-2">当月商用车销量</h3>
+                    <p class="text-sm text-slate-500 mt-2">商用车单车耗胶量（全钢胎）是乘用车的 13 倍以上，为天胶需求中枢。</p>
+                </div>
+
+                <!-- KPI Card 3 -->
+                <div class="bg-white rounded-xl p-8 card-shadow border-t-4 border-orange-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-5xl mb-4">🚢</div>
+                    <div class="text-4xl font-black text-slate-800">103.7 <span class="text-lg text-slate-500 font-normal">万辆</span></div>
+                    <h3 class="font-bold text-orange-600 uppercase tracking-wide text-sm mt-2">当月整车出口数量</h3>
+                    <p class="text-sm text-slate-500 mt-2">海外出口表现极为强劲，成为支撑产业链产销大盘的核心支柱。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Sales Trends -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 text-center text-xs text-slate-400">数据来源：中国汽车工业协会 (CAAM)</div>
+            </div>
+            <div class="order-1 lg:order-2">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">2. 产销走势与季节性</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    国内汽车市场呈现明显的季节性特征。一季度受春节假期影响通常为产销低谷，二三季度逐步回升，四季度（“金九银十”至年底促销）迎来消费高潮。
+                </p>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    在<strong>天然橡胶消费端</strong>，配套市场（OE）与汽车产销同步运行，而更庞大的替换市场（RE）则与存量车队的周转密切相关。
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <span class="text-blue-500 mr-2 font-bold">✓</span>
+                        <span class="text-sm text-slate-700"><strong>乘用车（PCR）：</strong> 耗胶量约 1.5kg/条，需求基数大但单位耗量小。</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-500 mr-2 font-bold">✓</span>
+                        <span class="text-sm text-slate-700"><strong>商用车（TBR）：</strong> 耗胶量约 20kg/条，是橡胶价格弹性的核心决定因子。</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-orange-500 mr-2 font-bold">!</span>
+                        <span class="text-sm text-slate-700"><strong>出口乘数：</strong> 整车出口强劲在海外形成二次配套磨损需求。</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Structure and Share -->
+        <section class="bg-white rounded-2xl p-8 md:p-12 card-shadow">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-1">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">3. 产销结构分析</h2>
+                    <p class="text-slate-600 mb-6">
+                        最新月份中，乘用车与商用车的销量比例约为 6:1。但如果按**天然橡胶实际物理消耗量**折算：
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mb-6">
+                        <p class="text-xs text-blue-900 leading-relaxed font-bold">
+                            橡胶消耗折算公式 = 乘用车销量 × 1.5kg + 商用车销量 × 20kg
+                        </p>
+                    </div>
+                    <p class="text-slate-600">
+                        因此，商用车（重卡及客车）在实际耗胶量中的权重占比高达 70% 以上，是行业研究真正的风向标。
+                    </p>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="chart-container">
+                        <canvas id="structureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Export Trends -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">4. 整车与乘用车出口趋势</h2>
+                <p class="text-slate-600 mb-6">
+                    在内需放缓的压力下，海外出口成为全行业最大的增长亮点，2026年6月单月出口首次突破百万大关（103.7万辆）。
+                </p>
+                <p class="text-slate-600 mb-6">
+                    中国轮胎和整车的出海热潮在海外形成了良性替代，这促使天然橡胶需求在国际与国内呈现结构性分化。
+                </p>
+                <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                    <p class="text-sm text-orange-800 font-bold">
+                        出口高增大幅拉动了半钢子午线轮胎（PCR）的表观生产量和工厂开工率，对丁苯/顺丁橡胶及天然橡胶具有持久的支撑作用。
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <div class="chart-container">
+                        <canvas id="exportChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 text-center text-xs text-slate-400">数据来源：中国海关总署 / 中汽协整理</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800">
+        <p class="mb-4 text-sm">
+            由 Canvas Infographics AI 生成
+        </p>
+        <p class="text-xs max-w-lg mx-auto leading-relaxed">
+            注：本图表数据均来自于中汽协（CAAM）和中国海关总署，旨在展示中国汽车产销对大宗商品（天然橡胶）的微观传导逻辑。
+        </p>
+    </footer>
+
+    <!-- JavaScript for Charts -->
+    <script>
+        const colors = {
+            navy: '#1e293b',
+            blue: '#3b82f6',
+            cyan: '#06b6d4',
+            orange: '#f97316',
+            gray: '#94a3b8',
+            bg: '#f8fafc'
+        };
+
+        const dates = ["2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11", "2023-12", "2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12", "2025-01", "2025-02", "2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"];
+        const autoSales = [164.8966, 197.6173, 245.103, 215.8704, 238.1614, 262.2326, 238.6933, 258.2401, 285.8234, 285.257, 297.0122, 315.6367, 243.9344, 158.3518, 269.4461, 235.8835, 241.6803, 255.1638, 226.1796, 245.3258, 280.8921, 305.293, 331.6261, 348.8605, 242.3494, 212.8611, 291.5476, 258.961, 268.6337, 290.4, 259.3, 285.7, 322.6, 332.2, 342.9, 327.2, 234.6, 180.5, 289.9, 252.6, 262.9, 281.0];
+        const passengerSales = [146.8597, 165.2664, 201.6942, 181.1079, 205.1123, 226.7821, 209.985, 227.2783, 248.7274, 248.7873, 260.437, 279.2005, 211.5435, 133.2815, 223.6276, 200.1469, 207.5488, 221.4567, 199.3595, 218.1365, 252.5099, 275.4895, 300.1473, 312.0031, 213.3016, 181.5351, 246.8207, 222.2557, 235.1762, 253.6, 228.7, 254.0, 285.9, 296.1, 303.7, 284.7, 198.8, 153.6, 241.2, 212.9, 225.3, 240.2];
+        const commercialSales = [18.0369, 32.3509, 43.4088, 34.7625, 33.0491, 35.4505, 28.7083, 30.9618, 37.096, 36.4697, 36.5752, 36.4362, 32.3909, 25.0703, 45.8185, 35.7366, 34.1315, 33.7071, 26.8201, 27.1893, 28.3822, 29.8035, 31.4788, 36.8574, 29.0478, 31.326, 44.7269, 36.7053, 33.4575, 36.9, 30.6, 31.6, 36.8, 36.1, 39.2, 42.5, 35.9, 26.9, 48.7, 39.7, 37.6, 40.8];
+        const autoExport = [36.0, 32.0, 39.0, 42.0, 44.0, 41.0, 44.0, 44.0, 50.0, 53.0, 52.0, 46.0, 44.0, 39.0, 49.0, 56.0, 57.0, 49.0, 55.0, 61.0, 61.0, 58.0, 55.0, 57.0, 55.0, 42.0, 57.0, 62.0, 69.0, 59.2, 57.5, 61.1, 65.2, 66.6, 72.8, 75.3, 68.1, 67.2, 87.5, 90.1, 93.0, 103.7];
+        const passengerExport = [29.6512, 27.1603, 32.2653, 36.0256, 36.5048, 34.3455, 36.3264, 37.5585, 43.2194, 46.7554, 44.8546, 38.8179, 37.2461, 34.0498, 41.621, 48.0365, 49.0737, 41.2769, 47.9247, 52.5745, 51.2235, 50.3466, 47.0073, 49.2701, 47.4008, 35.6173, 47.3751, 52.5269, 59.122, 50.2, 49.9, 53.3, 56.0, 57.1, 62.4, 64.1, 58.9, 58.6, 74.8, 79.6, 80.9, 90.5];
+
+        // 1. Sales Trend Chart
+        const ctxSales = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctxSales, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: '汽车销量 (万辆)',
+                        data: autoSales,
+                        borderColor: colors.navy,
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 0
+                    },
+                    {
+                        label: '乘用车销量 (万辆)',
+                        data: passengerSales,
+                        borderColor: colors.blue,
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 0
+                    },
+                    {
+                        label: '商用车销量 (万辆)',
+                        data: commercialSales,
+                        borderColor: colors.cyan,
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: { title: { display: true, text: '万辆' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Structure Doughnut Chart
+        const ctxStru = document.getElementById('structureChart').getContext('2d');
+        new Chart(ctxStru, {
+            type: 'doughnut',
+            data: {
+                labels: ['乘用车销量 (240.2万辆)', '商用车销量 (40.8万辆)'],
+                datasets: [{
+                    data: [240.2, 40.8],
+                    backgroundColor: [colors.blue, colors.cyan],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' }
+                }
+            }
+        });
+
+        // 3. Export Chart
+        const ctxExp = document.getElementById('exportChart').getContext('2d');
+        new Chart(ctxExp, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: '汽车总出口量 (万辆)',
+                        data: autoExport,
+                        borderColor: colors.orange,
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        backgroundColor: 'rgba(249, 115, 22, 0.05)',
+                        pointRadius: 0
+                    },
+                    {
+                        label: '乘用车出口量 (万辆)',
+                        data: passengerExport,
+                        borderColor: colors.navy,
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: { title: { display: true, text: '万辆' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
