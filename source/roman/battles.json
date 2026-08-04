@@ -5,7 +5,7 @@
     "name_zh": "特里比亚河会战",
     "year_label": "前218年",
     "color": "#c2543d",
-    "visible": true,
+    "visible": false,
     "battle_pos": [45.05, 9.58],
     "units": [
       {"side": "rome", "name": "森普罗尼乌斯军团", "count": "约4.2万", "pos": [45.062, 9.545]},
@@ -25,7 +25,7 @@
     "name_zh": "特拉西美诺湖会战",
     "year_label": "前217年",
     "color": "#d99a2b",
-    "visible": true,
+    "visible": false,
     "battle_pos": [43.132, 12.095],
     "units": [
       {"side": "rome", "name": "弗拉米尼乌斯军团（行进纵列）", "count": "约3万", "pos": [43.128, 12.105]},
@@ -45,7 +45,7 @@
     "name_zh": "坎尼会战",
     "year_label": "前216年",
     "color": "#e34948",
-    "visible": true,
+    "visible": false,
     "battle_pos": [41.2985, 16.1307],
     "units": [
       {"side": "rome", "name": "罗马—意大利联军（重步兵方阵）", "count": "约8.5万", "pos": [41.303, 16.124]},
@@ -66,7 +66,7 @@
     "name_zh": "伊利帕会战",
     "year_label": "前206年",
     "color": "#2a78d6",
-    "visible": true,
+    "visible": false,
     "battle_pos": [37.52, -5.98],
     "units": [
       {"side": "rome", "name": "西庇阿军团（两翼，中路为西班牙盟军）", "count": "约4.5万", "pos": [37.517, -5.988]},
@@ -85,7 +85,7 @@
     "name_zh": "扎马会战",
     "year_label": "前202年",
     "color": "#7b5ea7",
-    "visible": true,
+    "visible": false,
     "battle_pos": [36.106, 9.518],
     "units": [
       {"side": "carthage", "name": "汉尼拔军（三线阵）", "count": "约5万", "pos": [36.102, 9.524]},
@@ -106,7 +106,7 @@
     "name_zh": "米陶勒斯河会战",
     "year_label": "前207年",
     "color": "#1baf7a",
-    "visible": true,
+    "visible": false,
     "battle_pos": [43.7, 12.8],
     "units": [
       {"side": "carthage", "name": "哈斯德鲁巴援军", "count": "约3万", "pos": [43.695, 12.795]},
