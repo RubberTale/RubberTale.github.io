@@ -104,6 +104,8 @@
   .route-dot { width: 12px; height: 4px; border-radius: 2px; flex-shrink: 0; }
   .route-name { font-weight: 600; }
   .route-label { padding: 8px 14px 3px; font-size: 11.5px; color: var(--ink-2); font-weight: 600; letter-spacing: .04em; }
+  .route-panel-head { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .route-panel-arrow { width: 14px; font-size: 9px; color: var(--muted); flex-shrink: 0; }
   .region-check {
     width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
     border: 1.5px solid var(--hair-2); background: var(--panel);
@@ -309,18 +311,38 @@ function renderRegions() {
   });
 }
 
+let routesOpen = false;
+
 function renderRoutes() {
   const box = document.getElementById('routeList');
   if (!routes.length) { box.innerHTML = ''; return; }
   routes.forEach(r => { if (routeEnabled[r.id] === undefined) routeEnabled[r.id] = r.visible !== false; });
-  box.innerHTML = '<div class="route-label">路线 · 汉尼拔战争（前218—202年）</div>' + routes.map(r =>
-    `<button class="region-head${routeEnabled[r.id] ? ' on' : ''}" data-route="${esc(r.id)}" aria-pressed="${routeEnabled[r.id]}">
-       <span class="region-check">${routeEnabled[r.id] ? '✓' : ''}</span>
-       <span class="route-dot" style="background:${r.color}"></span>
-       <span class="route-name">${esc(r.name_zh)}</span>
-       <span class="region-count">${esc(r.year_label || '')}</span>
-     </button>`).join('');
-  box.querySelectorAll('.region-head').forEach(btn => {
+  const groups = {};
+  routes.forEach(r => { (groups[r.category || '路线'] ||= []).push(r); });
+  box.innerHTML =
+    `<button class="region-head route-panel-head" data-route-panel aria-expanded="${routesOpen}">
+       <span class="route-panel-arrow">${routesOpen ? '▼' : '▶'}</span>
+       <span class="route-name">路线</span>
+       <span class="region-count">${routes.length} 条 · 点击展开</span>
+     </button>
+     <div id="routeGroups"${routesOpen ? '' : ' hidden'}>` +
+    Object.keys(groups).map(cat =>
+      '<div class="route-label">' + esc(cat) + '</div>' + groups[cat].map(r =>
+        `<button class="region-head${routeEnabled[r.id] ? ' on' : ''}" data-route="${esc(r.id)}" aria-pressed="${routeEnabled[r.id]}">
+           <span class="region-check">${routeEnabled[r.id] ? '✓' : ''}</span>
+           <span class="route-dot" style="background:${r.color}"></span>
+           <span class="route-name">${esc(r.name_zh)}</span>
+           <span class="region-count">${esc(r.year_label || '')}</span>
+         </button>`).join('')).join('') +
+    '</div>';
+  box.querySelector('.route-panel-head').addEventListener('click', () => {
+    routesOpen = !routesOpen;
+    document.getElementById('routeGroups').hidden = !routesOpen;
+    const head = box.querySelector('.route-panel-head');
+    head.setAttribute('aria-expanded', routesOpen);
+    head.querySelector('.route-panel-arrow').textContent = routesOpen ? '▼' : '▶';
+  });
+  box.querySelectorAll('.region-head[data-route]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.route;
       routeEnabled[id] = !routeEnabled[id];
@@ -343,11 +365,12 @@ function applyRouteVisibility() {
 function createRoutes() {
   routeLayer = L.layerGroup().addTo(map);
   for (const r of routes) {
-    const opts = { color: r.color, weight: 3.5, opacity: 0.9 };
+    const opts = { color: r.color, weight: r.weight || 3.5, opacity: 0.9 };
     if (r.dashed) opts.dashArray = '7 8';
     const line = L.polyline(r.points, opts);
     line.bindPopup(`<div class="popup">
       <div class="popup-title">${esc(r.name_zh)} <span class="popup-tag" style="background:${r.color}">路线</span></div>
+      ${r.name_latin ? `<div class="popup-latin">${esc(r.name_latin)}</div>` : ''}
       ${r.year_label ? `<div class="popup-region">${esc(r.year_label)}</div>` : ''}
       <p class="popup-note">${esc(r.note)}</p>
     </div>`, { maxWidth: 300 });
