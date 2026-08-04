@@ -25,6 +25,7 @@ menu:
   图表: /charts/ || fas fa-chart-bar
   橡胶仪表盘: /rubber/ || fas fa-tachometer-alt
   罗马地图: /roman/ || fas fa-map-marked-alt
+  世界史地图: /world-history/ || fas fa-globe-asia
   游戏: /games/ || fas fa-gamepad
   # ...其他你不需要的可以在前面加 # 注释掉
 
