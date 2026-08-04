@@ -97,7 +97,7 @@
     width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
     box-shadow: 0 0 0 1.5px rgba(0,0,0,.2);
   }
-  .ev-year { color: var(--muted); font-size: 11.5px; flex-shrink: 0; width: 66px; font-variant-numeric: tabular-nums; }
+  .ev-year { color: var(--muted); font-size: 11.5px; flex-shrink: 0; width: 92px; font-variant-numeric: tabular-nums; }
   .ev-title { font-weight: 600; }
   .ev-imp { margin-left: auto; color: var(--muted); font-size: 11px; flex-shrink: 0; }
   .empty { padding: 14px; color: var(--muted); font-size: 13px; }
@@ -218,10 +218,10 @@
         <span id="yearLabel"></span>
         <button id="nextBtn2" class="tl-btn" type="button">▶</button>
       </div>
-      <input id="yearSlider" type="range" min="-221" max="476" step="1" value="0">
+      <input id="yearSlider" type="range" min="0" max="3119" step="1" value="1055">
       <div class="timeline-scale">
         <span id="minLabel"></span>
-        <span>前1046 牧野 ↔ 前221 秦统一 ↔ 476 西罗马灭亡 ↔ 1911 辛亥 ↔ 1937 抗战 ↔ 1945 胜利</span>
+        <span>前1046 牧野 ↔ 前221 秦统一 ↔ 476 西罗马灭亡 ↔ 1911 辛亥 ↔ 1934 长征 ↔ 1945 胜利</span>
         <span id="maxLabel"></span>
       </div>
     </div>
@@ -235,7 +235,12 @@ const SIDE_INFO = {
   east:  { label: '东方', glyph: '东', light: '#2a78d6', dark: '#3f8fd9' },
   meet:  { label: '相遇', glyph: '遇', light: '#e0a418', dark: '#e8b33e' }
 };
-const WINDOW = 15;
+const YEAR_WINDOW = 15;     // 1934 年前的可见窗口（单位：年）
+const MONTH_WINDOW = 24;    // 1934 年起按月的可见窗口（单位：月，约 2 年）
+const MONTH_MODE_YEAR = 1934; // 自此年份起，时间颗粒度切换为月份
+let MIN_YEAR = -1046;
+let MAX_YEAR = 1945;
+let YEAR_UNITS = MONTH_MODE_YEAR - MIN_YEAR;
 
 let events = [];
 let routes = [];
@@ -244,7 +249,7 @@ let eventLayer = null;
 let routeLayer = null;
 let routeLabels = [];
 const eventMarkers = {};
-let currentYear = 9;
+let cur = { y: 9, m: 1 };
 let theme = 'light';
 let routeForced = null; // null=自动(随滑块) / true=强制显示 / false=强制隐藏
 const LABEL_MIN_ZOOM = 5; // 路线站点标签在低于此缩放时隐藏，避免重叠
@@ -253,10 +258,28 @@ const tileLayers = {};
 function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function fmtYear(y) { return y < 0 ? `前 ${-y} 年` : `公元 ${y} 年`; }
+function fmtTime(y, m) {
+  return (y < 0 ? `前 ${-y}` : `公元 ${y}`) + ' 年' + (m > 1 ? ' ' + m + ' 月' : '');
+}
+function fmtYear(y) { return fmtTime(y, 1); }
 function sideColor(side) { const s = SIDE_INFO[side] || SIDE_INFO.east; return s[theme]; }
 function sideGlyph(side) { return (SIDE_INFO[side] || SIDE_INFO.east).glyph; }
-function inWindow(e, y) { return Math.abs(e.year - y) <= WINDOW; }
+function tOfEvent(e) { return { y: e.year, m: e.month || 1 }; }
+function absOf(t) { return t.y * 12 + (t.m - 1); }
+function sliderToTime(v) {
+  if (v < YEAR_UNITS) return { y: MIN_YEAR + v, m: 1 };
+  const k = v - YEAR_UNITS;
+  return { y: MONTH_MODE_YEAR + Math.floor(k / 12), m: (k % 12) + 1 };
+}
+function timeToSlider(t) {
+  if (t.y < MONTH_MODE_YEAR) return t.y - MIN_YEAR;
+  return YEAR_UNITS + (t.y - MONTH_MODE_YEAR) * 12 + (t.m - 1);
+}
+function inWindow(e, t) {
+  const et = tOfEvent(e);
+  if (t.y < MONTH_MODE_YEAR) return Math.abs(et.y - t.y) <= YEAR_WINDOW;
+  return Math.abs(absOf(et) - absOf(t)) <= MONTH_WINDOW;
+}
 
 function makeEventIcon(e) {
   const size = {1: 18, 2: 24, 3: 30}[e.imp] || 24;
@@ -275,7 +298,7 @@ function eventPopupHTML(e) {
   const tag = SIDE_INFO[e.side] ? SIDE_INFO[e.side].label : '事件';
   return `<div class="popup">
     <div class="popup-title">${esc(e.title)} <span class="popup-tag" style="background:${c}">${tag}</span></div>
-    <div class="popup-region">${fmtYear(e.year)} · ${esc(e.era)}</div>
+    <div class="popup-region">${fmtTime(e.year, e.month || 1)} · ${esc(e.era)}</div>
     <p class="popup-note">${esc(e.note)}</p>
     <div class="popup-links">
       <a href="https://www.google.com/maps?q=${e.lat},${e.lon}" target="_blank" rel="noopener">Google Maps ↗</a>
@@ -286,7 +309,7 @@ function eventPopupHTML(e) {
 
 function routeVisible(r) {
   if (routeForced !== null) return routeForced;
-  return currentYear >= r.year_start - 3 && currentYear <= r.year_end + 3;
+  return cur.y >= r.year_start - 3 && cur.y <= r.year_end + 3;
 }
 function routeTimelineHTML(r) {
   return r.waypoints.map(w =>
@@ -367,7 +390,10 @@ function renderRouteToggle() {
 function nearestBySide(visible, side) {
   const list = visible.filter(e => e.side === side);
   if (!list.length) return null;
-  list.sort((a, b) => (Math.abs(a.year - currentYear) - Math.abs(b.year - currentYear)) || (a.year - b.year));
+  const cAbs = absOf(cur);
+  list.sort((a, b) =>
+    (Math.abs(absOf(tOfEvent(a)) - cAbs) - Math.abs(absOf(tOfEvent(b)) - cAbs)) ||
+    (absOf(tOfEvent(a)) - absOf(tOfEvent(b))));
   return list[0];
 }
 
@@ -375,21 +401,22 @@ function renderNowBar(visible) {
   const west = nearestBySide(visible, 'west');
   const east = nearestBySide(visible, 'east');
   const meet = visible.find(e => e.side === 'meet');
-  const w = west ? `${fmtYear(west.year)} ${esc(west.title)}` : '——';
-  const e2 = east ? `${fmtYear(east.year)} ${esc(east.title)}` : '——';
+  const w = west ? `${fmtTime(west.year, west.month || 1)} ${esc(west.title)}` : '——';
+  const e2 = east ? `${fmtTime(east.year, east.month || 1)} ${esc(east.title)}` : '——';
   document.getElementById('nowBar').innerHTML =
-    `<span class="nb-year">${fmtYear(currentYear)}</span>
+    `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>
      <span class="nb-col nb-west"><b>西方</b>${w}</span>
      <span class="nb-col nb-east"><b>东方</b>${e2}</span>` +
-    (meet ? `<span class="nb-col nb-meet"><b>相遇</b>${fmtYear(meet.year)} ${esc(meet.title)}</span>` : '');
+    (meet ? `<span class="nb-col nb-meet"><b>相遇</b>${fmtTime(meet.year, meet.month || 1)} ${esc(meet.title)}</span>` : '');
 }
 
 function renderList(visible) {
   const box = document.getElementById('eventList');
-  const sorted = [...visible].sort((a, b) => a.year - b.year);
+  const sorted = [...visible].sort((a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)));
   const activeRoutes = routes.filter(r => routeVisible(r));
   if (!sorted.length && !activeRoutes.length) {
-    box.innerHTML = '<div class="empty">该时段 ±' + WINDOW + ' 年内没有事件。<br>试试拖动下方时间轴。</div>';
+    const unit = cur.y < MONTH_MODE_YEAR ? `${YEAR_WINDOW} 年` : `${MONTH_WINDOW} 个月`;
+    box.innerHTML = `<div class="empty">该时段 ±${unit} 内没有事件。<br>试试拖动下方时间轴。</div>`;
     return;
   }
   const routeRows = activeRoutes.map(r => `
@@ -403,7 +430,7 @@ function renderList(visible) {
     const c = sideColor(e.side);
     return `<button class="ev-item" data-id="${esc(e.id)}">
       <span class="dot" style="background:${c}"></span>
-      <span class="ev-year">${fmtYear(e.year)}</span>
+      <span class="ev-year">${fmtTime(e.year, e.month || 1)}</span>
       <span class="ev-title">${esc(e.title)}</span>
       <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
     </button>`;
@@ -420,9 +447,9 @@ function renderEvents() {
   if (eventLayer) { map.removeLayer(eventLayer); eventLayer = null; }
   Object.keys(eventMarkers).forEach(k => delete eventMarkers[k]);
   eventLayer = L.layerGroup().addTo(map);
-  const visible = events.filter(e => inWindow(e, currentYear));
+  const visible = events.filter(e => inWindow(e, cur));
   for (const e of visible) {
-    const m = L.marker([e.lat, e.lon], { icon: makeEventIcon(e), title: `${fmtYear(e.year)} ${e.title}` })
+    const m = L.marker([e.lat, e.lon], { icon: makeEventIcon(e), title: `${fmtTime(e.year, e.month || 1)} ${e.title}` })
       .bindPopup(eventPopupHTML(e), { maxWidth: 300 });
     m.on('click', () => selectEvent(e.id));
     eventLayer.addLayer(m);
@@ -431,7 +458,7 @@ function renderEvents() {
   renderNowBar(visible);
   renderList(visible);
   renderRoutes();
-  document.getElementById('yearLabel').textContent = fmtYear(currentYear);
+  document.getElementById('yearLabel').textContent = fmtTime(cur.y, cur.m);
   document.getElementById('countText').textContent = `当前时段显示 ${visible.length} / ${events.length} 个事件`;
   updateNavButtons();
 }
@@ -444,27 +471,33 @@ function selectEvent(id) {
   document.querySelectorAll('.ev-item').forEach(r => r.classList.toggle('selected', r.dataset.id === id));
 }
 
-function nearestEventYear(dir) {
-  const ys = events.map(e => e.year).filter(y => dir === 'prev' ? y < currentYear : y > currentYear);
-  if (!ys.length) return null;
-  return dir === 'prev' ? Math.max(...ys) : Math.min(...ys);
+function nearestEventTime(dir) {
+  const cAbs = absOf(cur);
+  let best = null, bestDiff = Infinity;
+  for (const e of events) {
+    const a = absOf(tOfEvent(e));
+    if (dir === 'prev' ? a >= cAbs : a <= cAbs) continue;
+    const d = Math.abs(a - cAbs);
+    if (d < bestDiff) { bestDiff = d; best = e; }
+  }
+  return best ? tOfEvent(best) : null;
 }
 
 function step(dir) {
-  const y = nearestEventYear(dir);
-  if (y == null) return;
-  currentYear = y;
-  document.getElementById('yearSlider').value = y;
+  const t = nearestEventTime(dir);
+  if (!t) return;
+  cur = t;
+  document.getElementById('yearSlider').value = timeToSlider(cur);
   renderEvents();
-  const vis = events.filter(e => inWindow(e, currentYear));
+  const vis = events.filter(e => inWindow(e, cur));
   if (vis.length) {
     map.flyToBounds(L.latLngBounds(vis.map(e => [e.lat, e.lon])), { padding: [48, 48], duration: 0.6 });
   }
 }
 
 function updateNavButtons() {
-  const prev = nearestEventYear('prev');
-  const next = nearestEventYear('next');
+  const prev = nearestEventTime('prev');
+  const next = nearestEventTime('next');
   [document.getElementById('prevBtn'), document.getElementById('prevBtn2')].forEach(b => b.disabled = prev == null);
   [document.getElementById('nextBtn'), document.getElementById('nextBtn2')].forEach(b => b.disabled = next == null);
 }
@@ -475,7 +508,7 @@ function rebuildTheme() {
   const tiles = tileLayers[theme];
   if (map) { tiles.addTo(map); tileLayers[theme === 'dark' ? 'light' : 'dark'].remove(); }
   for (const [id, m] of Object.entries(eventMarkers)) m.setIcon(makeEventIcon(events.find(e => e.id === id)));
-  renderList(events.filter(e => inWindow(e, currentYear)));
+  renderList(events.filter(e => inWindow(e, cur)));
 }
 
 async function init() {
@@ -506,19 +539,24 @@ async function init() {
   map.on('zoomend', updateRouteLabels);
   window.__map = map;
 
-  const years = events.map(e => e.year);
-  const slider = document.getElementById('yearSlider');
-  slider.min = Math.min(...years);
-  slider.max = Math.max(...years);
-  document.getElementById('minLabel').textContent = fmtYear(slider.min);
-  document.getElementById('maxLabel').textContent = fmtYear(slider.max);
+  MIN_YEAR = Math.min(...events.map(e => e.year));
+  MAX_YEAR = Math.max(...events.map(e => e.year));
+  YEAR_UNITS = MONTH_MODE_YEAR - MIN_YEAR;
 
-  currentYear = 9; // 初始对照点：条顿堡惨败 ↔ 王莽篡汉（同年）
-  slider.value = currentYear;
+  const slider = document.getElementById('yearSlider');
+  slider.min = 0;
+  slider.max = timeToSlider(tOfEvent(events.reduce((a, b) => absOf(tOfEvent(b)) > absOf(tOfEvent(a)) ? b : a)));
+  slider.step = 1;
+  const maxT = sliderToTime(slider.max);
+  document.getElementById('minLabel').textContent = fmtTime(MIN_YEAR, 1);
+  document.getElementById('maxLabel').textContent = fmtTime(maxT.y, maxT.m);
+
+  cur = { y: 9, m: 1 }; // 初始对照点：条顿堡惨败 ↔ 王莽篡汉（同年）
+  slider.value = timeToSlider(cur);
 
   const el = document.getElementById('yearSlider');
   el.addEventListener('input', () => {
-    currentYear = +el.value;
+    cur = sliderToTime(+el.value);
     renderEvents();
   });
 
