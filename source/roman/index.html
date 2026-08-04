@@ -101,6 +101,9 @@
   }
   .region-head:hover { background: var(--panel-2); }
   .region-count { margin-left: auto; color: var(--muted); font-size: 12px; }
+  .route-dot { width: 12px; height: 4px; border-radius: 2px; flex-shrink: 0; }
+  .route-name { font-weight: 600; }
+  .route-label { padding: 8px 14px 3px; font-size: 11.5px; color: var(--ink-2); font-weight: 600; letter-spacing: .04em; }
   .region-check {
     width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
     border: 1.5px solid var(--hair-2); background: var(--panel);
@@ -196,6 +199,7 @@
       <button id="resetBtn" class="btn reset" type="button">重置</button>
     </div>
     <div id="regionList" class="region-list"></div>
+    <div id="routeList" class="region-list" style="max-height:none;"></div>
     <div id="countText" style="padding:6px 14px;"></div>
     <div id="placeList" class="place-list"></div>
   </aside>
@@ -228,6 +232,10 @@ let searchQuery = '';
 let selectedId = null;
 let theme = 'light';
 const tileLayers = {};
+const routes = [];
+let routeLayer = null;
+const routePolylines = {};
+const routeEnabled = {};
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -241,6 +249,7 @@ function visiblePlaces() {
     if (activeType !== '全部' && p.type !== activeType) return false;
     if (!q) return true;
     return [p.name_zh, p.name_latin, p.name_en, p.name_modern, p.region, p.type]
+      .concat(p.alias || [])
       .some(f => String(f).toLowerCase().includes(q));
   });
 }
@@ -262,6 +271,7 @@ function popupHTML(p) {
   return `<div class="popup">
     <div class="popup-title">${esc(p.name_zh)} <span class="popup-tag" style="background:${c}">${esc(p.type)}</span></div>
     <div class="popup-latin">${esc(p.name_latin)}</div>
+    ${p.alias && p.alias.length ? `<div class="popup-region">又名：${esc(p.alias.join('、'))}</div>` : ''}
     <div class="popup-region">${esc(p.region)}</div>
     <div class="popup-modern">现代：${esc(p.name_modern)}</div>
     <p class="popup-note">${esc(p.note)}</p>
@@ -299,6 +309,53 @@ function renderRegions() {
   });
 }
 
+function renderRoutes() {
+  const box = document.getElementById('routeList');
+  if (!routes.length) { box.innerHTML = ''; return; }
+  routes.forEach(r => { if (routeEnabled[r.id] === undefined) routeEnabled[r.id] = r.visible !== false; });
+  box.innerHTML = '<div class="route-label">路线 · 汉尼拔战争（前218—202年）</div>' + routes.map(r =>
+    `<button class="region-head${routeEnabled[r.id] ? ' on' : ''}" data-route="${esc(r.id)}" aria-pressed="${routeEnabled[r.id]}">
+       <span class="region-check">${routeEnabled[r.id] ? '✓' : ''}</span>
+       <span class="route-dot" style="background:${r.color}"></span>
+       <span class="route-name">${esc(r.name_zh)}</span>
+       <span class="region-count">${esc(r.year_label || '')}</span>
+     </button>`).join('');
+  box.querySelectorAll('.region-head').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.route;
+      routeEnabled[id] = !routeEnabled[id];
+      btn.classList.toggle('on', routeEnabled[id]);
+      btn.setAttribute('aria-pressed', routeEnabled[id]);
+      btn.querySelector('.region-check').textContent = routeEnabled[id] ? '✓' : '';
+      applyRouteVisibility();
+    });
+  });
+  applyRouteVisibility();
+}
+
+function applyRouteVisibility() {
+  for (const [id, line] of Object.entries(routePolylines)) {
+    if (routeEnabled[id]) { if (!map.hasLayer(line)) routeLayer.addLayer(line); }
+    else { if (map.hasLayer(line)) routeLayer.removeLayer(line); }
+  }
+}
+
+function createRoutes() {
+  routeLayer = L.layerGroup().addTo(map);
+  for (const r of routes) {
+    const opts = { color: r.color, weight: 3.5, opacity: 0.9 };
+    if (r.dashed) opts.dashArray = '7 8';
+    const line = L.polyline(r.points, opts);
+    line.bindPopup(`<div class="popup">
+      <div class="popup-title">${esc(r.name_zh)} <span class="popup-tag" style="background:${r.color}">路线</span></div>
+      ${r.year_label ? `<div class="popup-region">${esc(r.year_label)}</div>` : ''}
+      <p class="popup-note">${esc(r.note)}</p>
+    </div>`, { maxWidth: 300 });
+    routePolylines[r.id] = line;
+  }
+  applyRouteVisibility();
+}
+
 function renderList() {
   const box = document.getElementById('placeList');
   const list = visiblePlaces();
@@ -329,7 +386,7 @@ function applyFilters() {
     const p = byId(id);
     const on = regionEnabled[p.region] !== false &&
       (activeType === '全部' || p.type === activeType) &&
-      (!searchQuery.trim() || [p.name_zh, p.name_latin, p.name_en, p.name_modern].some(f => String(f).toLowerCase().includes(searchQuery.trim().toLowerCase())));
+      (!searchQuery.trim() || [p.name_zh, p.name_latin, p.name_en, p.name_modern].concat(p.alias || []).some(f => String(f).toLowerCase().includes(searchQuery.trim().toLowerCase())));
     if (on) { if (!map.hasLayer(m)) markerLayer.addLayer(m); }
     else { if (map.hasLayer(m)) markerLayer.removeLayer(m); }
   }
@@ -387,6 +444,10 @@ async function init() {
   const res = await fetch('places.json');
   if (!res.ok) throw new Error('无法加载 places.json —— 请用本地服务器打开（python3 -m http.server）');
   places = await res.json();
+  try {
+    const rr = await fetch('routes.json');
+    if (rr.ok) routes.push(...(await rr.json()));
+  } catch (e) { /* 旧部署可能没有 routes.json */ }
 
   // theme init
   theme = 'light';
@@ -427,7 +488,7 @@ async function init() {
     input.value = ''; document.getElementById('clearSearch').hidden = true;
     sel.value = '全部';
     Object.keys(regionEnabled).forEach(r => regionEnabled[r] = true);
-    document.querySelectorAll('.region-head').forEach(b => {
+    document.querySelectorAll('.region-head[data-region]').forEach(b => {
       b.classList.add('on'); b.setAttribute('aria-pressed', 'true');
       b.querySelector('.region-check').textContent = '✓';
     });
@@ -439,7 +500,9 @@ async function init() {
   });
 
   createMarkers();
+  createRoutes();
   renderRegions();
+  renderRoutes();
   renderLegend();
   updateCount();
   rebuildTheme();
