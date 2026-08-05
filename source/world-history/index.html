@@ -165,7 +165,7 @@
   .pin.selected {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c), 0 1px 4px rgba(0,0,0,.45);
   }
-  .toolbar #routeBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
+  .toolbar #routeBtn, .toolbar #prehistoryBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
   .wp-label {
     text-align: center; font-size: 11px; font-weight: 600; color: var(--ink);
     line-height: 1.2; text-shadow: 0 1px 2px rgba(255,255,255,.8);
@@ -196,6 +196,7 @@
     <div id="nowBar" class="now-bar"></div>
     <div class="toolbar">
       <button id="routeBtn" class="btn" type="button" title="南宋末帝南逃路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
+      <button id="prehistoryBtn" class="btn" type="button" title="史前人类遗址：固定标注，不随时间轴变化">史前遗址 · 显示</button>
       <button id="prevBtn" class="btn" type="button">◀ 上一节点</button>
       <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
     </div>
@@ -210,6 +211,7 @@
         <li><span class="lg" style="background:#e34948">西</span>西方（罗马 / 地中海）</li>
         <li><span class="lg" style="background:#2a78d6">东</span>东方（中国 / 东亚）</li>
         <li><span class="lg" style="background:#e0a418">遇</span>东西相遇</li>
+        <li><span class="lg" style="background:#8d6e63">人</span>史前人类遗址（不随年代轴）</li>
       </ul>
     </div>
     <div class="timeline">
@@ -265,6 +267,21 @@ function fmtYear(y) { return fmtTime(y, 1); }
 function sideColor(side) { const s = SIDE_INFO[side] || SIDE_INFO.east; return s[theme]; }
 function sideGlyph(side) { return (SIDE_INFO[side] || SIDE_INFO.east).glyph; }
 function tOfEvent(e) { return { y: e.year, m: e.month || 1 }; }
+function tOfEventEnd(e) {
+  if (e.year_end == null) return null;
+  return { y: e.year_end, m: e.month_end || 12 };
+}
+function fmtRange(e) {
+  const end = tOfEventEnd(e);
+  if (!end) return fmtTime(e.year, e.month || 1);
+  const sy = e.year, ey = end.y;
+  if (!e.month_end) {
+    if (sy < 0 && ey < 0) return `前 ${-sy}—${-ey} 年`;
+    if (sy < 0) return `前 ${-sy} 年—公元 ${ey} 年`;
+    return `公元 ${sy}—${ey} 年`;
+  }
+  return `${fmtTime(sy, e.month || 1)} — ${fmtTime(ey, end.m)}`;
+}
 function absOf(t) { return t.y * 12 + (t.m - 1); }
 function sliderToTime(v) {
   if (v < YEAR_UNITS) return { y: MIN_YEAR + v, m: 1 };
@@ -277,6 +294,12 @@ function timeToSlider(t) {
 }
 function inWindow(e, t) {
   const et = tOfEvent(e);
+  const end = tOfEventEnd(e);
+  if (end) {
+    // 持续事件：滑块滑入 [起,止] 区间内即显示；不做 ±窗口外扩，避免长期事件常驻刷屏
+    if (t.y < MONTH_MODE_YEAR) return t.y >= et.y && t.y <= end.y;
+    return absOf(t) >= absOf(et) && absOf(t) <= absOf(end);
+  }
   if (t.y < MONTH_MODE_YEAR) return Math.abs(et.y - t.y) <= YEAR_WINDOW;
   return Math.abs(absOf(et) - absOf(t)) <= MONTH_WINDOW;
 }
@@ -298,7 +321,7 @@ function eventPopupHTML(e) {
   const tag = SIDE_INFO[e.side] ? SIDE_INFO[e.side].label : '事件';
   return `<div class="popup">
     <div class="popup-title">${esc(e.title)} <span class="popup-tag" style="background:${c}">${tag}</span></div>
-    <div class="popup-region">${fmtTime(e.year, e.month || 1)} · ${esc(e.era)}</div>
+    <div class="popup-region">${fmtRange(e)} · ${esc(e.era)}</div>
     <p class="popup-note">${esc(e.note)}</p>
     <div class="popup-links">
       <a href="https://www.google.com/maps?q=${e.lat},${e.lon}" target="_blank" rel="noopener">Google Maps ↗</a>
@@ -387,6 +410,48 @@ function renderRouteToggle() {
   b.textContent = routeForced === true ? '线路 · 显示' : routeForced === false ? '线路 · 隐藏' : '线路 · 自动';
 }
 
+// 史前人类遗址：独立固定图层，不随时间滑块变化（避免把滑块下沿拖到数百万年前）
+let prehistory = [];
+let prehistoryLayer = null;
+let prehistoryVisible = true;
+
+function prehistoryIcon(s) {
+  const size = { 1: 18, 2: 24, 3: 30 }[s.imp] || 24;
+  return L.divIcon({
+    className: '',
+    html: `<span class="pin" style="--c:#8d6e63;width:${size}px;height:${size}px;font-size:${Math.round(size * 0.46)}px">人</span>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -size / 2]
+  });
+}
+function prehistoryPopupHTML(s) {
+  return `<div class="popup">
+    <div class="popup-title">${esc(s.name)} <span class="popup-tag" style="background:#8d6e63">史前</span></div>
+    <div class="popup-region">${esc(s.date)}</div>
+    <p class="popup-note">${esc(s.note)}</p>
+    <div class="popup-links">
+      <a href="https://www.google.com/maps?q=${s.lat},${s.lon}" target="_blank" rel="noopener">Google Maps ↗</a>
+      <a href="https://www.openstreetmap.org/?mlat=${s.lat}&mlon=${s.lon}#map=10/${s.lat}/${s.lon}" target="_blank" rel="noopener">OpenStreetMap ↗</a>
+    </div>
+  </div>`;
+}
+function renderPrehistory() {
+  if (prehistoryLayer) { map.removeLayer(prehistoryLayer); prehistoryLayer = null; }
+  if (!prehistoryVisible) return;
+  prehistoryLayer = L.layerGroup().addTo(map);
+  for (const s of prehistory) {
+    const m = L.marker([s.lat, s.lon], { icon: prehistoryIcon(s), title: s.name })
+      .bindPopup(prehistoryPopupHTML(s), { maxWidth: 300 });
+    prehistoryLayer.addLayer(m);
+  }
+}
+function renderPrehistoryToggle() {
+  const b = document.getElementById('prehistoryBtn');
+  if (!b) return;
+  b.textContent = prehistoryVisible ? '史前遗址 · 显示' : '史前遗址 · 隐藏';
+}
+
 function nearestBySide(visible, side) {
   const list = visible.filter(e => e.side === side);
   if (!list.length) return null;
@@ -401,8 +466,8 @@ function renderNowBar(visible) {
   const west = nearestBySide(visible, 'west');
   const east = nearestBySide(visible, 'east');
   const meet = visible.find(e => e.side === 'meet');
-  const w = west ? `${fmtTime(west.year, west.month || 1)} ${esc(west.title)}` : '——';
-  const e2 = east ? `${fmtTime(east.year, east.month || 1)} ${esc(east.title)}` : '——';
+  const w = west ? `${fmtRange(west)} ${esc(west.title)}` : '——';
+  const e2 = east ? `${fmtRange(east)} ${esc(east.title)}` : '——';
   document.getElementById('nowBar').innerHTML =
     `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>
      <span class="nb-col nb-west"><b>西方</b>${w}</span>
@@ -430,7 +495,7 @@ function renderList(visible) {
     const c = sideColor(e.side);
     return `<button class="ev-item" data-id="${esc(e.id)}">
       <span class="dot" style="background:${c}"></span>
-      <span class="ev-year">${fmtTime(e.year, e.month || 1)}</span>
+      <span class="ev-year">${fmtRange(e)}</span>
       <span class="ev-title">${esc(e.title)}</span>
       <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
     </button>`;
@@ -449,7 +514,7 @@ function renderEvents() {
   eventLayer = L.layerGroup().addTo(map);
   const visible = events.filter(e => inWindow(e, cur));
   for (const e of visible) {
-    const m = L.marker([e.lat, e.lon], { icon: makeEventIcon(e), title: `${fmtTime(e.year, e.month || 1)} ${e.title}` })
+    const m = L.marker([e.lat, e.lon], { icon: makeEventIcon(e), title: `${fmtRange(e)} ${e.title}` })
       .bindPopup(eventPopupHTML(e), { maxWidth: 300 });
     m.on('click', () => selectEvent(e.id));
     eventLayer.addLayer(m);
@@ -519,6 +584,10 @@ async function init() {
     const rr = await fetch('routes.json');
     if (rr.ok) routes = await rr.json();
   } catch (e) { /* 旧部署可能没有 routes.json */ }
+  try {
+    const pr = await fetch('prehistory.json');
+    if (pr.ok) prehistory = await pr.json();
+  } catch (e) { /* 可选文件 */ }
 
   theme = 'light';
   try { const saved = localStorage.getItem('wh-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch (e) {}
@@ -568,6 +637,11 @@ async function init() {
     routeForced = routeForced === null ? true : (routeForced === true ? false : null);
     renderEvents();
   });
+  document.getElementById('prehistoryBtn').addEventListener('click', () => {
+    prehistoryVisible = !prehistoryVisible;
+    renderPrehistory();
+    renderPrehistoryToggle();
+  });
 
   document.getElementById('themeToggle').addEventListener('click', () => {
     theme = theme === 'dark' ? 'light' : 'dark';
@@ -576,6 +650,8 @@ async function init() {
   });
 
   renderEvents();
+  renderPrehistory();
+  renderPrehistoryToggle();
   map.fitBounds(L.latLngBounds(events.map(e => [e.lat, e.lon])), { padding: [40, 40] });
   rebuildTheme();
 }
