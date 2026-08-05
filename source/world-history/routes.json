@@ -46,6 +46,7 @@
     "id": "magellan_circumnavigation",
     "name_zh": "麦哲伦环球航行（1519–1522）",
     "year_label": "1519–1522",
+    "arrows": true,
     "year_start": 1519,
     "year_end": 1522,
     "color": "#8e44ad",

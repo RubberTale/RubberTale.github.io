@@ -171,6 +171,11 @@
     line-height: 1.2; text-shadow: 0 1px 2px rgba(255,255,255,.8);
   }
   .wp-date { font-size: 10px; color: var(--muted); font-weight: 500; }
+  .route-arrow {
+    display: block; width: 14px; height: 14px;
+    font-size: 13px; line-height: 1; text-align: center;
+    text-shadow: 0 0 2px rgba(255,255,255,.85), 0 0 2px rgba(255,255,255,.85);
+  }
   :root[data-theme="dark"] .wp-label { text-shadow: 0 1px 2px rgba(0,0,0,.85); }
   .rt-list { border-top: 1px solid var(--hair); margin-top: 8px; padding-top: 6px; }
   .rt-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); padding: 2px 0; }
@@ -369,6 +374,23 @@ function renderRoutes() {
     const line = L.polyline(pts, { color: r.color, weight: 3, opacity: 0.9, dashArray: '6 7' });
     line.bindPopup(routeLinePopupHTML(r), { maxWidth: 320 });
     routeLayer.addLayer(line);
+    // 方向箭头：r.arrows=true 时在每个航段中点沿航向加一个旋转箭头
+    if (r.arrows) {
+      for (let i = 0; i < r.waypoints.length - 1; i++) {
+        const [lat1, lng1] = r.waypoints[i].pos;
+        const [lat2, lng2] = r.waypoints[i + 1].pos;
+        const heading = Math.atan2(lng2 - lng1, lat2 - lat1) * 180 / Math.PI;
+        routeLayer.addLayer(L.marker([(lat1 + lat2) / 2, (lng1 + lng2) / 2], {
+          interactive: false,
+          icon: L.divIcon({
+            className: '',
+            html: `<span class="route-arrow" style="color:${r.color};transform:rotate(${heading - 90}deg)">➤</span>`,
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+          })
+        }));
+      }
+    }
     r.waypoints.forEach(w => {
       const cm = L.circleMarker(w.pos, { radius: 7, color: '#fff', weight: 2, fillColor: r.color, fillOpacity: 0.85 });
       cm.bindPopup(waypointPopupHTML(r, w), { maxWidth: 280 });
