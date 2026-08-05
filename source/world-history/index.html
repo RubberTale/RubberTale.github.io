@@ -165,7 +165,11 @@
   .pin.selected {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c), 0 1px 4px rgba(0,0,0,.45);
   }
-  .toolbar #routeBtn, .toolbar #prehistoryBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
+  .toolbar #routeBtn, .toolbar #prehistoryBtn, .toolbar #territoryBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
+  .terr-sq {
+    width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.3);
+  }
   .wp-label {
     text-align: center; font-size: 11px; font-weight: 600; color: var(--ink);
     line-height: 1.2; text-shadow: 0 1px 2px rgba(255,255,255,.8);
@@ -202,6 +206,7 @@
     <div class="toolbar">
       <button id="routeBtn" class="btn" type="button" title="南宋末帝南逃路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
       <button id="prehistoryBtn" class="btn" type="button" title="史前人类遗址：固定标注，不随时间轴变化">史前遗址 · 显示</button>
+      <button id="territoryBtn" class="btn" type="button" title="五代十国疆域：随时间轴显示当时存在的政权（示意）">疆域 · 显示</button>
       <button id="prevBtn" class="btn" type="button">◀ 上一节点</button>
       <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
     </div>
@@ -217,6 +222,7 @@
         <li><span class="lg" style="background:#2a78d6">东</span>东方（中国 / 东亚）</li>
         <li><span class="lg" style="background:#e0a418">遇</span>东西相遇</li>
         <li><span class="lg" style="background:#8d6e63">人</span>史前人类遗址（不随年代轴）</li>
+        <li><span class="terr-sq" style="background:#7d3c98"></span>五代十国疆域（示意，907—979 年间随滑块显隐）</li>
       </ul>
     </div>
     <div class="timeline">
@@ -251,10 +257,13 @@ let YEAR_UNITS = MONTH_MODE_YEAR - MIN_YEAR;
 
 let events = [];
 let routes = [];
+let territories = [];
 let map = null;
 let eventLayer = null;
 let routeLayer = null;
 let routeLabels = [];
+let terrLayer = null;
+let territoryVisible = true;
 const eventMarkers = {};
 let cur = { y: 9, m: 1 };
 let theme = 'light';
@@ -474,6 +483,37 @@ function renderPrehistoryToggle() {
   b.textContent = prehistoryVisible ? '史前遗址 · 显示' : '史前遗址 · 隐藏';
 }
 
+// 五代十国疆域：多边形示意图层，按政权存续年份随滑块显隐
+function territoryPopupHTML(t) {
+  return `<div class="popup">
+    <div class="popup-title">${esc(t.name)} <span class="popup-tag" style="background:${t.color}">疆域</span></div>
+    <div class="popup-region">公元 ${t.year_start}—${t.year_end} 年 · ${esc(t.kind)}</div>
+    <p class="popup-note">${esc(t.note)}</p>
+  </div>`;
+}
+function renderTerritories() {
+  if (terrLayer) { map.removeLayer(terrLayer); terrLayer = null; }
+  if (!territoryVisible) return;
+  const active = territories.filter(t => cur.y >= t.year_start && cur.y <= t.year_end);
+  if (!active.length) return;
+  terrLayer = L.layerGroup().addTo(map);
+  for (const t of active) {
+    const opts = { color: t.color, weight: 1.4, opacity: 0.85, fillColor: t.color, fillOpacity: 0.16 };
+    const rings = t.polygons || [t.polygon];
+    for (const ring of rings) {
+      const poly = L.polygon(ring, opts);
+      poly.bindTooltip(t.name, { sticky: true });
+      poly.bindPopup(territoryPopupHTML(t), { maxWidth: 300 });
+      terrLayer.addLayer(poly);
+    }
+  }
+}
+function renderTerritoryToggle() {
+  const b = document.getElementById('territoryBtn');
+  if (!b) return;
+  b.textContent = territoryVisible ? '疆域 · 显示' : '疆域 · 隐藏';
+}
+
 function nearestBySide(visible, side) {
   const list = visible.filter(e => e.side === side);
   if (!list.length) return null;
@@ -531,6 +571,7 @@ function renderList(visible) {
 }
 
 function renderEvents() {
+  renderTerritories();
   if (eventLayer) { map.removeLayer(eventLayer); eventLayer = null; }
   Object.keys(eventMarkers).forEach(k => delete eventMarkers[k]);
   eventLayer = L.layerGroup().addTo(map);
@@ -610,6 +651,10 @@ async function init() {
     const pr = await fetch('prehistory.json');
     if (pr.ok) prehistory = await pr.json();
   } catch (e) { /* 可选文件 */ }
+  try {
+    const tr = await fetch('territories.json');
+    if (tr.ok) territories = await tr.json();
+  } catch (e) { /* 旧部署可能没有 territories.json */ }
 
   theme = 'light';
   try { const saved = localStorage.getItem('wh-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch (e) {}
@@ -664,6 +709,11 @@ async function init() {
     renderPrehistory();
     renderPrehistoryToggle();
   });
+  document.getElementById('territoryBtn').addEventListener('click', () => {
+    territoryVisible = !territoryVisible;
+    renderTerritories();
+    renderTerritoryToggle();
+  });
 
   document.getElementById('themeToggle').addEventListener('click', () => {
     theme = theme === 'dark' ? 'light' : 'dark';
@@ -674,6 +724,7 @@ async function init() {
   renderEvents();
   renderPrehistory();
   renderPrehistoryToggle();
+  renderTerritoryToggle();
   map.fitBounds(L.latLngBounds(events.map(e => [e.lat, e.lon])), { padding: [40, 40] });
   rebuildTheme();
 }
