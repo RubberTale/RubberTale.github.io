@@ -198,7 +198,7 @@
 <header>
   <h1>《罗马人的故事》地名地图</h1>
   <span class="sub">罗马帝国的兴亡地理 —— 对照盐野七生《罗马人的故事》阅读</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新时间: <span id="lastUpdate">2026-08-06 08:31:27 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新时间: <span id="lastUpdate">2026-08-06 09:00:02 (CST)</span></span>
   <div class="spacer"></div>
   <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
 </header>
@@ -306,22 +306,40 @@ function renderLegend() {
     `<li><span class="lg" style="background:${colorFor(t)}">${TYPE_GLYPH[t]}</span>${t}</li>`).join('');
 }
 
+let regionsOpen = false;
+
 function renderRegions() {
   const box = document.getElementById('regionList');
   const regions = [...new Set(places.map(p => p.region))];
   regions.forEach(r => { if (regionEnabled[r] === undefined) regionEnabled[r] = false; });
   
   const allOn = regions.every(r => regionEnabled[r]);
+  const activeCount = regions.filter(r => regionEnabled[r]).length;
   box.innerHTML =
-    `<div class="route-panel-head" style="display:flex;align-items:center;padding:6px 14px;background:var(--panel-2);">
-       <span style="font-size:12px;font-weight:600;color:var(--ink-2);">区域选择</span>
-       <button id="toggleAllRegions" class="btn reset" style="margin-left:auto;padding:2px 8px;font-size:11px;" type="button">${allOn ? '全不选' : '全选'}</button>
-     </div>` +
+    `<button class="region-head route-panel-head" data-region-panel aria-expanded="${regionsOpen}">
+       <span class="route-panel-arrow">${regionsOpen ? '▼' : '▶'}</span>
+       <span class="route-name">区域选择</span>
+       <span class="region-count">${activeCount > 0 ? `已选 ${activeCount}/${regions.length}` : `${regions.length} 个区域 · 点击展开`}</span>
+     </button>
+     <div id="regionItems"${regionsOpen ? '' : ' hidden'}>
+       <div style="display:flex;align-items:center;padding:4px 14px;background:var(--panel-2);">
+         <span style="font-size:11.5px;color:var(--ink-2);">批量控制</span>
+         <button id="toggleAllRegions" class="btn reset" style="margin-left:auto;padding:2px 8px;font-size:11px;" type="button">${allOn ? '全不选' : '全选'}</button>
+       </div>` +
     regions.map(r =>
       `<button class="region-head${regionEnabled[r] ? ' on' : ''}" data-region="${esc(r)}" aria-pressed="${regionEnabled[r]}">
          <span class="region-check">${regionEnabled[r] ? '✓' : ''}</span>${esc(r)}
          <span class="region-count">${places.filter(p => p.region === r).length}</span>
-       </button>`).join('');
+       </button>`).join('') +
+    '</div>';
+
+  box.querySelector('.route-panel-head').addEventListener('click', () => {
+    regionsOpen = !regionsOpen;
+    document.getElementById('regionItems').hidden = !regionsOpen;
+    const head = box.querySelector('.route-panel-head');
+    head.setAttribute('aria-expanded', regionsOpen);
+    head.querySelector('.route-panel-arrow').textContent = regionsOpen ? '▼' : '▶';
+  });
 
   box.querySelector('#toggleAllRegions').addEventListener('click', () => {
     const nextState = !regions.every(r => regionEnabled[r]);
@@ -339,6 +357,9 @@ function renderRegions() {
       btn.querySelector('.region-check').textContent = regionEnabled[r] ? '✓' : '';
       const toggleBtn = box.querySelector('#toggleAllRegions');
       if (toggleBtn) toggleBtn.textContent = regions.every(reg => regionEnabled[reg]) ? '全不选' : '全选';
+      const countSpan = box.querySelector('.route-panel-head .region-count');
+      const curCount = regions.filter(reg => regionEnabled[reg]).length;
+      if (countSpan) countSpan.textContent = curCount > 0 ? `已选 ${curCount}/${regions.length}` : `${regions.length} 个区域 · 点击展开`;
       applyFilters();
     });
   });
