@@ -80,10 +80,24 @@
   .nb-east b { background: #2a78d6; }
   .nb-meet b { background: #e0a418; color: #5a3d00; }
   .toolbar {
-    display: flex; gap: 8px; align-items: center;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
     padding: 8px 14px 10px;
   }
   .toolbar .btn { flex: 1; }
+  .node-nav { display: flex; gap: 8px; flex-basis: 100%; }
+  .node-nav .btn { flex: 1; }
+  .topic-bar {
+    display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
+    padding: 0 14px 8px;
+  }
+  .topic-label { font-size: 11px; color: var(--muted); margin-right: 2px; white-space: nowrap; }
+  .topic-chip {
+    appearance: none; border: 1px solid var(--hair-2); background: var(--panel);
+    color: var(--ink-2); border-radius: 20px; padding: 2px 9px; cursor: pointer;
+    font-size: 11px; font-family: inherit; white-space: nowrap;
+  }
+  .topic-chip:hover { border-color: var(--accent); color: var(--ink); }
+  .topic-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
   #countText { color: var(--muted); font-size: 12px; white-space: nowrap; }
   .event-list { flex: 1; overflow-y: auto; border-top: 1px solid var(--hair); }
   .ev-item {
@@ -181,6 +195,14 @@
     text-shadow: 0 0 2px rgba(255,255,255,.85), 0 0 2px rgba(255,255,255,.85);
   }
   :root[data-theme="dark"] .wp-label { text-shadow: 0 1px 2px rgba(0,0,0,.85); }
+  .terr-label {
+    font-size: 14px; font-weight: 700; color: var(--c, var(--ink));
+    text-shadow: 0 1px 2px rgba(255,255,255,.9), 0 0 3px rgba(255,255,255,.9);
+    background: rgba(255,255,255,.55); border: 1px solid var(--c, var(--ink));
+    border-radius: 6px; padding: 1px 8px; line-height: 1.3; text-align: center;
+    white-space: nowrap;
+  }
+  :root[data-theme="dark"] .terr-label { text-shadow: 0 1px 3px rgba(0,0,0,.9); background: rgba(0,0,0,.45); }
   .rt-list { border-top: 1px solid var(--hair); margin-top: 8px; padding-top: 6px; }
   .rt-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); padding: 2px 0; }
   .rt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -207,9 +229,12 @@
       <button id="routeBtn" class="btn" type="button" title="南宋末帝南逃路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
       <button id="prehistoryBtn" class="btn" type="button" title="史前人类遗址：固定标注，不随时间轴变化">史前遗址 · 显示</button>
       <button id="territoryBtn" class="btn" type="button" title="五代十国疆域：随时间轴显示当时存在的政权（示意）">疆域 · 显示</button>
-      <button id="prevBtn" class="btn" type="button">◀ 上一节点</button>
-      <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
+      <div class="node-nav">
+        <button id="prevBtn" class="btn" type="button">◀ 上一节点</button>
+        <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
+      </div>
     </div>
+    <div id="topicBar" class="topic-bar" title="专题过滤：可多选（并集），不选则显示全部事件"></div>
     <div id="countText" style="padding:0 14px 6px;"></div>
     <div id="eventList" class="event-list"></div>
   </aside>
@@ -222,7 +247,8 @@
         <li><span class="lg" style="background:#2a78d6">东</span>东方（中国 / 东亚）</li>
         <li><span class="lg" style="background:#e0a418">遇</span>东西相遇</li>
         <li><span class="lg" style="background:#8d6e63">人</span>史前人类遗址（不随年代轴）</li>
-        <li><span class="terr-sq" style="background:#7d3c98"></span>五代十国疆域（示意，907—979 年间随滑块显隐）</li>
+        <li><span class="terr-sq" style="background:#c99700"></span>大宋疆域（示意，960—1126 随时代迁移变化）</li>
+        <li><span class="terr-sq" style="background:#7d3c98"></span>五代十国疆域（示意，907—979 年间随滑块显隐，979 后为大宋统一）</li>
       </ul>
     </div>
     <div class="timeline">
@@ -263,12 +289,16 @@ let eventLayer = null;
 let routeLayer = null;
 let routeLabels = [];
 let terrLayer = null;
+let terrLabels = [];
 let territoryVisible = true;
+const TOPICS = ['AI', '战争', '科技', '政治', '宗教', '中外交流', '人物'];
+const activeTopics = new Set();
 const eventMarkers = {};
 let cur = { y: 9, m: 1 };
 let theme = 'light';
 let routeForced = null; // null=自动(随滑块) / true=强制显示 / false=强制隐藏
 const LABEL_MIN_ZOOM = 5; // 路线站点标签在低于此缩放时隐藏，避免重叠
+const TERR_LABEL_MIN_ZOOM = 3; // 疆域政权标注（如"大宋"）在低于此缩放时隐藏
 const tileLayers = {};
 
 function esc(s) {
@@ -483,29 +513,77 @@ function renderPrehistoryToggle() {
   b.textContent = prehistoryVisible ? '史前遗址 · 显示' : '史前遗址 · 隐藏';
 }
 
-// 五代十国疆域：多边形示意图层，按政权存续年份随滑块显隐
-function territoryPopupHTML(t) {
+// 专题过滤：事件带 tags；无选中专题显示全部，选中后显示任一匹配（并集）
+function topicOK(e) {
+  if (activeTopics.size === 0) return true;
+  return (e.tags || []).some(t => activeTopics.has(t));
+}
+function buildTopicBar() {
+  const bar = document.getElementById('topicBar');
+  if (!bar) return;
+  bar.innerHTML = '<span class="topic-label">专题</span>' +
+    TOPICS.map(t => `<button type="button" class="topic-chip" data-topic="${t}">${t}</button>`).join('');
+  bar.addEventListener('click', ev => {
+    const chip = ev.target.closest('.topic-chip');
+    if (!chip) return;
+    const t = chip.dataset.topic;
+    if (activeTopics.has(t)) activeTopics.delete(t); else activeTopics.add(t);
+    chip.classList.toggle('active', activeTopics.has(t));
+    renderEvents();
+  });
+}
+
+// 五代十国疆域 + 北宋：多边形示意图层，按政权存续年份/阶段随滑块显隐
+function territoryPopupHTML(t, phase) {
+  const stage = (phase && phase !== t) ? ` · ${phase.year_start}—${phase.year_end} 阶段` : '';
   return `<div class="popup">
     <div class="popup-title">${esc(t.name)} <span class="popup-tag" style="background:${t.color}">疆域</span></div>
-    <div class="popup-region">公元 ${t.year_start}—${t.year_end} 年 · ${esc(t.kind)}</div>
-    <p class="popup-note">${esc(t.note)}</p>
+    <div class="popup-region">公元 ${t.year_start}—${t.year_end} 年 · ${esc(t.kind)}${stage}</div>
+    <p class="popup-note">${esc((phase && phase.note) || t.note)}</p>
   </div>`;
+}
+function activePhase(t) {
+  if (t.phases) return t.phases.find(p => cur.y >= p.year_start && cur.y <= p.year_end) || null;
+  return (cur.y >= t.year_start && cur.y <= t.year_end) ? t : null;
 }
 function renderTerritories() {
   if (terrLayer) { map.removeLayer(terrLayer); terrLayer = null; }
+  terrLabels = [];
   if (!territoryVisible) return;
-  const active = territories.filter(t => cur.y >= t.year_start && cur.y <= t.year_end);
+  const active = territories.map(t => [t, activePhase(t)]).filter(([, p]) => p);
   if (!active.length) return;
   terrLayer = L.layerGroup().addTo(map);
-  for (const t of active) {
+  for (const [t, phase] of active) {
     const opts = { color: t.color, weight: 1.4, opacity: 0.85, fillColor: t.color, fillOpacity: 0.16 };
-    const rings = t.polygons || [t.polygon];
+    const rings = phase.polygons || [phase.polygon];
     for (const ring of rings) {
       const poly = L.polygon(ring, opts);
       poly.bindTooltip(t.name, { sticky: true });
-      poly.bindPopup(territoryPopupHTML(t), { maxWidth: 300 });
+      poly.bindPopup(territoryPopupHTML(t, phase), { maxWidth: 300 });
       terrLayer.addLayer(poly);
     }
+    if (t.label_pos) {
+      const lb = L.marker(t.label_pos, {
+        interactive: false,
+        icon: L.divIcon({
+          className: '',
+          html: `<div class="terr-label" style="--c:${t.color}">${esc(t.name.split('（')[0])}</div>`,
+          iconSize: null
+        })
+      });
+      terrLayer.addLayer(lb);
+      terrLabels.push(lb);
+    }
+  }
+  updateTerritoryLabels();
+}
+// 政权标注按缩放分级：放大到 TERR_LABEL_MIN_ZOOM 才显示文字，避免低缩放文字过密
+function updateTerritoryLabels() {
+  if (!terrLayer) return;
+  const show = map.getZoom() >= TERR_LABEL_MIN_ZOOM;
+  for (const lb of terrLabels) {
+    if (show) { if (!terrLayer.hasLayer(lb)) terrLayer.addLayer(lb); }
+    else { if (terrLayer.hasLayer(lb)) terrLayer.removeLayer(lb); }
   }
 }
 function renderTerritoryToggle() {
@@ -543,7 +621,9 @@ function renderList(visible) {
   const activeRoutes = routes.filter(r => routeVisible(r));
   if (!sorted.length && !activeRoutes.length) {
     const unit = cur.y < MONTH_MODE_YEAR ? `${YEAR_WINDOW} 年` : `${MONTH_WINDOW} 个月`;
-    box.innerHTML = `<div class="empty">该时段 ±${unit} 内没有事件。<br>试试拖动下方时间轴。</div>`;
+    box.innerHTML = activeTopics.size
+      ? `<div class="empty">该时段 ±${unit} 内没有符合所选专题（${[...activeTopics].join('+')}）的事件。<br>换个时段或取消专题。</div>`
+      : `<div class="empty">该时段 ±${unit} 内没有事件。<br>试试拖动下方时间轴。</div>`;
     return;
   }
   const routeRows = activeRoutes.map(r => `
@@ -575,7 +655,7 @@ function renderEvents() {
   if (eventLayer) { map.removeLayer(eventLayer); eventLayer = null; }
   Object.keys(eventMarkers).forEach(k => delete eventMarkers[k]);
   eventLayer = L.layerGroup().addTo(map);
-  const visible = events.filter(e => inWindow(e, cur));
+  const visible = events.filter(e => inWindow(e, cur) && topicOK(e));
   for (const e of visible) {
     const m = L.marker([e.lat, e.lon], { icon: makeEventIcon(e), title: `${fmtRange(e)} ${e.title}` })
       .bindPopup(eventPopupHTML(e), { maxWidth: 300 });
@@ -587,7 +667,8 @@ function renderEvents() {
   renderList(visible);
   renderRoutes();
   document.getElementById('yearLabel').textContent = fmtTime(cur.y, cur.m);
-  document.getElementById('countText').textContent = `当前时段显示 ${visible.length} / ${events.length} 个事件`;
+  const filterNote = activeTopics.size ? `（专题：${[...activeTopics].join(' + ')}）` : '';
+  document.getElementById('countText').textContent = `当前时段显示 ${visible.length} / ${events.length} 个事件${filterNote}`;
   updateNavButtons();
 }
 
@@ -603,6 +684,7 @@ function nearestEventTime(dir) {
   const cAbs = absOf(cur);
   let best = null, bestDiff = Infinity;
   for (const e of events) {
+    if (!topicOK(e)) continue;
     const a = absOf(tOfEvent(e));
     if (dir === 'prev' ? a >= cAbs : a <= cAbs) continue;
     const d = Math.abs(a - cAbs);
@@ -617,7 +699,7 @@ function step(dir) {
   cur = t;
   document.getElementById('yearSlider').value = timeToSlider(cur);
   renderEvents();
-  const vis = events.filter(e => inWindow(e, cur));
+  const vis = events.filter(e => inWindow(e, cur) && topicOK(e));
   if (vis.length) {
     map.flyToBounds(L.latLngBounds(vis.map(e => [e.lat, e.lon])), { padding: [48, 48], duration: 0.6 });
   }
@@ -672,7 +754,7 @@ async function init() {
     worldCopyJump: true,
     layers: [theme === 'dark' ? darkTiles : lightTiles]
   });
-  map.on('zoomend', updateRouteLabels);
+  map.on('zoomend', () => { updateRouteLabels(); updateTerritoryLabels(); });
   window.__map = map;
 
   MIN_YEAR = Math.min(...events.map(e => e.year));
@@ -714,6 +796,7 @@ async function init() {
     renderTerritories();
     renderTerritoryToggle();
   });
+  buildTopicBar();
 
   document.getElementById('themeToggle').addEventListener('click', () => {
     theme = theme === 'dark' ? 'light' : 'dark';
