@@ -198,7 +198,7 @@
 <header>
   <h1>《罗马人的故事》地名地图</h1>
   <span class="sub">罗马帝国的兴亡地理 —— 对照盐野七生《罗马人的故事》阅读</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新时间: <span id="lastUpdate">2026-08-06 08:00:01 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新时间: <span id="lastUpdate">2026-08-06 08:31:27 (CST)</span></span>
   <div class="spacer"></div>
   <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
 </header>
@@ -309,19 +309,36 @@ function renderLegend() {
 function renderRegions() {
   const box = document.getElementById('regionList');
   const regions = [...new Set(places.map(p => p.region))];
-  regions.forEach(r => { if (regionEnabled[r] === undefined) regionEnabled[r] = true; });
-  box.innerHTML = regions.map(r =>
-    `<button class="region-head on" data-region="${esc(r)}" aria-pressed="true">
-       <span class="region-check">✓</span>${esc(r)}
-       <span class="region-count">${places.filter(p => p.region === r).length}</span>
-     </button>`).join('');
-  box.querySelectorAll('.region-head').forEach(btn => {
+  regions.forEach(r => { if (regionEnabled[r] === undefined) regionEnabled[r] = false; });
+  
+  const allOn = regions.every(r => regionEnabled[r]);
+  box.innerHTML =
+    `<div class="route-panel-head" style="display:flex;align-items:center;padding:6px 14px;background:var(--panel-2);">
+       <span style="font-size:12px;font-weight:600;color:var(--ink-2);">区域选择</span>
+       <button id="toggleAllRegions" class="btn reset" style="margin-left:auto;padding:2px 8px;font-size:11px;" type="button">${allOn ? '全不选' : '全选'}</button>
+     </div>` +
+    regions.map(r =>
+      `<button class="region-head${regionEnabled[r] ? ' on' : ''}" data-region="${esc(r)}" aria-pressed="${regionEnabled[r]}">
+         <span class="region-check">${regionEnabled[r] ? '✓' : ''}</span>${esc(r)}
+         <span class="region-count">${places.filter(p => p.region === r).length}</span>
+       </button>`).join('');
+
+  box.querySelector('#toggleAllRegions').addEventListener('click', () => {
+    const nextState = !regions.every(r => regionEnabled[r]);
+    regions.forEach(r => regionEnabled[r] = nextState);
+    renderRegions();
+    applyFilters();
+  });
+
+  box.querySelectorAll('.region-head[data-region]').forEach(btn => {
     btn.addEventListener('click', () => {
       const r = btn.dataset.region;
       regionEnabled[r] = !regionEnabled[r];
       btn.classList.toggle('on', regionEnabled[r]);
       btn.setAttribute('aria-pressed', regionEnabled[r]);
       btn.querySelector('.region-check').textContent = regionEnabled[r] ? '✓' : '';
+      const toggleBtn = box.querySelector('#toggleAllRegions');
+      if (toggleBtn) toggleBtn.textContent = regions.every(reg => regionEnabled[reg]) ? '全不选' : '全选';
       applyFilters();
     });
   });
@@ -332,16 +349,21 @@ let routesOpen = false;
 function renderRoutes() {
   const box = document.getElementById('routeList');
   if (!routes.length) { box.innerHTML = ''; return; }
-  routes.forEach(r => { if (routeEnabled[r.id] === undefined) routeEnabled[r.id] = r.visible !== false; });
+  routes.forEach(r => { if (routeEnabled[r.id] === undefined) routeEnabled[r.id] = false; });
   const groups = {};
   routes.forEach(r => { (groups[r.category || '路线'] ||= []).push(r); });
+  const allRoutesOn = routes.every(r => routeEnabled[r.id]);
   box.innerHTML =
     `<button class="region-head route-panel-head" data-route-panel aria-expanded="${routesOpen}">
        <span class="route-panel-arrow">${routesOpen ? '▼' : '▶'}</span>
        <span class="route-name">路线</span>
        <span class="region-count">${routes.length} 条 · 点击展开</span>
      </button>
-     <div id="routeGroups"${routesOpen ? '' : ' hidden'}>` +
+     <div id="routeGroups"${routesOpen ? '' : ' hidden'}>
+       <div style="display:flex;align-items:center;padding:4px 14px;background:var(--panel-2);">
+         <span style="font-size:11.5px;color:var(--ink-2);">批量控制</span>
+         <button id="toggleAllRoutes" class="btn reset" style="margin-left:auto;padding:2px 8px;font-size:11px;" type="button">${allRoutesOn ? '全不选' : '全选'}</button>
+       </div>` +
     Object.keys(groups).map(cat =>
       '<div class="route-label">' + esc(cat) + '</div>' + groups[cat].map(r =>
         `<button class="region-head${routeEnabled[r.id] ? ' on' : ''}" data-route="${esc(r.id)}" aria-pressed="${routeEnabled[r.id]}">
@@ -351,6 +373,14 @@ function renderRoutes() {
            <span class="region-count">${esc(r.year_label || '')}</span>
          </button>`).join('')).join('') +
     '</div>';
+
+  box.querySelector('#toggleAllRoutes').addEventListener('click', () => {
+    const nextState = !routes.every(r => routeEnabled[r.id]);
+    routes.forEach(r => routeEnabled[r.id] = nextState);
+    renderRoutes();
+    applyRouteVisibility();
+  });
+
   box.querySelector('.route-panel-head').addEventListener('click', () => {
     routesOpen = !routesOpen;
     document.getElementById('routeGroups').hidden = !routesOpen;
@@ -365,6 +395,8 @@ function renderRoutes() {
       btn.classList.toggle('on', routeEnabled[id]);
       btn.setAttribute('aria-pressed', routeEnabled[id]);
       btn.querySelector('.region-check').textContent = routeEnabled[id] ? '✓' : '';
+      const toggleRoutesBtn = box.querySelector('#toggleAllRoutes');
+      if (toggleRoutesBtn) toggleRoutesBtn.textContent = routes.every(rt => routeEnabled[rt.id]) ? '全不选' : '全选';
       applyRouteVisibility();
     });
   });
@@ -506,18 +538,29 @@ function byId(id) { return places.find(p => p.id === id); }
 function selectPlace(id, fly) {
   const p = byId(id);
   if (!p) return;
+  
+  // Auto-enable place's region if not enabled
+  if (!regionEnabled[p.region]) {
+    regionEnabled[p.region] = true;
+    renderRegions();
+    applyFilters();
+  }
+
   if (selectedId) {
     const prev = markers[selectedId];
     if (prev) prev.setIcon(makeIcon(byId(selectedId), false));
   }
   selectedId = id;
   const m = markers[id];
-  m.setIcon(makeIcon(p, true));
-  if (fly) {
-    map.flyTo([p.lat, p.lon], Math.max(map.getZoom(), 7), { duration: 0.9 });
-    setTimeout(() => m.openPopup(), 600);
+  if (m) {
+    if (!map.hasLayer(m)) markerLayer.addLayer(m);
+    m.setIcon(makeIcon(p, true));
+    if (fly) {
+      map.flyTo([p.lat, p.lon], Math.max(map.getZoom(), 7), { duration: 0.9 });
+      setTimeout(() => m.openPopup(), 600);
+    }
+    m.setZIndexOffset(10000);
   }
-  m.setZIndexOffset(10000);
   history.replaceState(null, '', '#place=' + id);
   renderList();
   // keep the selected row visible in the list
