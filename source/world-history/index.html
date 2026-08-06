@@ -98,6 +98,24 @@
   }
   .topic-chip:hover { border-color: var(--accent); color: var(--ink); }
   .topic-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .search-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 14px 6px; position: relative;
+  }
+  .search-input {
+    flex: 1; appearance: none; border: 1px solid var(--hair-2); background: var(--panel-2);
+    color: var(--ink); border-radius: 8px; padding: 6px 9px; font-size: 13px;
+    font-family: inherit; outline: none;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--muted); }
+  .search-clear {
+    appearance: none; border: none; background: none; color: var(--muted);
+    font-size: 15px; cursor: pointer; padding: 2px; line-height: 1; flex-shrink: 0;
+  }
+  .search-clear:hover { color: var(--ink); }
+  .search-hint { color: var(--muted); font-size: 11px; padding: 0 14px 6px; }
+  .search-results { border-top: 1px solid var(--hair); }
   #countText { color: var(--muted); font-size: 12px; white-space: nowrap; }
   .event-list { flex: 1; overflow-y: auto; border-top: 1px solid var(--hair); }
   .ev-item {
@@ -234,6 +252,11 @@
         <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
       </div>
     </div>
+    <div class="search-bar">
+      <input id="searchInput" class="search-input" type="text" placeholder="🔍 搜索事件：输入标题 / 地点 / 时代 / 人名 …" autocomplete="off">
+      <button id="searchClear" class="search-clear" type="button" title="清空搜索" style="display:none">✕</button>
+    </div>
+    <div id="searchHint" class="search-hint" style="display:none"></div>
     <div id="topicBar" class="topic-bar" title="专题过滤：可多选（并集），不选则显示全部事件"></div>
     <div id="countText" style="padding:0 14px 6px;"></div>
     <div id="eventList" class="event-list"></div>
@@ -291,7 +314,7 @@ let routeLabels = [];
 let terrLayer = null;
 let terrLabels = [];
 let territoryVisible = true;
-const TOPICS = ['AI', '战争', '科技', '政治', '宗教', '中外交流', '人物'];
+const TOPICS = ['AI', '战争', '科技', '政治', '宗教', '中外交流', '人物', '影星'];
 const activeTopics = new Set();
 const eventMarkers = {};
 let cur = { y: 9, m: 1 };
@@ -403,13 +426,28 @@ function waypointPopupHTML(r, w) {
     </div>
   </div>`;
 }
+// 对一条路线做经度"解包"（unwrap）：保持相邻经度差在 (-180,180] 内，
+// 使环球航线成为一条连续直线、随底图无限平铺延伸，不再在 ±180° 处回弹。
+function unwrapRoute(poly) {
+  const pts = [poly[0].slice()];
+  for (let i = 1; i < poly.length; i++) {
+    const [, lng1] = pts[i - 1];
+    const [lat2, lng2] = poly[i];
+    const diff = lng2 - lng1;
+    const unwrapped = lng2 - Math.round(diff / 360) * 360;
+    pts.push([lat2, unwrapped]);
+  }
+  return pts;
+}
+
 function renderRoutes() {
   if (routeLayer) { map.removeLayer(routeLayer); routeLayer = null; }
   routeLayer = L.layerGroup().addTo(map);
   routeLabels = [];
   for (const r of routes) {
     if (!routeVisible(r)) continue;
-    const pts = r.waypoints.map(w => w.pos);
+    // 经度解包为连续直线，随底图的世界平铺而无限延伸（跨日界线不再回弹）
+    const pts = unwrapRoute(r.waypoints.map(w => w.pos));
     const line = L.polyline(pts, { color: r.color, weight: 3, opacity: 0.9, dashArray: '6 7' });
     line.bindPopup(routeLinePopupHTML(r), { maxWidth: 320 });
     routeLayer.addLayer(line);
@@ -418,8 +456,13 @@ function renderRoutes() {
       for (let i = 0; i < r.waypoints.length - 1; i++) {
         const [lat1, lng1] = r.waypoints[i].pos;
         const [lat2, lng2] = r.waypoints[i + 1].pos;
-        const heading = Math.atan2(lng2 - lng1, lat2 - lat1) * 180 / Math.PI;
-        routeLayer.addLayer(L.marker([(lat1 + lat2) / 2, (lng1 + lng2) / 2], {
+        // 用连续的“解包”经度计算航向，跨日界线时箭头方向才不会翻转
+        let lng2u = lng2;
+        if (lng1 - lng2 > 180) lng2u += 360;
+        else if (lng2 - lng1 > 180) lng2u -= 360;
+        const heading = Math.atan2(lng2u - lng1, lat2 - lat1) * 180 / Math.PI;
+        const midLng = ((lng1 + lng2u) / 2 + 540) % 360 - 180;  // 航段中点的经度（归一到 [−180,180]）
+        routeLayer.addLayer(L.marker([(lat1 + lat2) / 2, midLng], {
           interactive: false,
           icon: L.divIcon({
             className: '',
@@ -676,7 +719,19 @@ function selectEvent(id) {
   const m = eventMarkers[id];
   if (!m) return;
   m.openPopup();
-  map.flyTo(m.getLatLng(), Math.max(map.getZoom(), 4), { duration: 0.8 });
+  // 平移到事件位置时放大地图到一个带上下文的视野，便于看出它发生在世界的哪里。
+  // 用一个以事件为中心、约±半视野经度/纬度的边界框；若该事件时间窗内还有其他事件，
+  // 则把视野放宽到覆盖它们。
+  const e = events.find(x => x.id === id);
+  const vis = events.filter(x => x.id !== id && inWindow(x, cur) && topicOK(x));
+  let bounds;
+  if (e && vis.length) {
+    bounds = L.latLngBounds(vis.map(x => [x.lat, x.lon]));
+    bounds.extend([e.lat, e.lon]);
+  } else {
+    bounds = L.latLngBounds([[e.lat - 6, e.lon - 12], [e.lat + 6, e.lon + 12]]);
+  }
+  map.flyToBounds(bounds, { padding: [50, 50], maxZoom: 6, duration: 0.8 });
   document.querySelectorAll('.ev-item').forEach(r => r.classList.toggle('selected', r.dataset.id === id));
 }
 
@@ -691,6 +746,59 @@ function nearestEventTime(dir) {
     if (d < bestDiff) { bestDiff = d; best = e; }
   }
   return best ? tOfEvent(best) : null;
+}
+
+// ===== 全局搜索 =====
+let searchResultsVisible = false;
+function searchMatch(e, q) {
+  if (!q) return false;
+  const fields = [e.title, e.era, e.note, e.lat, e.lon, e.side, (e.tags || []).join(' '), e.id].join(' ').toLowerCase();
+  return fields.includes(q);
+}
+function renderSearchResults(q) {
+  const box = document.getElementById('eventList');
+  const hint = document.getElementById('searchHint');
+  const clear = document.getElementById('searchClear');
+  searchResultsVisible = !!q;
+  clear.style.display = q ? 'inline-block' : 'none';
+  if (!q) {
+    hint.style.display = 'none';
+    renderEvents();
+    return;
+  }
+  const matched = events
+    .filter(e => searchMatch(e, q))
+    .sort((a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)));
+  hint.style.display = 'block';
+  hint.textContent = `搜索「${q}」：共 ${matched.length} 个匹配事件（跨时代）`;
+  if (!matched.length) {
+    box.innerHTML = `<div class="empty">没有匹配「${esc(q)}」的事件。<br>可尝试输入人名、朝代或关键词。</div>`;
+    return;
+  }
+  const matchedSides = new Set(matched.map(e => e.side));
+  for (const t of TOPICS) {
+    if (t.toLowerCase().includes(q) && !activeTopics.has(t)) activeTopics.add(t);
+  }
+  box.innerHTML = matched.map(e => {
+    const c = sideColor(e.side);
+    return `<button class="ev-item" data-id="${esc(e.id)}">
+      <span class="dot" style="background:${c}"></span>
+      <span class="ev-year">${fmtRange(e)}</span>
+      <span class="ev-title">${esc(e.title)}</span>
+      <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
+    </button>`;
+  }).join('');
+  box.querySelectorAll('.ev-item[data-id]').forEach(btn => {
+    btn.addEventListener('click', () => jumpToEvent(btn.dataset.id));
+  });
+}
+function jumpToEvent(id) {
+  const e = events.find(x => x.id === id);
+  if (!e) return;
+  cur = tOfEvent(e);
+  document.getElementById('yearSlider').value = timeToSlider(cur);
+  renderEvents();
+  selectEvent(id);
 }
 
 function step(dir) {
@@ -797,6 +905,23 @@ async function init() {
     renderTerritoryToggle();
   });
   buildTopicBar();
+
+  const searchInput = document.getElementById('searchInput');
+  const searchClear = document.getElementById('searchClear');
+  searchInput.addEventListener('input', () => renderSearchResults(searchInput.value.trim().toLowerCase()));
+  searchInput.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter') {
+      const q = searchInput.value.trim().toLowerCase();
+      const first = q && events.filter(e => searchMatch(e, q)).sort(
+        (a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)))[0];
+      if (first) jumpToEvent(first.id);
+    }
+  });
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    renderSearchResults('');
+    searchInput.focus();
+  });
 
   document.getElementById('themeToggle').addEventListener('click', () => {
     theme = theme === 'dark' ? 'light' : 'dark';
