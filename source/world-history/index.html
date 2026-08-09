@@ -314,15 +314,61 @@ let routeLabels = [];
 let terrLayer = null;
 let terrLabels = [];
 let territoryVisible = true;
-const TOPICS = ['AI', '战争', '科技', '政治', '宗教', '中外交流', '人物', '影星'];
+const TOPICS = ['AI', '罗马', '战争', '科技', '政治', '宗教', '中外交流', '人物', '影星'];
 const activeTopics = new Set();
 const eventMarkers = {};
 let cur = { y: 9, m: 1 };
+let selectedId = null;
 let theme = 'light';
 let routeForced = null; // null=自动(随滑块) / true=强制显示 / false=强制隐藏
 const LABEL_MIN_ZOOM = 5; // 路线站点标签在低于此缩放时隐藏，避免重叠
 const TERR_LABEL_MIN_ZOOM = 3; // 疆域政权标注（如"大宋"）在低于此缩放时隐藏
 const tileLayers = {};
+
+function updateURLState() {
+  if (!map) return;
+  const params = new URLSearchParams(window.location.search);
+  params.set('year', cur.y);
+  if (cur.m > 1) params.set('month', cur.m); else params.delete('month');
+
+  const center = map.getCenter();
+  params.set('lat', center.lat.toFixed(2));
+  params.set('lng', center.lng.toFixed(2));
+  params.set('zoom', map.getZoom());
+
+  if (selectedId) {
+    params.set('event', selectedId);
+  } else {
+    params.delete('event');
+  }
+  const newSearch = '?' + params.toString();
+  if (window.location.search !== newSearch) {
+    window.history.replaceState(null, '', window.location.pathname + newSearch);
+  }
+}
+
+function loadURLState() {
+  const params = new URLSearchParams(window.location.search);
+  const yStr = params.get('year');
+  if (yStr !== null) {
+    const y = parseInt(yStr, 10);
+    const m = parseInt(params.get('month') || '1', 10);
+    if (!isNaN(y)) cur = { y, m };
+  }
+  const lat = parseFloat(params.get('lat'));
+  const lng = parseFloat(params.get('lng'));
+  const zoom = parseInt(params.get('zoom'), 10);
+  let mapSet = false;
+  if (!isNaN(lat) && !isNaN(lng) && !isNaN(zoom)) {
+    map.setView([lat, lng], zoom);
+    mapSet = true;
+  }
+  const evt = params.get('event');
+  if (evt) {
+    selectedId = evt;
+  }
+  return { mapSet, selectedEventId: evt };
+}
 
 function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -716,6 +762,7 @@ function renderEvents() {
 }
 
 function selectEvent(id) {
+  selectedId = id;
   const m = eventMarkers[id];
   if (!m) return;
   m.openPopup();
@@ -733,6 +780,7 @@ function selectEvent(id) {
   }
   map.flyToBounds(bounds, { padding: [50, 50], maxZoom: 6, duration: 0.8 });
   document.querySelectorAll('.ev-item').forEach(r => r.classList.toggle('selected', r.dataset.id === id));
+  updateURLState();
 }
 
 function nearestEventTime(dir) {
@@ -863,6 +911,7 @@ async function init() {
     layers: [theme === 'dark' ? darkTiles : lightTiles]
   });
   map.on('zoomend', () => { updateRouteLabels(); updateTerritoryLabels(); });
+  map.on('moveend', () => { updateURLState(); });
   window.__map = map;
 
   MIN_YEAR = Math.min(...events.map(e => e.year));
@@ -878,12 +927,14 @@ async function init() {
   document.getElementById('maxLabel').textContent = fmtTime(maxT.y, maxT.m);
 
   cur = { y: 9, m: 1 }; // 初始对照点：条顿堡惨败 ↔ 王莽篡汉（同年）
+  const urlState = loadURLState();
   slider.value = timeToSlider(cur);
 
   const el = document.getElementById('yearSlider');
   el.addEventListener('input', () => {
     cur = sliderToTime(+el.value);
     renderEvents();
+    updateURLState();
   });
 
   document.getElementById('prevBtn').addEventListener('click', () => step('prev'));
@@ -893,6 +944,7 @@ async function init() {
   document.getElementById('routeBtn').addEventListener('click', () => {
     routeForced = routeForced === null ? true : (routeForced === true ? false : null);
     renderEvents();
+    updateURLState();
   });
   document.getElementById('prehistoryBtn').addEventListener('click', () => {
     prehistoryVisible = !prehistoryVisible;
@@ -933,8 +985,13 @@ async function init() {
   renderPrehistory();
   renderPrehistoryToggle();
   renderTerritoryToggle();
-  map.fitBounds(L.latLngBounds(events.map(e => [e.lat, e.lon])), { padding: [40, 40] });
+  if (urlState.selectedEventId && eventMarkers[urlState.selectedEventId]) {
+    selectEvent(urlState.selectedEventId);
+  } else if (!urlState.mapSet) {
+    map.fitBounds(L.latLngBounds(events.map(e => [e.lat, e.lon])), { padding: [40, 40] });
+  }
   rebuildTheme();
+  updateURLState();
 }
 
 init().catch(err => {
