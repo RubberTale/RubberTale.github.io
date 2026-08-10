@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《罗马人的故事》地名地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --panel: #fcfcfb;
+    --panel-2: #f2f1ec;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --hair: #e1e0d9;
+    --hair-2: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --accent: #2a78d6;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --panel: #1a1a19;
+    --panel-2: #242421;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --hair: #2c2c2a;
+    --hair-2: #383835;
+    --border: rgba(255,255,255,0.10);
+    --accent: #5ba3e8;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 10px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    z-index: 500;
+    flex-wrap: wrap;
+  }
+  header h1 {
+    font-size: 17px; margin: 0; letter-spacing: .02em;
+  }
+  header .sub { color: var(--ink-2); font-size: 12.5px; }
+  .spacer { flex: 1; }
+  .btn {
+    appearance: none; border: 1px solid var(--hair-2); background: var(--panel);
+    color: var(--ink); border-radius: 8px; padding: 6px 12px; cursor: pointer;
+    font-size: 13px; font-family: inherit;
+  }
+  .btn:hover { background: var(--panel-2); }
+  #themeToggle { white-space: nowrap; }
+  .layout { flex: 1; display: flex; min-height: 0; }
+  aside {
+    width: 360px; max-width: 42%; min-width: 260px;
+    display: flex; flex-direction: column;
+    border-right: 1px solid var(--border); background: var(--panel);
+  }
+  .search-wrap { padding: 12px 14px 8px; position: relative; }
+  .search-wrap input {
+    width: 100%; padding: 9px 32px 9px 12px;
+    border: 1px solid var(--hair-2); border-radius: 9px;
+    background: var(--panel-2); color: var(--ink);
+    font-size: 14px; font-family: inherit; outline: none;
+  }
+  .search-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); }
+  #clearSearch {
+    position: absolute; right: 20px; top: 19px;
+    border: none; background: none; color: var(--muted);
+    font-size: 16px; cursor: pointer; padding: 2px 6px; border-radius: 6px;
+  }
+  #clearSearch:hover { color: var(--ink); background: var(--panel-2); }
+  .toolbar {
+    display: flex; gap: 8px; align-items: center;
+    padding: 8px 14px 10px;
+  }
+  .toolbar select {
+    flex: 1; padding: 7px 8px; border-radius: 9px;
+    border: 1px solid var(--hair-2); background: var(--panel-2); color: var(--ink);
+    font-size: 13px; font-family: inherit;
+  }
+  #countText { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .reset { font-size: 12px; }
+  .region-list { border-top: 1px solid var(--hair); max-height: 34%; overflow-y: auto; flex-shrink: 0; }
+  .region-head {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    padding: 8px 14px; border: none; background: none; cursor: pointer;
+    font-size: 13px; color: var(--ink); font-family: inherit; text-align: left;
+  }
+  .region-head:hover { background: var(--panel-2); }
+  .region-count { margin-left: auto; color: var(--muted); font-size: 12px; }
+  .route-dot { width: 12px; height: 4px; border-radius: 2px; flex-shrink: 0; }
+  .route-name { font-weight: 600; }
+  .route-label { padding: 8px 14px 3px; font-size: 11.5px; color: var(--ink-2); font-weight: 600; letter-spacing: .04em; }
+  .route-panel-head { border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .route-panel-arrow { width: 14px; font-size: 9px; color: var(--muted); flex-shrink: 0; }
+  .region-check {
+    width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
+    border: 1.5px solid var(--hair-2); background: var(--panel);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 11px;
+  }
+  .region-head.on .region-check { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .place-list { flex: 1; overflow-y: auto; border-top: 1px solid var(--hair); }
+  .place-item {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 7px 14px; border: none; background: none; cursor: pointer;
+    font-size: 13px; color: var(--ink); font-family: inherit; text-align: left;
+  }
+  .place-item:hover { background: var(--panel-2); }
+  .place-item.selected { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  .dot {
+    width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+    box-shadow: 0 0 0 1.5px rgba(0,0,0,.2);
+  }
+  .place-item .zh { font-weight: 600; }
+  .place-item .la { color: var(--muted); font-size: 11.5px; font-style: italic; }
+  .place-item .t { margin-left: auto; color: var(--muted); font-size: 11px; flex-shrink: 0; }
+  main { flex: 1; position: relative; min-width: 0; }
+  #map { position: absolute; inset: 0; }
+  .legend {
+    position: absolute; left: 12px; bottom: 26px; z-index: 400;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 12px; font-size: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.12); max-width: 210px;
+  }
+  .legend h4 { margin: 0 0 6px; font-size: 11.5px; color: var(--ink-2); font-weight: 600; letter-spacing: .04em; }
+  .legend ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+  .legend li { display: flex; align-items: center; gap: 6px; color: var(--ink-2); }
+  .lg {
+    width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 9.5px; font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.25);
+  }
+  .hint { position: absolute; right: 12px; bottom: 26px; z-index: 400; color: var(--muted); font-size: 12px; }
+  .popup-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .popup-tag {
+    font-size: 11px; font-weight: 600; color: #fff; border-radius: 5px;
+    padding: 1px 7px;
+  }
+  .popup-latin { font-style: italic; color: var(--ink-2); margin-top: 2px; }
+  .popup-region { color: var(--muted); font-size: 12px; margin-top: 1px; }
+  .popup-modern { color: var(--ink-2); font-size: 12.5px; margin-top: 6px; }
+  .popup-note { font-size: 12.5px; line-height: 1.55; color: var(--ink-2); margin: 8px 0; }
+  .popup-links { display: flex; gap: 14px; border-top: 1px solid var(--hair); padding-top: 7px; }
+  .popup-links a { font-size: 12px; color: var(--accent); text-decoration: none; }
+  .popup-links a:hover { text-decoration: underline; }
+  .leaflet-container { font-family: inherit; background: #dbe3e6; }
+  .leaflet-popup-content-wrapper { border-radius: 10px; }
+  :root[data-theme="dark"] .leaflet-popup-content-wrapper,
+  :root[data-theme="dark"] .leaflet-popup-tip { background: #1a1a19; color: #fff; }
+  :root[data-theme="dark"] .leaflet-popup-content-wrapper a { color: #5ba3e8; }
+  .pin {
+    --c: #2a78d6;
+    width: 21px; height: 21px; border-radius: 50%;
+    background-color: var(--c);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 11px; font-weight: 600; line-height: 1;
+    box-shadow: 0 0 0 1.5px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.4);
+    transition: transform .12s ease;
+  }
+  .pin.selected {
+    width: 27px; height: 27px; font-size: 14px;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c), 0 1px 4px rgba(0,0,0,.45);
+  }
+  .battle-pin {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #ffd76b, #e0a418 72%);
+    color: #5a3d00; font-size: 15px; font-weight: 700; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(224,164,24,.6), 0 2px 6px rgba(0,0,0,.45);
+  }
+  .arrow-head {
+    display: block; font-size: 17px; line-height: 1;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
+  }
+  @media (max-width: 820px) {
+    .layout { flex-direction: column; }
+    aside { width: 100%; max-width: none; min-width: 0; border-right: none; border-bottom: 1px solid var(--border); max-height: 46%; }
+    main { min-height: 54%; }
+    .legend { display: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>《罗马人的故事》地名地图</h1>
+  <span class="sub">罗马帝国的兴亡地理 —— 对照盐野七生《罗马人的故事》阅读</span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新时间: <span id="lastUpdate">2026-08-10 20:00:01 (CST)</span></span>
+  <div class="spacer"></div>
+  <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
+</header>
+<div class="layout">
+  <aside>
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="搜索地名（中文 / 拉丁名 / 现代名）" autocomplete="off">
+      <button id="clearSearch" type="button" aria-label="清除搜索" hidden>×</button>
+    </div>
+    <div class="toolbar">
+      <select id="typeSelect" aria-label="按类型筛选"></select>
+      <button id="resetBtn" class="btn reset" type="button">重置</button>
+    </div>
+    <div id="regionList" class="region-list"></div>
+    <div id="routeList" class="region-list" style="max-height:none;"></div>
+    <div id="countText" style="padding:6px 14px;"></div>
+    <div id="placeList" class="place-list"></div>
+  </aside>
+  <main>
+    <div id="map"></div>
+    <div class="legend">
+      <h4>地点类型</h4>
+      <ul id="legendList"></ul>
+    </div>
+    <div class="hint">点击右侧地名跳转 · 点击标记查看详情</div>
+  </main>
+</div>
+
+<script>
+'use strict';
+const TYPE_ORDER = ['城市','港口','要塞','战场','河流','湖泊','海峡','海洋','岛屿','山脉','山丘','行省','地区'];
+const TYPE_GLYPH = {城市:'城',港口:'港',要塞:'堡',战场:'战',河流:'河',湖泊:'湖',海峡:'峡',海洋:'海',岛屿:'岛',山脉:'山',山丘:'丘',行省:'省',地区:'域'};
+const COLORS = {
+  light: {城市:'#2a78d6',港口:'#1baf7a',要塞:'#4a3aa7',战场:'#e34948',河流:'#0097a7',湖泊:'#0097a7',海峡:'#0097a7',海洋:'#0097a7',岛屿:'#eb6834',山脉:'#2f7a00',山丘:'#2f7a00',行省:'#eda100',地区:'#eda100'},
+  dark:  {城市:'#3f8fd9',港口:'#1faa75',要塞:'#9085e9',战场:'#d65757',河流:'#22a8b8',湖泊:'#22a8b8',海峡:'#22a8b8',海洋:'#22a8b8',岛屿:'#e08a3f',山脉:'#3d9a40',山丘:'#3d9a40',行省:'#d9a92b',地区:'#d9a92b'}
+};
+const SIDE_COLORS = {
+  rome:     { light: '#e34948', dark: '#d65757' },
+  carthage: { light: '#2a78d6', dark: '#3f8fd9' }
+};
+
+let places = [];
+let map = null;
+let markerLayer = null;
+const markers = {};      // id -> L.marker
+const regionEnabled = {}; // region -> bool
+let activeType = '全部';
+let searchQuery = '';
+let selectedId = null;
+let theme = 'light';
+const tileLayers = {};
+const routes = [];
+let routeLayer = null;
+const routePolylines = {};
+const routeEnabled = {};
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function colorFor(type) { return COLORS[theme][type] || '#5a5f66'; }
+
+function visiblePlaces() {
+  const q = searchQuery.trim().toLowerCase();
+  return places.filter(p => {
+    if (regionEnabled[p.region] === false) return false;
+    if (activeType !== '全部' && p.type !== activeType) return false;
+    if (!q) return true;
+    return [p.name_zh, p.name_latin, p.name_en, p.name_modern, p.region, p.type]
+      .concat(p.alias || [])
+      .some(f => String(f).toLowerCase().includes(q));
+  });
+}
+
+function makeIcon(p, selected) {
+  const c = colorFor(p.type);
+  const cls = 'pin' + (selected ? ' selected' : '');
+  return L.divIcon({
+    className: '',
+    html: `<span class="${cls}" style="--c:${c}">${TYPE_GLYPH[p.type]}</span>`,
+    iconSize: [selected ? 27 : 21, selected ? 27 : 21],
+    iconAnchor: [selected ? 13.5 : 10.5, selected ? 13.5 : 10.5],
+    popupAnchor: [0, selected ? -15 : -11]
+  });
+}
+
+function popupHTML(p) {
+  const c = colorFor(p.type);
+  return `<div class="popup">
+    <div class="popup-title">${esc(p.name_zh)} <span class="popup-tag" style="background:${c}">${esc(p.type)}</span></div>
+    <div class="popup-latin">${esc(p.name_latin)}</div>
+    ${p.alias && p.alias.length ? `<div class="popup-region">又名：${esc(p.alias.join('、'))}</div>` : ''}
+    <div class="popup-region">${esc(p.region)}</div>
+    <div class="popup-modern">现代：${esc(p.name_modern)}</div>
+    <p class="popup-note">${esc(p.note)}</p>
+    <div class="popup-links">
+      <a href="https://www.google.com/maps?q=${p.lat},${p.lon}" target="_blank" rel="noopener">Google Maps ↗</a>
+      <a href="https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lon}#map=12/${p.lat}/${p.lon}" target="_blank" rel="noopener">OpenStreetMap ↗</a>
+    </div>
+  </div>`;
+}
+
+function renderLegend() {
+  const list = document.getElementById('legendList');
+  list.innerHTML = TYPE_ORDER.map(t =>
+    `<li><span class="lg" style="background:${colorFor(t)}">${TYPE_GLYPH[t]}</span>${t}</li>`).join('');
+}
+
+let regionsOpen = false;
+
+function renderRegions() {
+  const box = document.getElementById('regionList');
+  const regions = [...new Set(places.map(p => p.region))];
+  regions.forEach(r => { if (regionEnabled[r] === undefined) regionEnabled[r] = false; });
+  
+  const allOn = regions.every(r => regionEnabled[r]);
+  const activeCount = regions.filter(r => regionEnabled[r]).length;
+  box.innerHTML =
+    `<button class="region-head route-panel-head" data-region-panel aria-expanded="${regionsOpen}">
+       <span class="route-panel-arrow">${regionsOpen ? '▼' : '▶'}</span>
+       <span class="route-name">区域选择</span>
+       <span class="region-count">${activeCount > 0 ? `已选 ${activeCount}/${regions.length}` : `${regions.length} 个区域 · 点击展开`}</span>
+     </button>
+     <div id="regionItems"${regionsOpen ? '' : ' hidden'}>
+       <div style="display:flex;align-items:center;padding:4px 14px;background:var(--panel-2);">
+         <span style="font-size:11.5px;color:var(--ink-2);">批量控制</span>
+         <button id="toggleAllRegions" class="btn reset" style="margin-left:auto;padding:2px 8px;font-size:11px;" type="button">${allOn ? '全不选' : '全选'}</button>
+       </div>` +
+    regions.map(r =>
+      `<button class="region-head${regionEnabled[r] ? ' on' : ''}" data-region="${esc(r)}" aria-pressed="${regionEnabled[r]}">
+         <span class="region-check">${regionEnabled[r] ? '✓' : ''}</span>${esc(r)}
+         <span class="region-count">${places.filter(p => p.region === r).length}</span>
+       </button>`).join('') +
+    '</div>';
+
+  box.querySelector('.route-panel-head').addEventListener('click', () => {
+    regionsOpen = !regionsOpen;
+    document.getElementById('regionItems').hidden = !regionsOpen;
+    const head = box.querySelector('.route-panel-head');
+    head.setAttribute('aria-expanded', regionsOpen);
+    head.querySelector('.route-panel-arrow').textContent = regionsOpen ? '▼' : '▶';
+  });
+
+  box.querySelector('#toggleAllRegions').addEventListener('click', () => {
+    const nextState = !regions.every(r => regionEnabled[r]);
+    regions.forEach(r => regionEnabled[r] = nextState);
+    renderRegions();
+    applyFilters();
+  });
+
+  box.querySelectorAll('.region-head[data-region]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const r = btn.dataset.region;
+      regionEnabled[r] = !regionEnabled[r];
+      btn.classList.toggle('on', regionEnabled[r]);
+      btn.setAttribute('aria-pressed', regionEnabled[r]);
+      btn.querySelector('.region-check').textContent = regionEnabled[r] ? '✓' : '';
+      const toggleBtn = box.querySelector('#toggleAllRegions');
+      if (toggleBtn) toggleBtn.textContent = regions.every(reg => regionEnabled[reg]) ? '全不选' : '全选';
+      const countSpan = box.querySelector('.route-panel-head .region-count');
+      const curCount = regions.filter(reg => regionEnabled[reg]).length;
+      if (countSpan) countSpan.textContent = curCount > 0 ? `已选 ${curCount}/${regions.length}` : `${regions.length} 个区域 · 点击展开`;
+      applyFilters();
+    });
+  });
+}
+
+let routesOpen = false;
+
+function renderRoutes() {
+  const box = document.getElementById('routeList');
+  if (!routes.length) { box.innerHTML = ''; return; }
+  routes.forEach(r => { if (routeEnabled[r.id] === undefined) routeEnabled[r.id] = false; });
+  const groups = {};
+  routes.forEach(r => { (groups[r.category || '路线'] ||= []).push(r); });
+  const allRoutesOn = routes.every(r => routeEnabled[r.id]);
+  box.innerHTML =
+    `<button class="region-head route-panel-head" data-route-panel aria-expanded="${routesOpen}">
+       <span class="route-panel-arrow">${routesOpen ? '▼' : '▶'}</span>
+       <span class="route-name">路线</span>
+       <span class="region-count">${routes.length} 条 · 点击展开</span>
+     </button>
+     <div id="routeGroups"${routesOpen ? '' : ' hidden'}>
+       <div style="display:flex;align-items:center;padding:4px 14px;background:var(--panel-2);">
+         <span style="font-size:11.5px;color:var(--ink-2);">批量控制</span>
+         <button id="toggleAllRoutes" class="btn reset" style="margin-left:auto;padding:2px 8px;font-size:11px;" type="button">${allRoutesOn ? '全不选' : '全选'}</button>
+       </div>` +
+    Object.keys(groups).map(cat =>
+      '<div class="route-label">' + esc(cat) + '</div>' + groups[cat].map(r =>
+        `<button class="region-head${routeEnabled[r.id] ? ' on' : ''}" data-route="${esc(r.id)}" aria-pressed="${routeEnabled[r.id]}">
+           <span class="region-check">${routeEnabled[r.id] ? '✓' : ''}</span>
+           <span class="route-dot" style="background:${r.color}"></span>
+           <span class="route-name">${esc(r.name_zh)}</span>
+           <span class="region-count">${esc(r.year_label || '')}</span>
+         </button>`).join('')).join('') +
+    '</div>';
+
+  box.querySelector('#toggleAllRoutes').addEventListener('click', () => {
+    const nextState = !routes.every(r => routeEnabled[r.id]);
+    routes.forEach(r => routeEnabled[r.id] = nextState);
+    renderRoutes();
+    applyRouteVisibility();
+  });
+
+  box.querySelector('.route-panel-head').addEventListener('click', () => {
+    routesOpen = !routesOpen;
+    document.getElementById('routeGroups').hidden = !routesOpen;
+    const head = box.querySelector('.route-panel-head');
+    head.setAttribute('aria-expanded', routesOpen);
+    head.querySelector('.route-panel-arrow').textContent = routesOpen ? '▼' : '▶';
+  });
+  box.querySelectorAll('.region-head[data-route]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.route;
+      routeEnabled[id] = !routeEnabled[id];
+      btn.classList.toggle('on', routeEnabled[id]);
+      btn.setAttribute('aria-pressed', routeEnabled[id]);
+      btn.querySelector('.region-check').textContent = routeEnabled[id] ? '✓' : '';
+      const toggleRoutesBtn = box.querySelector('#toggleAllRoutes');
+      if (toggleRoutesBtn) toggleRoutesBtn.textContent = routes.every(rt => routeEnabled[rt.id]) ? '全不选' : '全选';
+      applyRouteVisibility();
+    });
+  });
+  applyRouteVisibility();
+}
+
+function applyRouteVisibility() {
+  for (const [id, line] of Object.entries(routePolylines)) {
+    if (routeEnabled[id]) { if (!map.hasLayer(line)) routeLayer.addLayer(line); }
+    else { if (map.hasLayer(line)) routeLayer.removeLayer(line); }
+  }
+}
+
+function bearing(a, b) {
+  const toRad = d => d * Math.PI / 180, toDeg = r => r * 180 / Math.PI;
+  const dLon = toRad(b[1] - a[1]);
+  const y = Math.sin(dLon) * Math.cos(toRad(b[0]));
+  const x = Math.cos(toRad(a[0])) * Math.sin(toRad(b[0])) - Math.sin(toRad(a[0])) * Math.cos(toRad(b[0])) * Math.cos(dLon);
+  return (toDeg(Math.atan2(y, x)) + 360) % 360;
+}
+
+function battleColor(side) {
+  const c = SIDE_COLORS[side];
+  return (c && c[theme]) || '#5a5f66';
+}
+
+function createBattle(r) {
+  const g = L.layerGroup();
+  const battleIcon = L.divIcon({
+    className: '',
+    html: '<span class="battle-pin">战</span>',
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+    popupAnchor: [0, -18]
+  });
+  const bm = L.marker(r.battle_pos, { icon: battleIcon, title: r.name_zh });
+  const sideTxt = (r.units || []).map(u =>
+    `<div class="popup-region"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${battleColor(u.side)};margin-right:6px"></span>${esc(u.side === 'rome' ? '罗马' : '迦太基')} · ${esc(u.name)}${u.count ? '（' + esc(u.count) + '）' : ''}</div>`).join('');
+  bm.bindPopup(`<div class="popup">
+    <div class="popup-title">${esc(r.name_zh)} <span class="popup-tag" style="background:${r.color}">战役</span></div>
+    <div class="popup-latin">${esc(r.year_label)} · 汉尼拔战争</div>
+    ${sideTxt}
+    <p class="popup-note">${esc(r.note)}</p>
+    <div class="popup-links">
+      <a href="https://www.google.com/maps?q=${r.battle_pos[0]},${r.battle_pos[1]}" target="_blank" rel="noopener">Google Maps ↗</a>
+      <a href="https://www.openstreetmap.org/?mlat=${r.battle_pos[0]}&mlon=${r.battle_pos[1]}#map=12/${r.battle_pos[0]}/${r.battle_pos[1]}" target="_blank" rel="noopener">OpenStreetMap ↗</a>
+    </div>
+  </div>`, { maxWidth: 320 });
+  g.addLayer(bm);
+  for (const u of r.units || []) {
+    const c = battleColor(u.side);
+    const cm = L.circleMarker(u.pos, { radius: 8, color: '#fff', weight: 2, fillColor: c, fillOpacity: 0.95 })
+      .bindPopup(`<div class="popup">
+        <div class="popup-title"><span style="color:${c}">●</span> ${esc(u.name)}</div>
+        ${u.count ? `<div class="popup-region">${esc(u.count)}</div>` : ''}
+        <div class="popup-region">${esc(u.side === 'rome' ? '罗马一方' : '迦太基一方')}</div>
+      </div>`, { maxWidth: 280 });
+    g.addLayer(cm);
+  }
+  for (const a of r.arrows || []) {
+    const c = battleColor(a.side);
+    g.addLayer(L.polyline(a.points, { color: c, weight: 3, opacity: 0.95, dashArray: '7 8' }));
+    const n = a.points.length;
+    if (n >= 2) {
+      const ang = bearing(a.points[n - 2], a.points[n - 1]);
+      const last = a.points[n - 1];
+      g.addLayer(L.marker(last, {
+        interactive: false,
+        icon: L.divIcon({
+          className: '',
+          html: `<span class="arrow-head" style="color:${c};transform:rotate(${ang}deg)">➤</span>`,
+          iconSize: [18, 18],
+          iconAnchor: [9, 9]
+        })
+      }));
+    }
+  }
+  routePolylines[r.id] = g;
+}
+
+function createRoutes() {
+  routeLayer = L.layerGroup().addTo(map);
+  for (const r of routes) {
+    if (r.type === 'battle') { createBattle(r); continue; }
+    const opts = { color: r.color, weight: r.weight || 3.5, opacity: 0.9 };
+    if (r.dashed) opts.dashArray = '7 8';
+    const line = L.polyline(r.points, opts);
+    line.bindPopup(`<div class="popup">
+      <div class="popup-title">${esc(r.name_zh)} <span class="popup-tag" style="background:${r.color}">路线</span></div>
+      ${r.name_latin ? `<div class="popup-latin">${esc(r.name_latin)}</div>` : ''}
+      ${r.year_label ? `<div class="popup-region">${esc(r.year_label)}</div>` : ''}
+      <p class="popup-note">${esc(r.note)}</p>
+    </div>`, { maxWidth: 300 });
+    routePolylines[r.id] = line;
+  }
+  applyRouteVisibility();
+}
+
+function renderList() {
+  const box = document.getElementById('placeList');
+  const list = visiblePlaces();
+  if (!list.length) {
+    box.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:13px">没有符合条件的地名。</div>';
+    return;
+  }
+  box.innerHTML = list.map(p =>
+    `<button class="place-item${p.id === selectedId ? ' selected' : ''}" data-id="${esc(p.id)}">
+       <span class="dot" style="background:${colorFor(p.type)}"></span>
+       <span class="zh">${esc(p.name_zh)}</span>
+       <span class="la">${esc(p.name_latin)}</span>
+       <span class="t">${esc(p.type)}</span>
+     </button>`).join('');
+  box.querySelectorAll('.place-item').forEach(btn => {
+    btn.addEventListener('click', () => selectPlace(btn.dataset.id, true));
+  });
+}
+
+function updateCount() {
+  const shown = visiblePlaces().length;
+  const total = places.length;
+  document.getElementById('countText').textContent = `共 ${total} 个地名 · 当前显示 ${shown} 个`;
+}
+
+function applyFilters() {
+  for (const [id, m] of Object.entries(markers)) {
+    const p = byId(id);
+    const on = regionEnabled[p.region] !== false &&
+      (activeType === '全部' || p.type === activeType) &&
+      (!searchQuery.trim() || [p.name_zh, p.name_latin, p.name_en, p.name_modern].concat(p.alias || []).some(f => String(f).toLowerCase().includes(searchQuery.trim().toLowerCase())));
+    if (on) { if (!map.hasLayer(m)) markerLayer.addLayer(m); }
+    else { if (map.hasLayer(m)) markerLayer.removeLayer(m); }
+  }
+  renderList();
+  updateCount();
+}
+
+function byId(id) { return places.find(p => p.id === id); }
+
+function selectPlace(id, fly) {
+  const p = byId(id);
+  if (!p) return;
+  
+  // Auto-enable place's region if not enabled
+  if (!regionEnabled[p.region]) {
+    regionEnabled[p.region] = true;
+    renderRegions();
+    applyFilters();
+  }
+
+  if (selectedId) {
+    const prev = markers[selectedId];
+    if (prev) prev.setIcon(makeIcon(byId(selectedId), false));
+  }
+  selectedId = id;
+  const m = markers[id];
+  if (m) {
+    if (!map.hasLayer(m)) markerLayer.addLayer(m);
+    m.setIcon(makeIcon(p, true));
+    if (fly) {
+      map.flyTo([p.lat, p.lon], Math.max(map.getZoom(), 7), { duration: 0.9 });
+      setTimeout(() => m.openPopup(), 600);
+    }
+    m.setZIndexOffset(10000);
+  }
+  history.replaceState(null, '', '#place=' + id);
+  renderList();
+  // keep the selected row visible in the list
+  const row = document.querySelector(`.place-item[data-id="${id}"]`);
+  if (row) row.scrollIntoView({ block: 'nearest' });
+}
+
+function createMarkers() {
+  markerLayer = L.layerGroup().addTo(map);
+  for (const p of places) {
+    const m = L.marker([p.lat, p.lon], { icon: makeIcon(p, false), title: p.name_zh })
+      .bindPopup(popupHTML(p), { maxWidth: 300 });
+    m.on('click', () => selectPlace(p.id, false));
+    markers[p.id] = m;
+  }
+  applyFilters();
+}
+
+function rebuildTheme() {
+  document.documentElement.dataset.theme = theme;
+  document.getElementById('themeToggle').textContent = theme === 'dark' ? '☀️ 亮色模式' : '🌙 深色模式';
+  const tiles = tileLayers[theme];
+  if (map) { tiles.addTo(map); tileLayers[theme === 'dark' ? 'light' : 'dark'].remove(); }
+  renderLegend();
+  renderList();
+  for (const [id, m] of Object.entries(markers)) m.setIcon(makeIcon(byId(id), id === selectedId));
+  try { localStorage.setItem('roman-theme', theme); } catch (e) {}
+}
+
+async function init() {
+  const res = await fetch('places.json');
+  if (!res.ok) throw new Error('无法加载 places.json —— 请用本地服务器打开（python3 -m http.server）');
+  places = await res.json();
+  try {
+    const rr = await fetch('routes.json');
+    if (rr.ok) routes.push(...(await rr.json()));
+  } catch (e) { /* 旧部署可能没有 routes.json */ }
+  try {
+    const bb = await fetch('battles.json');
+    if (bb.ok) routes.push(...(await bb.json()).map(b => ({ ...b, type: 'battle' })));
+  } catch (e) { /* 旧部署可能没有 battles.json */ }
+
+  // theme init
+  theme = 'light';
+  try { const saved = localStorage.getItem('roman-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch (e) {}
+  document.documentElement.dataset.theme = theme;
+
+  const lightTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
+  const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
+  tileLayers.light = lightTiles;
+  tileLayers.dark = darkTiles;
+
+  map = L.map('map', {
+    center: [36, 15], zoom: 4, minZoom: 2, zoomControl: true,
+    layers: [theme === 'dark' ? darkTiles : lightTiles]
+  });
+
+  // type select
+  const sel = document.getElementById('typeSelect');
+  sel.innerHTML = '<option value="全部">全部类型</option>' + TYPE_ORDER.map(t => `<option>${t}</option>`).join('');
+  sel.addEventListener('change', () => { activeType = sel.value; applyFilters(); });
+
+  document.getElementById('search').addEventListener('input', e => {
+    searchQuery = e.target.value;
+    document.getElementById('clearSearch').hidden = !searchQuery;
+    applyFilters();
+  });
+  document.getElementById('clearSearch').addEventListener('click', () => {
+    const input = document.getElementById('search');
+    input.value = ''; searchQuery = '';
+    document.getElementById('clearSearch').hidden = true;
+    applyFilters(); input.focus();
+  });
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    searchQuery = ''; activeType = '全部';
+    const input = document.getElementById('search');
+    input.value = ''; document.getElementById('clearSearch').hidden = true;
+    sel.value = '全部';
+    Object.keys(regionEnabled).forEach(r => regionEnabled[r] = true);
+    document.querySelectorAll('.region-head[data-region]').forEach(b => {
+      b.classList.add('on'); b.setAttribute('aria-pressed', 'true');
+      b.querySelector('.region-check').textContent = '✓';
+    });
+    applyFilters();
+  });
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    rebuildTheme();
+  });
+
+  createMarkers();
+  createRoutes();
+  renderRegions();
+  renderRoutes();
+  renderLegend();
+  updateCount();
+  rebuildTheme();
+
+  // deep link: #place=id
+  try {
+    const m = /[?&]place=([^&]+)/.test(location.hash) ? location.hash.match(/place=([^&]+)/)[1]
+      : new URLSearchParams(location.search).get('place');
+    if (m && byId(m)) {
+      selectPlace(m, true);
+      map.setView([byId(m).lat, byId(m).lon], 7);
+    }
+  } catch (e) {
+    console.error('深链处理失败:', e);
+  }
+}
+
+init().catch(err => {
+  document.getElementById('map').outerHTML =
+    `<div style="padding:40px;font-family:system-ui,sans-serif;color:#52514e">${esc(err.message)}</div>`;
+  console.error(err);
+});
+</script>
+</body>
+</html>

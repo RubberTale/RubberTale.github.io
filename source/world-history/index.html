@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东西方文明对照地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7;
+    --panel: #fcfcfb;
+    --panel-2: #f2f1ec;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --muted: #898781;
+    --hair: #e1e0d9;
+    --hair-2: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --accent: #2a78d6;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --panel: #1a1a19;
+    --panel-2: #242421;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --hair: #2c2c2a;
+    --hair-2: #383835;
+    --border: rgba(255,255,255,0.10);
+    --accent: #5ba3e8;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 10px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    z-index: 500;
+    flex-wrap: wrap;
+  }
+  header h1 { font-size: 17px; margin: 0; letter-spacing: .02em; }
+  header .sub { color: var(--ink-2); font-size: 12.5px; }
+  .spacer { flex: 1; }
+  .btn {
+    appearance: none; border: 1px solid var(--hair-2); background: var(--panel);
+    color: var(--ink); border-radius: 8px; padding: 6px 12px; cursor: pointer;
+    font-size: 13px; font-family: inherit;
+  }
+  .btn:hover { background: var(--panel-2); }
+  #themeToggle { white-space: nowrap; }
+  .layout { flex: 1; display: flex; min-height: 0; }
+  aside {
+    width: 360px; max-width: 42%; min-width: 260px;
+    display: flex; flex-direction: column;
+    border-right: 1px solid var(--border); background: var(--panel);
+  }
+  .now-bar {
+    padding: 10px 14px; border-bottom: 1px solid var(--hair);
+    display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center;
+  }
+  .nb-year { font-weight: 700; font-size: 15px; }
+  .nb-col { font-size: 12.5px; color: var(--ink-2); }
+  .nb-col b {
+    display: inline-block; margin-right: 6px; font-weight: 700; font-size: 11px;
+    padding: 1px 6px; border-radius: 4px; color: #fff;
+  }
+  .nb-west b { background: #e34948; }
+  .nb-east b { background: #2a78d6; }
+  .nb-meet b { background: #e0a418; color: #5a3d00; }
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    padding: 8px 14px 10px;
+  }
+  .toolbar .btn { flex: 1; }
+  .node-nav { display: flex; gap: 8px; flex-basis: 100%; }
+  .node-nav .btn { flex: 1; }
+  .topic-bar {
+    display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
+    padding: 0 14px 8px;
+  }
+  .topic-label { font-size: 11px; color: var(--muted); margin-right: 2px; white-space: nowrap; }
+  .topic-chip {
+    appearance: none; border: 1px solid var(--hair-2); background: var(--panel);
+    color: var(--ink-2); border-radius: 20px; padding: 2px 9px; cursor: pointer;
+    font-size: 11px; font-family: inherit; white-space: nowrap;
+  }
+  .topic-chip:hover { border-color: var(--accent); color: var(--ink); }
+  .topic-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .search-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 14px 6px; position: relative;
+  }
+  .search-input {
+    flex: 1; appearance: none; border: 1px solid var(--hair-2); background: var(--panel-2);
+    color: var(--ink); border-radius: 8px; padding: 6px 9px; font-size: 13px;
+    font-family: inherit; outline: none;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--muted); }
+  .search-clear {
+    appearance: none; border: none; background: none; color: var(--muted);
+    font-size: 15px; cursor: pointer; padding: 2px; line-height: 1; flex-shrink: 0;
+  }
+  .search-clear:hover { color: var(--ink); }
+  .search-hint { color: var(--muted); font-size: 11px; padding: 0 14px 6px; }
+  .search-results { border-top: 1px solid var(--hair); }
+  #countText { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .event-list { flex: 1; overflow-y: auto; border-top: 1px solid var(--hair); }
+  .ev-item {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 7px 14px; border: none; background: none; cursor: pointer;
+    font-size: 13px; color: var(--ink); font-family: inherit; text-align: left;
+  }
+  .ev-item:hover { background: var(--panel-2); }
+  .ev-item.selected { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    box-shadow: 0 0 0 1.5px rgba(0,0,0,.2);
+  }
+  .ev-year { color: var(--muted); font-size: 11.5px; flex-shrink: 0; width: 92px; font-variant-numeric: tabular-nums; }
+  .ev-title { font-weight: 600; }
+  .ev-imp { margin-left: auto; color: var(--muted); font-size: 11px; flex-shrink: 0; }
+  .empty { padding: 14px; color: var(--muted); font-size: 13px; }
+  main { flex: 1; position: relative; min-width: 0; }
+  #map { position: absolute; inset: 0; }
+  .legend {
+    position: absolute; left: 12px; top: 12px; z-index: 400;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 12px; font-size: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  }
+  .legend h4 { margin: 0 0 6px; font-size: 11.5px; color: var(--ink-2); font-weight: 600; letter-spacing: .04em; }
+  .legend ul { list-style: none; margin: 0; padding: 0; }
+  .legend li { display: flex; align-items: center; gap: 6px; color: var(--ink-2); margin: 3px 0; }
+  .lg {
+    width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 9.5px; font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.25);
+  }
+  .timeline {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 400;
+    background: var(--panel); border-top: 1px solid var(--border);
+    padding: 10px 16px 10px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,.08);
+  }
+  .timeline-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; gap: 10px; }
+  #yearLabel { font-weight: 700; font-size: 14px; white-space: nowrap; }
+  .tl-btn {
+    appearance: none; border: 1px solid var(--hair-2); background: var(--panel-2);
+    color: var(--ink); border-radius: 7px; padding: 3px 10px; cursor: pointer;
+    font-size: 12px; font-family: inherit; white-space: nowrap;
+  }
+  .tl-btn:hover { background: var(--hair); }
+  .tl-btn:disabled { opacity: .4; cursor: default; }
+  .timeline input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); cursor: pointer; }
+  .timeline-scale {
+    display: flex; justify-content: space-between; color: var(--muted);
+    font-size: 11px; margin-top: 2px;
+  }
+  .popup-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .popup-tag {
+    font-size: 11px; font-weight: 600; color: #fff; border-radius: 5px;
+    padding: 1px 7px;
+  }
+  .popup-region { color: var(--muted); font-size: 12px; margin-top: 1px; }
+  .popup-note { font-size: 12.5px; line-height: 1.55; color: var(--ink-2); margin: 8px 0; }
+  .popup-links { display: flex; gap: 14px; border-top: 1px solid var(--hair); padding-top: 7px; }
+  .popup-links a { font-size: 12px; color: var(--accent); text-decoration: none; }
+  .popup-links a:hover { text-decoration: underline; }
+  .leaflet-container { font-family: inherit; background: #dbe3e6; }
+  .leaflet-popup-content-wrapper { border-radius: 10px; }
+  :root[data-theme="dark"] .leaflet-popup-content-wrapper,
+  :root[data-theme="dark"] .leaflet-popup-tip { background: #1a1a19; color: #fff; }
+  :root[data-theme="dark"] .leaflet-popup-content-wrapper a { color: #5ba3e8; }
+  .pin {
+    --c: #2a78d6;
+    width: 21px; height: 21px; border-radius: 50%;
+    background-color: var(--c);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 11px; font-weight: 600; line-height: 1;
+    box-shadow: 0 0 0 1.5px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.4);
+    transition: transform .12s ease;
+  }
+  .pin.selected {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c), 0 1px 4px rgba(0,0,0,.45);
+  }
+  .toolbar #routeBtn, .toolbar #prehistoryBtn, .toolbar #territoryBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
+  .terr-sq {
+    width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.3);
+  }
+  .wp-label {
+    text-align: center; font-size: 11px; font-weight: 600; color: var(--ink);
+    line-height: 1.2; text-shadow: 0 1px 2px rgba(255,255,255,.8);
+  }
+  .wp-date { font-size: 10px; color: var(--muted); font-weight: 500; }
+  .route-arrow {
+    display: block; width: 14px; height: 14px;
+    font-size: 13px; line-height: 1; text-align: center;
+    text-shadow: 0 0 2px rgba(255,255,255,.85), 0 0 2px rgba(255,255,255,.85);
+  }
+  :root[data-theme="dark"] .wp-label { text-shadow: 0 1px 2px rgba(0,0,0,.85); }
+  .terr-label {
+    font-size: 14px; font-weight: 700; color: var(--c, var(--ink));
+    text-shadow: 0 1px 2px rgba(255,255,255,.9), 0 0 3px rgba(255,255,255,.9);
+    background: rgba(255,255,255,.55); border: 1px solid var(--c, var(--ink));
+    border-radius: 6px; padding: 1px 8px; line-height: 1.3; text-align: center;
+    white-space: nowrap;
+  }
+  :root[data-theme="dark"] .terr-label { text-shadow: 0 1px 3px rgba(0,0,0,.9); background: rgba(0,0,0,.45); }
+  .rt-list { border-top: 1px solid var(--hair); margin-top: 8px; padding-top: 6px; }
+  .rt-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); padding: 2px 0; }
+  .rt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  @media (max-width: 820px) {
+    .layout { flex-direction: column; }
+    aside { width: 100%; max-width: none; min-width: 0; border-right: none; border-bottom: 1px solid var(--border); max-height: 46%; }
+    main { min-height: 54%; }
+    .legend { display: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>东西方文明对照地图</h1>
+  <span class="sub">同一时刻，地中海与东亚各自发生了什么</span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-04 21:07:00 (CST)</span></span>
+  <div class="spacer"></div>
+  <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
+</header>
+<div class="layout">
+  <aside>
+    <div id="nowBar" class="now-bar"></div>
+    <div class="toolbar">
+      <button id="routeBtn" class="btn" type="button" title="南宋末帝南逃路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
+      <button id="prehistoryBtn" class="btn" type="button" title="史前人类遗址：固定标注，不随时间轴变化">史前遗址 · 显示</button>
+      <button id="territoryBtn" class="btn" type="button" title="五代十国疆域：随时间轴显示当时存在的政权（示意）">疆域 · 显示</button>
+      <div class="node-nav">
+        <button id="prevBtn" class="btn" type="button">◀ 上一节点</button>
+        <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
+      </div>
+    </div>
+    <div class="search-bar">
+      <input id="searchInput" class="search-input" type="text" placeholder="🔍 搜索事件：输入标题 / 地点 / 时代 / 人名 …" autocomplete="off">
+      <button id="searchClear" class="search-clear" type="button" title="清空搜索" style="display:none">✕</button>
+    </div>
+    <div id="searchHint" class="search-hint" style="display:none"></div>
+    <div id="topicBar" class="topic-bar" title="专题过滤：可多选（并集），不选则显示全部事件"></div>
+    <div id="countText" style="padding:0 14px 6px;"></div>
+    <div id="eventList" class="event-list"></div>
+  </aside>
+  <main>
+    <div id="map"></div>
+    <div class="legend">
+      <h4>图例</h4>
+      <ul>
+        <li><span class="lg" style="background:#e34948">西</span>西方（罗马 / 地中海）</li>
+        <li><span class="lg" style="background:#2a78d6">东</span>东方（中国 / 东亚）</li>
+        <li><span class="lg" style="background:#e0a418">遇</span>东西相遇</li>
+        <li><span class="lg" style="background:#8d6e63">人</span>史前人类遗址（不随年代轴）</li>
+        <li><span class="terr-sq" style="background:#c99700"></span>大宋疆域（示意，960—1126 随时代迁移变化）</li>
+        <li><span class="terr-sq" style="background:#7d3c98"></span>五代十国疆域（示意，907—979 年间随滑块显隐，979 后为大宋统一）</li>
+      </ul>
+    </div>
+    <div class="timeline">
+      <div class="timeline-top">
+        <button id="prevBtn2" class="tl-btn" type="button">◀</button>
+        <span id="yearLabel"></span>
+        <button id="nextBtn2" class="tl-btn" type="button">▶</button>
+      </div>
+      <input id="yearSlider" type="range" min="0" max="3119" step="1" value="1055">
+      <div class="timeline-scale">
+        <span id="minLabel"></span>
+        <span>前1046 牧野 ↔ 前221 秦统一 ↔ 476 西罗马灭亡 ↔ 1911 辛亥 ↔ 1934 长征 ↔ 1945 胜利</span>
+        <span id="maxLabel"></span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+'use strict';
+const SIDE_INFO = {
+  west:  { label: '西方', glyph: '西', light: '#e34948', dark: '#d65757' },
+  east:  { label: '东方', glyph: '东', light: '#2a78d6', dark: '#3f8fd9' },
+  meet:  { label: '相遇', glyph: '遇', light: '#e0a418', dark: '#e8b33e' }
+};
+const YEAR_WINDOW = 15;     // 1934 年前的可见窗口（单位：年）
+const MONTH_WINDOW = 24;    // 1934 年起按月的可见窗口（单位：月，约 2 年）
+const MONTH_MODE_YEAR = 1934; // 自此年份起，时间颗粒度切换为月份
+let MIN_YEAR = -1046;
+let MAX_YEAR = 1945;
+let YEAR_UNITS = MONTH_MODE_YEAR - MIN_YEAR;
+
+let events = [];
+let routes = [];
+let territories = [];
+let map = null;
+let eventLayer = null;
+let routeLayer = null;
+let routeLabels = [];
+let terrLayer = null;
+let terrLabels = [];
+let territoryVisible = true;
+const TOPICS = ['AI', '罗马', '战争', '科技', '政治', '宗教', '中外交流', '人物', '影星'];
+const activeTopics = new Set();
+const eventMarkers = {};
+let cur = { y: 9, m: 1 };
+let selectedId = null;
+let theme = 'light';
+let routeForced = null; // null=自动(随滑块) / true=强制显示 / false=强制隐藏
+const LABEL_MIN_ZOOM = 5; // 路线站点标签在低于此缩放时隐藏，避免重叠
+const TERR_LABEL_MIN_ZOOM = 3; // 疆域政权标注（如"大宋"）在低于此缩放时隐藏
+const tileLayers = {};
+
+function updateURLState() {
+  if (!map) return;
+  const params = new URLSearchParams(window.location.search);
+  params.set('year', cur.y);
+  if (cur.m > 1) params.set('month', cur.m); else params.delete('month');
+
+  const center = map.getCenter();
+  params.set('lat', center.lat.toFixed(2));
+  params.set('lng', center.lng.toFixed(2));
+  params.set('zoom', map.getZoom());
+
+  if (selectedId) {
+    params.set('event', selectedId);
+  } else {
+    params.delete('event');
+  }
+  const newSearch = '?' + params.toString();
+  if (window.location.search !== newSearch) {
+    window.history.replaceState(null, '', window.location.pathname + newSearch);
+  }
+}
+
+function loadURLState() {
+  const params = new URLSearchParams(window.location.search);
+  const yStr = params.get('year');
+  if (yStr !== null) {
+    const y = parseInt(yStr, 10);
+    const m = parseInt(params.get('month') || '1', 10);
+    if (!isNaN(y)) cur = { y, m };
+  }
+  const lat = parseFloat(params.get('lat'));
+  const lng = parseFloat(params.get('lng'));
+  const zoom = parseInt(params.get('zoom'), 10);
+  let mapSet = false;
+  if (!isNaN(lat) && !isNaN(lng) && !isNaN(zoom)) {
+    map.setView([lat, lng], zoom);
+    mapSet = true;
+  }
+  const evt = params.get('event');
+  if (evt) {
+    selectedId = evt;
+  }
+  return { mapSet, selectedEventId: evt };
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fmtTime(y, m) {
+  return (y < 0 ? `前 ${-y}` : `公元 ${y}`) + ' 年' + (m > 1 ? ' ' + m + ' 月' : '');
+}
+function fmtYear(y) { return fmtTime(y, 1); }
+function sideColor(side) { const s = SIDE_INFO[side] || SIDE_INFO.east; return s[theme]; }
+function sideGlyph(side) { return (SIDE_INFO[side] || SIDE_INFO.east).glyph; }
+function tOfEvent(e) { return { y: e.year, m: e.month || 1 }; }
+function tOfEventEnd(e) {
+  if (e.year_end == null) return null;
+  return { y: e.year_end, m: e.month_end || 12 };
+}
+function fmtRange(e) {
+  const end = tOfEventEnd(e);
+  if (!end) return fmtTime(e.year, e.month || 1);
+  const sy = e.year, ey = end.y;
+  if (!e.month_end) {
+    if (sy < 0 && ey < 0) return `前 ${-sy}—${-ey} 年`;
+    if (sy < 0) return `前 ${-sy} 年—公元 ${ey} 年`;
+    return `公元 ${sy}—${ey} 年`;
+  }
+  return `${fmtTime(sy, e.month || 1)} — ${fmtTime(ey, end.m)}`;
+}
+function absOf(t) { return t.y * 12 + (t.m - 1); }
+function sliderToTime(v) {
+  if (v < YEAR_UNITS) return { y: MIN_YEAR + v, m: 1 };
+  const k = v - YEAR_UNITS;
+  return { y: MONTH_MODE_YEAR + Math.floor(k / 12), m: (k % 12) + 1 };
+}
+function timeToSlider(t) {
+  if (t.y < MONTH_MODE_YEAR) return t.y - MIN_YEAR;
+  return YEAR_UNITS + (t.y - MONTH_MODE_YEAR) * 12 + (t.m - 1);
+}
+function inWindow(e, t) {
+  const et = tOfEvent(e);
+  const end = tOfEventEnd(e);
+  if (end) {
+    // 持续事件：滑块滑入 [起,止] 区间内即显示；不做 ±窗口外扩，避免长期事件常驻刷屏
+    if (t.y < MONTH_MODE_YEAR) return t.y >= et.y && t.y <= end.y;
+    return absOf(t) >= absOf(et) && absOf(t) <= absOf(end);
+  }
+  if (t.y < MONTH_MODE_YEAR) return Math.abs(et.y - t.y) <= YEAR_WINDOW;
+  return Math.abs(absOf(et) - absOf(t)) <= MONTH_WINDOW;
+}
+
+function makeEventIcon(e) {
+  const size = {1: 18, 2: 24, 3: 30}[e.imp] || 24;
+  const c = sideColor(e.side);
+  return L.divIcon({
+    className: '',
+    html: `<span class="pin" style="--c:${c};width:${size}px;height:${size}px;font-size:${Math.round(size * 0.46)}px">${sideGlyph(e.side)}</span>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -size / 2]
+  });
+}
+
+function eventPopupHTML(e) {
+  const c = sideColor(e.side);
+  const tag = SIDE_INFO[e.side] ? SIDE_INFO[e.side].label : '事件';
+  return `<div class="popup">
+    <div class="popup-title">${esc(e.title)} <span class="popup-tag" style="background:${c}">${tag}</span></div>
+    <div class="popup-region">${fmtRange(e)} · ${esc(e.era)}</div>
+    <p class="popup-note">${esc(e.note)}</p>
+    <div class="popup-links">
+      <a href="https://www.google.com/maps?q=${e.lat},${e.lon}" target="_blank" rel="noopener">Google Maps ↗</a>
+      <a href="https://www.openstreetmap.org/?mlat=${e.lat}&mlon=${e.lon}#map=8/${e.lat}/${e.lon}" target="_blank" rel="noopener">OpenStreetMap ↗</a>
+    </div>
+  </div>`;
+}
+
+function routeVisible(r) {
+  if (routeForced !== null) return routeForced;
+  return cur.y >= r.year_start - 3 && cur.y <= r.year_end + 3;
+}
+function routeTimelineHTML(r) {
+  return r.waypoints.map(w =>
+    `<div class="rt-item"><span class="rt-dot" style="background:${r.color}"></span>${esc(w.date_short)} · ${esc(w.name)}</div>`).join('');
+}
+function routeLinePopupHTML(r) {
+  return `<div class="popup">
+    <div class="popup-title">${esc(r.name_zh)} <span class="popup-tag" style="background:${r.color}">路线</span></div>
+    <div class="popup-region">${esc(r.year_label)}</div>
+    <p class="popup-note">${esc(r.note)}</p>
+    <div class="rt-list">${routeTimelineHTML(r)}</div>
+    <div class="popup-links">
+      <a href="https://www.google.com/maps/dir/${r.waypoints.map(w => w.pos[0] + ',' + w.pos[1]).join('/')}" target="_blank" rel="noopener">Google Maps 路线 ↗</a>
+    </div>
+  </div>`;
+}
+function waypointPopupHTML(r, w) {
+  return `<div class="popup">
+    <div class="popup-title">${esc(w.name)}</div>
+    <div class="popup-region">${esc(r.name_zh)} · ${esc(w.date)}</div>
+    <div class="popup-links">
+      <a href="https://www.google.com/maps?q=${w.pos[0]},${w.pos[1]}" target="_blank" rel="noopener">Google Maps ↗</a>
+      <a href="https://www.openstreetmap.org/?mlat=${w.pos[0]}&mlon=${w.pos[1]}#map=10/${w.pos[0]}/${w.pos[1]}" target="_blank" rel="noopener">OpenStreetMap ↗</a>
+    </div>
+  </div>`;
+}
+// 对一条路线做经度"解包"（unwrap）：保持相邻经度差在 (-180,180] 内，
+// 使环球航线成为一条连续直线、随底图无限平铺延伸，不再在 ±180° 处回弹。
+function unwrapRoute(poly) {
+  const pts = [poly[0].slice()];
+  for (let i = 1; i < poly.length; i++) {
+    const [, lng1] = pts[i - 1];
+    const [lat2, lng2] = poly[i];
+    const diff = lng2 - lng1;
+    const unwrapped = lng2 - Math.round(diff / 360) * 360;
+    pts.push([lat2, unwrapped]);
+  }
+  return pts;
+}
+
+function renderRoutes() {
+  if (routeLayer) { map.removeLayer(routeLayer); routeLayer = null; }
+  routeLayer = L.layerGroup().addTo(map);
+  routeLabels = [];
+  for (const r of routes) {
+    if (!routeVisible(r)) continue;
+    // 经度解包为连续直线，随底图的世界平铺而无限延伸（跨日界线不再回弹）
+    const pts = unwrapRoute(r.waypoints.map(w => w.pos));
+    const line = L.polyline(pts, { color: r.color, weight: 3, opacity: 0.9, dashArray: '6 7' });
+    line.bindPopup(routeLinePopupHTML(r), { maxWidth: 320 });
+    routeLayer.addLayer(line);
+    // 方向箭头：r.arrows=true 时在每个航段中点沿航向加一个旋转箭头
+    if (r.arrows) {
+      for (let i = 0; i < r.waypoints.length - 1; i++) {
+        const [lat1, lng1] = r.waypoints[i].pos;
+        const [lat2, lng2] = r.waypoints[i + 1].pos;
+        // 用连续的“解包”经度计算航向，跨日界线时箭头方向才不会翻转
+        let lng2u = lng2;
+        if (lng1 - lng2 > 180) lng2u += 360;
+        else if (lng2 - lng1 > 180) lng2u -= 360;
+        const heading = Math.atan2(lng2u - lng1, lat2 - lat1) * 180 / Math.PI;
+        const midLng = ((lng1 + lng2u) / 2 + 540) % 360 - 180;  // 航段中点的经度（归一到 [−180,180]）
+        routeLayer.addLayer(L.marker([(lat1 + lat2) / 2, midLng], {
+          interactive: false,
+          icon: L.divIcon({
+            className: '',
+            html: `<span class="route-arrow" style="color:${r.color};transform:rotate(${heading - 90}deg)">➤</span>`,
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+          })
+        }));
+      }
+    }
+    r.waypoints.forEach(w => {
+      const cm = L.circleMarker(w.pos, { radius: 7, color: '#fff', weight: 2, fillColor: r.color, fillOpacity: 0.85 });
+      cm.bindPopup(waypointPopupHTML(r, w), { maxWidth: 280 });
+      routeLayer.addLayer(cm);
+      const lb = L.marker(w.pos, {
+        icon: L.divIcon({
+          className: '',
+          html: `<div class="wp-label">${esc(w.name)}<br><span class="wp-date">${esc(w.date_short)}</span></div>`,
+          iconSize: [100, 36],
+          iconAnchor: [50, 36],
+          popupAnchor: [0, -36]
+        })
+      });
+      lb.bindPopup(waypointPopupHTML(r, w), { maxWidth: 280 });
+      routeLabels.push(lb);
+    });
+  }
+  updateRouteLabels();
+  renderRouteToggle();
+}
+
+// 站点标签按缩放分级：缩小时只留线路与圆点，放大到一定级别才显示文字标签
+function updateRouteLabels() {
+  if (!routeLayer) return;
+  const show = map.getZoom() >= LABEL_MIN_ZOOM;
+  for (const lb of routeLabels) {
+    if (show) { if (!routeLayer.hasLayer(lb)) routeLayer.addLayer(lb); }
+    else { if (routeLayer.hasLayer(lb)) routeLayer.removeLayer(lb); }
+  }
+}
+function flyRoute(id) {
+  const r = routes.find(x => x.id === id);
+  if (!r) return;
+  map.flyToBounds(L.latLngBounds(r.waypoints.map(w => w.pos)), { padding: [50, 50], duration: 0.8 });
+}
+function renderRouteToggle() {
+  const b = document.getElementById('routeBtn');
+  if (!b) return;
+  b.textContent = routeForced === true ? '线路 · 显示' : routeForced === false ? '线路 · 隐藏' : '线路 · 自动';
+}
+
+// 史前人类遗址：独立固定图层，不随时间滑块变化（避免把滑块下沿拖到数百万年前）
+let prehistory = [];
+let prehistoryLayer = null;
+let prehistoryVisible = true;
+
+function prehistoryIcon(s) {
+  const size = { 1: 18, 2: 24, 3: 30 }[s.imp] || 24;
+  return L.divIcon({
+    className: '',
+    html: `<span class="pin" style="--c:#8d6e63;width:${size}px;height:${size}px;font-size:${Math.round(size * 0.46)}px">人</span>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -size / 2]
+  });
+}
+function prehistoryPopupHTML(s) {
+  return `<div class="popup">
+    <div class="popup-title">${esc(s.name)} <span class="popup-tag" style="background:#8d6e63">史前</span></div>
+    <div class="popup-region">${esc(s.date)}</div>
+    <p class="popup-note">${esc(s.note)}</p>
+    <div class="popup-links">
+      <a href="https://www.google.com/maps?q=${s.lat},${s.lon}" target="_blank" rel="noopener">Google Maps ↗</a>
+      <a href="https://www.openstreetmap.org/?mlat=${s.lat}&mlon=${s.lon}#map=10/${s.lat}/${s.lon}" target="_blank" rel="noopener">OpenStreetMap ↗</a>
+    </div>
+  </div>`;
+}
+function renderPrehistory() {
+  if (prehistoryLayer) { map.removeLayer(prehistoryLayer); prehistoryLayer = null; }
+  if (!prehistoryVisible) return;
+  prehistoryLayer = L.layerGroup().addTo(map);
+  for (const s of prehistory) {
+    const m = L.marker([s.lat, s.lon], { icon: prehistoryIcon(s), title: s.name })
+      .bindPopup(prehistoryPopupHTML(s), { maxWidth: 300 });
+    prehistoryLayer.addLayer(m);
+  }
+}
+function renderPrehistoryToggle() {
+  const b = document.getElementById('prehistoryBtn');
+  if (!b) return;
+  b.textContent = prehistoryVisible ? '史前遗址 · 显示' : '史前遗址 · 隐藏';
+}
+
+// 专题过滤：事件带 tags；无选中专题显示全部，选中后显示任一匹配（并集）
+function topicOK(e) {
+  if (activeTopics.size === 0) return true;
+  return (e.tags || []).some(t => activeTopics.has(t));
+}
+function buildTopicBar() {
+  const bar = document.getElementById('topicBar');
+  if (!bar) return;
+  bar.innerHTML = '<span class="topic-label">专题</span>' +
+    TOPICS.map(t => `<button type="button" class="topic-chip" data-topic="${t}">${t}</button>`).join('');
+  bar.addEventListener('click', ev => {
+    const chip = ev.target.closest('.topic-chip');
+    if (!chip) return;
+    const t = chip.dataset.topic;
+    if (activeTopics.has(t)) activeTopics.delete(t); else activeTopics.add(t);
+    chip.classList.toggle('active', activeTopics.has(t));
+    renderEvents();
+  });
+}
+
+// 五代十国疆域 + 北宋：多边形示意图层，按政权存续年份/阶段随滑块显隐
+function territoryPopupHTML(t, phase) {
+  const stage = (phase && phase !== t) ? ` · ${phase.year_start}—${phase.year_end} 阶段` : '';
+  return `<div class="popup">
+    <div class="popup-title">${esc(t.name)} <span class="popup-tag" style="background:${t.color}">疆域</span></div>
+    <div class="popup-region">公元 ${t.year_start}—${t.year_end} 年 · ${esc(t.kind)}${stage}</div>
+    <p class="popup-note">${esc((phase && phase.note) || t.note)}</p>
+  </div>`;
+}
+function activePhase(t) {
+  if (t.phases) return t.phases.find(p => cur.y >= p.year_start && cur.y <= p.year_end) || null;
+  return (cur.y >= t.year_start && cur.y <= t.year_end) ? t : null;
+}
+function renderTerritories() {
+  if (terrLayer) { map.removeLayer(terrLayer); terrLayer = null; }
+  terrLabels = [];
+  if (!territoryVisible) return;
+  const active = territories.map(t => [t, activePhase(t)]).filter(([, p]) => p);
+  if (!active.length) return;
+  terrLayer = L.layerGroup().addTo(map);
+  for (const [t, phase] of active) {
+    const opts = { color: t.color, weight: 1.4, opacity: 0.85, fillColor: t.color, fillOpacity: 0.16 };
+    const rings = phase.polygons || [phase.polygon];
+    for (const ring of rings) {
+      const poly = L.polygon(ring, opts);
+      poly.bindTooltip(t.name, { sticky: true });
+      poly.bindPopup(territoryPopupHTML(t, phase), { maxWidth: 300 });
+      terrLayer.addLayer(poly);
+    }
+    if (t.label_pos) {
+      const lb = L.marker(t.label_pos, {
+        interactive: false,
+        icon: L.divIcon({
+          className: '',
+          html: `<div class="terr-label" style="--c:${t.color}">${esc(t.name.split('（')[0])}</div>`,
+          iconSize: null
+        })
+      });
+      terrLayer.addLayer(lb);
+      terrLabels.push(lb);
+    }
+  }
+  updateTerritoryLabels();
+}
+// 政权标注按缩放分级：放大到 TERR_LABEL_MIN_ZOOM 才显示文字，避免低缩放文字过密
+function updateTerritoryLabels() {
+  if (!terrLayer) return;
+  const show = map.getZoom() >= TERR_LABEL_MIN_ZOOM;
+  for (const lb of terrLabels) {
+    if (show) { if (!terrLayer.hasLayer(lb)) terrLayer.addLayer(lb); }
+    else { if (terrLayer.hasLayer(lb)) terrLayer.removeLayer(lb); }
+  }
+}
+function renderTerritoryToggle() {
+  const b = document.getElementById('territoryBtn');
+  if (!b) return;
+  b.textContent = territoryVisible ? '疆域 · 显示' : '疆域 · 隐藏';
+}
+
+function nearestBySide(visible, side) {
+  const list = visible.filter(e => e.side === side);
+  if (!list.length) return null;
+  const cAbs = absOf(cur);
+  list.sort((a, b) =>
+    (Math.abs(absOf(tOfEvent(a)) - cAbs) - Math.abs(absOf(tOfEvent(b)) - cAbs)) ||
+    (absOf(tOfEvent(a)) - absOf(tOfEvent(b))));
+  return list[0];
+}
+
+function renderNowBar(visible) {
+  const west = nearestBySide(visible, 'west');
+  const east = nearestBySide(visible, 'east');
+  const meet = visible.find(e => e.side === 'meet');
+  const w = west ? `${fmtRange(west)} ${esc(west.title)}` : '——';
+  const e2 = east ? `${fmtRange(east)} ${esc(east.title)}` : '——';
+  document.getElementById('nowBar').innerHTML =
+    `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>
+     <span class="nb-col nb-west"><b>西方</b>${w}</span>
+     <span class="nb-col nb-east"><b>东方</b>${e2}</span>` +
+    (meet ? `<span class="nb-col nb-meet"><b>相遇</b>${fmtTime(meet.year, meet.month || 1)} ${esc(meet.title)}</span>` : '');
+}
+
+function renderList(visible) {
+  const box = document.getElementById('eventList');
+  const sorted = [...visible].sort((a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)));
+  const activeRoutes = routes.filter(r => routeVisible(r));
+  if (!sorted.length && !activeRoutes.length) {
+    const unit = cur.y < MONTH_MODE_YEAR ? `${YEAR_WINDOW} 年` : `${MONTH_WINDOW} 个月`;
+    box.innerHTML = activeTopics.size
+      ? `<div class="empty">该时段 ±${unit} 内没有符合所选专题（${[...activeTopics].join('+')}）的事件。<br>换个时段或取消专题。</div>`
+      : `<div class="empty">该时段 ±${unit} 内没有事件。<br>试试拖动下方时间轴。</div>`;
+    return;
+  }
+  const routeRows = activeRoutes.map(r => `
+    <button class="ev-item" data-route="${esc(r.id)}">
+      <span class="dot" style="background:${r.color}"></span>
+      <span class="ev-year">${esc(r.year_label)}</span>
+      <span class="ev-title">${esc(r.name_zh)}</span>
+      <span class="ev-imp">↦ 路线</span>
+    </button>`).join('');
+  box.innerHTML = routeRows + sorted.map(e => {
+    const c = sideColor(e.side);
+    return `<button class="ev-item" data-id="${esc(e.id)}">
+      <span class="dot" style="background:${c}"></span>
+      <span class="ev-year">${fmtRange(e)}</span>
+      <span class="ev-title">${esc(e.title)}</span>
+      <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
+    </button>`;
+  }).join('');
+  box.querySelectorAll('.ev-item[data-route]').forEach(btn => {
+    btn.addEventListener('click', () => flyRoute(btn.dataset.route));
+  });
+  box.querySelectorAll('.ev-item[data-id]').forEach(btn => {
+    btn.addEventListener('click', () => selectEvent(btn.dataset.id));
+  });
+}
+
+function renderEvents() {
+  renderTerritories();
+  if (eventLayer) { map.removeLayer(eventLayer); eventLayer = null; }
+  Object.keys(eventMarkers).forEach(k => delete eventMarkers[k]);
+  eventLayer = L.layerGroup().addTo(map);
+  const visible = events.filter(e => inWindow(e, cur) && topicOK(e));
+  for (const e of visible) {
+    const m = L.marker([e.lat, e.lon], { icon: makeEventIcon(e), title: `${fmtRange(e)} ${e.title}` })
+      .bindPopup(eventPopupHTML(e), { maxWidth: 300 });
+    m.on('click', () => selectEvent(e.id));
+    eventLayer.addLayer(m);
+    eventMarkers[e.id] = m;
+  }
+  renderNowBar(visible);
+  renderList(visible);
+  renderRoutes();
+  document.getElementById('yearLabel').textContent = fmtTime(cur.y, cur.m);
+  const filterNote = activeTopics.size ? `（专题：${[...activeTopics].join(' + ')}）` : '';
+  document.getElementById('countText').textContent = `当前时段显示 ${visible.length} / ${events.length} 个事件${filterNote}`;
+  updateNavButtons();
+}
+
+function selectEvent(id) {
+  selectedId = id;
+  const m = eventMarkers[id];
+  if (!m) return;
+  m.openPopup();
+  // 平移到事件位置时放大地图到一个带上下文的视野，便于看出它发生在世界的哪里。
+  // 用一个以事件为中心、约±半视野经度/纬度的边界框；若该事件时间窗内还有其他事件，
+  // 则把视野放宽到覆盖它们。
+  const e = events.find(x => x.id === id);
+  const vis = events.filter(x => x.id !== id && inWindow(x, cur) && topicOK(x));
+  let bounds;
+  if (e && vis.length) {
+    bounds = L.latLngBounds(vis.map(x => [x.lat, x.lon]));
+    bounds.extend([e.lat, e.lon]);
+  } else {
+    bounds = L.latLngBounds([[e.lat - 6, e.lon - 12], [e.lat + 6, e.lon + 12]]);
+  }
+  map.flyToBounds(bounds, { padding: [50, 50], maxZoom: 6, duration: 0.8 });
+  document.querySelectorAll('.ev-item').forEach(r => r.classList.toggle('selected', r.dataset.id === id));
+  updateURLState();
+}
+
+function nearestEventTime(dir) {
+  const cAbs = absOf(cur);
+  let best = null, bestDiff = Infinity;
+  for (const e of events) {
+    if (!topicOK(e)) continue;
+    const a = absOf(tOfEvent(e));
+    if (dir === 'prev' ? a >= cAbs : a <= cAbs) continue;
+    const d = Math.abs(a - cAbs);
+    if (d < bestDiff) { bestDiff = d; best = e; }
+  }
+  return best ? tOfEvent(best) : null;
+}
+
+// ===== 全局搜索 =====
+let searchResultsVisible = false;
+function searchMatch(e, q) {
+  if (!q) return false;
+  const fields = [e.title, e.era, e.note, e.lat, e.lon, e.side, (e.tags || []).join(' '), e.id].join(' ').toLowerCase();
+  return fields.includes(q);
+}
+function renderSearchResults(q) {
+  const box = document.getElementById('eventList');
+  const hint = document.getElementById('searchHint');
+  const clear = document.getElementById('searchClear');
+  searchResultsVisible = !!q;
+  clear.style.display = q ? 'inline-block' : 'none';
+  if (!q) {
+    hint.style.display = 'none';
+    renderEvents();
+    return;
+  }
+  const matched = events
+    .filter(e => searchMatch(e, q))
+    .sort((a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)));
+  hint.style.display = 'block';
+  hint.textContent = `搜索「${q}」：共 ${matched.length} 个匹配事件（跨时代）`;
+  if (!matched.length) {
+    box.innerHTML = `<div class="empty">没有匹配「${esc(q)}」的事件。<br>可尝试输入人名、朝代或关键词。</div>`;
+    return;
+  }
+  const matchedSides = new Set(matched.map(e => e.side));
+  for (const t of TOPICS) {
+    if (t.toLowerCase().includes(q) && !activeTopics.has(t)) activeTopics.add(t);
+  }
+  box.innerHTML = matched.map(e => {
+    const c = sideColor(e.side);
+    return `<button class="ev-item" data-id="${esc(e.id)}">
+      <span class="dot" style="background:${c}"></span>
+      <span class="ev-year">${fmtRange(e)}</span>
+      <span class="ev-title">${esc(e.title)}</span>
+      <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
+    </button>`;
+  }).join('');
+  box.querySelectorAll('.ev-item[data-id]').forEach(btn => {
+    btn.addEventListener('click', () => jumpToEvent(btn.dataset.id));
+  });
+}
+function jumpToEvent(id) {
+  const e = events.find(x => x.id === id);
+  if (!e) return;
+  cur = tOfEvent(e);
+  document.getElementById('yearSlider').value = timeToSlider(cur);
+  renderEvents();
+  selectEvent(id);
+}
+
+function step(dir) {
+  const t = nearestEventTime(dir);
+  if (!t) return;
+  cur = t;
+  document.getElementById('yearSlider').value = timeToSlider(cur);
+  renderEvents();
+  const vis = events.filter(e => inWindow(e, cur) && topicOK(e));
+  if (vis.length) {
+    map.flyToBounds(L.latLngBounds(vis.map(e => [e.lat, e.lon])), { padding: [48, 48], duration: 0.6 });
+  }
+}
+
+function updateNavButtons() {
+  const prev = nearestEventTime('prev');
+  const next = nearestEventTime('next');
+  [document.getElementById('prevBtn'), document.getElementById('prevBtn2')].forEach(b => b.disabled = prev == null);
+  [document.getElementById('nextBtn'), document.getElementById('nextBtn2')].forEach(b => b.disabled = next == null);
+}
+
+function rebuildTheme() {
+  document.documentElement.dataset.theme = theme;
+  document.getElementById('themeToggle').textContent = theme === 'dark' ? '☀️ 亮色模式' : '🌙 深色模式';
+  const tiles = tileLayers[theme];
+  if (map) { tiles.addTo(map); tileLayers[theme === 'dark' ? 'light' : 'dark'].remove(); }
+  for (const [id, m] of Object.entries(eventMarkers)) m.setIcon(makeEventIcon(events.find(e => e.id === id)));
+  renderList(events.filter(e => inWindow(e, cur)));
+}
+
+async function init() {
+  const res = await fetch('events.json');
+  if (!res.ok) throw new Error('无法加载 events.json —— 请用本地服务器打开（python3 -m http.server）');
+  events = await res.json();
+  try {
+    const rr = await fetch('routes.json');
+    if (rr.ok) routes = await rr.json();
+  } catch (e) { /* 旧部署可能没有 routes.json */ }
+  try {
+    const pr = await fetch('prehistory.json');
+    if (pr.ok) prehistory = await pr.json();
+  } catch (e) { /* 可选文件 */ }
+  try {
+    const tr = await fetch('territories.json');
+    if (tr.ok) territories = await tr.json();
+  } catch (e) { /* 旧部署可能没有 territories.json */ }
+
+  theme = 'light';
+  try { const saved = localStorage.getItem('wh-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch (e) {}
+  document.documentElement.dataset.theme = theme;
+
+  const lightTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
+  const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
+  tileLayers.light = lightTiles;
+  tileLayers.dark = darkTiles;
+
+  map = L.map('map', {
+    center: [35, 60], zoom: 2, minZoom: 2, maxZoom: 12, zoomControl: true,
+    worldCopyJump: true,
+    layers: [theme === 'dark' ? darkTiles : lightTiles]
+  });
+  map.on('zoomend', () => { updateRouteLabels(); updateTerritoryLabels(); });
+  map.on('moveend', () => { updateURLState(); });
+  window.__map = map;
+
+  MIN_YEAR = Math.min(...events.map(e => e.year));
+  MAX_YEAR = Math.max(...events.map(e => e.year));
+  YEAR_UNITS = MONTH_MODE_YEAR - MIN_YEAR;
+
+  const slider = document.getElementById('yearSlider');
+  slider.min = 0;
+  slider.max = timeToSlider(tOfEvent(events.reduce((a, b) => absOf(tOfEvent(b)) > absOf(tOfEvent(a)) ? b : a)));
+  slider.step = 1;
+  const maxT = sliderToTime(slider.max);
+  document.getElementById('minLabel').textContent = fmtTime(MIN_YEAR, 1);
+  document.getElementById('maxLabel').textContent = fmtTime(maxT.y, maxT.m);
+
+  cur = { y: 9, m: 1 }; // 初始对照点：条顿堡惨败 ↔ 王莽篡汉（同年）
+  const urlState = loadURLState();
+  slider.value = timeToSlider(cur);
+
+  const el = document.getElementById('yearSlider');
+  el.addEventListener('input', () => {
+    cur = sliderToTime(+el.value);
+    renderEvents();
+    updateURLState();
+  });
+
+  document.getElementById('prevBtn').addEventListener('click', () => step('prev'));
+  document.getElementById('nextBtn').addEventListener('click', () => step('next'));
+  document.getElementById('prevBtn2').addEventListener('click', () => step('prev'));
+  document.getElementById('nextBtn2').addEventListener('click', () => step('next'));
+  document.getElementById('routeBtn').addEventListener('click', () => {
+    routeForced = routeForced === null ? true : (routeForced === true ? false : null);
+    renderEvents();
+    updateURLState();
+  });
+  document.getElementById('prehistoryBtn').addEventListener('click', () => {
+    prehistoryVisible = !prehistoryVisible;
+    renderPrehistory();
+    renderPrehistoryToggle();
+  });
+  document.getElementById('territoryBtn').addEventListener('click', () => {
+    territoryVisible = !territoryVisible;
+    renderTerritories();
+    renderTerritoryToggle();
+  });
+  buildTopicBar();
+
+  const searchInput = document.getElementById('searchInput');
+  const searchClear = document.getElementById('searchClear');
+  searchInput.addEventListener('input', () => renderSearchResults(searchInput.value.trim().toLowerCase()));
+  searchInput.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter') {
+      const q = searchInput.value.trim().toLowerCase();
+      const first = q && events.filter(e => searchMatch(e, q)).sort(
+        (a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)))[0];
+      if (first) jumpToEvent(first.id);
+    }
+  });
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    renderSearchResults('');
+    searchInput.focus();
+  });
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('wh-theme', theme); } catch (e) {}
+    rebuildTheme();
+  });
+
+  renderEvents();
+  renderPrehistory();
+  renderPrehistoryToggle();
+  renderTerritoryToggle();
+  if (urlState.selectedEventId && eventMarkers[urlState.selectedEventId]) {
+    selectEvent(urlState.selectedEventId);
+  } else if (!urlState.mapSet) {
+    map.fitBounds(L.latLngBounds(events.map(e => [e.lat, e.lon])), { padding: [40, 40] });
+  }
+  rebuildTheme();
+  updateURLState();
+}
+
+init().catch(err => {
+  document.getElementById('eventList').innerHTML = `<div class="empty">加载失败：${esc(err.message)}</div>`;
+});
+</script>
+</body>
+</html>
