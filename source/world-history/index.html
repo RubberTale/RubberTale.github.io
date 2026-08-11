@@ -247,7 +247,7 @@
 <header>
   <h1>东西方文明对照地图</h1>
   <span class="sub">同一时刻，地中海与东亚各自发生了什么</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-11 07:52:21 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-11 07:54:37 (CST)</span></span>
   <div class="spacer"></div>
   <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
 </header>
@@ -411,7 +411,8 @@ function fmtRange(e) {
     return `公元 ${sy}—${ey} 年`;
   }
   return `${fmtTime(sy, e.month || 1)} — ${fmtTime(ey, end.m)}`;
-}
+function absOf(t) { return t.y * 12 + (t.m - 1); }
+
 let timeMode = 'all'; // 'all' 全览模式 / 'century' 百年精细视图
 let activeCentury = 1000; // 选中的百年开始年份，例如 1000 表示 1000-1099 年 (11世纪)
 
