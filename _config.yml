@@ -125,5 +125,5 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:RubberTale/RubberTale.github.io.git
+  repo: git@github-rubbertale:RubberTale/RubberTale.github.io.git
   branch: master
