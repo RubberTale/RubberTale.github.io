@@ -63,6 +63,21 @@ top_img: false
   font-size: 12px;
   font-weight: 700;
 }
+.pbi-pv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: rgba(73, 177, 245, 0.12);
+  color: #49b1f5;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+[data-theme="dark"] .pbi-pv-badge {
+  background: rgba(73, 177, 245, 0.2);
+  color: #70c4ff;
+}
 .pbi-actions {
   display: flex;
   align-items: center;
@@ -147,6 +162,7 @@ top_img: false
     <div class="pbi-info">
       <span class="pbi-badge"><i class="fas fa-chart-bar"></i> 数据看板</span>
       <span>橡胶主要数据图表</span>
+      <span class="pbi-pv-badge"><i class="far fa-eye"></i> 浏览量: <span id="pbi-pageview-count"><i class="fas fa-spinner fa-spin"></i></span> 次</span>
     </div>
     <div class="pbi-actions">
       <button class="pbi-btn pbi-btn-outline" onclick="togglePBIFullscreen()" title="在当前页面全屏体验">
@@ -189,4 +205,39 @@ function togglePBIFullscreen() {
     }
   }
 }
+
+// 访问量统计与展示 (对接 Waline 服务端)
+(function initPBIViewCount() {
+  const serverURL = 'https://140.245.65.111.sslip.io';
+  const path = '/powerbi/';
+  const countEl = document.getElementById('pbi-pageview-count');
+  if (!countEl) return;
+
+  fetch(`${serverURL}/api/article`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: path, type: 'time' })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data && data.data && typeof data.data.time === 'number') {
+      countEl.textContent = data.data.time;
+    } else {
+      fetch(`${serverURL}/api/article?path=${encodeURIComponent(path)}`)
+        .then(r => r.json())
+        .then(d => {
+          countEl.textContent = (d && d.data && d.data[0] && typeof d.data[0].time === 'number') ? d.data[0].time : '1';
+        })
+        .catch(() => { countEl.textContent = '-'; });
+    }
+  })
+  .catch(() => {
+    fetch(`${serverURL}/api/article?path=${encodeURIComponent(path)}`)
+      .then(r => r.json())
+      .then(d => {
+        countEl.textContent = (d && d.data && d.data[0] && typeof d.data[0].time === 'number') ? d.data[0].time : '1';
+      })
+      .catch(() => { countEl.textContent = '-'; });
+  });
+})();
 </script>
