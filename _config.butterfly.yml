@@ -23,8 +23,8 @@ menu:
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
   图表: /charts/ || fas fa-chart-bar
-  PowerBI看板: /powerbi/ || fas fa-chart-pie
-  橡胶仪表盘: /rubber/ || fas fa-tachometer-alt
+  橡胶主要数据图表: /powerbi/ || fas fa-chart-pie
+  橡胶仪表盘测试面板: /rubber/ || fas fa-tachometer-alt
   罗马地图: /roman/ || fas fa-map-marked-alt
   世界史地图: /world-history/ || fas fa-globe-asia
   游戏: /games/ || fas fa-gamepad

@@ -1,5 +1,5 @@
 ---
-title: Power BI 看板
+title: 橡胶主要数据图表
 date: 2026-08-19 10:00:00
 aside: false
 comments: false
@@ -145,8 +145,8 @@ top_img: false
 <div class="pbi-dashboard-container">
   <div class="pbi-toolbar">
     <div class="pbi-info">
-      <span class="pbi-badge"><i class="fas fa-bolt"></i> Power BI</span>
-      <span>MySQL / 商品投研数据分析看板</span>
+      <span class="pbi-badge"><i class="fas fa-chart-bar"></i> 数据看板</span>
+      <span>橡胶主要数据图表</span>
     </div>
     <div class="pbi-actions">
       <button class="pbi-btn pbi-btn-outline" onclick="togglePBIFullscreen()" title="在当前页面全屏体验">
@@ -161,7 +161,7 @@ top_img: false
   <div class="pbi-iframe-wrapper" id="pbi-wrapper">
     <iframe 
       id="pbi-frame"
-      title="mysql-pbip-1" 
+      title="橡胶主要数据图表" 
       src="https://app.powerbi.com/view?r=eyJrIjoiNmFmNTIwYTUtODA3NC00ZmY1LTg0ZGMtZjk5MjA0YzAxYmZiIiwidCI6IjliZWYxZTc0LWZlM2MtNGUxNy1hZDM1LTZkYmRhZTgyZmQ5YiIsImMiOjEwfQ%3D%3D" 
       frameborder="0" 
       allowFullScreen="true">
