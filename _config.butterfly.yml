@@ -724,7 +724,7 @@ google_analytics:
 cloudflare_analytics:
 
 # https://clarity.microsoft.com/
-microsoft_clarity:
+microsoft_clarity: y4m29olp1v
 
 # https://umami.is/
 umami_analytics:
