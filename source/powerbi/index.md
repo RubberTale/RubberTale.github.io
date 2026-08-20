@@ -120,6 +120,49 @@ top_img: false
   border-color: #49b1f5;
   transform: translateY(-1px);
 }
+.pbi-notice-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(242, 200, 17, 0.12);
+  border-left: 4px solid #f2c811;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #856404;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+[data-theme="dark"] .pbi-notice-bar {
+  background: rgba(242, 200, 17, 0.1);
+  color: #e5b922;
+  border-left-color: #f2c811;
+}
+.pbi-notice-bar i {
+  color: #d4a000;
+  font-size: 15px;
+}
+[data-theme="dark"] .pbi-notice-bar i {
+  color: #f2c811;
+}
+.pbi-loading-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #888;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1;
+}
+.pbi-loading-placeholder i {
+  font-size: 32px;
+  color: #49b1f5;
+}
 .pbi-iframe-wrapper {
   position: relative;
   width: 100%;
@@ -136,6 +179,8 @@ top_img: false
   background: #141414;
 }
 .pbi-iframe-wrapper iframe {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
   border: none;
@@ -174,7 +219,16 @@ top_img: false
     </div>
   </div>
 
+  <div class="pbi-notice-bar">
+    <i class="fas fa-hourglass-half"></i>
+    <span><strong>提示：</strong>图表加载需要时间，请耐心等候。如果长时间未显示，可尝试点击右上角“新窗口独立打开”。</span>
+  </div>
+
   <div class="pbi-iframe-wrapper" id="pbi-wrapper">
+    <div class="pbi-loading-placeholder">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>加载需要时间，请耐心等候...</span>
+    </div>
     <iframe 
       id="pbi-frame"
       title="橡胶主要数据图表" 
