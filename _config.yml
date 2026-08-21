@@ -5,8 +5,8 @@
 # Site
 title: 橡胶童话
 subtitle: '探索期货交易的秘密'
-description: ''
-keywords:
+description: '橡胶童话——专注于天然橡胶、大宗商品期货、宏观经济分析与量化交易研究的深度智库博客。'
+keywords: '天然橡胶,橡胶期货,大宗商品,宏观分析,期货交易,量化研究,童长征'
 author: 童长征
 language: zh-CN
 timezone: asia/shanghai
@@ -121,6 +121,23 @@ ignore:
 
 # theme: landscape
 theme: butterfly
+
+# Sitemap & SEO
+sitemap:
+  path: sitemap.xml
+  rel: false
+  tags: true
+  categories: true
+
+baidusitemap:
+  path: baidusitemap.xml
+
+nofollow:
+  enable: true
+  field: site
+  exclude:
+    - 'RubberTale.github.io'
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
