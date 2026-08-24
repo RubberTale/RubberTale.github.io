@@ -60,6 +60,15 @@ aside: false
         <div class="flink-item-desc">经典美式八球对战，击球入袋，切磋球技。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/rubber/" title="期货仪表盘测试面板" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:layout-dashboard.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货仪表盘测试面板">
+        </div>
+        <div class="flink-item-name">期货仪表盘测试面板</div>
+        <div class="flink-item-desc">厄尔尼诺与天胶跟踪专题，多维市场决策与行情监测。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
