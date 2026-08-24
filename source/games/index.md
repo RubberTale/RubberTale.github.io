@@ -51,6 +51,15 @@ aside: false
         <div class="flink-item-desc">高杠杆商品期货模拟，在新闻波动中博弈。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/billiards/" title="黑八台球 · Eight Ball" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:circle-dot.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="黑八台球">
+        </div>
+        <div class="flink-item-name">黑八台球</div>
+        <div class="flink-item-desc">经典美式八球对战，击球入袋，切磋球技。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>

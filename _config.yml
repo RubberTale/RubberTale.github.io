@@ -36,6 +36,7 @@ skip_render:
   - "Prompts/**"
   - "games/commodity-crisis/**"
   - "games/reverse-app/**"
+  - "games/billiards/**"
   - "rubber/**"
   - "roman/**"
   - "world-history/**"
