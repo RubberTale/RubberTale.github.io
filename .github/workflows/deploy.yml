@@ -50,20 +50,12 @@ jobs:
           npm install
           npm run build
 
-      - name: 构建 Kline Duel 盲盒游戏
-        working-directory: ./kline-duel
-        run: |
-          npm install
-          npm run build
-
       - name: 将游戏移动到 public 目录
         run: |
           mkdir -p public/games/reverse-app
           mkdir -p public/games/commodity-crisis
-          mkdir -p public/games/kline-duel
           cp -r reverse-app/dist/* public/games/reverse-app/
           cp -r commodity-crisis/dist/* public/games/commodity-crisis/
-          cp -r kline-duel/dist/* public/games/kline-duel/
 
       - name: 上传构建产物
         uses: actions/upload-pages-artifact@v3
