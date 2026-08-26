@@ -34,6 +34,15 @@ aside: false
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/games/kline-duel/" title="K线盲盒 · 极速决斗" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:zap.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="K线盲盒 · 极速决斗">
+        </div>
+        <div class="flink-item-name">K线盲盒 · 极速决斗</div>
+        <div class="flink-item-desc">随机脱敏真实历史K线，30秒生死多空决斗，10秒极速翻牌验证盘感。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/games/reverse-app/" title="期货反转交易挑战" target="_blank">
         <div class="flink-item-icon">
           <img src="/img/avatar.png" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货反转交易挑战">
