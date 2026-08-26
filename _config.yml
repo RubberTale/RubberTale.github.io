@@ -35,6 +35,7 @@ skip_render:
   - "candlestick-analyzer/**"
   - "Prompts/**"
   - "games/commodity-crisis/**"
+  - "games/kline-duel/**"
   - "games/reverse-app/**"
   - "games/billiards/**"
   - "rubber/**"
