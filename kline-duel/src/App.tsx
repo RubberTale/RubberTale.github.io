@@ -1,11 +1,13 @@
 // App.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Swords, Sparkles, RefreshCw, Layers, Trophy, HelpCircle, AlertCircle } from 'lucide-react';
+import { Volume2, VolumeX, Swords, Sparkles, RefreshCw, Layers, Trophy, HelpCircle, AlertCircle, User, LogOut, ShieldCheck, Activity } from 'lucide-react';
 import { IntroPrologue } from './components/IntroPrologue';
 import { TradingChart, CandleData } from './components/TradingChart';
 import { HUD } from './components/HUD';
 import { TruthModal } from './components/TruthModal';
 import { FamousModal, FamousBattleItem } from './components/FamousModal';
+import { AuthModal } from './components/AuthModal';
+import { LeaderboardModal } from './components/LeaderboardModal';
 import { sounds } from './soundEngine';
 
 // Backend API URL
@@ -16,6 +18,19 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
 export function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
+
+  // User state
+  const [user, setUser] = useState<any>(() => {
+    const saved = localStorage.getItem('kline_duel_user');
+    return saved ? JSON.parse(saved) : null;
+  });
+  const [userToken, setUserToken] = useState<string | null>(() => {
+    return localStorage.getItem('kline_duel_token');
+  });
+
+  // Modals state
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const [isLeaderboardModalOpen, setIsLeaderboardModalOpen] = useState<boolean>(false);
 
   // Game data state
   const [gameId, setGameId] = useState<string>("");
@@ -77,7 +92,62 @@ export function App() {
         if (data.battles) setFamousBattles(data.battles);
       })
       .catch(err => console.warn("Failed to load famous battles:", err));
-  }, []);
+
+    // Sync cloud profile if user token exists
+    if (userToken) {
+      fetchUserProfile(userToken);
+    }
+  }, [userToken]);
+
+  const fetchUserProfile = async (token: string) => {
+    try {
+      const res = await fetch(`${API_BASE}/user/profile`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.id) {
+        setUser(data);
+        setStats({
+          totalRounds: data.total_rounds || 0,
+          wins: data.wins || 0,
+          totalProfitPct: data.total_profit_pct || 0.0,
+          maxStreak: data.max_streak || 0,
+          currentStreak: data.current_streak || 0,
+        });
+      }
+    } catch (e) {
+      console.warn("Failed to fetch user profile:", e);
+    }
+  };
+
+  const handleLoginSuccess = (userData: any, token: string) => {
+    setUser(userData);
+    setUserToken(token);
+    localStorage.setItem('kline_duel_user', JSON.stringify(userData));
+    localStorage.setItem('kline_duel_token', token);
+    setStats({
+      totalRounds: userData.total_rounds || 0,
+      wins: userData.wins || 0,
+      totalProfitPct: userData.total_profit_pct || 0.0,
+      maxStreak: userData.max_streak || 0,
+      currentStreak: userData.current_streak || 0,
+    });
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setUserToken(null);
+    localStorage.removeItem('kline_duel_user');
+    localStorage.removeItem('kline_duel_token');
+    setStats({
+      totalRounds: 0,
+      wins: 0,
+      totalProfitPct: 0.0,
+      maxStreak: 0,
+      currentStreak: 0,
+    });
+    sounds.playTerminalBeep(400, 0.1);
+  };
 
   // Fetch new blind box
   const fetchNewGame = async (famousId?: string) => {
@@ -107,7 +177,6 @@ export function App() {
       startCountdown();
     } catch (err) {
       console.error("Error drawing blind box:", err);
-      // Fallback mock if server unreachable
       alert("连接数据引擎失败，请检查网络！");
       setGameState('decision');
     }
@@ -138,11 +207,15 @@ export function App() {
 
     setGameState('playing');
 
-    // Request settlement & secret trajectory from backend
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (userToken) {
+      headers['Authorization'] = `Bearer ${userToken}`;
+    }
+
     try {
       const res = await fetch(`${API_BASE}/settle`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           game_id: gameId,
           action,
@@ -153,7 +226,18 @@ export function App() {
       setTruthResult(data);
       setSecretCandles(data.secret_candles || []);
 
-      // Start fast playback with configurable speed (default 180ms base)
+      // If backend auto recorded and returned updated stats, update directly
+      if (data.updated_user_stats) {
+        setStats({
+          totalRounds: data.updated_user_stats.total_rounds,
+          wins: data.updated_user_stats.wins,
+          totalProfitPct: data.updated_user_stats.total_profit_pct,
+          maxStreak: data.updated_user_stats.max_streak,
+          currentStreak: data.updated_user_stats.current_streak,
+        });
+      }
+
+      // Start fast playback with configurable speed
       startFastPlayback(data.secret_candles || [], data);
     } catch (err) {
       console.error("Settlement error:", err);
@@ -196,7 +280,6 @@ export function App() {
         }
 
         stepRef.current = step + 1;
-        // Base delay is 180ms (slowed down from original 100ms)
         const delay = Math.max(30, Math.round(180 / (speedRef.current || 1.0)));
         playbackTimerRef.current = setTimeout(stepTick, delay);
       } else {
@@ -214,18 +297,20 @@ export function App() {
     setGameState('revealed');
     setIsTruthModalOpen(true);
 
-    // Update stats
-    const isWin = settlementData.final_roi > 0 && !settlementData.liquidated;
-    setStats(prev => {
-      const newStreak = isWin ? prev.currentStreak + 1 : 0;
-      return {
-        totalRounds: prev.totalRounds + 1,
-        wins: prev.wins + (isWin ? 1 : 0),
-        totalProfitPct: Math.round((prev.totalProfitPct + settlementData.final_roi) * 10) / 10,
-        currentStreak: newStreak,
-        maxStreak: Math.max(prev.maxStreak, newStreak),
-      };
-    });
+    // Update guest stats locally if not logged in (logged in stats already synced from backend)
+    if (!user) {
+      const isWin = settlementData.final_roi > 0 && !settlementData.liquidated;
+      setStats(prev => {
+        const newStreak = isWin ? prev.currentStreak + 1 : 0;
+        return {
+          totalRounds: prev.totalRounds + 1,
+          wins: prev.wins + (isWin ? 1 : 0),
+          totalProfitPct: Math.round((prev.totalProfitPct + settlementData.final_roi) * 10) / 10,
+          currentStreak: newStreak,
+          maxStreak: Math.max(prev.maxStreak, newStreak),
+        };
+      });
+    }
   };
 
   // Emergency exit button during playback
@@ -249,6 +334,8 @@ export function App() {
       {/* Plan A: Cinematic Intro Sequence */}
       {showIntro && (
         <IntroPrologue
+          user={user}
+          onOpenAuth={() => setIsAuthModalOpen(true)}
           onComplete={() => {
             setShowIntro(false);
             fetchNewGame();
@@ -269,20 +356,44 @@ export function App() {
             </h1>
           </div>
 
+          {/* User Account / Guest Status Badge */}
+          {user ? (
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-mono">
+              <User size={13} className="text-emerald-400" />
+              <span className="font-bold">{user.username}</span>
+              <button
+                onClick={handleLogout}
+                className="ml-1 p-0.5 text-slate-400 hover:text-red-400 transition-colors cursor-pointer"
+                title="退出登录"
+              >
+                <LogOut size={12} />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 text-xs font-mono transition-all cursor-pointer shadow-sm hover:shadow-amber-500/20"
+              title="注册登录操盘账户，永久保存战绩"
+            >
+              <ShieldCheck size={13} className="text-amber-400" />
+              <span>⚡ 游客身份 · 点击存盘</span>
+            </button>
+          )}
+
           {activeFamousTitle ? (
-            <div className="hidden sm:flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded-lg bg-amber-950/60 border border-amber-500/40 text-amber-300">
+            <div className="hidden lg:flex items-center gap-1 text-xs font-mono px-2.5 py-1 rounded-lg bg-amber-950/60 border border-amber-500/40 text-amber-300">
               <Swords size={13} />
               <span>{activeFamousTitle}</span>
             </div>
           ) : (
-            <div className="hidden sm:flex items-center gap-1 text-xs font-mono text-slate-400 px-2 py-1 rounded bg-slate-900 border border-slate-800">
+            <div className="hidden lg:flex items-center gap-1 text-xs font-mono text-slate-400 px-2 py-1 rounded bg-slate-900 border border-slate-800">
               <span>{codeAlias}</span>
             </div>
           )}
         </div>
 
-        {/* Global Stats HUD */}
-        <div className="flex items-center gap-4 text-xs font-mono">
+        {/* Global Stats HUD & Actions */}
+        <div className="flex items-center gap-3 text-xs font-mono">
           <div className="hidden md:flex items-center gap-4 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
             <div>
               <span className="text-slate-400">总胜率: </span>
@@ -307,6 +418,15 @@ export function App() {
 
           {/* Action Tools */}
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsLeaderboardModalOpen(true)}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 hover:text-amber-200 transition-all cursor-pointer shadow-sm hover:shadow-amber-500/20"
+              title="查看全网英雄榜与交易战绩流水"
+            >
+              <Trophy size={14} className="text-amber-400" />
+              <span className="hidden sm:inline">全网榜单</span>
+            </button>
+
             <button
               onClick={() => setIsFamousModalOpen(true)}
               className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-amber-400 transition-all cursor-pointer"
@@ -382,10 +502,19 @@ export function App() {
         leverage={leverage}
         styleTags={truthResult?.style_tags || []}
         verdict={truthResult?.verdict || ""}
+        currentUser={user}
         onNextRound={() => fetchNewGame()}
         onOpenFamousList={() => {
           setIsTruthModalOpen(false);
           setIsFamousModalOpen(true);
+        }}
+        onOpenAuth={() => {
+          setIsTruthModalOpen(false);
+          setIsAuthModalOpen(true);
+        }}
+        onOpenLeaderboard={() => {
+          setIsTruthModalOpen(false);
+          setIsLeaderboardModalOpen(true);
         }}
       />
 
@@ -395,6 +524,23 @@ export function App() {
         onClose={() => setIsFamousModalOpen(false)}
         battles={famousBattles}
         onSelectBattle={(id) => fetchNewGame(id)}
+      />
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        apiBase={API_BASE}
+        onLoginSuccess={handleLoginSuccess}
+      />
+
+      {/* Leaderboard & Trade Log Modal */}
+      <LeaderboardModal
+        isOpen={isLeaderboardModalOpen}
+        onClose={() => setIsLeaderboardModalOpen(false)}
+        apiBase={API_BASE}
+        currentUser={user}
+        userToken={userToken}
       />
     </div>
   );

@@ -5,6 +5,8 @@ import { sounds } from '../soundEngine';
 
 interface IntroPrologueProps {
   onComplete: () => void;
+  onOpenAuth: () => void;
+  user: any;
 }
 
 const NARRATIVE_LINES = [
@@ -15,7 +17,7 @@ const NARRATIVE_LINES = [
   "30秒一次生死抉择。准备好迎接历史风暴了吗？"
 ];
 
-export const IntroPrologue: React.FC<IntroPrologueProps> = ({ onComplete }) => {
+export const IntroPrologue: React.FC<IntroPrologueProps> = ({ onComplete, onOpenAuth, user }) => {
   const [hasStarted, setHasStarted] = useState(false);
   const [currentLineIdx, setCurrentLineIdx] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
@@ -182,32 +184,80 @@ export const IntroPrologue: React.FC<IntroPrologueProps> = ({ onComplete }) => {
       <div className="relative z-10 max-w-2xl w-full px-6 flex flex-col items-center text-center">
         {!hasStarted ? (
           /* Initial Screen to activate audio on user interaction */
-          <div className="flex flex-col items-center animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-400 text-xs font-mono mb-6 tracking-wider">
+          <div className="flex flex-col items-center animate-fade-in w-full max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-400 text-xs font-mono mb-4 tracking-wider">
               <Sparkles size={14} className="animate-spin text-emerald-400" />
-              HISTORICAL MARKET BLIND BOX v1.0
+              HISTORICAL MARKET BLIND BOX v1.1
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-emerald-400 drop-shadow-sm">
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-emerald-400 drop-shadow-sm">
               K线盲盒 · 极速决斗
             </h1>
 
-            <p className="text-slate-400 text-sm md:text-base max-w-lg mb-8 leading-relaxed">
+            <p className="text-slate-400 text-xs md:text-sm max-w-md mb-6 leading-relaxed">
               随机抽取真实历史切片 · 去除代码与时间 · 30秒极限交易博弈
             </p>
 
-            <button
-              onClick={handleStartAudioAndIntro}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-base tracking-wide bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-[0_0_30px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
-            >
-              <Terminal size={20} className="group-hover:rotate-12 transition-transform" />
-              <span>启动时空操盘终端</span>
-              <span className="text-xs bg-emerald-950/40 text-emerald-900 px-2 py-0.5 rounded font-mono">
-                开启音画
-              </span>
-            </button>
+            {/* Mode selection guide card */}
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-left">
+              {/* Guest Card */}
+              <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur-sm flex flex-col justify-between">
+                <div>
+                  <div className="text-xs font-bold text-amber-400 flex items-center gap-1 mb-1">
+                    ⚡ 游客极速模式
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    免注册、免登录、0 门槛随时玩。战绩仅保存于本地浏览器。
+                  </p>
+                </div>
+                <div className="mt-2 text-[10px] text-slate-500 font-mono">
+                  适合：随时刷一把练习盘感
+                </div>
+              </div>
 
-            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mt-6">
+              {/* Account Card */}
+              <div className={`p-3.5 rounded-xl border transition-all flex flex-col justify-between ${
+                user
+                  ? 'border-emerald-500/50 bg-emerald-950/30'
+                  : 'border-slate-800 bg-slate-900/60 hover:border-emerald-500/40'
+              }`}>
+                <div>
+                  <div className="text-xs font-bold text-emerald-400 flex items-center gap-1 mb-1">
+                    🏆 专属操盘账户
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    {user
+                      ? `已登录: ${user.username} (${user.phone})`
+                      : '手机号注册登录。每笔交易收益率永久存档于服务器，冲击全网榜单！'}
+                  </p>
+                </div>
+                <div className="mt-2 text-[10px] text-emerald-500 font-mono">
+                  {user ? '✅ 云端档案已连接' : '适合：记录长期战绩与公开展示'}
+                </div>
+              </div>
+            </div>
+
+            {/* Start / Login Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center">
+              <button
+                onClick={handleStartAudioAndIntro}
+                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold text-sm tracking-wide bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-[0_0_30px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              >
+                <Terminal size={18} className="group-hover:rotate-12 transition-transform" />
+                <span>{user ? '进入时空决斗 (已登录)' : '直接开始 (游客体验)'}</span>
+              </button>
+
+              {!user && (
+                <button
+                  onClick={onOpenAuth}
+                  className="w-full sm:w-auto px-5 py-3.5 rounded-xl border border-slate-700 hover:border-emerald-500/50 hover:bg-slate-800/80 active:scale-95 text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all cursor-pointer"
+                >
+                  注册 / 登录账户
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mt-5">
               <Volume2 size={13} />
               <span>建议戴上耳机体验完整音效</span>
             </div>
