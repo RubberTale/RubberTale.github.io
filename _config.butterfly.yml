@@ -27,6 +27,7 @@ menu:
   罗马地图: /roman/ || fas fa-map-marked-alt
   世界史地图: /world-history/ || fas fa-globe-asia
   游戏: /games/ || fas fa-gamepad
+  小工具: /tools/ || fas fa-tools
   # ...其他你不需要的可以在前面加 # 注释掉
 
 # --------------------------------------

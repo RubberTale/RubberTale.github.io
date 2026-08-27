@@ -52,12 +52,12 @@ jobs:
 
       - name: 将所有游戏与静态资源同步到 public 目录
         run: |
-          mkdir -p public/games/reverse-app
           mkdir -p public/games/commodity-crisis
           mkdir -p public/games/kline-duel
-          cp -r reverse-app/dist/* public/games/reverse-app/ || true
+          mkdir -p public/tools/reverse-app
           cp -r commodity-crisis/dist/* public/games/commodity-crisis/ || true
           cp -r source/games/kline-duel/* public/games/kline-duel/ || true
+          cp -r reverse-app/dist/* public/tools/reverse-app/ || true
 
       - name: 上传构建产物
         uses: actions/upload-pages-artifact@v3

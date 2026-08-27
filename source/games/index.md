@@ -43,15 +43,6 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
-      <a href="/games/reverse-app/" title="期货反转交易挑战" target="_blank">
-        <div class="flink-item-icon">
-          <img src="/img/avatar.png" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货反转交易挑战">
-        </div>
-        <div class="flink-item-name">期货反转交易挑战</div>
-        <div class="flink-item-desc">测试你的反向思维，在极端行情中寻找转机。</div>
-      </a>
-    </div>
-    <div class="flink-list-item">
       <a href="/games/commodity-crisis/" title="期货风云 - 模拟器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://lucide.dev/api/icons/activity" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货风云">
