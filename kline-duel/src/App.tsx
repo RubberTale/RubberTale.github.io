@@ -40,6 +40,19 @@ export function App() {
   const [famousBattles, setFamousBattles] = useState<FamousBattleItem[]>([]);
   const [activeFamousTitle, setActiveFamousTitle] = useState<string | null>(null);
 
+  const [speed, setSpeed] = useState<number>(() => {
+    const saved = localStorage.getItem('kline_duel_speed');
+    return saved ? parseFloat(saved) || 1.0 : 1.0;
+  });
+  const speedRef = useRef<number>(speed);
+
+  const handleSetSpeed = (newSpeed: number) => {
+    setSpeed(newSpeed);
+    speedRef.current = newSpeed;
+    localStorage.setItem('kline_duel_speed', String(newSpeed));
+    sounds.playTerminalBeep(600 + newSpeed * 100, 0.05);
+  };
+
   // Overall player stats
   const [stats, setStats] = useState({
     totalRounds: 0,
@@ -51,6 +64,10 @@ export function App() {
 
   const timerRef = useRef<any>(null);
   const playbackTimerRef = useRef<any>(null);
+  const stepRef = useRef<number>(0);
+  const secretsRef = useRef<CandleData[]>([]);
+  const settlementDataRef = useRef<any>(null);
+  const initialVisibleCountRef = useRef<number>(0);
 
   // Fetch famous battles catalog on mount
   useEffect(() => {
@@ -72,7 +89,7 @@ export function App() {
     setTimeLeft(30);
 
     if (timerRef.current) clearInterval(timerRef.current);
-    if (playbackTimerRef.current) clearInterval(playbackTimerRef.current);
+    if (playbackTimerRef.current) clearTimeout(playbackTimerRef.current);
 
     try {
       const url = famousId ? `${API_BASE}/draw_famous?id=${famousId}` : `${API_BASE}/draw`;
@@ -136,7 +153,7 @@ export function App() {
       setTruthResult(data);
       setSecretCandles(data.secret_candles || []);
 
-      // Start fast playback (100ms per candle)
+      // Start fast playback with configurable speed (default 180ms base)
       startFastPlayback(data.secret_candles || [], data);
     } catch (err) {
       console.error("Settlement error:", err);
@@ -146,41 +163,54 @@ export function App() {
 
   // Fast Playback Animation Loop
   const startFastPlayback = (secrets: CandleData[], settlementData: any) => {
-    let step = 0;
-    const initialVisibleCount = visibleCandles.length;
-    const totalSecrets = secrets.length;
+    stepRef.current = 0;
+    secretsRef.current = secrets;
+    settlementDataRef.current = settlementData;
+    initialVisibleCountRef.current = visibleCandles.length;
 
-    playbackTimerRef.current = setInterval(() => {
-      if (step < totalSecrets) {
-        const nextCandle = secrets[step];
+    if (playbackTimerRef.current) clearTimeout(playbackTimerRef.current);
+
+    const stepTick = () => {
+      const step = stepRef.current;
+      const allSecrets = secretsRef.current;
+      const data = settlementDataRef.current;
+      const initialCount = initialVisibleCountRef.current;
+
+      if (step < allSecrets.length) {
+        const nextCandle = allSecrets[step];
         setAllCandles(prev => [...prev, nextCandle]);
-        setPlaybackIdx(initialVisibleCount + step);
+        setPlaybackIdx(initialCount + step);
 
         // Update live PnL ticker
-        if (settlementData.pnl_track && settlementData.pnl_track[step] !== undefined) {
-          setCurrentPnL(settlementData.pnl_track[step]);
+        if (data.pnl_track && data.pnl_track[step] !== undefined) {
+          setCurrentPnL(data.pnl_track[step]);
         }
 
         // Sound tick
         sounds.playCandleTick(nextCandle.close >= nextCandle.open);
 
         // Check if stopped or liquidated early
-        if (settlementData.liquidated && step >= (settlementData.liq_step || 0)) {
-          clearInterval(playbackTimerRef.current);
-          finishRound(settlementData);
+        if (data.liquidated && step >= (data.liq_step || 0)) {
+          finishRound(data);
           return;
         }
 
-        step++;
+        stepRef.current = step + 1;
+        // Base delay is 180ms (slowed down from original 100ms)
+        const delay = Math.max(30, Math.round(180 / (speedRef.current || 1.0)));
+        playbackTimerRef.current = setTimeout(stepTick, delay);
       } else {
-        clearInterval(playbackTimerRef.current);
-        finishRound(settlementData);
+        finishRound(data);
       }
-    }, 100);
+    };
+
+    const initialDelay = Math.max(30, Math.round(180 / (speedRef.current || 1.0)));
+    playbackTimerRef.current = setTimeout(stepTick, initialDelay);
   };
 
   // Finish Round & Reveal
   const finishRound = (settlementData: any) => {
+    if (playbackTimerRef.current) clearTimeout(playbackTimerRef.current);
     setGameState('revealed');
     setIsTruthModalOpen(true);
 
@@ -201,7 +231,7 @@ export function App() {
   // Emergency exit button during playback
   const handleEmergencyExit = () => {
     if (playbackTimerRef.current) {
-      clearInterval(playbackTimerRef.current);
+      clearTimeout(playbackTimerRef.current);
     }
     sounds.playTerminalBeep(500, 0.1);
     if (truthResult) {
@@ -328,6 +358,8 @@ export function App() {
           gameState={gameState === 'loading' ? 'decision' : gameState}
           leverage={leverage}
           setLeverage={setLeverage}
+          speed={speed}
+          setSpeed={handleSetSpeed}
           onTrade={handleTrade}
           currentPnL={currentPnL}
           onEmergencyExit={handleEmergencyExit}
