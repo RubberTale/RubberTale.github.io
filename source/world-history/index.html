@@ -269,7 +269,7 @@
 <header>
   <h1>东西方文明对照地图</h1>
   <span class="sub">同一时刻，地中海与东亚各自发生了什么</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 14:24:16 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 15:35:12 (CST)</span></span>
   <div class="spacer"></div>
   <a id="ohmLink" class="btn" href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener" title="在 OpenHistoricalMap 维基历史地图中全景查看当前年代全球历史细节" style="text-decoration:none;">🌐 探索 OHM 维基全景 ↗</a>
   <button id="basemapBtn" class="btn" type="button" title="切换底图：自然山川地形 / OpenHistoricalMap 维基时空矢量底图">底图: 自然地形</button>
@@ -662,15 +662,9 @@ function inWindow(e, t) {
   const end = tOfEventEnd(e);
   
   if (timeMode === 'year') {
+    // 年度视图下：展示属于该年度的所有事件（包含持续跨越该年的事件）
     const inYear = end ? (et.y <= activeYear && end.y >= activeYear) : (et.y === activeYear);
-    if (!inYear) return false;
-    if (end) {
-      const curAbs = absOf(t);
-      return curAbs >= absOf(et) && curAbs <= absOf(end);
-    }
-    // 单点事件：若未标注月份则在选中的整年内都显示；若有月份，显示当前月份附近（±2个月）的事件
-    if (!e.month) return true;
-    return Math.abs((e.month || 1) - t.m) <= 2;
+    return inYear;
   }
 
   if (timeMode === 'century') {
@@ -1133,10 +1127,10 @@ function renderList(visible) {
   const sorted = [...visible].sort((a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)));
   const activeRoutes = routes.filter(r => routeVisible(r));
   if (!sorted.length && !activeRoutes.length) {
-    const unit = cur.y < MONTH_MODE_YEAR ? `${YEAR_WINDOW} 年` : `${MONTH_WINDOW} 个月`;
+    const unit = timeMode === 'year' ? '该年度' : (cur.y < MONTH_MODE_YEAR ? `±${YEAR_WINDOW} 年` : `±${MONTH_WINDOW} 个月`);
     box.innerHTML = activeTopics.size
-      ? `<div class="empty">该时段 ±${unit} 内没有符合所选专题（${[...activeTopics].join('+')}）的事件。<br>换个时段或取消专题。</div>`
-      : `<div class="empty">该时段 ±${unit} 内没有事件。<br>试试拖动下方时间轴。</div>`;
+      ? `<div class="empty">${unit} 内没有符合所选专题（${[...activeTopics].join('+')}）的事件。<br>换个时段或取消专题。</div>`
+      : `<div class="empty">${unit} 内没有事件。<br>试试切换年份或拖动下方时间轴。</div>`;
     return;
   }
   const routeRows = activeRoutes.map(r => `
@@ -1476,8 +1470,10 @@ async function init() {
       activeYear = cur.y;
     } else {
       activeYear = 2024;
-      cur = { y: 2024, m: 1 };
     }
+    const yearEvs = events.filter(e => e.year === activeYear && e.month);
+    const defMonth = yearEvs.length > 0 ? Math.min(...yearEvs.map(e => e.month)) : 1;
+    cur = { y: activeYear, m: defMonth };
     yearSel.value = activeYear;
     updateSliderBounds();
     renderEvents();
@@ -1494,7 +1490,9 @@ async function init() {
 
   yearSel.addEventListener('change', () => {
     activeYear = parseInt(yearSel.value, 10);
-    cur = { y: activeYear, m: 1 };
+    const yearEvs = events.filter(e => e.year === activeYear && e.month);
+    const defMonth = yearEvs.length > 0 ? Math.min(...yearEvs.map(e => e.month)) : 1;
+    cur = { y: activeYear, m: defMonth };
     updateSliderBounds();
     renderEvents();
     updateURLState();
