@@ -69,6 +69,15 @@ aside: false
         <div class="flink-item-desc">厄尔尼诺与天胶跟踪专题，多维市场决策与行情监测。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/deepslop/" title="DeepSlop · 纯碳基智能" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:brain.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="DeepSlop 纯碳基智能">
+        </div>
+        <div class="flink-item-name">DeepSlop · 纯碳基智能</div>
+        <div class="flink-item-desc">你的AI水货无聊透顶！100%纯人类扮演驱动的实时AI对话与画画联机对战。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
