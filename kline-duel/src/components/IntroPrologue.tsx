@@ -121,29 +121,28 @@ export const IntroPrologue: React.FC<IntroPrologueProps> = ({ onComplete }) => {
       setIsTypingDone(true);
       const timer = setTimeout(() => {
         onComplete();
-      }, 1500);
+      }, 1200);
       return () => clearTimeout(timer);
     }
 
-    const currentLine = NARRATIVE_LINES[currentLineIdx];
+    const currentLine = NARRATIVE_LINES[currentLineIdx] || "";
     let charIdx = 0;
     setDisplayedText("");
 
     const interval = setInterval(() => {
-      if (charIdx < currentLine.length) {
-        setDisplayedText(prev => prev + currentLine[charIdx]);
+      charIdx++;
+      if (charIdx <= currentLine.length) {
+        setDisplayedText(currentLine.substring(0, charIdx));
         if (charIdx % 3 === 0) {
           sounds.playTerminalBeep(700 + charIdx * 8, 0.03);
         }
-        charIdx++;
       } else {
         clearInterval(interval);
-        // Pause between lines
         setTimeout(() => {
           setCurrentLineIdx(prev => prev + 1);
-        }, 1400);
+        }, 1200);
       }
-    }, 45);
+    }, 40);
 
     return () => clearInterval(interval);
   }, [hasStarted, currentLineIdx, onComplete]);
