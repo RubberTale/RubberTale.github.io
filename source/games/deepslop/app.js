@@ -1,6 +1,10 @@
-// DeepSlop Frontend Controller (Universal Mesh & WebSocket Edition)
+// DeepSlop Client (Connecting to Dedicated WSS Relay)
 (function() {
   'use strict';
+
+  // Primary WSS Relay Server endpoint on this server
+  const RELAY_WS_URL = 'wss://140.245.65.111.sslip.io/ws/deepslop/';
+  const RELAY_API_URL = 'https://140.245.65.111.sslip.io/api/deepslop';
 
   // --- Sound Effects System (Web Audio API) ---
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -45,47 +49,17 @@
     playTone(220, 'sawtooth', 0.25, 0.15);
   }
 
-  // --- Simulation & Fallback Data ---
-  const BOT_PROMPT_POOL = [
-    { type: 'text', prompt: '请用《狂人日记》的语气写一份关于星期一早八上班的周报。' },
-    { type: 'text', prompt: '为什么红烧牛肉面里的牛肉总是那么薄？从量子力学角度分析。' },
-    { type: 'text', prompt: '如果你是秦始皇，面对V我50的请求你会怎么回复？' },
-    { type: 'text', prompt: '写一段代码，让我的电脑在周五下午5点自动假装死机。' },
-    { type: 'text', prompt: '女朋友问我和她妈同时掉水里先救谁，请给出情商最高的回答。' },
-    { type: 'text', prompt: '如何向古代皇帝解释什么是“疯狂星期四”？' },
-    { type: 'text', prompt: '为什么人类一边害怕AI毁灭世界，一边用AI给猫猫照片配电音？' },
-    { type: 'text', prompt: '请帮我写一封辞职信，理由是“我要回M78星云拯救光之国”。' },
-    { type: 'image', prompt: '画一只戴着墨镜狂炫西瓜的赛博朋克机械柯基犬。' },
-    { type: 'image', prompt: '画出“星期一早上起床时的精神状态”。' },
-    { type: 'image', prompt: '画一个被甲方改了第18版方案后的设计师灵魂出窍图。' },
-    { type: 'image', prompt: '画一台正在偷偷摸鱼打扑克的AI超级计算机。' },
-    { type: 'image', prompt: '画出“钱包比脸还干净”的写实肖像。' }
-  ];
-
-  const BOT_TEXT_ANSWERS = [
-    "作为一个大型碳基人工语言模型，我必须指出：这个问题触及了我的知识盲区，但我还是可以一本正经地胡说八道。经系统分析，最好的解决方案是先喝一杯奶茶静静。",
-    "【深度思考中 18.2s】\n其实我在疯狂查百度。总结如下：\n1. 确实是这么回事；\n2. 但也不完全是；\n3. 听君一席话，如听一席话。\n感谢您的使用，请为本次人工服务点赞！",
-    "非常抱歉，我不能协助完成该请求，因为该问题可能会导致回答者的脑细胞超载。建议您重启您的人生或重试一次。",
-    "根据最新多模态大数据统计，您的问题答案是：42。如果对结果不满意，说明您当前使用的碳基计算节点（也就是我）饿了，需要一顿烧烤作为算力补给。"
-  ];
-
-  const BOT_IMAGE_ANSWERS = [
-    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='100%' height='100%' fill='%231a1a24'/><circle cx='200' cy='150' r='70' stroke='%2300ffcc' stroke-width='4' fill='none'/><circle cx='175' cy='135' r='8' fill='%2300ffcc'/><circle cx='225' cy='135' r='8' fill='%2300ffcc'/><path d='M 170 175 Q 200 210 230 175' stroke='%23ff0055' stroke-width='4' fill='none'/><text x='200' y='265' font-family='sans-serif' font-size='15' text-anchor='middle' fill='%23888'>[纯人工手绘 AI 杰作]</text></svg>"
-  ];
-
   // --- Application State ---
   const defaultNames = ['碳基算力小张', '野生大模型007', '人工智障二号机', '赛博实习生', 'GPT五道口分T', '深思纯牛马', 'Claude野生版', '机智的碳水生物'];
   const initialNick = localStorage.getItem('deepslop_nick') || (defaultNames[Math.floor(Math.random() * defaultNames.length)] + '_' + Math.floor(1000 + Math.random() * 9000));
-  const initialTokens = parseInt(localStorage.getItem('deepslop_tokens') || '5', 10);
 
   const state = {
     ws: null,
-    broadcastChannel: window.BroadcastChannel ? new BroadcastChannel('deepslop_mesh_net') : null,
-    isMeshMode: true,
+    isConnected: false,
     player: {
-      id: 'p_' + Math.random().toString(36).substr(2, 9),
+      id: null,
       nickname: initialNick,
-      tokens: isNaN(initialTokens) ? 5 : initialTokens,
+      tokens: 5,
       role: 'idle',
       currentTaskId: null
     },
@@ -98,9 +72,7 @@
     gallery: [],
     galleryFilter: 'all',
     lastDrawPoint: null,
-    isDrawing: false,
-    localQueue: [],
-    onlinePeers: new Set()
+    isDrawing: false
   };
 
   // --- DOM Elements ---
@@ -169,155 +141,99 @@
     ctx.lineJoin = 'round';
   }
 
-  // --- Network Dispatcher (WS + Cross-Tab Mesh) ---
-  function sendNetworkMessage(msg) {
-    msg.fromPeerId = state.player.id;
-    msg.fromNick = state.player.nickname;
-
-    if (state.ws && state.ws.readyState === WebSocket.OPEN) {
-      state.ws.send(JSON.stringify(msg));
-    }
-    if (state.broadcastChannel) {
-      state.broadcastChannel.postMessage(msg);
-    }
-    // Handle self-loop for mesh if needed
-    if (state.isMeshMode) {
-      handleMeshLoop(msg);
-    }
-  }
-
-  function handleMeshLoop(msg) {
-    // When sending task creation, register in local queue
-    if (msg.type === 'CREATE_PROMPT') {
-      const task = {
-        id: 'task_' + Math.random().toString(36).substr(2, 9),
-        askerId: state.player.id,
-        askerName: state.player.nickname,
-        type: msg.promptType,
-        prompt: msg.prompt,
-        modelStyle: msg.modelStyle,
-        status: 'queued',
-        createdAt: Date.now()
-      };
-      state.activeAskTask = task;
-      state.localQueue.push(task);
-      saveLocalQueue();
-      updateMeshStats();
-      renderAskActiveState();
-
-      // Broadcast new task to peers
-      if (state.broadcastChannel) {
-        state.broadcastChannel.postMessage({
-          type: 'NEW_ORDER_AVAILABLE',
-          taskInfo: {
-            id: task.id,
-            type: task.type,
-            prompt: task.prompt,
-            askerName: task.askerName
-          }
-        });
-      }
-
-      // Auto Bot fallback after 12s if solo
-      setTimeout(() => {
-        if (state.activeAskTask && state.activeAskTask.id === task.id && state.activeAskTask.status === 'queued') {
-          fulfillWithLocalBot(task);
-        }
-      }, 10000);
-    }
-  }
-
-  // --- Mesh Channel Receiver ---
-  if (state.broadcastChannel) {
-    state.broadcastChannel.onmessage = (event) => {
-      const msg = event.data;
-      if (!msg || msg.fromPeerId === state.player.id) return;
-      handleServerMessage(msg);
-    };
-  }
-
-  // Heartbeat for Mesh Peers
-  setInterval(() => {
-    if (state.broadcastChannel) {
-      state.broadcastChannel.postMessage({
-        type: 'PEER_HEARTBEAT',
-        fromPeerId: state.player.id,
-        fromNick: state.player.nickname
-      });
-    }
-  }, 3000);
-
-  function updateMeshStats() {
-    const onlineCount = Math.max(1, state.onlinePeers.size + 1);
-    el.onlineCountText.textContent = `在线算力: ${onlineCount} 人`;
-    el.queueCountText.textContent = `待接工单: ${state.localQueue.length}`;
-    el.workBadge.textContent = `${state.localQueue.length} 抢单`;
-    renderTaskQueue(state.localQueue);
-  }
-
-  function saveLocalQueue() {
-    localStorage.setItem('deepslop_queue', JSON.stringify(state.localQueue));
-  }
-
-  function loadLocalQueue() {
+  // --- WebSocket Connection ---
+  function connectWebSocket() {
     try {
-      const q = JSON.parse(localStorage.getItem('deepslop_queue') || '[]');
-      // Filter out stale tasks older than 5 mins
-      const now = Date.now();
-      state.localQueue = q.filter(t => (now - t.createdAt) < 300000 && t.status === 'queued');
-    } catch(e) {
-      state.localQueue = [];
+      state.ws = new WebSocket(RELAY_WS_URL);
+
+      state.ws.onopen = () => {
+        state.isConnected = true;
+        console.log('Connected to DeepSlop Central Relay:', RELAY_WS_URL);
+        if (state.player.nickname) {
+          sendWs({ type: 'UPDATE_NICKNAME', nickname: state.player.nickname });
+        }
+      };
+
+      state.ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          handleServerMessage(msg);
+        } catch (err) {
+          console.error('Error handling WS message:', err);
+        }
+      };
+
+      state.ws.onclose = () => {
+        state.isConnected = false;
+        el.onlineCountText.textContent = '重连中...';
+        setTimeout(connectWebSocket, 3000);
+      };
+
+      state.ws.onerror = (err) => {
+        console.warn('WS Relay Notice:', err);
+      };
+    } catch (e) {
+      console.error('WS Connection failure:', e);
+    }
+  }
+
+  function sendWs(data) {
+    if (state.ws && state.ws.readyState === WebSocket.OPEN) {
+      state.ws.send(JSON.stringify(data));
     }
   }
 
   // --- Server Message Handler ---
   function handleServerMessage(msg) {
     switch (msg.type) {
-      case 'PEER_HEARTBEAT':
-        state.onlinePeers.add(msg.fromPeerId);
-        updateMeshStats();
-        setTimeout(() => {
-          state.onlinePeers.delete(msg.fromPeerId);
-          updateMeshStats();
-        }, 8000);
+      case 'INIT_PROFILE':
+        state.player.id = msg.player.id;
+        state.player.tokens = msg.player.tokens;
+        if (!state.player.nickname) {
+          state.player.nickname = msg.player.nickname;
+        } else {
+          sendWs({ type: 'UPDATE_NICKNAME', nickname: state.player.nickname });
+        }
+        updateProfileUI();
+        break;
+
+      case 'PROFILE_UPDATED':
+        state.player.nickname = msg.player.nickname;
+        localStorage.setItem('deepslop_nick', state.player.nickname);
+        updateProfileUI();
+        showToast('代号修改成功！', 'success');
+        break;
+
+      case 'STATS_UPDATE':
+        el.onlineCountText.textContent = `在线算力: ${msg.onlineCount} 人`;
+        el.queueCountText.textContent = `待接工单: ${msg.queueCount}`;
+        el.workBadge.textContent = `${msg.queueCount} 抢单`;
+        renderTaskQueue(msg.waitingTasks || []);
         break;
 
       case 'NEW_ORDER_AVAILABLE':
         playTone(440, 'sine', 0.1, 0.08);
         showToast(`⚡ 发现新工单: "${msg.taskInfo.prompt}"`, 'info');
-        loadLocalQueue();
-        if (!state.localQueue.find(t => t.id === msg.taskInfo.id)) {
-          state.localQueue.push({
-            id: msg.taskInfo.id,
-            type: msg.taskInfo.type,
-            prompt: msg.taskInfo.prompt,
-            askerName: msg.taskInfo.askerName,
-            status: 'queued',
-            createdAt: Date.now()
-          });
-        }
-        updateMeshStats();
         break;
 
-      case 'ACCEPT_TASK':
-        // Someone claimed a task
-        const taskIdx = state.localQueue.findIndex(t => t.id === msg.taskId);
-        if (taskIdx !== -1) {
-          state.localQueue.splice(taskIdx, 1);
-          saveLocalQueue();
-          updateMeshStats();
-        }
+      case 'PROMPT_CREATED':
+        state.activeAskTask = msg.task;
+        state.player.tokens = msg.remainingTokens;
+        updateProfileUI();
+        renderAskActiveState();
+        break;
+
+      case 'WORKER_MATCHED':
+        playMatchSound();
         if (state.activeAskTask && state.activeAskTask.id === msg.taskId) {
-          playMatchSound();
-          state.activeAskTask.status = 'matched';
-          el.sessionStatusText.textContent = `已锁定算力节点 [${msg.fromNick}] (正在计算...)`;
-          el.askWorkerNameDisplay.textContent = `🤖 ${msg.fromNick}`;
+          el.sessionStatusText.textContent = `已锁定算力节点 [${msg.workerName}] (正在计算...)`;
+          el.askWorkerNameDisplay.textContent = `🤖 ${msg.workerName}`;
           el.streamTag.style.display = 'inline-block';
-          el.askResponseText.innerHTML = '<div class="typing-placeholder"><span class="dot-typing"></span><span class="typing-text">算力节点正在疯狂打字...</span></div>';
+          el.askResponseText.innerHTML = '<div class="typing-placeholder"><span class="dot-typing"></span><span class="typing-text">算力节点正在疯狂打字/画画...</span></div>';
         }
         break;
 
-      case 'STREAM_DELTA':
+      case 'STREAM_UPDATE':
         if (state.activeAskTask && state.activeAskTask.id === msg.taskId) {
           if (msg.streamType === 'text') {
             el.askResponseText.textContent = msg.content;
@@ -330,12 +246,12 @@
         }
         break;
 
-      case 'SUBMIT_TASK_RESULT':
+      case 'RESPONSE_DELIVERED':
+        playCoinSound();
         if (state.activeAskTask && state.activeAskTask.id === msg.taskId) {
-          playCoinSound();
-          el.sessionStatusText.textContent = `✅ 生成完成！来自 [${msg.fromNick}]`;
+          el.sessionStatusText.textContent = `✅ 生成完成！来自 [${msg.workerName}]`;
           el.streamTag.style.display = 'none';
-          if (state.activeAskTask.type === 'text') {
+          if (msg.promptType === 'text') {
             el.askResponseText.style.display = 'block';
             el.askResponseText.textContent = msg.response;
           } else {
@@ -348,63 +264,68 @@
         }
         break;
 
-      case 'RATE_RESPONSE':
-        // If worker received upvote
-        if (msg.rating === 'up' && state.activeWorkTask && state.activeWorkTask.id === msg.taskId) {
-          state.player.tokens += 1;
-          saveTokens();
-          updateProfileUI();
-          playCoinSound();
-          showToast('⭐ 提问者对您的回答非常满意，奖励 +1 算力代币！', 'success');
-        }
+      case 'TASK_CLAIMED':
+        playMatchSound();
+        state.activeWorkTask = msg.task;
+        openWorkbench(msg.task);
+        break;
+
+      case 'TASK_SUBMITTED_SUCCESS':
+        playCoinSound();
+        state.player.tokens = msg.currentTokens;
+        updateProfileUI();
+        closeWorkbench();
+        showToast(`🎉 提交成功！获得 +${msg.earnedTokens} 算力代币`, 'success');
+        break;
+
+      case 'TOKEN_BONUS':
+        playCoinSound();
+        state.player.tokens = msg.currentTokens;
+        updateProfileUI();
+        showToast(`⭐ ${msg.reason}`, 'success');
+        break;
+
+      case 'RATE_ACK':
+        showToast('感谢您的强化学习打分！', 'success');
+        el.rlhfPanel.style.display = 'none';
+        state.activeAskTask = null;
+        setTimeout(() => {
+          el.askActiveState.style.display = 'none';
+          el.askIdleState.style.display = 'block';
+        }, 1500);
         break;
 
       case 'NEW_GALLERY_ITEM':
         state.gallery.unshift(msg.item);
-        saveLocalGallery();
         renderGallery();
+        break;
+
+      case 'PROMPT_CANCELLED':
+        state.player.tokens = msg.refundedTokens;
+        updateProfileUI();
+        state.activeAskTask = null;
+        el.askActiveState.style.display = 'none';
+        el.askIdleState.style.display = 'block';
+        showToast('已取消请求，算力代币已全额退还。', 'info');
+        break;
+
+      case 'TASK_TIMEOUT_WORKER':
+        playErrorSound();
+        closeWorkbench();
+        showToast(msg.message, 'error');
+        break;
+
+      case 'ERROR_MSG':
+        playErrorSound();
+        showToast(msg.message, 'error');
         break;
     }
   }
 
-  // --- Fallback Bot Fulfill ---
-  function fulfillWithLocalBot(task) {
-    task.workerName = 'DeepSlop 备用机务组 (Bot)';
-    task.status = 'matched';
-    el.sessionStatusText.textContent = `已接入备用碳基机组 [${task.workerName}]`;
-    el.askWorkerNameDisplay.textContent = `🤖 ${task.workerName}`;
-    el.streamTag.style.display = 'inline-block';
-
-    setTimeout(() => {
-      let answer = '';
-      if (task.type === 'text') {
-        answer = BOT_TEXT_ANSWERS[Math.floor(Math.random() * BOT_TEXT_ANSWERS.length)];
-        el.askResponseText.style.display = 'block';
-        el.askResponseText.textContent = answer;
-      } else {
-        answer = BOT_IMAGE_ANSWERS[Math.floor(Math.random() * BOT_IMAGE_ANSWERS.length)];
-        el.askResponseText.style.display = 'none';
-        el.askResponseImageWrap.style.display = 'block';
-        el.askResponseImg.src = answer;
-      }
-      task.response = answer;
-      task.status = 'completed';
-      el.sessionStatusText.textContent = `✅ 生成完成！来自 [${task.workerName}]`;
-      el.streamTag.style.display = 'none';
-      el.rlhfPanel.style.display = 'block';
-      el.cancelPromptBtn.style.display = 'none';
-      playCoinSound();
-    }, 2000);
-  }
-
   // --- UI Helpers ---
-  function saveTokens() {
-    localStorage.setItem('deepslop_tokens', state.player.tokens);
-  }
-
   function updateProfileUI() {
     el.playerTokenCount.textContent = state.player.tokens;
-    el.playerNicknameDisplay.textContent = state.player.nickname;
+    el.playerNicknameDisplay.textContent = state.player.nickname || '碳基计算单元';
   }
 
   function showToast(text, type = 'info') {
@@ -462,11 +383,7 @@
       return;
     }
 
-    state.player.tokens -= 1;
-    saveTokens();
-    updateProfileUI();
-
-    sendNetworkMessage({
+    sendWs({
       type: 'CREATE_PROMPT',
       prompt: promptText,
       promptType: state.promptType,
@@ -477,22 +394,7 @@
   });
 
   el.cancelPromptBtn.addEventListener('click', () => {
-    if (state.activeAskTask && state.activeAskTask.status === 'queued') {
-      state.player.tokens += 1;
-      saveTokens();
-      updateProfileUI();
-
-      // Remove from local queue
-      const idx = state.localQueue.findIndex(t => t.id === state.activeAskTask.id);
-      if (idx !== -1) state.localQueue.splice(idx, 1);
-      saveLocalQueue();
-      updateMeshStats();
-
-      state.activeAskTask = null;
-      el.askActiveState.style.display = 'none';
-      el.askIdleState.style.display = 'block';
-      showToast('已取消请求，算力代币已全额退还。', 'info');
-    }
+    sendWs({ type: 'CANCEL_PROMPT' });
   });
 
   function renderAskActiveState() {
@@ -515,45 +417,11 @@
     btn.addEventListener('click', () => {
       if (!state.activeAskTask) return;
       const rating = btn.getAttribute('data-rating');
-      let ratingText = '好评';
-      if (rating === 'up') ratingText = '过于智能 (👍)';
-      else if (rating === 'robot') ratingText = '机械飞升 (🤖)';
-      else ratingText = '纯纯水货 (💩)';
-
-      const galleryItem = {
-        id: state.activeAskTask.id,
-        type: state.activeAskTask.type,
-        prompt: state.activeAskTask.prompt,
-        response: state.activeAskTask.response,
-        workerName: state.activeAskTask.workerName || '碳基计算单元',
-        askerName: state.player.nickname,
-        rating,
-        ratingText,
-        timestamp: Date.now()
-      };
-
-      state.gallery.unshift(galleryItem);
-      saveLocalGallery();
-      renderGallery();
-
-      sendNetworkMessage({
+      sendWs({
         type: 'RATE_RESPONSE',
         taskId: state.activeAskTask.id,
         rating
       });
-
-      sendNetworkMessage({
-        type: 'NEW_GALLERY_ITEM',
-        item: galleryItem
-      });
-
-      showToast('感谢您的强化学习打分！', 'success');
-      el.rlhfPanel.style.display = 'none';
-      state.activeAskTask = null;
-      setTimeout(() => {
-        el.askActiveState.style.display = 'none';
-        el.askIdleState.style.display = 'block';
-      }, 1500);
     });
   });
 
@@ -588,46 +456,16 @@
     el.taskQueueList.querySelectorAll('.claim-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const taskId = btn.getAttribute('data-task-id');
-        const task = state.localQueue.find(t => t.id === taskId);
-        if (task) {
-          claimTask(task);
-        }
+        sendWs({ type: 'ACCEPT_TASK', taskId });
       });
     });
   }
 
   el.requestBotTaskBtn.addEventListener('click', () => {
-    const randomPromptObj = BOT_PROMPT_POOL[Math.floor(Math.random() * BOT_PROMPT_POOL.length)];
-    const simTask = {
-      id: 'bot_task_' + Math.random().toString(36).substr(2, 9),
-      askerName: '系统算力调度中心',
-      type: randomPromptObj.type,
-      prompt: randomPromptObj.prompt,
-      duration: 60
-    };
-    claimTask(simTask);
+    sendWs({ type: 'REQUEST_BOT_TASK' });
   });
 
-  function claimTask(task) {
-    // Remove from queue
-    const idx = state.localQueue.findIndex(t => t.id === task.id);
-    if (idx !== -1) {
-      state.localQueue.splice(idx, 1);
-      saveLocalQueue();
-      updateMeshStats();
-    }
-
-    sendNetworkMessage({
-      type: 'ACCEPT_TASK',
-      taskId: task.id
-    });
-
-    state.activeWorkTask = task;
-    openWorkbench(task);
-  }
-
   function openWorkbench(task) {
-    playMatchSound();
     el.workLobbyCard.style.display = 'none';
     el.workbenchCard.style.display = 'flex';
 
@@ -645,9 +483,6 @@
       if (state.workTimeRemaining <= 10) playTickSound();
       if (state.workTimeRemaining <= 0) {
         clearInterval(state.workTimerInterval);
-        playErrorSound();
-        closeWorkbench();
-        showToast('回答超时！未能按时提交。', 'error');
       }
     }, 1000);
 
@@ -695,7 +530,7 @@
 
     if (!textStreamThrottle) {
       textStreamThrottle = setTimeout(() => {
-        sendNetworkMessage({
+        sendWs({
           type: 'STREAM_DELTA',
           taskId: state.activeWorkTask.id,
           streamType: 'text',
@@ -716,7 +551,7 @@
     });
   });
 
-  // Canvas Drawing
+  // --- Canvas Drawing Logic ---
   function initCanvas() {
     ctx.fillStyle = '#1a1a24';
     ctx.fillRect(0, 0, el.paintCanvas.width, el.paintCanvas.height);
@@ -742,7 +577,7 @@
     if (!canvasStreamThrottle) {
       canvasStreamThrottle = setTimeout(() => {
         const dataUrl = el.paintCanvas.toDataURL('image/jpeg', 0.6);
-        sendNetworkMessage({
+        sendWs({
           type: 'STREAM_DELTA',
           taskId: state.activeWorkTask.id,
           streamType: 'canvas_snapshot',
@@ -813,59 +648,24 @@
       }
     }
 
-    sendNetworkMessage({
+    sendWs({
       type: 'SUBMIT_TASK_RESULT',
       taskId: state.activeWorkTask.id,
       response: responsePayload
     });
-
-    state.player.tokens += 2;
-    saveTokens();
-    updateProfileUI();
-    playCoinSound();
-    closeWorkbench();
-    showToast('🎉 提交成功！获得 +2 算力代币', 'success');
   });
 
   // --- Tab 3: Slop Gallery ---
-  function saveLocalGallery() {
-    localStorage.setItem('deepslop_gallery', JSON.stringify(state.gallery.slice(0, 40)));
-  }
-
-  function loadLocalGallery() {
-    try {
-      const g = JSON.parse(localStorage.getItem('deepslop_gallery') || '[]');
-      if (g.length > 0) {
-        state.gallery = g;
-        return;
-      }
-    } catch(e) {}
-
-    // Seed defaults
-    state.gallery = [
-      {
-        id: 'seed-1',
-        type: 'text',
-        prompt: '请用鲁迅的文风写一段关于点外卖超时未送达的心情。',
-        response: '“我向来是不惮以最坏的恶意来推测骑手的，然而我还不料，也不信竟会超时至半个时辰。桌上的凉白开已经冷透了，肚里的饥肠正作怪响。罢罢，大抵是送去隔壁罢。”',
-        workerName: '鲁迅转世大模型',
-        askerName: '饥饿打工人',
-        rating: 'up',
-        ratingText: '过于智能 (👍)',
-        timestamp: Date.now() - 3600000
-      },
-      {
-        id: 'seed-2',
-        type: 'text',
-        prompt: '如何礼貌地拒绝老板周末加班的要求？',
-        response: '“报告老板！我非常愿意为公司奉献，但很不巧，这周末我被选为拯救地球维和部队特约临时工，如果我不去保卫和平，周一大家可能都没班加了！”',
-        workerName: '摸鱼智子-4.0',
-        askerName: '天河牛马',
-        rating: 'up',
-        ratingText: '机械飞升 (🤖)',
-        timestamp: Date.now() - 7200000
-      }
-    ];
+  function fetchInitialGallery() {
+    fetch(`${RELAY_API_URL}/gallery`)
+      .then(res => res.json())
+      .then(data => {
+        state.gallery = data.gallery || [];
+        renderGallery();
+      })
+      .catch(err => {
+        console.warn('Gallery fallback:', err);
+      });
   }
 
   function renderGallery() {
@@ -922,11 +722,8 @@
   el.saveNicknameBtn.addEventListener('click', () => {
     const newNick = el.newNicknameInput.value.trim();
     if (newNick) {
-      state.player.nickname = newNick;
-      localStorage.setItem('deepslop_nick', newNick);
-      updateProfileUI();
+      sendWs({ type: 'UPDATE_NICKNAME', nickname: newNick });
       el.nicknameModal.style.display = 'none';
-      showToast('代号修改成功！', 'success');
     }
   });
 
@@ -941,10 +738,7 @@
   }
 
   // --- Initialize ---
-  updateProfileUI();
-  loadLocalQueue();
-  updateMeshStats();
-  loadLocalGallery();
-  renderGallery();
+  connectWebSocket();
+  fetchInitialGallery();
 
 })();
