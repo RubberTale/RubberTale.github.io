@@ -250,7 +250,7 @@
 <header>
   <h1>东西方文明对照地图</h1>
   <span class="sub">同一时刻，地中海与东亚各自发生了什么</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 05:55:03 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 06:17:19 (CST)</span></span>
   <div class="spacer"></div>
   <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
 </header>
@@ -258,9 +258,9 @@
   <aside>
     <div id="nowBar" class="now-bar"></div>
     <div class="toolbar">
-      <button id="routeBtn" class="btn" type="button" title="南宋末帝南逃路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
+      <button id="routeBtn" class="btn" type="button" title="历史行进路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
       <button id="prehistoryBtn" class="btn" type="button" title="史前人类遗址：固定标注，不随时间轴变化">史前遗址 · 显示</button>
-      <button id="territoryBtn" class="btn" type="button" title="五代十国疆域：随时间轴显示当时存在的政权（示意）">疆域 · 显示</button>
+      <button id="territoryBtn" class="btn" type="button" title="世界历史疆域：随时间轴显示各时代帝国与政权版图（示意）">疆域 · 显示</button>
       <div class="node-nav">
         <button id="prevBtn" class="btn" type="button">◀ 上一节点</button>
         <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
@@ -293,8 +293,8 @@
         <li><span class="lg" style="background:#2a78d6">东</span>东方（中国 / 东亚）</li>
         <li><span class="lg" style="background:#e0a418">遇</span>东西相遇</li>
         <li><span class="lg" style="background:#8d6e63">人</span>史前人类遗址（不随年代轴）</li>
-        <li><span class="terr-sq" style="background:#c99700"></span>大宋疆域（示意，960—1126 随时代迁移变化）</li>
-        <li><span class="terr-sq" style="background:#7d3c98"></span>五代十国疆域（示意，907—979 年间随滑块显隐，979 后为大宋统一）</li>
+        <li><span class="terr-sq" style="background:#c2410c"></span>东方历代版图（秦汉、唐宋、元明清等）</li>
+        <li><span class="terr-sq" style="background:#991b1b"></span>西方与世界帝国（波斯、罗马、大食、奥斯曼等）</li>
       </ul>
     </div>
     <div class="timeline">
@@ -772,12 +772,14 @@ function buildTopicBar() {
   });
 }
 
-// 五代十国疆域 + 北宋：多边形示意图层，按政权存续年份/阶段随滑块显隐
+// 历史疆域与帝国多边形示意图层，按政权存续年份/阶段随滑块显隐
 function territoryPopupHTML(t, phase) {
-  const stage = (phase && phase !== t) ? ` · ${phase.year_start}—${phase.year_end} 阶段` : '';
+  const sy = t.year_start, ey = t.year_end;
+  const timeStr = (sy < 0 ? `前 ${-sy}` : `公元 ${sy}`) + '—' + (ey < 0 ? `前 ${-ey}` : `公元 ${ey}`) + ' 年';
+  const stage = (phase && phase !== t) ? ` · ${(phase.year_start < 0 ? '前'+(-phase.year_start) : phase.year_start)}—${(phase.year_end < 0 ? '前'+(-phase.year_end) : phase.year_end)} 阶段` : '';
   return `<div class="popup">
     <div class="popup-title">${esc(t.name)} <span class="popup-tag" style="background:${t.color}">疆域</span></div>
-    <div class="popup-region">公元 ${t.year_start}—${t.year_end} 年 · ${esc(t.kind)}${stage}</div>
+    <div class="popup-region">${timeStr} · ${esc(t.kind)}${stage}</div>
     <p class="popup-note">${esc((phase && phase.note) || t.note)}</p>
   </div>`;
 }
