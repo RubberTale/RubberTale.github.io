@@ -198,7 +198,7 @@
 <header>
   <h1>《罗马人的故事》地名地图</h1>
   <span class="sub">罗马帝国的兴亡地理 —— 对照盐野七生《罗马人的故事》阅读</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新时间: <span id="lastUpdate">2026-08-27 11:00:01 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新时间: <span id="lastUpdate">2026-08-27 11:55:32 (CST)</span></span>
   <div class="spacer"></div>
   <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
 </header>
@@ -629,10 +629,10 @@ async function init() {
   try { const saved = localStorage.getItem('roman-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch (e) {}
   document.documentElement.dataset.theme = theme;
 
-  const lightTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
-  const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
+  const lightTiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    { attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ', maxZoom: 16 });
+  const darkTiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    { attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ', maxZoom: 16 });
   tileLayers.light = lightTiles;
   tileLayers.dark = darkTiles;
 
