@@ -38,7 +38,7 @@ skip_render:
   - "games/kline-duel/**"
   - "games/reverse-app/**"
   - "games/billiards/**"
-  - "tools/**"
+  - "tools/*/**"
   - "rubber/**"
   - "roman/**"
   - "world-history/**"
