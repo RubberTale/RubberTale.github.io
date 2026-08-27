@@ -6,6 +6,9 @@
 <title>东西方文明对照地图</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.21/leaflet-maplibre-gl.js"></script>
 <style>
   :root {
     color-scheme: light;
@@ -266,8 +269,10 @@
 <header>
   <h1>东西方文明对照地图</h1>
   <span class="sub">同一时刻，地中海与东亚各自发生了什么</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 06:24:04 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 06:31:12 (CST)</span></span>
   <div class="spacer"></div>
+  <a id="ohmLink" class="btn" href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener" title="在 OpenHistoricalMap 维基历史地图中全景查看当前年代全球历史细节" style="text-decoration:none;">🌐 探索 OHM 维基全景 ↗</a>
+  <button id="basemapBtn" class="btn" type="button" title="切换底图：自然山川地形 / OpenHistoricalMap 维基时空矢量底图">底图: 自然地形</button>
   <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
 </header>
 <div class="layout">
@@ -367,6 +372,8 @@ let landmarkLayer = null;
 let landmarkLabels = [];
 let landmarkVisible = true;
 const LANDMARK_LABEL_MIN_ZOOM = 4;
+let basemapMode = 'terrain'; // 'terrain' | 'ohm'
+let ohmLayer = null;
 const TOPICS = ['AI', '罗马', '战争', '科技', '政治', '宗教', '中外交流', '人物', '影星'];
 const activeTopics = new Set();
 let tagIgnoreTimeMode = false; // 新增：标签模式是否忽略时间限制
@@ -398,6 +405,14 @@ function updateURLState() {
   const newSearch = '?' + params.toString();
   if (window.location.search !== newSearch) {
     window.history.replaceState(null, '', window.location.pathname + newSearch);
+  }
+
+  const ohmLink = document.getElementById('ohmLink');
+  if (ohmLink && map) {
+    const c = map.getCenter();
+    const z = map.getZoom();
+    const dateStr = (cur.y > 0 ? String(cur.y).padStart(4, '0') : cur.y) + '-' + String(cur.m || 1).padStart(2, '0') + '-01';
+    ohmLink.href = `https://www.openhistoricalmap.org/#map=${z}/${c.lat.toFixed(4)}/${c.lng.toFixed(4)}&date=${dateStr}`;
   }
 }
 
@@ -952,6 +967,60 @@ function renderLandmarkToggle() {
   b.textContent = landmarkVisible ? '古都关隘 · 显示' : '古都关隘 · 隐藏';
 }
 
+// === OpenHistoricalMap (OHM) 维基全时空历史地图图层集成 ===
+function initOHMLayer() {
+  if (ohmLayer || typeof L.maplibreGL === 'undefined') return;
+  try {
+    ohmLayer = L.maplibreGL({
+      style: 'https://unpkg.com/@openhistoricalmap/map-styles@latest/dist/historical/historical.json',
+      attribution: '&copy; <a href="https://www.openhistoricalmap.org/" target="_blank">OpenHistoricalMap</a> contributors'
+    });
+  } catch (e) {
+    console.warn('OHM MapLibre 初始化异常:', e);
+  }
+}
+
+function updateOHMFilter() {
+  if (basemapMode !== 'ohm' || !ohmLayer) return;
+  const glMap = ohmLayer.getMaplibreMap && ohmLayer.getMaplibreMap();
+  if (!glMap || !glMap.isStyleLoaded()) return;
+  const decDate = cur.y + (cur.m ? (cur.m - 1) / 12 : 0);
+  const layers = glMap.getStyle()?.layers || [];
+  for (const l of layers) {
+    if (l.source === 'ohm') {
+      try {
+        glMap.setFilter(l.id, [
+          'all',
+          ['<=', ['coalesce', ['get', 'start_decdate'], -999999], decDate],
+          ['>=', ['coalesce', ['get', 'end_decdate'], 999999], decDate]
+        ]);
+      } catch (e) {}
+    }
+  }
+}
+
+function switchBasemap(mode) {
+  basemapMode = mode;
+  const btn = document.getElementById('basemapBtn');
+  if (mode === 'ohm') {
+    if (!ohmLayer) initOHMLayer();
+    if (ohmLayer) {
+      const activeBase = tileLayers[theme];
+      if (activeBase && map.hasLayer(activeBase)) map.removeLayer(activeBase);
+      ohmLayer.addTo(map);
+      if (btn) btn.textContent = '底图: OHM 维基';
+      setTimeout(updateOHMFilter, 300);
+    } else {
+      alert('当前浏览器环境暂未加载 WebGL MapLibre 引擎，正在使用默认自然地形。您可通过右上角【🌐 探索 OHM 维基全景 ↗】直接在新窗口查看该年代 OHM 全景！');
+    }
+  } else {
+    if (ohmLayer && map.hasLayer(ohmLayer)) map.removeLayer(ohmLayer);
+    const activeBase = tileLayers[theme];
+    if (activeBase && !map.hasLayer(activeBase)) activeBase.addTo(map);
+    if (btn) btn.textContent = '底图: 自然地形';
+  }
+}
+
 function nearestBySide(visible, side) {
   const list = visible.filter(e => e.side === side);
   if (!list.length) return null;
@@ -1013,6 +1082,7 @@ function renderList(visible) {
 function renderEvents() {
   renderTerritories();
   renderLandmarks();
+  updateOHMFilter();
   if (eventLayer) { map.removeLayer(eventLayer); eventLayer = null; }
   Object.keys(eventMarkers).forEach(k => delete eventMarkers[k]);
   eventLayer = L.layerGroup().addTo(map);
@@ -1350,6 +1420,13 @@ async function init() {
     try { localStorage.setItem('wh-theme', theme); } catch (e) {}
     rebuildTheme();
   });
+
+  const basemapBtn = document.getElementById('basemapBtn');
+  if (basemapBtn) {
+    basemapBtn.addEventListener('click', () => {
+      switchBasemap(basemapMode === 'terrain' ? 'ohm' : 'terrain');
+    });
+  }
 
   renderEvents();
   renderPrehistory();
