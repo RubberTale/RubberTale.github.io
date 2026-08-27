@@ -269,7 +269,7 @@
 <header>
   <h1>东西方文明对照地图</h1>
   <span class="sub">同一时刻，地中海与东亚各自发生了什么</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 06:31:12 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-27 14:24:16 (CST)</span></span>
   <div class="spacer"></div>
   <a id="ohmLink" class="btn" href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener" title="在 OpenHistoricalMap 维基历史地图中全景查看当前年代全球历史细节" style="text-decoration:none;">🌐 探索 OHM 维基全景 ↗</a>
   <button id="basemapBtn" class="btn" type="button" title="切换底图：自然山川地形 / OpenHistoricalMap 维基时空矢量底图">底图: 自然地形</button>
@@ -326,8 +326,10 @@
         <div class="view-mode-selector">
           <button id="modeAllBtn" class="mode-btn active" type="button">全部历史 (全览)</button>
           <button id="modeCenturyBtn" class="mode-btn" type="button">百年视图 (精细)</button>
+          <button id="modeYearBtn" class="mode-btn" type="button">年度视图 (按月)</button>
         </div>
         <select id="centurySelect" class="century-select" style="display:none"></select>
+        <select id="yearSelect" class="century-select" style="display:none"></select>
         <div class="spacer"></div>
         <button id="prevBtn2" class="tl-btn" type="button">◀</button>
         <span id="yearLabel"></span>
@@ -391,6 +393,7 @@ function updateURLState() {
   const params = new URLSearchParams(window.location.search);
   params.set('year', cur.y);
   if (cur.m > 1) params.set('month', cur.m); else params.delete('month');
+  if (timeMode !== 'all') params.set('mode', timeMode); else params.delete('mode');
 
   const center = map.getCenter();
   params.set('lat', center.lat.toFixed(2));
@@ -418,6 +421,10 @@ function updateURLState() {
 
 function loadURLState() {
   const params = new URLSearchParams(window.location.search);
+  const mMode = params.get('mode');
+  if (mMode === 'century' || mMode === 'year' || mMode === 'all') {
+    timeMode = mMode;
+  }
   const yStr = params.get('year');
   if (yStr !== null) {
     const y = parseInt(yStr, 10);
@@ -466,8 +473,9 @@ function fmtRange(e) {
 }
 function absOf(t) { return t.y * 12 + (t.m - 1); }
 
-let timeMode = 'all'; // 'all' 全览模式 / 'century' 百年精细视图
+let timeMode = 'all'; // 'all' 全览模式 / 'century' 百年精细视图 / 'year' 年度精细视图(按月)
 let activeCentury = 1000; // 选中的百年开始年份，例如 1000 表示 1000-1099 年 (11世纪)
+let activeYear = 2024;    // 选中的年度年份，例如 2024 表示 2024 年 1~12 月
 
 function centuryLabel(startYear) {
   const endYear = startYear + 99;
@@ -500,11 +508,69 @@ function buildCenturyOptions() {
   select.value = activeCentury;
 }
 
+function buildYearOptions() {
+  const select = document.getElementById('yearSelect');
+  if (!select) return;
+  select.innerHTML = '';
+
+  // 统计各年份事件数
+  const yearCounts = {};
+  for (const e of events) {
+    yearCounts[e.year] = (yearCounts[e.year] || 0) + 1;
+  }
+
+  // 1. 🌟 近40年现代故事 (1980 — 2026)
+  const recentGroup = document.createElement('optgroup');
+  recentGroup.label = '🌟 近40年现代故事 (1980—2026)';
+  for (let y = 2026; y >= 1980; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    const cnt = yearCounts[y] || 0;
+    opt.textContent = `公元 ${y} 年${cnt > 0 ? ` (${cnt}个事件)` : ''}`;
+    recentGroup.appendChild(opt);
+  }
+  select.appendChild(recentGroup);
+
+  // 2. 📜 历史其他重要年份节点
+  const histYears = Object.keys(yearCounts)
+    .map(Number)
+    .filter(y => y < 1980 || y > 2026)
+    .sort((a, b) => b - a);
+
+  if (histYears.length > 0) {
+    const histGroup = document.createElement('optgroup');
+    histGroup.label = '📜 历史其他重要年份节点';
+    for (const y of histYears) {
+      const opt = document.createElement('option');
+      opt.value = y;
+      const cnt = yearCounts[y] || 0;
+      opt.textContent = `${fmtYear(y)} (${cnt}个事件)`;
+      histGroup.appendChild(opt);
+    }
+    select.appendChild(histGroup);
+  }
+  select.value = activeYear;
+}
+
 function updateSliderBounds() {
   const slider = document.getElementById('yearSlider');
   if (!slider) return;
   
-  if (timeMode === 'century') {
+  if (timeMode === 'year') {
+    // 年度精细视图模式：滑块范围 1 ~ 12 月
+    slider.min = 1;
+    slider.max = 12;
+    slider.step = 1;
+    
+    document.getElementById('minLabel').textContent = `${activeYear > 0 ? activeYear : '前' + (-activeYear)}年 1月`;
+    document.getElementById('maxLabel').textContent = `${activeYear > 0 ? activeYear : '前' + (-activeYear)}年 12月`;
+    document.getElementById('scaleCenterText').textContent = `年度精细范围：${fmtYear(activeYear)} (1月 — 12月)`;
+    
+    if (cur.y !== activeYear) {
+      cur = { y: activeYear, m: 1 };
+    }
+    slider.value = cur.m || 1;
+  } else if (timeMode === 'century') {
     // 百年精细视图模式：slider 表示 0 ~ 99 年（如果区间包含 1934 年之后按月展开）
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -547,6 +613,9 @@ function updateSliderBounds() {
 }
 
 function sliderToTime(v) {
+  if (timeMode === 'year') {
+    return { y: activeYear, m: Math.max(1, Math.min(12, parseInt(v, 10))) };
+  }
   if (timeMode === 'century') {
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -568,6 +637,9 @@ function sliderToTime(v) {
 }
 
 function timeToSlider(t) {
+  if (timeMode === 'year') {
+    return t.m || 1;
+  }
   if (timeMode === 'century') {
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -589,6 +661,18 @@ function inWindow(e, t) {
   const et = tOfEvent(e);
   const end = tOfEventEnd(e);
   
+  if (timeMode === 'year') {
+    const inYear = end ? (et.y <= activeYear && end.y >= activeYear) : (et.y === activeYear);
+    if (!inYear) return false;
+    if (end) {
+      const curAbs = absOf(t);
+      return curAbs >= absOf(et) && curAbs <= absOf(end);
+    }
+    // 单点事件：若未标注月份则在选中的整年内都显示；若有月份，显示当前月份附近（±2个月）的事件
+    if (!e.month) return true;
+    return Math.abs((e.month || 1) - t.m) <= 2;
+  }
+
   if (timeMode === 'century') {
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -1208,6 +1292,11 @@ function jumpToEvent(id) {
     const centurySel = document.getElementById('centurySelect');
     if (centurySel) centurySel.value = activeCentury;
     updateSliderBounds();
+  } else if (timeMode === 'year') {
+    activeYear = cur.y;
+    const yearSel = document.getElementById('yearSelect');
+    if (yearSel) yearSel.value = activeYear;
+    updateSliderBounds();
   } else {
     document.getElementById('yearSlider').value = timeToSlider(cur);
   }
@@ -1223,6 +1312,11 @@ function step(dir) {
     activeCentury = Math.floor(cur.y / 100) * 100;
     const centurySel = document.getElementById('centurySelect');
     if (centurySel) centurySel.value = activeCentury;
+    updateSliderBounds();
+  } else if (timeMode === 'year') {
+    activeYear = cur.y;
+    const yearSel = document.getElementById('yearSelect');
+    if (yearSel) yearSel.value = activeYear;
     updateSliderBounds();
   } else {
     document.getElementById('yearSlider').value = timeToSlider(cur);
@@ -1299,12 +1393,40 @@ async function init() {
   YEAR_UNITS = MONTH_MODE_YEAR - MIN_YEAR;
 
   buildCenturyOptions();
+  buildYearOptions();
 
   cur = { y: 9, m: 1 }; // 初始对照点：条顿堡惨败 ↔ 王莽篡汉（同年）
   const urlState = loadURLState();
   activeCentury = Math.floor(cur.y / 100) * 100;
+  activeYear = (cur.y >= 1980 && cur.y <= 2026) ? cur.y : 2024;
   const centurySel = document.getElementById('centurySelect');
   if (centurySel) centurySel.value = activeCentury;
+  const yearSel = document.getElementById('yearSelect');
+  if (yearSel) yearSel.value = activeYear;
+
+  const modeAllBtn = document.getElementById('modeAllBtn');
+  const modeCenturyBtn = document.getElementById('modeCenturyBtn');
+  const modeYearBtn = document.getElementById('modeYearBtn');
+
+  if (timeMode === 'century') {
+    modeCenturyBtn.classList.add('active');
+    modeAllBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
+    centurySel.style.display = 'inline-block';
+    yearSel.style.display = 'none';
+  } else if (timeMode === 'year') {
+    modeYearBtn.classList.add('active');
+    modeAllBtn.classList.remove('active');
+    modeCenturyBtn.classList.remove('active');
+    centurySel.style.display = 'none';
+    yearSel.style.display = 'inline-block';
+  } else {
+    modeAllBtn.classList.add('active');
+    modeCenturyBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
+    centurySel.style.display = 'none';
+    yearSel.style.display = 'none';
+  }
 
   updateSliderBounds();
 
@@ -1315,14 +1437,13 @@ async function init() {
     updateURLState();
   });
 
-  const modeAllBtn = document.getElementById('modeAllBtn');
-  const modeCenturyBtn = document.getElementById('modeCenturyBtn');
-  
   modeAllBtn.addEventListener('click', () => {
     timeMode = 'all';
     modeAllBtn.classList.add('active');
     modeCenturyBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
     centurySel.style.display = 'none';
+    yearSel.style.display = 'none';
     updateSliderBounds();
     renderEvents();
     updateURLState();
@@ -1332,9 +1453,32 @@ async function init() {
     timeMode = 'century';
     modeCenturyBtn.classList.add('active');
     modeAllBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
     centurySel.style.display = 'inline-block';
+    yearSel.style.display = 'none';
     activeCentury = Math.floor(cur.y / 100) * 100;
     centurySel.value = activeCentury;
+    updateSliderBounds();
+    renderEvents();
+    updateURLState();
+  });
+
+  modeYearBtn.addEventListener('click', () => {
+    timeMode = 'year';
+    modeYearBtn.classList.add('active');
+    modeAllBtn.classList.remove('active');
+    modeCenturyBtn.classList.remove('active');
+    centurySel.style.display = 'none';
+    yearSel.style.display = 'inline-block';
+    if (cur.y >= 1980 && cur.y <= 2026) {
+      activeYear = cur.y;
+    } else if (yearSel.querySelector(`option[value="${cur.y}"]`)) {
+      activeYear = cur.y;
+    } else {
+      activeYear = 2024;
+      cur = { y: 2024, m: 1 };
+    }
+    yearSel.value = activeYear;
     updateSliderBounds();
     renderEvents();
     updateURLState();
@@ -1343,6 +1487,14 @@ async function init() {
   centurySel.addEventListener('change', () => {
     activeCentury = parseInt(centurySel.value, 10);
     cur = { y: activeCentury, m: 1 };
+    updateSliderBounds();
+    renderEvents();
+    updateURLState();
+  });
+
+  yearSel.addEventListener('change', () => {
+    activeYear = parseInt(yearSel.value, 10);
+    cur = { y: activeYear, m: 1 };
     updateSliderBounds();
     renderEvents();
     updateURLState();
