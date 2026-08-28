@@ -126,6 +126,12 @@
   }
   .ev-item:hover { background: var(--panel-2); }
   .ev-item.selected { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  .cat-badge {
+    width: 17px; height: 17px; border-radius: 4px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 10px; font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
   .dot {
     width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
     box-shadow: 0 0 0 1.5px rgba(0,0,0,.2);
@@ -146,9 +152,9 @@
   .legend ul { list-style: none; margin: 0; padding: 0; }
   .legend li { display: flex; align-items: center; gap: 6px; color: var(--ink-2); margin: 3px 0; }
   .lg {
-    width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+    width: 17px; height: 17px; border-radius: 4px; flex-shrink: 0;
     display: inline-flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 9.5px; font-weight: 600;
+    color: #fff; font-size: 10px; font-weight: 700;
     box-shadow: 0 0 0 1px rgba(0,0,0,.25);
   }
   .timeline {
@@ -187,16 +193,27 @@
   :root[data-theme="dark"] .leaflet-popup-tip { background: #1a1a19; color: #fff; }
   :root[data-theme="dark"] .leaflet-popup-content-wrapper a { color: #5ba3e8; }
   .pin {
-    --c: #2a78d6;
-    width: 21px; height: 21px; border-radius: 50%;
+    --c: #3b82f6;
+    width: 22px; height: 22px; border-radius: 50%;
     background-color: var(--c);
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 11px; font-weight: 600; line-height: 1;
-    box-shadow: 0 0 0 1.5px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.4);
+    color: #fff; font-size: 11.5px; font-weight: 700; line-height: 1;
+    box-shadow: 0 0 0 1.5px rgba(255,255,255,.9), 0 2px 4px rgba(0,0,0,.35);
     transition: transform .12s ease;
   }
+  .pin:hover { transform: scale(1.2); z-index: 1000 !important; }
   .pin.selected {
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c), 0 1px 4px rgba(0,0,0,.45);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4.5px var(--c), 0 2px 8px rgba(0,0,0,.5);
+    transform: scale(1.25);
+  }
+  .event-label {
+    font-size: 11px; font-weight: 700; color: var(--ink);
+    background: rgba(255,255,255,.88); border: 1px solid var(--hair-2);
+    border-radius: 4px; padding: 1px 6px; white-space: nowrap; pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2); line-height: 1.2;
+  }
+  :root[data-theme="dark"] .event-label {
+    background: rgba(25,25,24,.88); color: #fff; border-color: rgba(255,255,255,.2);
   }
   .toolbar #routeBtn, .toolbar #prehistoryBtn, .toolbar #territoryBtn, .toolbar #landmarkBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
   .terr-sq {
@@ -267,7 +284,7 @@
 <header>
   <h1>世界历史时空地图</h1>
   <span class="sub">同一时刻，世界各地正在发生什么</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-28 02:23:55 (CST)</span></span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-28 03:30:59 (CST)</span></span>
   <div class="spacer"></div>
   <a id="ohmLink" class="btn" href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener" title="在 OpenHistoricalMap 维基历史地图中全景查看当前年代全球历史细节" style="text-decoration:none;">🌐 探索 OHM 维基全景 ↗</a>
   <button id="basemapBtn" class="btn" type="button" title="切换底图：自然山川地形 / OpenHistoricalMap 维基时空矢量底图">底图: 自然地形</button>
@@ -305,14 +322,19 @@
     <div class="legend">
       <h4>图例</h4>
       <ul>
-        <li><span class="lg" style="background:#e34948">西</span>西方（罗马 / 地中海）</li>
-        <li><span class="lg" style="background:#2a78d6">东</span>东方（中国 / 东亚）</li>
-        <li><span class="lg" style="background:#e0a418">遇</span>东西相遇</li>
-        <li><span class="lg" style="background:#8d6e63">人</span>史前人类遗址（不随年代轴）</li>
+        <li><span class="lg" style="background:#ef4444">战</span>战争军事</li>
+        <li><span class="lg" style="background:#3b82f6">政</span>政治王朝</li>
+        <li><span class="lg" style="background:#10b981">创</span>科技发明</li>
+        <li><span class="lg" style="background:#f97316">文</span>思想文化</li>
+        <li><span class="lg" style="background:#8b5cf6">宗</span>宗教信仰</li>
+        <li><span class="lg" style="background:#06b6d4">航</span>航海交流</li>
+        <li><span class="lg" style="background:#f59e0b">人</span>历史人物</li>
+        <li><span class="lg" style="background:#ec4899">星</span>影星艺术</li>
+        <li><span class="lg" style="background:#8d6e63">遗</span>史前人类遗址</li>
         <li><span class="pin-node" style="background:#2563eb;width:15px;height:15px;font-size:9.5px;vertical-align:middle;margin-right:4px;">都</span>历史古都名城</li>
         <li><span class="pin-node pin-pass" style="background:#dc2626;width:15px;height:15px;font-size:9.5px;vertical-align:middle;margin-right:4px;">关</span>军事要塞关隘</li>
-        <li><span class="terr-sq" style="background:#c2410c"></span>东方历代版图（秦汉、唐宋、元明清等）</li>
-        <li><span class="terr-sq" style="background:#991b1b"></span>西方与世界帝国（波斯、罗马、大食、奥斯曼等）</li>
+        <li><span class="terr-sq" style="background:#c2410c"></span>东方历代版图</li>
+        <li><span class="terr-sq" style="background:#991b1b"></span>西方世界帝国</li>
       </ul>
     </div>
     <div class="timeline">
@@ -438,6 +460,66 @@ function loadURLState() {
     selectedId = evt;
   }
   return { mapSet, selectedEventId: evt };
+}
+
+const EVENT_CATEGORIES = {
+  war:     { glyph: '战', emoji: '⚔️', label: '战争军事', color: '#ef4444', darkColor: '#f87171' },
+  pol:     { glyph: '政', emoji: '👑', label: '政治王朝', color: '#3b82f6', darkColor: '#60a5fa' },
+  tech:    { glyph: '创', emoji: '💡', label: '科技发明', color: '#10b981', darkColor: '#34d399' },
+  cult:    { glyph: '文', emoji: '📜', label: '思想文化', color: '#f97316', darkColor: '#fb923c' },
+  rel:     { glyph: '宗', emoji: '🏛️', label: '宗教信仰', color: '#8b5cf6', darkColor: '#a78bfa' },
+  trade:   { glyph: '航', emoji: '⛵', label: '航海交流', color: '#06b6d4', darkColor: '#22d3ee' },
+  person:  { glyph: '人', emoji: '👤', label: '历史人物', color: '#f59e0b', darkColor: '#fbbf24' },
+  star:    { glyph: '星', emoji: '⭐', label: '影星艺术', color: '#ec4899', darkColor: '#f472b6' },
+  prehist: { glyph: '遗', emoji: '🗿', label: '史前遗址', color: '#8d6e63', darkColor: '#a1887f' }
+};
+
+function getEventCategory(e) {
+  if (!e) return EVENT_CATEGORIES.pol;
+  const tags = e.tags || [];
+  const title = e.title || '';
+  
+  if (tags.includes('影星')) return EVENT_CATEGORIES.star;
+  
+  const warKws = ['战争', '军事', '农民起义'];
+  if (warKws.some(t => tags.includes(t)) || ['之战', '之役', '战役', '起义', '决战', '兵变', '远征', '大战', '会战', '长征', '大捷', '战国', '兵', '围城'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.war;
+  }
+  
+  const techKws = ['科技', '科学', '物理学', '天文学', '数学', 'AI'];
+  if (techKws.some(t => tags.includes(t)) || ['发明', '发现', '工业革命', '计算机', '登月', '相对论', '万有引力', '造纸', '印刷', '望远镜'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.tech;
+  }
+  
+  const relKws = ['宗教', '佛教'];
+  if (relKws.some(t => tags.includes(t)) || ['佛教', '基督', '伊斯兰', '宗教', '教皇', '寺', '圣经', '宗教改革', '神学'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.rel;
+  }
+  
+  const tradeKws = ['航海', '中外交流', '文化交流', '外交', '殖民', '商业', '金融'];
+  if (tradeKws.some(t => tags.includes(t)) || ['出使', '下西洋', '西行', '环球航行', '丝绸之路', '通商', '东传', '探险'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.trade;
+  }
+  
+  if (tags.includes('人物') || tags.includes('民族英雄') || ['诞生', '逝世', '出生', '遇刺', '逝'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.person;
+  }
+  
+  const cultKws = ['文化', '思想', '哲学', '文学', '艺术', '出版', '历史', '文明', '神话'];
+  if (cultKws.some(t => tags.includes(t)) || ['文艺复兴', '百家争鸣', '启蒙运动', '序', '集', '赋', '诗', '书', '红楼梦', '九章算术', '离骚'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.cult;
+  }
+  
+  const polKws = ['政治', '统一', '朝代更替', '革命', '帝国', '盛世', '改革', '法律', '民族'];
+  if (polKws.some(t => tags.includes(t)) || ['统一', '称帝', '建国', '立国', '变法', '革命', '宪章', '宣言', '改革', '王朝', '亡', '灭', '分治', '新政'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.pol;
+  }
+  
+  return EVENT_CATEGORIES.pol;
+}
+
+function eventCatColor(cat) {
+  return theme === 'dark' ? cat.darkColor : cat.color;
 }
 
 function esc(s) {
@@ -679,11 +761,12 @@ function inWindow(e, t) {
 }
 
 function makeEventIcon(e) {
-  const size = {1: 18, 2: 24, 3: 30}[e.imp] || 24;
-  const c = sideColor(e.side);
+  const cat = getEventCategory(e);
+  const c = eventCatColor(cat);
+  const size = {1: 20, 2: 26, 3: 32}[e.imp] || 26;
   return L.divIcon({
     className: '',
-    html: `<span class="pin" style="--c:${c};width:${size}px;height:${size}px;font-size:${Math.round(size * 0.46)}px">${sideGlyph(e.side)}</span>`,
+    html: `<span class="pin" style="--c:${c};width:${size}px;height:${size}px;font-size:${Math.round(size * 0.52)}px" title="${esc(cat.label)}: ${esc(e.title)}">${cat.glyph}</span>`,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
     popupAnchor: [0, -size / 2]
@@ -691,10 +774,10 @@ function makeEventIcon(e) {
 }
 
 function eventPopupHTML(e) {
-  const c = sideColor(e.side);
-  const tag = SIDE_INFO[e.side] ? SIDE_INFO[e.side].label : '事件';
+  const cat = getEventCategory(e);
+  const c = eventCatColor(cat);
   return `<div class="popup">
-    <div class="popup-title">${esc(e.title)} <span class="popup-tag" style="background:${c}">${tag}</span></div>
+    <div class="popup-title">${esc(e.title)} <span class="popup-tag" style="background:${c}">${cat.emoji} ${cat.label}</span></div>
     <div class="popup-region">${fmtRange(e)} · ${esc(e.era)}</div>
     <p class="popup-note">${esc(e.note)}</p>
     <div class="popup-links">
@@ -830,7 +913,7 @@ function prehistoryIcon(s) {
   const size = { 1: 18, 2: 24, 3: 30 }[s.imp] || 24;
   return L.divIcon({
     className: '',
-    html: `<span class="pin" style="--c:#8d6e63;width:${size}px;height:${size}px;font-size:${Math.round(size * 0.46)}px">人</span>`,
+    html: `<span class="pin" style="--c:#8d6e63;width:${size}px;height:${size}px;font-size:${Math.round(size * 0.52)}px" title="史前遗址: ${esc(s.name)}">遗</span>`,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
     popupAnchor: [0, -size / 2]
@@ -1104,16 +1187,33 @@ function nearestBySide(visible, side) {
 }
 
 function renderNowBar(visible) {
+  if (!visible.length) {
+    document.getElementById('nowBar').innerHTML =
+      `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>
+       <span class="nb-col" style="color:var(--muted)">当前时段无重点事件</span>`;
+    return;
+  }
   const west = nearestBySide(visible, 'west');
   const east = nearestBySide(visible, 'east');
   const meet = visible.find(e => e.side === 'meet');
-  const w = west ? `${fmtRange(west)} ${esc(west.title)}` : '——';
-  const e2 = east ? `${fmtRange(east)} ${esc(east.title)}` : '——';
-  document.getElementById('nowBar').innerHTML =
-    `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>
-     <span class="nb-col nb-west"><b>西方</b>${w}</span>
-     <span class="nb-col nb-east"><b>东方</b>${e2}</span>` +
-    (meet ? `<span class="nb-col nb-meet"><b>相遇</b>${fmtTime(meet.year, meet.month || 1)} ${esc(meet.title)}</span>` : '');
+  
+  let html = `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>`;
+  if (west) {
+    const catW = getEventCategory(west);
+    const colW = eventCatColor(catW);
+    html += `<span class="nb-col"><b style="background:${colW}">${catW.glyph}</b>${fmtRange(west)} ${esc(west.title)}</span>`;
+  }
+  if (east) {
+    const catE = getEventCategory(east);
+    const colE = eventCatColor(catE);
+    html += `<span class="nb-col"><b style="background:${colE}">${catE.glyph}</b>${fmtRange(east)} ${esc(east.title)}</span>`;
+  }
+  if (meet) {
+    const catM = getEventCategory(meet);
+    const colM = eventCatColor(catM);
+    html += `<span class="nb-col"><b style="background:${colM}">${catM.glyph}</b>${fmtTime(meet.year, meet.month || 1)} ${esc(meet.title)}</span>`;
+  }
+  document.getElementById('nowBar').innerHTML = html;
 }
 
 function renderList(visible) {
@@ -1135,9 +1235,10 @@ function renderList(visible) {
       <span class="ev-imp">↦ 路线</span>
     </button>`).join('');
   box.innerHTML = routeRows + sorted.map(e => {
-    const c = sideColor(e.side);
+    const cat = getEventCategory(e);
+    const c = eventCatColor(cat);
     return `<button class="ev-item" data-id="${esc(e.id)}">
-      <span class="dot" style="background:${c}"></span>
+      <span class="cat-badge" style="background:${c}">${cat.glyph}</span>
       <span class="ev-year">${fmtRange(e)}</span>
       <span class="ev-title">${esc(e.title)}</span>
       <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
@@ -1259,9 +1360,10 @@ function renderSearchResults(q) {
     if (t.toLowerCase().includes(q) && !activeTopics.has(t)) activeTopics.add(t);
   }
   box.innerHTML = matched.map(e => {
-    const c = sideColor(e.side);
+    const cat = getEventCategory(e);
+    const c = eventCatColor(cat);
     return `<button class="ev-item" data-id="${esc(e.id)}">
-      <span class="dot" style="background:${c}"></span>
+      <span class="cat-badge" style="background:${c}">${cat.glyph}</span>
       <span class="ev-year">${fmtRange(e)}</span>
       <span class="ev-title">${esc(e.title)}</span>
       <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
@@ -1334,7 +1436,9 @@ function rebuildTheme() {
   const tiles = tileLayers[theme];
   if (map) { tiles.addTo(map); tileLayers[theme === 'dark' ? 'light' : 'dark'].remove(); }
   for (const [id, m] of Object.entries(eventMarkers)) m.setIcon(makeEventIcon(events.find(e => e.id === id)));
-  renderList(events.filter(e => inWindow(e, cur)));
+  const visible = events.filter(e => inWindow(e, cur) && topicOK(e));
+  renderNowBar(visible);
+  renderList(visible);
 }
 
 async function init() {
