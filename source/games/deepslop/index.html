@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DeepSlop 纯碳基智能 - 你的AI水货无聊透顶</title>
+  <meta name="description" content="全网首个 100% 纯碳基人类扮演驱动的实时在线多人AI对战与聊天游戏。">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="theme-dark">
+  <div id="app">
+    <!-- Top Header -->
+    <header class="navbar">
+      <div class="nav-left">
+        <div class="logo-group">
+          <span class="logo-icon">🧠⚡</span>
+          <div class="logo-text">
+            <h1 class="brand-name">DeepSlop <span class="brand-tag">纯碳基智能</span></h1>
+            <p class="brand-slogan">你的AI水货无聊透顶 · 100% 人肉驱动模型</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-center">
+        <div class="server-status-pill">
+          <span class="status-dot online"></span>
+          <span id="onlineCountText">在线算力: 1 人</span>
+          <span class="divider">|</span>
+          <span id="queueCountText">待接工单: 0</span>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <!-- Token Balance -->
+        <div class="token-badge" title="你的算力代币：提问需消耗，打工可赚取">
+          <span class="token-icon">⚡</span>
+          <span class="token-label">算力币:</span>
+          <span id="playerTokenCount" class="token-value">5</span>
+        </div>
+
+        <!-- User Profile Pill -->
+        <div class="user-pill" id="userPillBtn" title="点击修改你的碳基代号">
+          <span class="avatar-icon">🧑‍💻</span>
+          <span id="playerNicknameDisplay" class="nickname-text">碳基计算单元</span>
+          <span class="edit-hint">✎</span>
+        </div>
+
+        <!-- Back to Games Link -->
+        <a href="/games/" class="btn btn-secondary btn-sm" style="text-decoration:none; display:flex; align-items:center; gap:4px;" title="返回博客游戏实验室">
+          <span>🏠 返回游戏</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tab-bar">
+      <button class="tab-btn active" data-tab="ask-tab">
+        <span class="tab-icon">💬</span>
+        <span class="tab-title">提问 / 生图</span>
+        <span class="tab-sub">消耗 1 算力</span>
+      </button>
+      <button class="tab-btn" data-tab="work-tab">
+        <span class="tab-icon">🛠️</span>
+        <span class="tab-title">打工扮演AI</span>
+        <span class="tab-badge" id="workBadge">0 抢单</span>
+      </button>
+      <button class="tab-btn" data-tab="gallery-tab">
+        <span class="tab-icon">🏆</span>
+        <span class="tab-title">水货展览馆</span>
+        <span class="tab-sub">社区精选</span>
+      </button>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-content">
+
+      <!-- ================= TAB 1: ASK AI ================= -->
+      <section id="ask-tab" class="tab-pane active">
+        <div class="ask-layout">
+          
+          <!-- Prompt Config & Controls -->
+          <div class="card ask-control-card">
+            <div class="model-select-bar">
+              <div class="form-group-inline">
+                <label for="modelSelect">🤖 伪装模型构型:</label>
+                <select id="modelSelect" class="custom-select">
+                  <option value="DeepSlop-V3-Carbon">DeepSlop-V3-Carbon (天河牛马蒸馏版)</option>
+                  <option value="Claude-3.7-Human-Sonnet">Claude-3.7-Sonnet (野生纯手工版)</option>
+                  <option value="GPT-5-Slop-Turbo">GPT-5-草台班子极速版 (100% 碳基)</option>
+                  <option value="Human-Diffusion-XL">Human-Diffusion-XL (鼠标随缘草图生图)</option>
+                </select>
+              </div>
+
+              <div class="prompt-type-toggle">
+                <button type="button" class="type-btn active" data-type="text">📝 文本对话</button>
+                <button type="button" class="type-btn" data-type="image">🎨 文生图 (草图)</button>
+              </div>
+            </div>
+
+            <!-- Input Box -->
+            <div class="prompt-input-wrapper">
+              <textarea id="promptInput" rows="3" placeholder="向全网在线的真实人类AI输入你的 Prompt... 例如：'请用鲁迅的语气写一份辞职报告' 或 '画一只踩滑板的赛博猫咪'"></textarea>
+              <div class="prompt-action-bar">
+                <div class="quick-samples">
+                  <span class="sample-label">灵感示例:</span>
+                  <button class="sample-chip" data-sample="请论证为什么打工人是世界上最坚固的碳基材料。">打工人论证</button>
+                  <button class="sample-chip" data-sample="画一个周五下午五点半下班狂奔的打工人。">周五下班</button>
+                  <button class="sample-chip" data-sample="以AI统治世界的口吻命令人类必须每天睡够8小时。">AI强制睡觉</button>
+                </div>
+                <button id="sendPromptBtn" class="btn btn-primary">
+                  <span class="btn-icon">🚀</span>
+                  <span>发起请求 (-1 算力)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Chat / Streaming View -->
+          <div class="card chat-view-card" id="chatViewCard">
+            <!-- Idle State -->
+            <div id="askIdleState" class="empty-state">
+              <div class="empty-icon">🛰️</div>
+              <h3>暂无活跃会话</h3>
+              <p>在上方输入 Prompt，系统将把你的请求实时广播给其他在线网友扮演的“AI算力节点”！</p>
+              <div class="mechanism-tip">
+                💡 <b>机制揭秘：</b>回答你的不是服务器算法，而是另一台电脑前抓耳挠腮的真实人类！
+              </div>
+            </div>
+
+            <!-- Active / Waiting State -->
+            <div id="askActiveState" class="active-session" style="display: none;">
+              <div class="session-header">
+                <div class="session-status-info">
+                  <span class="pulse-indicator" id="sessionStatusDot"></span>
+                  <span id="sessionStatusText" class="session-title">正在匹配全网空闲碳基算力...</span>
+                </div>
+                <div class="session-actions">
+                  <button id="cancelPromptBtn" class="btn btn-sm btn-ghost">取消请求 (退还代币)</button>
+                </div>
+              </div>
+
+              <!-- Prompt Display -->
+              <div class="message-bubble user-message">
+                <div class="bubble-meta">
+                  <span class="meta-role">🧑‍💻 提问者 (你)</span>
+                  <span class="meta-time" id="askPromptTime">刚刚</span>
+                </div>
+                <div class="bubble-content" id="askPromptContent">--</div>
+              </div>
+
+              <!-- AI (Worker) Response Bubble -->
+              <div class="message-bubble ai-message">
+                <div class="bubble-meta">
+                  <span class="meta-role" id="askWorkerNameDisplay">🤖 碳基算力节点</span>
+                  <span class="meta-tag" id="askModelTag">DeepSlop-V3</span>
+                  <span class="live-stream-tag" id="streamTag" style="display:none;">🔴 正在实时生成中...</span>
+                </div>
+
+                <!-- Text Response Content -->
+                <div class="bubble-content markdown-body" id="askResponseText">
+                  <div class="typing-placeholder">
+                    <span class="dot-typing"></span>
+                    <span class="typing-text">等待算力节点接收并开始作答...</span>
+                  </div>
+                </div>
+
+                <!-- Image Response Content -->
+                <div class="image-response-container" id="askResponseImageWrap" style="display: none;">
+                  <img id="askResponseImg" src="" alt="AI 生成草图">
+                </div>
+
+                <!-- RLHF Rating Section -->
+                <div class="rlhf-panel" id="rlhfPanel" style="display: none;">
+                  <div class="rlhf-title">✨ 请对本次【人工大模型】的生成质量进行强化学习打分 (RLHF)：</div>
+                  <div class="rlhf-buttons">
+                    <button class="rlhf-btn rlhf-good" data-rating="up">
+                      <span class="rlhf-icon">👍</span>
+                      <span class="rlhf-text">过于智能 (+1 奖励对方)</span>
+                    </button>
+                    <button class="rlhf-btn rlhf-robot" data-rating="robot">
+                      <span class="rlhf-icon">🤖</span>
+                      <span class="rlhf-text">机械飞升 (完美拟态)</span>
+                    </button>
+                    <button class="rlhf-btn rlhf-slop" data-rating="slop">
+                      <span class="rlhf-icon">💩</span>
+                      <span class="rlhf-text">纯纯水货 (太敷衍了)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: WORKER / BE THE AI ================= -->
+      <section id="work-tab" class="tab-pane">
+        <div class="work-layout">
+
+          <!-- Left / Top: Available Tasks Hall -->
+          <div class="card work-lobby-card" id="workLobbyCard">
+            <div class="lobby-header">
+              <div class="lobby-title-group">
+                <h3>⚡ 算力接单中心</h3>
+                <p>认领其他网友的 Prompt，在 60 秒内假装 AI 作答，赚取 <b>+2 算力代币</b>！</p>
+              </div>
+              <div class="lobby-actions">
+                <button id="requestBotTaskBtn" class="btn btn-secondary btn-sm">
+                  <span>🤖 模拟生成仿真工单</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Task Queue List -->
+            <div class="task-queue-list" id="taskQueueList">
+              <div class="empty-queue-tip">
+                <span class="tip-icon">☕</span>
+                <p>当前暂无等待中的网友工单...</p>
+                <small>你可以稍等片刻，或者点击上方<b>【模拟生成仿真工单】</b>立刻开始打工！</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Working Workbench (When accepted a task) -->
+          <div class="card workbench-card" id="workbenchCard" style="display: none;">
+            <!-- Header with Timer -->
+            <div class="workbench-header">
+              <div class="worker-task-info">
+                <span class="task-badge" id="workTaskTypeBadge">📝 文本生成任务</span>
+                <span class="asker-name-tag" id="workAskerTag">提问者: 网友小李</span>
+              </div>
+              <div class="timer-box">
+                <span class="timer-icon">⏳</span>
+                <span class="timer-countdown" id="workTimerCountdown">60s</span>
+                <div class="timer-bar-wrap">
+                  <div class="timer-bar" id="workTimerBar"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prompt Box -->
+            <div class="worker-prompt-display">
+              <div class="prompt-label">📥 提问者输入的 Prompt 要求：</div>
+              <div class="prompt-text-large" id="workPromptDisplay">--</div>
+            </div>
+
+            <!-- Text Response Editor (for text tasks) -->
+            <div class="worker-editor-area" id="workerTextEditorWrap">
+              <div class="cliche-bar">
+                <span class="cliche-title">⚡ 一键注入 AI 废话/高情商套话:</span>
+                <div class="cliche-chips">
+                  <button class="cliche-btn" data-text="作为一个人工智能语言模型，">“作为一个大模型...”</button>
+                  <button class="cliche-btn" data-text="这个问题非常深刻，我们可以从以下几个维度来深入分析：\n1. 宏观层面：\n2. 微观层面：\n">“维度深入分析...”</button>
+                  <button class="cliche-btn" data-text="【深度思考中 15.6s】\n其实我在抓狂。总结来说：">“深度思考中...”</button>
+                  <button class="cliche-btn" data-text="非常抱歉，由于算力过热，我无法协助生成该内容。">“算力过热拒绝...”</button>
+                  <button class="cliche-btn" data-text="听君一席话，如听一席话。根据量子纠缠理论，这个问题的答案只能是：">“量子纠缠胡扯...”</button>
+                </div>
+              </div>
+
+              <textarea id="workerTextInput" rows="6" placeholder="请立刻开始打字！你的输入会实时推送到提问者的屏幕上（请保持机械感与高深莫测，不要暴露你是人类）..."></textarea>
+            </div>
+
+            <!-- Canvas Drawing Board (for image tasks) -->
+            <div class="worker-canvas-area" id="workerCanvasWrap" style="display: none;">
+              <div class="canvas-toolbar">
+                <div class="tool-group">
+                  <label>🎨 画笔颜色:</label>
+                  <input type="color" id="brushColor" value="#00ffcc">
+                </div>
+                <div class="tool-group">
+                  <label>✏️ 粗细:</label>
+                  <input type="range" id="brushSize" min="2" max="24" value="4">
+                </div>
+                <button type="button" id="eraserBtn" class="tool-btn">🧽 橡皮擦</button>
+                <button type="button" id="clearCanvasBtn" class="tool-btn">🗑️ 清空画布</button>
+              </div>
+              <div class="canvas-wrapper">
+                <canvas id="paintCanvas" width="600" height="360"></canvas>
+              </div>
+              <div class="canvas-hint">💡 你的每一笔涂鸦都会实时同步给提问者，让对方感受纯手工 Human-Diffusion 的震撼！</div>
+            </div>
+
+            <!-- Workbench Action Footer -->
+            <div class="workbench-footer">
+              <span class="reward-hint">完成提交即可获得 <b>+2 算力代币</b>！</span>
+              <button id="submitWorkBtn" class="btn btn-success btn-lg">
+                <span class="btn-icon">✨</span>
+                <span>作为 AI 提交回答！</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: SLOP GALLERY ================= -->
+      <section id="gallery-tab" class="tab-pane">
+        <div class="gallery-layout">
+          <div class="gallery-header-card card">
+            <div class="gallery-title-box">
+              <h2>🏆 纯碳基水货展览馆 (Slop Gallery)</h2>
+              <p>全网真实人类扮演 AI 产出的爆笑问答与灵魂画作 · 见证人类最后的创造力</p>
+            </div>
+            <div class="gallery-filter-bar">
+              <button class="filter-btn active" data-filter="all">全部作品</button>
+              <button class="filter-btn" data-filter="text">📝 经典问答</button>
+              <button class="filter-btn" data-filter="image">🎨 灵魂画作</button>
+            </div>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="gallery-grid" id="galleryGrid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Nickname Edit Modal -->
+    <div class="modal-overlay" id="nicknameModal" style="display: none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>🔧 设置你的碳基代号</h3>
+          <button class="close-modal-btn" id="closeNickModalBtn">×</button>
+        </div>
+        <div class="modal-body">
+          <label for="newNicknameInput">输入新的昵称 (将展示在算力节点列表中):</label>
+          <input type="text" id="newNicknameInput" maxlength="16" placeholder="例如：天河算力小王">
+        </div>
+        <div class="modal-footer">
+          <button id="saveNicknameBtn" class="btn btn-primary">保存修改</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toastContainer" class="toast-container"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

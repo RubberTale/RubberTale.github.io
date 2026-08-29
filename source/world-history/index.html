@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>东西方文明对照地图</title>
+<title>世界历史时空地图</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.21/leaflet-maplibre-gl.js"></script>
 <style>
   :root {
     color-scheme: light;
@@ -84,8 +87,6 @@
     padding: 8px 14px 10px;
   }
   .toolbar .btn { flex: 1; }
-  .node-nav { display: flex; gap: 8px; flex-basis: 100%; }
-  .node-nav .btn { flex: 1; }
   .topic-bar {
     display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
     padding: 0 14px 8px;
@@ -125,6 +126,12 @@
   }
   .ev-item:hover { background: var(--panel-2); }
   .ev-item.selected { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  .cat-badge {
+    width: 17px; height: 17px; border-radius: 4px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 10px; font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
   .dot {
     width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
     box-shadow: 0 0 0 1.5px rgba(0,0,0,.2);
@@ -145,9 +152,9 @@
   .legend ul { list-style: none; margin: 0; padding: 0; }
   .legend li { display: flex; align-items: center; gap: 6px; color: var(--ink-2); margin: 3px 0; }
   .lg {
-    width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+    width: 17px; height: 17px; border-radius: 4px; flex-shrink: 0;
     display: inline-flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 9.5px; font-weight: 600;
+    color: #fff; font-size: 10px; font-weight: 700;
     box-shadow: 0 0 0 1px rgba(0,0,0,.25);
   }
   .timeline {
@@ -186,21 +193,48 @@
   :root[data-theme="dark"] .leaflet-popup-tip { background: #1a1a19; color: #fff; }
   :root[data-theme="dark"] .leaflet-popup-content-wrapper a { color: #5ba3e8; }
   .pin {
-    --c: #2a78d6;
-    width: 21px; height: 21px; border-radius: 50%;
+    --c: #3b82f6;
+    width: 22px; height: 22px; border-radius: 50%;
     background-color: var(--c);
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 11px; font-weight: 600; line-height: 1;
-    box-shadow: 0 0 0 1.5px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.4);
+    color: #fff; font-size: 11.5px; font-weight: 700; line-height: 1;
+    box-shadow: 0 0 0 1.5px rgba(255,255,255,.9), 0 2px 4px rgba(0,0,0,.35);
     transition: transform .12s ease;
   }
+  .pin:hover { transform: scale(1.2); z-index: 1000 !important; }
   .pin.selected {
-    box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c), 0 1px 4px rgba(0,0,0,.45);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4.5px var(--c), 0 2px 8px rgba(0,0,0,.5);
+    transform: scale(1.25);
   }
-  .toolbar #routeBtn, .toolbar #prehistoryBtn, .toolbar #territoryBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
+  .event-label {
+    font-size: 11px; font-weight: 700; color: var(--ink);
+    background: rgba(255,255,255,.88); border: 1px solid var(--hair-2);
+    border-radius: 4px; padding: 1px 6px; white-space: nowrap; pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2); line-height: 1.2;
+  }
+  :root[data-theme="dark"] .event-label {
+    background: rgba(25,25,24,.88); color: #fff; border-color: rgba(255,255,255,.2);
+  }
+  .toolbar #routeBtn, .toolbar #prehistoryBtn, .toolbar #territoryBtn, .toolbar #landmarkBtn { flex: 0 0 auto; font-size: 12px; padding: 7px 10px; }
   .terr-sq {
     width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
     box-shadow: 0 0 0 1px rgba(0,0,0,.3);
+  }
+  .pin-node {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 4px; color: #fff; font-weight: 700; font-size: 11px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.35), 0 0 0 1.5px #fff;
+    cursor: pointer; transition: transform .15s;
+  }
+  .pin-node:hover { transform: scale(1.15); z-index: 1000 !important; }
+  .pin-pass { border-radius: 50% 50% 2px 2px; }
+  .node-label {
+    font-size: 11.5px; font-weight: 700; color: var(--ink);
+    text-shadow: 0 1px 2px rgba(255,255,255,.9), 0 0 3px rgba(255,255,255,.9);
+    white-space: nowrap; pointer-events: none;
+  }
+  :root[data-theme="dark"] .node-label {
+    text-shadow: 0 1px 2px rgba(0,0,0,.9), 0 0 3px rgba(0,0,0,.9);
   }
   .wp-label {
     text-align: center; font-size: 11px; font-weight: 600; color: var(--ink);
@@ -241,27 +275,29 @@
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat; background-position: right 6px center; background-size: 12px;
   }
+  :root[data-theme="dark"] .leaflet-tile-pane {
+    filter: invert(100%) hue-rotate(180deg) brightness(85%) contrast(110%);
+  }
 </style>
 </head>
 <body>
 <header>
-  <h1>东西方文明对照地图</h1>
-  <span class="sub">同一时刻，地中海与东亚各自发生了什么</span>
-  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-24 14:00:04 (CST)</span></span>
+  <h1>世界历史时空地图</h1>
+  <span class="sub">同一时刻，世界各地正在发生什么</span>
+  <span class="sub" style="font-size: 11.5px; opacity: 0.8;">| 更新: <span id="lastUpdate">2026-08-29 01:09:43 (CST)</span></span>
   <div class="spacer"></div>
+  <a id="ohmLink" class="btn" href="https://www.openhistoricalmap.org/" target="_blank" rel="noopener" title="在 OpenHistoricalMap 维基历史地图中全景查看当前年代全球历史细节" style="text-decoration:none;">🌐 探索 OHM 维基全景 ↗</a>
+  <button id="basemapBtn" class="btn" type="button" title="切换底图：自然山川地形 / OpenHistoricalMap 维基时空矢量底图">底图: 自然地形</button>
   <button id="themeToggle" class="btn" type="button" aria-label="切换明暗主题">🌙 深色模式</button>
 </header>
 <div class="layout">
   <aside>
     <div id="nowBar" class="now-bar"></div>
     <div class="toolbar">
-      <button id="routeBtn" class="btn" type="button" title="南宋末帝南逃路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
+      <button id="routeBtn" class="btn" type="button" title="历史行进路线：点击切换 自动/显示/隐藏">线路 · 自动</button>
       <button id="prehistoryBtn" class="btn" type="button" title="史前人类遗址：固定标注，不随时间轴变化">史前遗址 · 显示</button>
-      <button id="territoryBtn" class="btn" type="button" title="五代十国疆域：随时间轴显示当时存在的政权（示意）">疆域 · 显示</button>
-      <div class="node-nav">
-        <button id="prevBtn" class="btn" type="button">◀ 上一节点</button>
-        <button id="nextBtn" class="btn" type="button">下一节点 ▶</button>
-      </div>
+      <button id="territoryBtn" class="btn" type="button" title="世界历史疆域：随时间轴显示各时代帝国与政权版图（示意）">疆域 · 显示</button>
+      <button id="landmarkBtn" class="btn" type="button" title="古都要塞与工程：显示历史古都、关隘与长城/运河等重大工程">古都关隘 · 显示</button>
     </div>
     <div class="search-bar">
       <input id="searchInput" class="search-input" type="text" placeholder="🔍 搜索事件：输入标题 / 地点 / 时代 / 人名 …" autocomplete="off">
@@ -286,12 +322,19 @@
     <div class="legend">
       <h4>图例</h4>
       <ul>
-        <li><span class="lg" style="background:#e34948">西</span>西方（罗马 / 地中海）</li>
-        <li><span class="lg" style="background:#2a78d6">东</span>东方（中国 / 东亚）</li>
-        <li><span class="lg" style="background:#e0a418">遇</span>东西相遇</li>
-        <li><span class="lg" style="background:#8d6e63">人</span>史前人类遗址（不随年代轴）</li>
-        <li><span class="terr-sq" style="background:#c99700"></span>大宋疆域（示意，960—1126 随时代迁移变化）</li>
-        <li><span class="terr-sq" style="background:#7d3c98"></span>五代十国疆域（示意，907—979 年间随滑块显隐，979 后为大宋统一）</li>
+        <li><span class="lg" style="background:#ef4444">战</span>战争军事</li>
+        <li><span class="lg" style="background:#3b82f6">政</span>政治王朝</li>
+        <li><span class="lg" style="background:#10b981">创</span>科技发明</li>
+        <li><span class="lg" style="background:#f97316">文</span>思想文化</li>
+        <li><span class="lg" style="background:#8b5cf6">宗</span>宗教信仰</li>
+        <li><span class="lg" style="background:#06b6d4">航</span>航海交流</li>
+        <li><span class="lg" style="background:#f59e0b">人</span>历史人物</li>
+        <li><span class="lg" style="background:#ec4899">星</span>影星艺术</li>
+        <li><span class="lg" style="background:#8d6e63">遗</span>史前人类遗址</li>
+        <li><span class="pin-node" style="background:#2563eb;width:15px;height:15px;font-size:9.5px;vertical-align:middle;margin-right:4px;">都</span>历史古都名城</li>
+        <li><span class="pin-node pin-pass" style="background:#dc2626;width:15px;height:15px;font-size:9.5px;vertical-align:middle;margin-right:4px;">关</span>军事要塞关隘</li>
+        <li><span class="terr-sq" style="background:#c2410c"></span>东方历代版图</li>
+        <li><span class="terr-sq" style="background:#991b1b"></span>西方世界帝国</li>
       </ul>
     </div>
     <div class="timeline">
@@ -299,12 +342,14 @@
         <div class="view-mode-selector">
           <button id="modeAllBtn" class="mode-btn active" type="button">全部历史 (全览)</button>
           <button id="modeCenturyBtn" class="mode-btn" type="button">百年视图 (精细)</button>
+          <button id="modeYearBtn" class="mode-btn" type="button">年度视图 (按月)</button>
         </div>
         <select id="centurySelect" class="century-select" style="display:none"></select>
+        <select id="yearSelect" class="century-select" style="display:none"></select>
         <div class="spacer"></div>
-        <button id="prevBtn2" class="tl-btn" type="button">◀</button>
+        <button id="prevBtn2" class="tl-btn" type="button" title="上一节点：跳转到前一个历史事件">◀</button>
         <span id="yearLabel"></span>
-        <button id="nextBtn2" class="tl-btn" type="button">▶</button>
+        <button id="nextBtn2" class="tl-btn" type="button" title="下一节点：跳转到后一个历史事件">▶</button>
       </div>
       <input id="yearSlider" type="range" min="0" max="3119" step="1" value="1055">
       <div class="timeline-scale">
@@ -318,11 +363,6 @@
 
 <script>
 'use strict';
-const SIDE_INFO = {
-  west:  { label: '西方', glyph: '西', light: '#e34948', dark: '#d65757' },
-  east:  { label: '东方', glyph: '东', light: '#2a78d6', dark: '#3f8fd9' },
-  meet:  { label: '相遇', glyph: '遇', light: '#e0a418', dark: '#e8b33e' }
-};
 const YEAR_WINDOW = 15;     // 1934 年前的可见窗口（单位：年）
 const MONTH_WINDOW = 24;    // 1934 年起按月的可见窗口（单位：月，约 2 年）
 const MONTH_MODE_YEAR = 1934; // 自此年份起，时间颗粒度切换为月份
@@ -340,6 +380,13 @@ let routeLabels = [];
 let terrLayer = null;
 let terrLabels = [];
 let territoryVisible = true;
+let landmarks = { nodes: [], engineering: [] };
+let landmarkLayer = null;
+let landmarkLabels = [];
+let landmarkVisible = true;
+const LANDMARK_LABEL_MIN_ZOOM = 4;
+let basemapMode = 'terrain'; // 'terrain' | 'ohm'
+let ohmLayer = null;
 const TOPICS = ['AI', '罗马', '战争', '科技', '政治', '宗教', '中外交流', '人物', '影星'];
 const activeTopics = new Set();
 let tagIgnoreTimeMode = false; // 新增：标签模式是否忽略时间限制
@@ -357,6 +404,7 @@ function updateURLState() {
   const params = new URLSearchParams(window.location.search);
   params.set('year', cur.y);
   if (cur.m > 1) params.set('month', cur.m); else params.delete('month');
+  if (timeMode !== 'all') params.set('mode', timeMode); else params.delete('mode');
 
   const center = map.getCenter();
   params.set('lat', center.lat.toFixed(2));
@@ -372,10 +420,22 @@ function updateURLState() {
   if (window.location.search !== newSearch) {
     window.history.replaceState(null, '', window.location.pathname + newSearch);
   }
+
+  const ohmLink = document.getElementById('ohmLink');
+  if (ohmLink && map) {
+    const c = map.getCenter();
+    const z = map.getZoom();
+    const dateStr = (cur.y > 0 ? String(cur.y).padStart(4, '0') : cur.y) + '-' + String(cur.m || 1).padStart(2, '0') + '-01';
+    ohmLink.href = `https://www.openhistoricalmap.org/#map=${z}/${c.lat.toFixed(4)}/${c.lng.toFixed(4)}&date=${dateStr}`;
+  }
 }
 
 function loadURLState() {
   const params = new URLSearchParams(window.location.search);
+  const mMode = params.get('mode');
+  if (mMode === 'century' || mMode === 'year' || mMode === 'all') {
+    timeMode = mMode;
+  }
   const yStr = params.get('year');
   if (yStr !== null) {
     const y = parseInt(yStr, 10);
@@ -397,6 +457,66 @@ function loadURLState() {
   return { mapSet, selectedEventId: evt };
 }
 
+const EVENT_CATEGORIES = {
+  war:     { glyph: '战', emoji: '⚔️', label: '战争军事', color: '#ef4444', darkColor: '#f87171' },
+  pol:     { glyph: '政', emoji: '👑', label: '政治王朝', color: '#3b82f6', darkColor: '#60a5fa' },
+  tech:    { glyph: '创', emoji: '💡', label: '科技发明', color: '#10b981', darkColor: '#34d399' },
+  cult:    { glyph: '文', emoji: '📜', label: '思想文化', color: '#f97316', darkColor: '#fb923c' },
+  rel:     { glyph: '宗', emoji: '🏛️', label: '宗教信仰', color: '#8b5cf6', darkColor: '#a78bfa' },
+  trade:   { glyph: '航', emoji: '⛵', label: '航海交流', color: '#06b6d4', darkColor: '#22d3ee' },
+  person:  { glyph: '人', emoji: '👤', label: '历史人物', color: '#f59e0b', darkColor: '#fbbf24' },
+  star:    { glyph: '星', emoji: '⭐', label: '影星艺术', color: '#ec4899', darkColor: '#f472b6' },
+  prehist: { glyph: '遗', emoji: '🗿', label: '史前遗址', color: '#8d6e63', darkColor: '#a1887f' }
+};
+
+function getEventCategory(e) {
+  if (!e) return EVENT_CATEGORIES.pol;
+  const tags = e.tags || [];
+  const title = e.title || '';
+  
+  if (tags.includes('影星')) return EVENT_CATEGORIES.star;
+  
+  const warKws = ['战争', '军事', '农民起义'];
+  if (warKws.some(t => tags.includes(t)) || ['之战', '之役', '战役', '起义', '决战', '兵变', '远征', '大战', '会战', '长征', '大捷', '战国', '兵', '围城'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.war;
+  }
+  
+  const techKws = ['科技', '科学', '物理学', '天文学', '数学', 'AI'];
+  if (techKws.some(t => tags.includes(t)) || ['发明', '发现', '工业革命', '计算机', '登月', '相对论', '万有引力', '造纸', '印刷', '望远镜'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.tech;
+  }
+  
+  const relKws = ['宗教', '佛教'];
+  if (relKws.some(t => tags.includes(t)) || ['佛教', '基督', '伊斯兰', '宗教', '教皇', '寺', '圣经', '宗教改革', '神学'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.rel;
+  }
+  
+  const tradeKws = ['航海', '中外交流', '文化交流', '外交', '殖民', '商业', '金融'];
+  if (tradeKws.some(t => tags.includes(t)) || ['出使', '下西洋', '西行', '环球航行', '丝绸之路', '通商', '东传', '探险'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.trade;
+  }
+  
+  if (tags.includes('人物') || tags.includes('民族英雄') || ['诞生', '逝世', '出生', '遇刺', '逝'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.person;
+  }
+  
+  const cultKws = ['文化', '思想', '哲学', '文学', '艺术', '出版', '历史', '文明', '神话'];
+  if (cultKws.some(t => tags.includes(t)) || ['文艺复兴', '百家争鸣', '启蒙运动', '序', '集', '赋', '诗', '书', '红楼梦', '九章算术', '离骚'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.cult;
+  }
+  
+  const polKws = ['政治', '统一', '朝代更替', '革命', '帝国', '盛世', '改革', '法律', '民族'];
+  if (polKws.some(t => tags.includes(t)) || ['统一', '称帝', '建国', '立国', '变法', '革命', '宪章', '宣言', '改革', '王朝', '亡', '灭', '分治', '新政'].some(k => title.includes(k))) {
+    return EVENT_CATEGORIES.pol;
+  }
+  
+  return EVENT_CATEGORIES.pol;
+}
+
+function eventCatColor(cat) {
+  return theme === 'dark' ? cat.darkColor : cat.color;
+}
+
 function esc(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
@@ -404,8 +524,6 @@ function fmtTime(y, m) {
   return (y < 0 ? `前 ${-y}` : `公元 ${y}`) + ' 年' + (m > 1 ? ' ' + m + ' 月' : '');
 }
 function fmtYear(y) { return fmtTime(y, 1); }
-function sideColor(side) { const s = SIDE_INFO[side] || SIDE_INFO.east; return s[theme]; }
-function sideGlyph(side) { return (SIDE_INFO[side] || SIDE_INFO.east).glyph; }
 function tOfEvent(e) { return { y: e.year, m: e.month || 1 }; }
 function tOfEventEnd(e) {
   if (e.year_end == null) return null;
@@ -424,8 +542,9 @@ function fmtRange(e) {
 }
 function absOf(t) { return t.y * 12 + (t.m - 1); }
 
-let timeMode = 'all'; // 'all' 全览模式 / 'century' 百年精细视图
+let timeMode = 'all'; // 'all' 全览模式 / 'century' 百年精细视图 / 'year' 年度精细视图(按月)
 let activeCentury = 1000; // 选中的百年开始年份，例如 1000 表示 1000-1099 年 (11世纪)
+let activeYear = 2024;    // 选中的年度年份，例如 2024 表示 2024 年 1~12 月
 
 function centuryLabel(startYear) {
   const endYear = startYear + 99;
@@ -458,11 +577,69 @@ function buildCenturyOptions() {
   select.value = activeCentury;
 }
 
+function buildYearOptions() {
+  const select = document.getElementById('yearSelect');
+  if (!select) return;
+  select.innerHTML = '';
+
+  // 统计各年份事件数
+  const yearCounts = {};
+  for (const e of events) {
+    yearCounts[e.year] = (yearCounts[e.year] || 0) + 1;
+  }
+
+  // 1. 🌟 近40年现代故事 (1980 — 2026)
+  const recentGroup = document.createElement('optgroup');
+  recentGroup.label = '🌟 近40年现代故事 (1980—2026)';
+  for (let y = 2026; y >= 1980; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    const cnt = yearCounts[y] || 0;
+    opt.textContent = `公元 ${y} 年${cnt > 0 ? ` (${cnt}个事件)` : ''}`;
+    recentGroup.appendChild(opt);
+  }
+  select.appendChild(recentGroup);
+
+  // 2. 📜 历史其他重要年份节点
+  const histYears = Object.keys(yearCounts)
+    .map(Number)
+    .filter(y => y < 1980 || y > 2026)
+    .sort((a, b) => b - a);
+
+  if (histYears.length > 0) {
+    const histGroup = document.createElement('optgroup');
+    histGroup.label = '📜 历史其他重要年份节点';
+    for (const y of histYears) {
+      const opt = document.createElement('option');
+      opt.value = y;
+      const cnt = yearCounts[y] || 0;
+      opt.textContent = `${fmtYear(y)} (${cnt}个事件)`;
+      histGroup.appendChild(opt);
+    }
+    select.appendChild(histGroup);
+  }
+  select.value = activeYear;
+}
+
 function updateSliderBounds() {
   const slider = document.getElementById('yearSlider');
   if (!slider) return;
   
-  if (timeMode === 'century') {
+  if (timeMode === 'year') {
+    // 年度精细视图模式：滑块范围 1 ~ 12 月
+    slider.min = 1;
+    slider.max = 12;
+    slider.step = 1;
+    
+    document.getElementById('minLabel').textContent = `${activeYear > 0 ? activeYear : '前' + (-activeYear)}年 1月`;
+    document.getElementById('maxLabel').textContent = `${activeYear > 0 ? activeYear : '前' + (-activeYear)}年 12月`;
+    document.getElementById('scaleCenterText').textContent = `年度精细范围：${fmtYear(activeYear)} (1月 — 12月)`;
+    
+    if (cur.y !== activeYear) {
+      cur = { y: activeYear, m: 1 };
+    }
+    slider.value = cur.m || 1;
+  } else if (timeMode === 'century') {
     // 百年精细视图模式：slider 表示 0 ~ 99 年（如果区间包含 1934 年之后按月展开）
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -505,6 +682,9 @@ function updateSliderBounds() {
 }
 
 function sliderToTime(v) {
+  if (timeMode === 'year') {
+    return { y: activeYear, m: Math.max(1, Math.min(12, parseInt(v, 10))) };
+  }
   if (timeMode === 'century') {
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -526,6 +706,9 @@ function sliderToTime(v) {
 }
 
 function timeToSlider(t) {
+  if (timeMode === 'year') {
+    return t.m || 1;
+  }
   if (timeMode === 'century') {
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -547,6 +730,12 @@ function inWindow(e, t) {
   const et = tOfEvent(e);
   const end = tOfEventEnd(e);
   
+  if (timeMode === 'year') {
+    // 年度视图下：展示属于该年度的所有事件（包含持续跨越该年的事件）
+    const inYear = end ? (et.y <= activeYear && end.y >= activeYear) : (et.y === activeYear);
+    return inYear;
+  }
+
   if (timeMode === 'century') {
     const startY = activeCentury;
     const endY = activeCentury + 99;
@@ -565,11 +754,12 @@ function inWindow(e, t) {
 }
 
 function makeEventIcon(e) {
-  const size = {1: 18, 2: 24, 3: 30}[e.imp] || 24;
-  const c = sideColor(e.side);
+  const cat = getEventCategory(e);
+  const c = eventCatColor(cat);
+  const size = {1: 20, 2: 26, 3: 32}[e.imp] || 26;
   return L.divIcon({
     className: '',
-    html: `<span class="pin" style="--c:${c};width:${size}px;height:${size}px;font-size:${Math.round(size * 0.46)}px">${sideGlyph(e.side)}</span>`,
+    html: `<span class="pin" style="--c:${c};width:${size}px;height:${size}px;font-size:${Math.round(size * 0.52)}px" title="${esc(cat.label)}: ${esc(e.title)}">${cat.glyph}</span>`,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
     popupAnchor: [0, -size / 2]
@@ -577,10 +767,10 @@ function makeEventIcon(e) {
 }
 
 function eventPopupHTML(e) {
-  const c = sideColor(e.side);
-  const tag = SIDE_INFO[e.side] ? SIDE_INFO[e.side].label : '事件';
+  const cat = getEventCategory(e);
+  const c = eventCatColor(cat);
   return `<div class="popup">
-    <div class="popup-title">${esc(e.title)} <span class="popup-tag" style="background:${c}">${tag}</span></div>
+    <div class="popup-title">${esc(e.title)} <span class="popup-tag" style="background:${c}">${cat.emoji} ${cat.label}</span></div>
     <div class="popup-region">${fmtRange(e)} · ${esc(e.era)}</div>
     <p class="popup-note">${esc(e.note)}</p>
     <div class="popup-links">
@@ -716,7 +906,7 @@ function prehistoryIcon(s) {
   const size = { 1: 18, 2: 24, 3: 30 }[s.imp] || 24;
   return L.divIcon({
     className: '',
-    html: `<span class="pin" style="--c:#8d6e63;width:${size}px;height:${size}px;font-size:${Math.round(size * 0.46)}px">人</span>`,
+    html: `<span class="pin" style="--c:#8d6e63;width:${size}px;height:${size}px;font-size:${Math.round(size * 0.52)}px" title="史前遗址: ${esc(s.name)}">遗</span>`,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
     popupAnchor: [0, -size / 2]
@@ -769,12 +959,14 @@ function buildTopicBar() {
   });
 }
 
-// 五代十国疆域 + 北宋：多边形示意图层，按政权存续年份/阶段随滑块显隐
+// 历史疆域与帝国多边形示意图层，按政权存续年份/阶段随滑块显隐
 function territoryPopupHTML(t, phase) {
-  const stage = (phase && phase !== t) ? ` · ${phase.year_start}—${phase.year_end} 阶段` : '';
+  const sy = t.year_start, ey = t.year_end;
+  const timeStr = (sy < 0 ? `前 ${-sy}` : `公元 ${sy}`) + '—' + (ey < 0 ? `前 ${-ey}` : `公元 ${ey}`) + ' 年';
+  const stage = (phase && phase !== t) ? ` · ${(phase.year_start < 0 ? '前'+(-phase.year_start) : phase.year_start)}—${(phase.year_end < 0 ? '前'+(-phase.year_end) : phase.year_end)} 阶段` : '';
   return `<div class="popup">
     <div class="popup-title">${esc(t.name)} <span class="popup-tag" style="background:${t.color}">疆域</span></div>
-    <div class="popup-region">公元 ${t.year_start}—${t.year_end} 年 · ${esc(t.kind)}${stage}</div>
+    <div class="popup-region">${timeStr} · ${esc(t.kind)}${stage}</div>
     <p class="popup-note">${esc((phase && phase.note) || t.note)}</p>
   </div>`;
 }
@@ -828,27 +1020,176 @@ function renderTerritoryToggle() {
   b.textContent = territoryVisible ? '疆域 · 显示' : '疆域 · 隐藏';
 }
 
-function nearestBySide(visible, side) {
-  const list = visible.filter(e => e.side === side);
-  if (!list.length) return null;
-  const cAbs = absOf(cur);
-  list.sort((a, b) =>
-    (Math.abs(absOf(tOfEvent(a)) - cAbs) - Math.abs(absOf(tOfEvent(b)) - cAbs)) ||
-    (absOf(tOfEvent(a)) - absOf(tOfEvent(b))));
-  return list[0];
+// 历史古都、重镇与关隘要塞 + 重大历史工程（长城、运河等）
+function landmarkNodeIcon(n) {
+  const glyph = (n.type === '古都') ? '都' : (n.type === '关隘') ? '关' : (n.type === '要塞') ? '堡' : (n.type === '圣城') ? '圣' : '镇';
+  const isPass = (n.type === '关隘' || n.type === '要塞');
+  const bg = n.color || '#2563eb';
+  const size = (n.type === '古都' || n.type === '圣城') ? 22 : 19;
+  return L.divIcon({
+    className: '',
+    html: `<span class="pin-node ${isPass ? 'pin-pass' : ''}" style="background:${bg};width:${size}px;height:${size}px;font-size:${Math.round(size*0.52)}px" title="${esc(n.name)}">${glyph}</span>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+    popupAnchor: [0, -size / 2]
+  });
+}
+
+function landmarkPopupHTML(n) {
+  const sy = n.year_start, ey = n.year_end;
+  const timeStr = (sy < 0 ? `前 ${-sy}` : `公元 ${sy}`) + '—' + (ey < 0 ? `前 ${-ey}` : `公元 ${ey}`) + ' 年';
+  return `<div class="popup">
+    <div class="popup-title">${esc(n.name)} <span class="popup-tag" style="background:${n.color || '#2563eb'}">${esc(n.type)}</span></div>
+    <div class="popup-region">${timeStr}</div>
+    <p class="popup-note">${esc(n.note)}</p>
+  </div>`;
+}
+
+function engineeringPopupHTML(w) {
+  const sy = w.year_start, ey = w.year_end;
+  const timeStr = (sy < 0 ? `前 ${-sy}` : `公元 ${sy}`) + '—' + (ey < 0 ? `前 ${-ey}` : `公元 ${ey}`) + ' 年';
+  return `<div class="popup">
+    <div class="popup-title">${esc(w.name)} <span class="popup-tag" style="background:${w.color || '#b91c1c'}">${esc(w.type)}</span></div>
+    <div class="popup-region">${timeStr}</div>
+    <p class="popup-note">${esc(w.note)}</p>
+  </div>`;
+}
+
+function renderLandmarks() {
+  if (landmarkLayer) { map.removeLayer(landmarkLayer); landmarkLayer = null; }
+  landmarkLabels = [];
+  if (!landmarkVisible) return;
+  landmarkLayer = L.layerGroup().addTo(map);
+
+  // 1. 历史工程（长城、哈德良长城、大运河、灵渠）
+  for (const w of (landmarks.engineering || [])) {
+    if (cur.y >= w.year_start && cur.y <= w.year_end) {
+      const polyOpts = {
+        color: w.color || '#b91c1c',
+        weight: w.weight || 2.5,
+        opacity: 0.85,
+        dashArray: w.dashArray || null
+      };
+      const line = L.polyline(w.path, polyOpts);
+      line.bindTooltip(w.name, { sticky: true });
+      line.bindPopup(engineeringPopupHTML(w), { maxWidth: 300 });
+      landmarkLayer.addLayer(line);
+    }
+  }
+
+  // 2. 古都、重镇与关隘
+  for (const n of (landmarks.nodes || [])) {
+    if (cur.y >= n.year_start && cur.y <= n.year_end) {
+      const m = L.marker(n.pos, { icon: landmarkNodeIcon(n), title: `${n.name} (${n.type})` })
+        .bindPopup(landmarkPopupHTML(n), { maxWidth: 320 });
+      landmarkLayer.addLayer(m);
+
+      // 名称标签
+      const lb = L.marker(n.pos, {
+        interactive: false,
+        icon: L.divIcon({
+          className: '',
+          html: `<div class="node-label" style="margin-left: 14px; margin-top: -8px;">${esc(n.name.split('（')[0])}</div>`,
+          iconSize: null
+        })
+      });
+      landmarkLayer.addLayer(lb);
+      landmarkLabels.push(lb);
+    }
+  }
+  updateLandmarkLabels();
+}
+
+function updateLandmarkLabels() {
+  if (!landmarkLayer) return;
+  const show = map.getZoom() >= LANDMARK_LABEL_MIN_ZOOM;
+  for (const lb of landmarkLabels) {
+    if (show) { if (!landmarkLayer.hasLayer(lb)) landmarkLayer.addLayer(lb); }
+    else { if (landmarkLayer.hasLayer(lb)) landmarkLayer.removeLayer(lb); }
+  }
+}
+
+function renderLandmarkToggle() {
+  const b = document.getElementById('landmarkBtn');
+  if (!b) return;
+  b.textContent = landmarkVisible ? '古都关隘 · 显示' : '古都关隘 · 隐藏';
+}
+
+// === OpenHistoricalMap (OHM) 维基全时空历史地图图层集成 ===
+function initOHMLayer() {
+  if (ohmLayer || typeof L.maplibreGL === 'undefined') return;
+  try {
+    ohmLayer = L.maplibreGL({
+      style: 'https://unpkg.com/@openhistoricalmap/map-styles@latest/dist/historical/historical.json',
+      attribution: '&copy; <a href="https://www.openhistoricalmap.org/" target="_blank">OpenHistoricalMap</a> contributors'
+    });
+  } catch (e) {
+    console.warn('OHM MapLibre 初始化异常:', e);
+  }
+}
+
+function updateOHMFilter() {
+  if (basemapMode !== 'ohm' || !ohmLayer) return;
+  const glMap = ohmLayer.getMaplibreMap && ohmLayer.getMaplibreMap();
+  if (!glMap || !glMap.isStyleLoaded()) return;
+  const decDate = cur.y + (cur.m ? (cur.m - 1) / 12 : 0);
+  const layers = glMap.getStyle()?.layers || [];
+  for (const l of layers) {
+    if (l.source === 'ohm') {
+      try {
+        glMap.setFilter(l.id, [
+          'all',
+          ['<=', ['coalesce', ['get', 'start_decdate'], -999999], decDate],
+          ['>=', ['coalesce', ['get', 'end_decdate'], 999999], decDate]
+        ]);
+      } catch (e) {}
+    }
+  }
+}
+
+function switchBasemap(mode) {
+  basemapMode = mode;
+  const btn = document.getElementById('basemapBtn');
+  if (mode === 'ohm') {
+    if (!ohmLayer) initOHMLayer();
+    if (ohmLayer) {
+      const activeBase = tileLayers[theme];
+      if (activeBase && map.hasLayer(activeBase)) map.removeLayer(activeBase);
+      ohmLayer.addTo(map);
+      if (btn) btn.textContent = '底图: OHM 维基';
+      setTimeout(updateOHMFilter, 300);
+    } else {
+      alert('当前浏览器环境暂未加载 WebGL MapLibre 引擎，正在使用默认自然地形。您可通过右上角【🌐 探索 OHM 维基全景 ↗】直接在新窗口查看该年代 OHM 全景！');
+    }
+  } else {
+    if (ohmLayer && map.hasLayer(ohmLayer)) map.removeLayer(ohmLayer);
+    const activeBase = tileLayers[theme];
+    if (activeBase && !map.hasLayer(activeBase)) activeBase.addTo(map);
+    if (btn) btn.textContent = '底图: 自然地形';
+  }
 }
 
 function renderNowBar(visible) {
-  const west = nearestBySide(visible, 'west');
-  const east = nearestBySide(visible, 'east');
-  const meet = visible.find(e => e.side === 'meet');
-  const w = west ? `${fmtRange(west)} ${esc(west.title)}` : '——';
-  const e2 = east ? `${fmtRange(east)} ${esc(east.title)}` : '——';
-  document.getElementById('nowBar').innerHTML =
-    `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>
-     <span class="nb-col nb-west"><b>西方</b>${w}</span>
-     <span class="nb-col nb-east"><b>东方</b>${e2}</span>` +
-    (meet ? `<span class="nb-col nb-meet"><b>相遇</b>${fmtTime(meet.year, meet.month || 1)} ${esc(meet.title)}</span>` : '');
+  if (!visible.length) {
+    document.getElementById('nowBar').innerHTML =
+      `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>
+       <span class="nb-col" style="color:var(--muted)">当前时段无重点事件</span>`;
+    return;
+  }
+  const cAbs = absOf(cur);
+  const sorted = [...visible].sort((a, b) => {
+    if ((b.imp || 1) !== (a.imp || 1)) return (b.imp || 1) - (a.imp || 1);
+    return Math.abs(absOf(tOfEvent(a)) - cAbs) - Math.abs(absOf(tOfEvent(b)) - cAbs);
+  });
+  const topEvents = sorted.slice(0, 2);
+  
+  let html = `<span class="nb-year">${fmtTime(cur.y, cur.m)}</span>`;
+  for (const ev of topEvents) {
+    const cat = getEventCategory(ev);
+    const col = eventCatColor(cat);
+    html += `<span class="nb-col"><b style="background:${col}">${cat.glyph}</b>${fmtRange(ev)} ${esc(ev.title)}</span>`;
+  }
+  document.getElementById('nowBar').innerHTML = html;
 }
 
 function renderList(visible) {
@@ -856,10 +1197,10 @@ function renderList(visible) {
   const sorted = [...visible].sort((a, b) => absOf(tOfEvent(a)) - absOf(tOfEvent(b)));
   const activeRoutes = routes.filter(r => routeVisible(r));
   if (!sorted.length && !activeRoutes.length) {
-    const unit = cur.y < MONTH_MODE_YEAR ? `${YEAR_WINDOW} 年` : `${MONTH_WINDOW} 个月`;
+    const unit = timeMode === 'year' ? '该年度' : (cur.y < MONTH_MODE_YEAR ? `±${YEAR_WINDOW} 年` : `±${MONTH_WINDOW} 个月`);
     box.innerHTML = activeTopics.size
-      ? `<div class="empty">该时段 ±${unit} 内没有符合所选专题（${[...activeTopics].join('+')}）的事件。<br>换个时段或取消专题。</div>`
-      : `<div class="empty">该时段 ±${unit} 内没有事件。<br>试试拖动下方时间轴。</div>`;
+      ? `<div class="empty">${unit} 内没有符合所选专题（${[...activeTopics].join('+')}）的事件。<br>换个时段或取消专题。</div>`
+      : `<div class="empty">${unit} 内没有事件。<br>试试切换年份或拖动下方时间轴。</div>`;
     return;
   }
   const routeRows = activeRoutes.map(r => `
@@ -870,9 +1211,10 @@ function renderList(visible) {
       <span class="ev-imp">↦ 路线</span>
     </button>`).join('');
   box.innerHTML = routeRows + sorted.map(e => {
-    const c = sideColor(e.side);
+    const cat = getEventCategory(e);
+    const c = eventCatColor(cat);
     return `<button class="ev-item" data-id="${esc(e.id)}">
-      <span class="dot" style="background:${c}"></span>
+      <span class="cat-badge" style="background:${c}">${cat.glyph}</span>
       <span class="ev-year">${fmtRange(e)}</span>
       <span class="ev-title">${esc(e.title)}</span>
       <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
@@ -888,6 +1230,8 @@ function renderList(visible) {
 
 function renderEvents() {
   renderTerritories();
+  renderLandmarks();
+  updateOHMFilter();
   if (eventLayer) { map.removeLayer(eventLayer); eventLayer = null; }
   Object.keys(eventMarkers).forEach(k => delete eventMarkers[k]);
   eventLayer = L.layerGroup().addTo(map);
@@ -964,7 +1308,7 @@ function nearestEventTime(dir) {
 let searchResultsVisible = false;
 function searchMatch(e, q) {
   if (!q) return false;
-  const fields = [e.title, e.era, e.note, e.lat, e.lon, e.side, (e.tags || []).join(' '), e.id].join(' ').toLowerCase();
+  const fields = [e.title, e.era, e.note, e.lat, e.lon, (e.tags || []).join(' '), e.id].join(' ').toLowerCase();
   return fields.includes(q);
 }
 function renderSearchResults(q) {
@@ -987,14 +1331,14 @@ function renderSearchResults(q) {
     box.innerHTML = `<div class="empty">没有匹配「${esc(q)}」的事件。<br>可尝试输入人名、朝代或关键词。</div>`;
     return;
   }
-  const matchedSides = new Set(matched.map(e => e.side));
   for (const t of TOPICS) {
     if (t.toLowerCase().includes(q) && !activeTopics.has(t)) activeTopics.add(t);
   }
   box.innerHTML = matched.map(e => {
-    const c = sideColor(e.side);
+    const cat = getEventCategory(e);
+    const c = eventCatColor(cat);
     return `<button class="ev-item" data-id="${esc(e.id)}">
-      <span class="dot" style="background:${c}"></span>
+      <span class="cat-badge" style="background:${c}">${cat.glyph}</span>
       <span class="ev-year">${fmtRange(e)}</span>
       <span class="ev-title">${esc(e.title)}</span>
       <span class="ev-imp">${'★★☆'.slice(0, e.imp)}</span>
@@ -1013,6 +1357,11 @@ function jumpToEvent(id) {
     const centurySel = document.getElementById('centurySelect');
     if (centurySel) centurySel.value = activeCentury;
     updateSliderBounds();
+  } else if (timeMode === 'year') {
+    activeYear = cur.y;
+    const yearSel = document.getElementById('yearSelect');
+    if (yearSel) yearSel.value = activeYear;
+    updateSliderBounds();
   } else {
     document.getElementById('yearSlider').value = timeToSlider(cur);
   }
@@ -1028,6 +1377,11 @@ function step(dir) {
     activeCentury = Math.floor(cur.y / 100) * 100;
     const centurySel = document.getElementById('centurySelect');
     if (centurySel) centurySel.value = activeCentury;
+    updateSliderBounds();
+  } else if (timeMode === 'year') {
+    activeYear = cur.y;
+    const yearSel = document.getElementById('yearSelect');
+    if (yearSel) yearSel.value = activeYear;
     updateSliderBounds();
   } else {
     document.getElementById('yearSlider').value = timeToSlider(cur);
@@ -1045,8 +1399,10 @@ function step(dir) {
 function updateNavButtons() {
   const prev = nearestEventTime('prev');
   const next = nearestEventTime('next');
-  [document.getElementById('prevBtn'), document.getElementById('prevBtn2')].forEach(b => b.disabled = prev == null);
-  [document.getElementById('nextBtn'), document.getElementById('nextBtn2')].forEach(b => b.disabled = next == null);
+  const pb = document.getElementById('prevBtn2');
+  const nb = document.getElementById('nextBtn2');
+  if (pb) pb.disabled = prev == null;
+  if (nb) nb.disabled = next == null;
 }
 
 function rebuildTheme() {
@@ -1055,7 +1411,9 @@ function rebuildTheme() {
   const tiles = tileLayers[theme];
   if (map) { tiles.addTo(map); tileLayers[theme === 'dark' ? 'light' : 'dark'].remove(); }
   for (const [id, m] of Object.entries(eventMarkers)) m.setIcon(makeEventIcon(events.find(e => e.id === id)));
-  renderList(events.filter(e => inWindow(e, cur)));
+  const visible = events.filter(e => inWindow(e, cur) && topicOK(e));
+  renderNowBar(visible);
+  renderList(visible);
 }
 
 async function init() {
@@ -1074,15 +1432,19 @@ async function init() {
     const tr = await fetch('territories.json');
     if (tr.ok) territories = await tr.json();
   } catch (e) { /* 旧部署可能没有 territories.json */ }
+  try {
+    const lr = await fetch('landmarks.json');
+    if (lr.ok) landmarks = await lr.json();
+  } catch (e) { /* 可选文件 */ }
 
   theme = 'light';
   try { const saved = localStorage.getItem('wh-theme'); if (saved === 'dark' || saved === 'light') theme = saved; } catch (e) {}
   document.documentElement.dataset.theme = theme;
 
-  const lightTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
-  const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: 'abcd', detectRetina: true, maxZoom: 19 });
+  const lightTiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',
+    { attribution: 'Tiles &copy; Esri &mdash; USGS, Esri, DeLorme', maxZoom: 13 });
+  const darkTiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}',
+    { attribution: 'Tiles &copy; Esri', maxZoom: 13 });
   tileLayers.light = lightTiles;
   tileLayers.dark = darkTiles;
 
@@ -1091,7 +1453,7 @@ async function init() {
     worldCopyJump: true,
     layers: [theme === 'dark' ? darkTiles : lightTiles]
   });
-  map.on('zoomend', () => { updateRouteLabels(); updateTerritoryLabels(); });
+  map.on('zoomend', () => { updateRouteLabels(); updateTerritoryLabels(); updateLandmarkLabels(); });
   map.on('moveend', () => { updateURLState(); });
   window.__map = map;
 
@@ -1100,12 +1462,40 @@ async function init() {
   YEAR_UNITS = MONTH_MODE_YEAR - MIN_YEAR;
 
   buildCenturyOptions();
+  buildYearOptions();
 
   cur = { y: 9, m: 1 }; // 初始对照点：条顿堡惨败 ↔ 王莽篡汉（同年）
   const urlState = loadURLState();
   activeCentury = Math.floor(cur.y / 100) * 100;
+  activeYear = (cur.y >= 1980 && cur.y <= 2026) ? cur.y : 2024;
   const centurySel = document.getElementById('centurySelect');
   if (centurySel) centurySel.value = activeCentury;
+  const yearSel = document.getElementById('yearSelect');
+  if (yearSel) yearSel.value = activeYear;
+
+  const modeAllBtn = document.getElementById('modeAllBtn');
+  const modeCenturyBtn = document.getElementById('modeCenturyBtn');
+  const modeYearBtn = document.getElementById('modeYearBtn');
+
+  if (timeMode === 'century') {
+    modeCenturyBtn.classList.add('active');
+    modeAllBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
+    centurySel.style.display = 'inline-block';
+    yearSel.style.display = 'none';
+  } else if (timeMode === 'year') {
+    modeYearBtn.classList.add('active');
+    modeAllBtn.classList.remove('active');
+    modeCenturyBtn.classList.remove('active');
+    centurySel.style.display = 'none';
+    yearSel.style.display = 'inline-block';
+  } else {
+    modeAllBtn.classList.add('active');
+    modeCenturyBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
+    centurySel.style.display = 'none';
+    yearSel.style.display = 'none';
+  }
 
   updateSliderBounds();
 
@@ -1116,14 +1506,13 @@ async function init() {
     updateURLState();
   });
 
-  const modeAllBtn = document.getElementById('modeAllBtn');
-  const modeCenturyBtn = document.getElementById('modeCenturyBtn');
-  
   modeAllBtn.addEventListener('click', () => {
     timeMode = 'all';
     modeAllBtn.classList.add('active');
     modeCenturyBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
     centurySel.style.display = 'none';
+    yearSel.style.display = 'none';
     updateSliderBounds();
     renderEvents();
     updateURLState();
@@ -1133,9 +1522,34 @@ async function init() {
     timeMode = 'century';
     modeCenturyBtn.classList.add('active');
     modeAllBtn.classList.remove('active');
+    modeYearBtn.classList.remove('active');
     centurySel.style.display = 'inline-block';
+    yearSel.style.display = 'none';
     activeCentury = Math.floor(cur.y / 100) * 100;
     centurySel.value = activeCentury;
+    updateSliderBounds();
+    renderEvents();
+    updateURLState();
+  });
+
+  modeYearBtn.addEventListener('click', () => {
+    timeMode = 'year';
+    modeYearBtn.classList.add('active');
+    modeAllBtn.classList.remove('active');
+    modeCenturyBtn.classList.remove('active');
+    centurySel.style.display = 'none';
+    yearSel.style.display = 'inline-block';
+    if (cur.y >= 1980 && cur.y <= 2026) {
+      activeYear = cur.y;
+    } else if (yearSel.querySelector(`option[value="${cur.y}"]`)) {
+      activeYear = cur.y;
+    } else {
+      activeYear = 2024;
+    }
+    const yearEvs = events.filter(e => e.year === activeYear && e.month);
+    const defMonth = yearEvs.length > 0 ? Math.min(...yearEvs.map(e => e.month)) : 1;
+    cur = { y: activeYear, m: defMonth };
+    yearSel.value = activeYear;
     updateSliderBounds();
     renderEvents();
     updateURLState();
@@ -1149,8 +1563,16 @@ async function init() {
     updateURLState();
   });
 
-  document.getElementById('prevBtn').addEventListener('click', () => step('prev'));
-  document.getElementById('nextBtn').addEventListener('click', () => step('next'));
+  yearSel.addEventListener('change', () => {
+    activeYear = parseInt(yearSel.value, 10);
+    const yearEvs = events.filter(e => e.year === activeYear && e.month);
+    const defMonth = yearEvs.length > 0 ? Math.min(...yearEvs.map(e => e.month)) : 1;
+    cur = { y: activeYear, m: defMonth };
+    updateSliderBounds();
+    renderEvents();
+    updateURLState();
+  });
+
   document.getElementById('prevBtn2').addEventListener('click', () => step('prev'));
   document.getElementById('nextBtn2').addEventListener('click', () => step('next'));
   document.getElementById('routeBtn').addEventListener('click', () => {
@@ -1167,6 +1589,11 @@ async function init() {
     territoryVisible = !territoryVisible;
     renderTerritories();
     renderTerritoryToggle();
+  });
+  document.getElementById('landmarkBtn').addEventListener('click', () => {
+    landmarkVisible = !landmarkVisible;
+    renderLandmarks();
+    renderLandmarkToggle();
   });
 
   // 标签优先模式按钮
@@ -1217,10 +1644,18 @@ async function init() {
     rebuildTheme();
   });
 
+  const basemapBtn = document.getElementById('basemapBtn');
+  if (basemapBtn) {
+    basemapBtn.addEventListener('click', () => {
+      switchBasemap(basemapMode === 'terrain' ? 'ohm' : 'terrain');
+    });
+  }
+
   renderEvents();
   renderPrehistory();
   renderPrehistoryToggle();
   renderTerritoryToggle();
+  renderLandmarkToggle();
   if (urlState.selectedEventId && eventMarkers[urlState.selectedEventId]) {
     selectEvent(urlState.selectedEventId);
   } else if (!urlState.mapSet) {

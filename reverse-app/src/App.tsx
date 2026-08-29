@@ -24,44 +24,44 @@ function App() {
     <div className="container">
       <div className="card">
         <header className="header">
-          <h1>String Reverser</h1>
-          <p>Instantly reverse any text</p>
+          <h1>文本倒序转换器</h1>
+          <p>String Reverser · 一键颠倒反转任意文字与字符串</p>
         </header>
 
         <main className="content">
           <div className="input-group">
-            <label htmlFor="input-text">Enter your text:</label>
+            <label htmlFor="input-text">输入原始文本 (Input Text):</label>
             <textarea
               id="input-text"
-              placeholder="e.g. 我爱你"
+              placeholder="例如：输入“我爱你”，将倒序输出为“你爱我”"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               rows={4}
             />
             {inputText && (
               <button className="clear-btn" onClick={() => setInputText('')}>
-                Clear
+                清空 (Clear)
               </button>
             )}
           </div>
 
           <div className="output-group">
-            <label>Reversed output:</label>
+            <label>倒序输出结果 (Reversed Output):</label>
             <div className="output-box">
-              {reversedText || <span className="placeholder">Result will appear here...</span>}
+              {reversedText || <span className="placeholder">反转后的结果将实时显示在这里...</span>}
             </div>
             <button 
               className={`copy-btn ${isCopied ? 'copied' : ''}`} 
               onClick={handleCopy}
               disabled={!reversedText}
             >
-              {isCopied ? 'Copied!' : 'Copy to Clipboard'}
+              {isCopied ? '已复制到剪贴板！(Copied!)' : '复制结果 (Copy to Clipboard)'}
             </button>
           </div>
         </main>
 
         <footer className="footer">
-          <p>Powered by React & TypeScript</p>
+          <p>实用文本小工具 · Powered by React & TypeScript</p>
         </footer>
       </div>
     </div>

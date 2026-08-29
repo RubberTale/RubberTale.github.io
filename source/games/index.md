@@ -1,6 +1,6 @@
 ---
 title: 期货实验室 (Games)
-date: 2026-04-06 10:00:00
+date: 2026-08-26 15:28:00
 aside: false
 ---
 
@@ -34,12 +34,12 @@ aside: false
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
-      <a href="/games/reverse-app/" title="期货反转交易挑战" target="_blank">
+      <a href="/games/kline-duel/" title="K线盲盒 · 极速决斗" target="_blank">
         <div class="flink-item-icon">
-          <img src="/img/avatar.png" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货反转交易挑战">
+          <img src="https://api.iconify.design/lucide:zap.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="K线盲盒 · 极速决斗">
         </div>
-        <div class="flink-item-name">期货反转交易挑战</div>
-        <div class="flink-item-desc">测试你的反向思维，在极端行情中寻找转机。</div>
+        <div class="flink-item-name">K线盲盒 · 极速决斗</div>
+        <div class="flink-item-desc">随机脱敏真实历史K线，30秒生死多空决斗，10秒极速翻牌验证盘感。</div>
       </a>
     </div>
     <div class="flink-list-item">
@@ -67,6 +67,15 @@ aside: false
         </div>
         <div class="flink-item-name">期货仪表盘测试面板</div>
         <div class="flink-item-desc">厄尔尼诺与天胶跟踪专题，多维市场决策与行情监测。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/games/deepslop/" title="DeepSlop · 纯碳基智能" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:brain.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="DeepSlop 纯碳基智能">
+        </div>
+        <div class="flink-item-name">DeepSlop · 纯碳基智能</div>
+        <div class="flink-item-desc">你的AI水货无聊透顶！100%纯人类扮演驱动的实时AI对话与画画联机对战。</div>
       </a>
     </div>
     <!-- 可以在此处添加更多游戏卡片 -->
