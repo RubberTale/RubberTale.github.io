@@ -4,7 +4,6 @@
       "id": "changan",
       "name": "长安（镐京/西京）",
       "type": "古都",
-      "side": "east",
       "pos": [
         34.34,
         108.94
@@ -18,7 +17,6 @@
       "id": "luoyang",
       "name": "洛阳（洛邑/东都）",
       "type": "古都",
-      "side": "east",
       "pos": [
         34.62,
         112.45
@@ -32,7 +30,6 @@
       "id": "xianyang",
       "name": "咸阳",
       "type": "古都",
-      "side": "east",
       "pos": [
         34.33,
         108.71
@@ -46,7 +43,6 @@
       "id": "beijing",
       "name": "北京（蓟/幽州/中都/大都）",
       "type": "古都",
-      "side": "east",
       "pos": [
         39.9,
         116.4
@@ -60,7 +56,6 @@
       "id": "nanjing",
       "name": "南京（建康/金陵/应天）",
       "type": "古都",
-      "side": "east",
       "pos": [
         32.06,
         118.79
@@ -74,7 +69,6 @@
       "id": "kaifeng",
       "name": "开封（大梁/汴州/汴京）",
       "type": "古都",
-      "side": "east",
       "pos": [
         34.79,
         114.31
@@ -88,7 +82,6 @@
       "id": "hangzhou",
       "name": "临安（杭州）",
       "type": "古都",
-      "side": "east",
       "pos": [
         30.27,
         120.15
@@ -102,7 +95,6 @@
       "id": "yinchuan",
       "name": "兴庆府（银川）",
       "type": "古都",
-      "side": "east",
       "pos": [
         38.48,
         106.23
@@ -116,7 +108,6 @@
       "id": "shenyang",
       "name": "盛京（沈阳）",
       "type": "古都",
-      "side": "east",
       "pos": [
         41.8,
         123.43
@@ -130,7 +121,6 @@
       "id": "dunhuang",
       "name": "敦煌",
       "type": "重镇",
-      "side": "east",
       "pos": [
         40.14,
         94.66
@@ -144,7 +134,6 @@
       "id": "chengdu",
       "name": "成都（锦官城）",
       "type": "重镇",
-      "side": "east",
       "pos": [
         30.66,
         104.06
@@ -158,7 +147,6 @@
       "id": "guangzhou",
       "name": "广州（番禺）",
       "type": "重镇",
-      "side": "east",
       "pos": [
         23.13,
         113.26
@@ -172,7 +160,6 @@
       "id": "hangu_pass",
       "name": "函谷关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         34.64,
         110.91
@@ -186,7 +173,6 @@
       "id": "tongguan_pass",
       "name": "潼关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         34.55,
         110.29
@@ -200,7 +186,6 @@
       "id": "yumen_pass",
       "name": "玉门关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         40.35,
         93.86
@@ -214,7 +199,6 @@
       "id": "yangguan_pass",
       "name": "阳关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         39.92,
         94.19
@@ -228,7 +212,6 @@
       "id": "shanhai_pass",
       "name": "山海关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         40.0,
         119.75
@@ -242,7 +225,6 @@
       "id": "jiayu_pass",
       "name": "嘉峪关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         39.81,
         98.22
@@ -256,7 +238,6 @@
       "id": "juyong_pass",
       "name": "居庸关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         40.29,
         116.07
@@ -270,7 +251,6 @@
       "id": "yanmen_pass",
       "name": "雁门关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         39.18,
         112.87
@@ -284,7 +264,6 @@
       "id": "jianmen_pass",
       "name": "剑门关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         32.25,
         105.56
@@ -298,7 +277,6 @@
       "id": "dasan_pass",
       "name": "大散关",
       "type": "关隘",
-      "side": "east",
       "pos": [
         34.25,
         106.98
@@ -312,7 +290,6 @@
       "id": "rome",
       "name": "罗马（Rome）",
       "type": "古都",
-      "side": "west",
       "pos": [
         41.9,
         12.5
@@ -326,7 +303,6 @@
       "id": "constantinople",
       "name": "君士坦丁堡（伊斯坦布尔）",
       "type": "古都",
-      "side": "west",
       "pos": [
         41.01,
         28.98
@@ -340,7 +316,6 @@
       "id": "athens",
       "name": "雅典（Athens）",
       "type": "古都",
-      "side": "west",
       "pos": [
         37.98,
         23.73
@@ -354,7 +329,6 @@
       "id": "alexandria",
       "name": "亚历山大港（Alexandria）",
       "type": "名城",
-      "side": "west",
       "pos": [
         31.2,
         29.92
@@ -368,7 +342,6 @@
       "id": "carthage",
       "name": "迦太基（Carthage）",
       "type": "古都",
-      "side": "west",
       "pos": [
         36.85,
         10.32
@@ -382,7 +355,6 @@
       "id": "antioch",
       "name": "安条克（Antioch）",
       "type": "名城",
-      "side": "west",
       "pos": [
         36.2,
         36.16
@@ -396,7 +368,6 @@
       "id": "baghdad",
       "name": "巴格达（Baghdad）",
       "type": "古都",
-      "side": "west",
       "pos": [
         33.31,
         44.36
@@ -410,7 +381,6 @@
       "id": "damascus",
       "name": "大马士革（Damascus）",
       "type": "古都",
-      "side": "west",
       "pos": [
         33.51,
         36.29
@@ -424,7 +394,6 @@
       "id": "jerusalem",
       "name": "耶路撒冷（Jerusalem）",
       "type": "圣城",
-      "side": "west",
       "pos": [
         31.77,
         35.21
@@ -438,7 +407,6 @@
       "id": "babylon",
       "name": "巴比伦（Babylon）",
       "type": "古都",
-      "side": "west",
       "pos": [
         32.54,
         44.42
@@ -452,7 +420,6 @@
       "id": "persepolis",
       "name": "波斯波利斯（Persepolis）",
       "type": "古都",
-      "side": "west",
       "pos": [
         29.93,
         52.89
@@ -466,7 +433,6 @@
       "id": "ctesiphon",
       "name": "泰西封（Ctesiphon）",
       "type": "古都",
-      "side": "west",
       "pos": [
         33.09,
         44.58
@@ -480,7 +446,6 @@
       "id": "thermopylae",
       "name": "温泉关（Thermopylae）",
       "type": "要塞",
-      "side": "west",
       "pos": [
         38.8,
         22.54
@@ -494,7 +459,6 @@
       "id": "gibraltar",
       "name": "直布罗陀（赫拉克勒斯之柱）",
       "type": "要塞",
-      "side": "west",
       "pos": [
         36.14,
         -5.35
@@ -508,7 +472,6 @@
       "id": "dardanelles",
       "name": "达达尼尔海峡要塞（加里波利）",
       "type": "要塞",
-      "side": "west",
       "pos": [
         40.2,
         26.4
