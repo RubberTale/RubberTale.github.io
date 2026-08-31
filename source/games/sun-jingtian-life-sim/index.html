@@ -8,10 +8,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Canvas-Confetti for reward feedback -->
+  <!-- Canvas-Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;600;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;600;800;900&display=swap');
     body {
       font-family: 'Noto Sans SC', sans-serif;
     }
@@ -20,8 +20,8 @@
     }
     /* CRT Scanline & Terminal Effect */
     .crt-screen {
-      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%);
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.96) 0%, rgba(2, 6, 23, 1) 100%);
+      box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9);
     }
     /* Screen Shake on hit */
     @keyframes shake-anim {
@@ -43,6 +43,15 @@
     .damage-pop {
       animation: float-up 0.8s ease-out forwards;
     }
+    /* Autocomplete dropdown styling */
+    .autocomplete-item {
+      transition: all 0.15s ease;
+    }
+    .autocomplete-item.active, .autocomplete-item:hover {
+      background-color: rgba(245, 158, 11, 0.25);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.5);
+    }
     /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: rgba(2, 6, 23, 0.8); }
@@ -56,7 +65,6 @@
     <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3">
       <!-- Perspective Switcher & Time -->
       <div class="flex items-center gap-3">
-        <!-- Switch Perspective Button -->
         <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
           <button id="btn-switch-sun" class="px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-black flex items-center gap-1 transition">
             <span>⚡ 孙宇晨线</span>
@@ -93,7 +101,7 @@
     </div>
   </header>
 
-  <!-- Main Game Workstation (3 Cols) -->
+  <!-- Main Game Workstation -->
   <main id="game-main-container" class="flex-1 max-w-7xl w-full mx-auto p-3 grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
     
     <!-- LEFT: MUD Map Navigation & Inventory (3.5 cols) -->
@@ -126,7 +134,7 @@
         <!-- Directional Compass D-PAD -->
         <div class="pt-2 border-t border-slate-800 space-y-1.5">
           <div class="text-[11px] text-slate-400 font-bold flex items-center justify-between">
-            <span class="flex items-center gap-1"><i data-lucide="compass" class="w-3.5 h-3.5 text-amber-400"></i> 移动探索 (WASD / 导航)</span>
+            <span class="flex items-center gap-1"><i data-lucide="compass" class="w-3.5 h-3.5 text-amber-400"></i> 移动探索 (WASD / 指令)</span>
           </div>
           <div class="grid grid-cols-3 gap-1 max-w-[200px] mx-auto text-xs text-center font-bold">
             <div></div>
@@ -155,7 +163,7 @@
         </div>
       </div>
 
-      <!-- Dual Timeline Parallel Radar (景甜/孙宇晨同步状态) -->
+      <!-- Dual Timeline Parallel Radar -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 shadow-xl text-xs space-y-1.5">
         <div class="flex justify-between items-center text-[11px] text-slate-400 border-b border-slate-800 pb-1">
           <span class="text-rose-400 font-bold flex items-center gap-1"><i data-lucide="radio" class="w-3.5 h-3.5"></i> 平行世界线监测</span>
@@ -176,7 +184,7 @@
         <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
-            <span class="text-xs font-black text-cyan-300 font-term">TRX / USDT 实时操盘</span>
+            <span class="text-xs font-black text-cyan-300 font-term">TRX / USDT 实时操盘 (支持 pump/dump 指令)</span>
           </div>
           <div class="text-xs font-mono font-bold" id="ticker-price-badge">
             <span id="ticker-price" class="text-emerald-400 text-sm">$ 0.125</span>
@@ -187,7 +195,7 @@
         <!-- Live Ticker Canvas -->
         <canvas id="crypto-canvas" class="w-full h-16 bg-slate-950 rounded-lg border border-slate-800"></canvas>
 
-        <!-- Pump & Dump Action Buttons (Instant Feedback!) -->
+        <!-- Pump & Dump Action Buttons -->
         <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
           <button id="btn-crypto-buy" class="py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition text-center shadow">
             抄底买入 📈
@@ -211,14 +219,14 @@
         <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-slate-800/80 pb-2 font-term">
           <span class="flex items-center gap-1.5 text-amber-400">
             <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-            TERM://MUD_NODE_01 [ONLINE]
+            TERM://MUD_NODE_01 [ONLINE] · <span class="text-slate-400 text-[10px]">按 <kbd class="px-1 py-0.5 rounded bg-slate-800 text-amber-300 font-bold">Tab</kbd> 自动补全指令</span>
           </span>
           <span id="combat-status-badge" class="text-slate-400">探索模式 (PEACE)</span>
         </div>
 
         <!-- Terminal Output Stream -->
         <div id="term-output" class="space-y-2 overflow-y-auto max-h-64 text-xs font-term leading-relaxed pr-1 flex-1">
-          <div class="text-slate-400">[SYSTEM] 欢迎来到名利场 MUD。输入指令或点击周围物体开始行动。</div>
+          <div class="text-slate-400">[SYSTEM] 欢迎来到名利场 MUD。按 Tab 键可快速补全指令，输入 help 可查看完整指令集。</div>
           <div class="text-amber-300">> 你走进红日网吧，班主任随时可能进行午夜突击。</div>
         </div>
 
@@ -241,7 +249,7 @@
           <!-- Combat Action Cards (Player's Hand) -->
           <div class="space-y-1.5 pt-1">
             <div class="text-[11px] text-slate-400 font-bold flex justify-between">
-              <span>🎴 出招手牌（消耗灵感点）：</span>
+              <span>🎴 出招手牌（输入 cast [招式] 或点击）：</span>
               <span class="text-amber-400">剩余灵感: <strong id="combat-ap-val">3</strong> 💡</span>
             </div>
             <div id="combat-cards" class="grid grid-cols-2 gap-2 text-xs">
@@ -250,12 +258,30 @@
           </div>
         </div>
 
-        <!-- Quick Interactive Command Bar -->
-        <div id="quick-cmd-bar" class="pt-2 border-t border-slate-800 flex items-center gap-2">
-          <input id="term-input" type="text" placeholder="输入 MUD 指令 (如: look, attack, study, tweet) 或回车..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 font-term" />
-          <button id="btn-term-send" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition">
-            执行 ↵
-          </button>
+        <!-- Command Input with Tab-Autocomplete Popover -->
+        <div id="quick-cmd-wrapper" class="pt-2 border-t border-slate-800 relative">
+          
+          <!-- Autocomplete Floating Dropdown Menu -->
+          <div id="autocomplete-box" class="absolute bottom-full left-0 right-0 mb-1.5 bg-slate-900/95 border border-amber-500/40 rounded-xl p-1.5 shadow-2xl backdrop-blur-md hidden max-h-48 overflow-y-auto z-50 text-xs">
+            <div class="px-2 py-1 text-[10px] text-amber-400/80 font-bold flex justify-between border-b border-slate-800/80 mb-1">
+              <span>⚡ TAB 补全候选列表 (↑/↓ 选择, Enter/Tab 确认)</span>
+              <span>ESC 关闭</span>
+            </div>
+            <div id="autocomplete-list" class="space-y-0.5">
+              <!-- Autocomplete items rendered here -->
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <div class="relative flex-1">
+              <input id="term-input" type="text" placeholder="输入 MUD 指令 (支持 Tab 补全，输入 help 查看帮助)..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 font-term" autocomplete="off" spellcheck="false" />
+              <!-- Ghost text for inline autocomplete suggestion -->
+              <span id="ghost-text" class="absolute left-3 top-2 text-xs text-slate-600 font-term pointer-events-none"></span>
+            </div>
+            <button id="btn-term-send" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition shrink-0">
+              执行 ↵
+            </button>
+          </div>
         </div>
 
       </div>
@@ -313,15 +339,13 @@
 
   </main>
 
-  <!-- Sound Audio Synth -->
+  <!-- JavaScript Engine with Comprehensive Commands & Tab Autocomplete -->
   <script>
-    // Web Audio Synthesizer (Instant punchy feedback!)
+    // Audio Synthesizer
     const AudioEngine = {
       ctx: null,
       init() {
-        if (!this.ctx) {
-          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        }
+        if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
       },
       play(freq = 440, type = 'sine', duration = 0.08, gainVal = 0.1) {
         try {
@@ -338,10 +362,7 @@
           osc.stop(this.ctx.currentTime + duration);
         } catch (e) {}
       },
-      hit() {
-        this.play(120, 'sawtooth', 0.15, 0.2);
-        this.play(80, 'square', 0.2, 0.25);
-      },
+      hit() { this.play(120, 'sawtooth', 0.15, 0.2); },
       crit() {
         this.play(600, 'triangle', 0.1, 0.2);
         setTimeout(() => this.play(900, 'sine', 0.2, 0.25), 80);
@@ -354,17 +375,52 @@
       heal() {
         this.play(523, 'sine', 0.15);
         setTimeout(() => this.play(659, 'sine', 0.2), 100);
-      }
+      },
+      tab() { this.play(880, 'sine', 0.04, 0.05); }
     };
+
+    // Master Autocomplete Dictionary
+    const AUTOCOMPLETE_COMMANDS = [
+      { cmd: 'look', desc: '观察当前房间环境与物体 (简写: l)' },
+      { cmd: 'north', desc: '向北移动 (简写: n)' },
+      { cmd: 'south', desc: '向南移动 (简写: s)' },
+      { cmd: 'east', desc: '向东移动 (简写: e)' },
+      { cmd: 'west', desc: '向西移动 (简写: w)' },
+      { cmd: 'map', desc: '打印当前区域 ASCII 地图' },
+      { cmd: 'search', desc: '搜查当前房间隐藏物品与暗格' },
+      { cmd: 'inventory', desc: '查看背包所有道具 (简写: i)' },
+      { cmd: 'drink tea', desc: '饮用大瓶冰红茶 (恢复 HP 与灵感)' },
+      { cmd: 'use essay', desc: '研读新概念满分范文 (加暴击)' },
+      { cmd: 'eat bbq', desc: '在烧烤摊吃生蚝恢复气血' },
+      { cmd: 'fight', desc: '向当前场景的敌对 NPC 发起辩论对决' },
+      { cmd: 'cast wangshuo', desc: '打出招式：【引用王朔反讽】' },
+      { cmd: 'cast hanhan', desc: '打出招式：【韩寒式先锋文风】(高暴击)' },
+      { cmd: 'cast kidney', desc: '打出招式：【突发肾结石护盾】' },
+      { cmd: 'cast tea', desc: '打出招式：【猛灌冰红茶】' },
+      { cmd: 'cast fuguihua', desc: '打出招式：【人间富贵花凝视】' },
+      { cmd: 'cast hollywood', desc: '打出招式：【好莱坞巨制空降】' },
+      { cmd: 'cast siteng', desc: '打出招式：【司藤藤蔓缠绕】' },
+      { cmd: 'pump trx', desc: '发推拉盘！TRX 暴涨 35%' },
+      { cmd: 'dump trx', desc: '高位砸盘套现现金！' },
+      { cmd: 'buy trx', desc: '抄底买入 1000 枚 TRX' },
+      { cmd: 'airdrop', desc: '全网空投代币刷声望' },
+      { cmd: 'tweet', desc: '在全网发布通稿或推特' },
+      { cmd: 'shout', desc: '在世界频道高喊豪言壮语' },
+      { cmd: 'ask', desc: '向 NPC 打听八卦情报 (如: ask 阿杰)' },
+      { cmd: 'who', desc: '查看当前世界活跃名流' },
+      { cmd: 'score', desc: '查看当前人物详细属性与成就' },
+      { cmd: 'kidney', desc: '自检肾结石健康状态' },
+      { cmd: 'flee', desc: '在论战不利时翻窗逃跑' },
+      { cmd: 'help', desc: '呼出完整 MUD 指令百科' }
+    ];
 
     // Game Core State Model
     const Game = {
-      perspective: 'sun', // 'sun' or 'jing'
+      perspective: 'sun',
       year: 2005,
       month: 3,
       era: 1,
       
-      // Sun State
       sun: {
         hp: 100,
         maxHp: 100,
@@ -379,14 +435,13 @@
           { id: 'card', name: '红日网吧 VIP 卡', desc: '在网吧可获得免费恢复', count: 1, use: () => Game.useItem('card') }
         ],
         deck: [
-          { id: 'c1', name: '📖 引用王朔反讽', cost: 1, dmg: 22, desc: '造成 22 点辩论伤害' },
-          { id: 'c2', name: '✍️ 韩寒式先锋文风', cost: 2, dmg: 48, desc: '造成 48 点高额破防暴击' },
-          { id: 'c3', name: '💔 突发肾结石护盾', cost: 1, shield: 30, desc: '获得 30 点绝对免伤护盾' },
-          { id: 'c4', name: '🥤 猛灌冰红茶', cost: 0, heal: 25, apRecover: 1, desc: '恢复 25 HP，回复 1 点灵感' }
+          { id: 'wangshuo', name: '📖 引用王朔反讽', cost: 1, dmg: 22, desc: '造成 22 点辩论伤害' },
+          { id: 'hanhan', name: '✍️ 韩寒式先锋文风', cost: 2, dmg: 48, desc: '造成 48 点高额破防暴击' },
+          { id: 'kidney', name: '💔 突发肾结石护盾', cost: 1, shield: 30, desc: '获得 30 点绝对免伤护盾' },
+          { id: 'tea', name: '🥤 猛灌冰红茶', cost: 0, heal: 25, apRecover: 1, desc: '恢复 25 HP，回复 1 点灵感' }
         ]
       },
 
-      // Jing Tian Parallel State
       jing: {
         hp: 100,
         maxHp: 100,
@@ -400,22 +455,20 @@
           { id: 'gown', name: '高定红毯礼服', desc: '防御全网黑粉质疑，免伤 40 点', count: 1, use: () => Game.useItem('gown') }
         ],
         deck: [
-          { id: 'j1', name: '🌸 人间富贵花凝视', cost: 1, dmg: 30, desc: '造成 30 点顶级气质压制' },
-          { id: 'j2', name: '🎬 好莱坞巨制空降', cost: 2, dmg: 65, desc: '全明星阵容拱月，造成 65 点巨额伤害' },
-          { id: 'j3', name: '🌿 司藤藤蔓缠绕', cost: 1, shield: 45, heal: 20, desc: '获得 45 点护盾并恢复 20 HP' }
+          { id: 'fuguihua', name: '🌸 人间富贵花凝视', cost: 1, dmg: 30, desc: '造成 30 点顶级气质压制' },
+          { id: 'hollywood', name: '🎬 好莱坞巨制空降', cost: 2, dmg: 65, desc: '全明星阵容拱月，造成 65 点巨额伤害' },
+          { id: 'siteng', name: '🌿 司藤藤蔓缠绕', cost: 1, shield: 45, heal: 20, desc: '获得 45 点护盾并恢复 20 HP' }
         ]
       },
 
-      // Combat State
       inCombat: false,
       enemy: null,
       playerShield: 0,
-
-      // Crypto Ticker
       cryptoPrice: 0.125,
       cryptoHistory: [0.12, 0.122, 0.121, 0.125],
+      cmdHistory: [],
+      cmdHistoryIndex: -1,
 
-      // Quests
       quest: {
         id: 1,
         title: '【新概念一等奖】逆天改命',
@@ -424,7 +477,7 @@
       }
     };
 
-    // MUD World Map (Rooms & Connections)
+    // MUD Map Definition
     const MUD_MAP = {
       netbar: {
         name: '红日网吧 · 大厅',
@@ -470,7 +523,6 @@
       }
     };
 
-    // Log to Terminal
     function termLog(msg, colorClass = 'text-slate-300') {
       const out = document.getElementById('term-output');
       const div = document.createElement('div');
@@ -479,7 +531,6 @@
       out.appendChild(div);
       out.scrollTop = out.scrollHeight;
 
-      // Also log to right feed
       const bLog = document.getElementById('battle-log-stream');
       const bDiv = document.createElement('div');
       bDiv.innerHTML = msg;
@@ -487,14 +538,12 @@
       if (bLog.children.length > 20) bLog.removeChild(bLog.lastChild);
     }
 
-    // Screen Shake effect
     function triggerScreenShake() {
       const el = document.getElementById('terminal-wrapper');
       el.classList.add('screen-shake');
       setTimeout(() => el.classList.remove('screen-shake'), 280);
     }
 
-    // Floating damage numbers
     function showDamagePop(amount, isCrit = false) {
       const el = document.createElement('div');
       el.className = `absolute z-50 font-black text-2xl ${isCrit ? 'text-yellow-400 text-3xl' : 'text-red-500'} damage-pop pointer-events-none`;
@@ -505,7 +554,6 @@
       setTimeout(() => el.remove(), 800);
     }
 
-    // Move to a room
     function moveToRoom(roomId) {
       const room = MUD_MAP[roomId];
       if (!room) return;
@@ -514,27 +562,23 @@
       char.location = roomId;
       AudioEngine.play(300, 'sine', 0.05);
 
-      termLog(`> [移动] 你来到了【${room.name}】。`, 'text-cyan-300');
+      termLog(`> [移动] 你来到了【${room.name}】。`, 'text-cyan-300 font-bold');
       updateUI();
     }
 
-    // UI Updates
     function updateUI() {
       const char = Game[Game.perspective];
       
-      // Top status
       document.getElementById('hud-date').innerText = `${Game.year}年 ${Game.month}月`;
       document.getElementById('hud-hp').innerText = `${char.hp} / ${char.maxHp}`;
       document.getElementById('hud-ap').innerText = `${char.ap} / ${char.maxAp}`;
       document.getElementById('hud-money').innerText = `¥ ${char.money}`;
       document.getElementById('hud-fame').innerText = char.fame;
 
-      // Room Card
       const curRoom = MUD_MAP[char.location] || MUD_MAP.netbar;
       document.getElementById('room-name').innerText = curRoom.name;
       document.getElementById('room-desc').innerText = curRoom.desc;
 
-      // Compass Buttons
       ['north', 'south', 'east', 'west'].forEach(dir => {
         const btn = document.getElementById(`btn-nav-${dir}`);
         if (curRoom.exits && curRoom.exits[dir]) {
@@ -546,7 +590,6 @@
         }
       });
 
-      // Render NPCs in room
       const npcsBox = document.getElementById('room-npcs');
       npcsBox.innerHTML = '';
       if (curRoom.npcs) {
@@ -562,7 +605,6 @@
         });
       }
 
-      // Render Inventory
       const bagBox = document.getElementById('inventory-grid');
       bagBox.innerHTML = '';
       char.inventory.forEach(item => {
@@ -580,7 +622,6 @@
       });
       document.getElementById('bag-count').innerText = `${char.inventory.length}/12`;
 
-      // Update Quests
       document.getElementById('quest-title').innerText = Game.quest.title;
       document.getElementById('quest-desc').innerText = Game.quest.desc;
       document.getElementById('quest-progress-bar').style.width = `${Game.quest.progress}%`;
@@ -588,7 +629,6 @@
       if (window.lucide) window.lucide.createIcons();
     }
 
-    // NPC Actions
     function handleNpcAction(act) {
       const char = Game[Game.perspective];
       
@@ -599,7 +639,7 @@
         if (exist) exist.count++;
         else char.inventory.push({ id: 'tea', name: '大瓶冰红茶', desc: '恢复 30 HP 与 1 点灵感', count: 1, use: () => Game.useItem('tea') });
         AudioEngine.heal();
-        termLog('你花费 ¥3 买了一大瓶冰红茶放入背包！', 'text-emerald-300');
+        termLog('你花费 ¥3 买了一大瓶冰红茶放入背包！(可用 drink tea 指令饮用)', 'text-emerald-300');
         updateUI();
       } else if (act === 'fight_punk') {
         startCombat({
@@ -651,7 +691,6 @@
       }
     }
 
-    // COMBAT SYSTEM (Turn-based Action Card Deck)
     function startCombat(enemy) {
       Game.inCombat = true;
       Game.enemy = enemy;
@@ -667,7 +706,7 @@
       document.getElementById('combat-status-badge').innerText = '⚔️ 论战对决中 (COMBAT)';
       document.getElementById('combat-status-badge').className = 'text-red-400 font-bold animate-pulse';
 
-      termLog(`⚔️ 遭遇【${enemy.name}】！进入论战对决模式！请合理使用手牌！`, 'text-red-400 font-bold');
+      termLog(`⚔️ 遭遇【${enemy.name}】！进入论战对决模式！可用 cast [招式] 指令出招！`, 'text-red-400 font-bold');
       updateCombatUI();
     }
 
@@ -683,7 +722,6 @@
       document.getElementById('enemy-hp-bar').style.width = `${Math.max(0, (e.hp / e.maxHp) * 100)}%`;
       document.getElementById('combat-ap-val').innerText = char.ap;
 
-      // Render Cards
       const cardsBox = document.getElementById('combat-cards');
       cardsBox.innerHTML = '';
 
@@ -709,7 +747,6 @@
 
       char.ap -= card.cost;
 
-      // Apply effects
       if (card.dmg) {
         AudioEngine.crit();
         triggerScreenShake();
@@ -731,13 +768,11 @@
         char.ap += card.apRecover;
       }
 
-      // Check Enemy Defeat
       if (Game.enemy.hp <= 0) {
         winCombat();
         return;
       }
 
-      // Check Turn End if AP is 0
       if (char.ap <= 0) {
         enemyTurn();
       } else {
@@ -766,7 +801,6 @@
           termLog(`【${Game.enemy.name}】打出严厉批评，对你造成 ${dmg} 点精神伤害！`, 'text-red-400 font-bold');
         }
 
-        // Recover player AP
         char.ap = char.maxAp;
 
         if (char.hp <= 0) {
@@ -802,7 +836,7 @@
       updateUI();
     }
 
-    // Crypto Ticker Simulation (Instant Hype/Dump Loop)
+    // Crypto Ticker
     let cryptoInterval = null;
     function initCryptoTicker() {
       if (cryptoInterval) return;
@@ -838,7 +872,6 @@
         drawTicker();
       }, 1000);
 
-      // Crypto Action Buttons
       document.getElementById('btn-crypto-pump').onclick = () => {
         AudioEngine.pump();
         confetti({ particleCount: 30, spread: 40 });
@@ -874,7 +907,6 @@
       };
     }
 
-    // Item Usage
     Game.useItem = function(itemId) {
       const char = Game[Game.perspective];
       const idx = char.inventory.findIndex(i => i.id === itemId);
@@ -895,57 +927,273 @@
       updateUI();
     };
 
-    // Terminal Command Parser
-    document.getElementById('btn-term-send').onclick = execCommand;
-    document.getElementById('term-input').onkeydown = (e) => {
-      if (e.key === 'Enter') execCommand();
-    };
+    // ==========================================
+    // TAB AUTOCOMPLETE & COMMAND PARSER SYSTEM
+    // ==========================================
+    const termInput = document.getElementById('term-input');
+    const autoBox = document.getElementById('autocomplete-box');
+    const autoList = document.getElementById('autocomplete-list');
+    let autoMatches = [];
+    let selectedAutoIndex = 0;
 
-    function execCommand() {
-      const input = document.getElementById('term-input');
-      const cmd = input.value.trim().toLowerCase();
-      input.value = '';
-      if (!cmd) return;
+    function renderAutocomplete(matches) {
+      autoMatches = matches;
+      if (matches.length === 0) {
+        autoBox.classList.add('hidden');
+        return;
+      }
 
-      termLog(`> ${cmd}`, 'text-amber-400 font-bold');
+      autoList.innerHTML = '';
+      matches.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = `px-2.5 py-1.5 rounded-lg flex items-center justify-between text-xs cursor-pointer autocomplete-item ${idx === selectedAutoIndex ? 'active' : 'text-slate-300'}`;
+        div.innerHTML = `
+          <span class="font-bold text-amber-400 font-term">${item.cmd}</span>
+          <span class="text-[11px] text-slate-400">${item.desc}</span>
+        `;
+        div.onmousedown = (e) => {
+          e.preventDefault();
+          selectAutocomplete(idx);
+        };
+        autoList.appendChild(div);
+      });
 
-      if (cmd === 'look' || cmd === 'l') {
-        const room = MUD_MAP[Game[Game.perspective].location];
-        termLog(`【${room.name}】：${room.desc}`);
-      } else if (cmd === 'n' || cmd === 'north') {
-        const room = MUD_MAP[Game[Game.perspective].location];
-        if (room.exits && room.exits.north) moveToRoom(room.exits.north);
-        else termLog('北面是一堵高墙，无法通行。', 'text-slate-500');
-      } else if (cmd === 's' || cmd === 'south') {
-        const room = MUD_MAP[Game[Game.perspective].location];
-        if (room.exits && room.exits.south) moveToRoom(room.exits.south);
-        else termLog('南面无法通行。', 'text-slate-500');
-      } else if (cmd === 'e' || cmd === 'east') {
-        const room = MUD_MAP[Game[Game.perspective].location];
-        if (room.exits && room.exits.east) moveToRoom(room.exits.east);
-        else termLog('东面无法通行。', 'text-slate-500');
-      } else if (cmd === 'w' || cmd === 'west') {
-        const room = MUD_MAP[Game[Game.perspective].location];
-        if (room.exits && room.exits.west) moveToRoom(room.exits.west);
-        else termLog('西面无法通行。', 'text-slate-500');
-      } else if (cmd.startsWith('attack') || cmd.startsWith('fight')) {
-        const room = MUD_MAP[Game[Game.perspective].location];
-        const target = room.npcs && room.npcs.find(n => n.role === 'Boss' || n.role === '敌对');
-        if (target) handleNpcAction(target.action);
-        else termLog('当前场景没有可对决的目标。', 'text-slate-500');
-      } else if (cmd === 'help') {
-        termLog('可用指令: look, north(n), south(s), east(e), west(w), attack, help');
-      } else {
-        termLog(`未知指令: ${cmd}。输入 'help' 查看常用指令。`, 'text-slate-500');
+      autoBox.classList.remove('hidden');
+    }
+
+    function selectAutocomplete(index) {
+      if (autoMatches[index]) {
+        termInput.value = autoMatches[index].cmd;
+        AudioEngine.tab();
+        autoBox.classList.add('hidden');
+        termInput.focus();
       }
     }
 
-    // Switch Perspectives
+    // Input Events for Auto-Completion
+    termInput.addEventListener('input', () => {
+      const val = termInput.value.trim().toLowerCase();
+      if (!val) {
+        autoBox.classList.add('hidden');
+        return;
+      }
+
+      const matches = AUTOCOMPLETE_COMMANDS.filter(c => 
+        c.cmd.toLowerCase().startsWith(val) || c.cmd.toLowerCase().includes(val)
+      );
+
+      selectedAutoIndex = 0;
+      renderAutocomplete(matches);
+    });
+
+    termInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        if (!autoBox.classList.contains('hidden') && autoMatches.length > 0) {
+          selectAutocomplete(selectedAutoIndex);
+        } else {
+          // Trigger matches on tab press
+          const val = termInput.value.trim().toLowerCase();
+          const matches = AUTOCOMPLETE_COMMANDS.filter(c => 
+            !val || c.cmd.toLowerCase().startsWith(val) || c.cmd.toLowerCase().includes(val)
+          );
+          if (matches.length > 0) {
+            selectedAutoIndex = 0;
+            renderAutocomplete(matches);
+            AudioEngine.tab();
+          }
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (!autoBox.classList.contains('hidden') && autoMatches.length > 0) {
+          e.preventDefault();
+          selectedAutoIndex = (selectedAutoIndex + 1) % autoMatches.length;
+          renderAutocomplete(autoMatches);
+        } else {
+          // History down
+          if (Game.cmdHistoryIndex > 0) {
+            Game.cmdHistoryIndex--;
+            termInput.value = Game.cmdHistory[Game.cmdHistoryIndex] || '';
+          }
+        }
+      } else if (e.key === 'ArrowUp') {
+        if (!autoBox.classList.contains('hidden') && autoMatches.length > 0) {
+          e.preventDefault();
+          selectedAutoIndex = (selectedAutoIndex - 1 + autoMatches.length) % autoMatches.length;
+          renderAutocomplete(autoMatches);
+        } else {
+          // History up
+          if (Game.cmdHistoryIndex < Game.cmdHistory.length - 1) {
+            Game.cmdHistoryIndex++;
+            termInput.value = Game.cmdHistory[Game.cmdHistoryIndex] || '';
+          }
+        }
+      } else if (e.key === 'Enter') {
+        if (!autoBox.classList.contains('hidden') && autoMatches.length > 0 && selectedAutoIndex >= 0) {
+          // If autocomplete is open and user pressed enter, accept autocomplete
+          selectAutocomplete(selectedAutoIndex);
+        } else {
+          execCommand();
+        }
+      } else if (e.key === 'Escape') {
+        autoBox.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('btn-term-send').onclick = execCommand;
+
+    // Comprehensive Command Execution Engine
+    function execCommand() {
+      autoBox.classList.add('hidden');
+      const cmd = termInput.value.trim();
+      termInput.value = '';
+      if (!cmd) return;
+
+      Game.cmdHistory.unshift(cmd);
+      Game.cmdHistoryIndex = -1;
+      if (Game.cmdHistory.length > 30) Game.cmdHistory.pop();
+
+      termLog(`> ${cmd}`, 'text-amber-400 font-bold');
+
+      const lower = cmd.toLowerCase();
+      const tokens = lower.split(' ');
+      const verb = tokens[0];
+      const char = Game[Game.perspective];
+
+      // 1. Navigation Commands
+      if (verb === 'look' || verb === 'l') {
+        const room = MUD_MAP[char.location];
+        termLog(`【${room.name}】：${room.desc}`, 'text-amber-200');
+        if (room.npcs && room.npcs.length > 0) {
+          termLog(`👀 在场对象: ${room.npcs.map(n => n.name).join(', ')}`, 'text-cyan-300');
+        }
+      } else if (verb === 'north' || verb === 'n') {
+        const room = MUD_MAP[char.location];
+        if (room.exits && room.exits.north) moveToRoom(room.exits.north);
+        else termLog('北面无法通行。', 'text-slate-500');
+      } else if (verb === 'south' || verb === 's') {
+        const room = MUD_MAP[char.location];
+        if (room.exits && room.exits.south) moveToRoom(room.exits.south);
+        else termLog('南面无法通行。', 'text-slate-500');
+      } else if (verb === 'east' || verb === 'e') {
+        const room = MUD_MAP[char.location];
+        if (room.exits && room.exits.east) moveToRoom(room.exits.east);
+        else termLog('东面无法通行。', 'text-slate-500');
+      } else if (verb === 'west' || verb === 'w') {
+        const room = MUD_MAP[char.location];
+        if (room.exits && room.exits.west) moveToRoom(room.exits.west);
+        else termLog('西面无法通行。', 'text-slate-500');
+      } 
+      // 2. Map & Search
+      else if (verb === 'map') {
+        termLog(`
+<pre class="text-amber-400 font-term text-[11px] leading-tight">
+       [高二三班教室]
+             |
+[红日网吧]--[一中正校门]--[邮政支局]
+    |
+[后街小巷]
+</pre>`, 'text-amber-300');
+      } else if (verb === 'search' || verb === 'find') {
+        const room = MUD_MAP[char.location];
+        if (char.location === 'classroom') {
+          handleNpcAction('loot_drawer');
+        } else {
+          termLog('你仔细搜寻了四周，没有发现其他隐藏暗格。', 'text-slate-400');
+        }
+      }
+      // 3. Inventory & Items
+      else if (verb === 'inventory' || verb === 'i') {
+        termLog(`💼【当前背包】(现金: ¥${char.money}):`, 'text-cyan-300 font-bold');
+        char.inventory.forEach(item => {
+          termLog(`  - ${item.name} x${item.count} (${item.desc})`, 'text-slate-300');
+        });
+      } else if (verb === 'drink' || (verb === 'use' && tokens[1] === 'tea')) {
+        Game.useItem('tea');
+      } else if (verb === 'eat' && tokens[1] === 'bbq') {
+        handleNpcAction('eat_bbq');
+      }
+      // 4. Combat & Cast
+      else if (verb === 'fight' || verb === 'attack' || verb === 'kill') {
+        const room = MUD_MAP[char.location];
+        const target = room.npcs && room.npcs.find(n => n.role === 'Boss' || n.role === '敌对');
+        if (target) handleNpcAction(target.action);
+        else termLog('当前场景没有可交锋的对手。', 'text-slate-500');
+      } else if (verb === 'cast') {
+        if (!Game.inCombat) return termLog('未处于战斗状态，无法释放招式！', 'text-slate-500');
+        const spell = tokens[1];
+        const card = char.deck.find(d => d.id.includes(spell) || d.name.toLowerCase().includes(spell));
+        if (card) playCard(card);
+        else termLog(`未知的招式: ${spell}。当前可用: ${char.deck.map(d => d.id).join(', ')}`, 'text-red-400');
+      } else if (verb === 'flee' || verb === 'run') {
+        if (Game.inCombat) {
+          termLog('🏃 你眼疾手快翻窗逃跑！成功脱离论战！', 'text-yellow-400 font-bold');
+          Game.inCombat = false;
+          document.getElementById('combat-arena').classList.add('hidden');
+          document.getElementById('combat-status-badge').innerText = '探索模式 (PEACE)';
+          document.getElementById('combat-status-badge').className = 'text-slate-400';
+          updateUI();
+        } else {
+          termLog('四周一片安宁，无需逃跑。', 'text-slate-500');
+        }
+      }
+      // 5. Crypto & Social Verbs
+      else if (verb === 'pump') {
+        document.getElementById('btn-crypto-pump').click();
+      } else if (verb === 'dump') {
+        document.getElementById('btn-crypto-dump').click();
+      } else if (verb === 'buy' && (tokens[1] === 'trx' || tokens[1] === 'btc')) {
+        document.getElementById('btn-crypto-buy').click();
+      } else if (verb === 'airdrop') {
+        document.getElementById('btn-crypto-airdrop').click();
+      } else if (verb === 'tweet' || verb === 'pr') {
+        const text = cmd.substring(verb.length).trim();
+        AudioEngine.pump();
+        termLog(`📱【全网通稿发布】孙总发推：“${text || '波场生态大有可为！'}” ➡️ 全球热搜飙升！`, 'text-cyan-300 font-bold');
+      } else if (verb === 'shout') {
+        const text = cmd.substring(5).trim();
+        AudioEngine.crit();
+        termLog(`🗣️【世界频道广播】你站在高处大喊：“${text}” 震惊了名利场！`, 'text-amber-300 font-black');
+      } else if (verb === 'ask') {
+        const room = MUD_MAP[char.location];
+        if (room.npcs && room.npcs.length > 0) {
+          termLog(`${room.npcs[0].name}对你说：“好好努力，名利场的大门只为野心家敞开！”`, 'text-cyan-300');
+        } else {
+          termLog('四周空无一人，你在自言自语。', 'text-slate-500');
+        }
+      } else if (verb === 'kidney') {
+        termLog(`🏥【结石自检】当前健康状态良好，可乐摄入指数 65%。请谨防在巴菲特午餐前突发结石！`, 'text-emerald-300');
+      } else if (verb === 'score' || verb === 'status') {
+        termLog(`
+<pre class="text-slate-300 font-term text-[11px] leading-tight bg-slate-950 p-2 rounded border border-slate-800">
+┌───────────────────────────────────────┐
+│ 姓名: ${Game.perspective === 'sun' ? '孙宇晨 (Justin)' : '景甜 (Jing Tian)'}
+│ 气血: ${char.hp}/${char.maxHp} | 灵感: ${char.ap}/${char.maxAp}
+│ 现金: ¥${char.money} | 名气声浪: ${char.fame}
+│ 阶段: 时期 ${Game.era} (2005年)
+└───────────────────────────────────────┘
+</pre>`, 'text-slate-200');
+      } else if (verb === 'help' || verb === 'h') {
+        termLog(`
+<pre class="text-amber-300 font-term text-[11px] leading-tight bg-slate-950 p-2.5 rounded border border-slate-800">
+📖【名利场 MUD 全量指令指南】(支持 Tab 补全):
+- 空间移动: north(n), south(s), east(e), west(w), look(l), map
+- 探索搜寻: search, inventory(i), drink tea, eat bbq
+- 论战对决: fight, cast [招式], flee
+- 加密操盘: pump, dump, buy trx, airdrop
+- 公关社交: tweet [内容], shout [豪言], ask [NPC]
+- 状态自检: score, kidney, who, help
+</pre>`, 'text-amber-300');
+      } else {
+        termLog(`未知指令: "${cmd}"。输入 'help' 或按 Tab 查看可用指令。`, 'text-slate-500');
+      }
+    }
+
+    // Perspective Switchers
     document.getElementById('btn-switch-sun').onclick = () => {
       Game.perspective = 'sun';
       document.getElementById('btn-switch-sun').className = 'px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-black flex items-center gap-1 transition';
       document.getElementById('btn-switch-jing').className = 'px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 transition';
-      termLog('🔄 切换至【孙宇晨线】：惠州一中少年逆袭中...', 'text-amber-400');
+      termLog('🔄 切换至【孙宇晨线】：惠州一中少年逆袭中...', 'text-amber-400 font-bold');
       updateUI();
     };
 
@@ -953,17 +1201,14 @@
       Game.perspective = 'jing';
       document.getElementById('btn-switch-jing').className = 'px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white flex items-center gap-1 transition';
       document.getElementById('btn-switch-sun').className = 'px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 transition';
-      termLog('🔄 切换至【景甜线】：北京电影学院 & 好莱坞全明星征途中...', 'text-rose-400');
+      termLog('🔄 切换至【景甜线】：北京电影学院 & 好莱坞全明星征途中...', 'text-rose-400 font-bold');
       updateUI();
     };
 
-    // Look button
     document.getElementById('btn-nav-look').onclick = () => {
-      const room = MUD_MAP[Game[Game.perspective].location];
-      termLog(`【${room.name}】：${room.desc}`, 'text-amber-300');
+      execCommand('look');
     };
 
-    // Boot Game
     window.onload = () => {
       updateUI();
     };
