@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>赛博俄罗斯方块 · Cyber Tetris</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>俄罗斯方块 · Tetris</title>
+  <!-- Baidu Analytics -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?301a591b476305494eb47a7821a42915";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
   <style>
     :root {
-      --bg-gradient: radial-gradient(circle at center, #1a1c29 0%, #0d0e15 100%);
-      --panel-bg: rgba(22, 25, 38, 0.75);
-      --panel-border: rgba(99, 102, 241, 0.25);
+      --bg: #090a0f;
+      --panel: rgba(18, 20, 29, 0.85);
+      --border: rgba(255, 255, 255, 0.1);
       --accent: #6366f1;
-      --accent-glow: rgba(99, 102, 241, 0.4);
-      --text-main: #f3f4f6;
-      --text-sub: #9ca3af;
-      --cyan: #06b6d4;
-      --blue: #3b82f6;
-      --orange: #f97316;
-      --yellow: #eab308;
-      --green: #10b981;
-      --purple: #a855f7;
-      --red: #ef4444;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
     }
 
     * {
@@ -30,400 +32,353 @@
       -webkit-user-select: none;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      background: var(--bg-gradient);
-      color: var(--text-main);
-      min-height: 100vh;
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+    }
+
+    /* 游戏全屏主容器 */
+    .app-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      position: relative;
+    }
+
+    /* 顶部极简 HUD 数据栏 */
+    .top-hud {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 6px 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      z-index: 20;
+    }
+
+    .hud-box {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow-x: hidden;
-      padding: 10px;
     }
 
-    .game-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      max-width: 800px;
-      width: 100%;
-    }
-
-    /* 顶部标题栏 */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 480px;
-      padding: 0 8px;
-    }
-
-    .logo-box {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .title {
-      font-size: 20px;
-      font-weight: 800;
+    .hud-label {
+      font-size: 10px;
+      color: var(--text-muted);
       letter-spacing: 1px;
-      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+      font-weight: 600;
+      text-transform: uppercase;
     }
 
-    .header-btns {
+    .hud-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: "Courier New", monospace;
+    }
+
+    .mini-preview-box {
       display: flex;
-      gap: 8px;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.3);
+      padding: 3px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
     }
 
-    .btn-icon {
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      color: var(--text-main);
-      width: 36px;
-      height: 36px;
+    .mini-canvas {
+      width: 38px;
+      height: 38px;
+      display: block;
+    }
+
+    .hud-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .hud-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 32px;
+      height: 32px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
       transition: all 0.2s;
     }
 
-    .btn-icon:hover {
+    .hud-btn:hover {
+      background: rgba(255,255,255,0.15);
       border-color: var(--accent);
-      box-shadow: 0 0 10px var(--accent-glow);
     }
 
-    /* 游戏主体区域 */
-    .main-layout {
+    /* 核心游戏视口 */
+    .game-viewport {
+      flex: 1;
       display: flex;
-      gap: 16px;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       position: relative;
+      width: 100%;
+      max-height: calc(100vh - 170px);
     }
 
-    /* 侧边信息栏 */
-    .side-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100px;
-    }
-
-    .card {
-      background: var(--panel-bg);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--panel-border);
-      border-radius: 12px;
-      padding: 10px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-title {
-      font-size: 11px;
-      color: var(--text-sub);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .card-value {
-      font-size: 18px;
-      font-weight: 700;
-      font-family: "Courier New", monospace;
-      color: #38bdf8;
-    }
-
-    .mini-canvas {
-      width: 76px;
-      height: 76px;
-      display: block;
-    }
-
-    /* 主棋盘 Canvas */
-    .board-wrapper {
+    .board-frame {
       position: relative;
-      border: 2px solid var(--panel-border);
+      height: 100%;
+      aspect-ratio: 10 / 20;
+      max-height: 100%;
       border-radius: 12px;
-      padding: 4px;
-      background: rgba(13, 14, 21, 0.85);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--accent-glow);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(99, 102, 241, 0.25);
+      border: 2px solid rgba(99, 102, 241, 0.4);
+      background: #0d0f17;
+      overflow: hidden;
     }
 
     #board {
-      display: block;
-      border-radius: 8px;
-      background: #090a0f;
-    }
-
-    /* 悬浮覆盖层 (Game Over / Pause) */
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(10, 11, 18, 0.85);
-      backdrop-filter: blur(6px);
+      display: block;
+    }
+
+    /* 弹窗覆盖层 (开始/暂停/结算) */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 10, 15, 0.88);
+      backdrop-filter: blur(8px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-radius: 10px;
       gap: 16px;
-      z-index: 10;
+      z-index: 50;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
     }
 
-    .overlay.active {
+    .modal-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .overlay-title {
-      font-size: 26px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ef4444, #f59e0b);
+    .modal-title {
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+      letter-spacing: 1px;
     }
 
-    .overlay-score {
+    .modal-desc {
       font-size: 14px;
-      color: var(--text-sub);
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.6;
     }
 
-    .overlay-score span {
+    .modal-desc span {
       color: #38bdf8;
       font-weight: 700;
       font-size: 18px;
     }
 
-    .btn-play {
+    .btn-action {
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: #fff;
       border: none;
-      padding: 10px 24px;
-      border-radius: 20px;
-      font-size: 15px;
+      padding: 12px 36px;
+      border-radius: 30px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 15px var(--accent-glow);
-      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .btn-play:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    .btn-action:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(99, 102, 241, 0.7);
     }
 
-    /* 快捷键提示条 */
-    .keyboard-tips {
-      font-size: 11px;
-      color: var(--text-sub);
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 480px;
-      margin-top: 4px;
-    }
-
-    .keyboard-tips kbd {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 4px;
-      padding: 1px 5px;
-      font-family: monospace;
-      color: #cbd5e1;
-    }
-
-    /* 移动端虚拟按键 (Touch Controls) */
-    .touch-controls {
-      display: none;
+    /* 底部触控/按键区 (极简半透明浮动按键) */
+    .bottom-controls {
       width: 100%;
-      max-width: 420px;
-      margin-top: 8px;
-      gap: 8px;
-      flex-direction: column;
-    }
-
-    .touch-row {
+      max-width: 480px;
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .ctrl-row {
+      display: flex;
+      justify-content: space-between;
       gap: 8px;
     }
 
-    .touch-btn {
+    .ctrl-btn {
       flex: 1;
-      height: 48px;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
+      height: 46px;
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      color: var(--text-main);
-      font-size: 16px;
+      color: var(--text);
+      font-size: 15px;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      touch-action: manipulation;
       cursor: pointer;
+      touch-action: manipulation;
       transition: background 0.1s, transform 0.1s;
     }
 
-    .touch-btn:active {
+    .ctrl-btn:active {
       background: var(--accent);
       transform: scale(0.95);
     }
 
-    .touch-btn.accent {
+    .ctrl-btn.accent {
       background: rgba(99, 102, 241, 0.35);
       border-color: var(--accent);
     }
 
-    .touch-btn.drop {
-      background: rgba(239, 68, 68, 0.3);
-      border-color: rgba(239, 68, 68, 0.6);
+    .ctrl-btn.drop {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.5);
     }
 
-    @media (max-width: 640px) {
-      .touch-controls {
-        display: flex;
+    /* 电脑端键盘提示悬浮小字 */
+    .pc-tips {
+      font-size: 11px;
+      color: #64748b;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .pc-tips kbd {
+      background: rgba(255,255,255,0.06);
+      padding: 1px 4px;
+      border-radius: 3px;
+      color: #94a3b8;
+    }
+
+    @media (min-width: 768px) {
+      .bottom-controls .ctrl-row {
+        display: none; /* 电脑端隐藏大触控按键，保留干净游戏区 */
       }
-      .keyboard-tips {
-        display: none;
-      }
-      .side-panel {
-        width: 72px;
-      }
-      .card {
-        padding: 6px 4px;
-        border-radius: 8px;
-      }
-      .card-title {
-        font-size: 9px;
-        margin-bottom: 2px;
-      }
-      .card-value {
-        font-size: 14px;
-      }
-      .mini-canvas {
-        width: 60px;
-        height: 60px;
+      .game-viewport {
+        max-height: calc(100vh - 120px);
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="game-container">
-    <!-- 顶栏 -->
-    <div class="header">
-      <div class="logo-box">
-        <span style="font-size:22px;">🕹️</span>
-        <h1 class="title">CYBER TETRIS</h1>
+  <div class="app-container">
+    <!-- 顶部 HUD 状态栏 -->
+    <div class="top-hud">
+      <!-- 暂存 -->
+      <div class="mini-preview-box" id="hud-hold" title="点击或按 C 键暂存">
+        <div class="hud-box">
+          <span class="hud-label">HOLD</span>
+          <canvas id="hold-canvas" class="mini-canvas" width="40" height="40"></canvas>
+        </div>
       </div>
-      <div class="header-btns">
-        <button class="btn-icon" id="btn-fullscreen" title="全屏 (F)">⛶</button>
-        <button class="btn-icon" id="btn-sound" title="音效开/关">🔊</button>
-        <button class="btn-icon" id="btn-pause" title="暂停 (P)">⏸️</button>
-        <button class="btn-icon" id="btn-restart" title="重新开始 (R)">🔄</button>
+
+      <!-- 核心指标 -->
+      <div class="hud-box">
+        <span class="hud-label">SCORE</span>
+        <span class="hud-val" id="score-val">0</span>
+      </div>
+
+      <div class="hud-box">
+        <span class="hud-label">LINES</span>
+        <span class="hud-val" id="lines-val" style="color:#a855f7;">0</span>
+      </div>
+
+      <div class="hud-box">
+        <span class="hud-label">LV</span>
+        <span class="hud-val" id="level-val" style="color:#10b981;">1</span>
+      </div>
+
+      <!-- 下一个 -->
+      <div class="mini-preview-box">
+        <div class="hud-box">
+          <span class="hud-label">NEXT</span>
+          <canvas id="next-canvas" class="mini-canvas" width="40" height="40"></canvas>
+        </div>
+      </div>
+
+      <!-- 快捷工具按钮 -->
+      <div class="hud-actions">
+        <button class="hud-btn" id="btn-fullscreen" title="全屏 (F)">⛶</button>
+        <button class="hud-btn" id="btn-sound" title="音效 (S)">🔊</button>
+        <button class="hud-btn" id="btn-pause" title="暂停 (P)">⏸️</button>
+        <button class="hud-btn" id="btn-restart" title="重开 (R)">🔄</button>
       </div>
     </div>
 
-    <!-- 主游戏区域 -->
-    <div class="main-layout">
-      <!-- 左侧：暂存 (HOLD) & 得分 -->
-      <div class="side-panel">
-        <div class="card">
-          <div class="card-title">暂存 HOLD</div>
-          <canvas id="hold-canvas" class="mini-canvas" width="80" height="80"></canvas>
-        </div>
-        <div class="card">
-          <div class="card-title">得分 SCORE</div>
-          <div class="card-value" id="score-val">0</div>
-        </div>
-        <div class="card">
-          <div class="card-title">消除 LINES</div>
-          <div class="card-value" id="lines-val">0</div>
-        </div>
-      </div>
-
-      <!-- 中间主棋盘 -->
-      <div class="board-wrapper">
-        <canvas id="board" width="250" height="500"></canvas>
+    <!-- 游戏画布视口 -->
+    <div class="game-viewport">
+      <div class="board-frame">
+        <canvas id="board" width="300" height="600"></canvas>
         
-        <!-- 弹窗覆盖层 -->
-        <div class="overlay active" id="overlay">
-          <div class="overlay-title" id="overlay-title">俄罗斯方块</div>
-          <div class="overlay-score" id="overlay-msg">点击下方按钮开始游戏</div>
-          <button class="btn-play" id="btn-start">开始挑战</button>
-        </div>
-      </div>
-
-      <!-- 右侧：下一个 (NEXT) & 等级 -->
-      <div class="side-panel">
-        <div class="card">
-          <div class="card-title">下一个 NEXT</div>
-          <canvas id="next-canvas" class="mini-canvas" width="80" height="80"></canvas>
-        </div>
-        <div class="card">
-          <div class="card-title">等级 LEVEL</div>
-          <div class="card-value" id="level-val">1</div>
-        </div>
-        <div class="card">
-          <div class="card-title">最高 HIGHSCORE</div>
-          <div class="card-value" id="high-val">0</div>
+        <!-- 模态弹窗 -->
+        <div class="modal-overlay active" id="modal">
+          <div class="modal-title" id="modal-title">TETRIS</div>
+          <div class="modal-desc" id="modal-desc">经典赛博俄罗斯方块<br>点击下方按钮开始挑战</div>
+          <button class="btn-action" id="btn-start">开始游戏</button>
         </div>
       </div>
     </div>
 
-    <!-- 电脑端键盘提示 -->
-    <div class="keyboard-tips">
-      <span><kbd>←</kbd><kbd>→</kbd> 左右移动</span>
-      <span><kbd>↑</kbd>/<kbd>X</kbd> 旋转</span>
-      <span><kbd>↓</kbd> 加速下落</span>
-      <span><kbd>Space</kbd> 瞬间落地</span>
-      <span><kbd>C</kbd> 暂存</span>
-      <span><kbd>P</kbd> 暂停</span>
-      <span><kbd>F</kbd> 全屏</span>
-    </div>
-
-    <!-- 移动端虚拟按键 -->
-    <div class="touch-controls">
-      <div class="touch-row">
-        <button class="touch-btn" id="t-hold">暂存 C</button>
-        <button class="touch-btn accent" id="t-rotate">旋转 ↻</button>
-        <button class="touch-btn drop" id="t-hard">瞬间落下 ⬇</button>
+    <!-- 底部控制区 -->
+    <div class="bottom-controls">
+      <div class="ctrl-row">
+        <button class="ctrl-btn" id="t-hold">暂存 C</button>
+        <button class="ctrl-btn accent" id="t-rotate">旋转 ↻</button>
+        <button class="ctrl-btn drop" id="t-hard">硬降 ⬇</button>
       </div>
-      <div class="touch-row">
-        <button class="touch-btn" id="t-left">◀ 左移</button>
-        <button class="touch-btn" id="t-down">▼ 软降</button>
-        <button class="touch-btn" id="t-right">右移 ▶</button>
+      <div class="ctrl-row">
+        <button class="ctrl-btn" id="t-left">◀ 左移</button>
+        <button class="ctrl-btn" id="t-down">▼ 软降</button>
+        <button class="ctrl-btn" id="t-right">右移 ▶</button>
+      </div>
+      <div class="pc-tips">
+        <kbd>←</kbd><kbd>→</kbd> 移动 | <kbd>↑</kbd>/<kbd>X</kbd> 旋转 | <kbd>Space</kbd> 瞬间落下 | <kbd>C</kbd> 暂存 | <kbd>F</kbd> 全屏 | <kbd>P</kbd> 暂停
       </div>
     </div>
   </div>
 
   <script>
     /**
-     * 音效生成器 (Web Audio API 合成音效，无需外部资源)
+     * Web Audio API 音效生成器
      */
     class SoundFX {
       constructor() {
@@ -436,7 +391,7 @@
           this.ctx = new AudioContext();
         }
       }
-      playTone(freq, type = 'sine', duration = 0.08, gainVal = 0.1) {
+      playTone(freq, type = 'sine', duration = 0.08, gainVal = 0.08) {
         if (!this.enabled) return;
         this.init();
         try {
@@ -452,56 +407,48 @@
           osc.stop(this.ctx.currentTime + duration);
         } catch (e) {}
       }
-      move() { this.playTone(280, 'sine', 0.04, 0.04); }
-      rotate() { this.playTone(420, 'triangle', 0.06, 0.06); }
-      drop() { this.playTone(180, 'triangle', 0.08, 0.08); }
+      move() { this.playTone(280, 'sine', 0.04, 0.03); }
+      rotate() { this.playTone(420, 'triangle', 0.05, 0.05); }
+      drop() { this.playTone(160, 'triangle', 0.08, 0.08); }
       clear() {
         if (!this.enabled) return;
-        this.playTone(523.25, 'square', 0.1, 0.06);
-        setTimeout(() => this.playTone(659.25, 'square', 0.1, 0.06), 60);
-        setTimeout(() => this.playTone(783.99, 'square', 0.15, 0.06), 120);
+        this.playTone(523, 'square', 0.08, 0.05);
+        setTimeout(() => this.playTone(659, 'square', 0.08, 0.05), 60);
+        setTimeout(() => this.playTone(784, 'square', 0.12, 0.05), 120);
       }
       tetris() {
         if (!this.enabled) return;
-        [523, 659, 783, 1046].forEach((f, i) => {
-          setTimeout(() => this.playTone(f, 'square', 0.15, 0.08), i * 70);
+        [523, 659, 784, 1046].forEach((f, i) => {
+          setTimeout(() => this.playTone(f, 'square', 0.12, 0.06), i * 70);
         });
       }
       gameover() {
         if (!this.enabled) return;
-        [350, 300, 250, 180].forEach((f, i) => {
-          setTimeout(() => this.playTone(f, 'sawtooth', 0.18, 0.08), i * 90);
+        [320, 260, 200, 140].forEach((f, i) => {
+          setTimeout(() => this.playTone(f, 'sawtooth', 0.15, 0.06), i * 90);
         });
       }
     }
 
     const sound = new SoundFX();
 
-    /**
-     * 游戏常量与方块定义
-     */
     const COLS = 10;
     const ROWS = 20;
-    const BLOCK_SIZE = 25; // 250x500
+    const BLOCK_SIZE = 30; // 300x600
 
     const SHAPES = {
-      I: { shape: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], color: '#06b6d4', glow: 'rgba(6, 182, 212, 0.8)' },
-      J: { shape: [[1,0,0],[1,1,1],[0,0,0]], color: '#3b82f6', glow: 'rgba(59, 130, 246, 0.8)' },
-      L: { shape: [[0,0,1],[1,1,1],[0,0,0]], color: '#f97316', glow: 'rgba(249, 115, 22, 0.8)' },
-      O: { shape: [[1,1],[1,1]], color: '#eab308', glow: 'rgba(234, 179, 8, 0.8)' },
-      S: { shape: [[0,1,1],[1,1,0],[0,0,0]], color: '#10b981', glow: 'rgba(16, 185, 129, 0.8)' },
-      T: { shape: [[0,1,0],[1,1,1],[0,0,0]], color: '#a855f7', glow: 'rgba(168, 85, 247, 0.8)' },
-      Z: { shape: [[1,1,0],[0,1,1],[0,0,0]], color: '#ef4444', glow: 'rgba(239, 68, 68, 0.8)' }
+      I: { shape: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], color: '#06b6d4' },
+      J: { shape: [[1,0,0],[1,1,1],[0,0,0]], color: '#3b82f6' },
+      L: { shape: [[0,0,1],[1,1,1],[0,0,0]], color: '#f97316' },
+      O: { shape: [[1,1],[1,1]], color: '#eab308' },
+      S: { shape: [[0,1,1],[1,1,0],[0,0,0]], color: '#10b981' },
+      T: { shape: [[0,1,0],[1,1,1],[0,0,0]], color: '#a855f7' },
+      Z: { shape: [[1,1,0],[0,1,1],[0,0,0]], color: '#ef4444' }
     };
     const PIECE_TYPES = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
 
-    /**
-     * 7-Bag 经典随机发生器
-     */
     class BagRandomizer {
-      constructor() {
-        this.bag = [];
-      }
+      constructor() { this.bag = []; }
       next() {
         if (this.bag.length === 0) {
           this.bag = [...PIECE_TYPES];
@@ -514,9 +461,6 @@
       }
     }
 
-    /**
-     * 粒子特效类 (消除行时的爆炸效果)
-     */
     class Particle {
       constructor(x, y, color) {
         this.x = x;
@@ -531,7 +475,7 @@
       update() {
         this.x += this.vx;
         this.y += this.vy;
-        this.vy += 0.2; // 重力
+        this.vy += 0.2;
         this.alpha -= this.decay;
       }
       draw(ctx) {
@@ -545,9 +489,6 @@
       }
     }
 
-    /**
-     * 俄罗斯方块核心游戏逻辑
-     */
     class TetrisGame {
       constructor() {
         this.canvas = document.getElementById('board');
@@ -560,10 +501,9 @@
         this.scoreEl = document.getElementById('score-val');
         this.linesEl = document.getElementById('lines-val');
         this.levelEl = document.getElementById('level-val');
-        this.highEl = document.getElementById('high-val');
-        this.overlay = document.getElementById('overlay');
-        this.overlayTitle = document.getElementById('overlay-title');
-        this.overlayMsg = document.getElementById('overlay-msg');
+        this.modal = document.getElementById('modal');
+        this.modalTitle = document.getElementById('modal-title');
+        this.modalDesc = document.getElementById('modal-desc');
         this.btnStart = document.getElementById('btn-start');
 
         this.grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
@@ -577,7 +517,6 @@
         this.lines = 0;
         this.level = 1;
         this.highScore = parseInt(localStorage.getItem('tetris_high_score') || '0', 10);
-        this.highEl.textContent = this.highScore;
 
         this.dropInterval = 1000;
         this.lastDropTime = 0;
@@ -611,7 +550,7 @@
         this.nextPieceType = this.bag.next();
         this.spawnPiece();
 
-        this.overlay.classList.remove('active');
+        this.modal.classList.remove('active');
         this.lastDropTime = performance.now();
 
         if (this.animationId) cancelAnimationFrame(this.animationId);
@@ -625,7 +564,6 @@
           type: type,
           matrix: SHAPES[type].shape.map(row => [...row]),
           color: SHAPES[type].color,
-          glow: SHAPES[type].glow,
           x: Math.floor((COLS - SHAPES[type].shape[0].length) / 2),
           y: 0
         };
@@ -640,7 +578,7 @@
       }
 
       hold() {
-        if (!this.canHold || this.isGameOver || this.isPaused) return;
+        if (!this.canHold || this.isGameOver || this.isPaused || !this.isPlaying) return;
         sound.rotate();
 
         if (this.holdPieceType === null) {
@@ -653,7 +591,6 @@
             type: temp,
             matrix: SHAPES[temp].shape.map(row => [...row]),
             color: SHAPES[temp].color,
-            glow: SHAPES[temp].glow,
             x: Math.floor((COLS - SHAPES[temp].shape[0].length) / 2),
             y: 0
           };
@@ -683,7 +620,6 @@
           }
         }
 
-        // 简易踢墙 (Wall Kick) 补偿
         const offsets = [0, 1, -1, 2, -2];
         for (const offset of offsets) {
           if (!this.checkCollision(this.currentPiece.x + offset, this.currentPiece.y, rotated)) {
@@ -764,7 +700,6 @@
         let cleared = 0;
         for (let r = ROWS - 1; r >= 0; r--) {
           if (this.grid[r].every(cell => cell !== 0)) {
-            // 产生粒子
             for (let c = 0; c < COLS; c++) {
               const px = c * BLOCK_SIZE + BLOCK_SIZE / 2;
               const py = r * BLOCK_SIZE + BLOCK_SIZE / 2;
@@ -775,7 +710,7 @@
             this.grid.splice(r, 1);
             this.grid.unshift(Array(COLS).fill(0));
             cleared++;
-            r++; // 重新检测当前索引
+            r++;
           }
         }
 
@@ -793,7 +728,6 @@
             this.addFloatingText('+' + pts, '#eab308');
           }
 
-          // 升级计算 (每 10 行升一级)
           const nextLevel = Math.floor(this.lines / 10) + 1;
           if (nextLevel > this.level) {
             this.level = nextLevel;
@@ -823,7 +757,6 @@
 
         if (this.score > this.highScore) {
           this.highScore = this.score;
-          this.highEl.textContent = this.highScore;
           localStorage.setItem('tetris_high_score', this.highScore.toString());
         }
       }
@@ -832,12 +765,12 @@
         if (!this.isPlaying || this.isGameOver) return;
         this.isPaused = !this.isPaused;
         if (this.isPaused) {
-          this.overlayTitle.textContent = '游戏暂停';
-          this.overlayMsg.innerHTML = `当前得分：<span>${this.score}</span>`;
+          this.modalTitle.textContent = 'PAUSE';
+          this.modalDesc.innerHTML = `当前得分：<span>${this.score}</span>`;
           this.btnStart.textContent = '继续游戏';
-          this.overlay.classList.add('active');
+          this.modal.classList.add('active');
         } else {
-          this.overlay.classList.remove('active');
+          this.modal.classList.remove('active');
           this.lastDropTime = performance.now();
         }
       }
@@ -847,10 +780,10 @@
         this.isPlaying = false;
         sound.gameover();
 
-        this.overlayTitle.textContent = '游戏结束';
-        this.overlayMsg.innerHTML = `最终得分：<span>${this.score}</span> | 消除行数：<span>${this.lines}</span>`;
+        this.modalTitle.textContent = 'GAME OVER';
+        this.modalDesc.innerHTML = `最终得分：<span>${this.score}</span><br>消除行数：<span>${this.lines}</span>`;
         this.btnStart.textContent = '再来一局';
-        this.overlay.classList.add('active');
+        this.modal.classList.add('active');
       }
 
       drawBlock(ctx, x, y, color, size = BLOCK_SIZE, isGhost = false) {
@@ -865,13 +798,13 @@
           ctx.fillStyle = color;
           ctx.fillRect(x + 1, y + 1, size - 2, size - 2);
 
-          // 亮边高光
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+          // 高光
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
           ctx.fillRect(x + 1, y + 1, size - 2, 3);
           ctx.fillRect(x + 1, y + 1, 3, size - 2);
 
-          // 暗边阴影
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+          // 阴影
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.28)';
           ctx.fillRect(x + 1, y + size - 4, size - 2, 3);
           ctx.fillRect(x + size - 4, y + 1, 3, size - 2);
         }
@@ -879,14 +812,14 @@
       }
 
       drawMiniPiece(ctx, type) {
-        ctx.clearRect(0, 0, 80, 80);
+        ctx.clearRect(0, 0, 40, 40);
         if (!type) return;
 
         const info = SHAPES[type];
         const matrix = info.shape;
-        const size = 16;
-        const offsetX = (80 - matrix[0].length * size) / 2;
-        const offsetY = (80 - matrix.length * size) / 2;
+        const size = 8;
+        const offsetX = (40 - matrix[0].length * size) / 2;
+        const offsetY = (40 - matrix.length * size) / 2;
 
         for (let r = 0; r < matrix.length; r++) {
           for (let c = 0; c < matrix[r].length; c++) {
@@ -900,7 +833,7 @@
       render() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // 绘制网格背景细线
+        // 网格线
         this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
         this.ctx.lineWidth = 1;
         for (let x = 0; x <= COLS; x++) {
@@ -916,7 +849,7 @@
           this.ctx.stroke();
         }
 
-        // 绘制已有固定的方块
+        // 固定方块
         for (let r = 0; r < ROWS; r++) {
           for (let c = 0; c < COLS; c++) {
             if (this.grid[r][c]) {
@@ -925,7 +858,7 @@
           }
         }
 
-        // 绘制幽灵投影 (Ghost Piece)
+        // 幽灵投影与下落方块
         if (this.currentPiece && !this.isGameOver) {
           const ghostY = this.getGhostY();
           const { x, matrix, color } = this.currentPiece;
@@ -937,7 +870,6 @@
             }
           }
 
-          // 绘制当前下落中的方块
           for (let r = 0; r < matrix.length; r++) {
             for (let c = 0; c < matrix[r].length; c++) {
               if (matrix[r][c]) {
@@ -947,7 +879,7 @@
           }
         }
 
-        // 粒子绘制与更新
+        // 粒子
         for (let i = this.particles.length - 1; i >= 0; i--) {
           const p = this.particles[i];
           p.update();
@@ -955,13 +887,13 @@
           if (p.alpha <= 0) this.particles.splice(i, 1);
         }
 
-        // 漂浮文字渲染
+        // 浮动得分
         for (let i = this.floatingTexts.length - 1; i >= 0; i--) {
           const ft = this.floatingTexts[i];
           ft.y += ft.vy;
           ft.alpha -= 0.02;
           this.ctx.save();
-          this.ctx.font = 'bold 18px -apple-system, sans-serif';
+          this.ctx.font = 'bold 20px -apple-system, sans-serif';
           this.ctx.fillStyle = ft.color;
           this.ctx.globalAlpha = Math.max(0, ft.alpha);
           this.ctx.textAlign = 'center';
@@ -992,34 +924,29 @@
 
         document.getElementById('btn-pause').addEventListener('click', () => this.togglePause());
         document.getElementById('btn-restart').addEventListener('click', () => this.start());
+
         const btnFullscreen = document.getElementById('btn-fullscreen');
         const toggleFullscreen = () => {
-          if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+          if (!document.fullscreenElement && !document.webkitFullscreenElement) {
             const elem = document.documentElement;
             if (elem.requestFullscreen) elem.requestFullscreen();
             else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-            else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
-            else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
           } else {
             if (document.exitFullscreen) document.exitFullscreen();
             else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-            else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-            else if (document.msExitFullscreen) document.msExitFullscreen();
           }
         };
 
         btnFullscreen.addEventListener('click', toggleFullscreen);
 
         const updateFullscreenBtn = () => {
-          const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+          const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement);
           btnFullscreen.textContent = isFull ? '🗗' : '⛶';
-          btnFullscreen.title = isFull ? '退出全屏 (F / Esc)' : '全屏 (F)';
+          btnFullscreen.title = isFull ? '退出全屏 (F)' : '全屏 (F)';
         };
 
         document.addEventListener('fullscreenchange', updateFullscreenBtn);
         document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
-        document.addEventListener('mozfullscreenchange', updateFullscreenBtn);
-        document.addEventListener('MSFullscreenChange', updateFullscreenBtn);
 
         const btnSound = document.getElementById('btn-sound');
         btnSound.addEventListener('click', () => {
@@ -1027,7 +954,9 @@
           btnSound.textContent = sound.enabled ? '🔊' : '🔇';
         });
 
-        // 键盘操作监听
+        document.getElementById('hud-hold').addEventListener('click', () => this.hold());
+
+        // 键盘操作
         window.addEventListener('keydown', e => {
           if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
             e.preventDefault();
@@ -1035,6 +964,12 @@
 
           if (e.code === 'KeyF') {
             toggleFullscreen();
+            return;
+          }
+
+          if (e.code === 'KeyS' && !this.isPlaying) {
+            sound.enabled = !sound.enabled;
+            btnSound.textContent = sound.enabled ? '🔊' : '🔇';
             return;
           }
 
@@ -1081,7 +1016,7 @@
           }
         });
 
-        // 移动端触控按钮绑定
+        // 触控支持
         const bindTouch = (id, action) => {
           const btn = document.getElementById(id);
           if (!btn) return;
@@ -1102,9 +1037,8 @@
       }
     }
 
-    // 初始化游戏实例
     window.addEventListener('DOMContentLoaded', () => {
-      const game = new TetrisGame();
+      new TetrisGame();
     });
   </script>
 </body>
