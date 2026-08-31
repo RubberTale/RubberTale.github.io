@@ -44,9 +44,6 @@
       animation: float-up 0.8s ease-out forwards;
     }
     /* Autocomplete dropdown styling */
-    .autocomplete-item {
-      transition: all 0.15s ease;
-    }
     .autocomplete-item.active, .autocomplete-item:hover {
       background-color: rgba(245, 158, 11, 0.25);
       color: #fbbf24;
@@ -59,6 +56,99 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-black overflow-x-hidden font-term">
+
+  <!-- ============================================================ -->
+  <!-- GAME INTRO / PROLOGUE MODAL (开局世界观、本质、目的与路径引导指南) -->
+  <!-- ============================================================ -->
+  <div id="modal-intro" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border-2 border-amber-500/50 max-w-2xl w-full rounded-3xl p-5 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto relative">
+      
+      <!-- Top Title -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-cyan-500 flex items-center justify-center font-black text-black text-sm">
+            ⚡
+          </div>
+          <div>
+            <h2 class="text-base sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-rose-300 to-cyan-400">
+              名利场 MUD：双星演义 · 玩家指引与世界观
+            </h2>
+            <p class="text-[11px] text-slate-400">关于中国当代名利场、注意力经济与概念炼金术的荒诞生存模拟</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Content: 4 Key Layers -->
+      <div class="space-y-3.5 text-xs text-slate-300 leading-relaxed font-sans">
+        
+        <!-- Layer 1: 游戏的本质 -->
+        <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 space-y-1.5">
+          <div class="flex items-center gap-1.5 text-amber-400 font-bold text-xs font-term">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 【游戏的本质：注意力即流动性】
+          </div>
+          <p class="text-slate-300 text-[11px]">
+            在传统 RPG 里，你的武器是刀剑法术；但在《名利场 MUD》里，<strong>你的武器是【叙事 (Narrative)】，魔法值是【全网注意力】，护甲是【公关厚度与外交免责】</strong>。无论全网在膜拜你还是痛骂你，只要垄断注意力，你就能把虚无的争议炼成百亿现金流！
+          </p>
+        </div>
+
+        <!-- Layer 2: 游戏的两大路径与目的 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Sun Path -->
+          <div class="bg-slate-950/70 p-3 rounded-xl border border-amber-500/20 space-y-1">
+            <div class="font-bold text-amber-400 flex items-center gap-1 text-[11px] font-term">
+              <span>⚡ 路径 1：孙宇晨【规则黑客】</span>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              从惠州网吧倒数第一起步，自下而上钻营套利：靠新概念小作文踩进北大，在常春藤狂炒比特币，创立波场 TRX，突发肾结石鸽掉巴菲特，吞下 620 万美元香蕉，登顶加密主权！
+            </p>
+          </div>
+          <!-- Jing Path -->
+          <div class="bg-slate-950/70 p-3 rounded-xl border border-rose-500/20 space-y-1">
+            <div class="font-bold text-rose-400 flex items-center gap-1 text-[11px] font-term">
+              <span>👸 路径 2：景甜【资源降维】</span>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              从北舞附中校花起步，开局即顶级全明星众星拱月，周旋于张艺谋合拍大片与好莱坞怪物宇宙，面对全网身世质疑，凭借《司藤》绝美旗袍造型完成国民口碑大逆袭！
+            </p>
+          </div>
+        </div>
+
+        <!-- Layer 3: 2025 命运大汇流与终极目标 -->
+        <div class="bg-gradient-to-r from-amber-950/30 via-slate-950/80 to-rose-950/30 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1">
+          <strong class="text-slate-200">🎯 【游戏终极目标：2025 会师与火星主权】</strong>
+          <p class="text-slate-400">
+            前期（2005~2024）两人各自独立发展，隔空呼应。2025 年前后两人将在<strong>苏富比天价拍卖厅与火星基地会师合体</strong>，实现跨界终极主权大满贯！
+          </p>
+        </div>
+
+        <!-- Layer 4: 怎么玩 (操作方法) -->
+        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1.5">
+          <div class="text-cyan-400 font-bold text-[11px] font-term flex items-center gap-1">
+            <i data-lucide="terminal" class="w-3.5 h-3.5"></i> 【核心交互方式与指令】
+          </div>
+          <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] text-slate-400 font-term">
+            <div>• <strong>空间移动</strong>: <code class="text-amber-300">n/s/e/w/look/map</code></div>
+            <div>• <strong>卡牌论战</strong>: <code class="text-amber-300">fight</code> 或 <code class="text-amber-300">cast [招式]</code></div>
+            <div>• <strong>Tab 自动补全</strong>: 按 <kbd class="px-1 py-0.5 rounded bg-slate-800 text-amber-300">Tab</kbd> 极速补全指令</div>
+            <div>• <strong>加密操盘</strong>: <code class="text-amber-300">pump</code> (拉盘) / <code class="text-amber-300">dump</code> (砸盘)</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-2 flex justify-between items-center border-t border-slate-800">
+        <label class="flex items-center gap-1.5 text-[11px] text-slate-400 cursor-pointer">
+          <input type="checkbox" id="chk-dont-show-intro" class="rounded bg-slate-950 border-slate-800 text-amber-500" />
+          下次不再自动弹出（可在右上角重看）
+        </label>
+        <button id="btn-start-game" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 hover:opacity-90 text-black font-black text-xs transition shadow-lg shadow-amber-500/25 flex items-center gap-1.5 font-term">
+          踏入名利场 MUD 🚀
+        </button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Header & Real-time Status Bar -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40">
@@ -79,14 +169,17 @@
         </div>
       </div>
 
-      <!-- Quick Resources -->
-      <div class="flex items-center gap-3 text-xs">
+      <!-- Help / Guide Button & Quick Resources -->
+      <div class="flex items-center gap-2.5 text-xs">
+        <button id="btn-reopen-guide" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold border border-slate-700 flex items-center gap-1 transition">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> 世界观指南
+        </button>
         <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
-          <span class="text-rose-400 font-bold">HP气血</span>
+          <span class="text-rose-400 font-bold">HP</span>
           <span id="hud-hp" class="text-rose-300 font-bold">100 / 100</span>
         </div>
         <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
-          <span class="text-amber-400 font-bold">💡 辩才/灵感</span>
+          <span class="text-amber-400 font-bold">💡 灵感</span>
           <span id="hud-ap" class="text-amber-300 font-bold">3 / 3</span>
         </div>
         <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
@@ -94,7 +187,7 @@
           <span id="hud-money" class="text-emerald-300 font-bold">¥ 80</span>
         </div>
         <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
-          <span class="text-cyan-400 font-bold">🏆 战力/名气</span>
+          <span class="text-cyan-400 font-bold">🏆 名气</span>
           <span id="hud-fame" class="text-cyan-300 font-bold">25</span>
         </div>
       </div>
@@ -275,8 +368,6 @@
           <div class="flex items-center gap-2">
             <div class="relative flex-1">
               <input id="term-input" type="text" placeholder="输入 MUD 指令 (支持 Tab 补全，输入 help 查看帮助)..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 font-term" autocomplete="off" spellcheck="false" />
-              <!-- Ghost text for inline autocomplete suggestion -->
-              <span id="ghost-text" class="absolute left-3 top-2 text-xs text-slate-600 font-term pointer-events-none"></span>
             </div>
             <button id="btn-term-send" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition shrink-0">
               执行 ↵
@@ -339,7 +430,7 @@
 
   </main>
 
-  <!-- JavaScript Engine with Comprehensive Commands & Tab Autocomplete -->
+  <!-- JavaScript Engine with Tab Autocomplete & Guided Intro -->
   <script>
     // Audio Synthesizer
     const AudioEngine = {
@@ -970,7 +1061,6 @@
       }
     }
 
-    // Input Events for Auto-Completion
     termInput.addEventListener('input', () => {
       const val = termInput.value.trim().toLowerCase();
       if (!val) {
@@ -992,7 +1082,6 @@
         if (!autoBox.classList.contains('hidden') && autoMatches.length > 0) {
           selectAutocomplete(selectedAutoIndex);
         } else {
-          // Trigger matches on tab press
           const val = termInput.value.trim().toLowerCase();
           const matches = AUTOCOMPLETE_COMMANDS.filter(c => 
             !val || c.cmd.toLowerCase().startsWith(val) || c.cmd.toLowerCase().includes(val)
@@ -1009,7 +1098,6 @@
           selectedAutoIndex = (selectedAutoIndex + 1) % autoMatches.length;
           renderAutocomplete(autoMatches);
         } else {
-          // History down
           if (Game.cmdHistoryIndex > 0) {
             Game.cmdHistoryIndex--;
             termInput.value = Game.cmdHistory[Game.cmdHistoryIndex] || '';
@@ -1021,7 +1109,6 @@
           selectedAutoIndex = (selectedAutoIndex - 1 + autoMatches.length) % autoMatches.length;
           renderAutocomplete(autoMatches);
         } else {
-          // History up
           if (Game.cmdHistoryIndex < Game.cmdHistory.length - 1) {
             Game.cmdHistoryIndex++;
             termInput.value = Game.cmdHistory[Game.cmdHistoryIndex] || '';
@@ -1029,7 +1116,6 @@
         }
       } else if (e.key === 'Enter') {
         if (!autoBox.classList.contains('hidden') && autoMatches.length > 0 && selectedAutoIndex >= 0) {
-          // If autocomplete is open and user pressed enter, accept autocomplete
           selectAutocomplete(selectedAutoIndex);
         } else {
           execCommand();
@@ -1041,7 +1127,6 @@
 
     document.getElementById('btn-term-send').onclick = execCommand;
 
-    // Comprehensive Command Execution Engine
     function execCommand() {
       autoBox.classList.add('hidden');
       const cmd = termInput.value.trim();
@@ -1059,7 +1144,6 @@
       const verb = tokens[0];
       const char = Game[Game.perspective];
 
-      // 1. Navigation Commands
       if (verb === 'look' || verb === 'l') {
         const room = MUD_MAP[char.location];
         termLog(`【${room.name}】：${room.desc}`, 'text-amber-200');
@@ -1082,9 +1166,7 @@
         const room = MUD_MAP[char.location];
         if (room.exits && room.exits.west) moveToRoom(room.exits.west);
         else termLog('西面无法通行。', 'text-slate-500');
-      } 
-      // 2. Map & Search
-      else if (verb === 'map') {
+      } else if (verb === 'map') {
         termLog(`
 <pre class="text-amber-400 font-term text-[11px] leading-tight">
        [高二三班教室]
@@ -1100,9 +1182,7 @@
         } else {
           termLog('你仔细搜寻了四周，没有发现其他隐藏暗格。', 'text-slate-400');
         }
-      }
-      // 3. Inventory & Items
-      else if (verb === 'inventory' || verb === 'i') {
+      } else if (verb === 'inventory' || verb === 'i') {
         termLog(`💼【当前背包】(现金: ¥${char.money}):`, 'text-cyan-300 font-bold');
         char.inventory.forEach(item => {
           termLog(`  - ${item.name} x${item.count} (${item.desc})`, 'text-slate-300');
@@ -1111,9 +1191,7 @@
         Game.useItem('tea');
       } else if (verb === 'eat' && tokens[1] === 'bbq') {
         handleNpcAction('eat_bbq');
-      }
-      // 4. Combat & Cast
-      else if (verb === 'fight' || verb === 'attack' || verb === 'kill') {
+      } else if (verb === 'fight' || verb === 'attack' || verb === 'kill') {
         const room = MUD_MAP[char.location];
         const target = room.npcs && room.npcs.find(n => n.role === 'Boss' || n.role === '敌对');
         if (target) handleNpcAction(target.action);
@@ -1135,9 +1213,7 @@
         } else {
           termLog('四周一片安宁，无需逃跑。', 'text-slate-500');
         }
-      }
-      // 5. Crypto & Social Verbs
-      else if (verb === 'pump') {
+      } else if (verb === 'pump') {
         document.getElementById('btn-crypto-pump').click();
       } else if (verb === 'dump') {
         document.getElementById('btn-crypto-dump').click();
@@ -1188,6 +1264,25 @@
       }
     }
 
+    // Modal Control
+    const modalIntro = document.getElementById('modal-intro');
+    const btnStartGame = document.getElementById('btn-start-game');
+    const btnReopenGuide = document.getElementById('btn-reopen-guide');
+    const chkDontShow = document.getElementById('chk-dont-show-intro');
+
+    btnStartGame.onclick = () => {
+      AudioEngine.crit();
+      if (chkDontShow.checked) {
+        localStorage.setItem('mud_intro_dismissed', 'true');
+      }
+      modalIntro.classList.add('hidden');
+    };
+
+    btnReopenGuide.onclick = () => {
+      AudioEngine.tab();
+      modalIntro.classList.remove('hidden');
+    };
+
     // Perspective Switchers
     document.getElementById('btn-switch-sun').onclick = () => {
       Game.perspective = 'sun';
@@ -1210,6 +1305,9 @@
     };
 
     window.onload = () => {
+      if (localStorage.getItem('mud_intro_dismissed') === 'true') {
+        modalIntro.classList.add('hidden');
+      }
       updateUI();
     };
   </script>
