@@ -57,13 +57,9 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-black overflow-x-hidden font-term">
 
-  <!-- ============================================================ -->
-  <!-- GAME INTRO / PROLOGUE MODAL (开局世界观、本质、目的与路径引导指南) -->
-  <!-- ============================================================ -->
+  <!-- GAME INTRO / PROLOGUE MODAL -->
   <div id="modal-intro" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4">
     <div class="bg-slate-900 border-2 border-amber-500/50 max-w-2xl w-full rounded-3xl p-5 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto relative">
-      
-      <!-- Top Title -->
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-cyan-500 flex items-center justify-center font-black text-black text-sm">
@@ -78,10 +74,7 @@
         </div>
       </div>
 
-      <!-- Core Content: 4 Key Layers -->
       <div class="space-y-3.5 text-xs text-slate-300 leading-relaxed font-sans">
-        
-        <!-- Layer 1: 游戏的本质 -->
         <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 space-y-1.5">
           <div class="flex items-center gap-1.5 text-amber-400 font-bold text-xs font-term">
             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 【游戏的本质：注意力即流动性】
@@ -91,9 +84,7 @@
           </p>
         </div>
 
-        <!-- Layer 2: 游戏的两大路径与目的 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <!-- Sun Path -->
           <div class="bg-slate-950/70 p-3 rounded-xl border border-amber-500/20 space-y-1">
             <div class="font-bold text-amber-400 flex items-center gap-1 text-[11px] font-term">
               <span>⚡ 路径 1：孙宇晨【规则黑客】</span>
@@ -102,7 +93,6 @@
               从惠州网吧倒数第一起步，自下而上钻营套利：靠新概念小作文踩进北大，在常春藤狂炒比特币，创立波场 TRX，突发肾结石鸽掉巴菲特，吞下 620 万美元香蕉，登顶加密主权！
             </p>
           </div>
-          <!-- Jing Path -->
           <div class="bg-slate-950/70 p-3 rounded-xl border border-rose-500/20 space-y-1">
             <div class="font-bold text-rose-400 flex items-center gap-1 text-[11px] font-term">
               <span>👸 路径 2：景甜【资源降维】</span>
@@ -113,7 +103,6 @@
           </div>
         </div>
 
-        <!-- Layer 3: 2025 命运大汇流与终极目标 -->
         <div class="bg-gradient-to-r from-amber-950/30 via-slate-950/80 to-rose-950/30 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1">
           <strong class="text-slate-200">🎯 【游戏终极目标：2025 会师与火星主权】</strong>
           <p class="text-slate-400">
@@ -121,7 +110,6 @@
           </p>
         </div>
 
-        <!-- Layer 4: 怎么玩 (操作方法) -->
         <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1.5">
           <div class="text-cyan-400 font-bold text-[11px] font-term flex items-center gap-1">
             <i data-lucide="terminal" class="w-3.5 h-3.5"></i> 【核心交互方式与指令】
@@ -133,10 +121,8 @@
             <div>• <strong>加密操盘</strong>: <code class="text-amber-300">pump</code> (拉盘) / <code class="text-amber-300">dump</code> (砸盘)</div>
           </div>
         </div>
-
       </div>
 
-      <!-- Action Button -->
       <div class="pt-2 flex justify-between items-center border-t border-slate-800">
         <label class="flex items-center gap-1.5 text-[11px] text-slate-400 cursor-pointer">
           <input type="checkbox" id="chk-dont-show-intro" class="rounded bg-slate-950 border-slate-800 text-amber-500" />
@@ -146,14 +132,12 @@
           踏入名利场 MUD 🚀
         </button>
       </div>
-
     </div>
   </div>
 
   <!-- Header & Real-time Status Bar -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3">
-      <!-- Perspective Switcher & Time -->
       <div class="flex items-center gap-3">
         <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
           <button id="btn-switch-sun" class="px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-black flex items-center gap-1 transition">
@@ -165,11 +149,10 @@
         </div>
         <div>
           <span id="hud-date" class="text-xs font-bold text-amber-400">2005年 3月</span>
-          <span id="hud-chapter" class="text-[11px] text-slate-400 ml-2">【时期1：惠州高中逆袭】</span>
+          <span id="hud-chapter" class="text-[11px] text-slate-400 ml-2 font-bold">【时期1：惠州高中逆袭】</span>
         </div>
       </div>
 
-      <!-- Help / Guide Button & Quick Resources -->
       <div class="flex items-center gap-2.5 text-xs">
         <button id="btn-reopen-guide" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold border border-slate-700 flex items-center gap-1 transition">
           <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> 世界观指南
@@ -207,7 +190,7 @@
             <i data-lucide="map-pin" class="w-4 h-4 text-rose-400"></i>
             <span id="room-name">红日网吧 · 大厅</span>
           </div>
-          <span class="text-[10px] text-slate-500 font-mono">MUD SPATIAL</span>
+          <span class="text-[10px] text-slate-500 font-mono" id="map-era-badge">ERA 1: 惠州高中</span>
         </div>
 
         <p id="room-desc" class="text-xs text-slate-300 leading-relaxed bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 min-h-[60px]">
@@ -272,7 +255,7 @@
     <!-- CENTER: MUD Terminal Screen, Combat Arena, & Real-time Live Ticker (5 cols) -->
     <section class="lg:col-span-5 space-y-3">
 
-      <!-- Dynamic Live Ticker / K-Line Mini Game (Unlocked in Era 3/4) -->
+      <!-- Dynamic Live Ticker / K-Line Mini Game (Unlocked in Era 2/3/4) -->
       <div id="crypto-ticker-box" class="bg-slate-900 border border-cyan-500/30 rounded-2xl p-3 shadow-xl space-y-2 hidden">
         <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
           <div class="flex items-center gap-2">
@@ -285,10 +268,8 @@
           </div>
         </div>
         
-        <!-- Live Ticker Canvas -->
         <canvas id="crypto-canvas" class="w-full h-16 bg-slate-950 rounded-lg border border-slate-800"></canvas>
 
-        <!-- Pump & Dump Action Buttons -->
         <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
           <button id="btn-crypto-buy" class="py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition text-center shadow">
             抄底买入 📈
@@ -308,7 +289,6 @@
       <!-- MAIN MUD / COMBAT TERMINAL -->
       <div id="terminal-wrapper" class="crt-screen border-2 border-slate-800 rounded-3xl p-4 sm:p-5 shadow-2xl space-y-3 relative min-h-[380px] flex flex-col justify-between">
         
-        <!-- Top Indicator -->
         <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-slate-800/80 pb-2 font-term">
           <span class="flex items-center gap-1.5 text-amber-400">
             <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
@@ -323,9 +303,8 @@
           <div class="text-amber-300">> 你走进红日网吧，班主任随时可能进行午夜突击。</div>
         </div>
 
-        <!-- Dynamic Combat Arena (Only shown during battle) -->
+        <!-- Dynamic Combat Arena -->
         <div id="combat-arena" class="bg-slate-950/90 border border-red-500/40 rounded-2xl p-3 space-y-3 hidden">
-          <!-- Opponent Bar -->
           <div class="flex justify-between items-center">
             <div>
               <span id="enemy-name" class="text-xs font-bold text-red-400">教导主任 · 王暴躁</span>
@@ -339,7 +318,6 @@
             <div id="enemy-hp-bar" class="bg-gradient-to-r from-red-600 to-rose-500 h-full rounded-full transition-all duration-300" style="width: 100%"></div>
           </div>
 
-          <!-- Combat Action Cards (Player's Hand) -->
           <div class="space-y-1.5 pt-1">
             <div class="text-[11px] text-slate-400 font-bold flex justify-between">
               <span>🎴 出招手牌（输入 cast [招式] 或点击）：</span>
@@ -353,8 +331,6 @@
 
         <!-- Command Input with Tab-Autocomplete Popover -->
         <div id="quick-cmd-wrapper" class="pt-2 border-t border-slate-800 relative">
-          
-          <!-- Autocomplete Floating Dropdown Menu -->
           <div id="autocomplete-box" class="absolute bottom-full left-0 right-0 mb-1.5 bg-slate-900/95 border border-amber-500/40 rounded-xl p-1.5 shadow-2xl backdrop-blur-md hidden max-h-48 overflow-y-auto z-50 text-xs">
             <div class="px-2 py-1 text-[10px] text-amber-400/80 font-bold flex justify-between border-b border-slate-800/80 mb-1">
               <span>⚡ TAB 补全候选列表 (↑/↓ 选择, Enter/Tab 确认)</span>
@@ -430,9 +406,8 @@
 
   </main>
 
-  <!-- JavaScript Engine with Tab Autocomplete & Guided Intro -->
+  <!-- JavaScript Engine with Dynamic Era Map Transition -->
   <script>
-    // Audio Synthesizer
     const AudioEngine = {
       ctx: null,
       init() {
@@ -470,7 +445,6 @@
       tab() { this.play(880, 'sine', 0.04, 0.05); }
     };
 
-    // Master Autocomplete Dictionary
     const AUTOCOMPLETE_COMMANDS = [
       { cmd: 'look', desc: '观察当前房间环境与物体 (简写: l)' },
       { cmd: 'north', desc: '向北移动 (简写: n)' },
@@ -505,7 +479,119 @@
       { cmd: 'help', desc: '呼出完整 MUD 指令百科' }
     ];
 
-    // Game Core State Model
+    // Era-Specific Complete MUD World Maps
+    const WORLD_MAPS_BY_ERA = {
+      // Era 1: 惠州高中时期
+      1: {
+        netbar: {
+          name: '红日网吧 · 大厅',
+          desc: '泡面味扑鼻，大头显示器正亮着《传奇》行会战。网管阿杰在柜台数硬币。',
+          exits: { north: 'school_gate', east: 'alley' },
+          npcs: [
+            { name: '网管阿杰', role: '商人', action: 'buy_tea', label: '买冰红茶 (¥3)' },
+            { name: '街头小混混', role: '敌对', action: 'fight_punk', label: '⚔️ 发起切磋对决' }
+          ]
+        },
+        school_gate: {
+          name: '惠州一中 · 正校门',
+          desc: '庄严肃穆的校门，两旁挂着高考倒计时横幅。教导处主任正在校门口巡视迟到与网瘾学生。',
+          exits: { south: 'netbar', north: 'classroom', east: 'post_office' },
+          npcs: [
+            { name: '教导主任 · 王暴躁', role: 'Boss', action: 'fight_director', label: '⚔️ 触发【查网瘾对决】！' }
+          ]
+        },
+        classroom: {
+          name: '高二三班 · 教室后排',
+          desc: '课桌堆满五三模拟题，你的桌肚里藏着王朔的《顽主》与半瓶冰红茶。',
+          exits: { south: 'school_gate' },
+          npcs: [
+            { name: '班长李小华', role: 'NPC', action: 'talk_monitor', label: '打听新概念自招八卦' },
+            { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' }
+          ]
+        },
+        post_office: {
+          name: '惠州邮政支局 · 投递处',
+          desc: '绿色邮筒立在门前，这里可以将手稿寄往上海《萌芽》杂志社新概念组委会。',
+          exits: { west: 'school_gate' },
+          npcs: [
+            { name: '邮政绿邮筒', role: '交互', action: 'submit_essay', label: '📮 投递新概念参赛小作文' }
+          ]
+        },
+        alley: {
+          name: '后街小巷 · 烧烤摊',
+          desc: '油烟弥漫，几个刚下夜班的年轻人在喝啤酒畅谈未来。',
+          exits: { west: 'netbar' },
+          npcs: [
+            { name: '烧烤摊老板', role: '恢复', action: 'eat_bbq', label: '吃生蚝补充精力 (¥15)' }
+          ]
+        }
+      },
+      // Era 2: 北京大学·燕园时期
+      2: {
+        weiming_lake: {
+          name: '北京大学 · 未名湖畔博雅塔',
+          desc: '湖光塔影，微风拂面。北大学子正聚在湖边探讨近代哲学思想与公知先锋潮流。',
+          exits: { south: 'sanjiaodi', east: 'pku_hall' },
+          npcs: [
+            { name: '哲学系老教授', role: '智者', action: 'meditate_lake', label: '🧘 冥想辩论 (灵感+2)' },
+            { name: '石凳暗格', role: '宝箱', action: 'loot_press_pass', label: '🔍 搜寻《南周实习记者证》' }
+          ]
+        },
+        sanjiaodi: {
+          name: '北大三角地 · BBS与校刊广场',
+          desc: '三角地贴满了各种学术海报与先锋刊物。你自创的民间校刊《野草》正堆在长椅旁。',
+          exits: { north: 'weiming_lake', east: 'abroad_office' },
+          npcs: [
+            { name: '校刊印刷社学长', role: '商人', action: 'publish_yecao', label: '📰 发行万份《野草》暴论 (¥50)' },
+            { name: '校学生会常务主席', role: 'Boss', action: 'fight_president', label: '⚔️ 竞选学生会主席论战！' }
+          ]
+        },
+        pku_hall: {
+          name: '北大百周年纪念讲堂 · 前厅',
+          desc: '宏伟的纪念大讲堂，经常有华尔街投资家与互联网先锋在此举行公开演讲。',
+          exits: { west: 'weiming_lake', south: 'abroad_office' },
+          npcs: [
+            { name: '硅谷归国投资人', role: 'NPC', action: 'talk_vc', label: '打听特斯拉与比特币早期概念' }
+          ]
+        },
+        abroad_office: {
+          name: '燕园留学生服务中心 · 出国签证处',
+          desc: '这里可以提交常春藤盟校常春藤宾夕法尼亚大学硕士申请，踏上赴美留洋之路！',
+          exits: { west: 'sanjiaodi', north: 'pku_hall' },
+          npcs: [
+            { name: '常春藤录取绿色通道', role: '交互', action: 'fly_to_penn', label: '✈️ 启程前往美国常春藤宾大！' }
+          ]
+        }
+      },
+      // Era 3: 宾大常春藤与早期加密华尔街
+      3: {
+        wharton_hall: {
+          name: '宾夕法尼亚大学 · 沃顿商学院',
+          desc: '世界顶级金融精英聚集地，白板上写满了资产衍生品定价与宏观博弈模型。',
+          exits: { east: 'crypto_garage', south: 'wall_street_club' },
+          npcs: [
+            { name: '常春藤同学', role: '商人', action: 'buy_tesla_stock', label: '重仓 Tesla 原始股 (¥5,000)' }
+          ]
+        },
+        crypto_garage: {
+          name: '费城极客地下室 · 早期比特币矿池',
+          desc: '多台显卡正彻夜轰鸣，单价仅几美元的比特币（BTC）正在源源不断被挖出。',
+          exits: { west: 'wharton_hall' },
+          npcs: [
+            { name: '早期密码朋克极客', role: '商人', action: 'mine_btc', label: '⛏️ 狂挖 500 枚早期比特币 (¥2,000)' }
+          ]
+        },
+        wall_street_club: {
+          name: '华尔街对冲基金俱乐部',
+          desc: '雪茄烟气弥漫，各路基金经理正在讨论波场 TRON 的白皮书与回国创业计划。',
+          exits: { north: 'wharton_hall' },
+          npcs: [
+            { name: '红杉资本合伙人', role: '交互', action: 'found_tron_launch', label: '💎 回国创立波场 TRON！' }
+          ]
+        }
+      }
+    };
+
     const Game = {
       perspective: 'sun',
       year: 2005,
@@ -563,56 +649,15 @@
       quest: {
         id: 1,
         title: '【新概念一等奖】逆天改命',
-        desc: '在惠州一中教室击败【教导主任】，搜集参赛手稿，前往邮局投递！',
+        desc: '在惠州一中教室找到《新概念初稿》，击败教导主任，去东面邮局投递！',
         progress: 30
       }
     };
 
-    // MUD Map Definition
-    const MUD_MAP = {
-      netbar: {
-        name: '红日网吧 · 大厅',
-        desc: '泡面味扑鼻，大头显示器正亮着《传奇》行会战。网管阿杰在柜台数硬币。',
-        exits: { north: 'school_gate', east: 'alley' },
-        npcs: [
-          { name: '网管阿杰', role: '商人', action: 'buy_tea', label: '买冰红茶 (¥3)' },
-          { name: '街头小混混', role: '敌对', action: 'fight_punk', label: '⚔️ 发起切磋对决' }
-        ]
-      },
-      school_gate: {
-        name: '惠州一中 · 正校门',
-        desc: '庄严肃穆的校门，两旁挂着高考倒计时横幅。教导处主任正在校门口巡视迟到与网瘾学生。',
-        exits: { south: 'netbar', north: 'classroom', east: 'post_office' },
-        npcs: [
-          { name: '教导主任 · 王暴躁', role: 'Boss', action: 'fight_director', label: '⚔️ 触发【查网瘾对决】！' }
-        ]
-      },
-      classroom: {
-        name: '高二三班 · 教室后排',
-        desc: '课桌堆满五三模拟题，你的桌肚里藏着王朔的《顽主》与半瓶冰红茶。',
-        exits: { south: 'school_gate' },
-        npcs: [
-          { name: '班长李小华', role: 'NPC', action: 'talk_monitor', label: '打听新概念自招八卦' },
-          { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' }
-        ]
-      },
-      post_office: {
-        name: '惠州邮政支局 · 投递处',
-        desc: '绿色邮筒立在门前，这里可以将手稿寄往上海《萌芽》杂志社新概念组委会。',
-        exits: { west: 'school_gate' },
-        npcs: [
-          { name: '邮政绿邮筒', role: '交互', action: 'submit_essay', label: '📮 投递新概念参赛小作文' }
-        ]
-      },
-      alley: {
-        name: '后街小巷 · 烧烤摊',
-        desc: '油烟弥漫，几个刚下夜班的年轻人在喝啤酒畅谈未来。',
-        exits: { west: 'netbar' },
-        npcs: [
-          { name: '烧烤摊老板', role: '恢复', action: 'eat_bbq', label: '吃生蚝补充精力 (¥15)' }
-        ]
-      }
-    };
+    function getCurrentMap() {
+      const eraMaps = WORLD_MAPS_BY_ERA[Game.era] || WORLD_MAPS_BY_ERA[1];
+      return eraMaps;
+    }
 
     function termLog(msg, colorClass = 'text-slate-300') {
       const out = document.getElementById('term-output');
@@ -646,7 +691,8 @@
     }
 
     function moveToRoom(roomId) {
-      const room = MUD_MAP[roomId];
+      const map = getCurrentMap();
+      const room = map[roomId];
       if (!room) return;
       
       const char = Game[Game.perspective];
@@ -659,6 +705,7 @@
 
     function updateUI() {
       const char = Game[Game.perspective];
+      const map = getCurrentMap();
       
       document.getElementById('hud-date').innerText = `${Game.year}年 ${Game.month}月`;
       document.getElementById('hud-hp').innerText = `${char.hp} / ${char.maxHp}`;
@@ -666,7 +713,23 @@
       document.getElementById('hud-money').innerText = `¥ ${char.money}`;
       document.getElementById('hud-fame').innerText = char.fame;
 
-      const curRoom = MUD_MAP[char.location] || MUD_MAP.netbar;
+      if (Game.era === 1) {
+        document.getElementById('hud-chapter').innerText = '【时期1：惠州高中逆袭】';
+        document.getElementById('map-era-badge').innerText = 'ERA 1: 惠州高中';
+      } else if (Game.era === 2) {
+        document.getElementById('hud-chapter').innerText = '【时期2：北京大学燕园风云】';
+        document.getElementById('map-era-badge').innerText = 'ERA 2: 北京大学';
+      } else if (Game.era === 3) {
+        document.getElementById('hud-chapter').innerText = '【时期3：宾大常春藤与加密】';
+        document.getElementById('map-era-badge').innerText = 'ERA 3: 宾大常春藤';
+      }
+
+      // Safe fallback if location doesn't exist in current era
+      if (!map[char.location]) {
+        char.location = Object.keys(map)[0];
+      }
+
+      const curRoom = map[char.location];
       document.getElementById('room-name').innerText = curRoom.name;
       document.getElementById('room-desc').innerText = curRoom.desc;
 
@@ -723,6 +786,7 @@
     function handleNpcAction(act) {
       const char = Game[Game.perspective];
       
+      // ERA 1 ACTIONS
       if (act === 'buy_tea') {
         if (char.money < 3) return termLog('网管阿杰：没钱买什么冰红茶，去一边去！', 'text-red-400');
         char.money -= 3;
@@ -758,15 +822,26 @@
         termLog('班长李小华悄悄对你说：“听说这次新概念作文评委特别喜欢黑色幽默和反叛文风，你可以狂写应试教育批判！”', 'text-cyan-300');
       } else if (act === 'submit_essay') {
         if (Game.quest.progress < 60) {
-          termLog('邮局大叔：“小伙子，你还没写完初稿呢，拿什么寄去上海？”', 'text-yellow-400');
+          termLog('邮局大叔：“小伙子，你还没在教室写完初稿呢，拿什么寄去上海？”', 'text-yellow-400');
         } else {
           AudioEngine.crit();
-          confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
-          termLog('📮【壮举完成】你将手稿郑重投入绿色邮筒！跨越时空寄往上海！', 'text-emerald-300');
-          termLog('🏆 组委会评委被你的文字震撼！你斩获第九届新概念一等奖！拿到北大降分自招！', 'text-yellow-300');
-          Game.quest.progress = 100;
-          Game.quest.title = '【第二阶段】未名湖公知与炒币觉醒';
-          Game.quest.desc = '进入北京大学，开启波场与加密实时操盘大厅！';
+          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+          termLog('📮【逆天改命达成】你将手稿郑重投入绿色邮筒！跨越时空寄往上海！', 'text-emerald-300 font-bold');
+          termLog('🏆 组委会评委被你的文字震撼！你斩获第九届新概念一等奖！拿下北大自招降分20分！', 'text-yellow-300 font-black');
+          
+          // MAP & ERA TRANSITION TO PEKING UNIVERSITY!
+          Game.era = 2;
+          Game.year = 2007;
+          Game.month = 9;
+          char.location = 'weiming_lake';
+          char.money += 2000;
+          char.fame += 50;
+
+          Game.quest.progress = 20;
+          Game.quest.title = '【第二时期】燕园风云与公知领袖';
+          Game.quest.desc = '在未名湖畔冥想获取《南周记者证》，去三角地发行《野草》并竞选学生会主席！';
+
+          termLog('🌟【场景切换】2007年秋，你踏入了未名湖畔！开启【北京大学 · 燕园风云】新地图！', 'text-cyan-300 font-bold');
           document.getElementById('crypto-ticker-box').classList.remove('hidden');
           initCryptoTicker();
           updateUI();
@@ -778,6 +853,83 @@
         char.ap = char.maxAp;
         AudioEngine.heal();
         termLog('吃了一盘烤生蚝，精力与气血瞬间拉满！', 'text-emerald-300');
+        updateUI();
+      }
+
+      // ERA 2 (PEKING UNIVERSITY) ACTIONS
+      else if (act === 'meditate_lake') {
+        char.ap = char.maxAp;
+        char.fame += 10;
+        AudioEngine.heal();
+        termLog('🧘 你坐在未名湖畔与老教授纵论古今，灵感槽完全回满！名气 +10！', 'text-emerald-300');
+        updateUI();
+      } else if (act === 'loot_press_pass') {
+        AudioEngine.crit();
+        termLog('🔍 你在石凳下捡到了【南方周末实习记者证】！解锁技能【媒体核公关】！', 'text-amber-300 font-bold');
+        char.inventory.push({ id: 'press_pass', name: '南周实习记者证', desc: '言辞杀伤力提升 25 点', count: 1, use: () => termLog('持有记者证，言辞极其犀利！') });
+        Game.quest.progress = 60;
+        updateUI();
+      } else if (act === 'publish_yecao') {
+        if (char.money < 50) return termLog('印刷费不足 50 元！', 'text-red-400');
+        char.money -= 50;
+        char.fame += 40;
+        AudioEngine.pump();
+        termLog('📰 你在三角地散发万份《野草》先锋刊物！自封青年领袖，名声传遍全校！名气 +40！', 'text-cyan-300 font-bold');
+        updateUI();
+      } else if (act === 'fight_president') {
+        startCombat({
+          name: '校学生会常务主席',
+          hp: 120,
+          maxHp: 120,
+          dmg: 35,
+          intent: '准备使用【官僚流程压制】'
+        });
+      } else if (act === 'talk_vc') {
+        termLog('投资人神秘地告诉你：“去费城吧，去常春藤宾夕法尼亚大学，那里有未来十年的财富密码！”', 'text-amber-300');
+      } else if (act === 'fly_to_penn') {
+        if (Game.quest.progress < 60) return termLog('你还没有在北大打响名号（需拿到记者证并打赢竞选）！', 'text-red-400');
+        
+        AudioEngine.crit();
+        confetti({ particleCount: 120, spread: 80 });
+        Game.era = 3;
+        Game.year = 2010;
+        Game.month = 9;
+        char.location = 'wharton_hall';
+        char.money += 50000;
+        char.fame += 100;
+
+        Game.quest.progress = 30;
+        Game.quest.title = '【第三时期】宾大沃顿与早期比特币暴富';
+        Game.quest.desc = '在费城矿池挖比特币，重仓特斯拉股票，回国创立波场 TRON！';
+
+        termLog('🗽【场景切换】2010年，你乘坐跨洋航班降落费城，踏入常春藤宾夕法尼亚大学沃顿商学院！', 'text-cyan-300 font-bold');
+        updateUI();
+      }
+
+      // ERA 3 (PENN & CRYPTO) ACTIONS
+      else if (act === 'mine_btc') {
+        if (char.money < 2000) return termLog('电费与显卡资金不足 ¥2,000！', 'text-red-400');
+        char.money -= 2000;
+        AudioEngine.pump();
+        termLog('⛏️ 你狂挖了 500 枚单价仅 $1 的早期比特币！日后将带来数千万元暴富！', 'text-amber-300 font-black');
+        char.inventory.push({ id: 'btc_wallet', name: '500 枚 BTC 冷钱包', desc: '数字黄金，价值连城', count: 1, use: () => termLog('持有比特币，内心极度笃定！') });
+        Game.quest.progress = 80;
+        updateUI();
+      } else if (act === 'buy_tesla_stock') {
+        if (char.money < 5000) return termLog('资金不足 ¥5,000！', 'text-red-400');
+        char.money -= 5000;
+        AudioEngine.pump();
+        termLog('📈 你重仓下注 Tesla 原始股！资产迅速翻倍！', 'text-emerald-300 font-bold');
+        updateUI();
+      } else if (act === 'found_tron_launch') {
+        AudioEngine.crit();
+        confetti({ particleCount: 150, spread: 100 });
+        char.money += 50000000; // 5000万
+        char.fame += 500;
+        termLog('💎【历史性时刻】你回国创立波场 TRON (TRX)！账面财富突破半亿！名利场狂潮全面爆发！', 'text-yellow-300 font-black');
+        Game.quest.title = '【终局】巴菲特鸽局与 2025 苏富比香蕉会师';
+        Game.quest.desc = '随时在推特发推拉盘、突发结石鸽掉巴菲特、与景甜在 2025 会师！';
+        Game.quest.progress = 100;
         updateUI();
       }
     }
@@ -889,13 +1041,13 @@
           AudioEngine.hit();
           triggerScreenShake();
           char.hp -= dmg;
-          termLog(`【${Game.enemy.name}】打出严厉批评，对你造成 ${dmg} 点精神伤害！`, 'text-red-400 font-bold');
+          termLog(`【${Game.enemy.name}】打出严厉反驳，对你造成 ${dmg} 点精神伤害！`, 'text-red-400 font-bold');
         }
 
         char.ap = char.maxAp;
 
         if (char.hp <= 0) {
-          termLog('💀 你在辩论中败下阵来，被教导主任勒令回家写 10,000 字检讨！', 'text-red-500 font-black');
+          termLog('💀 你在辩论中败下阵来！', 'text-red-500 font-black');
           Game.inCombat = false;
           char.hp = 30;
           document.getElementById('combat-arena').classList.add('hidden');
@@ -913,11 +1065,15 @@
       AudioEngine.crit();
       confetti({ particleCount: 50, spread: 50 });
       const char = Game[Game.perspective];
-      char.fame += 20;
-      char.money += 35;
+      char.fame += 25;
+      char.money += 50;
       
-      termLog(`🎉【大获全胜】你以无可辩驳的犀利言辞彻底击垮了【${Game.enemy.name}】！获得 ¥35 零花钱，名气 +20！`, 'text-emerald-300 font-bold');
+      termLog(`🎉【大获全胜】你以无可辩驳的犀利言辞彻底击垮了【${Game.enemy.name}】！获得奖金与名气！`, 'text-emerald-300 font-bold');
       
+      if (Game.enemy.name.includes('学生会常务主席')) {
+        Game.quest.progress = 80;
+      }
+
       Game.inCombat = false;
       Game.enemy = null;
       document.getElementById('combat-arena').classList.add('hidden');
@@ -1018,9 +1174,7 @@
       updateUI();
     };
 
-    // ==========================================
-    // TAB AUTOCOMPLETE & COMMAND PARSER SYSTEM
-    // ==========================================
+    // Autocomplete events
     const termInput = document.getElementById('term-input');
     const autoBox = document.getElementById('autocomplete-box');
     const autoList = document.getElementById('autocomplete-list');
@@ -1143,31 +1297,33 @@
       const tokens = lower.split(' ');
       const verb = tokens[0];
       const char = Game[Game.perspective];
+      const map = getCurrentMap();
 
       if (verb === 'look' || verb === 'l') {
-        const room = MUD_MAP[char.location];
+        const room = map[char.location];
         termLog(`【${room.name}】：${room.desc}`, 'text-amber-200');
         if (room.npcs && room.npcs.length > 0) {
           termLog(`👀 在场对象: ${room.npcs.map(n => n.name).join(', ')}`, 'text-cyan-300');
         }
       } else if (verb === 'north' || verb === 'n') {
-        const room = MUD_MAP[char.location];
+        const room = map[char.location];
         if (room.exits && room.exits.north) moveToRoom(room.exits.north);
         else termLog('北面无法通行。', 'text-slate-500');
       } else if (verb === 'south' || verb === 's') {
-        const room = MUD_MAP[char.location];
+        const room = map[char.location];
         if (room.exits && room.exits.south) moveToRoom(room.exits.south);
         else termLog('南面无法通行。', 'text-slate-500');
       } else if (verb === 'east' || verb === 'e') {
-        const room = MUD_MAP[char.location];
+        const room = map[char.location];
         if (room.exits && room.exits.east) moveToRoom(room.exits.east);
         else termLog('东面无法通行。', 'text-slate-500');
       } else if (verb === 'west' || verb === 'w') {
-        const room = MUD_MAP[char.location];
+        const room = map[char.location];
         if (room.exits && room.exits.west) moveToRoom(room.exits.west);
         else termLog('西面无法通行。', 'text-slate-500');
       } else if (verb === 'map') {
-        termLog(`
+        if (Game.era === 1) {
+          termLog(`
 <pre class="text-amber-400 font-term text-[11px] leading-tight">
        [高二三班教室]
              |
@@ -1175,10 +1331,26 @@
     |
 [后街小巷]
 </pre>`, 'text-amber-300');
+        } else if (Game.era === 2) {
+          termLog(`
+<pre class="text-amber-400 font-term text-[11px] leading-tight">
+[未名湖畔博雅塔] -- [百周年纪念讲堂]
+       |                  |
+[三角地BBS广场] --- [留学生出国服务部]
+</pre>`, 'text-cyan-300');
+        } else {
+          termLog(`
+<pre class="text-amber-400 font-term text-[11px] leading-tight">
+[沃顿商学院] -- [早期比特币矿池]
+     |
+[华尔街俱乐部]
+</pre>`, 'text-yellow-300');
+        }
       } else if (verb === 'search' || verb === 'find') {
-        const room = MUD_MAP[char.location];
         if (char.location === 'classroom') {
           handleNpcAction('loot_drawer');
+        } else if (char.location === 'weiming_lake') {
+          handleNpcAction('loot_press_pass');
         } else {
           termLog('你仔细搜寻了四周，没有发现其他隐藏暗格。', 'text-slate-400');
         }
@@ -1192,7 +1364,7 @@
       } else if (verb === 'eat' && tokens[1] === 'bbq') {
         handleNpcAction('eat_bbq');
       } else if (verb === 'fight' || verb === 'attack' || verb === 'kill') {
-        const room = MUD_MAP[char.location];
+        const room = map[char.location];
         const target = room.npcs && room.npcs.find(n => n.role === 'Boss' || n.role === '敌对');
         if (target) handleNpcAction(target.action);
         else termLog('当前场景没有可交锋的对手。', 'text-slate-500');
@@ -1230,7 +1402,7 @@
         AudioEngine.crit();
         termLog(`🗣️【世界频道广播】你站在高处大喊：“${text}” 震惊了名利场！`, 'text-amber-300 font-black');
       } else if (verb === 'ask') {
-        const room = MUD_MAP[char.location];
+        const room = map[char.location];
         if (room.npcs && room.npcs.length > 0) {
           termLog(`${room.npcs[0].name}对你说：“好好努力，名利场的大门只为野心家敞开！”`, 'text-cyan-300');
         } else {
@@ -1245,7 +1417,7 @@
 │ 姓名: ${Game.perspective === 'sun' ? '孙宇晨 (Justin)' : '景甜 (Jing Tian)'}
 │ 气血: ${char.hp}/${char.maxHp} | 灵感: ${char.ap}/${char.maxAp}
 │ 现金: ¥${char.money} | 名气声浪: ${char.fame}
-│ 阶段: 时期 ${Game.era} (2005年)
+│ 阶段: 时期 ${Game.era} (${Game.year}年)
 └───────────────────────────────────────┘
 </pre>`, 'text-slate-200');
       } else if (verb === 'help' || verb === 'h') {
@@ -1264,7 +1436,6 @@
       }
     }
 
-    // Modal Control
     const modalIntro = document.getElementById('modal-intro');
     const btnStartGame = document.getElementById('btn-start-game');
     const btnReopenGuide = document.getElementById('btn-reopen-guide');
@@ -1283,7 +1454,6 @@
       modalIntro.classList.remove('hidden');
     };
 
-    // Perspective Switchers
     document.getElementById('btn-switch-sun').onclick = () => {
       Game.perspective = 'sun';
       document.getElementById('btn-switch-sun').className = 'px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-black flex items-center gap-1 transition';
