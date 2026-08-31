@@ -87,6 +87,15 @@ aside: false
         <div class="flink-item-desc">经典赛博朋克风俄罗斯方块，支持Hold暂存、幽灵投影、行消除粒子特效与音效。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/sun-jingtian-life-sim/" title="名利场巅峰 · 双星模拟器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:sparkles.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="名利场巅峰模拟器">
+        </div>
+        <div class="flink-item-name">名利场巅峰 · 双星模拟器</div>
+        <div class="flink-item-desc">孙宇晨与景甜的人生模拟：从惠州网瘾少年逆袭到巴菲特午餐鸽局与宇宙大花交汇。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
