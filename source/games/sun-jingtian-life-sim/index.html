@@ -3,1039 +3,968 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>名利场模拟人生：孙哥 & 景甜 帝国操盘手</title>
+  <title>名利场 MUD：从惠州网瘾到火星大汇流 (孙宇晨 & 景甜 双轨 RPG)</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas-Confetti for reward feedback -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;600;800;900&display=swap');
     body {
-      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Noto Sans SC', sans-serif;
     }
-    .font-mono-num {
-      font-family: 'JetBrains Mono', monospace;
+    .font-term {
+      font-family: 'Fira Code', monospace;
+    }
+    /* CRT Scanline & Terminal Effect */
+    .crt-screen {
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+    /* Screen Shake on hit */
+    @keyframes shake-anim {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      20% { transform: translate(-2px, -1px) rotate(-1deg); }
+      40% { transform: translate(-1px, 2px) rotate(1deg); }
+      60% { transform: translate(2px, 1px) rotate(0deg); }
+      80% { transform: translate(1px, -1px) rotate(1deg); }
+      100% { transform: translate(0, 0) rotate(0); }
+    }
+    .screen-shake {
+      animation: shake-anim 0.25s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    /* Damage pop text */
+    @keyframes float-up {
+      0% { opacity: 1; transform: translateY(0) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-30px) scale(1); }
+    }
+    .damage-pop {
+      animation: float-up 0.8s ease-out forwards;
     }
     /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.7);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(71, 85, 105, 0.8);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(148, 163, 184, 0.9);
-    }
-    .danmaku-item {
-      animation: danmakuSlide 6s linear forwards;
-    }
-    @keyframes danmakuSlide {
-      0% { transform: translateY(10px); opacity: 0; }
-      15% { transform: translateY(0); opacity: 1; }
-      85% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-10px); opacity: 0; }
-    }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: rgba(2, 6, 23, 0.8); }
+    ::-webkit-scrollbar-thumb { background: rgba(51, 65, 85, 0.8); border-radius: 2px; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-black">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-black overflow-x-hidden font-term">
 
-  <!-- Top Global Status Bar -->
+  <!-- Header & Real-time Status Bar -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
-      <!-- Title & Era -->
+    <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3">
+      <!-- Perspective Switcher & Time -->
       <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-cyan-500 flex items-center justify-center font-black text-black text-base shadow-md">
-          ⚡
+        <!-- Switch Perspective Button -->
+        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+          <button id="btn-switch-sun" class="px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-black flex items-center gap-1 transition">
+            <span>⚡ 孙宇晨线</span>
+          </button>
+          <button id="btn-switch-jing" class="px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 transition">
+            <span>👸 景甜线</span>
+          </button>
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="font-black text-sm text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-rose-400">名利场模拟人生</span>
-            <span id="badge-era" class="text-[11px] px-2 py-0.5 rounded-md font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-              时期 1：惠州少年时代
-            </span>
-          </div>
-          <p class="text-[11px] text-slate-400">
-            <span id="hud-date" class="font-mono text-slate-300 font-bold">2005年 3月</span> · 孙宇晨 (<span id="hud-age">15</span>岁) & 景甜 (<span id="hud-jt-age">17</span>岁)
-          </p>
+          <span id="hud-date" class="text-xs font-bold text-amber-400">2005年 3月</span>
+          <span id="hud-chapter" class="text-[11px] text-slate-400 ml-2">【时期1：惠州高中逆袭】</span>
         </div>
       </div>
 
-      <!-- Live Resource Badges -->
+      <!-- Quick Resources -->
       <div class="flex items-center gap-3 text-xs">
-        <!-- Action Points -->
-        <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-2">
-          <span class="text-amber-400 font-bold flex items-center gap-1"><i data-lucide="zap" class="w-3.5 h-3.5"></i> 精力点</span>
-          <span id="hud-ap" class="font-mono-num font-black text-amber-300 text-sm">4 / 4</span>
+        <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
+          <span class="text-rose-400 font-bold">HP气血</span>
+          <span id="hud-hp" class="text-rose-300 font-bold">100 / 100</span>
         </div>
-        <!-- Money -->
-        <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-2">
-          <span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="wallet" class="w-3.5 h-3.5"></i> 资金池</span>
-          <span id="hud-money" class="font-mono-num font-black text-emerald-300 text-sm">¥ 500</span>
+        <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
+          <span class="text-amber-400 font-bold">💡 辩才/灵感</span>
+          <span id="hud-ap" class="text-amber-300 font-bold">3 / 3</span>
         </div>
-        <!-- TRX / Token Price (if unlocked) -->
-        <div id="hud-trx-box" class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-slate-800 hidden items-center gap-2">
-          <span class="text-cyan-400 font-bold flex items-center gap-1"><i data-lucide="coins" class="w-3.5 h-3.5"></i> TRX币价</span>
-          <span id="hud-trx-price" class="font-mono-num font-black text-cyan-300 text-sm">$ 0.00</span>
+        <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
+          <span class="text-emerald-400 font-bold">💰 现金</span>
+          <span id="hud-money" class="text-emerald-300 font-bold">¥ 80</span>
         </div>
-        <!-- End Turn Button -->
-        <button id="btn-next-turn" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 hover:opacity-90 font-bold text-black text-xs shadow-lg shadow-amber-500/20 flex items-center gap-1.5 transition">
-          下个月 <i data-lucide="calendar-forward" class="w-3.5 h-3.5"></i>
-        </button>
+        <div class="bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1.5">
+          <span class="text-cyan-400 font-bold">🏆 战力/名气</span>
+          <span id="hud-fame" class="text-cyan-300 font-bold">25</span>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Main Game Dashboard (3 Column Layout) -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-4 grid grid-cols-1 lg:grid-cols-12 gap-4">
+  <!-- Main Game Workstation (3 Cols) -->
+  <main id="game-main-container" class="flex-1 max-w-7xl w-full mx-auto p-3 grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
     
-    <!-- LEFT COLUMN: Dual Character Status & Needs (3.5 cols) -->
-    <section class="lg:col-span-4 space-y-4">
+    <!-- LEFT: MUD Map Navigation & Inventory (3.5 cols) -->
+    <aside class="lg:col-span-4 space-y-3">
       
-      <!-- Justin Sun Character Card -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3 relative overflow-hidden">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-black flex items-center justify-center text-xs">孙</div>
-            <div>
-              <h3 class="text-xs font-bold text-slate-200">孙宇晨 (Justin)</h3>
-              <span id="sun-role" class="text-[10px] text-amber-400 font-medium">惠州一中网瘾少年</span>
-            </div>
-          </div>
-          <span id="sun-mood" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">😏 躁动不安</span>
-        </div>
-
-        <!-- Progress Meters -->
-        <div class="space-y-2 text-xs">
-          <!-- Ambition -->
-          <div>
-            <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
-              <span class="flex items-center gap-1 text-rose-300"><i data-lucide="flame" class="w-3 h-3 text-rose-400"></i> 野心 / 逆商</span>
-              <span id="meter-ambition-val" class="font-mono-num font-bold text-rose-300">50 / 100</span>
-            </div>
-            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
-              <div id="meter-ambition-bar" class="bg-gradient-to-r from-rose-500 to-amber-500 h-full rounded-full transition-all duration-300" style="width: 50%"></div>
-            </div>
-          </div>
-
-          <!-- Marketing/Hype -->
-          <div>
-            <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
-              <span class="flex items-center gap-1 text-amber-300"><i data-lucide="megaphone" class="w-3 h-3 text-amber-400"></i> 忽悠 / 营销声浪</span>
-              <span id="meter-pr-val" class="font-mono-num font-bold text-amber-300">30 / 100</span>
-            </div>
-            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
-              <div id="meter-pr-bar" class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full rounded-full transition-all duration-300" style="width: 30%"></div>
-            </div>
-          </div>
-
-          <!-- Kidney Stones / Health (The classic mechanic!) -->
-          <div>
-            <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
-              <span class="flex items-center gap-1 text-emerald-300"><i data-lucide="shield-alert" class="w-3 h-3 text-emerald-400"></i> 结石健康度 (见底发作)</span>
-              <span id="meter-health-val" class="font-mono-num font-bold text-emerald-300">95%</span>
-            </div>
-            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
-              <div id="meter-health-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-300" style="width: 95%"></div>
-            </div>
-          </div>
-
-          <!-- Academics/Level -->
-          <div>
-            <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
-              <span class="flex items-center gap-1 text-cyan-300"><i data-lucide="graduation-cap" class="w-3 h-3 text-cyan-400"></i> 文采 / 知识储备</span>
-              <span id="meter-academic-val" class="font-mono-num font-bold text-cyan-300">20</span>
-            </div>
-            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
-              <div id="meter-academic-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full transition-all duration-300" style="width: 20%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jing Tian Character Card -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3 relative overflow-hidden">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 font-black flex items-center justify-center text-xs">景</div>
-            <div>
-              <h3 class="text-xs font-bold text-slate-200">景甜 (Jing Tian)</h3>
-              <span id="jt-role" class="text-[10px] text-rose-400 font-medium">北舞附中校花 · 预备出道</span>
-            </div>
-          </div>
-          <span id="jt-status-badge" class="text-xs px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-500/30">🌸 资源蓄能中</span>
-        </div>
-
-        <div class="space-y-2 text-xs">
-          <!-- Star Power / Stature -->
-          <div>
-            <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
-              <span class="flex items-center gap-1 text-purple-300"><i data-lucide="sparkles" class="w-3 h-3 text-purple-400"></i> 演艺咖位 / 影视资源</span>
-              <span id="meter-jt-star-val" class="font-mono-num font-bold text-purple-300">新人小花</span>
-            </div>
-            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
-              <div id="meter-jt-star-bar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full transition-all duration-300" style="width: 15%"></div>
-            </div>
-          </div>
-
-          <!-- Public Goodwill -->
-          <div>
-            <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
-              <span class="flex items-center gap-1 text-pink-300"><i data-lucide="heart" class="w-3 h-3 text-pink-400"></i> 路人好感度</span>
-              <span id="meter-jt-fame-val" class="font-mono-num font-bold text-pink-300">50%</span>
-            </div>
-            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
-              <div id="meter-jt-fame-bar" class="bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full transition-all duration-300" style="width: 50%"></div>
-            </div>
-          </div>
-
-          <!-- Bond with Justin -->
-          <div>
-            <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
-              <span class="flex items-center gap-1 text-amber-300"><i data-lucide="link-2" class="w-3 h-3 text-amber-400"></i> 孙哥羁绊 / 名利结合度</span>
-              <span id="meter-bond-val" class="font-mono-num font-bold text-amber-300">0% (未相遇)</span>
-            </div>
-            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
-              <div id="meter-bond-bar" class="bg-gradient-to-r from-amber-500 to-rose-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Macro Risk Index (SEC & Censorship) -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl grid grid-cols-2 gap-2 text-xs">
-        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
-          <div class="text-slate-400 flex items-center gap-1 mb-1 text-[11px]">
-            <i data-lucide="siren" class="w-3 h-3 text-red-400"></i> SEC / 监管风险
-          </div>
-          <div id="meter-sec" class="text-sm font-bold text-slate-200 font-mono-num">0% (极安全)</div>
-        </div>
-        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80">
-          <div class="text-slate-400 flex items-center gap-1 mb-1 text-[11px]">
-            <i data-lucide="globe" class="w-3 h-3 text-cyan-400"></i> 外交官特权
-          </div>
-          <div id="meter-diplomat" class="text-sm font-bold text-slate-400 font-mono-num">未解锁</div>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- CENTER COLUMN: Sandbox Actions, PR Crafter, Film Studio & Crypto (5 cols) -->
-    <section class="lg:col-span-5 space-y-4">
-      
-      <!-- Interactive Sub-Systems Tab Navigator -->
-      <div class="flex items-center gap-1.5 p-1 bg-slate-900/90 border border-slate-800 rounded-2xl">
-        <button id="tab-btn-actions" class="flex-1 py-2 rounded-xl text-xs font-bold bg-amber-500 text-black transition flex items-center justify-center gap-1">
-          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> 日常日程
-        </button>
-        <button id="tab-btn-pr" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1">
-          <i data-lucide="twitter" class="w-3.5 h-3.5"></i> PR造势操盘
-        </button>
-        <button id="tab-btn-film" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1">
-          <i data-lucide="clapperboard" class="w-3.5 h-3.5"></i> 景甜大片
-        </button>
-        <button id="tab-btn-market" class="flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1">
-          <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> 资本市场
-        </button>
-      </div>
-
-      <!-- VIEW 1: Monthly Sandbox Actions -->
-      <div id="view-actions" class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3">
+      <!-- Spatial MUD Room Card -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-xl space-y-3 relative overflow-hidden">
         <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="compass" class="w-3.5 h-3.5 text-amber-400"></i> 本月自主行动（消耗精力）
-          </h3>
-          <span class="text-[11px] text-slate-500 font-mono">CHOICES AVAILABLE</span>
+          <div class="flex items-center gap-1.5 text-xs font-bold text-slate-200">
+            <i data-lucide="map-pin" class="w-4 h-4 text-rose-400"></i>
+            <span id="room-name">红日网吧 · 大厅</span>
+          </div>
+          <span class="text-[10px] text-slate-500 font-mono">MUD SPATIAL</span>
         </div>
 
-        <div id="action-list" class="space-y-2.5">
-          <!-- Dynamic Action Buttons will render here based on Era/Age -->
+        <p id="room-desc" class="text-xs text-slate-300 leading-relaxed bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 min-h-[60px]">
+          空气中弥漫着泡面与烟草味，一排排大头电脑闪烁着《热血传奇》和劲舞团的光芒。网管阿杰正趴在柜台数硬币。
+        </p>
+
+        <!-- Room NPCs & Interactables -->
+        <div class="space-y-1.5">
+          <div class="text-[11px] text-slate-400 font-bold flex items-center gap-1">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-400"></i> 当前场景 NPC / 互动对象：
+          </div>
+          <div id="room-npcs" class="grid grid-cols-1 gap-1.5">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Directional Compass D-PAD -->
+        <div class="pt-2 border-t border-slate-800 space-y-1.5">
+          <div class="text-[11px] text-slate-400 font-bold flex items-center justify-between">
+            <span class="flex items-center gap-1"><i data-lucide="compass" class="w-3.5 h-3.5 text-amber-400"></i> 移动探索 (WASD / 导航)</span>
+          </div>
+          <div class="grid grid-cols-3 gap-1 max-w-[200px] mx-auto text-xs text-center font-bold">
+            <div></div>
+            <button id="btn-nav-north" class="p-2 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-black transition border border-slate-700 disabled:opacity-30">北 (N)</button>
+            <div></div>
+            <button id="btn-nav-west" class="p-2 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-black transition border border-slate-700 disabled:opacity-30">西 (W)</button>
+            <button id="btn-nav-look" class="p-2 rounded-lg bg-slate-950 text-amber-400 border border-amber-500/30 text-[10px]">观察</button>
+            <button id="btn-nav-east" class="p-2 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-black transition border border-slate-700 disabled:opacity-30">东 (E)</button>
+            <div></div>
+            <button id="btn-nav-south" class="p-2 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-black transition border border-slate-700 disabled:opacity-30">南 (S)</button>
+            <div></div>
+          </div>
         </div>
       </div>
 
-      <!-- VIEW 2: PR & Tweet Crafter (Combine Words to Hype & Pump) -->
-      <div id="view-pr" class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3 hidden">
+      <!-- Inventory & Equipment Bag -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-xl space-y-2.5">
         <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="megaphone" class="w-3.5 h-3.5 text-cyan-400"></i> 孙总【PR核动力推特造势台】
-          </h3>
-          <span class="text-[10px] text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/20">词条拼装</span>
+          <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="backpack" class="w-3.5 h-3.5 text-amber-400"></i> 背包道具 (<span id="bag-count">3/12</span>)
+          </span>
+          <span class="text-[10px] text-slate-500">点击使用/装备</span>
         </div>
-        <p class="text-xs text-slate-400">自由组合 3 个营销词条，向全网发布通稿或推特！操纵 TRX 币价、收割全球热搜或躲避监管危机！</p>
+        <div id="inventory-grid" class="grid grid-cols-2 gap-1.5 text-xs">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Dual Timeline Parallel Radar (景甜/孙宇晨同步状态) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 shadow-xl text-xs space-y-1.5">
+        <div class="flex justify-between items-center text-[11px] text-slate-400 border-b border-slate-800 pb-1">
+          <span class="text-rose-400 font-bold flex items-center gap-1"><i data-lucide="radio" class="w-3.5 h-3.5"></i> 平行世界线监测</span>
+          <span class="text-slate-500 font-mono" id="timeline-sync-status">隔空呼应 (2025会师前)</span>
+        </div>
+        <p id="timeline-parallel-text" class="text-slate-300 text-[11px] leading-relaxed italic bg-slate-950/60 p-2 rounded-lg border border-slate-800">
+          景甜正在北京舞蹈学院排练现代舞，星光灿烂影视正为其筹备出道首张EP...
+        </p>
+      </div>
+
+    </aside>
+
+    <!-- CENTER: MUD Terminal Screen, Combat Arena, & Real-time Live Ticker (5 cols) -->
+    <section class="lg:col-span-5 space-y-3">
+
+      <!-- Dynamic Live Ticker / K-Line Mini Game (Unlocked in Era 3/4) -->
+      <div id="crypto-ticker-box" class="bg-slate-900 border border-cyan-500/30 rounded-2xl p-3 shadow-xl space-y-2 hidden">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+            <span class="text-xs font-black text-cyan-300 font-term">TRX / USDT 实时操盘</span>
+          </div>
+          <div class="text-xs font-mono font-bold" id="ticker-price-badge">
+            <span id="ticker-price" class="text-emerald-400 text-sm">$ 0.125</span>
+            <span id="ticker-change" class="text-emerald-400 text-[10px] ml-1">+14.2% ▲</span>
+          </div>
+        </div>
         
-        <!-- Slot Selector -->
-        <div class="grid grid-cols-3 gap-2">
-          <select id="pr-slot-1" class="bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-amber-300 font-bold focus:outline-none focus:border-amber-500">
-            <option value="突发重磅">🔥【突发重磅】</option>
-            <option value="紧急宣布">🚨【紧急宣布】</option>
-            <option value="致敬大师">🤝【致敬大师】</option>
-            <option value="跨界赋能">🌐【跨界赋能】</option>
-          </select>
-          <select id="pr-slot-2" class="bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-rose-300 font-bold focus:outline-none focus:border-amber-500">
-            <option value="突发急性肾结石">💔 因突发肾结石</option>
-            <option value="拍下巴菲特午餐">🥩 拍下巴菲特午餐</option>
-            <option value="620万美元买香蕉">🍌 620万美元吃香蕉</option>
-            <option value="全资赞助景甜大片">🎬 全资进组景甜大戏</option>
-          </select>
-          <select id="pr-slot-3" class="bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-cyan-300 font-bold focus:outline-none focus:border-amber-500">
-            <option value="TRX全网空投1个亿">🪙 TRX空投1个亿！</option>
-            <option value="遗憾取消但线上直播">📡 取消宴会改线上直播</option>
-            <option value="宣布进军火星元宇宙">🚀 宣布进军火星！</option>
-            <option value="聘为格林纳达亲善大使">👑 授亲善大使头衔！</option>
-          </select>
-        </div>
+        <!-- Live Ticker Canvas -->
+        <canvas id="crypto-canvas" class="w-full h-16 bg-slate-950 rounded-lg border border-slate-800"></canvas>
 
-        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono text-slate-300 flex items-center justify-between">
-          <span>预计消耗：<strong class="text-amber-400">1 ⚡</strong> 精力</span>
-          <button id="btn-fire-pr" class="px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs transition shadow-lg shadow-cyan-500/20">
-            全网通稿一键轰炸 🚀
+        <!-- Pump & Dump Action Buttons (Instant Feedback!) -->
+        <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
+          <button id="btn-crypto-buy" class="py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition text-center shadow">
+            抄底买入 📈
+          </button>
+          <button id="btn-crypto-pump" class="py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black transition text-center shadow">
+            发推拉盘 🚀
+          </button>
+          <button id="btn-crypto-dump" class="py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white transition text-center shadow">
+            高位砸盘 💸
+          </button>
+          <button id="btn-crypto-airdrop" class="py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black transition text-center shadow">
+            全网空投 🎁
           </button>
         </div>
       </div>
 
-      <!-- VIEW 3: Jing Tian Film Production Studio -->
-      <div id="view-film" class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3 hidden">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="film" class="w-3.5 h-3.5 text-rose-400"></i> 景甜宇宙 · 巨制影视操盘
-          </h3>
-          <span class="text-[10px] text-rose-400 bg-rose-950/60 px-2 py-0.5 rounded border border-rose-500/20">带资组局</span>
-        </div>
-        <p class="text-xs text-slate-400">由孙总注资，为景甜组盘全球顶配电影项目！提升咖位与路人缘，解锁传奇双星合璧成就！</p>
-
-        <div id="film-projects-list" class="space-y-2.5">
-          <!-- Dynamic Movie Projects will render here -->
-        </div>
-      </div>
-
-      <!-- VIEW 4: Crypto & Art Capital Market -->
-      <div id="view-market" class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3 hidden">
-        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-          <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="badge-dollar-sign" class="w-3.5 h-3.5 text-emerald-400"></i> 加密资本与天价拍卖市场
-          </h3>
-          <span class="text-[10px] text-emerald-400 font-mono">LIVE EXCHANGE</span>
+      <!-- MAIN MUD / COMBAT TERMINAL -->
+      <div id="terminal-wrapper" class="crt-screen border-2 border-slate-800 rounded-3xl p-4 sm:p-5 shadow-2xl space-y-3 relative min-h-[380px] flex flex-col justify-between">
+        
+        <!-- Top Indicator -->
+        <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-slate-800/80 pb-2 font-term">
+          <span class="flex items-center gap-1.5 text-amber-400">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            TERM://MUD_NODE_01 [ONLINE]
+          </span>
+          <span id="combat-status-badge" class="text-slate-400">探索模式 (PEACE)</span>
         </div>
 
-        <div id="market-items-list" class="space-y-2.5">
-          <!-- Dynamic Market assets (BTC, Tesla, Bananas, Blue Origin Ticket) -->
+        <!-- Terminal Output Stream -->
+        <div id="term-output" class="space-y-2 overflow-y-auto max-h-64 text-xs font-term leading-relaxed pr-1 flex-1">
+          <div class="text-slate-400">[SYSTEM] 欢迎来到名利场 MUD。输入指令或点击周围物体开始行动。</div>
+          <div class="text-amber-300">> 你走进红日网吧，班主任随时可能进行午夜突击。</div>
         </div>
+
+        <!-- Dynamic Combat Arena (Only shown during battle) -->
+        <div id="combat-arena" class="bg-slate-950/90 border border-red-500/40 rounded-2xl p-3 space-y-3 hidden">
+          <!-- Opponent Bar -->
+          <div class="flex justify-between items-center">
+            <div>
+              <span id="enemy-name" class="text-xs font-bold text-red-400">教导主任 · 王暴躁</span>
+              <span id="enemy-intent" class="text-[10px] text-amber-400 ml-2 bg-amber-950/60 px-1.5 py-0.5 rounded border border-amber-500/20">正在蓄力：【叫家长警告】</span>
+            </div>
+            <div class="text-right">
+              <span id="enemy-hp-text" class="text-xs font-mono font-bold text-red-300">80 / 80</span>
+            </div>
+          </div>
+          <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
+            <div id="enemy-hp-bar" class="bg-gradient-to-r from-red-600 to-rose-500 h-full rounded-full transition-all duration-300" style="width: 100%"></div>
+          </div>
+
+          <!-- Combat Action Cards (Player's Hand) -->
+          <div class="space-y-1.5 pt-1">
+            <div class="text-[11px] text-slate-400 font-bold flex justify-between">
+              <span>🎴 出招手牌（消耗灵感点）：</span>
+              <span class="text-amber-400">剩余灵感: <strong id="combat-ap-val">3</strong> 💡</span>
+            </div>
+            <div id="combat-cards" class="grid grid-cols-2 gap-2 text-xs">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Interactive Command Bar -->
+        <div id="quick-cmd-bar" class="pt-2 border-t border-slate-800 flex items-center gap-2">
+          <input id="term-input" type="text" placeholder="输入 MUD 指令 (如: look, attack, study, tweet) 或回车..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 font-term" />
+          <button id="btn-term-send" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition">
+            执行 ↵
+          </button>
+        </div>
+
       </div>
 
     </section>
 
-    <!-- RIGHT COLUMN: Live Narrative Feed, Danmaku & Logs (3.5 cols) -->
-    <section class="lg:col-span-3 space-y-4">
+    <!-- RIGHT: Quest Journal, Stats & Achievements (3.5 cols) -->
+    <aside class="lg:col-span-3 space-y-3">
       
-      <!-- Live Social Media Danmaku / Netizen Chatter -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 shadow-xl space-y-2 overflow-hidden">
-        <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-1.5">
-          <span class="flex items-center gap-1 text-slate-300 font-bold"><i data-lucide="message-square" class="w-3.5 h-3.5 text-cyan-400"></i> 全网热议弹幕</span>
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <!-- Current Main Quest Line -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-xl space-y-2.5">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
+          <span class="text-xs font-bold text-amber-400 flex items-center gap-1">
+            <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i> 当前主线任务
+          </span>
+          <span id="quest-tag" class="text-[10px] text-amber-300 bg-amber-950/60 px-1.5 py-0.5 rounded border border-amber-500/20">进行中</span>
         </div>
-        <div id="danmaku-container" class="h-24 overflow-hidden relative flex flex-col justify-end gap-1.5 text-[11px]">
-          <div class="bg-slate-950/70 p-1.5 rounded-lg border border-slate-800 text-slate-300 danmaku-item">
-            💬 <strong>网友@惠州小霸王:</strong> 听说高二那个孙宇晨又在网吧被抓了？
-          </div>
-          <div class="bg-slate-950/70 p-1.5 rounded-lg border border-slate-800 text-slate-300 danmaku-item">
-            💬 <strong>网友@星光吃瓜人:</strong> 景甜第一张专辑竟然是张亚东写的！背景太强了！
-          </div>
-        </div>
-      </div>
-
-      <!-- Real-time Event Flash -->
-      <div id="event-box" class="bg-gradient-to-b from-amber-950/30 to-slate-900/90 border border-amber-500/30 rounded-2xl p-4 shadow-xl space-y-2">
-        <div class="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
-          <i data-lucide="radio" class="w-3.5 h-3.5 text-amber-400 animate-spin"></i> 【本月名利场大事记】
-        </div>
-        <h4 id="event-flash-title" class="text-sm font-black text-slate-100">惠州一中开学纪事</h4>
-        <p id="event-flash-desc" class="text-xs text-slate-300 leading-relaxed">
-          你坐在教室后排，桌面下压着《南方周末》和网吧会员卡。新的一个月开始了，请合理规划你的精力！
+        <h4 id="quest-title" class="text-xs font-black text-slate-200">【新概念一等奖】逆天改命</h4>
+        <p id="quest-desc" class="text-[11px] text-slate-400 leading-relaxed">
+          去惠州一中教室找到《新概念历届范文》，击败教导主任的阻挠，前往邮局投递小作文！
         </p>
-      </div>
-
-      <!-- History Footprints -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3 shadow-xl space-y-2">
-        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-          <i data-lucide="history" class="w-3.5 h-3.5 text-slate-400"></i> 生涯日志
-        </h3>
-        <div id="game-logs" class="space-y-1.5 max-h-52 overflow-y-auto pr-1 text-[11px] font-mono text-slate-400">
-          <div class="p-1.5 bg-slate-950/50 rounded border border-slate-800/50">
-            [2005.03] 开启模拟人生。孙宇晨15岁，就读惠州一中；景甜17岁，北舞附中。
-          </div>
+        <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+          <div id="quest-progress-bar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full rounded-full transition-all duration-300" style="width: 25%"></div>
         </div>
       </div>
 
-    </section>
+      <!-- Character Status Deck -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-xl space-y-2 text-xs">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
+          <span class="font-bold text-slate-300 flex items-center gap-1">
+            <i data-lucide="user-check" class="w-3.5 h-3.5 text-cyan-400"></i> 角色词条与特质
+          </span>
+        </div>
+        <div id="character-traits" class="flex flex-wrap gap-1.5">
+          <span class="px-2 py-0.5 rounded-md bg-slate-950 border border-slate-800 text-[11px] text-slate-300">叛逆少年</span>
+          <span class="px-2 py-0.5 rounded-md bg-slate-950 border border-slate-800 text-[11px] text-slate-300">韩寒文风模仿者</span>
+          <span class="px-2 py-0.5 rounded-md bg-slate-950 border border-slate-800 text-[11px] text-rose-300">结石潜伏体质</span>
+        </div>
+      </div>
+
+      <!-- Action Log Stream -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-xl space-y-2">
+        <div class="flex justify-between items-center text-xs text-slate-400 border-b border-slate-800 pb-1">
+          <span class="font-bold text-slate-300 flex items-center gap-1">
+            <i data-lucide="scroll" class="w-3.5 h-3.5 text-slate-400"></i> 战报与事件流
+          </span>
+          <span class="text-[10px] text-slate-500 font-mono">LIVE FEED</span>
+        </div>
+        <div id="battle-log-stream" class="space-y-1 max-h-48 overflow-y-auto text-[11px] text-slate-400 pr-1">
+          <div>[2005.03] 你开启了惠州网瘾时代的传奇征程。</div>
+        </div>
+      </div>
+
+    </aside>
 
   </main>
 
-  <!-- Modals: Random Incident / Ending -->
-  <div id="modal-incident" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-amber-500/40 max-w-md w-full rounded-3xl p-6 shadow-2xl space-y-5">
-      <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
-        <i data-lucide="alert-triangle" class="w-4 h-4"></i> 突发名利场事件！
-      </div>
-      <h3 id="modal-inc-title" class="text-lg font-black text-slate-100">事件标题</h3>
-      <p id="modal-inc-desc" class="text-xs text-slate-300 leading-relaxed bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800">
-        事件描述...
-      </p>
-      <div id="modal-inc-choices" class="space-y-2">
-        <!-- Choices -->
-      </div>
-    </div>
-  </div>
-
-  <div id="modal-gameover" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-amber-500/40 max-w-lg w-full rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5 text-center">
-      <div class="text-4xl" id="go-emoji">🚀</div>
-      <h2 id="go-title" class="text-2xl font-black text-slate-100">人生终局结算</h2>
-      <p id="go-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed text-left bg-slate-950 p-4 rounded-2xl border border-slate-800">
-        评语...
-      </p>
-      <button onclick="location.reload()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 font-bold text-black text-xs hover:opacity-90 transition">
-        重开模拟人生 🔄
-      </button>
-    </div>
-  </div>
-
-  <!-- Game Engine Logic -->
+  <!-- Sound Audio Synth -->
   <script>
-    // Game State Model
-    const G = {
-      year: 2005,
-      month: 3,
-      age: 15,
-      jtAge: 17,
-      era: 1, // 1: 惠州高中, 2: 北大燕园, 3: 宾大与常春藤, 4: 币圈创业, 5: 宇宙顶流
-      ap: 4,
-      maxAp: 4,
-      money: 500,
-      
-      // Justin Stats
-      ambition: 50,
-      pr: 30,
-      health: 95, // 结石度 (低了会剧痛)
-      academic: 20,
-      role: '惠州一中网瘾少年',
-      mood: '😏 躁动不安',
-      
-      // Jing Tian Stats
-      jtStar: 15, // 0~100
-      jtFame: 50, // 0~100
-      bond: 0, // 0~100 (羁绊)
-      jtRole: '北舞附中校花 · 预备出道',
-      
-      // Crypto / Macro Stats
-      secRisk: 0,
-      trxPrice: 0.00,
-      trxHoldings: 0,
-      btcPrice: 10,
-      btcHoldings: 0,
-      hasDiplomatPassport: false,
-      bananaEaten: false,
-
-      // Inventory / Unlocks
-      hasNewConceptPrize: false,
-      inPekingUniv: false,
-      inPennUniv: false,
-      foundedTron: false,
-      
-      logs: []
+    // Web Audio Synthesizer (Instant punchy feedback!)
+    const AudioEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      },
+      play(freq = 440, type = 'sine', duration = 0.08, gainVal = 0.1) {
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {}
+      },
+      hit() {
+        this.play(120, 'sawtooth', 0.15, 0.2);
+        this.play(80, 'square', 0.2, 0.25);
+      },
+      crit() {
+        this.play(600, 'triangle', 0.1, 0.2);
+        setTimeout(() => this.play(900, 'sine', 0.2, 0.25), 80);
+      },
+      pump() {
+        this.play(440, 'sine', 0.08);
+        setTimeout(() => this.play(554, 'sine', 0.08), 60);
+        setTimeout(() => this.play(659, 'sine', 0.12), 120);
+      },
+      heal() {
+        this.play(523, 'sine', 0.15);
+        setTimeout(() => this.play(659, 'sine', 0.2), 100);
+      }
     };
 
-    // Eras Configuration
-    const ERAS = [
-      { id: 1, name: '时期 1：惠州少年时代 (2005-2007)', minYear: 2005, maxYear: 2007 },
-      { id: 2, name: '时期 2：北大燕园风云 (2007-2010)', minYear: 2007, maxYear: 2010 },
-      { id: 3, name: '时期 3：宾大常春藤与早期加密 (2010-2014)', minYear: 2010, maxYear: 2014 },
-      { id: 4, name: '时期 4：波场TRON与好莱坞风暴 (2014-2020)', minYear: 2014, maxYear: 2020 },
-      { id: 5, name: '时期 5：天价香蕉与火星主权 (2020-2026)', minYear: 2020, maxYear: 2026 }
-    ];
+    // Game Core State Model
+    const Game = {
+      perspective: 'sun', // 'sun' or 'jing'
+      year: 2005,
+      month: 3,
+      era: 1,
+      
+      // Sun State
+      sun: {
+        hp: 100,
+        maxHp: 100,
+        ap: 3,
+        maxAp: 3,
+        money: 80,
+        fame: 25,
+        location: 'netbar',
+        inventory: [
+          { id: 'tea', name: '大瓶冰红茶', desc: '恢复 30 点 HP 与 1 点灵感', count: 2, use: () => Game.useItem('tea') },
+          { id: 'essay', name: '《新概念历届满分范文》', desc: '战斗中可增加 15 点暴击伤害', count: 1, use: () => Game.useItem('essay') },
+          { id: 'card', name: '红日网吧 VIP 卡', desc: '在网吧可获得免费恢复', count: 1, use: () => Game.useItem('card') }
+        ],
+        deck: [
+          { id: 'c1', name: '📖 引用王朔反讽', cost: 1, dmg: 22, desc: '造成 22 点辩论伤害' },
+          { id: 'c2', name: '✍️ 韩寒式先锋文风', cost: 2, dmg: 48, desc: '造成 48 点高额破防暴击' },
+          { id: 'c3', name: '💔 突发肾结石护盾', cost: 1, shield: 30, desc: '获得 30 点绝对免伤护盾' },
+          { id: 'c4', name: '🥤 猛灌冰红茶', cost: 0, heal: 25, apRecover: 1, desc: '恢复 25 HP，回复 1 点灵感' }
+        ]
+      },
 
-    // Sound Synthesizer
-    function playBeep(freq = 440, type = 'sine', duration = 0.08) {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + duration);
-      } catch (e) {}
-    }
+      // Jing Tian Parallel State
+      jing: {
+        hp: 100,
+        maxHp: 100,
+        ap: 3,
+        maxAp: 3,
+        money: 50000,
+        fame: 80,
+        location: 'beiwu',
+        inventory: [
+          { id: 'album', name: '首张EP《你是谁》母带', desc: '张亚东量身打造，提升 50 咖位', count: 1, use: () => Game.useItem('album') },
+          { id: 'gown', name: '高定红毯礼服', desc: '防御全网黑粉质疑，免伤 40 点', count: 1, use: () => Game.useItem('gown') }
+        ],
+        deck: [
+          { id: 'j1', name: '🌸 人间富贵花凝视', cost: 1, dmg: 30, desc: '造成 30 点顶级气质压制' },
+          { id: 'j2', name: '🎬 好莱坞巨制空降', cost: 2, dmg: 65, desc: '全明星阵容拱月，造成 65 点巨额伤害' },
+          { id: 'j3', name: '🌿 司藤藤蔓缠绕', cost: 1, shield: 45, heal: 20, desc: '获得 45 点护盾并恢复 20 HP' }
+        ]
+      },
 
-    function formatMoney(n) {
-      if (n < 10000) return `¥ ${Math.round(n)}`;
-      if (n < 100000000) return `¥ ${(n / 10000).toFixed(1)} 万`;
-      return `¥ ${(n / 100000000).toFixed(2)} 亿`;
-    }
+      // Combat State
+      inCombat: false,
+      enemy: null,
+      playerShield: 0,
 
-    function addLog(text) {
-      const stamp = `[${G.year}.${G.month < 10 ? '0' + G.month : G.month}]`;
-      G.logs.unshift(`${stamp} ${text}`);
-      if (G.logs.length > 30) G.logs.pop();
-    }
+      // Crypto Ticker
+      cryptoPrice: 0.125,
+      cryptoHistory: [0.12, 0.122, 0.121, 0.125],
 
-    function addDanmaku(user, text) {
-      const container = document.getElementById('danmaku-container');
-      const div = document.createElement('div');
-      div.className = 'bg-slate-950/70 p-1.5 rounded-lg border border-slate-800 text-slate-300 danmaku-item';
-      div.innerHTML = `💬 <strong>${user}:</strong> ${text}`;
-      container.appendChild(div);
-      while (container.children.length > 4) {
-        container.removeChild(container.firstChild);
-      }
-    }
-
-    // Dynamic Actions Pool by Era
-    function getAvailableActions() {
-      const acts = [];
-
-      // Always Available
-      acts.push({
-        name: '喝红牛熬夜精读《南方周末》',
-        cost: 1,
-        desc: '文采 +4, 忽悠 +3, 结石健康 -2',
-        run: () => {
-          G.academic += 4;
-          G.pr += 3;
-          G.health -= 2;
-          addLog('你通宵精读南周社论，掌握了抨击时弊的犀利笔锋！');
-          addDanmaku('青年导师', '此子文风激进，大有可为！');
-        }
-      });
-
-      if (G.era === 1) { // 惠州一中
-        acts.push({
-          name: '网吧包夜包场刷《热血传奇》',
-          cost: 1,
-          desc: '野心 +5, 结石健康 -5, 现金 -¥20',
-          run: () => {
-            G.ambition += 5;
-            G.health -= 5;
-            G.money = Math.max(0, G.money - 20);
-            addLog('在网吧激战一夜，你坚信现实世界也是一个巨大的私服！');
-          }
-        });
-        acts.push({
-          name: '闭关狂研历届新概念作文一等奖范文',
-          cost: 2,
-          desc: '文采 +12, 忽悠 +8, 野心 +6',
-          run: () => {
-            G.academic += 12;
-            G.pr += 8;
-            G.ambition += 6;
-            if (G.academic >= 40 && !G.hasNewConceptPrize) {
-              G.hasNewConceptPrize = true;
-              addLog('🏆【重大突破】你悟透了韩寒文风，斩获新概念作文一等奖！获得北大降分自招资格！');
-              addDanmaku('北大招办', '新概念一等奖孙同学，欢迎报考！');
-            } else {
-              addLog('你模仿先锋文学撰写万字小作文，文风日益辛辣。');
-            }
-          }
-        });
-        acts.push({
-          name: '充值支持景甜首张EP《你是谁》',
-          cost: 1,
-          desc: '消耗 ¥100, 景甜羁绊 +10%, 路人好感 +5%',
-          run: () => {
-            if (G.money < 100) return alert('零花钱不够！');
-            G.money -= 100;
-            G.bond += 10;
-            G.jtFame += 5;
-            addLog('你把早饭钱省下来购买景甜首张EP，被后援会推为资深早期粉丝！');
-            addDanmaku('景甜粉丝后援团', '感谢广东惠州铁粉孙同学的大力支持！');
-          }
-        });
-      } else if (G.era === 2) { // 北大
-        acts.push({
-          name: '自创北大先锋刊物《野草》狂发暴论',
-          cost: 2,
-          desc: '忽悠声量 +15, 野心 +10, 结石健康 -3',
-          run: () => {
-            G.pr += 15;
-            G.ambition += 10;
-            G.health -= 3;
-            addLog('你在未名湖畔散发《野草》，自封“当代公知领袖”，引爆全校讨论！');
-            addDanmaku('BBS未名站', '历史系孙宇晨又发长文批判学生会了！');
-          }
-        });
-        acts.push({
-          name: '高调竞选北大常务学生会主席',
-          cost: 2,
-          desc: '忽悠 +10, 资金 +¥5,000, 结识各路人脉',
-          run: () => {
-            G.pr += 10;
-            G.money += 5000;
-            addLog('你的竞选海报贴满三角地，掌握了极致的演讲与包装技巧。');
-          }
-        });
-      } else if (G.era === 3) { // 宾大与投资
-        acts.push({
-          name: '在费城宾大俱乐部宣讲“加密与未来”',
-          cost: 2,
-          desc: '忽悠 +15, 结石 -3, 吸引天使投资',
-          run: () => {
-            G.pr += 15;
-            G.money += 50000;
-            G.health -= 3;
-            addLog('常春藤精英被你描绘的区块链蓝图打动，纷纷解囊支持！');
-          }
-        });
-      } else if (G.era >= 4) { // 币圈 & 名利场
-        acts.push({
-          name: '在推特狂发 100 条 TRX 进展与福利',
-          cost: 1,
-          desc: '忽悠 +15, TRX 暴涨 8%, 结石健康 -5',
-          run: () => {
-            G.pr += 15;
-            G.health -= 5;
-            G.trxPrice = +(G.trxPrice * 1.08 + 0.005).toFixed(3);
-            addLog('推特治币！你连续发推@全球加密大佬，TRX 交易量飙升！');
-            addDanmaku('推特加密散户', '孙哥又发推了！家人们快冲波场！');
-          }
-        });
-        acts.push({
-          name: '为景甜剧组包场应援并送999朵金箔玫瑰',
-          cost: 1,
-          desc: '消耗 ¥50万, 羁绊 +15%, 景甜路人缘 +10%',
-          run: () => {
-            if (G.money < 500000) return alert('现金不足 50 万！');
-            G.money -= 500000;
-            G.bond += 15;
-            G.jtFame += 10;
-            addLog('你大手笔包下全国百家影院应援景甜大戏，霸榜娱乐头条！');
-            addDanmaku('娱乐第一线', '神秘百亿巨鳄连续多日给景甜大片包场！');
-          }
-        });
-      }
-
-      // Health Healing (Hospital / Tea)
-      acts.push({
-        name: '喝中药排石汤 & 疗养度假',
-        cost: 1,
-        desc: '结石健康度 +25%, 消耗 ¥500',
-        run: () => {
-          G.health = Math.min(100, G.health + 25);
-          G.money = Math.max(0, G.money - 500);
-          addLog('你放下手机喝了一大碗排石颗粒，身体顿感轻松！');
-        }
-      });
-
-      return acts;
-    }
-
-    // Dynamic Film Projects for Jing Tian
-    const FILM_PROJECTS = [
-      {
+      // Quests
+      quest: {
         id: 1,
-        name: '《战国：双星争霸》',
-        cost: 15000000,
-        reqBond: 10,
-        desc: '孙红雷、吴镇宇、金喜善全明星拱月，由孙总全资赞助。',
-        reward: (g) => {
-          g.jtStar += 25;
-          g.pr += 20;
-          g.jtRole = '一线古装大片女一号';
-          return '《战国》上映引发全网轰动！“景甜宇宙”正式拉开序幕！';
-        }
-      },
-      {
-        id: 2,
-        name: '好莱坞巨制《长城：火星前哨》',
-        cost: 100000000,
-        reqBond: 30,
-        desc: '张艺谋执导，马特达蒙搭档景甜，孙总任联席监制。',
-        reward: (g) => {
-          g.jtStar += 35;
-          g.pr += 40;
-          g.bond += 25;
-          g.jtRole = '好莱坞A级大片一番女主';
-          return '全球票房斩获数亿美元，景甜稳坐国际顶流！';
-        }
-      },
-      {
-        id: 3,
-        name: '国民神剧《司藤：富贵花再临》',
-        cost: 30000000,
-        reqBond: 50,
-        desc: '旗袍造型绝美出圈，口碑彻底反转封神。',
-        reward: (g) => {
-          g.jtStar += 30;
-          g.jtFame += 40;
-          g.bond += 30;
-          g.jtRole = '国民绝美女神 · 人间富贵花';
-          return '《司藤》引爆全网追剧狂潮，路人好感度全线拉满！';
-        }
+        title: '【新概念一等奖】逆天改命',
+        desc: '在惠州一中教室击败【教导主任】，搜集参赛手稿，前往邮局投递！',
+        progress: 30
       }
-    ];
+    };
 
-    // Market Assets
-    const MARKET_ITEMS = [
-      {
-        id: 'btc',
-        name: '比特币 (BTC)',
-        desc: '数字黄金，长期持有可带来指数级暴富。',
-        buyPrice: () => G.btcPrice,
-        buy: () => {
-          const cost = G.btcPrice * 10;
-          if (G.money < cost) return alert(`资金不足！买入10个BTC需要 ${formatMoney(cost)}`);
-          G.money -= cost;
-          G.btcHoldings += 10;
-          addLog(`买入 10 枚 BTC！现持仓: ${G.btcHoldings} 枚`);
-        }
+    // MUD World Map (Rooms & Connections)
+    const MUD_MAP = {
+      netbar: {
+        name: '红日网吧 · 大厅',
+        desc: '泡面味扑鼻，大头显示器正亮着《传奇》行会战。网管阿杰在柜台数硬币。',
+        exits: { north: 'school_gate', east: 'alley' },
+        npcs: [
+          { name: '网管阿杰', role: '商人', action: 'buy_tea', label: '买冰红茶 (¥3)' },
+          { name: '街头小混混', role: '敌对', action: 'fight_punk', label: '⚔️ 发起切磋对决' }
+        ]
       },
-      {
-        id: 'banana',
-        name: '苏富比天价胶带香蕉《喜剧演员》',
-        desc: '意大利艺术家名作，买下后可当场吃掉引爆全球头条！',
-        buyPrice: () => 45000000,
-        buy: () => {
-          if (G.money < 45000000) return alert('买不起！需要 4500 万人民币！');
-          if (G.bananaEaten) return alert('你已经吃过这根香蕉了！');
-          G.money -= 45000000;
-          G.bananaEaten = true;
-          G.pr += 50;
-          G.health -= 5;
-          G.bond += 20;
-          addLog('🍌【历史名场面】你拍下 620 万美元香蕉并当着百家外媒一口吞下！“味道比普通香蕉好多了！”');
-          addDanmaku('纽约时报', '震惊！华人加密领袖在发布会上吃掉了天价艺术品！');
-        }
+      school_gate: {
+        name: '惠州一中 · 正校门',
+        desc: '庄严肃穆的校门，两旁挂着高考倒计时横幅。教导处主任正在校门口巡视迟到与网瘾学生。',
+        exits: { south: 'netbar', north: 'classroom', east: 'post_office' },
+        npcs: [
+          { name: '教导主任 · 王暴躁', role: 'Boss', action: 'fight_director', label: '⚔️ 触发【查网瘾对决】！' }
+        ]
       },
-      {
-        id: 'diplomat',
-        name: '格林纳达 WTO 常驻特命全权大使席位',
-        desc: '获得外交官护照，大幅抵御 SEC 与全球监管风险。',
-        buyPrice: () => 80000000,
-        buy: () => {
-          if (G.money < 80000000) return alert('资金不足！需要 8000 万！');
-          if (G.hasDiplomatPassport) return alert('你已经是孙特命全权大使阁下了！');
-          G.money -= 80000000;
-          G.hasDiplomatPassport = true;
-          G.secRisk = 0;
-          G.role = '格林纳达常驻WTO特命全权大使';
-          addLog('👑【外交豁免】你正式就任特命全权大使，手握外交护照，监管风险清零！');
-        }
+      classroom: {
+        name: '高二三班 · 教室后排',
+        desc: '课桌堆满五三模拟题，你的桌肚里藏着王朔的《顽主》与半瓶冰红茶。',
+        exits: { south: 'school_gate' },
+        npcs: [
+          { name: '班长李小华', role: 'NPC', action: 'talk_monitor', label: '打听新概念自招八卦' },
+          { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' }
+        ]
+      },
+      post_office: {
+        name: '惠州邮政支局 · 投递处',
+        desc: '绿色邮筒立在门前，这里可以将手稿寄往上海《萌芽》杂志社新概念组委会。',
+        exits: { west: 'school_gate' },
+        npcs: [
+          { name: '邮政绿邮筒', role: '交互', action: 'submit_essay', label: '📮 投递新概念参赛小作文' }
+        ]
+      },
+      alley: {
+        name: '后街小巷 · 烧烤摊',
+        desc: '油烟弥漫，几个刚下夜班的年轻人在喝啤酒畅谈未来。',
+        exits: { west: 'netbar' },
+        npcs: [
+          { name: '烧烤摊老板', role: '恢复', action: 'eat_bbq', label: '吃生蚝补充精力 (¥15)' }
+        ]
       }
-    ];
+    };
+
+    // Log to Terminal
+    function termLog(msg, colorClass = 'text-slate-300') {
+      const out = document.getElementById('term-output');
+      const div = document.createElement('div');
+      div.className = `${colorClass} leading-relaxed`;
+      div.innerHTML = msg;
+      out.appendChild(div);
+      out.scrollTop = out.scrollHeight;
+
+      // Also log to right feed
+      const bLog = document.getElementById('battle-log-stream');
+      const bDiv = document.createElement('div');
+      bDiv.innerHTML = msg;
+      bLog.prepend(bDiv);
+      if (bLog.children.length > 20) bLog.removeChild(bLog.lastChild);
+    }
+
+    // Screen Shake effect
+    function triggerScreenShake() {
+      const el = document.getElementById('terminal-wrapper');
+      el.classList.add('screen-shake');
+      setTimeout(() => el.classList.remove('screen-shake'), 280);
+    }
+
+    // Floating damage numbers
+    function showDamagePop(amount, isCrit = false) {
+      const el = document.createElement('div');
+      el.className = `absolute z-50 font-black text-2xl ${isCrit ? 'text-yellow-400 text-3xl' : 'text-red-500'} damage-pop pointer-events-none`;
+      el.style.left = '50%';
+      el.style.top = '40%';
+      el.innerText = `-${amount} ${isCrit ? '💥 CRIT!' : ''}`;
+      document.getElementById('terminal-wrapper').appendChild(el);
+      setTimeout(() => el.remove(), 800);
+    }
+
+    // Move to a room
+    function moveToRoom(roomId) {
+      const room = MUD_MAP[roomId];
+      if (!room) return;
+      
+      const char = Game[Game.perspective];
+      char.location = roomId;
+      AudioEngine.play(300, 'sine', 0.05);
+
+      termLog(`> [移动] 你来到了【${room.name}】。`, 'text-cyan-300');
+      updateUI();
+    }
 
     // UI Updates
     function updateUI() {
-      // Top status
-      document.getElementById('hud-date').innerText = `${G.year}年 ${G.month}月`;
-      document.getElementById('hud-age').innerText = G.age;
-      document.getElementById('hud-jt-age').innerText = G.jtAge;
-      document.getElementById('hud-ap').innerText = `${G.ap} / ${G.maxAp}`;
-      document.getElementById('hud-money').innerText = formatMoney(G.money);
+      const char = Game[Game.perspective];
       
-      const eraObj = ERAS.find(e => e.id === G.era) || ERAS[0];
-      document.getElementById('badge-era').innerText = eraObj.name;
+      // Top status
+      document.getElementById('hud-date').innerText = `${Game.year}年 ${Game.month}月`;
+      document.getElementById('hud-hp').innerText = `${char.hp} / ${char.maxHp}`;
+      document.getElementById('hud-ap').innerText = `${char.ap} / ${char.maxAp}`;
+      document.getElementById('hud-money').innerText = `¥ ${char.money}`;
+      document.getElementById('hud-fame').innerText = char.fame;
 
-      if (G.era >= 4) {
-        document.getElementById('hud-trx-box').classList.remove('hidden');
-        document.getElementById('hud-trx-box').classList.add('flex');
-        document.getElementById('hud-trx-price').innerText = `$ ${G.trxPrice.toFixed(3)}`;
+      // Room Card
+      const curRoom = MUD_MAP[char.location] || MUD_MAP.netbar;
+      document.getElementById('room-name').innerText = curRoom.name;
+      document.getElementById('room-desc').innerText = curRoom.desc;
+
+      // Compass Buttons
+      ['north', 'south', 'east', 'west'].forEach(dir => {
+        const btn = document.getElementById(`btn-nav-${dir}`);
+        if (curRoom.exits && curRoom.exits[dir]) {
+          btn.disabled = false;
+          btn.onclick = () => moveToRoom(curRoom.exits[dir]);
+        } else {
+          btn.disabled = true;
+          btn.onclick = null;
+        }
+      });
+
+      // Render NPCs in room
+      const npcsBox = document.getElementById('room-npcs');
+      npcsBox.innerHTML = '';
+      if (curRoom.npcs) {
+        curRoom.npcs.forEach(npc => {
+          const btn = document.createElement('button');
+          btn.className = 'w-full text-left px-2.5 py-1.5 rounded-lg bg-slate-950/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-xs text-slate-200 flex items-center justify-between transition';
+          btn.innerHTML = `
+            <span class="font-bold flex items-center gap-1">👤 ${npc.name}</span>
+            <span class="text-[11px] text-amber-400 font-bold">${npc.label}</span>
+          `;
+          btn.onclick = () => handleNpcAction(npc.action);
+          npcsBox.appendChild(btn);
+        });
       }
 
-      // Justin Meters
-      document.getElementById('sun-role').innerText = G.role;
-      document.getElementById('sun-mood').innerText = G.health < 40 ? '😫 结石剧痛' : G.mood;
-      document.getElementById('meter-ambition-val').innerText = `${G.ambition} / 100`;
-      document.getElementById('meter-ambition-bar').style.width = `${Math.min(100, G.ambition)}%`;
-      document.getElementById('meter-pr-val').innerText = `${G.pr} / 100`;
-      document.getElementById('meter-pr-bar').style.width = `${Math.min(100, G.pr)}%`;
-      document.getElementById('meter-health-val').innerText = `${G.health}%`;
-      document.getElementById('meter-health-bar').style.width = `${Math.min(100, Math.max(0, G.health))}%`;
-      document.getElementById('meter-academic-val').innerText = G.academic;
-      document.getElementById('meter-academic-bar').style.width = `${Math.min(100, G.academic)}%`;
+      // Render Inventory
+      const bagBox = document.getElementById('inventory-grid');
+      bagBox.innerHTML = '';
+      char.inventory.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-500/40 transition cursor-pointer flex flex-col justify-between';
+        div.innerHTML = `
+          <div class="font-bold text-slate-200 text-[11px]">${item.name}</div>
+          <div class="flex justify-between items-center text-[10px] text-slate-400 mt-1">
+            <span>x${item.count}</span>
+            <span class="text-amber-400">使用</span>
+          </div>
+        `;
+        div.onclick = () => item.use();
+        bagBox.appendChild(div);
+      });
+      document.getElementById('bag-count').innerText = `${char.inventory.length}/12`;
 
-      // Jing Tian Meters
-      document.getElementById('jt-role').innerText = G.jtRole;
-      document.getElementById('meter-jt-star-val').innerText = `${G.jtStar} 分`;
-      document.getElementById('meter-jt-star-bar').style.width = `${Math.min(100, G.jtStar)}%`;
-      document.getElementById('meter-jt-fame-val').innerText = `${G.jtFame}%`;
-      document.getElementById('meter-jt-fame-bar').style.width = `${Math.min(100, G.jtFame)}%`;
-      document.getElementById('meter-bond-val').innerText = `${G.bond}%`;
-      document.getElementById('meter-bond-bar').style.width = `${Math.min(100, G.bond)}%`;
-
-      // Risk
-      document.getElementById('meter-sec').innerText = `${G.secRisk}% ${G.secRisk > 60 ? '🚨 危险' : '✅ 正常'}`;
-      document.getElementById('meter-diplomat').innerText = G.hasDiplomatPassport ? '👑 已激活(外交豁免)' : '未解锁';
-
-      // Render Available Actions
-      renderActionList();
-      renderFilmList();
-      renderMarketList();
-
-      // Render Logs
-      document.getElementById('game-logs').innerHTML = G.logs.map(l => `
-        <div class="p-1.5 bg-slate-950/60 rounded border border-slate-800/60 text-slate-300">
-          ${l}
-        </div>
-      `).join('');
+      // Update Quests
+      document.getElementById('quest-title').innerText = Game.quest.title;
+      document.getElementById('quest-desc').innerText = Game.quest.desc;
+      document.getElementById('quest-progress-bar').style.width = `${Game.quest.progress}%`;
 
       if (window.lucide) window.lucide.createIcons();
     }
 
-    function renderActionList() {
-      const container = document.getElementById('action-list');
-      const acts = getAvailableActions();
-      container.innerHTML = '';
-
-      acts.forEach(act => {
-        const btn = document.createElement('button');
-        btn.className = 'w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-950/80 hover:bg-slate-800 hover:border-amber-500/50 transition flex items-center justify-between gap-2 shadow';
-        btn.innerHTML = `
-          <div>
-            <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-              <span class="w-4 h-4 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono">⚡${act.cost}</span>
-              ${act.name}
-            </div>
-            <p class="text-[11px] text-slate-400 mt-0.5">${act.desc}</p>
-          </div>
-          <span class="text-xs font-bold text-amber-400 shrink-0">执行</span>
-        `;
-        btn.onclick = () => {
-          if (G.ap < act.cost) {
-            alert('精力点不足！请点击【下个月】恢复精力。');
-            return;
-          }
-          playBeep(520, 'triangle', 0.1);
-          G.ap -= act.cost;
-          act.run();
-          checkTriggers();
-          updateUI();
-        };
-        container.appendChild(btn);
-      });
-    }
-
-    function renderFilmList() {
-      const container = document.getElementById('film-projects-list');
-      container.innerHTML = '';
-
-      FILM_PROJECTS.forEach(f => {
-        const div = document.createElement('div');
-        div.className = 'p-3 rounded-xl border border-slate-800 bg-slate-950/80 space-y-2';
-        div.innerHTML = `
-          <div class="flex justify-between items-start">
-            <div>
-              <h4 class="text-xs font-bold text-rose-300">${f.name}</h4>
-              <p class="text-[11px] text-slate-400">${f.desc}</p>
-            </div>
-            <span class="text-xs font-bold font-mono text-emerald-400">${formatMoney(f.cost)}</span>
-          </div>
-          <div class="flex justify-between items-center pt-1 border-t border-slate-800/80 text-[11px]">
-            <span class="text-slate-500">需羁绊: ${f.reqBond}% (当前: ${G.bond}%)</span>
-            <button class="px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs transition">
-              孙总注资开机 🎬
-            </button>
-          </div>
-        `;
-        div.querySelector('button').onclick = () => {
-          if (G.bond < f.reqBond) return alert(`羁绊不足！需要与景甜羁绊达到 ${f.reqBond}%`);
-          if (G.money < f.cost) return alert(`资金池不足！需要 ${formatMoney(f.cost)}`);
-          playBeep(659, 'sine', 0.2);
-          G.money -= f.cost;
-          const msg = f.reward(G);
-          addLog(msg);
-          addDanmaku('金鸡百花评委', `热烈祝贺《${f.name}》取得现象级成功！`);
-          updateUI();
-        };
-        container.appendChild(div);
-      });
-    }
-
-    function renderMarketList() {
-      const container = document.getElementById('market-items-list');
-      container.innerHTML = '';
-
-      // BTC
-      if (G.era >= 3) {
-        const btcDiv = document.createElement('div');
-        btcDiv.className = 'p-3 rounded-xl border border-slate-800 bg-slate-950/80 flex items-center justify-between';
-        btcDiv.innerHTML = `
-          <div>
-            <h4 class="text-xs font-bold text-amber-400">比特币 (BTC) · 单价: $${G.btcPrice}</h4>
-            <p class="text-[11px] text-slate-400">当前持仓: ${G.btcHoldings} 枚</p>
-          </div>
-          <button class="px-3 py-1 rounded-lg bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition">
-            买入 10 枚
-          </button>
-        `;
-        btcDiv.querySelector('button').onclick = MARKET_ITEMS[0].buy;
-        container.appendChild(btcDiv);
-      }
-
-      // Banana & Diplomat
-      if (G.era >= 4) {
-        MARKET_ITEMS.slice(1).forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'p-3 rounded-xl border border-slate-800 bg-slate-950/80 flex items-center justify-between';
-          div.innerHTML = `
-            <div>
-              <h4 class="text-xs font-bold text-slate-200">${item.name}</h4>
-              <p class="text-[11px] text-slate-400">${item.desc}</p>
-            </div>
-            <button class="px-3 py-1 rounded-lg bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-500 transition shrink-0 ml-2">
-              ${formatMoney(item.buyPrice())} 竞拍
-            </button>
-          `;
-          div.querySelector('button').onclick = item.buy;
-          container.appendChild(div);
-        });
-      }
-    }
-
-    // PR Crafter Execution
-    document.getElementById('btn-fire-pr').onclick = () => {
-      if (G.ap < 1) return alert('精力不足！');
-      G.ap -= 1;
-      const s1 = document.getElementById('pr-slot-1').value;
-      const s2 = document.getElementById('pr-slot-2').value;
-      const s3 = document.getElementById('pr-slot-3').value;
-
-      playBeep(784, 'square', 0.2);
-      G.pr += 20;
-      G.health -= 4;
+    // NPC Actions
+    function handleNpcAction(act) {
+      const char = Game[Game.perspective];
       
-      let effectText = `【全网通稿】孙总发布：“${s1}！${s2}，${s3}”`;
-      if (s2.includes('肾结石')) {
-        G.health -= 15;
-        G.pr += 25;
-        effectText += ' ➡️ 全球财经热搜暴涨！达成【结石影帝】名场面！';
-      }
-      if (s2.includes('巴菲特')) {
-        G.pr += 30;
-        G.money -= 31000000;
-        effectText += ' ➡️ 456万美元巴菲特午餐名动天下！';
-      }
-      if (s3.includes('TRX')) {
-        G.trxPrice = +(G.trxPrice * 1.25 + 0.02).toFixed(3);
-        G.money += 20000000;
-        effectText += ' ➡️ TRX狂拉 25%！波场现金流激增 2000 万！';
-      }
-      if (s2.includes('景甜') || s3.includes('亲善大使')) {
-        G.bond += 20;
-        G.jtFame += 15;
-        effectText += ' ➡️ 娱乐圈与币圈跨界大地震，名利场羁绊飙升！';
-      }
-
-      addLog(effectText);
-      addDanmaku('彭博社记者', '孙宇晨刚刚在推特发布了重磅声明！');
-      updateUI();
-    };
-
-    // Next Turn Routine (Time Passes)
-    document.getElementById('btn-next-turn').onclick = () => {
-      playBeep(440, 'sine', 0.1);
-      G.month += 3; // 每次前进一步为 1 个季度 (3个月)
-      if (G.month > 12) {
-        G.month = 3;
-        G.year += 1;
-        G.age += 1;
-        G.jtAge += 1;
-      }
-
-      // Recover AP
-      G.ap = G.maxAp;
-
-      // Crypto Price Market Dynamics
-      if (G.era >= 3) {
-        G.btcPrice = Math.round(G.btcPrice * (1 + (Math.random() * 0.4 - 0.1)));
-        if (G.btcHoldings > 0) {
-          G.money += G.btcHoldings * (G.btcPrice * 0.1); // 部分分红或资本收益
+      if (act === 'buy_tea') {
+        if (char.money < 3) return termLog('网管阿杰：没钱买什么冰红茶，去一边去！', 'text-red-400');
+        char.money -= 3;
+        const exist = char.inventory.find(i => i.id === 'tea');
+        if (exist) exist.count++;
+        else char.inventory.push({ id: 'tea', name: '大瓶冰红茶', desc: '恢复 30 HP 与 1 点灵感', count: 1, use: () => Game.useItem('tea') });
+        AudioEngine.heal();
+        termLog('你花费 ¥3 买了一大瓶冰红茶放入背包！', 'text-emerald-300');
+        updateUI();
+      } else if (act === 'fight_punk') {
+        startCombat({
+          name: '街头红毛混混',
+          hp: 45,
+          maxHp: 45,
+          dmg: 12,
+          intent: '准备使用【收保护费推搡】'
+        });
+      } else if (act === 'fight_director') {
+        startCombat({
+          name: '教导主任 · 王暴躁',
+          hp: 85,
+          maxHp: 85,
+          dmg: 25,
+          intent: '蓄力中：【明天叫你家长来办公室！】'
+        });
+      } else if (act === 'loot_drawer') {
+        AudioEngine.crit();
+        termLog('🔍 你翻找抽屉，找到了一份写满反叛讽刺金句的《新概念初稿》！辩才战力 +15！', 'text-amber-300');
+        char.fame += 15;
+        Game.quest.progress = 60;
+        updateUI();
+      } else if (act === 'talk_monitor') {
+        termLog('班长李小华悄悄对你说：“听说这次新概念作文评委特别喜欢黑色幽默和反叛文风，你可以狂写应试教育批判！”', 'text-cyan-300');
+      } else if (act === 'submit_essay') {
+        if (Game.quest.progress < 60) {
+          termLog('邮局大叔：“小伙子，你还没写完初稿呢，拿什么寄去上海？”', 'text-yellow-400');
+        } else {
+          AudioEngine.crit();
+          confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+          termLog('📮【壮举完成】你将手稿郑重投入绿色邮筒！跨越时空寄往上海！', 'text-emerald-300');
+          termLog('🏆 组委会评委被你的文字震撼！你斩获第九届新概念一等奖！拿到北大降分自招！', 'text-yellow-300');
+          Game.quest.progress = 100;
+          Game.quest.title = '【第二阶段】未名湖公知与炒币觉醒';
+          Game.quest.desc = '进入北京大学，开启波场与加密实时操盘大厅！';
+          document.getElementById('crypto-ticker-box').classList.remove('hidden');
+          initCryptoTicker();
+          updateUI();
         }
+      } else if (act === 'eat_bbq') {
+        if (char.money < 15) return termLog('烧烤摊老板：“十五块钱都没有还想吃生蚝？”', 'text-red-400');
+        char.money -= 15;
+        char.hp = Math.min(char.maxHp, char.hp + 40);
+        char.ap = char.maxAp;
+        AudioEngine.heal();
+        termLog('吃了一盘烤生蚝，精力与气血瞬间拉满！', 'text-emerald-300');
+        updateUI();
       }
-      if (G.era >= 4) {
-        G.trxPrice = +(G.trxPrice * (1 + (Math.random() * 0.3 - 0.1))).toFixed(3);
+    }
+
+    // COMBAT SYSTEM (Turn-based Action Card Deck)
+    function startCombat(enemy) {
+      Game.inCombat = true;
+      Game.enemy = enemy;
+      Game.playerShield = 0;
+
+      const char = Game[Game.perspective];
+      char.ap = char.maxAp;
+
+      AudioEngine.hit();
+      triggerScreenShake();
+
+      document.getElementById('combat-arena').classList.remove('hidden');
+      document.getElementById('combat-status-badge').innerText = '⚔️ 论战对决中 (COMBAT)';
+      document.getElementById('combat-status-badge').className = 'text-red-400 font-bold animate-pulse';
+
+      termLog(`⚔️ 遭遇【${enemy.name}】！进入论战对决模式！请合理使用手牌！`, 'text-red-400 font-bold');
+      updateCombatUI();
+    }
+
+    function updateCombatUI() {
+      if (!Game.inCombat || !Game.enemy) return;
+
+      const e = Game.enemy;
+      const char = Game[Game.perspective];
+
+      document.getElementById('enemy-name').innerText = e.name;
+      document.getElementById('enemy-intent').innerText = e.intent;
+      document.getElementById('enemy-hp-text').innerText = `${e.hp} / ${e.maxHp}`;
+      document.getElementById('enemy-hp-bar').style.width = `${Math.max(0, (e.hp / e.maxHp) * 100)}%`;
+      document.getElementById('combat-ap-val').innerText = char.ap;
+
+      // Render Cards
+      const cardsBox = document.getElementById('combat-cards');
+      cardsBox.innerHTML = '';
+
+      char.deck.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = `p-2.5 rounded-xl border border-slate-800 bg-slate-900 hover:border-amber-500/80 text-left transition shadow flex flex-col justify-between ${char.ap < c.cost ? 'opacity-40 cursor-not-allowed' : 'hover:scale-[1.02]'}`;
+        btn.innerHTML = `
+          <div class="flex justify-between items-center text-xs font-bold text-slate-200">
+            <span>${c.name}</span>
+            <span class="text-amber-400 font-mono">⚡${c.cost}</span>
+          </div>
+          <p class="text-[10px] text-slate-400 mt-1">${c.desc}</p>
+        `;
+        btn.onclick = () => playCard(c);
+        cardsBox.appendChild(btn);
+      });
+    }
+
+    function playCard(card) {
+      if (!Game.inCombat) return;
+      const char = Game[Game.perspective];
+      if (char.ap < card.cost) return termLog('💡 灵感点不足！无法打出该招式！', 'text-yellow-400');
+
+      char.ap -= card.cost;
+
+      // Apply effects
+      if (card.dmg) {
+        AudioEngine.crit();
+        triggerScreenShake();
+        showDamagePop(card.dmg, true);
+        Game.enemy.hp -= card.dmg;
+        termLog(`你打出【${card.name}】！对【${Game.enemy.name}】造成 ${card.dmg} 点暴击伤害！`, 'text-amber-300 font-bold');
+      }
+      if (card.shield) {
+        AudioEngine.heal();
+        Game.playerShield += card.shield;
+        termLog(`你获得 ${card.shield} 点免伤护盾！`, 'text-cyan-300');
+      }
+      if (card.heal) {
+        AudioEngine.heal();
+        char.hp = Math.min(char.maxHp, char.hp + card.heal);
+        termLog(`你恢复了 ${card.heal} 点气血！`, 'text-emerald-300');
+      }
+      if (card.apRecover) {
+        char.ap += card.apRecover;
       }
 
-      // Check Era Transitions
-      if (G.year >= 2007 && G.era < 2) {
-        G.era = 2;
-        G.role = '北大中文系狂生 / 历史系辩手';
-        G.money += 20000;
-        addLog('🎓【时代跃迁】你考入北京大学！进入【燕园风云时代】！');
-      } else if (G.year >= 2010 && G.era < 3) {
-        G.era = 3;
-        G.role = '常春藤盟校宾大硕士 / 早期加密极客';
-        G.btcPrice = 15;
-        G.money += 500000;
-        addLog('🗽【时代跃迁】赴美留学常春藤宾夕法尼亚大学！进入【常春藤与创投时代】！');
-      } else if (G.year >= 2014 && G.era < 4) {
-        G.era = 4;
-        G.role = '波场TRON创始人 / 湖畔一期门徒';
-        G.trxPrice = 0.05;
-        G.money += 50000000;
-        addLog('💎【时代跃迁】创立波场 TRON！资产突破千万，正式进入名利场中心！');
-      } else if (G.year >= 2020 && G.era < 5) {
-        G.era = 5;
-        addLog('🚀【时代跃迁】进入【终局：艺术、主权与火星名利场】！');
-      }
-
-      // Kidney Stones Degradation
-      G.health = Math.max(0, G.health - 2);
-
-      checkTriggers();
-      updateUI();
-    };
-
-    function checkTriggers() {
-      // Health Warning
-      if (G.health <= 15) {
-        addDanmaku('主治医生', '警告！孙先生请立即停止发推，肾结石已达临界值！');
-      }
-      if (G.health <= 0) {
-        showGameOver('【结石恶化停摆】：长期过劳发推与狂饮碳酸饮料导致结石剧痛入院，提前移居海外疗养，商业帝国托付职业经理人。');
+      // Check Enemy Defeat
+      if (Game.enemy.hp <= 0) {
+        winCombat();
         return;
       }
-      if (G.year >= 2026) {
-        if (G.bond >= 70 && G.money >= 500000000) {
-          showGameOver('🌟【终极圆满结局：火星双主权神话】\n你与景甜在各自赛道均登峰造极！手握数十亿美元资产、卢浮宫永久艺术展品与外交豁免权，在火星基地联合成立“双星主权基金”，缔造跨越二十年的传奇大满贯！');
-        } else {
-          showGameOver('🏝️【加勒比海富贵退休】\n你看透名利场繁华，在加勒比海私人岛屿开了一家“网瘾少年”主题沙滩吧。');
-        }
+
+      // Check Turn End if AP is 0
+      if (char.ap <= 0) {
+        enemyTurn();
+      } else {
+        updateCombatUI();
+        updateUI();
       }
     }
 
-    function showGameOver(desc) {
-      document.getElementById('modal-gameover').classList.remove('hidden');
-      document.getElementById('go-desc').innerText = desc;
+    function enemyTurn() {
+      termLog(`> 回合结束，【${Game.enemy.name}】开始反击！`, 'text-red-400');
+      setTimeout(() => {
+        const char = Game[Game.perspective];
+        let dmg = Game.enemy.dmg;
+        
+        if (Game.playerShield > 0) {
+          const absorbed = Math.min(Game.playerShield, dmg);
+          Game.playerShield -= absorbed;
+          dmg -= absorbed;
+          termLog(`你的护盾吸收了 ${absorbed} 点伤害！`, 'text-cyan-300');
+        }
+
+        if (dmg > 0) {
+          AudioEngine.hit();
+          triggerScreenShake();
+          char.hp -= dmg;
+          termLog(`【${Game.enemy.name}】打出严厉批评，对你造成 ${dmg} 点精神伤害！`, 'text-red-400 font-bold');
+        }
+
+        // Recover player AP
+        char.ap = char.maxAp;
+
+        if (char.hp <= 0) {
+          termLog('💀 你在辩论中败下阵来，被教导主任勒令回家写 10,000 字检讨！', 'text-red-500 font-black');
+          Game.inCombat = false;
+          char.hp = 30;
+          document.getElementById('combat-arena').classList.add('hidden');
+          document.getElementById('combat-status-badge').innerText = '探索模式 (PEACE)';
+          document.getElementById('combat-status-badge').className = 'text-slate-400';
+          updateUI();
+        } else {
+          updateCombatUI();
+          updateUI();
+        }
+      }, 500);
     }
 
-    // Tabs
-    const tabs = [
-      { btn: 'tab-btn-actions', view: 'view-actions' },
-      { btn: 'tab-btn-pr', view: 'view-pr' },
-      { btn: 'tab-btn-film', view: 'view-film' },
-      { btn: 'tab-btn-market', view: 'view-market' }
-    ];
+    function winCombat() {
+      AudioEngine.crit();
+      confetti({ particleCount: 50, spread: 50 });
+      const char = Game[Game.perspective];
+      char.fame += 20;
+      char.money += 35;
+      
+      termLog(`🎉【大获全胜】你以无可辩驳的犀利言辞彻底击垮了【${Game.enemy.name}】！获得 ¥35 零花钱，名气 +20！`, 'text-emerald-300 font-bold');
+      
+      Game.inCombat = false;
+      Game.enemy = null;
+      document.getElementById('combat-arena').classList.add('hidden');
+      document.getElementById('combat-status-badge').innerText = '探索模式 (PEACE)';
+      document.getElementById('combat-status-badge').className = 'text-slate-400';
+      
+      updateUI();
+    }
 
-    tabs.forEach(t => {
-      document.getElementById(t.btn).onclick = () => {
-        tabs.forEach(o => {
-          document.getElementById(o.view).classList.add('hidden');
-          document.getElementById(o.btn).className = 'flex-1 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-200 transition flex items-center justify-center gap-1';
+    // Crypto Ticker Simulation (Instant Hype/Dump Loop)
+    let cryptoInterval = null;
+    function initCryptoTicker() {
+      if (cryptoInterval) return;
+      const canvas = document.getElementById('crypto-canvas');
+      const ctx = canvas.getContext('2d');
+
+      function drawTicker() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = '#22d3ee';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        
+        const step = canvas.width / (Game.cryptoHistory.length - 1);
+        const minP = Math.min(...Game.cryptoHistory) * 0.95;
+        const maxP = Math.max(...Game.cryptoHistory) * 1.05;
+
+        Game.cryptoHistory.forEach((p, i) => {
+          const x = i * step;
+          const y = canvas.height - ((p - minP) / (maxP - minP || 1)) * (canvas.height - 10) - 5;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
         });
-        document.getElementById(t.view).classList.remove('hidden');
-        document.getElementById(t.btn).className = 'flex-1 py-2 rounded-xl text-xs font-bold bg-amber-500 text-black transition flex items-center justify-center gap-1';
-      };
-    });
+        ctx.stroke();
+      }
 
-    // Start
+      cryptoInterval = setInterval(() => {
+        const drift = (Math.random() - 0.48) * 0.005;
+        Game.cryptoPrice = Math.max(0.01, +(Game.cryptoPrice + drift).toFixed(3));
+        Game.cryptoHistory.push(Game.cryptoPrice);
+        if (Game.cryptoHistory.length > 25) Game.cryptoHistory.shift();
+
+        document.getElementById('ticker-price').innerText = `$ ${Game.cryptoPrice.toFixed(3)}`;
+        drawTicker();
+      }, 1000);
+
+      // Crypto Action Buttons
+      document.getElementById('btn-crypto-pump').onclick = () => {
+        AudioEngine.pump();
+        confetti({ particleCount: 30, spread: 40 });
+        Game.cryptoPrice = +(Game.cryptoPrice * 1.35).toFixed(3);
+        Game.cryptoHistory.push(Game.cryptoPrice);
+        termLog('🚀【发推拉盘】你在推特发布：“TRX 即将登陆各大洲央行！”代币暴涨 35%！', 'text-cyan-300 font-bold');
+        updateUI();
+      };
+
+      document.getElementById('btn-crypto-dump').onclick = () => {
+        AudioEngine.crit();
+        const profit = Math.round(Game.cryptoPrice * 50000);
+        Game.sun.money += profit;
+        Game.cryptoPrice = +(Game.cryptoPrice * 0.6).toFixed(3);
+        Game.cryptoHistory.push(Game.cryptoPrice);
+        termLog(`💸【高位砸盘】你在最高点套现砸盘！斩获现金 ¥${profit}！TRX 暴跌 40%！`, 'text-emerald-300 font-bold');
+        updateUI();
+      };
+
+      document.getElementById('btn-crypto-buy').onclick = () => {
+        if (Game.sun.money < 100) return termLog('现金不足 100 元无法加仓！', 'text-red-400');
+        Game.sun.money -= 100;
+        AudioEngine.play(500, 'sine', 0.08);
+        termLog('📈 你成功在低位买入 1,000 枚 TRX！', 'text-amber-300');
+        updateUI();
+      };
+
+      document.getElementById('btn-crypto-airdrop').onclick = () => {
+        AudioEngine.pump();
+        Game.sun.fame += 40;
+        termLog('🎁【全网空投】你向 100 万链上地址空投纪念币，全网公关声量爆炸！', 'text-purple-300');
+        updateUI();
+      };
+    }
+
+    // Item Usage
+    Game.useItem = function(itemId) {
+      const char = Game[Game.perspective];
+      const idx = char.inventory.findIndex(i => i.id === itemId);
+      if (idx === -1) return;
+
+      const item = char.inventory[idx];
+      if (itemId === 'tea') {
+        AudioEngine.heal();
+        char.hp = Math.min(char.maxHp, char.hp + 30);
+        char.ap = Math.min(char.maxAp, char.ap + 1);
+        termLog('🥤 你咕咚咕咚喝下一大口大瓶冰红茶，精神抖擞，灵感+1，HP+30！', 'text-emerald-300');
+      } else if (itemId === 'essay') {
+        termLog('📖 你翻开《新概念历届满分范文》，脑海中灵光乍现，下一击伤害提升！', 'text-amber-300');
+      }
+      
+      item.count--;
+      if (item.count <= 0) char.inventory.splice(idx, 1);
+      updateUI();
+    };
+
+    // Terminal Command Parser
+    document.getElementById('btn-term-send').onclick = execCommand;
+    document.getElementById('term-input').onkeydown = (e) => {
+      if (e.key === 'Enter') execCommand();
+    };
+
+    function execCommand() {
+      const input = document.getElementById('term-input');
+      const cmd = input.value.trim().toLowerCase();
+      input.value = '';
+      if (!cmd) return;
+
+      termLog(`> ${cmd}`, 'text-amber-400 font-bold');
+
+      if (cmd === 'look' || cmd === 'l') {
+        const room = MUD_MAP[Game[Game.perspective].location];
+        termLog(`【${room.name}】：${room.desc}`);
+      } else if (cmd === 'n' || cmd === 'north') {
+        const room = MUD_MAP[Game[Game.perspective].location];
+        if (room.exits && room.exits.north) moveToRoom(room.exits.north);
+        else termLog('北面是一堵高墙，无法通行。', 'text-slate-500');
+      } else if (cmd === 's' || cmd === 'south') {
+        const room = MUD_MAP[Game[Game.perspective].location];
+        if (room.exits && room.exits.south) moveToRoom(room.exits.south);
+        else termLog('南面无法通行。', 'text-slate-500');
+      } else if (cmd === 'e' || cmd === 'east') {
+        const room = MUD_MAP[Game[Game.perspective].location];
+        if (room.exits && room.exits.east) moveToRoom(room.exits.east);
+        else termLog('东面无法通行。', 'text-slate-500');
+      } else if (cmd === 'w' || cmd === 'west') {
+        const room = MUD_MAP[Game[Game.perspective].location];
+        if (room.exits && room.exits.west) moveToRoom(room.exits.west);
+        else termLog('西面无法通行。', 'text-slate-500');
+      } else if (cmd.startsWith('attack') || cmd.startsWith('fight')) {
+        const room = MUD_MAP[Game[Game.perspective].location];
+        const target = room.npcs && room.npcs.find(n => n.role === 'Boss' || n.role === '敌对');
+        if (target) handleNpcAction(target.action);
+        else termLog('当前场景没有可对决的目标。', 'text-slate-500');
+      } else if (cmd === 'help') {
+        termLog('可用指令: look, north(n), south(s), east(e), west(w), attack, help');
+      } else {
+        termLog(`未知指令: ${cmd}。输入 'help' 查看常用指令。`, 'text-slate-500');
+      }
+    }
+
+    // Switch Perspectives
+    document.getElementById('btn-switch-sun').onclick = () => {
+      Game.perspective = 'sun';
+      document.getElementById('btn-switch-sun').className = 'px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-black flex items-center gap-1 transition';
+      document.getElementById('btn-switch-jing').className = 'px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 transition';
+      termLog('🔄 切换至【孙宇晨线】：惠州一中少年逆袭中...', 'text-amber-400');
+      updateUI();
+    };
+
+    document.getElementById('btn-switch-jing').onclick = () => {
+      Game.perspective = 'jing';
+      document.getElementById('btn-switch-jing').className = 'px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white flex items-center gap-1 transition';
+      document.getElementById('btn-switch-sun').className = 'px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 transition';
+      termLog('🔄 切换至【景甜线】：北京电影学院 & 好莱坞全明星征途中...', 'text-rose-400');
+      updateUI();
+    };
+
+    // Look button
+    document.getElementById('btn-nav-look').onclick = () => {
+      const room = MUD_MAP[Game[Game.perspective].location];
+      termLog(`【${room.name}】：${room.desc}`, 'text-amber-300');
+    };
+
+    // Boot Game
     window.onload = () => {
-      addLog('游戏开局。惠州一中少年孙宇晨，面对充满无限可能的世界。');
       updateUI();
     };
   </script>
