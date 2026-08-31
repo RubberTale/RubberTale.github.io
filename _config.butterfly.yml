@@ -33,6 +33,8 @@ menu:
   降雨量 || fas fa-cloud-showers-heavy:
     景洪: https://www.nmc.cn/publish/forecast/AYN/jinghong.html || fas fa-cloud-rain
     勐腊: https://www.nmc.cn/publish/forecast/AYN/zuola.html || fas fa-cloud-rain
+    海南白沙: https://www.nmc.cn/publish/forecast/AHI/baisha.html || fas fa-cloud-rain
+    海南儋州: https://www.nmc.cn/publish/forecast/AHI/zuozhou.html || fas fa-cloud-rain
   # ...其他你不需要的可以在前面加 # 注释掉
 
 # --------------------------------------
