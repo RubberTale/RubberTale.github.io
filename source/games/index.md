@@ -78,6 +78,15 @@ aside: false
         <div class="flink-item-desc">你的AI水货无聊透顶！100%纯人类扮演驱动的实时AI对话与画画联机对战。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/tetris/" title="赛博俄罗斯方块 · Cyber Tetris" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:grid.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="赛博俄罗斯方块">
+        </div>
+        <div class="flink-item-name">赛博俄罗斯方块</div>
+        <div class="flink-item-desc">经典赛博朋克风俄罗斯方块，支持Hold暂存、幽灵投影、行消除粒子特效与音效。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
