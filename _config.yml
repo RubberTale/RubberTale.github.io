@@ -40,6 +40,7 @@ skip_render:
   - "games/billiards/**"
   - "games/deepslop/**"
   - "games/tetris/**"
+  - "games/sun-jingtian-life-sim/**"
   - "tools/*/**"
   - "rubber/**"
   - "roman/**"
