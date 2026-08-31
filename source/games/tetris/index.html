@@ -917,10 +917,15 @@
       }
 
       initEvents() {
-        this.btnStart.addEventListener('click', () => {
+        const handleStart = (e) => {
+          if (e) e.stopPropagation();
+          sound.init();
           if (this.isPaused) this.togglePause();
           else this.start();
-        });
+        };
+
+        this.btnStart.addEventListener('click', handleStart);
+        this.modal.addEventListener('click', handleStart);
 
         document.getElementById('btn-pause').addEventListener('click', () => this.togglePause());
         document.getElementById('btn-restart').addEventListener('click', () => this.start());
@@ -960,6 +965,11 @@
         window.addEventListener('keydown', e => {
           if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
             e.preventDefault();
+          }
+
+          if (!this.isPlaying && (e.code === 'Space' || e.code === 'Enter')) {
+            handleStart();
+            return;
           }
 
           if (e.code === 'KeyF') {

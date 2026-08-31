@@ -39,6 +39,7 @@ skip_render:
   - "games/reverse-app/**"
   - "games/billiards/**"
   - "games/deepslop/**"
+  - "games/tetris/**"
   - "tools/*/**"
   - "rubber/**"
   - "roman/**"
