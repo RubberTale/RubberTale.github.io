@@ -341,6 +341,7 @@
         <h1 class="title">CYBER TETRIS</h1>
       </div>
       <div class="header-btns">
+        <button class="btn-icon" id="btn-fullscreen" title="全屏 (F)">⛶</button>
         <button class="btn-icon" id="btn-sound" title="音效开/关">🔊</button>
         <button class="btn-icon" id="btn-pause" title="暂停 (P)">⏸️</button>
         <button class="btn-icon" id="btn-restart" title="重新开始 (R)">🔄</button>
@@ -402,6 +403,7 @@
       <span><kbd>Space</kbd> 瞬间落地</span>
       <span><kbd>C</kbd> 暂存</span>
       <span><kbd>P</kbd> 暂停</span>
+      <span><kbd>F</kbd> 全屏</span>
     </div>
 
     <!-- 移动端虚拟按键 -->
@@ -990,6 +992,34 @@
 
         document.getElementById('btn-pause').addEventListener('click', () => this.togglePause());
         document.getElementById('btn-restart').addEventListener('click', () => this.start());
+        const btnFullscreen = document.getElementById('btn-fullscreen');
+        const toggleFullscreen = () => {
+          if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) elem.requestFullscreen();
+            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+            else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
+            else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+          } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+            else if (document.msExitFullscreen) document.msExitFullscreen();
+          }
+        };
+
+        btnFullscreen.addEventListener('click', toggleFullscreen);
+
+        const updateFullscreenBtn = () => {
+          const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+          btnFullscreen.textContent = isFull ? '🗗' : '⛶';
+          btnFullscreen.title = isFull ? '退出全屏 (F / Esc)' : '全屏 (F)';
+        };
+
+        document.addEventListener('fullscreenchange', updateFullscreenBtn);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
+        document.addEventListener('mozfullscreenchange', updateFullscreenBtn);
+        document.addEventListener('MSFullscreenChange', updateFullscreenBtn);
 
         const btnSound = document.getElementById('btn-sound');
         btnSound.addEventListener('click', () => {
@@ -1001,6 +1031,11 @@
         window.addEventListener('keydown', e => {
           if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
             e.preventDefault();
+          }
+
+          if (e.code === 'KeyF') {
+            toggleFullscreen();
+            return;
           }
 
           if (e.code === 'KeyP' || e.code === 'Escape') {
