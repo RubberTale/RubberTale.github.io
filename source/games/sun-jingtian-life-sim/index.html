@@ -150,6 +150,65 @@
     </div>
   </div>
 
+  <!-- DICE ROLL MODAL (🎲 命运大掷骰与概率检定) -->
+  <div id="modal-dice-roll" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-slate-900 border-2 border-amber-500/70 max-w-lg w-full rounded-3xl p-5 sm:p-7 shadow-2xl space-y-4 text-center relative animate-in fade-in zoom-in duration-300">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+          <span>🎲 时代命运大检定 (D100 PROBABILITY ROLL)</span>
+        </span>
+        <button id="btn-close-dice-modal" class="text-slate-400 hover:text-slate-200 text-xs font-bold px-2 py-1">✕</button>
+      </div>
+
+      <div>
+        <h3 id="dice-roll-title" class="text-base sm:text-lg font-black text-slate-100">
+          【新概念全国评审与自招降分】
+        </h3>
+        <p id="dice-roll-desc" class="text-xs text-slate-400 mt-1 leading-relaxed">
+          命运的齿轮在此转动。你的文字将接受《萌芽》杂志与北大招生组的终极审判。
+        </p>
+      </div>
+
+      <!-- Probability Modifier Breakdown Card -->
+      <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800 text-left text-xs space-y-1.5 font-sans">
+        <div class="flex justify-between text-slate-300 font-bold">
+          <span>基础期望概率:</span>
+          <span id="dice-base-rate" class="text-amber-400 font-mono">55%</span>
+        </div>
+        <div id="dice-modifiers-list" class="text-[11px] text-slate-400 space-y-1 border-t border-slate-800/80 pt-1.5">
+          <!-- Dynamically populated -->
+        </div>
+        <div class="flex justify-between items-center text-xs font-black border-t border-slate-800/80 pt-1.5 text-cyan-300">
+          <span>🎯 综合成功阈值:</span>
+          <span id="dice-total-rate" class="font-mono text-sm text-yellow-400">85% 胜算</span>
+        </div>
+      </div>
+
+      <!-- Animated Rolling Dice Display -->
+      <div class="py-2 flex flex-col items-center justify-center">
+        <div id="dice-cube-display" class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-amber-500 via-rose-500 to-cyan-500 p-1 flex items-center justify-center shadow-xl shadow-amber-500/20">
+          <div class="w-full h-full bg-slate-950 rounded-2xl flex flex-col items-center justify-center font-mono">
+            <span id="dice-number" class="text-3xl font-black text-amber-300">??</span>
+            <span id="dice-d100-label" class="text-[9px] text-slate-500 font-term">D100 ROLL</span>
+          </div>
+        </div>
+        <div id="dice-outcome-badge" class="mt-3 text-xs font-black hidden">
+          <!-- Outcome text -->
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-2 pt-1">
+        <button id="btn-roll-dice-action" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-black font-black text-xs hover:opacity-90 transition shadow-lg flex items-center justify-center gap-1.5">
+          🎲 掷出命运之骰！(决定人生走向)
+        </button>
+        <button id="btn-skip-to-manual-choice" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition border border-slate-700">
+          ⚖️ 手动自选分支
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- FATE CHOICE MODAL (时代命运十字路口) -->
   <div id="modal-fate-choice" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-slate-900 border-2 border-amber-500/60 max-w-xl w-full rounded-3xl p-5 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto relative animate-in fade-in zoom-in duration-300">
@@ -1193,7 +1252,150 @@
       AudioEngine.play(300, 'sine', 0.05);
 
       termLog(`> [移动] 你来到了【${room.name}】。`, 'text-cyan-300 font-bold');
+      
+      // 15% 几率触发探索随机奇遇
+      if (Math.random() < 0.15) {
+        triggerRandomEncounter();
+      }
+
       updateUI();
+    }
+
+    function triggerRandomEncounter() {
+      const p = Game.perspective;
+      const char = Game[p];
+      const roll = Math.floor(Math.random() * 4);
+      if (roll === 0) {
+        AudioEngine.heal();
+        char.money += 50;
+        termLog('✨【街头奇遇】你在路边拾获一张加密货币早期纪念兑换券！现金 +¥50！', 'text-yellow-300 font-bold');
+      } else if (roll === 1) {
+        AudioEngine.pump();
+        char.fame += 15;
+        termLog('✨【突发热搜】关于你的最新路透八卦冲上同城热搜！名气 +15！', 'text-cyan-300 font-bold');
+      } else if (roll === 2) {
+        AudioEngine.heal();
+        char.ap = Math.min(char.maxAp, char.ap + 1);
+        termLog('✨【灵光乍现】路过街角书摊翻阅先锋刊物，思维极度活跃！灵感 +1！', 'text-emerald-300 font-bold');
+      } else if (roll === 3) {
+        if (Game.cryptoHistory) {
+          const drift = (Math.random() - 0.4) * 0.02;
+          Game.cryptoPrice = Math.max(0.01, +(Game.cryptoPrice + drift).toFixed(3));
+          termLog(`📊【市场异动】二级市场代币行情突发剧烈异动！当前单价: $${Game.cryptoPrice}`, 'text-amber-400');
+        }
+      }
+    }
+
+    // 🎲 时代大掷骰与概率检定引擎 (Fate Dice Roll & Stochastic Engine)
+    function openFateDiceModal(config) {
+      AudioEngine.crit();
+      const modal = document.getElementById('modal-dice-roll');
+      document.getElementById('dice-roll-title').innerText = config.title;
+      document.getElementById('dice-roll-desc').innerText = config.desc;
+      document.getElementById('dice-base-rate').innerText = `${config.baseRate}%`;
+      
+      const modBox = document.getElementById('dice-modifiers-list');
+      modBox.innerHTML = '';
+      let totalBonus = 0;
+
+      if (config.modifiers && config.modifiers.length > 0) {
+        config.modifiers.forEach(m => {
+          totalBonus += m.val;
+          const row = document.createElement('div');
+          row.className = 'flex justify-between items-center';
+          row.innerHTML = `
+            <span class="text-slate-300">✦ ${m.label}</span>
+            <span class="${m.val >= 0 ? 'text-emerald-400' : 'text-red-400'} font-mono font-bold">${m.val >= 0 ? '+' : ''}${m.val}%</span>
+          `;
+          modBox.appendChild(row);
+        });
+      } else {
+        modBox.innerHTML = '<div class="text-slate-500">无额外道具或声望增益</div>';
+      }
+
+      const totalWinRate = Math.max(5, Math.min(95, config.baseRate + totalBonus));
+      document.getElementById('dice-total-rate').innerText = `${totalWinRate}% 胜算`;
+
+      const numEl = document.getElementById('dice-number');
+      const badgeEl = document.getElementById('dice-outcome-badge');
+      const rollBtn = document.getElementById('btn-roll-dice-action');
+      const manualBtn = document.getElementById('btn-skip-to-manual-choice');
+
+      numEl.innerText = '??';
+      badgeEl.className = 'mt-3 text-xs font-black hidden';
+      badgeEl.innerText = '';
+      rollBtn.disabled = false;
+      manualBtn.disabled = false;
+      rollBtn.className = 'flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-black font-black text-xs hover:opacity-90 transition shadow-lg flex items-center justify-center gap-1.5';
+
+      document.getElementById('btn-close-dice-modal').onclick = () => {
+        modal.classList.add('hidden');
+      };
+
+      manualBtn.onclick = () => {
+        modal.classList.add('hidden');
+        if (config.manualChoiceNode) openFateModal(config.manualChoiceNode);
+      };
+
+      rollBtn.onclick = () => {
+        rollBtn.disabled = true;
+        manualBtn.disabled = true;
+        rollBtn.className = 'flex-1 py-3 rounded-xl bg-slate-800 text-slate-500 font-bold text-xs cursor-not-allowed';
+
+        let ticks = 0;
+        const rollInterval = setInterval(() => {
+          ticks++;
+          const tempNum = Math.floor(Math.random() * 100) + 1;
+          numEl.innerText = tempNum < 10 ? `0${tempNum}` : tempNum;
+          AudioEngine.play(700 + Math.random() * 300, 'square', 0.03, 0.04);
+
+          if (ticks >= 20) {
+            clearInterval(rollInterval);
+            const finalRoll = Math.floor(Math.random() * 100) + 1;
+            numEl.innerText = finalRoll < 10 ? `0${finalRoll}` : finalRoll;
+
+            // Determine outcome
+            let outcome = null;
+            if (finalRoll <= totalWinRate) {
+              if (finalRoll >= 80 || (totalWinRate >= 75 && finalRoll >= 60)) {
+                outcome = config.outcomes.criticalSuccess || config.outcomes.success;
+                badgeEl.innerText = '🎯 卓越成功！(CRITICAL SUCCESS)';
+                badgeEl.className = 'mt-3 text-xs font-black text-yellow-300 animate-bounce';
+                AudioEngine.crit();
+                confetti({ particleCount: 150, spread: 90 });
+              } else {
+                outcome = config.outcomes.success;
+                badgeEl.innerText = '⚡ 检定通过！(SUCCESS)';
+                badgeEl.className = 'mt-3 text-xs font-black text-emerald-400';
+                AudioEngine.pump();
+              }
+            } else {
+              if (finalRoll - totalWinRate > 35 || finalRoll >= 92) {
+                outcome = config.outcomes.criticalFumble || config.outcomes.failure;
+                badgeEl.innerText = '💀 厄运大失败！(CRITICAL FUMBLE)';
+                badgeEl.className = 'mt-3 text-xs font-black text-red-500 animate-pulse';
+                AudioEngine.hit();
+                triggerScreenShake();
+              } else {
+                outcome = config.outcomes.failure || config.outcomes.success;
+                badgeEl.innerText = '💔 检定失利！(FAILURE)';
+                badgeEl.className = 'mt-3 text-xs font-black text-orange-400';
+                AudioEngine.hit();
+              }
+            }
+
+            badgeEl.classList.remove('hidden');
+            termLog(`🎲【时代命运大掷骰】点数: [${finalRoll}点] / 阈值: [${totalWinRate}%] ➡️ ${badgeEl.innerText}`, 'text-amber-300 font-bold');
+
+            setTimeout(() => {
+              modal.classList.add('hidden');
+              outcome.action();
+            }, 1600);
+          }
+        }, 50);
+      };
+
+      modal.classList.remove('hidden');
     }
 
     // 弹窗：时代命运十字路口 (Fate Choice Modal)
@@ -1397,6 +1599,152 @@
       if (window.lucide) window.lucide.createIcons();
     }
 
+    // 时代与分支转换辅助函数
+    function enterPkuEra() {
+      AudioEngine.crit();
+      confetti({ particleCount: 120, spread: 80 });
+      const char = Game.sun;
+      char.era = '2_pku';
+      char.year = 2007;
+      char.month = 9;
+      char.location = 'weiming_lake';
+      char.money += 2000;
+      char.fame += 50;
+      char.traits = ['北大公知领袖', '南周实习记者', '锐意狂徒'];
+      char.quest = {
+        id: 2,
+        title: '【第二时期】燕园风云与公知领袖',
+        desc: '在未名湖畔冥想获取《南周记者证》，去三角地发行《野草》并竞选学生会主席！',
+        progress: 20
+      };
+      termLog('🌟【场景切换】你斩获新概念一等奖，降分入读北京大学！开启【北京大学 · 燕园风云】新地图！', 'text-cyan-300 font-bold');
+      document.getElementById('crypto-ticker-box').classList.remove('hidden');
+      initCryptoTicker();
+      updateUI();
+    }
+
+    function enterTier3Era() {
+      AudioEngine.crit();
+      const char = Game.sun;
+      char.era = '2_tier3';
+      char.year = 2007;
+      char.month = 9;
+      char.location = 'tier3_library';
+      char.money += 500;
+      char.fame += 10;
+      char.traits = ['三本逆袭者', '华强北倒爷', '草根极客'];
+      char.quest = {
+        id: 2,
+        title: '【第二时期】珠海三本与华强北草根江湖',
+        desc: '在自习室狂刷高数考研，或在华强北倒卖显卡挖比特币，去天桥抉择晋级！',
+        progress: 20
+      };
+      termLog('🏢【场景切换】高考失利，你来到珠海三本独立学院，开启【珠海三本与华强北】草根奋斗地图！', 'text-amber-300 font-bold');
+      updateUI();
+    }
+
+    function enterScamEra() {
+      AudioEngine.hit();
+      triggerScreenShake();
+      const char = Game.sun;
+      char.era = '2_scam';
+      char.year = 2017;
+      char.month = 5;
+      char.location = 'rental_room';
+      char.money = 1;
+      char.fame = 5;
+      char.traits = ['加杠杆赌徒', '被割韭菜', '天台边缘人'];
+      char.quest = {
+        id: 2,
+        title: '【第二时期】借贷炒币归零与天台绝境',
+        desc: '本金 10 万在 6 分钟内归零至 ¥1.45，前往握手楼天台，在绝望中寻找翻盘生机！',
+        progress: 30
+      };
+      termLog('💀【暴跌归零】你借网贷 10 万梭哈空气币，庄家 6 分钟拔网线跑路！账户归零！开启【被割归零与天台】地图！', 'text-red-500 font-black');
+      updateUI();
+    }
+
+    function enterTronEra() {
+      AudioEngine.crit();
+      confetti({ particleCount: 150, spread: 80 });
+      const char = Game.sun;
+      char.era = '3_tron';
+      char.year = 2010;
+      char.month = 9;
+      char.location = 'wharton_hall';
+      char.money += 50000;
+      char.fame += 100;
+      char.traits = ['波场创始人', '注意力炼金术士', '马耳他外交使节'];
+      char.quest = {
+        id: 3,
+        title: '【第三时期】宾大沃顿与波场加密帝国',
+        desc: '在费城矿池挖比特币，重仓特斯拉股票，创立波场并在 2025 苏富比吃香蕉会师！',
+        progress: 40
+      };
+      termLog('🗽【场景切换】你乘坐跨洋航班降落费城，踏入常春藤宾大沃顿商学院！', 'text-cyan-300 font-bold');
+      updateUI();
+    }
+
+    function enterJingBlockbusterEra() {
+      AudioEngine.crit();
+      confetti({ particleCount: 120, spread: 80 });
+      const char = Game.jing;
+      char.era = '2_blockbuster';
+      char.year = 2011;
+      char.month = 4;
+      char.location = 'zhanguo_set';
+      char.money += 100000;
+      char.fame += 200;
+      char.traits = ['大女主田夕', '好莱坞怪兽宇宙', '神秘富贵花'];
+      char.quest = {
+        id: 2,
+        title: '【第二时期】华语全明星与好莱坞巨制',
+        desc: '与孙红雷飙戏、统帅虎军大战饕餮，前往洛杉矶好莱坞红毯做出新阶段抉择！',
+        progress: 30
+      };
+      termLog('🎬【场景切换】你空降《战国》豪华剧组！开启【全明星大片与好莱坞】新地图！', 'text-rose-300 font-bold');
+      updateUI();
+    }
+
+    function enterJingDanceEra() {
+      AudioEngine.heal();
+      const char = Game.jing;
+      char.era = '2_dance';
+      char.year = 2011;
+      char.month = 4;
+      char.location = 'dance_theatre';
+      char.fame += 100;
+      char.traits = ['国家歌舞剧院首席', '只此青绿领舞', '东方艺术大家'];
+      char.quest = {
+        id: 2,
+        title: '【第二时期】国家歌舞剧院首席舞神',
+        desc: '在排练厅打磨古典舞剧《李白》，前往央视春晚演播厅领衔《只此青绿》！',
+        progress: 40
+      };
+      termLog('💃【场景切换】你考入中国歌剧舞剧院成为首席舞者！开启【东方舞神】地图！', 'text-emerald-300 font-bold');
+      updateUI();
+    }
+
+    function enterJingSitengEra() {
+      AudioEngine.crit();
+      confetti({ particleCount: 150, spread: 80 });
+      const char = Game.jing;
+      char.era = '3_siteng';
+      char.year = 2021;
+      char.month = 3;
+      char.location = 'siteng_yunnan';
+      char.fame += 300;
+      char.traits = ['绝美司藤', '旗袍女王', '国民富贵花'];
+      char.quest = {
+        id: 3,
+        title: '【第三时期】绝美司藤与双星汇流',
+        desc: '在云南释放女王气场，登顶顶级时尚封面，在 2025 苏富比与孙宇晨会师！',
+        progress: 50
+      };
+      termLog('🌿【场景切换】你换上云南实景旗袍，《司藤》开播全网大爆！开启【绝美司藤】新地图！', 'text-emerald-300 font-bold');
+      updateUI();
+    }
+
     function handleNpcAction(act) {
       const p = Game.perspective;
       const char = Game[p];
@@ -1427,188 +1775,272 @@
         termLog('班长李小华：“这次新概念作文评委特别喜欢黑色幽默和反叛文风，去邮局寄稿前务必搜查好初稿！”', 'text-cyan-300');
       } 
       
-      // ⚡ 孙宇晨 时期 1 命运大抉择 (新概念 / 三本 / 炒币被割)
+      // ⚡ 孙宇晨 命运转折点（支持 🎲 命运大掷骰概率检定 与 ⚖️ 手动自选双模式）
       else if (act === 'open_sun_era1_fate') {
-        openFateModal({
-          title: '惠州高中升学抉择：水流在此分叉',
-          subtitle: '你的这一个决定，将彻底改变你接下来的人生轨迹与世界地图！',
-          choices: [
-            {
-              title: '📮【投递新概念一等奖】自招破格进北大 (历史主线)',
-              tag: '推荐 · 走向燕园',
-              desc: '将反叛小作文寄往上海《萌芽》杂志社，斩获新概念一等奖，高考降分 20 分压线考入北京大学！',
-              action: () => {
-                AudioEngine.crit();
-                confetti({ particleCount: 120, spread: 80 });
-                char.era = '2_pku';
-                char.year = 2007;
-                char.month = 9;
-                char.location = 'weiming_lake';
-                char.money += 2000;
-                char.fame += 50;
-                char.traits = ['北大公知领袖', '南周实习记者', '锐意狂徒'];
-                char.quest = {
-                  id: 2,
-                  title: '【第二时期】燕园风云与公知领袖',
-                  desc: '在未名湖畔冥想获取《南周记者证》，去三角地发行《野草》并竞选学生会主席！',
-                  progress: 20
-                };
-                termLog('🌟【场景切换】你斩获新概念一等奖，降分入读北京大学！开启【北京大学 · 燕园风云】新地图！', 'text-cyan-300 font-bold');
-                document.getElementById('crypto-ticker-box').classList.remove('hidden');
-                initCryptoTicker();
-                updateUI();
+        const hasEssay = char.inventory.some(i => i.id === 'essay');
+        const modifiers = [];
+        if (hasEssay) modifiers.push({ label: '手握《新概念初稿与范文》', val: 25 });
+        if (char.fame >= 30) modifiers.push({ label: '惠州一中声名远扬', val: 15 });
+        if (char.traits.includes('韩寒文风模仿者')) modifiers.push({ label: '先锋叛逆文风特质', val: 10 });
+
+        openFateDiceModal({
+          title: '【新概念全国评审与自招降分检定】',
+          desc: '《萌芽》杂志社与北大自招评审组正在审阅你的手稿。点数将决定你是破格保送北大，还是滑落三本或泥潭！',
+          baseRate: 45,
+          modifiers: modifiers,
+          manualChoiceNode: {
+            title: '惠州高中升学抉择：水流在此分叉',
+            subtitle: '手动自选接下来的人生轨迹与世界地图：',
+            choices: [
+              {
+                title: '📮【投递新概念一等奖】自招破格进北大 (历史主线)',
+                tag: '走向燕园',
+                desc: '斩获新概念一等奖，高考降分 20 分压线考入北京大学！',
+                action: () => enterPkuEra()
+              },
+              {
+                title: '📖【高考失利沦为三本】珠海独立学院与华强北草根',
+                tag: '草根逆袭线',
+                desc: '高考仅得 420 分沦落三本，在自习室疯狂考研或在华强北倒卖芯片！',
+                action: () => enterTier3Era()
+              },
+              {
+                title: '💸【借贷加杠杆炒空气币】深陷底层被割韭菜 (韭菜线)',
+                tag: '终极韭菜反噬线',
+                desc: '借网贷 10 万元全仓梭哈空气币，遭遇庄家断头铡 Rug Pull 归零！',
+                action: () => enterScamEra()
               }
-            },
-            {
-              title: '📖【高考失利沦为三本】珠海独立学院与华强北草根',
-              tag: '草根逆袭线',
-              desc: '新概念被刷，高考仅得 420 分，沦落到珠海独立学院三本。在自习室疯狂考研或在华强北倒卖芯片！',
-              action: () => {
-                AudioEngine.crit();
-                char.era = '2_tier3';
-                char.year = 2007;
-                char.month = 9;
-                char.location = 'tier3_library';
-                char.money += 500;
-                char.fame += 10;
-                char.traits = ['三本逆袭者', '华强北倒爷', '草根极客'];
-                char.quest = {
-                  id: 2,
-                  title: '【第二时期】珠海三本与华强北草根江湖',
-                  desc: '在自习室狂刷高数考研，或在华强北倒卖显卡挖比特币，去天桥抉择晋级！',
-                  progress: 20
-                };
-                termLog('🏢【场景切换】高考失利，你来到珠海三本独立学院，开启【珠海三本与华强北】草根奋斗地图！', 'text-amber-300 font-bold');
-                updateUI();
-              }
-            },
-            {
-              title: '💸【借贷加杠杆炒空气币】深陷底层被割韭菜 (全新支线!)',
-              tag: '终极韭菜反噬线',
-              desc: '妄图一夜暴富，刷爆信用卡借网贷 10 万元全仓梭哈空气币，遭遇庄家断头铡 Rug Pull 归零！',
-              action: () => {
-                AudioEngine.hit();
-                triggerScreenShake();
-                char.era = '2_scam';
-                char.year = 2017;
-                char.month = 5;
-                char.location = 'rental_room';
-                char.money = 1;
-                char.fame = 5;
-                char.traits = ['加杠杆赌徒', '被割韭菜', '天台边缘人'];
-                char.quest = {
-                  id: 2,
-                  title: '【第二时期】借贷炒币归零与天台绝境',
-                  desc: '本金 10 万在 6 分钟内归零至 ¥1.45，前往握手楼天台，在绝望中寻找翻盘生机！',
-                  progress: 30
-                };
-                termLog('💀【暴跌归零】你借网贷 10 万梭哈空气币，庄家 6 分钟拔网线跑路！账户归零！开启【被割归零与天台】地图！', 'text-red-500 font-black');
-                updateUI();
-              }
-            }
-          ]
+            ]
+          },
+          outcomes: {
+            criticalSuccess: { action: () => enterPkuEra() },
+            success: { action: () => enterPkuEra() },
+            failure: { action: () => enterTier3Era() },
+            criticalFumble: { action: () => enterScamEra() }
+          }
         });
       }
 
       // ⚡ 孙宇晨 时期 2A 北大燕园命运抉择
       else if (act === 'open_sun_era2_pku_fate') {
-        openFateModal({
-          title: '北大毕业走向：三条截然不同的人生大路',
-          subtitle: '是投身学术考据，还是硬刚体制，亦或是赴美常春藤炒币？',
-          choices: [
-            {
-              title: '📜【阎门考据 · 史学大师】哈佛芝大博士长聘教授',
-              tag: '达成史学泰斗结局',
-              desc: '毕业论文震撼学界，获哈佛燕京学社奖学金，留校任北大历史系长聘教授，著述等身。',
-              action: () => triggerEnding('sun_scholar')
-            },
-            {
-              title: '⚔️【硬刚学生会落败】南周特稿与民间良心',
-              tag: '达成调查记者结局',
-              desc: '不主动退选造势，在大辩论中硬刚官僚体制被排挤，毕业后成为《南方周末》首席特稿记者。',
-              action: () => triggerEnding('sun_investigator')
-            },
-            {
-              title: '💎【常春藤沃顿商学院】创立波场 TRON (历史主线)',
-              tag: '进入时期3 · 币圈教父',
-              desc: '自封青年领袖，赴美沃顿商学院，狂炒比特币与特斯拉，回国创立波场 TRON！',
-              action: () => {
-                AudioEngine.crit();
-                confetti({ particleCount: 150, spread: 80 });
-                char.era = '3_tron';
-                char.year = 2010;
-                char.month = 9;
-                char.location = 'wharton_hall';
-                char.money += 50000;
-                char.fame += 100;
-                char.traits = ['波场创始人', '注意力炼金术士', '马耳他外交使节'];
-                char.quest = {
-                  id: 3,
-                  title: '【第三时期】宾大沃顿与波场加密帝国',
-                  desc: '在费城矿池挖比特币，重仓特斯拉股票，创立波场并在 2025 苏富比吃香蕉会师！',
-                  progress: 40
-                };
-                termLog('🗽【场景切换】你乘坐跨洋航班降落费城，踏入常春藤宾大沃顿商学院！', 'text-cyan-300 font-bold');
-                updateUI();
+        const hasPressPass = char.inventory.some(i => i.id === 'press_pass');
+        const modifiers = [];
+        if (hasPressPass) modifiers.push({ label: '持有《南周实习记者证》', val: 20 });
+        if (char.traits.includes('阎门考据传人')) modifiers.push({ label: '魏晋史料文献功底深厚', val: 20 });
+        if (char.fame >= 80) modifiers.push({ label: '未名湖风云人物声浪', val: 15 });
+
+        openFateDiceModal({
+          title: '【百周年大讲堂终极大辩论与毕业分流】',
+          desc: '全校师生起立围观，你的辩才与气运将决定毕业去向：是创立波场赴美，还是成为史学泰斗或调查记者？',
+          baseRate: 45,
+          modifiers: modifiers,
+          manualChoiceNode: {
+            title: '北大毕业走向：三条截然不同的人生大路',
+            subtitle: '手动自选燕园毕业之后的归宿：',
+            choices: [
+              {
+                title: '💎【常春藤沃顿商学院】创立波场 TRON (历史主线)',
+                tag: '币圈教父',
+                desc: '赴美沃顿商学院，狂炒比特币与特斯拉，回国创立波场 TRON！',
+                action: () => enterTronEra()
+              },
+              {
+                title: '📜【阎门考据 · 史学大师】哈佛芝大博士长聘教授',
+                tag: '史学泰斗',
+                desc: '获哈佛燕京学社奖学金，留校任北大历史系长聘教授，著述等身。',
+                action: () => triggerEnding('sun_scholar')
+              },
+              {
+                title: '⚔️【硬刚学生会落败】南周特稿与民间良心',
+                tag: '调查记者',
+                desc: '在大辩论中硬刚官僚体制被排挤，毕业后成为《南方周末》首席特稿记者。',
+                action: () => triggerEnding('sun_investigator')
               }
-            }
-          ]
+            ]
+          },
+          outcomes: {
+            criticalSuccess: { action: () => enterTronEra() },
+            success: { action: () => triggerEnding('sun_scholar') },
+            failure: { action: () => triggerEnding('sun_investigator') },
+            criticalFumble: { action: () => triggerEnding('sun_investigator') }
+          }
         });
       }
 
       // ⚡ 孙宇晨 时期 2B 三本与华强北草根晋级抉择
       else if (act === 'open_sun_era2_tier3_fate') {
-        openFateModal({
-          title: '华强北天桥：草根逆袭的三种终局形态',
-          subtitle: '做题考研、显卡矿霸，还是微信自媒体流量之王？',
-          choices: [
-            {
-              title: '🏦【三本考研做题家】428分杀入五道口，成百亿公募掌门',
-              tag: '达成百亿私募结局',
-              desc: '考研初试全省第一，杀入清华五道口，凭借狼性成为陆家嘴明星基金经理。',
-              action: () => triggerEnding('sun_hedge_fund')
-            },
-            {
-              title: '⛏️【早期显卡矿霸】坐拥 20 万 BTC，成全球算力皇帝',
-              tag: '达成算力皇帝结局',
-              desc: '用 500 台显卡通宵挖矿，囤下 20 万枚早期比特币，隐居瑞士雪山掌控全网算力。',
-              action: () => triggerEnding('sun_mining_lord')
-            },
-            {
-              title: '📱【自媒体流量矩阵老祖】微信大号矩阵年入数亿敲钟',
-              tag: '达成流量矩阵结局',
-              desc: '打造 100 个百万粉丝公众号矩阵，成为华南自媒体第一股敲钟上市。',
-              action: () => triggerEnding('sun_media_traffic')
-            }
-          ]
+        const modifiers = [];
+        if (char.traits.includes('草根极客')) modifiers.push({ label: '华强北极客软硬件功底', val: 20 });
+        if (char.money >= 1000) modifiers.push({ label: '早期挖矿原始积累', val: 20 });
+
+        openFateDiceModal({
+          title: '【华强北天桥：草根逆袭大晋级检定】',
+          desc: '站在人流汹涌的天桥上，你的运势将决定你是考入五道口百亿基金、成为雪山矿霸还是自媒体老祖！',
+          baseRate: 40,
+          modifiers: modifiers,
+          manualChoiceNode: {
+            title: '华强北天桥：草根逆袭的三种终局形态',
+            subtitle: '手动自选草根晋级形态：',
+            choices: [
+              {
+                title: '🏦【三本考研做题家】428分杀入五道口，成百亿公募掌门',
+                tag: '百亿私募',
+                desc: '考研初试全省第一，杀入清华五道口，成长为陆家嘴明星基金经理。',
+                action: () => triggerEnding('sun_hedge_fund')
+              },
+              {
+                title: '⛏️【早期显卡矿霸】坐拥 20 万 BTC，成全球算力皇帝',
+                tag: '算力皇帝',
+                desc: '用 500 台显卡通宵挖矿，囤下 20 万枚早期比特币，隐居瑞士雪山。',
+                action: () => triggerEnding('sun_mining_lord')
+              },
+              {
+                title: '📱【自媒体流量矩阵老祖】微信大号矩阵年入数亿敲钟',
+                tag: '流量矩阵',
+                desc: '打造 100 个百万粉丝公众号矩阵，成为华南自媒体第一股敲钟上市。',
+                action: () => triggerEnding('sun_media_traffic')
+              }
+            ]
+          },
+          outcomes: {
+            criticalSuccess: { action: () => triggerEnding('sun_hedge_fund') },
+            success: { action: () => triggerEnding('sun_mining_lord') },
+            failure: { action: () => triggerEnding('sun_media_traffic') },
+            criticalFumble: { action: () => triggerEnding('sun_media_traffic') }
+          }
         });
       }
 
-      // ⚡ 孙宇晨 时期 2C 炒币被割天台反弹抉择 (NEW!)
+      // ⚡ 孙宇晨 时期 2C 炒币被割天台反弹抉择
       else if (act === 'open_sun_era2_scam_fate') {
-        openFateModal({
-          title: '天台绝境反弹：被割韭菜后的三种命运走向',
-          subtitle: '站在城中村握手楼天台，看着远方金融中心的霓虹灯，你如何打破心魔？',
-          choices: [
-            {
-              title: '🛡️【良知觉醒 · 反诈打假先锋】写万字血泪史救人无数',
-              tag: '达成民间反诈斗士结局',
-              desc: '痛定思痛写就《我是如何在6分钟内归零的》，轰动全网，受聘为国家反诈金融顾问。',
-              action: () => triggerEnding('sun_antifraud')
-            },
-            {
-              title: '🛵【彻底祛魅 · 泥土外卖作家】风雨送单连载外卖日记',
-              tag: '达成当代泥土作家结局',
-              desc: '穿上黄色骑手服送外卖还债，在街边摊写出《华强北外卖日记》，感动千万人。',
-              action: () => triggerEnding('sun_delivery_writer')
-            },
-            {
-              title: '😈【彻底黑化 · 成为收割世界的镰刀】远赴东南亚操盘杀猪盘',
-              tag: '达成暗黑离岸庄家结局',
-              desc: '“既然好人只能被割，那我就成为庄家！”远赴金三角化名代号 J 神操盘资金盘。',
-              action: () => triggerEnding('sun_dark_scythe')
-            }
-          ]
+        const modifiers = [];
+        if (char.traits.includes('天台边缘人')) modifiers.push({ label: '向死而生底层意志', val: 20 });
+
+        openFateDiceModal({
+          title: '【城中村天台：绝境心魔大检定】',
+          desc: '夜风呼啸，面对空冰红茶瓶与巨额负债，你的选择将决定你是成为反诈斗士、外卖作家还是黑化庄家！',
+          baseRate: 40,
+          modifiers: modifiers,
+          manualChoiceNode: {
+            title: '天台绝境反弹：被割韭菜后的三种命运走向',
+            subtitle: '手动自选天台反弹道路：',
+            choices: [
+              {
+                title: '🛡️【良知觉醒 · 反诈打假先锋】写万字血泪史救人无数',
+                tag: '民间反诈斗士',
+                desc: '写就《我是如何在6分钟内归零的》，受聘为国家反诈金融顾问。',
+                action: () => triggerEnding('sun_antifraud')
+              },
+              {
+                title: '🛵【彻底祛魅 · 泥土外卖作家】风雨送单连载外卖日记',
+                tag: '当代泥土作家',
+                desc: '穿黄色骑手服送外卖还债，在街边摊写出《华强北外卖日记》，感动千万人。',
+                action: () => triggerEnding('sun_delivery_writer')
+              },
+              {
+                title: '😈【彻底黑化 · 成为收割世界的镰刀】远赴东南亚操盘杀猪盘',
+                tag: '暗黑离岸庄家',
+                desc: '远赴金三角化名代号 J 神操盘资金盘，成为跨国金融暗网幕后黑手。',
+                action: () => triggerEnding('sun_dark_scythe')
+              }
+            ]
+          },
+          outcomes: {
+            criticalSuccess: { action: () => triggerEnding('sun_antifraud') },
+            success: { action: () => triggerEnding('sun_delivery_writer') },
+            failure: { action: () => triggerEnding('sun_delivery_writer') },
+            criticalFumble: { action: () => triggerEnding('sun_dark_scythe') }
+          }
+        });
+      }
+
+      // 👸 景甜 时期 1 命运大抉择
+      else if (act === 'open_jing_era1_fate') {
+        const hasPerfume = char.inventory.some(i => i.id === 'perfume');
+        const modifiers = [];
+        if (hasPerfume) modifiers.push({ label: '晚香玉香水高级气质加持', val: 25 });
+        if (char.fame >= 100) modifiers.push({ label: '北舞校花全网热度', val: 20 });
+
+        openFateDiceModal({
+          title: '【钓鱼台国宾馆：星途出道大检定】',
+          desc: '全国主流媒体聚光灯下，你的命数将决定是空降华语全明星巨制，还是坚守本心成为国家舞剧院首席！',
+          baseRate: 50,
+          modifiers: modifiers,
+          manualChoiceNode: {
+            title: '北舞毕业抉择：演艺圈空降大片 vs 国家舞剧院首席',
+            subtitle: '手动自选出道发展方向：',
+            choices: [
+              {
+                title: '👑【空降华语全明星大片】保送北电，众星拱月 (历史主线)',
+                tag: '大片怪兽宇宙',
+                desc: '空降 1.5 亿巨制《战国》、张艺谋《长城》与好莱坞《金刚：骷髅岛》！',
+                action: () => enterJingBlockbusterEra()
+              },
+              {
+                title: '💃【坚守古典舞本心】拒绝商业包装，考入国家歌舞剧院',
+                tag: '东方传世舞神',
+                desc: '谢绝演艺圈浮华炒作，苦练古典舞，领衔大型舞剧登上央视春晚！',
+                action: () => enterJingDanceEra()
+              }
+            ]
+          },
+          outcomes: {
+            criticalSuccess: { action: () => enterJingBlockbusterEra() },
+            success: { action: () => enterJingBlockbusterEra() },
+            failure: { action: () => enterJingDanceEra() },
+            criticalFumble: { action: () => enterJingDanceEra() }
+          }
+        });
+      }
+
+      // 👸 景甜 时期 2 命运大抉择
+      else if (act === 'open_jing_era2_fate') {
+        const hasGown = char.inventory.some(i => i.id === 'gown');
+        const modifiers = [];
+        if (hasGown) modifiers.push({ label: '高定红毯礼服御姐气场', val: 20 });
+        if (char.fame >= 250) modifiers.push({ label: '国际大片国际影响力', val: 20 });
+
+        openFateDiceModal({
+          title: '【洛杉矶好莱坞红毯：转型突破大检定】',
+          desc: '面对全网身世争议，你的演艺转型将走向何方：司藤大满贯、奥斯卡影后、带货大喜宝还是艺术收藏？',
+          baseRate: 45,
+          modifiers: modifiers,
+          manualChoiceNode: {
+            title: '好莱坞红毯分水岭：告别虚浮大片的四种归宿',
+            subtitle: '手动自选口碑逆袭方向：',
+            choices: [
+              {
+                title: '🌸【下凡接拍实景《司藤》】柳叶眉旗袍大爆 (历史主线)',
+                tag: '国民顶流大满贯',
+                desc: '换上云南纯手工旗袍，凭借绝美大女主司藤彻底逆转国民口碑！',
+                action: () => enterJingSitengEra()
+              },
+              {
+                title: '🎬【硬刚国际文艺片】打磨莎翁戏剧，冲刺奥斯卡影后',
+                tag: '奥斯卡影后',
+                desc: '常驻伦敦与纽约专攻全英文女性传记片，斩获奥斯卡最佳女主角。',
+                action: () => triggerEnding('jing_oscar')
+              },
+              {
+                title: '🍜【接地气下场带货】素颜洗脸吃螺蛳粉，成国民大喜宝',
+                tag: '带货女王',
+                desc: '彻底放开包袱与网友唠嗑，单场带货破 10 亿成国民宠粉大美女。',
+                action: () => triggerEnding('jing_livestream')
+              },
+              {
+                title: '🏰【息影执掌艺术基金会】深居瑞士古堡，成巴塞尔艺术教母',
+                tag: '艺术教母',
+                desc: '面对身世质疑息影退圈，成为苏富比与巴塞尔当代艺术终身名誉顾问。',
+                action: () => triggerEnding('jing_art_collector')
+              }
+            ]
+          },
+          outcomes: {
+            criticalSuccess: { action: () => enterJingSitengEra() },
+            success: { action: () => triggerEnding('jing_oscar') },
+            failure: { action: () => triggerEnding('jing_livestream') },
+            criticalFumble: { action: () => triggerEnding('jing_art_collector') }
+          }
         });
       }
 
