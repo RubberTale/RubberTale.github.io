@@ -177,9 +177,9 @@
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <div>
           <h2 class="text-base sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-rose-300 to-cyan-400 flex items-center gap-2">
-            🏆 名利场大结局图鉴 (<span id="gallery-unlocked-count">0</span> / 15 已解锁)
+            🏆 名利场大结局图鉴 (<span id="gallery-unlocked-count">0</span> / 16 已解锁)
           </h2>
-          <p class="text-[11px] text-slate-400">推演孙宇晨与景甜在不同平行时空下的 15 种截然不同的人生终局</p>
+          <p class="text-[11px] text-slate-400">推演孙宇晨与景甜在不同平行时空下的 16 种截然不同的人生终局</p>
         </div>
         <button id="btn-close-gallery" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
           ✕ 关闭
@@ -188,7 +188,7 @@
 
       <div class="space-y-3">
         <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5 border-b border-slate-800/80 pb-1">
-          <span>⚡ 孙宇晨 · 10 种命运走向</span>
+          <span>⚡ 孙宇晨 · 11 种命运走向</span>
         </div>
         <div id="gallery-sun-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
           <!-- Sun fates -->
@@ -254,7 +254,7 @@
           <span id="ip-visitor-pill" class="text-[10px] text-emerald-400 font-mono hidden ml-0.5">● 今日已记</span>
         </div>
         <button id="btn-open-gallery" class="px-2 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 font-bold border border-amber-500/40 flex items-center gap-1 transition">
-          🏆 图鉴 (<span id="unlocked-fates-header-count">0</span>/15)
+          🏆 图鉴 (<span id="unlocked-fates-header-count">0</span>/16)
         </button>
         <button id="btn-reopen-guide" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold border border-slate-700 flex items-center gap-1 transition">
           <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> 指南
@@ -630,6 +630,14 @@
         desc: '商业火箭将波场节点架设在火星轨道，意识上传为去中心化智能合约，全银河系收取 GAS 费！',
         epilogue: '2029年，SpaceX 重型火箭成功在火星赤道架设了第一座链上验证节点。你的肉身化作数字代码上传至全网，成为宇宙中第一个拥有自主意识的智能合约。凡太阳系内一切跨星球转账，皆须向你缴纳 0.001 TRX 燃料费！'
       },
+      sun_arrested: {
+        id: 'sun_arrested',
+        char: 'sun',
+        title: '⚖️【铁窗反思 · 币圈退潮踩缝纫机】',
+        tag: '高调回国 · 边控落网',
+        desc: '创立波场盛名之下高调包机回国开千人庆功会，在首都机场被经侦依法采取强制措施，在看守所踩缝纫机教狱友区块链。',
+        epilogue: '2019年深秋，北京首都国际机场 T3 航站楼。你刚走出私人包机廊桥，闪烁的蓝红警灯便映亮了夜幕。经侦警官上前出示证件：“孙总，请跟我们走一趟。”境内外关联账户与冷钱包被依法冻结。在看守所里，你换上了 9527 号黄马甲，每天踩完缝纫机后，在晚自习时间为同仓狱友深度解析区块链分布式账本。你的万字悔过书《注意力经济的泡沫与代价》被司法部列为全国金融防诈普法典型教材。'
+      },
 
       // 👸 景甜 5 种命运
       jing_siteng: {
@@ -907,9 +915,18 @@
           wall_street_club: {
             name: '华尔街对冲基金俱乐部',
             desc: '雪茄烟气弥漫，回国创立波场 TRON (TRX) 的发布会蓄势待发。',
-            exits: { north: 'wharton_hall' },
+            exits: { north: 'wharton_hall', east: 'airport_beijing' },
             npcs: [
-              { name: '红杉资本合伙人', role: '交互', action: 'found_tron_launch', label: '💎 创立波场 TRON！' }
+              { name: '红杉资本合伙人', role: '交互', action: 'found_tron_launch', label: '💎 创立波场 TRON！' },
+              { name: '国内庆功私人包机', role: '交互', action: 'fly_to_china_carnival', label: '🛩️ 高调包机回国庆功 (边控风险!)' }
+            ]
+          },
+          airport_beijing: {
+            name: '北京首都国际机场 · 边控廊桥',
+            desc: '红蓝警灯闪烁，多名经侦民警与边防警察早已在廊桥严阵以待。',
+            exits: { west: 'wall_street_club' },
+            npcs: [
+              { name: '经侦支队带队警官', role: 'Boss', action: 'finish_sun_arrested', label: '⚖️ 边控落网 / 接受调查 (铁窗结局)' }
             ]
           },
           sotheby_hall: {
@@ -1676,8 +1693,39 @@
         confetti({ particleCount: 150, spread: 100 });
         char.money += 50000000;
         char.fame += 500;
-        termLog('💎【历史性时刻】你回国创立波场 TRON！账面财富突破半亿！名利场狂潮爆发！', 'text-yellow-300 font-black');
+        termLog('💎【历史性时刻】你创立波场 TRON！账面财富突破半亿！名利场狂潮爆发！', 'text-yellow-300 font-black');
         updateUI();
+
+        openFateModal({
+          title: '波场爆发：下一步战略抉择',
+          subtitle: '面对国内监管风暴与海外注意力狂潮，你的选择将决定终局归宿！',
+          choices: [
+            {
+              title: '🍌【常驻海外 · 玩转全球注意力】巴菲特午餐与苏富比香蕉 (历史主线)',
+              tag: '注意力炼金皇帝',
+              desc: '常驻新加坡与旧金山，拍下巴菲特午餐，在 2025 苏富比吞下 620 万美元香蕉会师景甜！',
+              action: () => {
+                termLog('🌍 你选择常驻海外，开启全球注意力炼金术！前往苏富比展厅会师！', 'text-cyan-300 font-bold');
+              }
+            },
+            {
+              title: '🛩️【高调包机回国开千人庆功会】无视边控风险，机场落网 (回国被抓线)',
+              tag: '铁窗反思踩缝纫机',
+              desc: '自恃财富自由包机回国，在首都机场廊桥被经侦依法采取强制措施，在看守所踩缝纫机教狱友区块链。',
+              action: () => {
+                moveToRoom('airport_beijing');
+                termLog('🚨【警笛长鸣】你刚走出私人包机廊桥，闪烁的警灯便封锁了通道！经侦警官出示了协查证件！', 'text-red-500 font-black');
+              }
+            }
+          ]
+        });
+      } else if (act === 'fly_to_china_carnival') {
+        AudioEngine.hit();
+        triggerScreenShake();
+        moveToRoom('airport_beijing');
+        termLog('🚨【警笛长鸣】你刚走出私人包机廊桥，闪烁的警灯便封锁了通道！经侦警官出示了协查证件！', 'text-red-500 font-black');
+      } else if (act === 'finish_sun_arrested') {
+        triggerEnding('sun_arrested');
       } else if (act === 'finish_sun_banana') {
         triggerEnding('sun_banana');
       } else if (act === 'meet_jingtian_mars') {
