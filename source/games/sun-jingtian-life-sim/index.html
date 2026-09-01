@@ -3036,13 +3036,24 @@
         this.updateHeaderUI();
       },
 
-      logout() {
+      logout(silent = false) {
         localStorage.removeItem('mud_auth_token');
         localStorage.removeItem('mud_auth_user');
         localStorage.removeItem('mud_auth_phone');
         this.updateHeaderUI();
         this.renderModal();
-        termLog('🚪【云存档】已退出当前登录账号。', 'text-slate-400');
+        if (!silent) termLog('🚪【云存档】已退出当前登录账号。', 'text-slate-400');
+      },
+
+      handleAuthExpired() {
+        this.logout(true);
+        this.openModal('login');
+        const feedback = document.getElementById('auth-feedback-msg');
+        if (feedback) {
+          feedback.innerText = '登录态已失效或服务端密钥已升级，请重新输入密码登录！';
+          feedback.classList.remove('hidden');
+        }
+        termLog('⚠️【云存档】登录凭证已更新，请重新输入密码登录。', 'text-amber-400 font-bold');
       },
 
       updateHeaderUI() {
@@ -3203,6 +3214,10 @@
           const res = await fetch(`${CLOUD_API_BASE}/save/meta`, {
             headers: { 'Authorization': `Bearer ${this.getToken()}` }
           });
+          if (res.status === 401 || res.status === 403) {
+            this.handleAuthExpired();
+            return;
+          }
           const data = await res.json();
           if (data.hasSave) {
             statusEl.innerText = `${data.perspective === 'sun' ? '⚡ 孙宇晨' : '👸 景甜'} (时期: ${data.era}) · 解锁结局: ${data.unlockedEndingsCount}/16`;
@@ -3253,6 +3268,12 @@
             },
             body: JSON.stringify(payload)
           });
+
+          if (res.status === 401 || res.status === 403) {
+            this.handleAuthExpired();
+            return;
+          }
+
           const data = await res.json();
           if (res.ok) {
             AudioEngine.pump();
@@ -3307,6 +3328,12 @@
           const res = await fetch(`${CLOUD_API_BASE}/save/load`, {
             headers: { 'Authorization': `Bearer ${this.getToken()}` }
           });
+
+          if (res.status === 401 || res.status === 403) {
+            this.handleAuthExpired();
+            return;
+          }
+
           const data = await res.json();
           if (res.ok && data.gameState) {
             AudioEngine.crit();
