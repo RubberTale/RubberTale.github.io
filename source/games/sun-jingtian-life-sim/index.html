@@ -345,12 +345,17 @@
           </div>
         </div>
 
+        <!-- Real-time Feedback Banner inside Modal -->
+        <div id="auth-save-feedback-banner" class="hidden p-3 rounded-xl border text-xs font-bold text-center animate-in fade-in zoom-in duration-200"></div>
+
         <div class="grid grid-cols-2 gap-2 pt-1">
-          <button id="btn-do-cloud-save" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-black text-xs hover:opacity-90 transition shadow flex items-center justify-center gap-1.5">
-            💾 保存当前进度
+          <button id="btn-do-cloud-save" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-black text-xs hover:opacity-90 transition shadow flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
+            <i data-lucide="save" class="w-3.5 h-3.5"></i>
+            <span id="btn-save-text">💾 保存当前进度</span>
           </button>
-          <button id="btn-do-cloud-load" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-black text-xs transition border border-cyan-500/40 flex items-center justify-center gap-1.5">
-            📂 读取上次存档
+          <button id="btn-do-cloud-load" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-black text-xs transition border border-cyan-500/40 flex items-center justify-center gap-1.5 cursor-pointer active:scale-95">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            <span id="btn-load-text">📂 读取上次存档</span>
           </button>
         </div>
 
@@ -3218,6 +3223,13 @@
           return;
         }
 
+        const banner = document.getElementById('auth-save-feedback-banner');
+        const saveBtn = document.getElementById('btn-do-cloud-save');
+        const saveBtnText = document.getElementById('btn-save-text');
+
+        if (saveBtnText) saveBtnText.innerText = '⏳ 正在保存至云端...';
+        if (saveBtn) saveBtn.disabled = true;
+
         const char = Game[Game.perspective];
         const payload = {
           gameState: {
@@ -3244,16 +3256,36 @@
           const data = await res.json();
           if (res.ok) {
             AudioEngine.pump();
+            if (banner) {
+              banner.className = 'p-3 rounded-xl border border-emerald-500/60 bg-emerald-950/80 text-emerald-300 text-xs font-bold text-center block animate-in fade-in zoom-in duration-200';
+              banner.innerHTML = `✅ 云端存档保存成功！<br/><span class="text-[10px] font-mono text-emerald-400">已加密备份：${Game.perspective === 'sun' ? '⚡ 孙宇晨' : '👸 景甜'} (时期 ${char.era}) · ${new Date().toLocaleTimeString()}</span>`;
+            }
+            if (saveBtnText) saveBtnText.innerText = '✅ 保存成功！';
             if (!silent) {
               confetti({ particleCount: 80, spread: 60 });
               termLog(`💾【云端存档成功】当前进度已实时同步至服务器！(时期 ${char.era} · 角色: ${Game.perspective === 'sun' ? '孙宇晨' : '景甜'})`, 'text-emerald-300 font-bold');
               this.fetchSaveMeta();
             }
           } else {
+            if (banner) {
+              banner.className = 'p-3 rounded-xl border border-rose-500/60 bg-rose-950/80 text-rose-300 text-xs font-bold text-center block';
+              banner.innerText = `❌ 保存失败：${data.error || '服务器拒绝'}`;
+            }
+            if (saveBtnText) saveBtnText.innerText = '❌ 保存失败';
             termLog(`❌【云端存档失败】${data.error || '服务器拒绝'}`, 'text-red-400');
           }
         } catch (e) {
+          if (banner) {
+            banner.className = 'p-3 rounded-xl border border-rose-500/60 bg-rose-950/80 text-rose-300 text-xs font-bold text-center block';
+            banner.innerText = '❌ 保存失败：网络连接异常，无法连接云端服务器';
+          }
+          if (saveBtnText) saveBtnText.innerText = '❌ 保存失败';
           termLog('❌【云端存档失败】无法连接到云端服务器', 'text-red-400');
+        } finally {
+          if (saveBtn) saveBtn.disabled = false;
+          setTimeout(() => {
+            if (saveBtnText) saveBtnText.innerText = '💾 保存当前进度';
+          }, 3000);
         }
       },
 
@@ -3264,6 +3296,13 @@
           return;
         }
 
+        const banner = document.getElementById('auth-save-feedback-banner');
+        const loadBtn = document.getElementById('btn-do-cloud-load');
+        const loadBtnText = document.getElementById('btn-load-text');
+
+        if (loadBtnText) loadBtnText.innerText = '⏳ 正在读取...';
+        if (loadBtn) loadBtn.disabled = true;
+
         try {
           const res = await fetch(`${CLOUD_API_BASE}/save/load`, {
             headers: { 'Authorization': `Bearer ${this.getToken()}` }
@@ -3272,6 +3311,12 @@
           if (res.ok && data.gameState) {
             AudioEngine.crit();
             confetti({ particleCount: 120, spread: 90 });
+
+            if (banner) {
+              banner.className = 'p-3 rounded-xl border border-cyan-500/60 bg-cyan-950/80 text-cyan-300 text-xs font-bold text-center block animate-in fade-in zoom-in duration-200';
+              banner.innerText = `✅ 读取成功！恢复至存档点（${data.lastSavedAt}）`;
+            }
+            if (loadBtnText) loadBtnText.innerText = '✅ 读取成功！';
 
             // Restore state
             if (data.gameState.sun) Game.sun = data.gameState.sun;
@@ -3284,14 +3329,32 @@
               localStorage.setItem('mud_fates_unlocked', JSON.stringify(Game.unlockedEndings));
             }
 
-            this.closeModal();
             updateUI();
             termLog(`📂【云端读取成功】已恢复至存档点（保存于 ${data.lastSavedAt}）！`, 'text-cyan-300 font-bold');
+
+            setTimeout(() => {
+              this.closeModal();
+            }, 800);
           } else {
+            if (banner) {
+              banner.className = 'p-3 rounded-xl border border-rose-500/60 bg-rose-950/80 text-rose-300 text-xs font-bold text-center block';
+              banner.innerText = `❌ 读取失败：${data.error || '未找到有效存档'}`;
+            }
+            if (loadBtnText) loadBtnText.innerText = '❌ 读取失败';
             termLog(`❌【读取失败】${data.error || '未找到有效存档'}`, 'text-red-400');
           }
         } catch (e) {
+          if (banner) {
+            banner.className = 'p-3 rounded-xl border border-rose-500/60 bg-rose-950/80 text-rose-300 text-xs font-bold text-center block';
+            banner.innerText = '❌ 读取失败：网络连接异常，无法连接云端服务器';
+          }
+          if (loadBtnText) loadBtnText.innerText = '❌ 读取失败';
           termLog('❌【读取失败】无法连接到云端服务器', 'text-red-400');
+        } finally {
+          if (loadBtn) loadBtn.disabled = false;
+          setTimeout(() => {
+            if (loadBtnText) loadBtnText.innerText = '📂 读取上次存档';
+          }, 3000);
         }
       }
     };
