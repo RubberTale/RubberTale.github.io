@@ -329,6 +329,10 @@
             <span class="text-xs text-slate-400">当前登录用户:</span>
             <span id="auth-display-username" class="text-sm font-black text-emerald-400 font-mono">--</span>
           </div>
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-slate-400">绑定手机号:</span>
+            <span id="auth-display-phone" class="text-slate-300 font-mono">--</span>
+          </div>
           <div class="border-t border-slate-800/80 pt-2 space-y-1 text-xs">
             <div class="flex justify-between text-slate-400">
               <span>云端存档状态:</span>
@@ -366,10 +370,14 @@
           </button>
         </div>
 
-        <form id="form-auth" class="space-y-3 pt-1">
+        <form id="form-auth" class="space-y-2.5 pt-1">
           <div>
-            <label class="block text-[11px] text-slate-400 mb-1">用户名 (User Name)</label>
+            <label id="auth-label-user" class="block text-[11px] text-slate-400 mb-1">用户名 (User Name)</label>
             <input type="text" id="auth-input-user" required placeholder="请输入您的专属用户名" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono" />
+          </div>
+          <div id="auth-field-phone">
+            <label class="block text-[11px] text-slate-400 mb-1">手机号码 (Mobile Phone)</label>
+            <input type="tel" id="auth-input-phone" placeholder="请输入11位手机号码 (如 13800138000)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono" />
           </div>
           <div>
             <label class="block text-[11px] text-slate-400 mb-1">密码 (Password)</label>
@@ -3000,19 +3008,24 @@
       getUsername() {
         return localStorage.getItem('mud_auth_user') || '';
       },
+      getPhone() {
+        return localStorage.getItem('mud_auth_phone') || '';
+      },
       isLoggedIn() {
         return !!this.getToken() && !!this.getUsername();
       },
 
-      setAuth(token, username) {
+      setAuth(token, username, phone = '') {
         localStorage.setItem('mud_auth_token', token);
         localStorage.setItem('mud_auth_user', username);
+        if (phone) localStorage.setItem('mud_auth_phone', phone);
         this.updateHeaderUI();
       },
 
       logout() {
         localStorage.removeItem('mud_auth_token');
         localStorage.removeItem('mud_auth_user');
+        localStorage.removeItem('mud_auth_phone');
         this.updateHeaderUI();
         this.renderModal();
         termLog('🚪【云存档】已退出当前登录账号。', 'text-slate-400');
@@ -3057,6 +3070,8 @@
           loggedInView.classList.remove('hidden');
           guestView.classList.add('hidden');
           document.getElementById('auth-display-username').innerText = this.getUsername();
+          const phone = this.getPhone();
+          document.getElementById('auth-display-phone').innerText = phone ? phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2') : '已绑定';
           this.fetchSaveMeta();
         } else {
           loggedInView.classList.add('hidden');
@@ -3070,6 +3085,10 @@
         const regBtn = document.getElementById('tab-btn-register');
         const loginBtn = document.getElementById('tab-btn-login');
         const submitBtn = document.getElementById('btn-submit-auth');
+        const phoneField = document.getElementById('auth-field-phone');
+        const userLabel = document.getElementById('auth-label-user');
+        const userInput = document.getElementById('auth-input-user');
+        const phoneInput = document.getElementById('auth-input-phone');
         const feedback = document.getElementById('auth-feedback-msg');
         feedback.classList.add('hidden');
 
@@ -3077,36 +3096,61 @@
           regBtn.className = 'flex-1 py-1.5 rounded-lg font-bold bg-emerald-500 text-black transition';
           loginBtn.className = 'flex-1 py-1.5 rounded-lg font-bold text-slate-400 hover:text-slate-200 transition';
           submitBtn.innerHTML = '<span>✨ 立即注册并开启云存档</span>';
+          phoneField.classList.remove('hidden');
+          phoneInput.required = true;
+          userLabel.innerText = '用户名 (User Name)';
+          userInput.placeholder = '请输入您的专属用户名 (2~20位)';
         } else {
           loginBtn.className = 'flex-1 py-1.5 rounded-lg font-bold bg-emerald-500 text-black transition';
           regBtn.className = 'flex-1 py-1.5 rounded-lg font-bold text-slate-400 hover:text-slate-200 transition';
           submitBtn.innerHTML = '<span>🔑 立即登录并同步云存档</span>';
+          phoneField.classList.add('hidden');
+          phoneInput.required = false;
+          userLabel.innerText = '账号 (用户名 或 手机号)';
+          userInput.placeholder = '请输入用户名或已绑定的手机号';
         }
       },
 
       async handleFormSubmit(e) {
         e.preventDefault();
         const username = document.getElementById('auth-input-user').value.trim();
+        const phone = document.getElementById('auth-input-phone') ? document.getElementById('auth-input-phone').value.trim() : '';
         const password = document.getElementById('auth-input-pass').value.trim();
         const feedback = document.getElementById('auth-feedback-msg');
         const submitBtn = document.getElementById('btn-submit-auth');
 
         if (!username || !password) {
-          feedback.innerText = '请填写完整的用户名和密码！';
+          feedback.innerText = '请填写完整账号与密码！';
           feedback.classList.remove('hidden');
           return;
+        }
+
+        if (this.activeTab === 'register') {
+          if (!phone) {
+            feedback.innerText = '请填写手机号码以便找回与验证！';
+            feedback.classList.remove('hidden');
+            return;
+          }
+          if (!/^1[3-9]\d{9}$/.test(phone)) {
+            feedback.innerText = '请输入正确的11位手机号码（如 13800138000）！';
+            feedback.classList.remove('hidden');
+            return;
+          }
         }
 
         submitBtn.disabled = true;
         submitBtn.classList.add('opacity-50');
 
         const endpoint = this.activeTab === 'register' ? '/auth/register' : '/auth/login';
+        const bodyPayload = this.activeTab === 'register' 
+          ? { username, phone, password } 
+          : { username, password };
 
         try {
           const res = await fetch(`${CLOUD_API_BASE}${endpoint}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify(bodyPayload)
           });
           const data = await res.json();
 
@@ -3117,7 +3161,7 @@
           } else {
             AudioEngine.crit();
             confetti({ particleCount: 100, spread: 80 });
-            this.setAuth(data.token, data.username);
+            this.setAuth(data.token, data.username, data.phone);
             this.renderModal();
             termLog(`🎉【云端账号】${this.activeTab === 'register' ? '注册并登录成功' : '登录成功'}！欢迎您，${data.username}！`, 'text-emerald-300 font-bold');
             
