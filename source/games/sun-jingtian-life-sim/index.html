@@ -476,6 +476,9 @@
       { cmd: 'search', desc: '搜查当前房间隐藏物品与暗格' },
       { cmd: 'inventory', desc: '查看背包所有道具 (简写: i)' },
       { cmd: 'drink tea', desc: '饮用大瓶冰红茶 (恢复 HP 与灵感)' },
+      { cmd: 'use perfume', desc: '喷洒高定晚香玉香水 (加护盾)' },
+      { cmd: 'use album', desc: '播放首张EP《你是谁》(加声望)' },
+      { cmd: 'use gown', desc: '披上高定红毯礼服 (加护盾)' },
       { cmd: 'use essay', desc: '研读新概念满分范文 (加暴击)' },
       { cmd: 'eat bbq', desc: '在烧烤摊吃生蚝恢复气血' },
       { cmd: 'fight', desc: '向当前场景的敌对 NPC 发起辩论对决' },
@@ -492,7 +495,7 @@
       { cmd: 'airdrop', desc: '全网空投代币刷声望' },
       { cmd: 'tweet', desc: '在全网发布通稿或推特' },
       { cmd: 'shout', desc: '在世界频道高喊豪言壮语' },
-      { cmd: 'ask', desc: '向 NPC 打听八卦情报 (如: ask 阿杰)' },
+      { cmd: 'ask', desc: '向 NPC 打听八卦情报 (如: ask 华哥 / ask 阿杰)' },
       { cmd: 'who', desc: '查看当前世界活跃名流' },
       { cmd: 'score', desc: '查看当前人物详细属性与成就' },
       { cmd: 'kidney', desc: '自检肾结石健康状态' },
@@ -500,126 +503,240 @@
       { cmd: 'help', desc: '呼出完整 MUD 指令百科' }
     ];
 
-    // Era-Specific Complete MUD World Maps
-    const WORLD_MAPS_BY_ERA = {
-      // Era 1: 惠州高中时期
-      1: {
-        netbar: {
-          name: '红日网吧 · 大厅',
-          desc: '泡面味扑鼻，大头显示器正亮着《传奇》行会战。网管阿杰在柜台数硬币。',
-          exits: { north: 'school_gate', east: 'alley' },
-          npcs: [
-            { name: '网管阿杰', role: '商人', action: 'buy_tea', label: '买冰红茶 (¥3)' },
-            { name: '街头小混混', role: '敌对', action: 'fight_punk', label: '⚔️ 发起切磋对决' }
-          ]
+    // Dual-Track Era-Specific Complete MUD World Maps
+    const WORLD_MAPS_BY_CHAR_ERA = {
+      sun: {
+        // Era 1: 惠州高中时期
+        1: {
+          netbar: {
+            name: '红日网吧 · 大厅',
+            desc: '泡面味扑鼻，大头显示器正亮着《传奇》行会战。网管阿杰在柜台数硬币。',
+            exits: { north: 'school_gate', east: 'alley' },
+            npcs: [
+              { name: '网管阿杰', role: '商人', action: 'buy_tea', label: '买冰红茶 (¥3)' },
+              { name: '街头小混混', role: '敌对', action: 'fight_punk', label: '⚔️ 发起切磋对决' }
+            ]
+          },
+          school_gate: {
+            name: '惠州一中 · 正校门',
+            desc: '庄严肃穆的校门，两旁挂着高考倒计时横幅。教导处主任正在校门口巡视迟到与网瘾学生。',
+            exits: { south: 'netbar', north: 'classroom', east: 'post_office' },
+            npcs: [
+              { name: '教导主任 · 王暴躁', role: 'Boss', action: 'fight_director', label: '⚔️ 触发【查网瘾对决】！' }
+            ]
+          },
+          classroom: {
+            name: '高二三班 · 教室后排',
+            desc: '课桌堆满五三模拟题，你的桌肚里藏着王朔的《顽主》与半瓶冰红茶。',
+            exits: { south: 'school_gate' },
+            npcs: [
+              { name: '班长李小华', role: 'NPC', action: 'talk_monitor', label: '打听新概念自招八卦' },
+              { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' }
+            ]
+          },
+          post_office: {
+            name: '惠州邮政支局 · 投递处',
+            desc: '绿色邮筒立在门前，这里可以将手稿寄往上海《萌芽》杂志社新概念组委会。',
+            exits: { west: 'school_gate' },
+            npcs: [
+              { name: '邮政绿邮筒', role: '交互', action: 'submit_essay', label: '📮 投递新概念参赛小作文' }
+            ]
+          },
+          alley: {
+            name: '后街小巷 · 烧烤摊',
+            desc: '油烟弥漫，几个刚下夜班的年轻人在喝啤酒畅谈未来。',
+            exits: { west: 'netbar' },
+            npcs: [
+              { name: '烧烤摊老板', role: '恢复', action: 'eat_bbq', label: '吃生蚝补充精力 (¥15)' }
+            ]
+          }
         },
-        school_gate: {
-          name: '惠州一中 · 正校门',
-          desc: '庄严肃穆的校门，两旁挂着高考倒计时横幅。教导处主任正在校门口巡视迟到与网瘾学生。',
-          exits: { south: 'netbar', north: 'classroom', east: 'post_office' },
-          npcs: [
-            { name: '教导主任 · 王暴躁', role: 'Boss', action: 'fight_director', label: '⚔️ 触发【查网瘾对决】！' }
-          ]
+        // Era 2: 北京大学·燕园时期
+        2: {
+          weiming_lake: {
+            name: '北京大学 · 未名湖畔博雅塔',
+            desc: '湖光塔影，微风拂面。北大学子正聚在湖边探讨近代哲学思想与公知先锋潮流。',
+            exits: { south: 'sanjiaodi', east: 'pku_hall' },
+            npcs: [
+              { name: '哲学系老教授', role: '智者', action: 'meditate_lake', label: '🧘 冥想辩论 (灵感+2)' },
+              { name: '石凳暗格', role: '宝箱', action: 'loot_press_pass', label: '🔍 搜寻《南周实习记者证》' }
+            ]
+          },
+          sanjiaodi: {
+            name: '北大三角地 · BBS与校刊广场',
+            desc: '三角地贴满了各种学术海报与先锋刊物。你自创的民间校刊《野草》正堆在长椅旁。',
+            exits: { north: 'weiming_lake', east: 'abroad_office' },
+            npcs: [
+              { name: '校刊印刷社学长', role: '商人', action: 'publish_yecao', label: '📰 发行万份《野草》暴论 (¥50)' },
+              { name: '校学生会常务主席', role: 'Boss', action: 'fight_president', label: '⚔️ 竞选学生会主席论战！' }
+            ]
+          },
+          pku_hall: {
+            name: '北大百周年纪念讲堂 · 前厅',
+            desc: '宏伟的纪念大讲堂，经常有华尔街投资家与互联网先锋在此举行公开演讲。',
+            exits: { west: 'weiming_lake', south: 'abroad_office' },
+            npcs: [
+              { name: '硅谷归国投资人', role: 'NPC', action: 'talk_vc', label: '打听特斯拉与比特币早期概念' }
+            ]
+          },
+          abroad_office: {
+            name: '燕园留学生服务中心 · 出国签证处',
+            desc: '这里可以提交常春藤盟校宾夕法尼亚大学硕士申请，踏上赴美留洋之路！',
+            exits: { west: 'sanjiaodi', north: 'pku_hall' },
+            npcs: [
+              { name: '常春藤录取绿色通道', role: '交互', action: 'fly_to_penn', label: '✈️ 启程前往美国常春藤宾大！' }
+            ]
+          }
         },
-        classroom: {
-          name: '高二三班 · 教室后排',
-          desc: '课桌堆满五三模拟题，你的桌肚里藏着王朔的《顽主》与半瓶冰红茶。',
-          exits: { south: 'school_gate' },
-          npcs: [
-            { name: '班长李小华', role: 'NPC', action: 'talk_monitor', label: '打听新概念自招八卦' },
-            { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' }
-          ]
-        },
-        post_office: {
-          name: '惠州邮政支局 · 投递处',
-          desc: '绿色邮筒立在门前，这里可以将手稿寄往上海《萌芽》杂志社新概念组委会。',
-          exits: { west: 'school_gate' },
-          npcs: [
-            { name: '邮政绿邮筒', role: '交互', action: 'submit_essay', label: '📮 投递新概念参赛小作文' }
-          ]
-        },
-        alley: {
-          name: '后街小巷 · 烧烤摊',
-          desc: '油烟弥漫，几个刚下夜班的年轻人在喝啤酒畅谈未来。',
-          exits: { west: 'netbar' },
-          npcs: [
-            { name: '烧烤摊老板', role: '恢复', action: 'eat_bbq', label: '吃生蚝补充精力 (¥15)' }
-          ]
+        // Era 3: 宾大常春藤与早期加密华尔街
+        3: {
+          wharton_hall: {
+            name: '宾夕法尼亚大学 · 沃顿商学院',
+            desc: '世界顶级金融精英聚集地，白板上写满了资产衍生品定价与宏观博弈模型。',
+            exits: { east: 'crypto_garage', south: 'wall_street_club', north: 'sotheby_hall' },
+            npcs: [
+              { name: '常春藤同学', role: '商人', action: 'buy_tesla_stock', label: '重仓 Tesla 原始股 (¥5,000)' }
+            ]
+          },
+          crypto_garage: {
+            name: '费城极客地下室 · 早期比特币矿池',
+            desc: '多台显卡正彻夜轰鸣，单价仅几美元的比特币（BTC）正在源源不断被挖出。',
+            exits: { west: 'wharton_hall' },
+            npcs: [
+              { name: '早期密码朋克极客', role: '商人', action: 'mine_btc', label: '⛏️ 狂挖 500 枚早期比特币 (¥2,000)' }
+            ]
+          },
+          wall_street_club: {
+            name: '华尔街对冲基金俱乐部',
+            desc: '雪茄烟气弥漫，各路基金经理正在讨论波场 TRON 的白皮书与回国创业计划。',
+            exits: { north: 'wharton_hall' },
+            npcs: [
+              { name: '红杉资本合伙人', role: '交互', action: 'found_tron_launch', label: '💎 回国创立波场 TRON！' }
+            ]
+          },
+          sotheby_hall: {
+            name: '纽约苏富比天价拍卖大厅 · 2025会师',
+            desc: '全球顶流汇集，聚光灯耀眼，你正手持胶带粘在墙上的 620 万美元艺术香蕉《喜剧演员》！',
+            exits: { south: 'wharton_hall' },
+            npcs: [
+              { name: '艺术香蕉展台', role: '交互', action: 'eat_banana', label: '🍌 当众吃掉 620 万美元香蕉！' },
+              { name: '特邀贵宾 · 景甜', role: '交互', action: 'meet_jingtian', label: '👸 与景甜会师合体，登顶火星主权！' }
+            ]
+          }
         }
       },
-      // Era 2: 北京大学·燕园时期
-      2: {
-        weiming_lake: {
-          name: '北京大学 · 未名湖畔博雅塔',
-          desc: '湖光塔影，微风拂面。北大学子正聚在湖边探讨近代哲学思想与公知先锋潮流。',
-          exits: { south: 'sanjiaodi', east: 'pku_hall' },
-          npcs: [
-            { name: '哲学系老教授', role: '智者', action: 'meditate_lake', label: '🧘 冥想辩论 (灵感+2)' },
-            { name: '石凳暗格', role: '宝箱', action: 'loot_press_pass', label: '🔍 搜寻《南周实习记者证》' }
-          ]
+      jing: {
+        // Era 1: 北舞附中与星光初绽
+        1: {
+          beiwu_hall: {
+            name: '北舞附中 · 芭蕾排练厅',
+            desc: '阳光洒在木地板与落地练功镜上，你作为公认的“北舞校花”正在优雅练习足尖旋转。',
+            exits: { east: 'studio', north: 'dorm' },
+            npcs: [
+              { name: '星探经纪人 · 华哥', role: 'NPC', action: 'talk_agent', label: '🌟 签约顶级经纪公司' },
+              { name: '练功镜暗格', role: '宝箱', action: 'loot_perfume', label: '🔍 搜寻《高定晚香玉香水》' }
+            ]
+          },
+          studio: {
+            name: '张亚东音乐工作室 · 录音棚',
+            desc: '顶配 SSL 调音台与电子管麦克风，华语流行教父张亚东正亲自为你量身打造首张EP《你是谁》。',
+            exits: { west: 'beiwu_hall', north: 'press_conf' },
+            npcs: [
+              { name: '金牌制作人 · 张亚东', role: 'NPC', action: 'record_ep', label: '🎤 录制首张EP主打歌《你是谁》' },
+              { name: '录音棚后勤', role: '恢复', action: 'drink_bird_nest', label: '品尝现炖燕窝养颜 (¥500)' }
+            ]
+          },
+          dorm: {
+            name: '北舞女生宿舍 · 梳妆台',
+            desc: '梳妆台摆满了各大国际品牌送来的高定样衣与私人晚宴邀请函，门外有八卦狗仔试图偷拍。',
+            exits: { south: 'beiwu_hall' },
+            npcs: [
+              { name: '八卦狗仔记者', role: 'Boss', action: 'fight_paparazzi', label: '⚔️ 触发【狗仔偷拍辩驳】！' }
+            ]
+          },
+          press_conf: {
+            name: '钓鱼台国宾馆 · 新歌发布厅',
+            desc: '金碧辉煌的发布会大厅，全国主流媒体记者云集，这里将震撼发布你的首张EP并宣布空降北电！',
+            exits: { south: 'studio' },
+            npcs: [
+              { name: '发布会主讲台', role: '交互', action: 'launch_ep_bfa', label: '👑 震撼发布首张EP，空降北京电影学院！' }
+            ]
+          }
         },
-        sanjiaodi: {
-          name: '北大三角地 · BBS与校刊广场',
-          desc: '三角地贴满了各种学术海报与先锋刊物。你自创的民间校刊《野草》正堆在长椅旁。',
-          exits: { north: 'weiming_lake', east: 'abroad_office' },
-          npcs: [
-            { name: '校刊印刷社学长', role: '商人', action: 'publish_yecao', label: '📰 发行万份《野草》暴论 (¥50)' },
-            { name: '校学生会常务主席', role: 'Boss', action: 'fight_president', label: '⚔️ 竞选学生会主席论战！' }
-          ]
+        // Era 2: 华语全明星与好莱坞巨制
+        2: {
+          zhanguo_set: {
+            name: '古装巨制《战国》· 豪华片场',
+            desc: '投资 1.5 亿的恢弘大殿，孙红雷、金喜善、吴镇宇众星拱月，为你饰演的女主角田夕配戏！',
+            exits: { east: 'great_wall_set', north: 'hollywood_hall' },
+            npcs: [
+              { name: '戏骨搭档 · 孙红雷', role: 'NPC', action: 'talk_honglei', label: '🎭 切磋飙戏演技 (咖位+30)' },
+              { name: '毒舌影评人团', role: 'Boss', action: 'fight_critics', label: '⚔️ 应对【神秘身世质疑】论战！' }
+            ]
+          },
+          great_wall_set: {
+            name: '张艺谋《长城》合拍片场 · 虎军大营',
+            desc: '张艺谋导演坐镇，马特·达蒙与刘德华、威廉·达福联袂参演，你作为唯一女主林梅统帅三军大战饕餮！',
+            exits: { west: 'zhanguo_set', north: 'kong_island' },
+            npcs: [
+              { name: '名导张艺谋', role: 'NPC', action: 'shoot_great_wall', label: '🎬 拍摄跳跃滑索大战饕餮' }
+            ]
+          },
+          kong_island: {
+            name: '传奇影业 · 《金刚：骷髅岛》绿幕棚',
+            desc: '好莱坞怪兽宇宙片场，抖森（Tom Hiddleston）与塞缪尔·杰克逊与你并肩对抗史前巨兽。',
+            exits: { south: 'great_wall_set' },
+            npcs: [
+              { name: '好莱坞制片巨头', role: 'NPC', action: 'shoot_kong', label: '🦖 空降好莱坞怪兽宇宙' }
+            ]
+          },
+          hollywood_hall: {
+            name: '洛杉矶好莱坞电影节 · 尊荣红毯',
+            desc: '好莱坞最高规格红毯，镁光灯连成星海，准备进军国民口碑电视剧完成逆袭！',
+            exits: { south: 'zhanguo_set' },
+            npcs: [
+              { name: '跨界转型契约通道', role: '交互', action: 'start_siteng_era', label: '🌸 告别虚浮大片，下凡接拍《司藤》！' }
+            ]
+          }
         },
-        pku_hall: {
-          name: '北大百周年纪念讲堂 · 前厅',
-          desc: '宏伟的纪念大讲堂，经常有华尔街投资家与互联网先锋在此举行公开演讲。',
-          exits: { west: 'weiming_lake', south: 'abroad_office' },
-          npcs: [
-            { name: '硅谷归国投资人', role: 'NPC', action: 'talk_vc', label: '打听特斯拉与比特币早期概念' }
-          ]
-        },
-        abroad_office: {
-          name: '燕园留学生服务中心 · 出国签证处',
-          desc: '这里可以提交常春藤盟校常春藤宾夕法尼亚大学硕士申请，踏上赴美留洋之路！',
-          exits: { west: 'sanjiaodi', north: 'pku_hall' },
-          npcs: [
-            { name: '常春藤录取绿色通道', role: '交互', action: 'fly_to_penn', label: '✈️ 启程前往美国常春藤宾大！' }
-          ]
-        }
-      },
-      // Era 3: 宾大常春藤与早期加密华尔街
-      3: {
-        wharton_hall: {
-          name: '宾夕法尼亚大学 · 沃顿商学院',
-          desc: '世界顶级金融精英聚集地，白板上写满了资产衍生品定价与宏观博弈模型。',
-          exits: { east: 'crypto_garage', south: 'wall_street_club' },
-          npcs: [
-            { name: '常春藤同学', role: '商人', action: 'buy_tesla_stock', label: '重仓 Tesla 原始股 (¥5,000)' }
-          ]
-        },
-        crypto_garage: {
-          name: '费城极客地下室 · 早期比特币矿池',
-          desc: '多台显卡正彻夜轰鸣，单价仅几美元的比特币（BTC）正在源源不断被挖出。',
-          exits: { west: 'wharton_hall' },
-          npcs: [
-            { name: '早期密码朋克极客', role: '商人', action: 'mine_btc', label: '⛏️ 狂挖 500 枚早期比特币 (¥2,000)' }
-          ]
-        },
-        wall_street_club: {
-          name: '华尔街对冲基金俱乐部',
-          desc: '雪茄烟气弥漫，各路基金经理正在讨论波场 TRON 的白皮书与回国创业计划。',
-          exits: { north: 'wharton_hall' },
-          npcs: [
-            { name: '红杉资本合伙人', role: '交互', action: 'found_tron_launch', label: '💎 回国创立波场 TRON！' }
-          ]
+        // Era 3: 绝美司藤与双星汇流
+        3: {
+          siteng_yunnan: {
+            name: '《司藤》实景片场 · 云南香格里拉密林',
+            desc: '参天古树与绿茵藤蔓，你身着定制白玉兰花旗袍，细眉红唇，“人间富贵花”口碑全网大爆！',
+            exits: { east: 'red_carpet', north: 'sotheby_jing' },
+            npcs: [
+              { name: '剧组摄影指导', role: 'NPC', action: 'shoot_siteng_scene', label: '🌿 释放司藤女王气场 (口碑+100)' },
+              { name: '黑转粉路人观众', role: 'NPC', action: 'talk_fans', label: '💬 听取全网真香夸夸' }
+            ]
+          },
+          red_carpet: {
+            name: '微博之夜 & 白玉兰盛典 · 聚光灯主舞台',
+            desc: '万人空巷，全网争相模仿你的旗袍妆造与柳叶眉，国民好感度达到前所未有的巅峰！',
+            exits: { west: 'siteng_yunnan' },
+            npcs: [
+              { name: '时尚芭莎主编', role: 'NPC', action: 'fashion_cover', label: '👗 登顶五大二小顶级时尚封面' }
+            ]
+          },
+          sotheby_jing: {
+            name: '纽约苏富比天价拍卖大厅 · 双星汇流',
+            desc: '艺术名流云集，孙宇晨正举牌拍下 620 万美元香蕉，你受邀作为终极特邀贵宾与他在聚光灯下会师合体！',
+            exits: { south: 'siteng_yunnan' },
+            npcs: [
+              { name: '孙宇晨 (Justin Sun)', role: '交互', action: 'merge_mars', label: '🚀 双星会师！开启火星主权大汇流！' }
+            ]
+          }
         }
       }
     };
 
     const Game = {
       perspective: 'sun',
-      year: 2005,
-      month: 3,
-      era: 1,
       
       sun: {
+        year: 2005,
+        month: 3,
+        era: 1,
         hp: 100,
         maxHp: 100,
         ap: 3,
@@ -627,6 +744,13 @@
         money: 80,
         fame: 25,
         location: 'netbar',
+        traits: ['叛逆少年', '韩寒文风模仿者', '结石潜伏体质'],
+        quest: {
+          id: 1,
+          title: '【新概念一等奖】逆天改命',
+          desc: '在惠州一中教室找到《新概念初稿》，击败教导主任，去东面邮局投递！',
+          progress: 30
+        },
         inventory: [
           { id: 'tea', name: '大瓶冰红茶', desc: '恢复 30 点 HP 与 1 点灵感', count: 2, use: () => Game.useItem('tea') },
           { id: 'essay', name: '《新概念历届满分范文》', desc: '战斗中可增加 15 点暴击伤害', count: 1, use: () => Game.useItem('essay') },
@@ -641,14 +765,25 @@
       },
 
       jing: {
+        year: 2005,
+        month: 3,
+        era: 1,
         hp: 100,
         maxHp: 100,
         ap: 3,
         maxAp: 3,
         money: 50000,
         fame: 80,
-        location: 'beiwu',
+        location: 'beiwu_hall',
+        traits: ['北舞校花', '张亚东量身EP', '天生富贵花'],
+        quest: {
+          id: 1,
+          title: '【第一时期】北舞校花与首张EP《你是谁》',
+          desc: '在北舞签约经纪公司，由张亚东打造EP《你是谁》，击退八卦狗仔，在国宾馆发布会空降北电！',
+          progress: 20
+        },
         inventory: [
+          { id: 'perfume', name: '高定晚香玉香水', desc: '提升气质，免伤 30 点', count: 1, use: () => Game.useItem('perfume') },
           { id: 'album', name: '首张EP《你是谁》母带', desc: '张亚东量身打造，提升 50 咖位', count: 1, use: () => Game.useItem('album') },
           { id: 'gown', name: '高定红毯礼服', desc: '防御全网黑粉质疑，免伤 40 点', count: 1, use: () => Game.useItem('gown') }
         ],
@@ -665,19 +800,14 @@
       cryptoPrice: 0.125,
       cryptoHistory: [0.12, 0.122, 0.121, 0.125],
       cmdHistory: [],
-      cmdHistoryIndex: -1,
-
-      quest: {
-        id: 1,
-        title: '【新概念一等奖】逆天改命',
-        desc: '在惠州一中教室找到《新概念初稿》，击败教导主任，去东面邮局投递！',
-        progress: 30
-      }
+      cmdHistoryIndex: -1
     };
 
     function getCurrentMap() {
-      const eraMaps = WORLD_MAPS_BY_ERA[Game.era] || WORLD_MAPS_BY_ERA[1];
-      return eraMaps;
+      const p = Game.perspective;
+      const era = Game[p].era || 1;
+      const charMaps = WORLD_MAPS_BY_CHAR_ERA[p] || WORLD_MAPS_BY_CHAR_ERA.sun;
+      return charMaps[era] || charMaps[1];
     }
 
     function termLog(msg, colorClass = 'text-slate-300') {
@@ -725,24 +855,38 @@
     }
 
     function updateUI() {
-      const char = Game[Game.perspective];
+      const p = Game.perspective;
+      const char = Game[p];
       const map = getCurrentMap();
       
-      document.getElementById('hud-date').innerText = `${Game.year}年 ${Game.month}月`;
+      document.getElementById('hud-date').innerText = `${char.year}年 ${char.month}月`;
       document.getElementById('hud-hp').innerText = `${char.hp} / ${char.maxHp}`;
       document.getElementById('hud-ap').innerText = `${char.ap} / ${char.maxAp}`;
-      document.getElementById('hud-money').innerText = `¥ ${char.money}`;
+      document.getElementById('hud-money').innerText = `¥ ${char.money.toLocaleString()}`;
       document.getElementById('hud-fame').innerText = char.fame;
 
-      if (Game.era === 1) {
-        document.getElementById('hud-chapter').innerText = '【时期1：惠州高中逆袭】';
-        document.getElementById('map-era-badge').innerText = 'ERA 1: 惠州高中';
-      } else if (Game.era === 2) {
-        document.getElementById('hud-chapter').innerText = '【时期2：北京大学燕园风云】';
-        document.getElementById('map-era-badge').innerText = 'ERA 2: 北京大学';
-      } else if (Game.era === 3) {
-        document.getElementById('hud-chapter').innerText = '【时期3：宾大常春藤与加密】';
-        document.getElementById('map-era-badge').innerText = 'ERA 3: 宾大常春藤';
+      if (p === 'sun') {
+        if (char.era === 1) {
+          document.getElementById('hud-chapter').innerText = '【时期1：惠州高中逆袭】';
+          document.getElementById('map-era-badge').innerText = 'ERA 1: 惠州高中';
+        } else if (char.era === 2) {
+          document.getElementById('hud-chapter').innerText = '【时期2：北京大学燕园风云】';
+          document.getElementById('map-era-badge').innerText = 'ERA 2: 北京大学';
+        } else if (char.era === 3) {
+          document.getElementById('hud-chapter').innerText = '【时期3：宾大常春藤与加密】';
+          document.getElementById('map-era-badge').innerText = 'ERA 3: 宾大常春藤';
+        }
+      } else {
+        if (char.era === 1) {
+          document.getElementById('hud-chapter').innerText = '【时期1：北舞附中与星光初绽】';
+          document.getElementById('map-era-badge').innerText = 'ERA 1: 北舞附中';
+        } else if (char.era === 2) {
+          document.getElementById('hud-chapter').innerText = '【时期2：全明星拱月与好莱坞大片】';
+          document.getElementById('map-era-badge').innerText = 'ERA 2: 华语与好莱坞';
+        } else if (char.era === 3) {
+          document.getElementById('hud-chapter').innerText = '【时期3：绝美司藤与终极大汇流】';
+          document.getElementById('map-era-badge').innerText = 'ERA 3: 绝美司藤';
+        }
       }
 
       // Safe fallback if location doesn't exist in current era
@@ -797,17 +941,35 @@
       });
       document.getElementById('bag-count').innerText = `${char.inventory.length}/12`;
 
-      document.getElementById('quest-title').innerText = Game.quest.title;
-      document.getElementById('quest-desc').innerText = Game.quest.desc;
-      document.getElementById('quest-progress-bar').style.width = `${Game.quest.progress}%`;
+      // Character traits
+      const traitsBox = document.getElementById('character-traits');
+      if (traitsBox && char.traits) {
+        traitsBox.innerHTML = '';
+        char.traits.forEach(t => {
+          const span = document.createElement('span');
+          span.className = `px-2 py-0.5 rounded-md bg-slate-950 border ${p === 'sun' ? 'border-amber-500/30 text-amber-300' : 'border-rose-500/30 text-rose-300'} text-[11px]`;
+          span.innerText = t;
+          traitsBox.appendChild(span);
+        });
+      }
+
+      // Quests
+      if (char.quest) {
+        document.getElementById('quest-title').innerText = char.quest.title;
+        document.getElementById('quest-desc').innerText = char.quest.desc;
+        document.getElementById('quest-progress-bar').style.width = `${char.quest.progress}%`;
+      }
 
       if (window.lucide) window.lucide.createIcons();
     }
 
     function handleNpcAction(act) {
-      const char = Game[Game.perspective];
+      const p = Game.perspective;
+      const char = Game[p];
       
-      // ERA 1 ACTIONS
+      // ==========================================
+      // SUN YUCHEN (⚡ 孙宇晨线) ACTIONS
+      // ==========================================
       if (act === 'buy_tea') {
         if (char.money < 3) return termLog('网管阿杰：没钱买什么冰红茶，去一边去！', 'text-red-400');
         char.money -= 3;
@@ -837,12 +999,12 @@
         AudioEngine.crit();
         termLog('🔍 你翻找抽屉，找到了一份写满反叛讽刺金句的《新概念初稿》！辩才战力 +15！', 'text-amber-300');
         char.fame += 15;
-        Game.quest.progress = 60;
+        char.quest.progress = 60;
         updateUI();
       } else if (act === 'talk_monitor') {
         termLog('班长李小华悄悄对你说：“听说这次新概念作文评委特别喜欢黑色幽默和反叛文风，你可以狂写应试教育批判！”', 'text-cyan-300');
       } else if (act === 'submit_essay') {
-        if (Game.quest.progress < 60) {
+        if (char.quest.progress < 60) {
           termLog('邮局大叔：“小伙子，你还没在教室写完初稿呢，拿什么寄去上海？”', 'text-yellow-400');
         } else {
           AudioEngine.crit();
@@ -850,17 +1012,19 @@
           termLog('📮【逆天改命达成】你将手稿郑重投入绿色邮筒！跨越时空寄往上海！', 'text-emerald-300 font-bold');
           termLog('🏆 组委会评委被你的文字震撼！你斩获第九届新概念一等奖！拿下北大自招降分20分！', 'text-yellow-300 font-black');
           
-          // MAP & ERA TRANSITION TO PEKING UNIVERSITY!
-          Game.era = 2;
-          Game.year = 2007;
-          Game.month = 9;
+          char.era = 2;
+          char.year = 2007;
+          char.month = 9;
           char.location = 'weiming_lake';
           char.money += 2000;
           char.fame += 50;
-
-          Game.quest.progress = 20;
-          Game.quest.title = '【第二时期】燕园风云与公知领袖';
-          Game.quest.desc = '在未名湖畔冥想获取《南周记者证》，去三角地发行《野草》并竞选学生会主席！';
+          char.traits = ['北大公知领袖', '南周实习记者', '锐意狂徒'];
+          char.quest = {
+            id: 2,
+            title: '【第二时期】燕园风云与公知领袖',
+            desc: '在未名湖畔冥想获取《南周记者证》，去三角地发行《野草》并竞选学生会主席！',
+            progress: 20
+          };
 
           termLog('🌟【场景切换】2007年秋，你踏入了未名湖畔！开启【北京大学 · 燕园风云】新地图！', 'text-cyan-300 font-bold');
           document.getElementById('crypto-ticker-box').classList.remove('hidden');
@@ -875,10 +1039,7 @@
         AudioEngine.heal();
         termLog('吃了一盘烤生蚝，精力与气血瞬间拉满！', 'text-emerald-300');
         updateUI();
-      }
-
-      // ERA 2 (PEKING UNIVERSITY) ACTIONS
-      else if (act === 'meditate_lake') {
+      } else if (act === 'meditate_lake') {
         char.ap = char.maxAp;
         char.fame += 10;
         AudioEngine.heal();
@@ -888,7 +1049,7 @@
         AudioEngine.crit();
         termLog('🔍 你在石凳下捡到了【南方周末实习记者证】！解锁技能【媒体核公关】！', 'text-amber-300 font-bold');
         char.inventory.push({ id: 'press_pass', name: '南周实习记者证', desc: '言辞杀伤力提升 25 点', count: 1, use: () => termLog('持有记者证，言辞极其犀利！') });
-        Game.quest.progress = 60;
+        char.quest.progress = 60;
         updateUI();
       } else if (act === 'publish_yecao') {
         if (char.money < 50) return termLog('印刷费不足 50 元！', 'text-red-400');
@@ -908,33 +1069,33 @@
       } else if (act === 'talk_vc') {
         termLog('投资人神秘地告诉你：“去费城吧，去常春藤宾夕法尼亚大学，那里有未来十年的财富密码！”', 'text-amber-300');
       } else if (act === 'fly_to_penn') {
-        if (Game.quest.progress < 60) return termLog('你还没有在北大打响名号（需拿到记者证并打赢竞选）！', 'text-red-400');
+        if (char.quest.progress < 60) return termLog('你还没有在北大打响名号（需拿到记者证并打赢竞选）！', 'text-red-400');
         
         AudioEngine.crit();
         confetti({ particleCount: 120, spread: 80 });
-        Game.era = 3;
-        Game.year = 2010;
-        Game.month = 9;
+        char.era = 3;
+        char.year = 2010;
+        char.month = 9;
         char.location = 'wharton_hall';
         char.money += 50000;
         char.fame += 100;
-
-        Game.quest.progress = 30;
-        Game.quest.title = '【第三时期】宾大沃顿与早期比特币暴富';
-        Game.quest.desc = '在费城矿池挖比特币，重仓特斯拉股票，回国创立波场 TRON！';
+        char.traits = ['波场创始人', '注意力炼金术士', '马耳他外交使节'];
+        char.quest = {
+          id: 3,
+          title: '【第三时期】宾大沃顿与早期比特币暴富',
+          desc: '在费城矿池挖比特币，重仓特斯拉股票，创立波场 TRON 并与景甜会师！',
+          progress: 30
+        };
 
         termLog('🗽【场景切换】2010年，你乘坐跨洋航班降落费城，踏入常春藤宾夕法尼亚大学沃顿商学院！', 'text-cyan-300 font-bold');
         updateUI();
-      }
-
-      // ERA 3 (PENN & CRYPTO) ACTIONS
-      else if (act === 'mine_btc') {
+      } else if (act === 'mine_btc') {
         if (char.money < 2000) return termLog('电费与显卡资金不足 ¥2,000！', 'text-red-400');
         char.money -= 2000;
         AudioEngine.pump();
         termLog('⛏️ 你狂挖了 500 枚单价仅 $1 的早期比特币！日后将带来数千万元暴富！', 'text-amber-300 font-black');
         char.inventory.push({ id: 'btc_wallet', name: '500 枚 BTC 冷钱包', desc: '数字黄金，价值连城', count: 1, use: () => termLog('持有比特币，内心极度笃定！') });
-        Game.quest.progress = 80;
+        char.quest.progress = 80;
         updateUI();
       } else if (act === 'buy_tesla_stock') {
         if (char.money < 5000) return termLog('资金不足 ¥5,000！', 'text-red-400');
@@ -945,12 +1106,156 @@
       } else if (act === 'found_tron_launch') {
         AudioEngine.crit();
         confetti({ particleCount: 150, spread: 100 });
-        char.money += 50000000; // 5000万
+        char.money += 50000000;
         char.fame += 500;
         termLog('💎【历史性时刻】你回国创立波场 TRON (TRX)！账面财富突破半亿！名利场狂潮全面爆发！', 'text-yellow-300 font-black');
-        Game.quest.title = '【终局】巴菲特鸽局与 2025 苏富比香蕉会师';
-        Game.quest.desc = '随时在推特发推拉盘、突发结石鸽掉巴菲特、与景甜在 2025 会师！';
-        Game.quest.progress = 100;
+        char.quest.title = '【终局】巴菲特鸽局与 2025 苏富比香蕉会师';
+        char.quest.desc = '随时在推特发推拉盘、突发结石鸽掉巴菲特、前往苏富比展厅与景甜在 2025 会师！';
+        char.quest.progress = 90;
+        updateUI();
+      } else if (act === 'eat_banana') {
+        AudioEngine.crit();
+        confetti({ particleCount: 180, spread: 100 });
+        termLog('🍌【行为艺术神作】你在全球千万直播镜头前撕下胶带，一口吃掉了 620 万美元的苏富比香蕉！', 'text-yellow-300 font-black');
+        termLog('全球媒体直接炸裂：“这是人类注意力经济的终极炼金术！” 全网声望 +1000！', 'text-amber-300 font-bold');
+        char.fame += 1000;
+        updateUI();
+      } else if (act === 'meet_jingtian') {
+        AudioEngine.crit();
+        confetti({ particleCount: 200, spread: 120 });
+        termLog('🚀【双星大汇流达成】孙宇晨与景甜在 2025 苏富比拍卖厅完成历史性会师！', 'text-yellow-300 font-black text-sm');
+        termLog('规则黑客的虚空印钞术 ✖️ 顶级富贵花的降维压制力，名利场双核驱动，正式向火星基地进发！', 'text-cyan-300 font-bold');
+        char.fame += 2000;
+        char.quest.progress = 100;
+        updateUI();
+      }
+
+      // ==========================================
+      // JING TIAN (👸 景甜线) ACTIONS
+      // ==========================================
+      else if (act === 'talk_agent') {
+        AudioEngine.heal();
+        termLog('🌟 星探华哥：“景小姐，我们为你准备了业内顶级资源，张亚东老师已在录音棚就绪！” 名气 +20！', 'text-rose-300 font-bold');
+        char.fame += 20;
+        char.quest.progress = Math.max(char.quest.progress, 40);
+        updateUI();
+      } else if (act === 'loot_perfume') {
+        AudioEngine.crit();
+        termLog('🔍 你在练功镜后找到了【高定晚香玉香水】！自带高冷仙气！', 'text-amber-300 font-bold');
+        const exist = char.inventory.find(i => i.id === 'perfume');
+        if (exist) exist.count++;
+        else char.inventory.push({ id: 'perfume', name: '高定晚香玉香水', desc: '提升气质，免伤 30 点', count: 1, use: () => Game.useItem('perfume') });
+        updateUI();
+      } else if (act === 'drink_bird_nest') {
+        if (char.money < 500) return termLog('零花钱不足 ¥500！', 'text-red-400');
+        char.money -= 500;
+        char.hp = char.maxHp;
+        char.ap = char.maxAp;
+        AudioEngine.heal();
+        termLog('品尝了一盅顶级鲜炖燕窝，气血与灵感全部回满！', 'text-emerald-300');
+        updateUI();
+      } else if (act === 'record_ep') {
+        AudioEngine.pump();
+        termLog('🎤 张亚东推上推子：“音色非常有辨识度！” 首张 EP《你是谁》母带制作完成！名气 +40！', 'text-rose-300 font-black');
+        char.fame += 40;
+        char.quest.progress = Math.max(char.quest.progress, 70);
+        updateUI();
+      } else if (act === 'fight_paparazzi') {
+        startCombat({
+          name: '八卦狗仔记者',
+          hp: 75,
+          maxHp: 75,
+          dmg: 18,
+          intent: '穷追不舍：【请正面回应一下你的神秘靠山！】'
+        });
+      } else if (act === 'launch_ep_bfa') {
+        if (char.quest.progress < 60) return termLog('你还没有在录音棚完成 EP 录制！', 'text-yellow-400');
+        AudioEngine.crit();
+        confetti({ particleCount: 120, spread: 80 });
+        char.era = 2;
+        char.year = 2011;
+        char.month = 4;
+        char.location = 'zhanguo_set';
+        char.money += 200000;
+        char.fame += 120;
+        char.traits = ['大片唯一女主角', '好莱坞A级卡司', '全网未解之谜'];
+        char.quest = {
+          id: 2,
+          title: '【第二时期】全明星巨制与神秘身世论战',
+          desc: '在《战国》片场迎战毒舌影评人，与张艺谋/马特达蒙合拍《长城》，横跨好莱坞怪兽宇宙，开启《司藤》国民逆袭！',
+          progress: 30
+        };
+        termLog('👑【时期切换】首张EP席卷乐坛，你顺利进入北京电影学院！直接空降 1.5 亿巨制《战国》豪华剧组！', 'text-rose-400 font-black');
+        updateUI();
+      } else if (act === 'talk_honglei') {
+        AudioEngine.heal();
+        char.fame += 30;
+        termLog('戏骨孙红雷老师擦着汗说：“田夕这个角色很有灵气，我们多保一条！” 咖位 +30！', 'text-amber-300');
+        updateUI();
+      } else if (act === 'fight_critics') {
+        startCombat({
+          name: '毒舌影评人团',
+          hp: 140,
+          maxHp: 140,
+          dmg: 32,
+          intent: '长篇大论：【除了全明星众星拱月，演技到底在哪？】'
+        });
+      } else if (act === 'shoot_great_wall') {
+        AudioEngine.crit();
+        char.fame += 60;
+        char.quest.progress = Math.max(char.quest.progress, 70);
+        termLog('🎬 张艺谋喊：“卡！过！” 你身穿蓝色虎军铠甲飞跃长城，英姿飒爽登上国际合拍大银幕！', 'text-cyan-300 font-bold');
+        updateUI();
+      } else if (act === 'shoot_kong') {
+        AudioEngine.pump();
+        char.fame += 80;
+        char.quest.progress = Math.max(char.quest.progress, 90);
+        termLog('🦖 在《金刚：骷髅岛》中，你手持相机优雅现身好莱坞怪兽宇宙！名气 +80！', 'text-purple-300 font-bold');
+        updateUI();
+      } else if (act === 'start_siteng_era') {
+        if (char.quest.progress < 60) return termLog('需先在片场击退影评人质疑并完成巨制大片拍摄！', 'text-yellow-400');
+        AudioEngine.crit();
+        confetti({ particleCount: 150, spread: 90 });
+        char.era = 3;
+        char.year = 2021;
+        char.month = 3;
+        char.location = 'siteng_yunnan';
+        char.money += 1000000;
+        char.fame += 250;
+        char.traits = ['国民司藤女王', '旗袍美学天花板', '双星大汇流主宰'];
+        char.quest = {
+          id: 3,
+          title: '【第三时期】司藤封神与 2025 双星大汇流',
+          desc: '在云南片场以《司藤》美学逆袭全网口碑，登顶顶级时尚封面，在 2025 苏富比与孙宇晨合流！',
+          progress: 50
+        };
+        termLog('🌸【时期切换】2021春，你脱去好莱坞沉重战甲，换上云南实景纯手工旗袍，《司藤》开播全网大爆！', 'text-emerald-300 font-black');
+        updateUI();
+      } else if (act === 'shoot_siteng_scene') {
+        AudioEngine.heal();
+        char.fame += 100;
+        char.quest.progress = Math.max(char.quest.progress, 85);
+        termLog('🌿 柳叶眉、波浪卷、绝美旗袍，“人间富贵花”词条霸榜微博热搜榜首！口碑实现国民大逆袭！', 'text-emerald-300 font-bold');
+        updateUI();
+      } else if (act === 'talk_fans') {
+        AudioEngine.heal();
+        char.hp = Math.min(char.maxHp, char.hp + 30);
+        char.ap = char.maxAp;
+        termLog('💬 路人观众狂发弹幕：“以前是我不懂事，司藤真的太美了！姐姐求踩！”', 'text-rose-300');
+        updateUI();
+      } else if (act === 'fashion_cover') {
+        AudioEngine.pump();
+        char.fame += 150;
+        char.quest.progress = 100;
+        termLog('👗 你连续解锁《VOGUE》《时尚芭莎》金九银十双封！国民口碑与时尚商业价值登顶！', 'text-yellow-300 font-black');
+        updateUI();
+      } else if (act === 'merge_mars') {
+        AudioEngine.crit();
+        confetti({ particleCount: 200, spread: 120 });
+        termLog('🚀【终极通关 · 双星大汇流达成】', 'text-yellow-300 font-black text-sm');
+        termLog('2025 年苏富比天价拍卖厅，孙宇晨拍下 620 万美元香蕉，你身着高定红毯礼服傲立身旁！', 'text-amber-300 font-bold');
+        termLog('两股来自中国当代名利场的顶级注意力洪流在此交汇——规则黑客与资源降维合体，跨界登顶火星主权大满贯！', 'text-cyan-300 font-bold');
+        char.fame += 1000;
         updateUI();
       }
     }
@@ -1085,14 +1390,21 @@
     function winCombat() {
       AudioEngine.crit();
       confetti({ particleCount: 50, spread: 50 });
-      const char = Game[Game.perspective];
+      const p = Game.perspective;
+      const char = Game[p];
       char.fame += 25;
       char.money += 50;
       
       termLog(`🎉【大获全胜】你以无可辩驳的犀利言辞彻底击垮了【${Game.enemy.name}】！获得奖金与名气！`, 'text-emerald-300 font-bold');
       
       if (Game.enemy.name.includes('学生会常务主席')) {
-        Game.quest.progress = 80;
+        char.quest.progress = Math.max(char.quest.progress, 80);
+      } else if (Game.enemy.name.includes('教导主任')) {
+        char.quest.progress = Math.max(char.quest.progress, 60);
+      } else if (Game.enemy.name.includes('八卦狗仔')) {
+        char.quest.progress = Math.max(char.quest.progress, 60);
+      } else if (Game.enemy.name.includes('毒舌影评人')) {
+        char.quest.progress = Math.max(char.quest.progress, 60);
       }
 
       Game.inCombat = false;
@@ -1176,7 +1488,8 @@
     }
 
     Game.useItem = function(itemId) {
-      const char = Game[Game.perspective];
+      const p = Game.perspective;
+      const char = Game[p];
       const idx = char.inventory.findIndex(i => i.id === itemId);
       if (idx === -1) return;
 
@@ -1188,10 +1501,30 @@
         termLog('🥤 你咕咚咕咚喝下一大口大瓶冰红茶，精神抖擞，灵感+1，HP+30！', 'text-emerald-300');
       } else if (itemId === 'essay') {
         termLog('📖 你翻开《新概念历届满分范文》，脑海中灵光乍现，下一击伤害提升！', 'text-amber-300');
+      } else if (itemId === 'card') {
+        termLog('💳 红日网吧 VIP 卡：彰显当年惠州网吧霸主身份！', 'text-amber-300');
+      } else if (itemId === 'perfume') {
+        AudioEngine.heal();
+        Game.playerShield += 30;
+        termLog('🌸 你喷洒了【高定晚香玉香水】，周身弥漫高级幽香，获得 30 点免伤护盾！', 'text-rose-300');
+      } else if (itemId === 'album') {
+        AudioEngine.pump();
+        char.fame += 50;
+        termLog('💿 你播放了首张 EP《你是谁》，全网试听量突破千万！名气 +50！', 'text-rose-300 font-bold');
+      } else if (itemId === 'gown') {
+        AudioEngine.heal();
+        Game.playerShield += 40;
+        termLog('👗 你披上高定刺绣红毯礼服，闪光灯全开，获得 40 点免伤护盾！', 'text-rose-300 font-bold');
+      } else if (itemId === 'press_pass') {
+        termLog('持有《南周实习记者证》，笔锋极其犀利！', 'text-cyan-300');
+      } else if (itemId === 'btc_wallet') {
+        termLog('持有 500 枚比特币冷钱包，底气十足！', 'text-amber-300');
       }
       
-      item.count--;
-      if (item.count <= 0) char.inventory.splice(idx, 1);
+      if (['tea', 'perfume'].includes(itemId)) {
+        item.count--;
+        if (item.count <= 0) char.inventory.splice(idx, 1);
+      }
       updateUI();
     };
 
@@ -1317,7 +1650,8 @@
       const lower = cmd.toLowerCase();
       const tokens = lower.split(' ');
       const verb = tokens[0];
-      const char = Game[Game.perspective];
+      const p = Game.perspective;
+      const char = Game[p];
       const map = getCurrentMap();
 
       if (verb === 'look' || verb === 'l') {
@@ -1343,8 +1677,9 @@
         if (room.exits && room.exits.west) moveToRoom(room.exits.west);
         else termLog('西面无法通行。', 'text-slate-500');
       } else if (verb === 'map') {
-        if (Game.era === 1) {
-          termLog(`
+        if (p === 'sun') {
+          if (char.era === 1) {
+            termLog(`
 <pre class="text-amber-400 font-term text-[11px] leading-tight">
        [高二三班教室]
              |
@@ -1352,36 +1687,76 @@
     |
 [后街小巷]
 </pre>`, 'text-amber-300');
-        } else if (Game.era === 2) {
-          termLog(`
+          } else if (char.era === 2) {
+            termLog(`
 <pre class="text-amber-400 font-term text-[11px] leading-tight">
 [未名湖畔博雅塔] -- [百周年纪念讲堂]
        |                  |
 [三角地BBS广场] --- [留学生出国服务部]
 </pre>`, 'text-cyan-300');
-        } else {
-          termLog(`
+          } else {
+            termLog(`
 <pre class="text-amber-400 font-term text-[11px] leading-tight">
+[苏富比拍卖厅]
+      |
 [沃顿商学院] -- [早期比特币矿池]
-     |
+      |
 [华尔街俱乐部]
 </pre>`, 'text-yellow-300');
+          }
+        } else {
+          if (char.era === 1) {
+            termLog(`
+<pre class="text-rose-400 font-term text-[11px] leading-tight">
+[北舞女生宿舍]
+      |
+[北舞芭蕾厅] -- [张亚东录音棚] -- [国宾馆发布厅]
+</pre>`, 'text-rose-300');
+          } else if (char.era === 2) {
+            termLog(`
+<pre class="text-rose-400 font-term text-[11px] leading-tight">
+[好莱坞红毯]       [金刚怪兽宇宙]
+     |                  |
+[战国豪华片场] --- [长城合拍片场]
+</pre>`, 'text-pink-300');
+          } else {
+            termLog(`
+<pre class="text-rose-400 font-term text-[11px] leading-tight">
+[苏富比双星汇流]
+       |
+[司藤实景片场] --- [微博之夜主舞台]
+</pre>`, 'text-emerald-300');
+          }
         }
       } else if (verb === 'search' || verb === 'find') {
-        if (char.location === 'classroom') {
-          handleNpcAction('loot_drawer');
-        } else if (char.location === 'weiming_lake') {
-          handleNpcAction('loot_press_pass');
+        if (p === 'sun') {
+          if (char.location === 'classroom') {
+            handleNpcAction('loot_drawer');
+          } else if (char.location === 'weiming_lake') {
+            handleNpcAction('loot_press_pass');
+          } else {
+            termLog('你仔细搜寻了四周，没有发现其他隐藏暗格。', 'text-slate-400');
+          }
         } else {
-          termLog('你仔细搜寻了四周，没有发现其他隐藏暗格。', 'text-slate-400');
+          if (char.location === 'beiwu_hall') {
+            handleNpcAction('loot_perfume');
+          } else {
+            termLog('你仔细搜寻了四周，没有发现其他隐藏物品。', 'text-slate-400');
+          }
         }
       } else if (verb === 'inventory' || verb === 'i') {
-        termLog(`💼【当前背包】(现金: ¥${char.money}):`, 'text-cyan-300 font-bold');
+        termLog(`💼【当前背包】(现金: ¥${char.money.toLocaleString()}):`, 'text-cyan-300 font-bold');
         char.inventory.forEach(item => {
           termLog(`  - ${item.name} x${item.count} (${item.desc})`, 'text-slate-300');
         });
       } else if (verb === 'drink' || (verb === 'use' && tokens[1] === 'tea')) {
         Game.useItem('tea');
+      } else if (verb === 'use' && (tokens[1] === 'perfume' || tokens[1] === '香水')) {
+        Game.useItem('perfume');
+      } else if (verb === 'use' && (tokens[1] === 'album' || tokens[1] === '母带' || tokens[1] === 'ep')) {
+        Game.useItem('album');
+      } else if (verb === 'use' && (tokens[1] === 'gown' || tokens[1] === '礼服')) {
+        Game.useItem('gown');
       } else if (verb === 'eat' && tokens[1] === 'bbq') {
         handleNpcAction('eat_bbq');
       } else if (verb === 'fight' || verb === 'attack' || verb === 'kill') {
@@ -1417,7 +1792,11 @@
       } else if (verb === 'tweet' || verb === 'pr') {
         const text = cmd.substring(verb.length).trim();
         AudioEngine.pump();
-        termLog(`📱【全网通稿发布】孙总发推：“${text || '波场生态大有可为！'}” ➡️ 全球热搜飙升！`, 'text-cyan-300 font-bold');
+        if (p === 'sun') {
+          termLog(`📱【全网通稿发布】孙总发推：“${text || '波场生态大有可为！'}” ➡️ 全球热搜飙升！`, 'text-cyan-300 font-bold');
+        } else {
+          termLog(`🌸【工作室通稿发布】景甜工作室官微发布：“${text || '感谢大家对作品的喜爱，踏实演戏，不负遇见。'}” ➡️ 转发点赞破百万！`, 'text-rose-300 font-bold');
+        }
       } else if (verb === 'shout') {
         const text = cmd.substring(5).trim();
         AudioEngine.crit();
@@ -1425,7 +1804,7 @@
       } else if (verb === 'ask') {
         const room = map[char.location];
         if (room.npcs && room.npcs.length > 0) {
-          termLog(`${room.npcs[0].name}对你说：“好好努力，名利场的大门只为野心家敞开！”`, 'text-cyan-300');
+          termLog(`${room.npcs[0].name}对你说：“好好打磨作品与声浪，名利场的聚光灯只为赢家点亮！”`, 'text-cyan-300');
         } else {
           termLog('四周空无一人，你在自言自语。', 'text-slate-500');
         }
@@ -1435,10 +1814,11 @@
         termLog(`
 <pre class="text-slate-300 font-term text-[11px] leading-tight bg-slate-950 p-2 rounded border border-slate-800">
 ┌───────────────────────────────────────┐
-│ 姓名: ${Game.perspective === 'sun' ? '孙宇晨 (Justin)' : '景甜 (Jing Tian)'}
+│ 姓名: ${p === 'sun' ? '孙宇晨 (Justin Sun)' : '景甜 (Jing Tian)'}
 │ 气血: ${char.hp}/${char.maxHp} | 灵感: ${char.ap}/${char.maxAp}
-│ 现金: ¥${char.money} | 名气声浪: ${char.fame}
-│ 阶段: 时期 ${Game.era} (${Game.year}年)
+│ 现金: ¥${char.money.toLocaleString()} | 名气声浪: ${char.fame}
+│ 阶段: 时期 ${char.era} (${char.year}年)
+│ 特质: ${char.traits.join(', ')}
 └───────────────────────────────────────┘
 </pre>`, 'text-slate-200');
       } else if (verb === 'help' || verb === 'h') {
@@ -1446,7 +1826,7 @@
 <pre class="text-amber-300 font-term text-[11px] leading-tight bg-slate-950 p-2.5 rounded border border-slate-800">
 📖【名利场 MUD 全量指令指南】(支持 Tab 补全):
 - 空间移动: north(n), south(s), east(e), west(w), look(l), map
-- 探索搜寻: search, inventory(i), drink tea, eat bbq
+- 探索搜寻: search, inventory(i), drink tea, use [道具], eat bbq
 - 论战对决: fight, cast [招式], flee
 - 加密操盘: pump, dump, buy trx, airdrop
 - 公关社交: tweet [内容], shout [豪言], ask [NPC]
@@ -1483,7 +1863,7 @@
       Game.perspective = 'sun';
       document.getElementById('btn-switch-sun').className = 'px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-black flex items-center gap-1 transition';
       document.getElementById('btn-switch-jing').className = 'px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 transition';
-      termLog('🔄 切换至【孙宇晨线】：惠州一中少年逆袭中...', 'text-amber-400 font-bold');
+      termLog('🔄 切换至【⚡ 孙宇晨线】：惠州一中少年逆袭中...', 'text-amber-400 font-bold');
       updateUI();
     };
 
@@ -1491,7 +1871,7 @@
       Game.perspective = 'jing';
       document.getElementById('btn-switch-jing').className = 'px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white flex items-center gap-1 transition';
       document.getElementById('btn-switch-sun').className = 'px-2.5 py-1 rounded-lg font-bold text-slate-400 hover:text-slate-200 flex items-center gap-1 transition';
-      termLog('🔄 切换至【景甜线】：北京电影学院 & 好莱坞全明星征途中...', 'text-rose-400 font-bold');
+      termLog('🔄 切换至【👸 景甜线】：北舞附中校花 & 张亚东录音棚星光初绽中...', 'text-rose-400 font-bold');
       updateUI();
     };
 
