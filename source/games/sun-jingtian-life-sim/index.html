@@ -370,20 +370,29 @@
           </button>
         </div>
 
-        <form id="form-auth" class="space-y-2.5 pt-1">
+        <form id="form-auth" class="space-y-3 pt-1">
           <div>
-            <label id="auth-label-user" class="block text-[11px] text-slate-400 mb-1">用户名 (User Name)</label>
-            <input type="text" id="auth-input-user" required placeholder="请输入您的专属用户名" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono" />
+            <label id="auth-label-user" class="block text-[11px] text-slate-300 font-bold mb-1 flex items-center gap-1.5">
+              <i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>用户名 (User Name)</span>
+            </label>
+            <input type="text" id="auth-input-user" required placeholder="请输入您的专属用户名 (2~20位)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-emerald-400 font-mono shadow-inner" />
           </div>
           <div id="auth-field-phone">
-            <label class="block text-[11px] text-slate-400 mb-1">手机号码 (Mobile Phone)</label>
-            <input type="tel" id="auth-input-phone" placeholder="请输入11位手机号码 (如 13800138000)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono" />
+            <label class="block text-[11px] text-slate-300 font-bold mb-1 flex items-center gap-1.5">
+              <i data-lucide="smartphone" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>手机号码 (Mobile Phone · 必填)</span>
+            </label>
+            <input type="tel" id="auth-input-phone" placeholder="请输入11位手机号码 (如 13800138000)" class="w-full bg-slate-950 border border-emerald-500/60 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-emerald-400 font-mono shadow-inner" />
           </div>
           <div>
-            <label class="block text-[11px] text-slate-400 mb-1">密码 (Password)</label>
-            <input type="password" id="auth-input-pass" required placeholder="设置您的登录密码 (至少4位)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono" />
+            <label class="block text-[11px] text-slate-300 font-bold mb-1 flex items-center gap-1.5">
+              <i data-lucide="lock" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>登录密码 (Password)</span>
+            </label>
+            <input type="password" id="auth-input-pass" required placeholder="设置您的登录密码 (至少4位)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-emerald-400 font-mono shadow-inner" />
           </div>
-          <div id="auth-feedback-msg" class="text-xs text-rose-400 hidden"></div>
+          <div id="auth-feedback-msg" class="text-xs text-rose-400 font-bold hidden"></div>
           <button type="submit" id="btn-submit-auth" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:opacity-90 text-black font-black text-xs transition shadow-lg flex items-center justify-center gap-1.5">
             <span>✨ 立即注册并开启云存档</span>
           </button>
@@ -3078,6 +3087,7 @@
           guestView.classList.remove('hidden');
           this.switchTab(this.activeTab);
         }
+        if (window.lucide) window.lucide.createIcons();
       },
 
       switchTab(tab) {
@@ -3098,7 +3108,7 @@
           submitBtn.innerHTML = '<span>✨ 立即注册并开启云存档</span>';
           phoneField.classList.remove('hidden');
           phoneInput.required = true;
-          userLabel.innerText = '用户名 (User Name)';
+          userLabel.innerHTML = '<i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i><span>用户名 (User Name)</span>';
           userInput.placeholder = '请输入您的专属用户名 (2~20位)';
         } else {
           loginBtn.className = 'flex-1 py-1.5 rounded-lg font-bold bg-emerald-500 text-black transition';
@@ -3106,9 +3116,10 @@
           submitBtn.innerHTML = '<span>🔑 立即登录并同步云存档</span>';
           phoneField.classList.add('hidden');
           phoneInput.required = false;
-          userLabel.innerText = '账号 (用户名 或 手机号)';
+          userLabel.innerHTML = '<i data-lucide="user" class="w-3.5 h-3.5 text-cyan-400"></i><span>账号 (用户名 或 手机号)</span>';
           userInput.placeholder = '请输入用户名或已绑定的手机号';
         }
+        if (window.lucide) window.lucide.createIcons();
       },
 
       async handleFormSubmit(e) {
