@@ -90,6 +90,23 @@
       </div>
 
       <div class="space-y-3.5 text-xs text-slate-300 leading-relaxed font-sans">
+        
+        <!-- CLOUD SAVE REGISTRATION PROMPT BANNER -->
+        <div class="bg-gradient-to-r from-emerald-950/80 via-slate-950/90 to-cyan-950/80 p-3.5 rounded-2xl border-2 border-emerald-500/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg shadow-emerald-950/30">
+          <div class="space-y-0.5">
+            <div class="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+              <i data-lucide="cloud-lightning" class="w-4 h-4 text-emerald-400"></i>
+              <span>【云端存档已上线 · 注册即可多端同步】</span>
+            </div>
+            <p class="text-[11px] text-slate-300 leading-relaxed">
+              本游戏已接入专属服务器云端存档！<span class="text-emerald-300 font-bold">注册并登录账号</span>后，可随时保存与读取命运分支进度。未登录用户仅能在当前浏览器本地临时游玩。
+            </p>
+          </div>
+          <button id="btn-intro-register-now" class="shrink-0 px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs transition shadow flex items-center gap-1 cursor-pointer">
+            🔑 立即注册/登录
+          </button>
+        </div>
+
         <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 space-y-1.5">
           <div class="flex items-center gap-1.5 text-amber-400 font-bold text-xs font-term">
             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 【游戏的本质：注意力即流动性】
@@ -287,6 +304,86 @@
     </div>
   </div>
 
+  <!-- CLOUD SAVE & AUTH MODAL (☁️ 用户账号与云端存档) -->
+  <div id="modal-auth-save" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-slate-900 border-2 border-emerald-500/60 max-w-md w-full rounded-3xl p-5 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto relative animate-in fade-in zoom-in duration-300">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-black">
+            ☁️
+          </div>
+          <div>
+            <h3 class="text-base font-black text-slate-100">
+              名利场云端存档
+            </h3>
+            <p class="text-[11px] text-slate-400">注册登录账号，实现跨设备多端实时进度同步</p>
+          </div>
+        </div>
+        <button id="btn-close-auth-modal" class="text-slate-400 hover:text-slate-200 text-xs font-bold px-2 py-1">✕</button>
+      </div>
+
+      <!-- Logged In View -->
+      <div id="auth-logged-in-view" class="space-y-3.5 hidden">
+        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-xs text-slate-400">当前登录用户:</span>
+            <span id="auth-display-username" class="text-sm font-black text-emerald-400 font-mono">--</span>
+          </div>
+          <div class="border-t border-slate-800/80 pt-2 space-y-1 text-xs">
+            <div class="flex justify-between text-slate-400">
+              <span>云端存档状态:</span>
+              <span id="auth-save-status" class="text-slate-300 font-mono">正在获取...</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span>上次保存时间:</span>
+              <span id="auth-save-time" class="text-amber-400 font-mono">--</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button id="btn-do-cloud-save" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-black text-xs hover:opacity-90 transition shadow flex items-center justify-center gap-1.5">
+            💾 保存当前进度
+          </button>
+          <button id="btn-do-cloud-load" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-black text-xs transition border border-cyan-500/40 flex items-center justify-center gap-1.5">
+            📂 读取上次存档
+          </button>
+        </div>
+
+        <button id="btn-do-logout" class="w-full py-2 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-400 font-bold text-xs transition border border-red-500/30">
+          🚪 退出当前账号
+        </button>
+      </div>
+
+      <!-- Guest / Not Logged In View (Tabs: Register / Login) -->
+      <div id="auth-guest-view" class="space-y-3">
+        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+          <button id="tab-btn-register" class="flex-1 py-1.5 rounded-lg font-bold bg-emerald-500 text-black transition">
+            ✨ 注册新账号
+          </button>
+          <button id="tab-btn-login" class="flex-1 py-1.5 rounded-lg font-bold text-slate-400 hover:text-slate-200 transition">
+            🔑 登录已有账号
+          </button>
+        </div>
+
+        <form id="form-auth" class="space-y-3 pt-1">
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">用户名 (User Name)</label>
+            <input type="text" id="auth-input-user" required placeholder="请输入您的专属用户名" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono" />
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">密码 (Password)</label>
+            <input type="password" id="auth-input-pass" required placeholder="设置您的登录密码 (至少4位)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono" />
+          </div>
+          <div id="auth-feedback-msg" class="text-xs text-rose-400 hidden"></div>
+          <button type="submit" id="btn-submit-auth" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:opacity-90 text-black font-black text-xs transition shadow-lg flex items-center justify-center gap-1.5">
+            <span>✨ 立即注册并开启云存档</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Header & Real-time Status Bar -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-3">
@@ -306,6 +403,12 @@
       </div>
 
       <div class="flex items-center gap-2 text-xs">
+        <!-- Cloud Save / Auth Button -->
+        <button id="btn-open-cloud-save" class="px-2.5 py-1 rounded-lg bg-emerald-950/70 hover:bg-emerald-900 text-emerald-300 font-bold border border-emerald-500/50 flex items-center gap-1 transition shadow">
+          <i data-lucide="cloud" class="w-3.5 h-3.5"></i>
+          <span id="cloud-user-label">☁️ 云存档 (未登录)</span>
+        </button>
+
         <!-- Daily UV & IP Traffic Badge -->
         <div id="traffic-badge" class="bg-slate-950 px-2.5 py-1 rounded-lg border border-indigo-500/30 flex items-center gap-1.5 text-xs shadow" title="以IP为准，每天每IP仅记录1次独立访问">
           <span class="text-indigo-400 font-bold flex items-center gap-1"><i data-lucide="eye" class="w-3.5 h-3.5"></i> 访客(UV)</span>
@@ -774,6 +877,10 @@
       { cmd: 'who', desc: '查看当前世界活跃名流' },
       { cmd: 'score', desc: '查看当前人物详细属性与成就' },
       { cmd: 'kidney', desc: '自检肾结石健康状态' },
+      { cmd: 'save', desc: '💾 保存当前游戏进度到云端服务器' },
+      { cmd: 'load', desc: '📂 从云端服务器读取上次存档' },
+      { cmd: 'login', desc: '🔑 登录已有账号' },
+      { cmd: 'register', desc: '✨ 注册新账号开启云存档' },
       { cmd: 'flee', desc: '在论战不利时翻窗逃跑' },
       { cmd: 'help', desc: '呼出完整 MUD 指令百科' }
     ];
@@ -2841,6 +2948,14 @@
         } else {
           termLog('四周空无一人，你在自言自语。', 'text-slate-500');
         }
+      } else if (verb === 'save') {
+        CloudAuthManager.saveGame();
+      } else if (verb === 'load') {
+        CloudAuthManager.loadGame();
+      } else if (verb === 'login') {
+        CloudAuthManager.openModal('login');
+      } else if (verb === 'register') {
+        CloudAuthManager.openModal('register');
       } else if (verb === 'kidney') {
         termLog(`🏥【结石自检】当前健康状态良好，可乐摄入指数 65%。请谨防在巴菲特午餐前突发结石！`, 'text-emerald-300');
       } else if (verb === 'score' || verb === 'status') {
@@ -2859,6 +2974,7 @@
 <pre class="text-amber-300 font-term text-[11px] leading-tight bg-slate-950 p-2.5 rounded border border-slate-800">
 📖【名利场 MUD 全量指令指南】(支持 Tab 补全):
 - 空间移动: north(n), south(s), east(e), west(w), look(l), map
+- 云端存档: save (保存进度), load (读取进度), register (注册), login (登录)
 - 探索搜寻: search, inventory(i), drink tea, use [道具], eat bbq
 - 论战对决: fight, cast [招式], flee
 - 加密操盘: pump, dump, buy trx, airdrop
@@ -2869,6 +2985,261 @@
         termLog(`未知指令: "${cmd}"。输入 'help' 或按 Tab 查看可用指令。`, 'text-slate-500');
       }
     }
+
+    // ====================================================
+    // CLOUD AUTH & SAVE/LOAD SYSTEM (服务器云端存档管理引擎)
+    // ====================================================
+    const CLOUD_API_BASE = 'https://140.245.65.111.sslip.io/api/mud';
+
+    const CloudAuthManager = {
+      activeTab: 'register',
+
+      getToken() {
+        return localStorage.getItem('mud_auth_token') || '';
+      },
+      getUsername() {
+        return localStorage.getItem('mud_auth_user') || '';
+      },
+      isLoggedIn() {
+        return !!this.getToken() && !!this.getUsername();
+      },
+
+      setAuth(token, username) {
+        localStorage.setItem('mud_auth_token', token);
+        localStorage.setItem('mud_auth_user', username);
+        this.updateHeaderUI();
+      },
+
+      logout() {
+        localStorage.removeItem('mud_auth_token');
+        localStorage.removeItem('mud_auth_user');
+        this.updateHeaderUI();
+        this.renderModal();
+        termLog('🚪【云存档】已退出当前登录账号。', 'text-slate-400');
+      },
+
+      updateHeaderUI() {
+        const btn = document.getElementById('btn-open-cloud-save');
+        const label = document.getElementById('cloud-user-label');
+        if (!btn || !label) return;
+
+        if (this.isLoggedIn()) {
+          label.innerText = `☁️ ${this.getUsername()}`;
+          btn.className = 'px-2.5 py-1 rounded-lg bg-emerald-900/80 hover:bg-emerald-800 text-emerald-200 font-bold border border-emerald-400/60 flex items-center gap-1 transition shadow shadow-emerald-950/50';
+          btn.title = `已登录账号: ${this.getUsername()} (点击管理云端存档)`;
+        } else {
+          label.innerText = '☁️ 存档/登录';
+          btn.className = 'px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 font-bold border border-emerald-500/40 flex items-center gap-1 transition shadow';
+          btn.title = '未登录：点击注册/登录账号以开启云端存档';
+        }
+      },
+
+      openModal(tab = 'register') {
+        AudioEngine.tab();
+        this.activeTab = tab;
+        const modal = document.getElementById('modal-auth-save');
+        modal.classList.remove('hidden');
+        this.renderModal();
+      },
+
+      closeModal() {
+        document.getElementById('modal-auth-save').classList.add('hidden');
+      },
+
+      renderModal() {
+        const loggedInView = document.getElementById('auth-logged-in-view');
+        const guestView = document.getElementById('auth-guest-view');
+        const feedback = document.getElementById('auth-feedback-msg');
+        feedback.classList.add('hidden');
+        feedback.innerText = '';
+
+        if (this.isLoggedIn()) {
+          loggedInView.classList.remove('hidden');
+          guestView.classList.add('hidden');
+          document.getElementById('auth-display-username').innerText = this.getUsername();
+          this.fetchSaveMeta();
+        } else {
+          loggedInView.classList.add('hidden');
+          guestView.classList.remove('hidden');
+          this.switchTab(this.activeTab);
+        }
+      },
+
+      switchTab(tab) {
+        this.activeTab = tab;
+        const regBtn = document.getElementById('tab-btn-register');
+        const loginBtn = document.getElementById('tab-btn-login');
+        const submitBtn = document.getElementById('btn-submit-auth');
+        const feedback = document.getElementById('auth-feedback-msg');
+        feedback.classList.add('hidden');
+
+        if (tab === 'register') {
+          regBtn.className = 'flex-1 py-1.5 rounded-lg font-bold bg-emerald-500 text-black transition';
+          loginBtn.className = 'flex-1 py-1.5 rounded-lg font-bold text-slate-400 hover:text-slate-200 transition';
+          submitBtn.innerHTML = '<span>✨ 立即注册并开启云存档</span>';
+        } else {
+          loginBtn.className = 'flex-1 py-1.5 rounded-lg font-bold bg-emerald-500 text-black transition';
+          regBtn.className = 'flex-1 py-1.5 rounded-lg font-bold text-slate-400 hover:text-slate-200 transition';
+          submitBtn.innerHTML = '<span>🔑 立即登录并同步云存档</span>';
+        }
+      },
+
+      async handleFormSubmit(e) {
+        e.preventDefault();
+        const username = document.getElementById('auth-input-user').value.trim();
+        const password = document.getElementById('auth-input-pass').value.trim();
+        const feedback = document.getElementById('auth-feedback-msg');
+        const submitBtn = document.getElementById('btn-submit-auth');
+
+        if (!username || !password) {
+          feedback.innerText = '请填写完整的用户名和密码！';
+          feedback.classList.remove('hidden');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50');
+
+        const endpoint = this.activeTab === 'register' ? '/auth/register' : '/auth/login';
+
+        try {
+          const res = await fetch(`${CLOUD_API_BASE}${endpoint}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+          const data = await res.json();
+
+          if (!res.ok || data.error) {
+            feedback.innerText = data.error || '请求失败，请稍后重试';
+            feedback.classList.remove('hidden');
+            AudioEngine.hit();
+          } else {
+            AudioEngine.crit();
+            confetti({ particleCount: 100, spread: 80 });
+            this.setAuth(data.token, data.username);
+            this.renderModal();
+            termLog(`🎉【云端账号】${this.activeTab === 'register' ? '注册并登录成功' : '登录成功'}！欢迎您，${data.username}！`, 'text-emerald-300 font-bold');
+            
+            if (this.activeTab === 'register') {
+              this.saveGame(true);
+            }
+          }
+        } catch (err) {
+          feedback.innerText = '网络连接异常，无法连接云存档服务器';
+          feedback.classList.remove('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-50');
+        }
+      },
+
+      async fetchSaveMeta() {
+        const statusEl = document.getElementById('auth-save-status');
+        const timeEl = document.getElementById('auth-save-time');
+        statusEl.innerText = '正在从服务器查询...';
+
+        try {
+          const res = await fetch(`${CLOUD_API_BASE}/save/meta`, {
+            headers: { 'Authorization': `Bearer ${this.getToken()}` }
+          });
+          const data = await res.json();
+          if (data.hasSave) {
+            statusEl.innerText = `${data.perspective === 'sun' ? '⚡ 孙宇晨' : '👸 景甜'} (时期: ${data.era}) · 解锁结局: ${data.unlockedEndingsCount}/16`;
+            timeEl.innerText = data.lastSavedAt || '--';
+          } else {
+            statusEl.innerText = '暂无云端存档记录 (可点击下方按钮保存)';
+            timeEl.innerText = '从未保存';
+          }
+        } catch (e) {
+          statusEl.innerText = '查询失败，服务器连接异常';
+        }
+      },
+
+      async saveGame(silent = false) {
+        if (!this.isLoggedIn()) {
+          this.openModal('register');
+          termLog('⚠️ 请先注册或登录账号，才能使用云端存档功能！', 'text-amber-400 font-bold');
+          return;
+        }
+
+        const char = Game[Game.perspective];
+        const payload = {
+          gameState: {
+            perspective: Game.perspective,
+            sun: Game.sun,
+            jing: Game.jing,
+            cryptoPrice: Game.cryptoPrice,
+            cryptoBalance: Game.cryptoBalance
+          },
+          endings: Game.unlockedEndings,
+          perspective: Game.perspective,
+          era: char.era
+        };
+
+        try {
+          const res = await fetch(`${CLOUD_API_BASE}/save/save`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.getToken()}`
+            },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if (res.ok) {
+            AudioEngine.pump();
+            if (!silent) {
+              confetti({ particleCount: 80, spread: 60 });
+              termLog(`💾【云端存档成功】当前进度已实时同步至服务器！(时期 ${char.era} · 角色: ${Game.perspective === 'sun' ? '孙宇晨' : '景甜'})`, 'text-emerald-300 font-bold');
+              this.fetchSaveMeta();
+            }
+          } else {
+            termLog(`❌【云端存档失败】${data.error || '服务器拒绝'}`, 'text-red-400');
+          }
+        } catch (e) {
+          termLog('❌【云端存档失败】无法连接到云端服务器', 'text-red-400');
+        }
+      },
+
+      async loadGame() {
+        if (!this.isLoggedIn()) {
+          this.openModal('login');
+          termLog('⚠️ 请先登录账号再读取云端存档！', 'text-amber-400 font-bold');
+          return;
+        }
+
+        try {
+          const res = await fetch(`${CLOUD_API_BASE}/save/load`, {
+            headers: { 'Authorization': `Bearer ${this.getToken()}` }
+          });
+          const data = await res.json();
+          if (res.ok && data.gameState) {
+            AudioEngine.crit();
+            confetti({ particleCount: 120, spread: 90 });
+
+            // Restore state
+            if (data.gameState.sun) Game.sun = data.gameState.sun;
+            if (data.gameState.jing) Game.jing = data.gameState.jing;
+            if (data.gameState.perspective) Game.perspective = data.gameState.perspective;
+            if (data.gameState.cryptoPrice) Game.cryptoPrice = data.gameState.cryptoPrice;
+            if (data.gameState.cryptoBalance) Game.cryptoBalance = data.gameState.cryptoBalance;
+            if (data.endings && Array.isArray(data.endings)) {
+              Game.unlockedEndings = data.endings;
+              localStorage.setItem('mud_fates_unlocked', JSON.stringify(Game.unlockedEndings));
+            }
+
+            this.closeModal();
+            updateUI();
+            termLog(`📂【云端读取成功】已恢复至存档点（保存于 ${data.lastSavedAt}）！`, 'text-cyan-300 font-bold');
+          } else {
+            termLog(`❌【读取失败】${data.error || '未找到有效存档'}`, 'text-red-400');
+          }
+        } catch (e) {
+          termLog('❌【读取失败】无法连接到云端服务器', 'text-red-400');
+        }
+      }
+    };
 
     const modalIntro = document.getElementById('modal-intro');
     const btnStartGame = document.getElementById('btn-start-game');
@@ -2890,6 +3261,47 @@
     btnReopenGuide.onclick = () => {
       AudioEngine.tab();
       modalIntro.classList.remove('hidden');
+    };
+
+    // Auth & Cloud Save event listeners
+    document.getElementById('btn-open-cloud-save').onclick = () => {
+      CloudAuthManager.openModal(CloudAuthManager.isLoggedIn() ? 'save' : 'register');
+    };
+
+    const introRegBtn = document.getElementById('btn-intro-register-now');
+    if (introRegBtn) {
+      introRegBtn.onclick = () => {
+        modalIntro.classList.add('hidden');
+        CloudAuthManager.openModal('register');
+      };
+    }
+
+    document.getElementById('btn-close-auth-modal').onclick = () => {
+      CloudAuthManager.closeModal();
+    };
+
+    document.getElementById('tab-btn-register').onclick = () => {
+      CloudAuthManager.switchTab('register');
+    };
+
+    document.getElementById('tab-btn-login').onclick = () => {
+      CloudAuthManager.switchTab('login');
+    };
+
+    document.getElementById('form-auth').onsubmit = (e) => {
+      CloudAuthManager.handleFormSubmit(e);
+    };
+
+    document.getElementById('btn-do-cloud-save').onclick = () => {
+      CloudAuthManager.saveGame();
+    };
+
+    document.getElementById('btn-do-cloud-load').onclick = () => {
+      CloudAuthManager.loadGame();
+    };
+
+    document.getElementById('btn-do-logout').onclick = () => {
+      CloudAuthManager.logout();
     };
 
     document.getElementById('btn-open-gallery').onclick = () => {
@@ -3007,11 +3419,19 @@
     }
 
     window.onload = () => {
+      CloudAuthManager.updateHeaderUI();
       if (localStorage.getItem('mud_intro_dismissed') === 'true') {
         modalIntro.classList.add('hidden');
       }
       updateUI();
       trackDailyUniqueIP();
+
+      // 云端存档注册引导提示
+      if (!CloudAuthManager.isLoggedIn()) {
+        termLog('☁️【云端存档系统】提示：注册/登录账号后可开启云端实时存档与多端进度漫游！输入 save 或点击右上角【☁️ 存档/登录】即可开启。', 'text-emerald-300 font-mono text-[11px]');
+      } else {
+        termLog(`☁️【云端存档】欢迎回来，[${CloudAuthManager.getUsername()}]！进度将自动漫游同步。`, 'text-emerald-300 font-mono text-[11px]');
+      }
     };
   </script>
 </body>
