@@ -72,18 +72,21 @@
   <!-- GAME INTRO / PROLOGUE MODAL -->
   <div id="modal-intro" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4">
     <div class="bg-slate-900 border-2 border-amber-500/50 max-w-2xl w-full rounded-3xl p-5 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto relative">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-cyan-500 flex items-center justify-center font-black text-black text-sm">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3 gap-3">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 shrink-0 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-cyan-500 flex items-center justify-center font-black text-black text-sm">
             ⚡
           </div>
-          <div>
+          <div class="min-w-0">
             <h2 class="text-base sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-rose-300 to-cyan-400">
-              名利场 MUD：双星演义 · 玩家指引与世界观
+              踏入名利场 MUD：双星演义 · 玩家指引与世界观
             </h2>
             <p class="text-[11px] text-slate-400">关于中国当代名利场、注意力经济与概念炼金术的荒诞生存模拟</p>
           </div>
         </div>
+        <button id="btn-start-game-top" class="shrink-0 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 hover:opacity-90 text-black font-black text-xs transition shadow-lg shadow-amber-500/25 flex items-center gap-1.5 font-term cursor-pointer">
+          踏入名利场 🚀
+        </button>
       </div>
 
       <div class="space-y-3.5 text-xs text-slate-300 leading-relaxed font-sans">
@@ -1456,16 +1459,20 @@
 
     const modalIntro = document.getElementById('modal-intro');
     const btnStartGame = document.getElementById('btn-start-game');
+    const btnStartGameTop = document.getElementById('btn-start-game-top');
     const btnReopenGuide = document.getElementById('btn-reopen-guide');
     const chkDontShow = document.getElementById('chk-dont-show-intro');
 
-    btnStartGame.onclick = () => {
+    const handleStartGame = () => {
       AudioEngine.crit();
-      if (chkDontShow.checked) {
+      if (chkDontShow && chkDontShow.checked) {
         localStorage.setItem('mud_intro_dismissed', 'true');
       }
       modalIntro.classList.add('hidden');
     };
+
+    if (btnStartGame) btnStartGame.onclick = handleStartGame;
+    if (btnStartGameTop) btnStartGameTop.onclick = handleStartGame;
 
     btnReopenGuide.onclick = () => {
       AudioEngine.tab();
