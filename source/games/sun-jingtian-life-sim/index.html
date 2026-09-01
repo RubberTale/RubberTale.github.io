@@ -1089,9 +1089,19 @@
           wharton_hall: {
             name: '宾夕法尼亚大学 · 沃顿商学院',
             desc: '常春藤金融圣殿，你正与华尔街同学研讨特斯拉原始股与代币经济学。',
-            exits: { east: 'crypto_garage', south: 'wall_street_club', north: 'sotheby_hall' },
+            exits: { east: 'crypto_garage', south: 'wall_street_club', north: 'sotheby_hall', west: 'atlantic_suite' },
             npcs: [
               { name: '常春藤同学', role: '商人', action: 'buy_tesla_stock', label: '重仓 Tesla 原始股 (¥5,000)' }
+            ]
+          },
+          atlantic_suite: {
+            name: '大西洋海景总统套房 · 避光暗室',
+            desc: '面朝大西洋的千平全景落地窗已被两名助理用特种黑胶带死死封住，甚至空调和插座指示灯都贴了三层。阳光暴晒下胶水融化，整面玻璃已彻底报废。五星级酒店经理正拿着 $50,000 赔偿账单在门外瑟瑟发抖。',
+            exits: { east: 'wharton_hall', north: 'sotheby_hall' },
+            npcs: [
+              { name: '工程级遮光助理团', role: 'NPC', action: 'seal_windows_tape', label: '👷 安排助理用黑胶带封窗 (获得【特种遮光黑胶带】)' },
+              { name: '大西洋酒店管家', role: 'NPC', action: 'pay_hotel_window', label: '🧾 赔偿换玻璃费 ($50,000 / 名气暴涨)' },
+              { name: 'X/推特草稿箱', role: '交互', action: 'publish_girlfriend_essay', label: '✍️ 连载长文《我的女友景甜》(注：纯属虚构)' }
             ]
           },
           crypto_garage: {
@@ -1122,7 +1132,7 @@
           sotheby_hall: {
             name: '纽约苏富比天价拍卖大厅 · 2025会师',
             desc: '全球顶流云集，620 万美元艺术香蕉《喜剧演员》正贴在墙上！',
-            exits: { south: 'wharton_hall' },
+            exits: { south: 'wharton_hall', west: 'atlantic_suite' },
             npcs: [
               { name: '苏富比艺术香蕉', role: '交互', action: 'finish_sun_banana', label: '🍌 一口吃掉 620 万美元香蕉！' },
               { name: '特邀贵宾 · 景甜', role: '交互', action: 'meet_jingtian_mars', label: '🚀 双星会师！进军火星大满贯！' }
@@ -1232,10 +1242,19 @@
           siteng_yunnan: {
             name: '《司藤》实景片场 · 云南密林',
             desc: '白玉兰旗袍、细柳叶眉，“人间富贵花”口碑国民大爆！',
-            exits: { east: 'red_carpet', north: 'sotheby_jing' },
+            exits: { east: 'red_carpet', north: 'sotheby_jing', west: 'dark_suite_jing' },
             npcs: [
               { name: '剧组摄影指导', role: 'NPC', action: 'shoot_siteng_scene', label: '🌿 释放女王气场 (口碑+100)' },
               { name: '真香路人观众', role: 'NPC', action: 'talk_fans', label: '💬 听取全网夸夸' }
+            ]
+          },
+          dark_suite_jing: {
+            name: '大西洋顶奢套房 · 避光防狗仔结界',
+            desc: '为抵御演艺圈镁光灯与无孔不入的狗仔窥探，两名助理将套房所有玻璃缝隙贴满黑胶带，营造出 100% 绝对黑暗。你在纯粹的静谧中休整，蓄力大女主气场。',
+            exits: { east: 'siteng_yunnan', north: 'sotheby_jing' },
+            npcs: [
+              { name: '100%黑胶带避光防线', role: '宝箱', action: 'loot_black_tape', label: '🔍 搜寻【特种遮光黑胶带】(免伤+60)' },
+              { name: '景甜工作室法务部', role: '交互', action: 'statement_legal_defense', label: '⚖️ 发布严正声明：不接受舆论碰瓷，交由法律裁决！' }
             ]
           },
           red_carpet: {
@@ -1249,7 +1268,7 @@
           sotheby_jing: {
             name: '纽约苏富比天价拍卖厅 · 双星汇流',
             desc: '孙宇晨正举牌拍下 620 万美元香蕉，你受邀作为终极特邀贵宾与他会师！',
-            exits: { south: 'siteng_yunnan' },
+            exits: { south: 'siteng_yunnan', west: 'dark_suite_jing' },
             npcs: [
               { name: '孙宇晨 (Justin Sun)', role: '交互', action: 'finish_jing_siteng', label: '🚀 双星会师！登顶火星主权！' }
             ]
@@ -1290,6 +1309,7 @@
           { id: 'wangshuo', name: '📖 引用王朔反讽', cost: 1, dmg: 22, desc: '造成 22 点辩论伤害' },
           { id: 'hanhan', name: '✍️ 韩寒式先锋文风', cost: 2, dmg: 48, desc: '造成 48 点高额破防暴击' },
           { id: 'kidney', name: '💔 突发肾结石护盾', cost: 1, shield: 30, desc: '获得 30 点绝对免伤护盾' },
+          { id: 'tape', name: '⬛ 黑胶带封死大西洋落地窗', cost: 1, dmg: 55, shield: 25, desc: '造成 55 点暴击伤害并获得 25 护盾，令对手陷入【绝对黑暗】' },
           { id: 'tea', name: '🥤 猛灌冰红茶', cost: 0, heal: 25, apRecover: 1, desc: '恢复 25 HP，回复 1 点灵感' }
         ]
       },
@@ -1321,6 +1341,7 @@
         deck: [
           { id: 'fuguihua', name: '🌸 人间富贵花凝视', cost: 1, dmg: 30, desc: '造成 30 点顶级气质压制' },
           { id: 'hollywood', name: '🎬 好莱坞巨制空降', cost: 2, dmg: 65, desc: '全明星阵容拱月，造成 65 点巨额伤害' },
+          { id: 'tape', name: '⬛ 绝对黑暗遮光结界', cost: 1, shield: 60, heal: 30, desc: '获得 60 点护盾并恢复 30 HP，阻隔一切窥探' },
           { id: 'siteng', name: '🌿 司藤藤蔓缠绕', cost: 1, shield: 45, heal: 20, desc: '获得 45 点护盾并恢复 20 HP' }
         ]
       },
@@ -1395,7 +1416,7 @@
     function triggerRandomEncounter() {
       const p = Game.perspective;
       const char = Game[p];
-      const roll = Math.floor(Math.random() * 4);
+      const roll = Math.floor(Math.random() * 5);
       if (roll === 0) {
         AudioEngine.heal();
         char.money += 50;
@@ -1414,6 +1435,11 @@
           Game.cryptoPrice = Math.max(0.01, +(Game.cryptoPrice + drift).toFixed(3));
           termLog(`📊【市场异动】二级市场代币行情突发剧烈异动！当前单价: $${Game.cryptoPrice}`, 'text-amber-400');
         }
+      } else if (roll === 4) {
+        AudioEngine.crit();
+        char.fame += 20;
+        char.ap = Math.min(char.maxAp, char.ap + 1);
+        termLog('⬛【大西洋八卦逸闻】你路遇酒店保洁正拿着小铲刀拼命清理落地窗上的黑胶带残胶！你顺手发了一条声明：“纯属虚构，请勿对号入座！”名气 +20，灵感 +1！', 'text-amber-300 font-bold');
       }
     }
 
@@ -2293,6 +2319,26 @@
         triggerEnding('sun_banana');
       } else if (act === 'meet_jingtian_mars') {
         triggerEnding('sun_mars_dao');
+      } else if (act === 'seal_windows_tape') {
+        AudioEngine.crit();
+        const exist = char.inventory.find(i => i.id === 'tape');
+        if (exist) exist.count += 2;
+        else char.inventory.push({ id: 'tape', name: '特种遮光黑胶带', desc: '《我的女友景甜》同款！免伤护盾 +60，气血 +40', count: 2, use: () => Game.useItem('tape') });
+        termLog('👷 助理小陈 & 小李连夜出动，用特种黑胶带把大西洋落地窗和空调插座指示灯全部封死！获得【特种遮光黑胶带】x2！(可用 use tape 启用)', 'text-emerald-300 font-bold');
+        updateUI();
+      } else if (act === 'pay_hotel_window') {
+        if (char.money < 50000) return termLog('现金不足 $50,000 (¥350,000) 无法赔偿酒店落地窗玻璃！', 'text-red-400');
+        char.money -= 50000;
+        char.fame += 200;
+        AudioEngine.pump();
+        termLog('🧾 你豪掷 $50,000 为酒店更换整块面朝大西洋的落地窗！全网热议“孙总黑胶带豪气赔窗”，名气 +200！', 'text-yellow-300 font-black');
+        updateUI();
+      } else if (act === 'publish_girlfriend_essay') {
+        AudioEngine.pump();
+        char.fame += 300;
+        confetti({ particleCount: 100, spread: 80 });
+        termLog('✍️【全网核轰炸】你在社交媒体发布长篇小作文《我的女友景甜》！文中细致描写黑胶带封窗、私人飞机配平！文末注明【纯属虚构】！全网阅读量破 10 亿！名气 +300！', 'text-cyan-300 font-black');
+        updateUI();
       }
 
       // ==========================================
@@ -2481,6 +2527,19 @@
         updateUI();
       } else if (act === 'finish_jing_siteng') {
         triggerEnding('jing_siteng');
+      } else if (act === 'loot_black_tape') {
+        AudioEngine.crit();
+        const exist = char.inventory.find(i => i.id === 'tape');
+        if (exist) exist.count += 2;
+        else char.inventory.push({ id: 'tape', name: '特种遮光黑胶带', desc: '100% 绝对黑暗结界！免伤护盾 +60，气血 +40', count: 2, use: () => Game.useItem('tape') });
+        termLog('🔍 你在套房梳妆台暗格找到了两卷【特种遮光黑胶带】！彻底免疫一切闪光灯窥探！(可用 use tape 启用)', 'text-rose-300 font-bold');
+        updateUI();
+      } else if (act === 'statement_legal_defense') {
+        AudioEngine.pump();
+        char.fame += 200;
+        confetti({ particleCount: 80, spread: 60 });
+        termLog('⚖️【景甜工作室严正声明】“拒绝任何形式的无端碰瓷与网络炒作，已固定证据依法维权，一切交由法律裁决！” 全网路人好感度狂飙！名气 +200！', 'text-emerald-300 font-bold');
+        updateUI();
       }
     }
 
@@ -2741,13 +2800,18 @@
         AudioEngine.heal();
         Game.playerShield += 40;
         termLog('👗 你披上高定刺绣红毯礼服，闪光灯全开，获得 40 点免伤护盾！', 'text-rose-300 font-bold');
+      } else if (itemId === 'tape' || itemId === 'black_tape') {
+        AudioEngine.crit();
+        Game.playerShield += 60;
+        char.hp = Math.min(char.maxHp, char.hp + 40);
+        termLog('🌑【黑胶带封窗行动】你撕开特种黑胶带贴满四周！房间达到 100% 绝对黑暗！所有狗仔偷拍与外界喧嚣被彻底阻隔！免伤护盾 +60，气血 +40！', 'text-amber-300 font-bold');
       } else if (itemId === 'press_pass') {
         termLog('持有《南周实习记者证》，笔锋极其犀利！', 'text-cyan-300');
       } else if (itemId === 'btc_wallet') {
         termLog('持有 500 枚比特币冷钱包，底气十足！', 'text-amber-300');
       }
       
-      if (['tea', 'perfume'].includes(itemId)) {
+      if (['tea', 'perfume', 'tape', 'black_tape'].includes(itemId)) {
         item.count--;
         if (item.count <= 0) char.inventory.splice(idx, 1);
       }
@@ -2903,9 +2967,11 @@
         if (p === 'sun') {
           if (char.location === 'classroom') handleNpcAction('loot_drawer');
           else if (char.location === 'weiming_lake') handleNpcAction('loot_press_pass');
+          else if (char.location === 'atlantic_suite') handleNpcAction('seal_windows_tape');
           else termLog('你仔细搜寻了四周，没有发现隐藏暗格。', 'text-slate-400');
         } else {
           if (char.location === 'beiwu_hall') handleNpcAction('loot_perfume');
+          else if (char.location === 'dark_suite_jing') handleNpcAction('loot_black_tape');
           else termLog('你仔细搜寻了四周，没有发现隐藏物品。', 'text-slate-400');
         }
       } else if (verb === 'inventory' || verb === 'i') {
@@ -2915,6 +2981,8 @@
         });
       } else if (verb === 'drink' || (verb === 'use' && tokens[1] === 'tea')) {
         Game.useItem('tea');
+      } else if (verb === 'use' && (tokens[1] === 'tape' || tokens[1] === '黑胶带' || tokens[1] === '胶带')) {
+        Game.useItem('tape');
       } else if (verb === 'use' && (tokens[1] === 'perfume' || tokens[1] === '香水')) {
         Game.useItem('perfume');
       } else if (verb === 'use' && (tokens[1] === 'album' || tokens[1] === '母带' || tokens[1] === 'ep')) {
