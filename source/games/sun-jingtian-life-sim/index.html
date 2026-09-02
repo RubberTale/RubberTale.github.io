@@ -962,7 +962,13 @@
             exits: { north: 'school_gate', east: 'alley', south: 'computer_city' },
             npcs: [
               { name: '网管阿杰', role: '商人', action: 'buy_tea', label: '买冰红茶 (¥3)' },
-              { name: '街头小混混', role: '敌对', action: 'fight_punk', label: '⚔️ 发起切磋对决' }
+              { 
+                name: '街头小混混', 
+                role: '敌对', 
+                action: 'fight_punk', 
+                label: '⚔️ 发起切磋对决',
+                condition: () => !Game.sun.storyFlags || !Game.sun.storyFlags.punk_defeated
+              }
             ]
           },
           school_gate: {
@@ -970,7 +976,20 @@
             desc: '庄严校门挂着高考倒计时横幅，教导主任正怒视迟到学生。',
             exits: { south: 'netbar', north: 'classroom', east: 'post_office', west: 'school_library' },
             npcs: [
-              { name: '教导主任 · 王暴躁', role: 'Boss', action: 'fight_director', label: '⚔️ 查网瘾对决！' }
+              { 
+                name: '教导主任 · 王暴躁', 
+                role: 'Boss', 
+                action: 'fight_director', 
+                label: '⚔️ 查网瘾对决！',
+                condition: () => !Game.sun.storyFlags || !Game.sun.storyFlags.director_defeated
+              },
+              {
+                name: '门卫大爷 · 严查出入',
+                role: 'NPC',
+                action: 'talk_gatekeeper',
+                label: '👀 探听教导主任巡查动向',
+                condition: () => Game.sun.storyFlags && Game.sun.storyFlags.director_defeated
+              }
             ]
           },
           school_library: {
@@ -978,8 +997,20 @@
             desc: '阳光透过树影洒在木质书桌上，书架上摆放着《萌芽》杂志、王朔文集以及余华的《活着》。',
             exits: { east: 'school_gate', north: 'west_lake' },
             npcs: [
-              { name: '文学社学姐', role: 'NPC', action: 'talk_lit_club', label: '📖 探讨《三重门》与王朔先锋文风' },
-              { name: '旧书架底层', role: '宝箱', action: 'loot_mengya_mag', label: '🔍 翻找《萌芽·新概念专刊》' }
+              { 
+                name: '文学社学姐', 
+                role: 'NPC', 
+                action: 'talk_lit_club', 
+                label: '📖 探讨《三重门》与王朔先锋文风',
+                condition: () => Game.sun.storyFlags && Game.sun.storyFlags.has_draft && (!Game.sun.storyFlags || !Game.sun.storyFlags.lit_club_done)
+              },
+              { 
+                name: '旧书架底层', 
+                role: '宝箱', 
+                action: 'loot_mengya_mag', 
+                label: '🔍 翻找《萌芽·新概念专刊》',
+                condition: () => Game.sun.storyFlags && Game.sun.storyFlags.lit_club_done && (!Game.sun.inventory.some(i => i.id === 'mengya'))
+              }
             ]
           },
           classroom: {
@@ -988,8 +1019,20 @@
             exits: { south: 'school_gate' },
             npcs: [
               { name: '班长李小华', role: 'NPC', action: 'talk_monitor', label: '打听新概念评委偏好' },
-              { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' },
-              { name: '讲台粉笔盒', role: '交互', action: 'mock_exam_challenge', label: '📝 挑战百日誓师语文答辩 (灵感+2)' }
+              { 
+                name: '抽屉暗格', 
+                role: '宝箱', 
+                action: 'loot_drawer', 
+                label: '🔍 搜查手稿',
+                condition: () => !Game.sun.storyFlags || !Game.sun.storyFlags.has_draft
+              },
+              { 
+                name: '讲台粉笔盒', 
+                role: '交互', 
+                action: 'mock_exam_challenge', 
+                label: '📝 挑战百日誓师语文答辩 (灵感+2)',
+                condition: () => Game.sun.storyFlags && Game.sun.storyFlags.has_draft && (!Game.sun.storyFlags.mock_exam_done)
+              }
             ]
           },
           west_lake: {
@@ -997,8 +1040,27 @@
             desc: '湖光水色，宝塔倒影。你曾在这里模仿古人挥毫泼墨，树下石桌旁常有自命不凡的书生高谈阔论。',
             exits: { south: 'school_library' },
             npcs: [
-              { name: '湖畔沉思墨客', role: '智者', action: 'meditate_westlake', label: '🌊 湖畔构思狂言万字 (气血+30/名气+20)' },
-              { name: '傲慢辩论生', role: 'Boss', action: 'fight_arrogant_debater', label: '⚔️ 论战：应试教育与先锋叛逆！' }
+              { 
+                name: '湖畔沉思墨客', 
+                role: '智者', 
+                action: 'meditate_westlake', 
+                label: '🌊 湖畔构思狂言万字 (获得【西湖狂客】特质)',
+                condition: () => (!Game.sun.traits.includes('西湖狂客')) && (!Game.sun.traits.includes('做题家标兵')) && (!Game.sun.traits.includes('黑客极客先锋'))
+              },
+              { 
+                name: '傲慢辩论生', 
+                role: 'Boss', 
+                action: 'fight_arrogant_debater', 
+                label: '⚔️ 论战：应试教育与先锋叛逆！',
+                condition: () => Game.sun.traits.includes('西湖狂客') && (!Game.sun.storyFlags || !Game.sun.storyFlags.debater_defeated)
+              },
+              {
+                name: '应试名师特训组',
+                role: '交互',
+                action: 'join_exam_study',
+                label: '📚 妥协投身题海应试训练 (获得【做题家标兵】特质)',
+                condition: () => (!Game.sun.traits.includes('西湖狂客')) && (!Game.sun.traits.includes('做题家标兵')) && (!Game.sun.traits.includes('黑客极客先锋'))
+              }
             ]
           },
           computer_city: {
@@ -1006,8 +1068,20 @@
             desc: '刻录光盘、VB6.0教材与二手主板散发着电子原件的气味。柜台老板正在低头研究网页制作教程。',
             exits: { north: 'netbar' },
             npcs: [
-              { name: '光盘店老李', role: '商人', action: 'buy_vb_book', label: '购买《VB网络爬虫与黑客攻防入门》(¥20)' },
-              { name: '二手电脑废件堆', role: '宝箱', action: 'loot_modem', label: '🔍 搜寻 56k 拨号猫与闪存卡' }
+              { 
+                name: '光盘店老李', 
+                role: '商人', 
+                action: 'buy_vb_book', 
+                label: '购买《VB网络爬虫与黑客攻防入门》(¥20)',
+                condition: () => (!Game.sun.traits.includes('西湖狂客')) && (!Game.sun.traits.includes('做题家标兵')) && (!Game.sun.traits.includes('黑客极客先锋'))
+              },
+              { 
+                name: '二手电脑废件堆', 
+                role: '宝箱', 
+                action: 'loot_modem', 
+                label: '🔍 搜寻 56k 拨号猫与闪存卡',
+                condition: () => Game.sun.traits.includes('黑客极客先锋') && (!Game.sun.inventory.some(i => i.id === 'modem'))
+              }
             ]
           },
           post_office: {
@@ -1365,11 +1439,12 @@
         fame: 25,
         location: 'netbar',
         traits: ['叛逆少年', '韩寒文风模仿者', '结石潜伏体质'],
+        storyFlags: {},
         quest: {
           id: 1,
           title: '【第一时期】惠州高中迷途',
-          desc: '在教室找到初稿，击败教导主任，去邮局做出你的第一步命运抉择！',
-          progress: 30
+          desc: '搜寻手稿、完成思想路线抉择并获得通行证，去邮局做出人生第一步重大分流！',
+          progress: 20
         },
         inventory: [
           { id: 'tea', name: '大瓶冰红茶', desc: '恢复 30 点 HP 与 1 点灵感', count: 2, use: () => Game.useItem('tea') },
@@ -1809,6 +1884,9 @@
       npcsBox.innerHTML = '';
       if (curRoom.npcs) {
         curRoom.npcs.forEach(npc => {
+          if (npc.condition && typeof npc.condition === 'function' && !npc.condition()) {
+            return; // 动态前置条件或互斥未达成，不渲染
+          }
           const btn = document.createElement('button');
           btn.className = 'w-full text-left px-2.5 py-1.5 rounded-lg bg-slate-950/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 text-xs text-slate-200 flex items-center justify-between transition';
           btn.innerHTML = `
@@ -2100,21 +2178,38 @@
         startCombat({ name: '街头红毛混混', hp: 45, maxHp: 45, dmg: 12, intent: '准备使用【收保护费推搡】' });
       } else if (act === 'fight_director') {
         startCombat({ name: '教导主任 · 王暴躁', hp: 85, maxHp: 85, dmg: 25, intent: '蓄力中：【明天叫你家长来办公室！】' });
+      } else if (act === 'talk_gatekeeper') {
+        termLog('门卫大爷端着保温杯：“主任刚去教育局开会了！小伙子你刚才在校门口那一通辩论，真有当年狂生风骨，赶紧去邮局吧！”', 'text-cyan-300');
       } else if (act === 'loot_drawer') {
+        if (!char.storyFlags) char.storyFlags = {};
+        char.storyFlags.has_draft = true;
         AudioEngine.crit();
-        termLog('🔍 你翻找抽屉，找到了一份写满反叛讽刺金句的《新概念初稿》！辩才战力 +15！', 'text-amber-300');
+        termLog('🔍 你翻找抽屉，找到了一份写满反叛讽刺金句的《新概念初稿》！辩才战力 +15！已解锁文学社与答辩后续！', 'text-amber-300 font-bold');
         char.fame += 15;
-        char.quest.progress = Math.max(char.quest.progress, 50);
+        char.quest.progress = Math.max(char.quest.progress, 40);
         updateUI();
       } else if (act === 'talk_monitor') {
-        termLog('班长李小华：“这次新概念作文评委特别喜欢黑色幽默和反叛文风，去图书馆阅览室和西湖走走，说不定灵感更多！”', 'text-cyan-300');
+        if (!char.storyFlags || !char.storyFlags.has_draft) {
+          termLog('班长李小华：“孙宇晨，你的抽屉里乱糟糟的，听说你写了篇反叛长文？快找出来准备投稿吧！”', 'text-cyan-300');
+        } else {
+          termLog('班长李小华：“初稿写得很犀利！去阅览室找文学社学姐打听评委偏好，再去西湖苏堤构思定稿，稳进全国复赛！”', 'text-emerald-300');
+        }
       } else if (act === 'talk_lit_club') {
+        if (!char.storyFlags || !char.storyFlags.has_draft) {
+          return termLog('文学社学姐：“你两手空空，连初稿都没带来，怎么跟你探讨先锋文风呀？”', 'text-yellow-400');
+        }
+        if (!char.storyFlags) char.storyFlags = {};
+        char.storyFlags.lit_club_done = true;
         AudioEngine.heal();
         char.fame += 10;
         char.ap = Math.min(char.maxAp, char.ap + 1);
-        termLog('📖 文学社学姐与你彻夜畅聊王朔《顽主》与韩寒《三重门》，你的叛逆文风获得高度认可！名气 +10，灵感 +1！', 'text-rose-300 font-bold');
+        termLog('📖 文学社学姐与你彻夜畅聊王朔《顽主》与韩寒《三重门》，她指着旧书架底层说：“那里有一本绝版《萌芽专刊》，快去翻翻！” 名气 +10，灵感 +1！', 'text-rose-300 font-bold');
+        char.quest.progress = Math.max(char.quest.progress, 55);
         updateUI();
       } else if (act === 'loot_mengya_mag') {
+        if (!char.storyFlags || !char.storyFlags.lit_club_done) {
+          return termLog('旧书架上层杂乱不堪，没有学姐的指点，你根本找不到底层藏着的绝版刊物。', 'text-slate-400');
+        }
         AudioEngine.crit();
         const exist = char.inventory.find(i => i.id === 'mengya');
         if (exist) {
@@ -2126,40 +2221,70 @@
           updateUI();
         }
       } else if (act === 'mock_exam_challenge') {
+        if (!char.storyFlags || !char.storyFlags.has_draft) {
+          return termLog('你手里没有拿得出手的文章，上去答辩只会被当众批评。', 'text-yellow-400');
+        }
+        if (!char.storyFlags) char.storyFlags = {};
+        char.storyFlags.mock_exam_done = true;
         AudioEngine.crit();
         char.ap = char.maxAp;
         char.fame += 15;
         termLog('📝 你在讲台上当着全班同学的面用王朔式讽刺解构八股文，语文老师目瞪口呆！全班起立鼓掌！灵感槽回满，名气 +15！', 'text-cyan-300 font-black');
+        char.quest.progress = Math.max(char.quest.progress, 70);
         updateUI();
       } else if (act === 'meditate_westlake') {
+        if (char.traits.includes('做题家标兵') || char.traits.includes('黑客极客先锋')) {
+          return termLog('⚠️ 你已经选择了其他人生特质路线，思维定势已成，无法再走【西湖狂客】路线！', 'text-red-400 font-bold');
+        }
         AudioEngine.heal();
         char.hp = Math.min(char.maxHp, char.hp + 30);
         char.fame += 20;
-        if (!char.traits.includes('西湖狂客')) char.traits.push('西湖狂客');
-        termLog('🌊 你伫立在苏堤柳树下，面朝湖光山色一挥而就写下万字自白《狂人新篇》！获得特质【西湖狂客】！气血 +30，名气 +20！', 'text-emerald-300 font-bold');
+        char.traits.push('西湖狂客');
+        termLog('🌊 你伫立在苏堤柳树下，面朝湖光山色一挥而就写下万字自白《狂人新篇》！锁定特质【西湖狂客】（互斥锁定，不可再选做题家或黑客路线）！傲慢辩论生已被激怒！', 'text-emerald-300 font-bold');
+        char.quest.progress = Math.max(char.quest.progress, 75);
+        updateUI();
+      } else if (act === 'join_exam_study') {
+        if (char.traits.includes('西湖狂客') || char.traits.includes('黑客极客先锋')) {
+          return termLog('⚠️ 你已经选择了其他人生特质路线，无法再投身应试做题家特训！', 'text-red-400 font-bold');
+        }
+        AudioEngine.heal();
+        char.traits.push('做题家标兵');
+        char.ap = char.maxAp;
+        char.fame += 10;
+        termLog('📚 你收敛心神投身五三题海，做题速度倍增！锁定特质【做题家标兵】（互斥锁定，不可再选狂客或黑客路线）！灵感回满，名气 +10！', 'text-cyan-300 font-bold');
+        char.quest.progress = Math.max(char.quest.progress, 75);
         updateUI();
       } else if (act === 'fight_arrogant_debater') {
+        if (!char.traits.includes('西湖狂客')) {
+          return termLog('傲慢辩论生冷笑一声：“连西湖狂言都写不出来的人，不配与我论战！”', 'text-slate-500');
+        }
         startCombat({ name: '傲慢辩论生', hp: 60, maxHp: 60, dmg: 16, intent: '高声嘲讽：【应试不过关，玩什么先锋叛逆？】' });
       } else if (act === 'buy_vb_book') {
+        if (char.traits.includes('西湖狂客') || char.traits.includes('做题家标兵')) {
+          return termLog('⚠️ 你已经选择了其他人生特质路线，文人/做题家思维已定，无法再专研黑客极客路线！', 'text-red-400 font-bold');
+        }
         if (char.money < 20) return termLog('现金不足 ¥20！光盘店老李摆摆手让你走开。', 'text-red-400');
         char.money -= 20;
         const exist = char.inventory.find(i => i.id === 'vb_book');
-        if (exist) {
-          termLog('你已经拥有这本教材了。', 'text-slate-400');
-        } else {
+        if (!exist) {
           char.inventory.push({ id: 'vb_book', name: '《VB网络爬虫与黑客入门》', desc: '早期黑客与站长技术启蒙，使用获得草根极客特质', count: 1, use: () => Game.useItem('vb_book') });
-          AudioEngine.pump();
-          termLog('💻 你花费 ¥20 买下了泛黄的《VB网络爬虫与黑客入门》！开启了早期极客技能树！', 'text-cyan-300 font-bold');
-          updateUI();
         }
+        char.traits.push('黑客极客先锋');
+        AudioEngine.pump();
+        termLog('💻 你花费 ¥20 买下《VB网络爬虫与黑客入门》！锁定特质【黑客极客先锋】（互斥锁定，不可再选狂客或做题家路线）！电脑城废件堆已对你开放搜寻！', 'text-cyan-300 font-bold');
+        char.quest.progress = Math.max(char.quest.progress, 75);
+        updateUI();
       } else if (act === 'loot_modem') {
+        if (!char.traits.includes('黑客极客先锋')) {
+          return termLog('你没有钻研过硬件黑客知识，在一堆电子垃圾里看不出任何名堂。', 'text-slate-400');
+        }
         AudioEngine.crit();
         const exist = char.inventory.find(i => i.id === 'modem');
         if (exist) {
           termLog('你已经搜过这个废件堆了。', 'text-slate-400');
         } else {
           char.inventory.push({ id: 'modem', name: '56k 拨号猫与闪存卡', desc: '惠州网吧时期的极客神器，战斗中提供 35 点护盾', count: 1, use: () => Game.useItem('modem') });
-          termLog('🔍 你在废件堆里淘到了完好的【56k 拨号猫与闪存卡】！', 'text-yellow-300 font-bold');
+          termLog('🔍 凭借黑客极客眼力，你在废件堆里淘到了完好的【56k 拨号猫与闪存卡】！', 'text-yellow-300 font-bold');
           updateUI();
         }
       } 
@@ -2168,19 +2293,23 @@
       else if (act === 'open_sun_era1_fate') {
         const hasEssay = char.inventory.some(i => i.id === 'essay');
         const hasMengya = char.inventory.some(i => i.id === 'mengya');
-        const hasVb = char.inventory.some(i => i.id === 'vb_book');
+        const hasNotes = char.inventory.some(i => i.id === 'debater_notes');
+        const hasHallPass = char.inventory.some(i => i.id === 'hall_pass');
         const modifiers = [];
         if (hasEssay) modifiers.push({ label: '手握《新概念初稿与范文》', val: 20 });
         if (hasMengya) modifiers.push({ label: '深研《萌芽·新概念专刊》', val: 20 });
-        if (char.traits.includes('西湖狂客')) modifiers.push({ label: '西湖狂客文名远播', val: 15 });
+        if (char.traits.includes('西湖狂客')) modifiers.push({ label: '【西湖狂客】名满一中', val: 15 });
+        if (char.traits.includes('做题家标兵')) modifiers.push({ label: '【做题家标兵】题海应试实力', val: 15 });
+        if (char.traits.includes('黑客极客先锋')) modifiers.push({ label: '【黑客极客先锋】数理极客思维', val: 15 });
         if (char.traits.includes('韩寒文风模仿者')) modifiers.push({ label: '先锋叛逆文风特质', val: 10 });
+        if (hasNotes) modifiers.push({ label: '持有《尖子生驳论文集》', val: 10 });
+        if (hasHallPass) modifiers.push({ label: '持有《教导主任特批通行证》', val: 10 });
         if (char.fame >= 40) modifiers.push({ label: '惠州高中声名鹊起', val: 10 });
-        if (hasVb) modifiers.push({ label: '掌握早期极客编程思维', val: 10 });
 
         openFateDiceModal({
           title: '【新概念全国评审与自招降分检定】',
           desc: '《萌芽》杂志社与北大自招评审组正在审阅你的手稿。点数将决定你是破格保送北大，还是滑落三本或泥潭！',
-          baseRate: 40,
+          baseRate: 35,
           modifiers: modifiers,
           manualChoiceNode: {
             title: '惠州高中升学抉择：水流在此分叉',
@@ -3245,11 +3374,24 @@
 
       termLog(`🎉【大获全胜！】以无可辩驳之姿彻底击垮【${Game.enemy.name}】！🏆 名气 +${fameGain}，现金 +¥${moneyGain}！`, 'text-emerald-300 font-bold');
 
-      // Quest progress
-      if (Game.enemy.name.includes('学生会常务主席')) char.quest.progress = Math.max(char.quest.progress, 80);
-      else if (Game.enemy.name.includes('教导主任')) char.quest.progress = Math.max(char.quest.progress, 60);
-      else if (Game.enemy.name.includes('八卦狗仔')) char.quest.progress = Math.max(char.quest.progress, 60);
-      else if (Game.enemy.name.includes('毒舌影评人')) char.quest.progress = Math.max(char.quest.progress, 60);
+      // Quest progress & Story Flags
+      if (!char.storyFlags) char.storyFlags = {};
+
+      if (Game.enemy.name.includes('街头红毛混混')) {
+        char.storyFlags.punk_defeated = true;
+      } else if (Game.enemy.name.includes('教导主任')) {
+        char.storyFlags.director_defeated = true;
+        char.quest.progress = Math.max(char.quest.progress, 75);
+      } else if (Game.enemy.name.includes('傲慢辩论生')) {
+        char.storyFlags.debater_defeated = true;
+        char.quest.progress = Math.max(char.quest.progress, 85);
+      } else if (Game.enemy.name.includes('学生会常务主席')) {
+        char.quest.progress = Math.max(char.quest.progress, 80);
+      } else if (Game.enemy.name.includes('八卦狗仔')) {
+        char.quest.progress = Math.max(char.quest.progress, 60);
+      } else if (Game.enemy.name.includes('毒舌影评人')) {
+        char.quest.progress = Math.max(char.quest.progress, 60);
+      }
 
       // Drop loot
       const loot = COMBAT_LOOT[Game.enemy.name];
