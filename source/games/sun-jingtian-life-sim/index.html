@@ -959,7 +959,7 @@
           netbar: {
             name: '红日网吧 · 大厅',
             desc: '泡面味扑鼻，大头显示器正亮着《传奇》攻沙行会战。网管阿杰正在柜台数硬币。',
-            exits: { north: 'school_gate', east: 'alley' },
+            exits: { north: 'school_gate', east: 'alley', south: 'computer_city' },
             npcs: [
               { name: '网管阿杰', role: '商人', action: 'buy_tea', label: '买冰红茶 (¥3)' },
               { name: '街头小混混', role: '敌对', action: 'fight_punk', label: '⚔️ 发起切磋对决' }
@@ -968,18 +968,46 @@
           school_gate: {
             name: '惠州一中 · 正校门',
             desc: '庄严校门挂着高考倒计时横幅，教导主任正怒视迟到学生。',
-            exits: { south: 'netbar', north: 'classroom', east: 'post_office' },
+            exits: { south: 'netbar', north: 'classroom', east: 'post_office', west: 'school_library' },
             npcs: [
               { name: '教导主任 · 王暴躁', role: 'Boss', action: 'fight_director', label: '⚔️ 查网瘾对决！' }
             ]
           },
+          school_library: {
+            name: '惠州一中 · 藏书阅览室',
+            desc: '阳光透过树影洒在木质书桌上，书架上摆放着《萌芽》杂志、王朔文集以及余华的《活着》。',
+            exits: { east: 'school_gate', north: 'west_lake' },
+            npcs: [
+              { name: '文学社学姐', role: 'NPC', action: 'talk_lit_club', label: '📖 探讨《三重门》与王朔先锋文风' },
+              { name: '旧书架底层', role: '宝箱', action: 'loot_mengya_mag', label: '🔍 翻找《萌芽·新概念专刊》' }
+            ]
+          },
           classroom: {
             name: '高二三班 · 教室后排',
-            desc: '课桌堆满五三模拟题，你的桌肚里藏着王朔的《顽主》与半瓶冰红茶。',
+            desc: '课桌堆满五三模拟题，你的桌肚里藏着王朔的《顽主》与半瓶冰红茶。黑板角落写着模拟考倒计时。',
             exits: { south: 'school_gate' },
             npcs: [
               { name: '班长李小华', role: 'NPC', action: 'talk_monitor', label: '打听新概念评委偏好' },
-              { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' }
+              { name: '抽屉暗格', role: '宝箱', action: 'loot_drawer', label: '🔍 搜查手稿' },
+              { name: '讲台粉笔盒', role: '交互', action: 'mock_exam_challenge', label: '📝 挑战百日誓师语文答辩 (灵感+2)' }
+            ]
+          },
+          west_lake: {
+            name: '惠州西湖 · 孤山苏堤',
+            desc: '湖光水色，宝塔倒影。你曾在这里模仿古人挥毫泼墨，树下石桌旁常有自命不凡的书生高谈阔论。',
+            exits: { south: 'school_library' },
+            npcs: [
+              { name: '湖畔沉思墨客', role: '智者', action: 'meditate_westlake', label: '🌊 湖畔构思狂言万字 (气血+30/名气+20)' },
+              { name: '傲慢辩论生', role: 'Boss', action: 'fight_arrogant_debater', label: '⚔️ 论战：应试教育与先锋叛逆！' }
+            ]
+          },
+          computer_city: {
+            name: '下埔电脑城 · 二手光盘柜台',
+            desc: '刻录光盘、VB6.0教材与二手主板散发着电子原件的气味。柜台老板正在低头研究网页制作教程。',
+            exits: { north: 'netbar' },
+            npcs: [
+              { name: '光盘店老李', role: '商人', action: 'buy_vb_book', label: '购买《VB网络爬虫与黑客攻防入门》(¥20)' },
+              { name: '二手电脑废件堆', role: '宝箱', action: 'loot_modem', label: '🔍 搜寻 56k 拨号猫与闪存卡' }
             ]
           },
           post_office: {
@@ -2076,24 +2104,83 @@
         AudioEngine.crit();
         termLog('🔍 你翻找抽屉，找到了一份写满反叛讽刺金句的《新概念初稿》！辩才战力 +15！', 'text-amber-300');
         char.fame += 15;
-        char.quest.progress = Math.max(char.quest.progress, 60);
+        char.quest.progress = Math.max(char.quest.progress, 50);
         updateUI();
       } else if (act === 'talk_monitor') {
-        termLog('班长李小华：“这次新概念作文评委特别喜欢黑色幽默和反叛文风，去邮局寄稿前务必搜查好初稿！”', 'text-cyan-300');
+        termLog('班长李小华：“这次新概念作文评委特别喜欢黑色幽默和反叛文风，去图书馆阅览室和西湖走走，说不定灵感更多！”', 'text-cyan-300');
+      } else if (act === 'talk_lit_club') {
+        AudioEngine.heal();
+        char.fame += 10;
+        char.ap = Math.min(char.maxAp, char.ap + 1);
+        termLog('📖 文学社学姐与你彻夜畅聊王朔《顽主》与韩寒《三重门》，你的叛逆文风获得高度认可！名气 +10，灵感 +1！', 'text-rose-300 font-bold');
+        updateUI();
+      } else if (act === 'loot_mengya_mag') {
+        AudioEngine.crit();
+        const exist = char.inventory.find(i => i.id === 'mengya');
+        if (exist) {
+          termLog('你已拥有《萌芽·新概念专刊》，无需重复获取。', 'text-slate-400');
+        } else {
+          char.inventory.push({ id: 'mengya', name: '《萌芽·新概念专刊》', desc: '全国新概念作文范例合集，使用名气+25', count: 1, use: () => Game.useItem('mengya') });
+          termLog('🔍 你从图书馆底层旧报刊堆里翻出了一本绝版的【《萌芽·新概念专刊》】！彻底参透评委打分密码！', 'text-amber-300 font-bold');
+          char.quest.progress = Math.max(char.quest.progress, 65);
+          updateUI();
+        }
+      } else if (act === 'mock_exam_challenge') {
+        AudioEngine.crit();
+        char.ap = char.maxAp;
+        char.fame += 15;
+        termLog('📝 你在讲台上当着全班同学的面用王朔式讽刺解构八股文，语文老师目瞪口呆！全班起立鼓掌！灵感槽回满，名气 +15！', 'text-cyan-300 font-black');
+        updateUI();
+      } else if (act === 'meditate_westlake') {
+        AudioEngine.heal();
+        char.hp = Math.min(char.maxHp, char.hp + 30);
+        char.fame += 20;
+        if (!char.traits.includes('西湖狂客')) char.traits.push('西湖狂客');
+        termLog('🌊 你伫立在苏堤柳树下，面朝湖光山色一挥而就写下万字自白《狂人新篇》！获得特质【西湖狂客】！气血 +30，名气 +20！', 'text-emerald-300 font-bold');
+        updateUI();
+      } else if (act === 'fight_arrogant_debater') {
+        startCombat({ name: '傲慢辩论生', hp: 60, maxHp: 60, dmg: 16, intent: '高声嘲讽：【应试不过关，玩什么先锋叛逆？】' });
+      } else if (act === 'buy_vb_book') {
+        if (char.money < 20) return termLog('现金不足 ¥20！光盘店老李摆摆手让你走开。', 'text-red-400');
+        char.money -= 20;
+        const exist = char.inventory.find(i => i.id === 'vb_book');
+        if (exist) {
+          termLog('你已经拥有这本教材了。', 'text-slate-400');
+        } else {
+          char.inventory.push({ id: 'vb_book', name: '《VB网络爬虫与黑客入门》', desc: '早期黑客与站长技术启蒙，使用获得草根极客特质', count: 1, use: () => Game.useItem('vb_book') });
+          AudioEngine.pump();
+          termLog('💻 你花费 ¥20 买下了泛黄的《VB网络爬虫与黑客入门》！开启了早期极客技能树！', 'text-cyan-300 font-bold');
+          updateUI();
+        }
+      } else if (act === 'loot_modem') {
+        AudioEngine.crit();
+        const exist = char.inventory.find(i => i.id === 'modem');
+        if (exist) {
+          termLog('你已经搜过这个废件堆了。', 'text-slate-400');
+        } else {
+          char.inventory.push({ id: 'modem', name: '56k 拨号猫与闪存卡', desc: '惠州网吧时期的极客神器，战斗中提供 35 点护盾', count: 1, use: () => Game.useItem('modem') });
+          termLog('🔍 你在废件堆里淘到了完好的【56k 拨号猫与闪存卡】！', 'text-yellow-300 font-bold');
+          updateUI();
+        }
       } 
       
       // ⚡ 孙宇晨 命运转折点（支持 🎲 命运大掷骰概率检定 与 ⚖️ 手动自选双模式）
       else if (act === 'open_sun_era1_fate') {
         const hasEssay = char.inventory.some(i => i.id === 'essay');
+        const hasMengya = char.inventory.some(i => i.id === 'mengya');
+        const hasVb = char.inventory.some(i => i.id === 'vb_book');
         const modifiers = [];
-        if (hasEssay) modifiers.push({ label: '手握《新概念初稿与范文》', val: 25 });
-        if (char.fame >= 30) modifiers.push({ label: '惠州一中声名远扬', val: 15 });
+        if (hasEssay) modifiers.push({ label: '手握《新概念初稿与范文》', val: 20 });
+        if (hasMengya) modifiers.push({ label: '深研《萌芽·新概念专刊》', val: 20 });
+        if (char.traits.includes('西湖狂客')) modifiers.push({ label: '西湖狂客文名远播', val: 15 });
         if (char.traits.includes('韩寒文风模仿者')) modifiers.push({ label: '先锋叛逆文风特质', val: 10 });
+        if (char.fame >= 40) modifiers.push({ label: '惠州高中声名鹊起', val: 10 });
+        if (hasVb) modifiers.push({ label: '掌握早期极客编程思维', val: 10 });
 
         openFateDiceModal({
           title: '【新概念全国评审与自招降分检定】',
           desc: '《萌芽》杂志社与北大自招评审组正在审阅你的手稿。点数将决定你是破格保送北大，还是滑落三本或泥潭！',
-          baseRate: 45,
+          baseRate: 40,
           modifiers: modifiers,
           manualChoiceNode: {
             title: '惠州高中升学抉择：水流在此分叉',
@@ -2786,6 +2873,7 @@
     const ENEMY_PATTERNS = {
       '街头红毛混混':       ['attack', 'taunt', 'attack', 'heavy'],
       '教导主任 · 王暴躁':  ['taunt', 'attack', 'shield', 'heavy', 'rage'],
+      '傲慢辩论生':         ['taunt', 'attack', 'heavy', 'taunt'],
       '校学生会常务主席':   ['shield', 'attack', 'poison', 'heavy', 'taunt', 'heal'],
       '八卦狗仔记者':       ['attack', 'poison', 'taunt', 'attack', 'heavy'],
       '毒舌影评人团':       ['poison', 'attack', 'taunt', 'heavy', 'heal'],
@@ -2796,6 +2884,7 @@
     const COMBAT_LOOT = {
       '街头红毛混混':       { id: 'streetcred', name: '街头影响力证书', desc: '展示可提升名气 +20', count: 1, use: () => { Game[Game.perspective].fame += 20; termLog('📜 你展示了街头影响力证书！名气 +20！', 'text-amber-300'); updateUI(); } },
       '教导主任 · 王暴躁':  { id: 'hall_pass', name: '教导主任特批通行证', desc: '在学校区域免疫阻拦', count: 1, use: () => termLog('📋 特批通行证：惠州一中各区域可自由通行！', 'text-cyan-300') },
+      '傲慢辩论生':         { id: 'debater_notes', name: '尖子生驳论文集', desc: '辩论战力加成，使用提升名气 +30 与灵感', count: 1, use: () => { Game[Game.perspective].fame += 30; Game[Game.perspective].ap = Game[Game.perspective].maxAp; termLog('📑 你翻阅《尖子生驳论文集》取其精华！名气 +30，灵感完全回满！', 'text-cyan-300 font-bold'); updateUI(); } },
       '校学生会常务主席':   { id: 'election_win', name: '学生会主席竞选铭牌', desc: '使用可大幅提升名气', count: 1, use: () => { Game[Game.perspective].fame += 60; termLog('🏅 你展示竞选铭牌！全校热议，名气 +60！', 'text-amber-300 font-bold'); updateUI(); } },
       '八卦狗仔记者':       { id: 'scoop', name: '独家八卦独家内幕', desc: '打出可造成双倍伤害', count: 1, use: () => { Game.playerShield += 50; termLog('📸 你掌握了对方的黑历史，获得 50 点护盾！', 'text-rose-300 font-bold'); updateUI(); } },
       '毒舌影评人团':       { id: 'good_review', name: '顶级影评人五星好评', desc: '使用可大幅提升咖位', count: 1, use: () => { Game[Game.perspective].fame += 80; termLog('⭐ 顶级影评人改口五星好评！名气 +80！', 'text-yellow-300 font-bold'); updateUI(); } },
@@ -3296,9 +3385,22 @@
         termLog('持有《南周实习记者证》，笔锋极其犀利！', 'text-cyan-300');
       } else if (itemId === 'btc_wallet') {
         termLog('持有 500 枚比特币冷钱包，底气十足！', 'text-amber-300');
+      } else if (itemId === 'mengya') {
+        AudioEngine.crit();
+        char.fame += 25;
+        char.ap = Math.min(char.maxAp, char.ap + 1);
+        termLog('📖 你细细研读《萌芽·新概念专刊》，参透评委评审密码！名气 +25，灵感 +1！', 'text-amber-300 font-bold');
+      } else if (itemId === 'vb_book') {
+        AudioEngine.pump();
+        if (!char.traits.includes('草根极客')) char.traits.push('草根极客');
+        termLog('💻 你翻看《VB网络爬虫与黑客入门》，获得了特质【草根极客】！', 'text-cyan-300 font-bold');
+      } else if (itemId === 'modem') {
+        AudioEngine.crit();
+        Game.playerShield += 35;
+        termLog('📟 你装配了 56k 拨号猫与闪存卡，在辩论中获得 35 点电子极客护盾！', 'text-yellow-300 font-bold');
       }
       
-      if (['tea', 'perfume', 'tape', 'black_tape'].includes(itemId)) {
+      if (['tea', 'perfume', 'tape', 'black_tape', 'modem'].includes(itemId)) {
         item.count--;
         if (item.count <= 0) char.inventory.splice(idx, 1);
       }
@@ -3453,6 +3555,8 @@
       } else if (verb === 'search' || verb === 'find') {
         if (p === 'sun') {
           if (char.location === 'classroom') handleNpcAction('loot_drawer');
+          else if (char.location === 'school_library') handleNpcAction('loot_mengya_mag');
+          else if (char.location === 'computer_city') handleNpcAction('loot_modem');
           else if (char.location === 'weiming_lake') handleNpcAction('loot_press_pass');
           else if (char.location === 'atlantic_suite') handleNpcAction('seal_windows_tape');
           else termLog('你仔细搜寻了四周，没有发现隐藏暗格。', 'text-slate-400');
