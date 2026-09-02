@@ -96,6 +96,15 @@ aside: false
         <div class="flink-item-desc">孙宇晨与景甜的人生模拟：从惠州网瘾少年逆袭到巴菲特午餐鸽局与宇宙大花交汇。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/1942/" title="1942 经典空战 · NES 复刻版" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:plane.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="1942 经典空战">
+        </div>
+        <div class="flink-item-name">1942 经典空战</div>
+        <div class="flink-item-desc">经典红白机街机复刻：驾驶P-38闪电战机，空中大回旋、双翼僚机支援与激战巨型要塞亚矢子！</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
