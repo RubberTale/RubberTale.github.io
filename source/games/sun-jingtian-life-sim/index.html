@@ -253,9 +253,9 @@
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <div>
           <h2 class="text-base sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-rose-300 to-cyan-400 flex items-center gap-2">
-            🏆 名利场大结局图鉴 (<span id="gallery-unlocked-count">0</span> / 16 已解锁)
+            🏆 名利场大结局图鉴 (<span id="gallery-unlocked-count">0</span> / 17 已解锁)
           </h2>
-          <p class="text-[11px] text-slate-400">推演孙宇晨与景甜在不同平行时空下的 16 种截然不同的人生终局</p>
+          <p class="text-[11px] text-slate-400">推演孙宇晨与景甜在不同平行时空下的 17 种截然不同的人生终局，含 1 个隐藏双线结局</p>
         </div>
         <button id="btn-close-gallery" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
           ✕ 关闭
@@ -464,7 +464,7 @@
           <span id="ip-visitor-pill" class="text-[10px] text-emerald-400 font-mono hidden ml-0.5">● 今日已记</span>
         </div>
         <button id="btn-open-gallery" class="px-2 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 font-bold border border-amber-500/40 flex items-center gap-1 transition">
-          🏆 图鉴 (<span id="unlocked-fates-header-count">0</span>/16)
+          🏆 图鉴 (<span id="unlocked-fates-header-count">0</span>/17)
         </button>
         <button id="btn-reopen-guide" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold border border-slate-700 flex items-center gap-1 transition">
           <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> 指南
@@ -894,7 +894,17 @@
         title: '🏰【巴塞尔当代艺术收藏教母】',
         tag: '急流勇退 · 顶级豪门',
         desc: '面对全网身世质疑息影退圈，执掌家族艺术基金会，成为苏富比与巴塞尔终身钻石名誉顾问。',
-        epilogue: '瑞士阿尔卑斯山畔的私人古堡内，陈列着莫奈、草间弥生与贾科梅蒂的原作。你在《战国》风波后优雅地转身离去，不再理会娱乐圈的喧嚣。坊间依然流传着“景小姐”的神秘传说，而你早已在世界当代艺术之巅谈笑风生。'
+        epilogue: '瑞士阿尔卑斯山畔的私人古堡内，陈列着莫奈、草间弥生与贾科梅蒂的原作。你在《战国》风波后优雅地转身离去，不再理会娱乐圈的喧嚣。坊间依然流传着"景小姐"的神秘传说，而你早已在世界当代艺术之巅谈笑风生。'
+      },
+
+      // 🌹 隐藏结局 (需双线联动解锁)
+      hong_kong_rose: {
+        id: 'hong_kong_rose',
+        char: 'both',
+        title: '🌹【香港玫瑰酒店 · 18年后初见】',
+        tag: '✦ 隐藏结局 · 双线联动',
+        desc: '【隐藏】2007年那条未被接受的校内网好友申请，在18年后的香港玫瑰酒店终于有了一个答案。需在孙宇晨线触发「校内网加好友」事件，并在景甜线到达第三时期后解锁。',
+        epilogue: '2025年12月，香港玫瑰酒店。\n\n孙宇晨站在大堂旋转门前，手机通讯录里有一个号码是三小时前刚刚存入的。\n\n18年前，那条在校内网石沉大海的好友申请，他以为自己早就忘了。但在这一刻，他想起了2007年深秋的北大宿舍，一盏台灯，一个刷出来的头像，和鼠标悬停在"添加好友"上的那几秒钟犹豫。\n\n景甜从电梯走出，一件米色大衣，发梢微卷。她不知道眼前这个人曾经在18年前给她发过一条好友申请——那条申请被系统归入"可能认识的人"，在某次迁移数据时永久消失了。\n\n"你好，孙先生。"\n"你好，景小姐。"\n\n名利场里，所有人都在争夺注意力。而有些事，只是刚刚好，迟到了18年。'
       }
     };
 
@@ -1003,11 +1013,12 @@
           },
           sanjiaodi: {
             name: '北大三角地 · BBS与校刊广场',
-            desc: '三角地贴满了先锋刊物。你自创的民间校刊《野草》正堆在长椅旁。',
+            desc: '三角地贴满了先锋刊物。你自创的民间校刊《野草》正堆在长椅旁。宿舍楼下有台开着校内网的旧电脑。',
             exits: { north: 'weiming_lake', east: 'abroad_office', south: 'yan_office' },
             npcs: [
               { name: '校刊印刷社学长', role: '商人', action: 'publish_yecao', label: '📰 发行万份《野草》暴论 (¥50)' },
-              { name: '校学生会常务主席', role: 'Boss', action: 'fight_president', label: '⚔️ 学生会竞选公开论战！' }
+              { name: '校学生会常务主席', role: 'Boss', action: 'fight_president', label: '⚔️ 学生会竞选公开论战！' },
+              { name: '宿舍电脑 · 校内网', role: 'NPC', action: 'try_add_jing_xiaonei', label: '💻 搜索"景甜"并发送好友申请' }
             ]
           },
           yan_office: {
@@ -1162,12 +1173,12 @@
             ]
           },
           sotheby_hall: {
-            name: '纽约苏富比天价拍卖大厅 · 2025会师',
-            desc: '全球顶流云集，620 万美元艺术香蕉《喜剧演员》正贴在墙上！',
+            name: '纽约苏富比 · 2024香蕉拍卖大厅',
+            desc: '全球顶流云集，620 万美元艺术香蕉《喜剧演员》正贴在墙上。你的手机里有一条来自香港的邀约……',
             exits: { south: 'wharton_hall', west: 'atlantic_suite' },
             npcs: [
               { name: '苏富比艺术香蕉', role: '交互', action: 'finish_sun_banana', label: '🍌 一口吃掉 620 万美元香蕉！' },
-              { name: '特邀贵宾 · 景甜', role: '交互', action: 'meet_jingtian_mars', label: '🚀 双星会师！进军火星大满贯！' }
+              { name: '🌹 香港玫瑰酒店邀约函', role: '交互', action: 'check_hk_rose_unlock', label: '✉️ 2025年12月，香港，一封神秘邀约...' }
             ]
           }
         }
@@ -1298,11 +1309,11 @@
             ]
           },
           sotheby_jing: {
-            name: '纽约苏富比天价拍卖厅 · 双星汇流',
-            desc: '孙宇晨正举牌拍下 620 万美元香蕉，你受邀作为终极特邀贵宾与他会师！',
+            name: '纽约苏富比 · 受邀出席拍卖之夜',
+            desc: '灯光璀璨，你以特邀嘉宾身份出席。场中有一位举牌拍下香蕉的神秘买家，据说一个月后会在香港与你有约……',
             exits: { south: 'siteng_yunnan', west: 'dark_suite_jing' },
             npcs: [
-              { name: '孙宇晨 (Justin Sun)', role: '交互', action: 'finish_jing_siteng', label: '🚀 双星会师！登顶火星主权！' }
+              { name: '🌹 来自香港的神秘邀约', role: '交互', action: 'check_hk_rose_unlock', label: '✉️ 2025年12月，香港玫瑰酒店，一封邀约...' }
             ]
           }
         }
@@ -1651,19 +1662,52 @@
       sunBox.innerHTML = '';
       jingBox.innerHTML = '';
 
+      // Render a hidden endings section after jing list
+      let hiddenBox = document.getElementById('gallery-hidden-list');
+      if (!hiddenBox) {
+        const container = jingBox.parentElement;
+        const section = document.createElement('div');
+        section.className = 'mt-4';
+        section.innerHTML = `
+          <div class="text-xs font-bold text-rose-400 flex items-center gap-1.5 mb-2 border-t border-rose-900/40 pt-3">
+            🌹 隐藏结局 · 双线联动解锁
+          </div>
+          <div id="gallery-hidden-list" class="space-y-2"></div>
+        `;
+        container.appendChild(section);
+        hiddenBox = document.getElementById('gallery-hidden-list');
+      }
+      hiddenBox.innerHTML = '';
+
       Object.values(FATES_CATALOG).forEach(f => {
         const unlocked = Game.unlockedEndings.includes(f.id);
+        const isHidden = f.char === 'both';
         const card = document.createElement('div');
-        card.className = `p-3 rounded-2xl border ${unlocked ? 'bg-slate-950/90 border-amber-500/50' : 'bg-slate-950/40 border-slate-800 opacity-60'} flex flex-col justify-between`;
-        card.innerHTML = `
-          <div class="flex justify-between items-center">
-            <span class="font-bold text-xs ${unlocked ? 'text-slate-100' : 'text-slate-500'}">${f.title}</span>
-            <span class="text-[10px] px-1.5 py-0.5 rounded font-term ${unlocked ? 'bg-amber-950/80 text-amber-300 border border-amber-500/30' : 'bg-slate-900 text-slate-600'}">${unlocked ? '已达成 🏆' : '未解锁 🔒'}</span>
-          </div>
-          <p class="text-[11px] ${unlocked ? 'text-slate-300' : 'text-slate-600'} mt-1 leading-relaxed">${unlocked ? f.desc : '？？？尚未推演达成此命运分支'}</p>
-        `;
-        if (f.char === 'sun') sunBox.appendChild(card);
-        else jingBox.appendChild(card);
+
+        if (isHidden) {
+          card.className = `p-3 rounded-2xl border ${unlocked ? 'bg-rose-950/40 border-rose-500/60' : 'bg-slate-950/40 border-rose-900/30 opacity-70'} flex flex-col justify-between`;
+          card.innerHTML = `
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-xs ${unlocked ? 'text-rose-200' : 'text-slate-500'}">${f.title}</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded font-term ${unlocked ? 'bg-rose-900 text-rose-300 border border-rose-500/40' : 'bg-slate-900 text-slate-600'}">
+                ${unlocked ? '已达成 🌹' : '未解锁 🔒'}
+              </span>
+            </div>
+            <p class="text-[11px] ${unlocked ? 'text-rose-300' : 'text-slate-600'} mt-1 leading-relaxed">${unlocked ? f.desc : '？？？需要双线联动才能解锁此隐藏命运'}</p>
+          `;
+          hiddenBox.appendChild(card);
+        } else {
+          card.className = `p-3 rounded-2xl border ${unlocked ? 'bg-slate-950/90 border-amber-500/50' : 'bg-slate-950/40 border-slate-800 opacity-60'} flex flex-col justify-between`;
+          card.innerHTML = `
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-xs ${unlocked ? 'text-slate-100' : 'text-slate-500'}">${f.title}</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded font-term ${unlocked ? 'bg-amber-950/80 text-amber-300 border border-amber-500/30' : 'bg-slate-900 text-slate-600'}">${unlocked ? '已达成 🏆' : '未解锁 🔒'}</span>
+            </div>
+            <p class="text-[11px] ${unlocked ? 'text-slate-300' : 'text-slate-600'} mt-1 leading-relaxed">${unlocked ? f.desc : '？？？尚未推演达成此命运分支'}</p>
+          `;
+          if (f.char === 'sun') sunBox.appendChild(card);
+          else jingBox.appendChild(card);
+        }
       });
 
       document.getElementById('modal-fates-gallery').classList.remove('hidden');
@@ -1784,9 +1828,83 @@
         document.getElementById('quest-progress-bar').style.width = `${char.quest.progress}%`;
       }
 
+      // ── 动态平行世界线文字 ──────────────────────────────
+      updateParallelTimeline();
+
       updateGalleryStats();
       if (window.lucide) window.lucide.createIcons();
     }
+
+    // 根据孙/景当前时期动态生成平行世界线文本
+    function updateParallelTimeline() {
+      const el = document.getElementById('timeline-parallel-text');
+      const syncEl = document.getElementById('timeline-sync-status');
+      if (!el) return;
+
+      const sun = Game.sun;
+      const jing = Game.jing;
+      const p = Game.perspective;
+      const hasFriendRequest = sun.traits && sun.traits.includes('单方面存档·校内网');
+      const jingEra3 = jing.era === '3_siteng';
+      const sunEra3 = sun.era === '3_tron';
+
+      // 双线都到达第三时期 → 提示香港会面
+      if (sunEra3 && jingEra3) {
+        syncEl.innerText = '⚡ 命运收束中 (2025.12)';
+        syncEl.className = 'text-rose-400 font-mono font-bold animate-pulse';
+        if (hasFriendRequest) {
+          el.innerText = '2025年12月，香港玫瑰酒店。两条平行了18年的命运线，即将在此第一次相交。她不知道的是，早在2007年的北大宿舍，有人已经悄悄点过一次"添加好友"。';
+          el.className = 'text-rose-300 text-[11px] leading-relaxed italic bg-rose-950/30 p-2 rounded-lg border border-rose-700/50 font-bold';
+        } else {
+          el.innerText = '2025年12月，香港玫瑰酒店。两条平行了18年的命运线，即将在此第一次相交。';
+          el.className = 'text-amber-300 text-[11px] leading-relaxed italic bg-amber-950/30 p-2 rounded-lg border border-amber-700/50';
+        }
+        return;
+      }
+
+      // 孙在北大时期 (2007)
+      if (p === 'sun' && sun.era === '2_pku') {
+        if (hasFriendRequest) {
+          el.innerText = '景甜正在录制首张EP《你是谁》。她的校内网收到一条来自陌生北大男生的好友申请，被系统自动归入"可能认识的人"列表。那条申请，静静躺着，始终未被打开。';
+          el.className = 'text-slate-400 text-[11px] leading-relaxed italic bg-slate-950/60 p-2 rounded-lg border border-slate-700';
+        } else {
+          el.innerText = '景甜正在张亚东录音棚录制首张EP，星光灿烂影视为其筹备出道发布会...';
+          el.className = 'text-slate-300 text-[11px] leading-relaxed italic bg-slate-950/60 p-2 rounded-lg border border-slate-800';
+        }
+        syncEl.innerText = '隔空呼应 (2007·校内网时代)';
+        return;
+      }
+
+      // 景甜线视角看孙的进展
+      if (p === 'jing') {
+        const sunDesc = {
+          1: '孙宇晨正在惠州网吧打《传奇》，手边放着半瓶冰红茶，心里想着如何写出一篇震惊评委的新概念作文...',
+          '2_pku': hasFriendRequest
+            ? '孙宇晨在北大三角地散发《野草》先锋刊物。没人知道他刚刚在校内网给一个北舞女生点了"添加好友"。'
+            : '孙宇晨在北大三角地散发《野草》先锋刊物，正在参选学生会主席...',
+          '2_tier3': '孙宇晨正在华强北倒卖显卡，研究一份叫"比特币"的神秘白皮书...',
+          '2_scam': '孙宇晨借了10万网贷梭哈空气币，正站在握手楼天台，手里捏着一个空冰红茶瓶...',
+          '3_tron': '孙宇晨创立了波场TRON，在苏富比一口吃下620万美元香蕉，手机里有一条来自香港的神秘邀约...'
+        };
+        el.innerText = sunDesc[sun.era] || '孙宇晨正在名利场的某处搅动风云...';
+        syncEl.innerText = '隔空呼应 (平行推演中)';
+        return;
+      }
+
+      // 孙线其他时期
+      const jingDesc = {
+        1: '景甜正在北京舞蹈学院排练，星光灿烂影视正为其筹备首张EP...',
+        '2_blockbuster': '景甜正在《战国》豪华剧组与孙红雷对戏，众星拱月...',
+        '2_dance': '景甜在国家歌舞剧院苦练古典舞，正在排练大型舞剧《李白》...',
+        '3_siteng': hasFriendRequest
+          ? '景甜凭《司藤》大爆，收到了来自香港玫瑰酒店的神秘邀约。她不知道，发出这封邀约的人，曾在18年前给她发过一条好友申请。'
+          : '景甜凭《司藤》大爆，口碑国民逆袭，正在苏富比受邀出席拍卖之夜...'
+      };
+      el.innerText = jingDesc[jing.era] || '景甜正在演艺圈的某处绽放光芒...';
+      el.className = 'text-slate-300 text-[11px] leading-relaxed italic bg-slate-950/60 p-2 rounded-lg border border-slate-800';
+      syncEl.innerText = '隔空呼应 (2025会师前)';
+    }
+
 
     // 时代与分支转换辅助函数
     function enterPkuEra() {
@@ -2570,8 +2688,75 @@
         AudioEngine.pump();
         char.fame += 200;
         confetti({ particleCount: 80, spread: 60 });
-        termLog('⚖️【景甜工作室严正声明】“拒绝任何形式的无端碰瓷与网络炒作，已固定证据依法维权，一切交由法律裁决！” 全网路人好感度狂飙！名气 +200！', 'text-emerald-300 font-bold');
+        termLog('⚖️【景甜工作室严正声明】"拒绝任何形式的无端碰瓷与网络炒作，已固定证据依法维权，一切交由法律裁决！" 全网路人好感度狂飙！名气 +200！', 'text-emerald-300 font-bold');
         updateUI();
+
+      // ── 2007年 校内网加好友事件 ──────────────────────────
+      } else if (act === 'try_add_jing_xiaonei') {
+        if (char.traits && char.traits.includes('单方面存档·校内网')) {
+          termLog('💻 你又打开了景甜的校内网主页，好友申请依然显示"待确认"——已经过去几个月了，她大概永远不会看到。', 'text-slate-400 italic');
+          return;
+        }
+        AudioEngine.play(440, 'sine', 0.05);
+        termLog('💻【校内网 · 2007年冬】你在宿舍台灯下打开校内网，搜索"景甜"……', 'text-slate-400');
+        setTimeout(() => {
+          termLog('🔍 找到了：景甜，北京舞蹈学院附中，头像是一张侧脸照，背景是北舞的排练厅走廊。', 'text-slate-300 italic');
+        }, 800);
+        setTimeout(() => {
+          termLog('🖱️ 你将鼠标悬停在【添加好友】上……', 'text-slate-400 italic');
+        }, 1800);
+        setTimeout(() => {
+          AudioEngine.tab();
+          termLog('📨【好友申请已发送】等待对方确认。', 'text-cyan-400');
+          termLog('——', 'text-slate-700');
+          termLog('（她从未看到这条申请。它被系统归入"可能认识的人"列表，在某次数据迁移中永久消失。）', 'text-slate-500 italic text-[11px]');
+
+          // 添加特质标记
+          if (!char.traits.includes('单方面存档·校内网')) {
+            char.traits.push('单方面存档·校内网');
+          }
+          char.quest.progress = Math.max(char.quest.progress, 35);
+          updateUI();
+
+          // 小提示：告知玩家这会影响隐藏结局
+          setTimeout(() => {
+            termLog('💡【隐藏剧情解锁】你已在孙宇晨线触发「2007校内网好友申请」事件。若景甜线也到达第三时期，香港玫瑰酒店的隐藏结局将在苏富比大厅等待你。', 'text-rose-400 text-[11px] font-bold');
+          }, 1200);
+        }, 2800);
+
+      // ── 香港玫瑰酒店隐藏结局解锁检定 ──────────────────
+      } else if (act === 'check_hk_rose_unlock') {
+        const sunHasTrait = Game.sun.traits && Game.sun.traits.includes('单方面存档·校内网');
+        const jingAtEra3 = Game.jing.era === '3_siteng';
+        const alreadyUnlocked = Game.unlockedEndings.includes('hong_kong_rose');
+
+        if (alreadyUnlocked) {
+          termLog('🌹【香港玫瑰酒店结局已解锁】可在图鉴中回顾这段迟到18年的初见。', 'text-rose-300');
+          return;
+        }
+
+        if (!sunHasTrait && !jingAtEra3) {
+          termLog('✉️ 你打开信封，里面是一张金色的酒店邀约函……但你感觉时机还未到。', 'text-slate-400 italic');
+          termLog('💡 提示：在孙宇晨线的北大三角地触发「校内网加好友」事件，并在景甜线推进到第三时期，方能解锁这段隐藏剧情。', 'text-slate-500 text-[11px]');
+          return;
+        }
+        if (!sunHasTrait) {
+          termLog('✉️ 邀约函已就位……但孙宇晨那边，似乎还有一件未完成的事。', 'text-slate-400 italic');
+          termLog('💡 提示：切换到孙宇晨线，在北大三角地找到「宿舍电脑·校内网」，触发2007年的好友申请事件。', 'text-slate-500 text-[11px]');
+          return;
+        }
+        if (!jingAtEra3) {
+          termLog('✉️ 孙宇晨那边已经准备好了……等景甜推进到第三时期，香港的故事就会开始。', 'text-amber-400 italic');
+          termLog('💡 提示：切换到景甜线，完成第二时期剧情进入「司藤·东方神韵」分支，到达第三时期即可。', 'text-slate-500 text-[11px]');
+          return;
+        }
+
+        // 两个条件都满足 → 触发隐藏结局
+        triggerEnding('hong_kong_rose');
+
+      } else if (act === 'meet_jingtian_mars') {
+        // Legacy action → redirect to mars DAO ending
+        triggerEnding('sun_mars_dao');
       }
     }
 
