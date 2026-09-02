@@ -1044,7 +1044,7 @@
                 name: '湖畔沉思墨客', 
                 role: '智者', 
                 action: 'meditate_westlake', 
-                label: '🌊 湖畔构思狂言万字 (获得【西湖狂客】特质)',
+                label: '🌊 凭栏远眺苏堤，挥毫题写《狂人新篇》',
                 condition: () => (!Game.sun.traits.includes('西湖狂客')) && (!Game.sun.traits.includes('做题家标兵')) && (!Game.sun.traits.includes('黑客极客先锋'))
               },
               { 
@@ -1055,10 +1055,10 @@
                 condition: () => Game.sun.traits.includes('西湖狂客') && (!Game.sun.storyFlags || !Game.sun.storyFlags.debater_defeated)
               },
               {
-                name: '应试名师特训组',
+                name: '高三备考冲刺组',
                 role: '交互',
                 action: 'join_exam_study',
-                label: '📚 妥协投身题海应试训练 (获得【做题家标兵】特质)',
+                label: '📚 与重点班尖子生围坐研讨《五三模拟》',
                 condition: () => (!Game.sun.traits.includes('西湖狂客')) && (!Game.sun.traits.includes('做题家标兵')) && (!Game.sun.traits.includes('黑客极客先锋'))
               }
             ]
@@ -1072,14 +1072,14 @@
                 name: '光盘店老李', 
                 role: '商人', 
                 action: 'buy_vb_book', 
-                label: '购买《VB网络爬虫与黑客攻防入门》(¥20)',
+                label: '💿 淘一本泛黄的《网络爬虫与黑客入门》(¥20)',
                 condition: () => (!Game.sun.traits.includes('西湖狂客')) && (!Game.sun.traits.includes('做题家标兵')) && (!Game.sun.traits.includes('黑客极客先锋'))
               },
               { 
                 name: '二手电脑废件堆', 
                 role: '宝箱', 
                 action: 'loot_modem', 
-                label: '🔍 搜寻 56k 拨号猫与闪存卡',
+                label: '🔍 翻检柜台角落的废弃电子元件',
                 condition: () => Game.sun.traits.includes('黑客极客先锋') && (!Game.sun.inventory.some(i => i.id === 'modem'))
               }
             ]
@@ -2234,34 +2234,34 @@
         updateUI();
       } else if (act === 'meditate_westlake') {
         if (char.traits.includes('做题家标兵') || char.traits.includes('黑客极客先锋')) {
-          return termLog('⚠️ 你已经选择了其他人生特质路线，思维定势已成，无法再走【西湖狂客】路线！', 'text-red-400 font-bold');
+          return termLog('你望着浩渺的西湖水，心中杂念纷扰，那种年少轻狂、目空一切的文人狂气似乎再也找不回来了。', 'text-slate-500 italic');
         }
         AudioEngine.heal();
         char.hp = Math.min(char.maxHp, char.hp + 30);
         char.fame += 20;
         char.traits.push('西湖狂客');
-        termLog('🌊 你伫立在苏堤柳树下，面朝湖光山色一挥而就写下万字自白《狂人新篇》！锁定特质【西湖狂客】（互斥锁定，不可再选做题家或黑客路线）！傲慢辩论生已被激怒！', 'text-emerald-300 font-bold');
+        termLog('🌊【苏堤狂客】你伫立在苏堤柳树下，面朝湖光山色一挥而就写下万字《狂人新篇》！那种骨子里的傲气与先锋文采在笔尖彻底觉醒。名气 +20，气血 +30！', 'text-emerald-300 font-bold');
         char.quest.progress = Math.max(char.quest.progress, 75);
         updateUI();
       } else if (act === 'join_exam_study') {
         if (char.traits.includes('西湖狂客') || char.traits.includes('黑客极客先锋')) {
-          return termLog('⚠️ 你已经选择了其他人生特质路线，无法再投身应试做题家特训！', 'text-red-400 font-bold');
+          return termLog('你扫了一眼厚厚的五三模拟卷，发现自己的心思早已不在规矩的题海框架中了。', 'text-slate-500 italic');
         }
         AudioEngine.heal();
         char.traits.push('做题家标兵');
         char.ap = char.maxAp;
         char.fame += 10;
-        termLog('📚 你收敛心神投身五三题海，做题速度倍增！锁定特质【做题家标兵】（互斥锁定，不可再选狂客或黑客路线）！灵感回满，名气 +10！', 'text-cyan-300 font-bold');
+        termLog('📚【题海淬炼】你深吸一口气，暂时收起狂傲的锐气，与尖子生们在长椅上苦刷导数与文综大题。你的解题思维变得无比敏捷扎实！灵感回满，名气 +10！', 'text-cyan-300 font-bold');
         char.quest.progress = Math.max(char.quest.progress, 75);
         updateUI();
       } else if (act === 'fight_arrogant_debater') {
         if (!char.traits.includes('西湖狂客')) {
-          return termLog('傲慢辩论生冷笑一声：“连西湖狂言都写不出来的人，不配与我论战！”', 'text-slate-500');
+          return termLog('傲慢辩论生冷冷地扫了你一眼，转过身去继续背诵标准答案，完全没有与你搭话的意思。', 'text-slate-500');
         }
         startCombat({ name: '傲慢辩论生', hp: 60, maxHp: 60, dmg: 16, intent: '高声嘲讽：【应试不过关，玩什么先锋叛逆？】' });
       } else if (act === 'buy_vb_book') {
         if (char.traits.includes('西湖狂客') || char.traits.includes('做题家标兵')) {
-          return termLog('⚠️ 你已经选择了其他人生特质路线，文人/做题家思维已定，无法再专研黑客极客路线！', 'text-red-400 font-bold');
+          return termLog('你翻了翻满是英文代码的封面，觉得这些冰冷的逻辑原件与自己当下的志趣并不相投。', 'text-slate-500 italic');
         }
         if (char.money < 20) return termLog('现金不足 ¥20！光盘店老李摆摆手让你走开。', 'text-red-400');
         char.money -= 20;
@@ -2271,20 +2271,20 @@
         }
         char.traits.push('黑客极客先锋');
         AudioEngine.pump();
-        termLog('💻 你花费 ¥20 买下《VB网络爬虫与黑客入门》！锁定特质【黑客极客先锋】（互斥锁定，不可再选狂客或做题家路线）！电脑城废件堆已对你开放搜寻！', 'text-cyan-300 font-bold');
+        termLog('💻【极客启蒙】你买下了那本泛黄的书，通宵翻阅着封包嗅探与端口扫描的原理，一个全新的赛博地下世界在你眼前徐徐展开！', 'text-cyan-300 font-bold');
         char.quest.progress = Math.max(char.quest.progress, 75);
         updateUI();
       } else if (act === 'loot_modem') {
         if (!char.traits.includes('黑客极客先锋')) {
-          return termLog('你没有钻研过硬件黑客知识，在一堆电子垃圾里看不出任何名堂。', 'text-slate-400');
+          return termLog('你拨弄着角落里缠绕的电线与芯片，只觉得是一堆蒙尘的报废零件。', 'text-slate-400');
         }
         AudioEngine.crit();
         const exist = char.inventory.find(i => i.id === 'modem');
         if (exist) {
-          termLog('你已经搜过这个废件堆了。', 'text-slate-400');
+          termLog('你已经仔细搜检过这堆元件了。', 'text-slate-400');
         } else {
           char.inventory.push({ id: 'modem', name: '56k 拨号猫与闪存卡', desc: '惠州网吧时期的极客神器，战斗中提供 35 点护盾', count: 1, use: () => Game.useItem('modem') });
-          termLog('🔍 凭借黑客极客眼力，你在废件堆里淘到了完好的【56k 拨号猫与闪存卡】！', 'text-yellow-300 font-bold');
+          termLog('🔍 凭借对硬件的敏锐辨识，你从废料箱深处翻出了一台成色完好的【56k 拨号猫与闪存卡】！', 'text-yellow-300 font-bold');
           updateUI();
         }
       } 
