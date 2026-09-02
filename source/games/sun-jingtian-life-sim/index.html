@@ -280,6 +280,32 @@
     </div>
   </div>
 
+  <!-- DEFEAT / GAME OVER MODAL (名利场陨落) -->
+  <div id="modal-defeat" class="fixed inset-0 bg-black/95 backdrop-blur-lg z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+    <div class="bg-slate-900 border-2 border-red-500/80 max-w-md w-full rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-4 relative animate-in fade-in zoom-in duration-500">
+      <div class="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-tr from-red-700 to-rose-900 flex items-center justify-center text-3xl shadow-xl shadow-red-900/40">
+        💀
+      </div>
+      <div>
+        <span class="text-xs text-red-400 font-bold tracking-widest uppercase">GAME OVER · 名利场陨落</span>
+        <h2 id="defeat-title" class="text-xl font-black text-red-300 mt-1">你在论战中被彻底击溃！</h2>
+      </div>
+      <p id="defeat-desc" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-4 rounded-2xl border border-red-900/60 text-left font-sans"></p>
+      <div id="defeat-revive-option" class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-3 text-xs text-left space-y-1 hidden">
+        <div class="text-amber-300 font-bold flex items-center gap-1.5">⬛ 消耗 1 卷【特种遮光黑胶带】强行复活！</div>
+        <div class="text-slate-400">用黑胶带营造绝对黑暗结界，让对手在黑暗中摸不着北，你悄然复苏！</div>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-2 pt-2">
+        <button id="btn-defeat-revive" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-black font-black text-xs hover:opacity-90 transition shadow hidden">
+          ⬛ 消耗黑胶带复活（继续当前战斗）
+        </button>
+        <button id="btn-defeat-restart" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition border border-slate-700">
+          🔄 认栽重开 · 新轮回
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ENDING EPILOGUE MODAL (终局结算弹窗) -->
   <div id="modal-ending" class="fixed inset-0 bg-black/95 backdrop-blur-lg z-50 flex items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-slate-900 border-2 border-yellow-500/80 max-w-lg w-full rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-4 relative animate-in fade-in zoom-in duration-500">
@@ -605,13 +631,19 @@
           </div>
 
           <div class="space-y-1.5 pt-1">
-            <div class="text-[11px] text-slate-400 font-bold flex justify-between">
+            <div class="text-[11px] text-slate-400 font-bold flex justify-between items-center">
               <span>🎴 出招手牌（输入 cast [招式] 或点击）：</span>
-              <span class="text-amber-400">剩余灵感: <strong id="combat-ap-val">3</strong> 💡</span>
+              <span class="flex items-center gap-2">
+                <span id="enemy-status-badge" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 font-mono hidden"></span>
+                <span class="text-amber-400">剩余灵感: <strong id="combat-ap-val">3</strong> 💡</span>
+              </span>
             </div>
             <div id="combat-cards" class="grid grid-cols-2 gap-2 text-xs">
               <!-- Rendered dynamically -->
             </div>
+            <button id="btn-end-turn" class="w-full py-1.5 rounded-xl bg-slate-800 hover:bg-red-900/70 text-slate-400 hover:text-red-300 font-bold text-xs border border-slate-700 hover:border-red-500/50 transition">
+              ⏭ 结束回合（让敌人行动）
+            </button>
           </div>
         </div>
 
@@ -2543,10 +2575,65 @@
       }
     }
 
+    // ====================================================
+    // ⚔️ UPGRADED COMBAT SYSTEM v2.0
+    // - 敌人状态机: 愤怒/护盾/嘲讽/中毒
+    // - 意图循环预告
+    // - HP归零→名利场陨落弹窗（可用黑胶带复活）
+    // - 胜利掉落道具
+    // - 结束回合按钮
+    // ====================================================
+
+    // 敌人意图模板库
+    const ENEMY_INTENTS = {
+      // 普通攻击
+      attack:   { icon: '⚔️', label: '准备发动【强力攻击】', type: 'attack', mult: 1.0 },
+      heavy:    { icon: '💢', label: '蓄力中：【猛烈暴击攻势】', type: 'attack', mult: 1.8 },
+      // 防御/BUFF
+      shield:   { icon: '🛡', label: '正在布置【官僚铁幕护盾】', type: 'shield', shieldVal: 40 },
+      rage:     { icon: '🔥', label: '怒气值暴涨！【进入狂暴模式】', type: 'rage', dmgBoost: 15 },
+      taunt:    { icon: '😤', label: '发起【人身攻击与嘲讽】', type: 'taunt', apDrain: 1 },
+      poison:   { icon: '☠️', label: '释放【黑料毒箭】(持续中毒)', type: 'poison', dotVal: 12 },
+      heal:     { icon: '💊', label: '正在调用【公关团队回血】', type: 'heal', healVal: 30 },
+    };
+
+    // 每个Boss的意图循环序列
+    const ENEMY_PATTERNS = {
+      '街头红毛混混':       ['attack', 'taunt', 'attack', 'heavy'],
+      '教导主任 · 王暴躁':  ['taunt', 'attack', 'shield', 'heavy', 'rage'],
+      '校学生会常务主席':   ['shield', 'attack', 'poison', 'heavy', 'taunt', 'heal'],
+      '八卦狗仔记者':       ['attack', 'poison', 'taunt', 'attack', 'heavy'],
+      '毒舌影评人团':       ['poison', 'attack', 'taunt', 'heavy', 'heal'],
+      '经侦支队带队警官':   ['taunt', 'heavy', 'shield', 'rage', 'heavy'],
+    };
+
+    // 胜利掉落道具配置
+    const COMBAT_LOOT = {
+      '街头红毛混混':       { id: 'streetcred', name: '街头影响力证书', desc: '展示可提升名气 +20', count: 1, use: () => { Game[Game.perspective].fame += 20; termLog('📜 你展示了街头影响力证书！名气 +20！', 'text-amber-300'); updateUI(); } },
+      '教导主任 · 王暴躁':  { id: 'hall_pass', name: '教导主任特批通行证', desc: '在学校区域免疫阻拦', count: 1, use: () => termLog('📋 特批通行证：惠州一中各区域可自由通行！', 'text-cyan-300') },
+      '校学生会常务主席':   { id: 'election_win', name: '学生会主席竞选铭牌', desc: '使用可大幅提升名气', count: 1, use: () => { Game[Game.perspective].fame += 60; termLog('🏅 你展示竞选铭牌！全校热议，名气 +60！', 'text-amber-300 font-bold'); updateUI(); } },
+      '八卦狗仔记者':       { id: 'scoop', name: '独家八卦独家内幕', desc: '打出可造成双倍伤害', count: 1, use: () => { Game.playerShield += 50; termLog('📸 你掌握了对方的黑历史，获得 50 点护盾！', 'text-rose-300 font-bold'); updateUI(); } },
+      '毒舌影评人团':       { id: 'good_review', name: '顶级影评人五星好评', desc: '使用可大幅提升咖位', count: 1, use: () => { Game[Game.perspective].fame += 80; termLog('⭐ 顶级影评人改口五星好评！名气 +80！', 'text-yellow-300 font-bold'); updateUI(); } },
+    };
+
     function startCombat(enemy) {
       Game.inCombat = true;
-      Game.enemy = enemy;
       Game.playerShield = 0;
+      Game.enemyShield = 0;
+      Game.enemyRageBonus = 0;
+      Game.enemyPoisonTurns = 0;
+      Game.combatTurn = 0;
+
+      // Build enemy with state
+      const pattern = ENEMY_PATTERNS[enemy.name] || ['attack', 'heavy', 'taunt'];
+      Game.enemy = {
+        ...enemy,
+        pattern,
+        patternIdx: 0,
+        status: null,   // rage | shield | poison | taunt
+        statusTurns: 0,
+      };
+      Game.enemy.intent = buildIntentText(Game.enemy);
 
       const char = Game[Game.perspective];
       char.ap = char.maxAp;
@@ -2557,9 +2644,19 @@
       document.getElementById('combat-arena').classList.remove('hidden');
       document.getElementById('combat-status-badge').innerText = '⚔️ 论战对决中 (COMBAT)';
       document.getElementById('combat-status-badge').className = 'text-red-400 font-bold animate-pulse';
+      
+      const endTurnBtn = document.getElementById('btn-end-turn');
+      if (endTurnBtn) endTurnBtn.onclick = () => { if (Game.inCombat) enemyTurn(); };
 
-      termLog(`⚔️ 遭遇【${enemy.name}】！进入论战对决模式！可用 cast [招式] 指令出招！`, 'text-red-400 font-bold');
+      termLog(`⚔️ 遭遇【${enemy.name}】！HP: ${enemy.hp} | 进入论战对决！`, 'text-red-400 font-bold');
+      termLog(`🔮 敌方意图: ${Game.enemy.intent}`, 'text-amber-300');
       updateCombatUI();
+    }
+
+    function buildIntentText(enemy) {
+      const intentKey = enemy.pattern[enemy.patternIdx % enemy.pattern.length];
+      const tmpl = ENEMY_INTENTS[intentKey] || ENEMY_INTENTS.attack;
+      return `${tmpl.icon} ${tmpl.label}`;
     }
 
     function updateCombatUI() {
@@ -2567,27 +2664,64 @@
 
       const e = Game.enemy;
       const char = Game[Game.perspective];
+      const hpPct = Math.max(0, (e.hp / e.maxHp) * 100);
 
-      document.getElementById('enemy-name').innerText = e.name;
+      document.getElementById('enemy-name').innerText = e.name + (e.status ? ` [${e.status.toUpperCase()}]` : '');
       document.getElementById('enemy-intent').innerText = e.intent;
-      document.getElementById('enemy-hp-text').innerText = `${e.hp} / ${e.maxHp}`;
-      document.getElementById('enemy-hp-bar').style.width = `${Math.max(0, (e.hp / e.maxHp) * 100)}%`;
+      document.getElementById('enemy-hp-text').innerText = `${Math.max(0, e.hp)} / ${e.maxHp}`;
+
+      // Color HP bar by health level
+      const bar = document.getElementById('enemy-hp-bar');
+      bar.style.width = `${hpPct}%`;
+      bar.className = `h-full rounded-full transition-all duration-300 ${
+        hpPct > 60 ? 'bg-gradient-to-r from-red-600 to-rose-500' :
+        hpPct > 30 ? 'bg-gradient-to-r from-orange-600 to-amber-500' :
+                     'bg-gradient-to-r from-yellow-400 to-red-400 animate-pulse'
+      }`;
+
       document.getElementById('combat-ap-val').innerText = char.ap;
+
+      // Enemy status badge
+      const statusBadge = document.getElementById('enemy-status-badge');
+      if (e.status && statusBadge) {
+        const colors = { rage: 'text-red-400 bg-red-950 border-red-700', shield: 'text-cyan-400 bg-cyan-950 border-cyan-700', poison: 'text-purple-400 bg-purple-950 border-purple-700', taunt: 'text-yellow-400 bg-yellow-950 border-yellow-700' };
+        const col = colors[e.status] || 'text-slate-400 bg-slate-800 border-slate-700';
+        statusBadge.className = `text-[10px] px-1.5 py-0.5 rounded border font-mono ${col}`;
+        statusBadge.innerText = `${e.status.toUpperCase()} ×${e.statusTurns}`;
+        statusBadge.classList.remove('hidden');
+      } else if (statusBadge) {
+        statusBadge.classList.add('hidden');
+      }
+
+      // Player shield display in AP label
+      if (Game.playerShield > 0) {
+        document.getElementById('combat-ap-val').innerText = `${char.ap} | 🛡${Game.playerShield}`;
+      }
 
       const cardsBox = document.getElementById('combat-cards');
       cardsBox.innerHTML = '';
 
       char.deck.forEach(c => {
         const btn = document.createElement('button');
-        btn.className = `p-2.5 rounded-xl border border-slate-800 bg-slate-900 hover:border-amber-500/80 text-left transition shadow flex flex-col justify-between ${char.ap < c.cost ? 'opacity-40 cursor-not-allowed' : 'hover:scale-[1.02]'}`;
+        const canAfford = char.ap >= c.cost;
+        btn.className = `p-2.5 rounded-xl border text-left transition shadow flex flex-col justify-between ${
+          canAfford
+            ? 'bg-slate-900 border-slate-700 hover:border-amber-500/80 hover:bg-slate-800 hover:scale-[1.02] cursor-pointer'
+            : 'bg-slate-950 border-slate-800 opacity-40 cursor-not-allowed'
+        }`;
+        // Type badges
+        const typeBadge = c.dmg && c.shield ? '⚔️🛡' : c.dmg ? '⚔️' : c.shield ? '🛡' : c.heal ? '💚' : '';
         btn.innerHTML = `
           <div class="flex justify-between items-center text-xs font-bold text-slate-200">
             <span>${c.name}</span>
-            <span class="text-amber-400 font-mono">⚡${c.cost}</span>
+            <span class="flex items-center gap-1">
+              <span class="text-[10px] text-slate-500">${typeBadge}</span>
+              <span class="text-amber-400 font-mono">⚡${c.cost}</span>
+            </span>
           </div>
           <p class="text-[10px] text-slate-400 mt-1">${c.desc}</p>
         `;
-        btn.onclick = () => playCard(c);
+        if (canAfford) btn.onclick = () => playCard(c);
         cardsBox.appendChild(btn);
       });
     }
@@ -2598,26 +2732,43 @@
       if (char.ap < card.cost) return termLog('💡 灵感点不足！无法打出该招式！', 'text-yellow-400');
 
       char.ap -= card.cost;
+      let totalDmg = card.dmg || 0;
 
-      if (card.dmg) {
+      // Apply enemy taunt: AP drain penalty
+      if (Game.enemy.status === 'taunt') {
+        char.ap = Math.max(0, char.ap - 1);
+        termLog('😤 敌方嘲讽效果：你额外消耗 1 灵感！', 'text-yellow-400');
+      }
+
+      // Check enemy shield absorption
+      if (totalDmg > 0 && Game.enemyShield > 0) {
+        const absorbed = Math.min(Game.enemyShield, totalDmg);
+        Game.enemyShield -= absorbed;
+        totalDmg -= absorbed;
+        termLog(`🛡 敌方护盾吸收了 ${absorbed} 点伤害！剩余护盾: ${Game.enemyShield}`, 'text-cyan-400');
+      }
+
+      if (totalDmg > 0) {
+        const isCrit = card.id === 'hanhan' || card.id === 'hollywood' || card.id === 'tape';
         AudioEngine.crit();
         triggerScreenShake();
-        showDamagePop(card.dmg, true);
-        Game.enemy.hp -= card.dmg;
-        termLog(`你打出【${card.name}】！对【${Game.enemy.name}】造成 ${card.dmg} 点暴击伤害！`, 'text-amber-300 font-bold');
+        showDamagePop(totalDmg, isCrit);
+        Game.enemy.hp -= totalDmg;
+        termLog(`你打出【${card.name}】！${isCrit ? '💥 暴击！' : ''}对【${Game.enemy.name}】造成 ${totalDmg} 点伤害！(敌方剩余 HP: ${Math.max(0, Game.enemy.hp)})`, 'text-amber-300 font-bold');
       }
       if (card.shield) {
         AudioEngine.heal();
         Game.playerShield += card.shield;
-        termLog(`你获得 ${card.shield} 点免伤护盾！`, 'text-cyan-300');
+        termLog(`🛡 你获得 ${card.shield} 点免伤护盾！(当前总护盾: ${Game.playerShield})`, 'text-cyan-300');
       }
       if (card.heal) {
         AudioEngine.heal();
         char.hp = Math.min(char.maxHp, char.hp + card.heal);
-        termLog(`你恢复了 ${card.heal} 点气血！`, 'text-emerald-300');
+        termLog(`💚 你恢复了 ${card.heal} 点气血！(当前 HP: ${char.hp}/${char.maxHp})`, 'text-emerald-300');
       }
       if (card.apRecover) {
-        char.ap += card.apRecover;
+        char.ap = Math.min(char.maxAp + 2, char.ap + card.apRecover);
+        termLog(`💡 灵感回复 +${card.apRecover}！`, 'text-amber-200');
       }
 
       if (Game.enemy.hp <= 0) {
@@ -2634,68 +2785,219 @@
     }
 
     function enemyTurn() {
-      termLog(`> 回合结束，【${Game.enemy.name}】开始反击！`, 'text-red-400');
+      if (!Game.inCombat || !Game.enemy) return;
+      Game.combatTurn = (Game.combatTurn || 0) + 1;
+
+      const intentKey = Game.enemy.pattern[Game.enemy.patternIdx % Game.enemy.pattern.length];
+      const tmpl = ENEMY_INTENTS[intentKey] || ENEMY_INTENTS.attack;
+      Game.enemy.patternIdx++;
+
+      termLog(`━━ 回合 ${Game.combatTurn} ━━ 【${Game.enemy.name}】${tmpl.icon} 发动：${tmpl.label}`, 'text-red-400 font-bold');
+
       setTimeout(() => {
         const char = Game[Game.perspective];
-        let dmg = Game.enemy.dmg;
-        
-        if (Game.playerShield > 0) {
-          const absorbed = Math.min(Game.playerShield, dmg);
-          Game.playerShield -= absorbed;
-          dmg -= absorbed;
-          termLog(`你的护盾吸收了 ${absorbed} 点伤害！`, 'text-cyan-300');
+
+        // Tick enemy status
+        if (Game.enemy.status && Game.enemy.statusTurns > 0) {
+          Game.enemy.statusTurns--;
+          if (Game.enemy.statusTurns <= 0) {
+            termLog(`✅ 【${Game.enemy.name}】的 [${Game.enemy.status.toUpperCase()}] 状态已解除！`, 'text-slate-400');
+            if (Game.enemy.status === 'rage') Game.enemyRageBonus = 0;
+            if (Game.enemy.status === 'shield') Game.enemyShield = 0;
+            Game.enemy.status = null;
+          }
         }
 
-        if (dmg > 0) {
-          AudioEngine.hit();
+        // Apply poison DoT to enemy
+        if (Game.enemy.status === 'poison' && Game.enemyPoisonTurns > 0) {
+          const dot = 12;
+          Game.enemy.hp -= dot;
+          termLog(`☠️ 中毒持续伤害：【${Game.enemy.name}】损失 ${dot} HP！`, 'text-purple-400');
+          Game.enemyPoisonTurns--;
+        }
+
+        if (Game.enemy.hp <= 0) { winCombat(); return; }
+
+        // Execute intent
+        if (tmpl.type === 'attack') {
+          let dmg = Math.round(Game.enemy.dmg * tmpl.mult) + Game.enemyRageBonus;
+          if (Game.playerShield > 0) {
+            const absorbed = Math.min(Game.playerShield, dmg);
+            Game.playerShield -= absorbed;
+            dmg -= absorbed;
+            termLog(`🛡 你的护盾吸收了 ${absorbed} 点伤害！(剩余护盾: ${Game.playerShield})`, 'text-cyan-300');
+          }
+          if (dmg > 0) {
+            AudioEngine.hit();
+            triggerScreenShake();
+            char.hp -= dmg;
+            const isBig = tmpl.mult >= 1.5;
+            termLog(`${isBig ? '💢' : '⚔️'} 【${Game.enemy.name}】${isBig ? '猛烈暴击' : '攻击'}你！造成 ${dmg} 点${isBig ? '巨额' : ''}精神伤害！(你的 HP: ${char.hp}/${char.maxHp})`, 'text-red-400 font-bold');
+          }
+        } else if (tmpl.type === 'shield') {
+          Game.enemyShield = (Game.enemyShield || 0) + tmpl.shieldVal;
+          Game.enemy.status = 'shield';
+          Game.enemy.statusTurns = 2;
+          AudioEngine.heal();
+          termLog(`🛡 【${Game.enemy.name}】布置了 ${tmpl.shieldVal} 点官僚铁幕护盾！(持续 2 回合)`, 'text-cyan-400 font-bold');
+        } else if (tmpl.type === 'rage') {
+          Game.enemyRageBonus = (Game.enemyRageBonus || 0) + tmpl.dmgBoost;
+          Game.enemy.status = 'rage';
+          Game.enemy.statusTurns = 3;
+          AudioEngine.crit();
           triggerScreenShake();
-          char.hp -= dmg;
-          termLog(`【${Game.enemy.name}】打出严厉反驳，对你造成 ${dmg} 点精神伤害！`, 'text-red-400 font-bold');
+          termLog(`🔥 【${Game.enemy.name}】进入狂暴模式！后续攻击伤害 +${tmpl.dmgBoost}！(持续 3 回合)`, 'text-red-500 font-black');
+        } else if (tmpl.type === 'taunt') {
+          Game.enemy.status = 'taunt';
+          Game.enemy.statusTurns = 2;
+          let dmg = Math.round(Game.enemy.dmg * 0.7);
+          if (Game.playerShield > 0) {
+            const abs = Math.min(Game.playerShield, dmg);
+            Game.playerShield -= abs; dmg -= abs;
+          }
+          if (dmg > 0) { AudioEngine.hit(); char.hp -= dmg; }
+          termLog(`😤 【${Game.enemy.name}】发起人身攻击与嘲讽！造成 ${dmg} 点伤害 + 你每次出牌额外耗 1 灵感！(持续 2 回合)`, 'text-yellow-400 font-bold');
+        } else if (tmpl.type === 'poison') {
+          Game.enemy.status = 'poison';
+          Game.enemy.statusTurns = 3;
+          Game.enemyPoisonTurns = 3;
+          let dmg = Math.round(Game.enemy.dmg * 0.5);
+          if (Game.playerShield > 0) { const abs = Math.min(Game.playerShield, dmg); Game.playerShield -= abs; dmg -= abs; }
+          if (dmg > 0) { AudioEngine.hit(); char.hp -= dmg; }
+          termLog(`☠️ 【${Game.enemy.name}】放出黑料毒箭！造成 ${dmg} 点伤害 + 自身每回合流失 12HP 中毒！`, 'text-purple-400 font-bold');
+        } else if (tmpl.type === 'heal') {
+          const healAmt = tmpl.healVal;
+          Game.enemy.hp = Math.min(Game.enemy.maxHp, Game.enemy.hp + healAmt);
+          AudioEngine.heal();
+          termLog(`💊 【${Game.enemy.name}】调用公关团队回血 ${healAmt}！(敌方 HP: ${Game.enemy.hp}/${Game.enemy.maxHp})`, 'text-emerald-400 font-bold');
         }
 
         char.ap = char.maxAp;
 
+        // Check player defeat
         if (char.hp <= 0) {
-          termLog('💀 你在辩论中败下阵来！', 'text-red-500 font-black');
-          Game.inCombat = false;
-          char.hp = 30;
-          document.getElementById('combat-arena').classList.add('hidden');
-          document.getElementById('combat-status-badge').innerText = '探索模式 (PEACE)';
-          document.getElementById('combat-status-badge').className = 'text-slate-400';
-          updateUI();
-        } else {
+          triggerDefeat();
+          return;
+        }
+
+        // Set next intent
+        Game.enemy.intent = buildIntentText(Game.enemy);
+        termLog(`🔮 下回合敌方预告: ${Game.enemy.intent}`, 'text-amber-300/70 text-[11px]');
+
+        updateCombatUI();
+        updateUI();
+      }, 600);
+    }
+
+    function triggerDefeat() {
+      const char = Game[Game.perspective];
+      char.hp = 0;
+      Game.inCombat = false;
+      document.getElementById('combat-arena').classList.add('hidden');
+      document.getElementById('combat-status-badge').innerText = '💀 名利场陨落 (GAME OVER)';
+      document.getElementById('combat-status-badge').className = 'text-red-500 font-black animate-pulse';
+
+      AudioEngine.hit();
+      triggerScreenShake();
+
+      const defeatMsgs = {
+        '街头红毛混混': '你被一帮街头混混打得落花流水，狼狈地瘫倒在惠州的夜市地摊旁。路人纷纷侧目而视。',
+        '教导主任 · 王暴躁': '教导主任王暴躁当场拨通了你父母的电话，你被强制带离网吧并扣押了零花钱。人生的第一次滑铁卢。',
+        '校学生会常务主席': '在大讲堂众目睽睽之下，你被学生会主席以程序性手段清场，全场哄笑。你的名利场首战以惨败告终。',
+        '八卦狗仔记者': '狗仔拍到了你最不堪的一面，独家曝光后全网黑评潮水般涌来，你的声望跌入谷底。',
+        '毒舌影评人团': '影评人团的犀利毒舌将你的表演批得体无完肤，观众纷纷倒戈，口碑彻底崩塌。',
+        '经侦支队带队警官': '在机场廊桥，你被经侦依法控制，账户冻结，证件查扣。名利场的聚光灯在此刻骤然熄灭。',
+      };
+
+      const enemyName = Game.enemy ? Game.enemy.name : '';
+      const desc = defeatMsgs[enemyName] || '你精神完全崩溃，在名利场中彻底陨落。声望归零，现金告急，前途一片渺茫。';
+
+      document.getElementById('defeat-title').innerText = `被【${enemyName}】彻底击溃！`;
+      document.getElementById('defeat-desc').innerText = desc;
+
+      // Check if player has tape for revive
+      const tapeItem = char.inventory.find(i => i.id === 'tape');
+      const reviveBtn = document.getElementById('btn-defeat-revive');
+      const reviveOption = document.getElementById('defeat-revive-option');
+      const savedEnemy = Game.enemy ? {...Game.enemy} : null;
+
+      if (tapeItem && tapeItem.count > 0) {
+        reviveOption.classList.remove('hidden');
+        reviveBtn.classList.remove('hidden');
+        reviveBtn.onclick = () => {
+          document.getElementById('modal-defeat').classList.add('hidden');
+          // Consume tape
+          tapeItem.count--;
+          if (tapeItem.count <= 0) char.inventory.splice(char.inventory.indexOf(tapeItem), 1);
+          // Revive with 40% HP + shield
+          char.hp = Math.round(char.maxHp * 0.4);
+          Game.playerShield = 60;
+          char.ap = char.maxAp;
+          document.getElementById('combat-status-badge').innerText = '⚔️ 论战对决中 (COMBAT)';
+          document.getElementById('combat-status-badge').className = 'text-red-400 font-bold animate-pulse';
+          // Restore enemy
+          if (savedEnemy) { Game.enemy = savedEnemy; Game.enemy.hp = Math.round(savedEnemy.maxHp * 0.5); }
+          Game.inCombat = true;
+          document.getElementById('combat-arena').classList.remove('hidden');
+          AudioEngine.crit();
+          confetti({ particleCount: 80, spread: 60 });
+          termLog('⬛【黑胶带绝地复活】你撕下最后一卷黑胶带，营造出 100% 绝对黑暗结界！趁对手在黑暗中迷失方向，你悄然复苏！获得 60 护盾 + 40% HP 复活！', 'text-amber-300 font-black');
           updateCombatUI();
           updateUI();
-        }
-      }, 500);
+        };
+      } else {
+        reviveOption.classList.add('hidden');
+        reviveBtn.classList.add('hidden');
+      }
+
+      document.getElementById('modal-defeat').classList.remove('hidden');
+      termLog('💀【名利场陨落】你的气血归零，被彻底击溃！(弹窗已显示)', 'text-red-500 font-black');
+      char.hp = 1; // prevent negative
+      updateUI();
     }
 
     function winCombat() {
       AudioEngine.crit();
-      confetti({ particleCount: 50, spread: 50 });
+      confetti({ particleCount: 80, spread: 60 });
       const p = Game.perspective;
       const char = Game[p];
-      char.fame += 25;
-      char.money += 50;
-      
-      termLog(`🎉【大获全胜】你以无可辩驳的犀利言辞彻底击垮了【${Game.enemy.name}】！获得奖金与名气！`, 'text-emerald-300 font-bold');
-      
-      if (Game.enemy.name.includes('学生会常务主席')) {
-        char.quest.progress = Math.max(char.quest.progress, 80);
-      } else if (Game.enemy.name.includes('教导主任')) {
-        char.quest.progress = Math.max(char.quest.progress, 60);
-      } else if (Game.enemy.name.includes('八卦狗仔')) {
-        char.quest.progress = Math.max(char.quest.progress, 60);
-      } else if (Game.enemy.name.includes('毒舌影评人')) {
-        char.quest.progress = Math.max(char.quest.progress, 60);
+
+      // Fame & money reward scale with enemy max HP
+      const hpScale = Math.ceil((Game.enemy.maxHp || 80) / 30);
+      const fameGain = 20 * hpScale;
+      const moneyGain = 30 * hpScale;
+      char.fame += fameGain;
+      char.money += moneyGain;
+
+      termLog(`🎉【大获全胜！】以无可辩驳之姿彻底击垮【${Game.enemy.name}】！🏆 名气 +${fameGain}，现金 +¥${moneyGain}！`, 'text-emerald-300 font-bold');
+
+      // Quest progress
+      if (Game.enemy.name.includes('学生会常务主席')) char.quest.progress = Math.max(char.quest.progress, 80);
+      else if (Game.enemy.name.includes('教导主任')) char.quest.progress = Math.max(char.quest.progress, 60);
+      else if (Game.enemy.name.includes('八卦狗仔')) char.quest.progress = Math.max(char.quest.progress, 60);
+      else if (Game.enemy.name.includes('毒舌影评人')) char.quest.progress = Math.max(char.quest.progress, 60);
+
+      // Drop loot
+      const loot = COMBAT_LOOT[Game.enemy.name];
+      if (loot) {
+        const existing = char.inventory.find(i => i.id === loot.id);
+        if (existing) {
+          existing.count++;
+        } else {
+          char.inventory.push({...loot});
+        }
+        setTimeout(() => termLog(`🎁【战利品掉落】获得：【${loot.name}】！${loot.desc}。(可在背包中使用)`, 'text-yellow-300 font-bold'), 400);
       }
 
       Game.inCombat = false;
       Game.enemy = null;
+      Game.playerShield = 0;
+      Game.enemyShield = 0;
+      Game.enemyRageBonus = 0;
       document.getElementById('combat-arena').classList.add('hidden');
       document.getElementById('combat-status-badge').innerText = '探索模式 (PEACE)';
       document.getElementById('combat-status-badge').className = 'text-slate-400';
-      
+
       updateUI();
     }
 
@@ -3535,6 +3837,11 @@
 
     document.getElementById('btn-restart-from-ending').onclick = () => {
       document.getElementById('modal-ending').classList.add('hidden');
+      location.reload();
+    };
+
+    document.getElementById('btn-defeat-restart').onclick = () => {
+      document.getElementById('modal-defeat').classList.add('hidden');
       location.reload();
     };
 
