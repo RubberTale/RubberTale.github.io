@@ -105,6 +105,15 @@ aside: false
         <div class="flink-item-desc">经典红白机街机复刻：驾驶P-38闪电战机，空中大回旋、双翼僚机支援与激战巨型要塞亚矢子！</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/bomberman/" title="红白机炸弹人 · NES 复刻版" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:bomb.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="红白机炸弹人">
+        </div>
+        <div class="flink-item-name">红白机炸弹人</div>
+        <div class="flink-item-desc">经典红白机8-bit炸弹人：放置炸弹、炸开砖块收集道具、智斗气球怪与洋葱怪，寻找隐藏传送门！</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>

@@ -42,6 +42,7 @@ skip_render:
   - "games/tetris/**"
   - "games/sun-jingtian-life-sim/**"
   - "games/1942/**"
+  - "games/bomberman/**"
   - "tools/*/**"
   - "rubber/**"
   - "roman/**"
