@@ -1085,11 +1085,11 @@
             ]
           },
           post_office: {
-            name: '惠州邮政支局 · 人生十字路口',
-            desc: '绿色邮筒立在门前。在这里，你将决定第一阶段的人生重大分流！',
+            name: '惠州邮政支局 · 邮筒与公告栏',
+            desc: '墨绿色的邮政信筒静静立在街角，红色的公告栏张贴着全国新概念作文大赛收件截止与高考志愿填报须知。',
             exits: { west: 'school_gate' },
             npcs: [
-              { name: '命运抉择路口', role: '交互', action: 'open_sun_era1_fate', label: '⚡ 抉择：高中升学/沉沦命运' }
+              { name: '墨绿邮筒 · 寄件与查信', role: '交互', action: 'open_sun_era1_fate', label: '📮 投入信件并等待升学命运回响' }
             ]
           },
           alley: {
@@ -2289,59 +2289,58 @@
         }
       } 
       
-      // ⚡ 孙宇晨 命运转折点（支持 🎲 命运大掷骰概率检定 与 ⚖️ 手动自选双模式）
+      // ⚡ 孙宇晨 命运转折点（全事件因果推演走向）
       else if (act === 'open_sun_era1_fate') {
-        const hasEssay = char.inventory.some(i => i.id === 'essay');
+        const hasDraft = char.storyFlags && char.storyFlags.has_draft;
         const hasMengya = char.inventory.some(i => i.id === 'mengya');
-        const hasNotes = char.inventory.some(i => i.id === 'debater_notes');
+        const hasLitClub = char.storyFlags && char.storyFlags.lit_club_done;
+        const isWestlake = char.traits.includes('西湖狂客');
+        const isStudy = char.traits.includes('做题家标兵');
+        const isHacker = char.traits.includes('黑客极客先锋');
         const hasHallPass = char.inventory.some(i => i.id === 'hall_pass');
-        const modifiers = [];
-        if (hasEssay) modifiers.push({ label: '手握《新概念初稿与范文》', val: 20 });
-        if (hasMengya) modifiers.push({ label: '深研《萌芽·新概念专刊》', val: 20 });
-        if (char.traits.includes('西湖狂客')) modifiers.push({ label: '【西湖狂客】名满一中', val: 15 });
-        if (char.traits.includes('做题家标兵')) modifiers.push({ label: '【做题家标兵】题海应试实力', val: 15 });
-        if (char.traits.includes('黑客极客先锋')) modifiers.push({ label: '【黑客极客先锋】数理极客思维', val: 15 });
-        if (char.traits.includes('韩寒文风模仿者')) modifiers.push({ label: '先锋叛逆文风特质', val: 10 });
-        if (hasNotes) modifiers.push({ label: '持有《尖子生驳论文集》', val: 10 });
-        if (hasHallPass) modifiers.push({ label: '持有《教导主任特批通行证》', val: 10 });
-        if (char.fame >= 40) modifiers.push({ label: '惠州高中声名鹊起', val: 10 });
+        const hasDebaterNotes = char.inventory.some(i => i.id === 'debater_notes');
+        const isPunkDefeated = char.storyFlags && char.storyFlags.punk_defeated;
 
-        openFateDiceModal({
-          title: '【新概念全国评审与自招降分检定】',
-          desc: '《萌芽》杂志社与北大自招评审组正在审阅你的手稿。点数将决定你是破格保送北大，还是滑落三本或泥潭！',
-          baseRate: 35,
-          modifiers: modifiers,
-          manualChoiceNode: {
-            title: '惠州高中升学抉择：水流在此分叉',
-            subtitle: '手动自选接下来的人生轨迹与世界地图：',
-            choices: [
-              {
-                title: '📮【投递新概念一等奖】自招破格进北大 (历史主线)',
-                tag: '走向燕园',
-                desc: '斩获新概念一等奖，高考降分 20 分压线考入北京大学！',
-                action: () => enterPkuEra()
-              },
-              {
-                title: '📖【高考失利沦为三本】珠海独立学院与华强北草根',
-                tag: '草根逆袭线',
-                desc: '高考仅得 420 分沦落三本，在自习室疯狂考研或在华强北倒卖芯片！',
-                action: () => enterTier3Era()
-              },
-              {
-                title: '💸【借贷加杠杆炒空气币】深陷底层被割韭菜 (韭菜线)',
-                tag: '终极韭菜反噬线',
-                desc: '借网贷 10 万元全仓梭哈空气币，遭遇庄家断头铡 Rug Pull 归零！',
-                action: () => enterScamEra()
-              }
-            ]
-          },
-          outcomes: {
-            criticalSuccess: { action: () => enterPkuEra() },
-            success: { action: () => enterPkuEra() },
-            failure: { action: () => enterTier3Era() },
-            criticalFumble: { action: () => enterScamEra() }
+        termLog('📮【邮政支局 · 命运推演】你将手按在墨绿色的邮筒上，过去的每一个抉择与行迹在此刻化作命运的回响……', 'text-amber-300 font-bold');
+
+        setTimeout(() => {
+          // 🏆 判定 1：先锋文豪 · 降分保送北京大学 (历史主线)
+          // 条件：写出初稿 + 得到文学社指点/萌芽专刊 + 西湖狂客傲骨 + 名气达到门槛
+          if (hasDraft && (hasMengya || hasLitClub) && isWestlake && (char.fame >= 45 || hasDebaterNotes || hasHallPass)) {
+            AudioEngine.crit();
+            confetti({ particleCount: 150, spread: 90 });
+            termLog('✨【因果结语 · 降分保送】', 'text-yellow-300 font-black text-sm');
+            termLog('你在抽屉里藏下的反叛初稿、在西湖苏堤挥就的万字狂言，以及对八股教育的无情解构，彻底打动了《萌芽》杂志社与北大自招专家组！', 'text-cyan-200 leading-relaxed');
+            termLog('📨【全国新概念一等奖】特等奖状如约而至，北大自招给予降分 20 分破格录取！你踏上了前往未名湖的列车！', 'text-emerald-300 font-bold');
+            setTimeout(() => enterPkuEra(), 2000);
+            return;
           }
-        });
+
+          // 💻 判定 2：偏门极客 / 加杠杆被割 (韭菜与天台绝境)
+          // 条件：走黑客路线且名气低、或者连初稿都没写完就沉迷网吧混迹黑产
+          if (isHacker || (!hasDraft && isPunkDefeated && char.money < 50)) {
+            AudioEngine.hit();
+            triggerScreenShake();
+            termLog('💀【因果结语 · 暴跌归零】', 'text-red-500 font-black text-sm');
+            termLog('你沉迷于电脑城的黑客代码与网吧暴富神话，荒废了学业。高中毕业后，你盲目借网贷加杠杆梭哈空气币，庄家断头铡 6 分钟归零！', 'text-red-300 leading-relaxed');
+            termLog('💔 催收短信如雪片般涌入，你捏着空冰红茶瓶，站在了城中村握手楼的天台上……', 'text-yellow-400 font-bold');
+            setTimeout(() => enterScamEra(), 2000);
+            return;
+          }
+
+          // 📚 判定 3：应试做题家 / 高考失利滑落三本 (草根逆袭线)
+          // 条件：做题家路线，或者虽有初稿但未达成全国大爆，走常规高考分流
+          AudioEngine.pump();
+          termLog('🏢【因果结语 · 珠海三本与华强北】', 'text-amber-400 font-black text-sm');
+          if (isStudy) {
+            termLog('你收敛狂傲投身题海，虽然做题速度极快，但在千军万马的高考独木桥上以数分之差遗憾滑落，被珠海三本独立学院录取。', 'text-slate-200 leading-relaxed');
+          } else {
+            termLog('你虽然写下了零散的手稿，但未能引起新概念评审的轰动。常规高考放榜，总分 420 分，你被调剂至珠海三本独立学院。', 'text-slate-200 leading-relaxed');
+          }
+          termLog('🚆 你提着旧行李箱南下珠海，并在毗邻的深圳华强北嗅到了极客与芯片倒爷的草根狂潮！', 'text-amber-300 font-bold');
+          setTimeout(() => enterTier3Era(), 2000);
+
+        }, 1200);
       }
 
       // ⚡ 孙宇晨 时期 2A 北大燕园命运抉择
