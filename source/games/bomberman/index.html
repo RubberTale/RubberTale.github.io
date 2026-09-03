@@ -96,15 +96,20 @@
             align-items: center;
             justify-content: center;
             margin-top: 48px;
-            background: #2563eb;
+            background: #0f172a;
             overflow: hidden;
+            padding: 8px;
         }
         canvas {
             display: block;
-            background: #3b7e22;
+            background: #388e3c;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
-            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.85);
+            max-width: 100%;
+            max-height: 100%;
+            aspect-ratio: 480 / 416;
+            object-fit: contain;
         }
 
         /* CRT Filter */
@@ -385,11 +390,17 @@
 
         init() {
             if (!this.ctx) {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                this.ctx = new AudioCtx();
+                const AudioCtx = window.AudioContext || window.webkitAudioContext || window.audioContext;
+                if (typeof AudioCtx === 'function') {
+                    try {
+                        this.ctx = new AudioCtx();
+                    } catch (e) {
+                        this.ctx = null;
+                    }
+                }
             }
             if (this.ctx && this.ctx.state === 'suspended') {
-                this.ctx.resume();
+                this.ctx.resume().catch(() => {});
             }
         }
 
@@ -1584,38 +1595,41 @@
         });
 
         // Draw Tiles
-        for (let r = 0; r < ROWS; r++) {
-            for (let c = 0; c < COLS; c++) {
-                const tile = grid[r][c];
-                const x = c * TILE_SIZE;
-                const y = r * TILE_SIZE;
+        if (grid && grid.length === ROWS) {
+            for (let r = 0; r < ROWS; r++) {
+                if (!grid[r]) continue;
+                for (let c = 0; c < COLS; c++) {
+                    const tile = grid[r][c];
+                    const x = c * TILE_SIZE;
+                    const y = r * TILE_SIZE;
 
-                if (tile === TILE_WALL) {
-                    // Concrete metal pillar block (Grey & Metallic)
-                    ctx.fillStyle = '#94a3b8';
-                    ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
-                    // 3D Bevel
-                    ctx.fillStyle = '#cbd5e1';
-                    ctx.fillRect(x, y, TILE_SIZE, 3);
-                    ctx.fillRect(x, y, 3, TILE_SIZE);
-                    ctx.fillStyle = '#475569';
-                    ctx.fillRect(x, y + TILE_SIZE - 3, TILE_SIZE, 3);
-                    ctx.fillRect(x + TILE_SIZE - 3, y, 3, TILE_SIZE);
-                    // Center rivet
-                    ctx.fillStyle = '#64748b';
-                    ctx.fillRect(x + 10, y + 10, 12, 12);
-                } else if (tile === TILE_BRICK) {
-                    // Soft Brick (Retro terracotta brick pattern)
-                    ctx.fillStyle = '#c2410c';
-                    ctx.fillRect(x + 1, y + 1, TILE_SIZE - 2, TILE_SIZE - 2);
-                    // Brick mortar lines
-                    ctx.fillStyle = '#ea580c';
-                    ctx.fillRect(x + 2, y + 2, 13, 12);
-                    ctx.fillRect(x + 17, y + 2, 13, 12);
-                    ctx.fillRect(x + 2, y + 16, 28, 13);
-                    ctx.fillStyle = '#7c2d12';
-                    ctx.fillRect(x + 1, y + 14, TILE_SIZE - 2, 2);
-                    ctx.fillRect(x + 15, y + 1, 2, 13);
+                    if (tile === TILE_WALL) {
+                        // Concrete metal pillar block (Grey & Metallic)
+                        ctx.fillStyle = '#94a3b8';
+                        ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+                        // 3D Bevel
+                        ctx.fillStyle = '#cbd5e1';
+                        ctx.fillRect(x, y, TILE_SIZE, 3);
+                        ctx.fillRect(x, y, 3, TILE_SIZE);
+                        ctx.fillStyle = '#475569';
+                        ctx.fillRect(x, y + TILE_SIZE - 3, TILE_SIZE, 3);
+                        ctx.fillRect(x + TILE_SIZE - 3, y, 3, TILE_SIZE);
+                        // Center rivet
+                        ctx.fillStyle = '#64748b';
+                        ctx.fillRect(x + 10, y + 10, 12, 12);
+                    } else if (tile === TILE_BRICK) {
+                        // Soft Brick (Retro terracotta brick pattern)
+                        ctx.fillStyle = '#c2410c';
+                        ctx.fillRect(x + 1, y + 1, TILE_SIZE - 2, TILE_SIZE - 2);
+                        // Brick mortar lines
+                        ctx.fillStyle = '#ea580c';
+                        ctx.fillRect(x + 2, y + 2, 13, 12);
+                        ctx.fillRect(x + 17, y + 2, 13, 12);
+                        ctx.fillRect(x + 2, y + 16, 28, 13);
+                        ctx.fillStyle = '#7c2d12';
+                        ctx.fillRect(x + 1, y + 14, TILE_SIZE - 2, 2);
+                        ctx.fillRect(x + 15, y + 1, 2, 13);
+                    }
                 }
             }
         }
@@ -1810,7 +1824,9 @@
     }
     document.getElementById('btn-pause').addEventListener('click', togglePause);
 
-    // Initial render call
+    // Initialize Stage 1 preview and start loop
+    initStage(1);
+    updateHUD();
     requestAnimationFrame(gameLoop);
     </script>
 </body>
