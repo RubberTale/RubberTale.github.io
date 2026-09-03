@@ -280,27 +280,41 @@
     </div>
   </div>
 
-  <!-- DEFEAT / GAME OVER MODAL (名利场陨落) -->
+  <!-- DEFEAT / FATE DIVERGENCE MODAL (斗争败北 · 命运偏航分水岭) -->
   <div id="modal-defeat" class="fixed inset-0 bg-black/95 backdrop-blur-lg z-50 flex items-center justify-center p-3 sm:p-4 hidden">
-    <div class="bg-slate-900 border-2 border-red-500/80 max-w-md w-full rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-4 relative animate-in fade-in zoom-in duration-500">
-      <div class="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-tr from-red-700 to-rose-900 flex items-center justify-center text-3xl shadow-xl shadow-red-900/40">
-        💀
+    <div class="bg-slate-900 border-2 border-amber-500/80 max-w-lg w-full rounded-3xl p-6 sm:p-7 shadow-2xl text-center space-y-4 relative animate-in fade-in zoom-in duration-500 max-h-[90vh] overflow-y-auto">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-amber-600 via-rose-600 to-purple-800 flex items-center justify-center text-3xl shadow-xl shadow-amber-500/20">
+        ⚡
       </div>
       <div>
-        <span class="text-xs text-red-400 font-bold tracking-widest uppercase">GAME OVER · 名利场陨落</span>
-        <h2 id="defeat-title" class="text-xl font-black text-red-300 mt-1">你在论战中被彻底击溃！</h2>
+        <span class="text-[11px] text-amber-400 font-bold tracking-widest uppercase">FATE DIVERGENCE · 败局因果重构</span>
+        <h2 id="defeat-title" class="text-lg sm:text-xl font-black text-amber-300 mt-0.5">你在交锋中败北！</h2>
       </div>
-      <p id="defeat-desc" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-4 rounded-2xl border border-red-900/60 text-left font-sans"></p>
-      <div id="defeat-revive-option" class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-3 text-xs text-left space-y-1 hidden">
+      <p id="defeat-desc" class="text-xs text-slate-300 leading-relaxed bg-slate-950 p-3.5 rounded-2xl border border-slate-800 text-left font-sans whitespace-pre-line"></p>
+      
+      <!-- 动态败局分支抉择容器 -->
+      <div class="text-left space-y-2 pt-1">
+        <div class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+          <span>🔀 命运偏航抉择（选择新支线继续人生，无需重来）：</span>
+        </div>
+        <div id="defeat-branch-choices" class="space-y-2">
+          <!-- 动态注入按钮选项 -->
+        </div>
+      </div>
+
+      <!-- 遮光黑胶带可选复活 -->
+      <div id="defeat-revive-option" class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-3 text-xs text-left space-y-1.5 hidden">
         <div class="text-amber-300 font-bold flex items-center gap-1.5">⬛ 消耗 1 卷【特种遮光黑胶带】强行复活！</div>
-        <div class="text-slate-400">用黑胶带营造绝对黑暗结界，让对手在黑暗中摸不着北，你悄然复苏！</div>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-2 pt-2">
-        <button id="btn-defeat-revive" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-black font-black text-xs hover:opacity-90 transition shadow hidden">
-          ⬛ 消耗黑胶带复活（继续当前战斗）
+        <div class="text-slate-400 text-[11px]">营造绝对黑暗结界，令对手在黑暗中迷失，你满血复苏继续死磕当前战斗！</div>
+        <button id="btn-defeat-revive" class="w-full py-2 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-black font-black text-xs hover:opacity-90 transition shadow cursor-pointer">
+          ⬛ 消耗黑胶带复活（继续死磕当前论战）
         </button>
-        <button id="btn-defeat-restart" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition border border-slate-700">
-          🔄 认栽重开 · 新轮回
+      </div>
+
+      <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-[11px] text-slate-500">
+        <span>每次败北都是另一条长河的源头</span>
+        <button id="btn-defeat-restart" class="text-slate-500 hover:text-slate-300 transition text-[11px] underline cursor-pointer">
+          放弃此生 · 彻底重新轮回
         </button>
       </div>
     </div>
@@ -1338,7 +1352,7 @@
             desc: '红蓝警灯闪烁，多名经侦民警与边防警察早已在廊桥严阵以待。',
             exits: { west: 'wall_street_club' },
             npcs: [
-              { name: '经侦支队带队警官', role: 'Boss', action: 'finish_sun_arrested', label: '⚖️ 边控落网 / 接受调查 (铁窗结局)' }
+              { name: '经侦支队带队警官', role: 'Boss', action: 'fight_police', label: '⚔️ 与经侦警官法理辩驳 (成败决定走向)' }
             ]
           },
           sotheby_hall: {
@@ -2936,8 +2950,8 @@
         triggerScreenShake();
         moveToRoom('airport_beijing');
         termLog('🚨【警笛长鸣】你刚走出私人包机廊桥，闪烁的警灯便封锁了通道！经侦警官出示了协查证件！', 'text-red-500 font-black');
-      } else if (act === 'finish_sun_arrested') {
-        triggerEnding('sun_arrested');
+      } else if (act === 'finish_sun_arrested' || act === 'fight_police') {
+        startCombat({ name: '经侦支队带队警官', hp: 100, maxHp: 100, dmg: 40, intent: '严厉宣告：【请出示有效证件配合经侦协查！】' });
       } else if (act === 'finish_sun_banana') {
         triggerEnding('sun_banana');
       } else if (act === 'meet_jingtian_mars') {
@@ -3406,31 +3420,340 @@
       }
     }
 
+    // ==========================================
+    // COMBAT DEFEAT BRANCHES (斗争败北 · 命运偏航分水岭系统)
+    // 斗争失败不再冷酷 Game Over 重开，而是将人生推向全新的命运分水岭支线！
+    // ==========================================
+    const DEFEAT_BRANCHES = {
+      '街头红毛混混': {
+        title: '在红日网吧门口被混混围殴洗劫，嘴角淌血倒在夜市地摊边',
+        desc: '你被红毛混混与跟班打得落花流水，钱包被洗劫一空，浑身酸痛地瘫倒在惠州夜市的炒河粉摊旁。周围食客窃窃私语。剧烈的疼痛让你彻底清醒：街头盲目斗狠没有任何前途，你必须在此刻做出人生的全新抉择！',
+        choices: [
+          {
+            title: '📚【痛定思痛 · 收心投身题海做题逆袭】',
+            tag: '做题家逆袭线',
+            desc: '擦干嘴角血迹默默回到高三一班，把所有精力投入《五年高考三年模拟》，誓以做题逆天改命！',
+            action: () => {
+              const char = Game.sun;
+              char.hp = Math.min(char.maxHp, 80);
+              char.ap = char.maxAp;
+              if (!char.traits.includes('做题家标兵')) char.traits.push('做题家标兵');
+              moveToRoom('classroom');
+              AudioEngine.heal();
+              termLog('📚【命运偏航 · 题海逆袭】你捂着脸上的淤青回到高三教室。黑板上的倒计时如同火炬，你埋头刷完整套《黄冈密卷》，誓用分数击碎所有耻辱！', 'text-emerald-300 font-bold');
+              setHotSearch('#惠州高三生网吧遇袭后立志苦读模拟考狂飙百分#', '沸 1.2亿', '1.2亿', true);
+              updateUI();
+            }
+          },
+          {
+            title: '💻【钻入地底 · 拜师电脑城黑客极客】',
+            tag: '偏门极客线',
+            desc: '“既然现实中打不过，就在赛博地下世界让他们付出代价！” 钻入电脑城底层柜台钻研代码与硬件。',
+            action: () => {
+              const char = Game.sun;
+              char.hp = Math.min(char.maxHp, 80);
+              char.ap = char.maxAp;
+              if (!char.traits.includes('黑客极客先锋')) char.traits.push('黑客极客先锋');
+              const hasModem = char.inventory.some(i => i.id === 'modem');
+              if (!hasModem) {
+                char.inventory.push({ id: 'modem', name: '56k 拨号猫与闪存卡', desc: '极客神器，战斗中提供 35 点护盾', count: 1, use: () => Game.useItem('modem') });
+              }
+              moveToRoom('computer_city');
+              AudioEngine.crit();
+              termLog('💻【命运偏航 · 极客觉醒】你忍痛钻入下埔电脑城阴暗的柜台后，倒爷老哥递给你一罐冰红茶。你接通 56k 拨号猫，在极客代码与爬虫的绿光中重构人生！', 'text-cyan-300 font-bold');
+              setHotSearch('#惠州电脑城惊现神秘极客少年自制自动化脚本#', '热 8500万', '8500万', true);
+              updateUI();
+            }
+          }
+        ]
+      },
+
+      '教导主任 · 王暴躁': {
+        title: '校门口被教导处当场扣押记大过，广播全校通报！',
+        desc: '教导主任王暴躁撕碎了你的请假条，扣押了随身物品，广播站正在全校通报你的严重违纪行为，并勒令你在全校早操大会上公开宣读万字检讨。你的人生命运在此刻迎来剧烈转折！',
+        choices: [
+          {
+            title: '🚆【愤而辍学 · 提包南下深圳华强北】',
+            tag: '提前开启华强北草根线',
+            desc: '“此处不留爷，自有留爷处！” 撕毁处分通告连夜坐大巴赶往华强北倒卖散件与芯片！',
+            action: () => {
+              AudioEngine.pump();
+              confetti({ particleCount: 120, spread: 80 });
+              termLog('🚆【命运偏航 · 破门出走】你愤怒地将检讨书撕成碎片扬在校门口！连夜登上前往深圳的大巴，投身人潮汹涌的华强北电子市场！', 'text-amber-300 font-black');
+              setHotSearch('#惠州高三生撕毁处分单毅然辍学南下华强北创业#', '爆 2.4亿', '2.4亿', true);
+              enterTier3Era();
+            }
+          },
+          {
+            title: '✍️【遁入西湖 · 把屈辱化作先锋狂文】',
+            tag: '先锋狂客觉醒',
+            desc: '表面保持沉默，放学后躲至西湖苏堤，在孤山长椅上把满腔怒火化作离经叛道的先锋长文！',
+            action: () => {
+              const char = Game.sun;
+              char.hp = Math.min(char.maxHp, 80);
+              char.ap = char.maxAp;
+              if (!char.traits.includes('西湖狂客')) char.traits.push('西湖狂客');
+              if (!char.storyFlags) char.storyFlags = {};
+              char.storyFlags.has_draft = true;
+              moveToRoom('west_lake');
+              AudioEngine.heal();
+              termLog('✍️【命运偏航 · 先锋觉醒】你披着黄昏的余晖坐在西湖苏堤长椅上。所有的体制压制化作笔下锋芒，你写下《狂人新篇》，向整个平庸世界宣战！', 'text-cyan-300 font-bold');
+              setHotSearch('#惠州少年西湖苏堤挥毫先锋万字文打动文学圈#', '沸 1.5亿', '1.5亿', true);
+              updateUI();
+            }
+          }
+        ]
+      },
+
+      '傲慢辩论生': {
+        title: '先锋论点被传统尖子生以严密八股范式猛烈批驳！',
+        desc: '在西湖孤山苏堤旁，你的反叛观点被傲慢辩论生以历年高考标准满分范文逐条反驳，引来围观游客与尖子生的嗤笑。你的傲气遭遇重挫。',
+        choices: [
+          {
+            title: '📚【虚心吸收应试框架 · 兼收并蓄做题逆袭】',
+            tag: '做题家逆袭线',
+            desc: '不再盲目孤芳自赏，把尖子生的论辩逻辑融会贯通，回班级投身题海！',
+            action: () => {
+              const char = Game.sun;
+              char.hp = Math.min(char.maxHp, 80);
+              char.ap = char.maxAp;
+              if (!char.traits.includes('做题家标兵')) char.traits.push('做题家标兵');
+              moveToRoom('classroom');
+              AudioEngine.heal();
+              termLog('📚【命运偏航】你收起狂傲，将对手的驳论文集拆解吸收。兼具应试与批判性思维的你，做题速度突飞猛进！', 'text-emerald-300 font-bold');
+              updateUI();
+            }
+          },
+          {
+            title: '💻【不屑口舌之争 · 投身赛博极客世界】',
+            tag: '偏门极客线',
+            desc: '“现实中和书呆子辩论毫无意义，代码才是真正的客观真理！” 转身前往电脑城。',
+            action: () => {
+              const char = Game.sun;
+              char.hp = Math.min(char.maxHp, 80);
+              char.ap = char.maxAp;
+              if (!char.traits.includes('黑客极客先锋')) char.traits.push('黑客极客先锋');
+              moveToRoom('computer_city');
+              AudioEngine.crit();
+              termLog('💻【命运偏航】你冷笑一声拂袖而去，径直前往下埔电脑城。在芯片与服务器的海洋中，开启你的极客之路！', 'text-cyan-300 font-bold');
+              updateUI();
+            }
+          }
+        ]
+      },
+
+      '校学生会常务主席': {
+        title: '竞选辩论遭遇官僚联手做掉，当场剥夺资格！',
+        desc: '在北大百周年纪念讲堂的大辩论中，学生会常务主席动用程序条文与评委人脉强行剥夺了你的竞选资格，全场一片骚动。燕园的象牙塔在你面前露出了残酷而真实的官僚嘴脸。',
+        choices: [
+          {
+            title: '📰【投身南方周末 · 成为刺痛时代的调查记者】',
+            tag: '达成深度调查记者结局',
+            desc: '“象牙塔的过家家不伺候了！” 手持《南周实习记者证》，奔赴社会一线用铁笔直击现实！',
+            action: () => {
+              AudioEngine.crit();
+              termLog('📰【命运偏航】你拂袖离开发布大厅，直接前往《南方周末》北京记者站报道。你用最锋利的笔尖，书写时代的血与火！', 'text-amber-300 font-bold');
+              triggerEnding('sun_investigator');
+            }
+          },
+          {
+            title: '📜【深居静斋古籍室 · 投身阎门中古考据】',
+            tag: '遁入学术泰斗路线',
+            desc: '彻底看透校园名利倾轧，深居静斋古籍阅览室，跟随阎步克先生潜心校勘《宋书·百官志》。',
+            action: () => {
+              const char = Game.sun;
+              char.hp = char.maxHp;
+              char.ap = char.maxAp;
+              if (!char.traits.includes('阎门考据传人')) char.traits.push('阎门考据传人');
+              char.fame += 40;
+              moveToRoom('yan_office');
+              AudioEngine.heal();
+              termLog('📜【命运偏航】你关闭了校内网，走进静斋泛黄的书架深处。一卷《宋书》，一盏清灯，一代学术大师的种子就此生根！', 'text-emerald-300 font-bold');
+              setHotSearch('#北大风云人物大辩论后急流勇退潜心魏晋史学考据#', '热 9000万', '9000万', true);
+              updateUI();
+            }
+          },
+          {
+            title: '✈️【申请常春藤沃顿 · 杀入华尔街加密金融】',
+            tag: '直接赴美开启波场帝国',
+            desc: '“既然国内不容我狂，我就去大洋彼岸搅动风云！” 带着未名湖反叛特质直接赴美申沃顿！',
+            action: () => {
+              AudioEngine.pump();
+              confetti({ particleCount: 150, spread: 90 });
+              termLog('✈️【命运偏航 · 远渡重洋】你提着行李直奔首都机场！常春藤沃顿商学院与特斯拉早期股票，正迎接着中国最张狂的年轻野心家！', 'text-cyan-300 font-bold');
+              setHotSearch('#北大青年奇才孙宇晨获常春藤沃顿商学院录取赴美#', '爆 3.1亿', '3.1亿', true);
+              enterTronEra();
+            }
+          }
+        ]
+      },
+
+      '经侦支队带队警官': {
+        title: '首都机场廊桥被经侦阻截，手铐闪烁！',
+        desc: '私人包机刚落稳，闪烁的警灯封锁了廊桥出口。经侦警官出示拘留文书：“孙先生，你涉嫌非法吸收公众存款与链上非法集资，请配合调查。”',
+        choices: [
+          {
+            title: '🚨【坦然伏法 · 铁窗踩缝纫机教狱友区块链】',
+            tag: '达成铁窗反思结局',
+            desc: '放弃挣扎，如实坦白离岸资金流向，在看守所潜心改造，成为模范普法学员。',
+            action: () => {
+              AudioEngine.hit();
+              termLog('🚨【命运偏航】冰冷的手铐扣在手腕上。你长叹一声，波场的纸醉金迷终化作铁窗下的缝纫机轰鸣。', 'text-red-400 font-bold');
+              triggerEnding('sun_arrested');
+            }
+          },
+          {
+            title: '💊【突发肾结石就医 · 取保候审逃往纽约苏富比】',
+            tag: '巴菲特午餐名梗流亡',
+            desc: '捂着腰部当场剧痛倒地！救护车紧急送医，在朝阳医院就医期间通过涉外律师完成保释，流亡海外！',
+            action: () => {
+              const char = Game.sun;
+              char.hp = 60;
+              char.money = Math.max(0, char.money - 50000);
+              moveToRoom('sotheby_hall');
+              AudioEngine.crit();
+              confetti({ particleCount: 100, spread: 80 });
+              termLog('💊【命运偏航 · 绝地遁走】“突发急性肾结石！”救护车呼啸而至，在涉外法务团队掩护下你保外就医，数日后直接现身纽约苏富比拍卖大厅！', 'text-amber-300 font-bold');
+              setHotSearch('#孙宇晨突发急性结石保外就医后现身纽约苏富比展厅#', '🔥 爆 8.5亿', '8.5亿', true);
+              updateUI();
+            }
+          }
+        ]
+      },
+
+      '八卦狗仔记者': {
+        title: '被恶意偷拍造谣，全网黑通稿铺天盖地！',
+        desc: '狗仔将偷拍的角度照片与不实谣言整合为黑通稿发布，各大论坛与八卦周刊铺天盖地，“北舞校花神秘金主”传闻瞬间引爆全网，舆论恶意汹涌而至。',
+        choices: [
+          {
+            title: '💃【彻底厌倦名利场 · 考入国家歌舞剧院】',
+            tag: '开启东方传世舞神线',
+            desc: '“若聚光灯下只有捕风捉影，我宁愿将青春献给舞鞋。” 谢绝一切商业炒作，专攻纯粹艺术！',
+            action: () => {
+              AudioEngine.heal();
+              confetti({ particleCount: 120, spread: 80 });
+              termLog('💃【命运偏航】你撕掉经纪公司的商业合同，换上软底练功鞋。国家歌舞剧院练功房里，东方传世舞神就此蜕变！', 'text-emerald-300 font-bold');
+              setHotSearch('#北舞校花拒绝浮华商业大片考入国家歌舞剧院领衔首席#', '沸 1.4亿', '1.4亿', true);
+              enterJingDanceEra();
+            }
+          },
+          {
+            title: '👑【家族资本强势反击 · 空降华语大片全明星拱月】',
+            tag: '开启大片与好莱坞怪兽宇宙',
+            desc: '“谣言止于断层实力与无可匹敌的资源！” 家族直接投资 1.5 亿《战国》，全明星为我配戏！',
+            action: () => {
+              AudioEngine.crit();
+              confetti({ particleCount: 140, spread: 90 });
+              termLog('👑【命运偏航】资本雷霆反击，全网造谣号连夜封禁！你直接空降古装巨制《战国》豪华片场，孙红雷金喜善众星拱月！', 'text-rose-300 font-bold');
+              setHotSearch('#新人景甜空降1.5亿巨制战国女主角引发全网震动#', '爆 2.2亿', '2.2亿', true);
+              enterJingBlockbusterEra();
+            }
+          }
+        ]
+      },
+
+      '毒舌影评人团': {
+        title: '战国遭遇全网毒舌差评，演技口碑崩塌！',
+        desc: '全网毒舌影评人联手开炮，称《战国》为“为一人定制的虚荣荒诞剧”，打出豆瓣 2.1 极低分，观众跟风群嘲，商业大片之路遭遇毁灭性阻击。',
+        choices: [
+          {
+            title: '🌿【脱下笨重铠甲 · 奔赴云南实景接拍《司藤》】',
+            tag: '开启绝美司藤封神主线',
+            desc: '不破不立！独自收拾行李前往云南香格里拉密林，细柳叶眉手绘旗袍，以大女主演技彻底封神！',
+            action: () => {
+              AudioEngine.crit();
+              confetti({ particleCount: 160, spread: 100 });
+              termLog('🌿【命运偏航】你脱下笨重的大片战甲，换上云南纯手工刺绣旗袍。细柳叶眉轻挑，《司藤》开播全网大爆！口碑逆风翻盘！', 'text-emerald-300 font-bold');
+              setHotSearch('#景甜司藤细柳叶眉手绘旗袍断层出圈掀起国风狂潮#', '🔥 爆 6.2亿', '6.2亿', true);
+              enterJingSitengEra();
+            }
+          },
+          {
+            title: '🍜【放下身段包袱 · 素颜直播间大口嗦螺蛳粉】',
+            tag: '达成带货女王大喜宝结局',
+            desc: '“你们说我不接地气，那我今天就嗦粉唠嗑！” 素颜洗脸真性情圈粉千万，单场带货破十亿！',
+            action: () => {
+              AudioEngine.heal();
+              termLog('🍜【命运偏航】直播间里你扎着丸子头大口嗦螺蛳粉，真实可爱的大小姐性格彻底征服全网网友，成为国民宠粉大喜宝！', 'text-amber-300 font-bold');
+              triggerEnding('jing_livestream');
+            }
+          },
+          {
+            title: '🏰【优雅息影退圈 · 远赴瑞士执掌跨国艺术基金会】',
+            tag: '达成巴塞尔艺术教母结局',
+            desc: '面对满天争议优雅转身，息影隐居阿尔卑斯古堡，执掌苏富比与巴塞尔当代艺术顶级名誉展！',
+            action: () => {
+              AudioEngine.heal();
+              termLog('🏰【命运偏航】你优雅地发表息影告别信，飞赴日内瓦湖畔。苏富比与巴塞尔展厅中，诞生了一位跨国当代艺术教母！', 'text-purple-300 font-bold');
+              triggerEnding('jing_art_collector');
+            }
+          }
+        ]
+      }
+    };
+
     function triggerDefeat(customMsg) {
-      const char = Game[Game.perspective];
+      const p = Game.perspective;
+      const char = Game[p];
       char.hp = 0;
       Game.inCombat = false;
       document.getElementById('combat-arena').classList.add('hidden');
-      document.getElementById('combat-status-badge').innerText = '💀 名利场陨落 (GAME OVER)';
-      document.getElementById('combat-status-badge').className = 'text-red-500 font-black animate-pulse';
+      document.getElementById('combat-status-badge').innerText = '⚡ 命运偏航 (FATE DIVERGENCE)';
+      document.getElementById('combat-status-badge').className = 'text-amber-400 font-bold animate-pulse';
 
       AudioEngine.hit();
       triggerScreenShake();
 
-      const defeatMsgs = {
-        '街头红毛混混': '你被一帮街头混混打得落花流水，狼狈地瘫倒在惠州的夜市地摊旁。路人纷纷侧目而视。',
-        '教导主任 · 王暴躁': '教导主任王暴躁当场拨通了你父母的电话，你被强制带离网吧并扣押了零花钱。人生的第一次滑铁卢。',
-        '校学生会常务主席': '在大讲堂众目睽睽之下，你被学生会主席以程序性手段清场，全场哄笑。你的名利场首战以惨败告终。',
-        '八卦狗仔记者': '狗仔拍到了你最不堪的一面，独家曝光后全网黑评潮水般涌来，你的声望跌入谷底。',
-        '毒舌影评人团': '影评人团的犀利毒舌将你的表演批得体无完肤，观众纷纷倒戈，口碑彻底崩塌。',
-        '经侦支队带队警官': '在机场廊桥，你被经侦依法控制，账户冻结，证件查扣。名利场的聚光灯在此刻骤然熄灭。',
+      const enemyName = Game.enemy ? Game.enemy.name : '';
+      const branchData = DEFEAT_BRANCHES[enemyName] || {
+        title: `在与【${enemyName}】的交锋中败北！`,
+        desc: customMsg || '你在名利场交锋中选错了回答，当下的道路已被堵死，但这并非终点，而是全新支线的开端！',
+        choices: [
+          {
+            title: '🩹【隐忍蛰伏 · 养精蓄锐重寻生机】',
+            tag: '重整旗鼓',
+            desc: '擦干血迹，包扎伤口，在安全区域默默积蓄力量，寻找下一次翻盘机会。',
+            action: () => {
+              char.hp = Math.min(char.maxHp, 60);
+              char.ap = char.maxAp;
+              AudioEngine.heal();
+              termLog('🩹【隐忍蛰伏】你默默退回安全处休整，伤势逐渐恢复。名利场如逆水行舟，你发誓下次绝不再犯同样的错误！', 'text-amber-300 font-bold');
+              updateUI();
+            }
+          }
+        ]
       };
 
-      const enemyName = Game.enemy ? Game.enemy.name : '';
-      const desc = customMsg || defeatMsgs[enemyName] || '你在名利场交锋中选错了道路，遭遇全网塌房与行政重击，声望归零。';
+      document.getElementById('defeat-title').innerText = branchData.title;
+      document.getElementById('defeat-desc').innerText = customMsg ? `${customMsg}\n\n${branchData.desc}` : branchData.desc;
 
-      document.getElementById('defeat-title').innerText = `在与【${enemyName}】的交锋中败北！`;
-      document.getElementById('defeat-desc').innerText = desc;
+      // 动态渲染败局支线抉择选项卡
+      const choicesBox = document.getElementById('defeat-branch-choices');
+      choicesBox.innerHTML = '';
+
+      branchData.choices.forEach((choice) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full p-3 rounded-2xl border border-slate-800 bg-slate-950/90 hover:bg-slate-800/90 hover:border-amber-500/80 text-left transition shadow-md group cursor-pointer space-y-1 block';
+        btn.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-300 group-hover:text-yellow-200 transition flex items-center gap-1.5">
+              ${choice.title}
+            </span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold shrink-0">
+              ${choice.tag}
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 group-hover:text-slate-200 leading-relaxed font-sans">
+            ${choice.desc}
+          </p>
+        `;
+        btn.onclick = () => {
+          document.getElementById('modal-defeat').classList.add('hidden');
+          AudioEngine.tab();
+          choice.action();
+        };
+        choicesBox.appendChild(btn);
+      });
 
       // Check if player has tape for revive
       const tapeItem = char.inventory.find(i => i.id === 'tape');
@@ -3440,17 +3763,13 @@
 
       if (tapeItem && tapeItem.count > 0) {
         reviveOption.classList.remove('hidden');
-        reviveBtn.classList.remove('hidden');
         reviveBtn.onclick = () => {
           document.getElementById('modal-defeat').classList.add('hidden');
-          // Consume tape
           tapeItem.count--;
           if (tapeItem.count <= 0) char.inventory.splice(char.inventory.indexOf(tapeItem), 1);
-          // Revive with 100% HP
           char.hp = char.maxHp;
           document.getElementById('combat-status-badge').innerText = '⚔️ 灵魂交锋中 (DEBATE)';
           document.getElementById('combat-status-badge').className = 'text-red-400 font-bold animate-pulse';
-          // Restore enemy
           if (savedEnemy) { Game.enemy = savedEnemy; }
           Game.inCombat = true;
           document.getElementById('combat-arena').classList.remove('hidden');
@@ -3462,12 +3781,10 @@
         };
       } else {
         reviveOption.classList.add('hidden');
-        reviveBtn.classList.add('hidden');
       }
 
       document.getElementById('modal-defeat').classList.remove('hidden');
-      termLog('💀【名利场陨落】你在答辩中失手，名利场生涯中断！(弹窗已显示)', 'text-red-500 font-black');
-      char.hp = 1;
+      termLog('⚡【命运偏航】斗争虽失手，但人生长河由此分流！请在偏航抉择中选择你的全新支线。', 'text-amber-400 font-bold');
       updateUI();
     }
 
@@ -3506,6 +3823,9 @@
         char.quest.progress = Math.max(char.quest.progress, 60);
       } else if (Game.enemy.name.includes('经侦支队')) {
         char.quest.progress = Math.max(char.quest.progress, 100);
+        termLog('🛂【法理大胜】你拿出全额退币凭证与格林纳达外交护照，经侦依法核验确认无违规羁押理由解除管控！你从容飞赴纽约苏富比！', 'text-amber-300 font-black');
+        setHotSearch('#孙宇晨出示全额退币凭证与合规文件解除协查飞赴纽约#', '爆 4.5亿', '4.5亿', true);
+        moveToRoom('sotheby_hall');
       }
 
       // Drop loot
