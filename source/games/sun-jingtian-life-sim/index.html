@@ -4385,6 +4385,53 @@
       location.reload();
     };
 
+    // 时代头条号外战报卡绑定
+    const btnGenCard = document.getElementById('btn-generate-card-from-ending');
+    if (btnGenCard) {
+      btnGenCard.onclick = () => {
+        AudioEngine.crit();
+        const ending = Game.lastAchievedEnding || (Game.unlockedEndings[Game.unlockedEndings.length - 1]) || 'sun_banana';
+        generateNewspaperCard(ending);
+      };
+    }
+
+    const btnCloseNewspaper = document.getElementById('btn-close-newspaper-modal');
+    if (btnCloseNewspaper) {
+      btnCloseNewspaper.onclick = () => {
+        document.getElementById('modal-newspaper-card').classList.add('hidden');
+      };
+    }
+
+    const btnDownloadNewspaper = document.getElementById('btn-download-newspaper-img');
+    if (btnDownloadNewspaper) {
+      btnDownloadNewspaper.onclick = () => {
+        const canvas = document.getElementById('newspaper-canvas');
+        if (!canvas) return;
+        const ending = Game.lastAchievedEnding || 'Ending';
+        const link = document.createElement('a');
+        link.download = `VanityFair_Extra_${ending}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        termLog('📥 时代头条号外战报卡已成功保存为 PNG 图片！', 'text-emerald-300 font-bold');
+      };
+    }
+
+    const btnCopyNewspaper = document.getElementById('btn-copy-newspaper-text');
+    if (btnCopyNewspaper) {
+      btnCopyNewspaper.onclick = () => {
+        const fateKey = Game.lastAchievedEnding || (Game.unlockedEndings[Game.unlockedEndings.length - 1]) || 'sun_banana';
+        const fate = FATES_CATALOG[fateKey];
+        const p = Game.perspective;
+        const char = Game[p];
+        const text = `【名利场双星模拟器 · 时代头条号外】\n🏆 终局结局：${fate ? fate.title : '未知'}\n👑 阵营标签：${fate ? fate.tag : ''}\n💰 最终身价：¥${char.money.toLocaleString()} | 声浪名气：${char.fame}\n📜 时代评述：${fate ? fate.epilogue : ''}\n🔗 立即在线游玩推演：https://andypku.github.io/games/sun-jingtian-life-sim/`;
+        navigator.clipboard.writeText(text).then(() => {
+          termLog('📋 战报文本已复制到剪贴板，可直接粘贴分享！', 'text-emerald-300 font-bold');
+        }).catch(() => {
+          termLog('📋 无法访问剪贴板，请手动截图保存。', 'text-slate-400');
+        });
+      };
+    }
+
     document.getElementById('btn-defeat-restart').onclick = () => {
       document.getElementById('modal-defeat').classList.add('hidden');
       location.reload();
@@ -4490,6 +4537,20 @@
       if (localStorage.getItem('mud_intro_dismissed') === 'true') {
         modalIntro.classList.add('hidden');
       }
+
+      // 🌌 二周目轮回特质与秘宝继承 (New Game+)
+      if (Game.unlockedEndings && Game.unlockedEndings.length > 0) {
+        if (!Game.sun.traits.includes('名利场轮回先知')) {
+          Game.sun.traits.push('名利场轮回先知');
+          Game.sun.inventory.push({ id: 'tape', name: '特种遮光黑胶带', desc: '【二周目轮回秘宝】免伤护盾 +60，气血 +40', count: 1, use: () => Game.useItem('tape') });
+        }
+        if (!Game.jing.traits.includes('名利场轮回先知')) {
+          Game.jing.traits.push('名利场轮回先知');
+          Game.jing.inventory.push({ id: 'perfume', name: '高定晚香玉香水', desc: '【二周目轮回秘宝】免伤护盾 +30，提升气质', count: 1, use: () => Game.useItem('perfume') });
+        }
+        termLog(`🌌【宿命轮回者】检测到你已解锁 ${Game.unlockedEndings.length}/17 种终局！已激活二周目特质【名利场轮回先知】，获得轮回专属秘宝护体！`, 'text-yellow-300 font-bold');
+      }
+
       updateUI();
       trackDailyUniqueIP();
 
