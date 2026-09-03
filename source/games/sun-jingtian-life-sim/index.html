@@ -148,7 +148,7 @@
           </div>
           <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] text-slate-400 font-term">
             <div>• <strong>空间移动</strong>: <code class="text-amber-300">n/s/e/w/look/map</code></div>
-            <div>• <strong>卡牌论战</strong>: <code class="text-amber-300">fight</code> 或 <code class="text-amber-300">cast [招式]</code></div>
+            <div>• <strong>问答交锋</strong>: <code class="text-amber-300">fight</code> / <code class="text-amber-300">choose A/B/C/D</code></div>
             <div>• <strong>Tab 自动补全</strong>: 按 <kbd class="px-1 py-0.5 rounded bg-slate-800 text-amber-300">Tab</kbd> 极速补全指令</div>
             <div>• <strong>加密操盘</strong>: <code class="text-amber-300">pump</code> (拉盘) / <code class="text-amber-300">dump</code> (砸盘)</div>
           </div>
@@ -615,35 +615,44 @@
           <div class="text-amber-300">> 你走进红日网吧，班主任随时可能进行午夜突击。</div>
         </div>
 
-        <!-- Dynamic Combat Arena -->
-        <div id="combat-arena" class="bg-slate-950/90 border border-red-500/40 rounded-2xl p-3 space-y-3 hidden">
-          <div class="flex justify-between items-center">
+        <!-- Dynamic Combat Arena (名利场灵魂交锋 / 真实考据问答论战) -->
+        <div id="combat-arena" class="bg-slate-950/95 border-2 border-red-500/50 rounded-2xl p-3.5 space-y-3 hidden shadow-2xl backdrop-blur-md">
+          <div class="flex justify-between items-center border-b border-slate-800/80 pb-2">
             <div>
-              <span id="enemy-name" class="text-xs font-bold text-red-400">教导主任 · 王暴躁</span>
-              <span id="enemy-intent" class="text-[10px] text-amber-400 ml-2 bg-amber-950/60 px-1.5 py-0.5 rounded border border-amber-500/20">正在蓄力：【叫家长警告】</span>
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+                <span id="enemy-name" class="text-xs font-black text-red-400">教导主任 · 王暴躁</span>
+                <span id="combat-round-badge" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-950/70 text-amber-300 border border-amber-500/30 font-mono">交锋第 1 轮</span>
+              </div>
+              <div id="enemy-intent" class="text-[11px] text-amber-300 mt-1 font-sans">
+                <!-- Question prompt -->
+              </div>
             </div>
-            <div class="text-right">
-              <span id="enemy-hp-text" class="text-xs font-mono font-bold text-red-300">80 / 80</span>
+            <div class="text-right shrink-0">
+              <span class="text-[10px] text-slate-500 block">心理防线</span>
+              <span id="enemy-hp-text" class="text-xs font-mono font-bold text-red-300">100 / 100</span>
             </div>
           </div>
-          <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
+          <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
             <div id="enemy-hp-bar" class="bg-gradient-to-r from-red-600 to-rose-500 h-full rounded-full transition-all duration-300" style="width: 100%"></div>
           </div>
 
-          <div class="space-y-1.5 pt-1">
+          <div class="space-y-2 pt-0.5">
             <div class="text-[11px] text-slate-400 font-bold flex justify-between items-center">
-              <span>🎴 出招手牌（输入 cast [招式] 或点击）：</span>
-              <span class="flex items-center gap-2">
-                <span id="enemy-status-badge" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 font-mono hidden"></span>
-                <span class="text-amber-400">剩余灵感: <strong id="combat-ap-val">3</strong> 💡</span>
+              <span>🎯 请做出你的应对策略（四选一 · 答错出局）：</span>
+              <span class="text-[10px] text-amber-400/90 flex items-center gap-1 font-term">
+                <span>💡 亦可指令: <code class="text-amber-300">choose A/B/C/D</code></span>
               </span>
             </div>
-            <div id="combat-cards" class="grid grid-cols-2 gap-2 text-xs">
-              <!-- Rendered dynamically -->
+            <div id="combat-cards" class="grid grid-cols-1 gap-2 text-xs">
+              <!-- Rendered dynamically (4 options) -->
             </div>
-            <button id="btn-end-turn" class="w-full py-1.5 rounded-xl bg-slate-800 hover:bg-red-900/70 text-slate-400 hover:text-red-300 font-bold text-xs border border-slate-700 hover:border-red-500/50 transition">
-              ⏭ 结束回合（让敌人行动）
-            </button>
+            <div class="flex items-center justify-between pt-1 text-[11px] text-slate-500 border-t border-slate-800/80">
+              <span>⚠️ 提示：名利场步步惊心，虚假选项高度逼真，请明辨其真实行事逻辑。</span>
+              <button id="btn-combat-flee" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-yellow-400 border border-slate-700 hover:border-yellow-500/40 text-[10px] transition">
+                🏃 翻窗逃跑 (flee)
+              </button>
+            </div>
           </div>
         </div>
 
@@ -924,15 +933,11 @@
       { cmd: 'use essay', desc: '研读新概念满分范文 (加暴击)' },
       { cmd: 'use tape', desc: '使用【特种遮光黑胶带】(大西洋封窗结界，免伤+60)' },
       { cmd: 'eat bbq', desc: '在烧烤摊吃生蚝恢复气血' },
-      { cmd: 'fight', desc: '向当前场景的敌对 NPC 发起辩论对决' },
-      { cmd: 'cast wangshuo', desc: '打出招式：【引用王朔反讽】' },
-      { cmd: 'cast hanhan', desc: '打出招式：【韩寒式先锋文风】(高暴击)' },
-      { cmd: 'cast kidney', desc: '打出招式：【突发肾结石护盾】' },
-      { cmd: 'cast tea', desc: '打出招式：【猛灌冰红茶】' },
-      { cmd: 'cast tape', desc: '打出招式：【黑胶带封死大西洋落地窗】(高额伤害+护盾)' },
-      { cmd: 'cast fuguihua', desc: '打出招式：【人间富贵花凝视】' },
-      { cmd: 'cast hollywood', desc: '打出招式：【好莱坞巨制空降】' },
-      { cmd: 'cast siteng', desc: '打出招式：【司藤藤蔓缠绕】' },
+      { cmd: 'fight', desc: '向当前场景的敌对 NPC 发起四选一名利场论战对决' },
+      { cmd: 'choose A', desc: '在论战交锋中选择应对策略 A' },
+      { cmd: 'choose B', desc: '在论战交锋中选择应对策略 B' },
+      { cmd: 'choose C', desc: '在论战交锋中选择应对策略 C' },
+      { cmd: 'choose D', desc: '在论战交锋中选择应对策略 D' },
       { cmd: 'pump trx', desc: '发推拉盘！TRX 暴涨 35%' },
       { cmd: 'dump trx', desc: '高位砸盘套现现金！' },
       { cmd: 'buy trx', desc: '抄底买入 1000 枚 TRX' },
@@ -2984,28 +2989,117 @@
     // - 结束回合按钮
     // ====================================================
 
-    // 敌人意图模板库
-    const ENEMY_INTENTS = {
-      // 普通攻击
-      attack:   { icon: '⚔️', label: '准备发动【强力攻击】', type: 'attack', mult: 1.0 },
-      heavy:    { icon: '💢', label: '蓄力中：【猛烈暴击攻势】', type: 'attack', mult: 1.8 },
-      // 防御/BUFF
-      shield:   { icon: '🛡', label: '正在布置【官僚铁幕护盾】', type: 'shield', shieldVal: 40 },
-      rage:     { icon: '🔥', label: '怒气值暴涨！【进入狂暴模式】', type: 'rage', dmgBoost: 15 },
-      taunt:    { icon: '😤', label: '发起【人身攻击与嘲讽】', type: 'taunt', apDrain: 1 },
-      poison:   { icon: '☠️', label: '释放【黑料毒箭】(持续中毒)', type: 'poison', dotVal: 12 },
-      heal:     { icon: '💊', label: '正在调用【公关团队回血】', type: 'heal', healVal: 30 },
-    };
+    // ====================================================
+    // ⚔️ 4-CHOICE PUBLIC DEBATE & LIFE QUESTION SYSTEM v3.0
+    // - 纯正考据：孙宇晨真实人生骚操作与名利场考点四选一
+    // - 极高混淆度：包含真实历史解、高仿迷惑项、常规做题家陷阱与商业烟雾弹
+    // - 答错当场出局 / 陨落滑铁卢（可用特种黑胶带挽尊）
+    // - 支持点击选项与命令行输入 choose A/B/C/D
+    // ====================================================
 
-    // 每个Boss的意图循环序列
-    const ENEMY_PATTERNS = {
-      '街头红毛混混':       ['attack', 'taunt', 'attack', 'heavy'],
-      '教导主任 · 王暴躁':  ['taunt', 'attack', 'shield', 'heavy', 'rage'],
-      '傲慢辩论生':         ['taunt', 'attack', 'heavy', 'taunt'],
-      '校学生会常务主席':   ['shield', 'attack', 'poison', 'heavy', 'taunt', 'heal'],
-      '八卦狗仔记者':       ['attack', 'poison', 'taunt', 'attack', 'heavy'],
-      '毒舌影评人团':       ['poison', 'attack', 'taunt', 'heavy', 'heal'],
-      '经侦支队带队警官':   ['taunt', 'heavy', 'shield', 'rage', 'heavy'],
+    // 题库数据库：每个对手配有专属的 4 选项论战考题（包含题目、意图、选项及解析）
+    const COMBAT_DEBATE_QUESTIONS = {
+      '街头红毛混混': [
+        {
+          prompt: '惠州夜市红毛混混把你堵在小巷，叼着烟要收“网吧保护费”，你身上只剩几十块零花钱，如何化险为夷？',
+          options: [
+            { key: 'A', text: '假装掏钱实则亮出新概念手稿，唾沫横飞大谈“韩寒叛逆美学与下沉时代”，把混混说得一愣一愣趁机溜走。', correct: true, analysis: '【历史解·文风忽悠】孙宇晨早期擅长用宏大辞藻与狂生气质震慑同龄人，成功在混混愣神时脱身！' },
+            { key: 'B', text: '当场给混混头目写一张借据并承诺利息 30%，以早期 P2P 模式向混混融资。', correct: false, failMsg: '混混觉得你拿白条耍他，当场把你按在地摊旁痛揍一顿！' },
+            { key: 'C', text: '自称是惠州当地知名武术馆入室弟子，摆出散打架势准备以一敌多硬碰硬。', correct: false, failMsg: '你的体能完全跟不上，刚挥出一拳就被按倒在地，零花钱全被搜走。' },
+            { key: 'D', text: '立刻大喊救命引来巡逻治安，并向夜市商户联合倡议成立联防自卫队。', correct: false, failMsg: '混混见你大呼小叫，抄起塑料板凳直接砸来，你在狼狈逃窜中摔伤。' }
+          ]
+        }
+      ],
+
+      '教导主任 · 王暴躁': [
+        {
+          prompt: '高二你成绩在全校倒数数千名，教导主任在网吧抓到你并通知家长要记过退学。你想通过北大自主招生降分逆天改命，真实操作是？',
+          options: [
+            { key: 'A', text: '痛改前非，闭门通宵苦刷《三年高考五年模拟》与理综押题卷，争取单科质检冲刺突破。', correct: false, failMsg: '【做题家陷阱】常规题海战术对垫底学渣毫无胜算，最终未能获得降分，沦为普通大专！' },
+            { key: 'B', text: '模仿当时大火的郭敬明伤感青春痛感文风，靠华丽辞藻与时代忧伤投递青春文学期刊寻求推荐。', correct: false, failMsg: '【伪风向陷阱】郭敬明风在评委眼中被斥为无病呻吟，初审直接被刷，名利场破灭！' },
+            { key: 'C', text: '研读前三届《新概念作文》一等奖文集，摸准评委偏爱反思应试教育与韩寒式叛逆的规律，刻意迎合评委定制抨击教育体制的愤青散文。', correct: true, analysis: '【真实历史考据】孙宇晨精准洞悉评委喜好量身定制文章，一举夺得第九届新概念一等奖，拿下北大自招降20分优惠！' },
+            { key: 'D', text: '连续向南方系大报投寄揭露惠州教育资源不均的调查特稿，争取知名媒体人联名保送资格。', correct: false, failMsg: '【时间线陷阱】此时他尚未建立媒体圈人脉，稿件石沉大海，反遭教导主任严肃通报处分！' }
+          ]
+        }
+      ],
+
+      '傲慢辩论生': [
+        {
+          prompt: '文学社尖子生嘲讽你：“不过是靠投机取巧拿了个作文奖，高考真正凭实力你还差得远！”面对挑衅，你的破局逻辑是？',
+          options: [
+            { key: 'A', text: '虚心向其借阅高三模拟卷笔记，表示愿拜他为师共同提高应试成绩。', correct: false, failMsg: '你在心理交锋中彻底露怯，气场被全方位压制，狂生人设崩塌！' },
+            { key: 'B', text: '翻开王朔《顽主》反唇相讥：“做题家最大的悲哀就是把牢笼当勋章，规则是给平庸者定的，而天才负责重构降维通道！”', correct: true, analysis: '【孙学典型话术】经典的降维优越感打击，直接摧毁了应试做题家的道德与优越感防线！' },
+            { key: 'C', text: '当场与他立下万元高考总分赌约，并邀请全班同学作为公证人。', correct: false, failMsg: '高额赌约被班主任当场抓包，通报全校记大过，提前丧失自招资格！' },
+            { key: 'D', text: '在校刊黑板报上写现代晦涩朦胧长诗，试图在艺术修养上孤芳自赏。', correct: false, failMsg: '晦涩长诗被路过同学嘲讽看不懂，沦为全校笑柄，论战惨败！' }
+          ]
+        }
+      ],
+
+      '校学生会常务主席': [
+        {
+          prompt: '在大一北大中文系，你发现系内打分保守、GPA普遍偏低，严重阻碍你申请常春藤盟校全额奖学金，你的破局真实操作是？',
+          options: [
+            { key: 'A', text: '联络低分同学向教务处提交抗议信，要求重新公开所有核心专业课的评分标准与绩点曲线。', correct: false, failMsg: '【愤青陷阱】违背北大行政体制，教务处驳回申诉并予以口头警告，GPA依旧惨淡！' },
+            { key: 'B', text: '迅速利用全校自由转专业政策转入给分普遍宽松的历史学系，实现降维竞争将综合 GPA 刷至全系前列。', correct: true, analysis: '【真实历史考据】孙宇晨发现历史系给分更慷慨，果断从中文系转入历史系，成功完成“绩点套利”，最终拿下高分远赴宾夕法尼亚大学！' },
+            { key: 'C', text: '申请休学一年全身心加入南方报业实习，以资深媒体履历抵消校内绩点劣势。', correct: false, failMsg: '【迷惑陷阱】虽然他确实实习过，但常春藤盟校硬门槛是本科 GPA，休学导致学业中断，留学无望！' },
+            { key: 'D', text: '日夜闭关攻读先秦两汉典籍，在校刊核心期刊发表多篇高水平考据论文申请免试加分。', correct: false, failMsg: '传统考据极其耗费岁月，给分依然严苛，错失常春藤申请季！' }
+          ]
+        },
+        {
+          prompt: '在北大竞选学生会主席的大讲堂上，面对体制内精英的排挤与程序清场，你如何在舆论上占领制高点？',
+          options: [
+            { key: 'A', text: '印制万份独立校刊《野草》，以“青年思想领袖”姿态在三角地高声演讲，高呼代表广大边缘学生利益对抗官僚体制。', correct: true, analysis: '【历史高光时刻】孙宇晨在北大自办《野草》，以狂傲独立的青年领袖形象震动燕园，名声大噪！' },
+            { key: 'B', text: '向校党委纪检部门实名举报竞争对手拉票舞弊，试图通过行政手段取消对方资格。', correct: false, failMsg: '证据不足被定性为恶意诬告，你在学生群体中声望扫地，当场被清退出场！' },
+            { key: 'C', text: '拉赞助商进驻北大校园，宣布为全校学生免费发放网吧抵用券与电影票以购买选票。', correct: false, failMsg: '严重违反校规被保卫处扣押，直接取消竞选资格！' },
+            { key: 'D', text: '在未名湖畔绝食静坐抗议竞选流程不透明，呼吁海内外媒体介入报道。', correct: false, failMsg: '被辅导员与校医强行护送回家休学反思，名利场之路戛然而止！' }
+          ]
+        }
+      ],
+
+      '八卦狗仔记者': [
+        {
+          prompt: '首张个人 EP 刚录完，八卦狗仔在国宾馆发布会堵截刁难：“传闻你毫无专业声乐背景，能请动金牌制作人张亚东全靠神秘资方力捧，你怎么回应？”',
+          options: [
+            { key: 'A', text: '当场发飙抢夺狗仔摄像机并摔在地上，怒斥媒体毫无职业道德捕风捉影。', correct: false, failMsg: '暴力推搡画面被全程直播，#新人当众失态打人# 瞬间爆上头条，出道即塌房！' },
+            { key: 'B', text: '大方微笑致谢并温柔坦言：“我确实是运气特别好的新人，感谢所有人对我的关照与信任，接下来大家看我的作品就好啦。”', correct: true, analysis: '【经典公关太极】景甜式真诚与体面滴水不漏，既不否认资源优势，又化解敌意，全网路人缘倍增！' },
+            { key: 'C', text: '直接公开身后影视投资公司的股权穿透图，自证清白并宣布对全网狗仔发律师函。', correct: false, failMsg: '【引火烧身】股权穿透引发更庞大的金融黑料起底，招致更大舆论风暴！' },
+            { key: 'D', text: '宣布退出娱乐圈重回舞蹈圈，不再接受任何商业采访。', correct: false, failMsg: '刚出道就宣告退圈，名利场生涯瞬间画上句号！' }
+          ]
+        }
+      ],
+
+      '毒舌影评人团': [
+        {
+          prompt: '1.5亿史诗大片上映，全明星影帝众星拱月，毒舌影评人团口诛笔伐：“整部电影纯粹是为捧女主角量身定做的PPT！毫无演技！”你如何稳住阵脚？',
+          options: [
+            { key: 'A', text: '在微博小号怒喷影评人全是不懂艺术的寄生虫收黑钱带节奏。', correct: false, failMsg: '小号被扒出全网群嘲，沦为群嘲表情包，口碑全面崩溃！' },
+            { key: 'B', text: '不卑不亢全盘包容所有批评，私下潜心沉淀几年后拿出《司藤》精湛演技实现惊天路人缘大反转。', correct: true, analysis: '【大女主翻盘史】不打口水仗，用国民爆款角色《司藤》打脸所有人，逆风翻盘成为真·人间富贵花！' },
+            { key: 'C', text: '动用资方力量施压各大影评网站强行锁分 8.5 以上，并封禁恶评账号。', correct: false, failMsg: '锁分引发全网逆反与大面积一星轰炸，被官方媒体点名通报，彻底沦为笑柄！' },
+            { key: 'D', text: '召开新闻发布会现场痛哭流涕向全国观众鞠躬致歉并承诺从此不再演戏。', correct: false, failMsg: '心理彻底破防崩溃，名利场资本彻底放弃投资，星途尽毁！' }
+          ]
+        }
+      ],
+
+      '经侦支队带队警官': [
+        {
+          prompt: '2017年9月4日七部委下发禁令定性ICO非法，波场TRON刚完成代币发售。面对空前监管与边控传闻，孙宇晨的惊天生死大撤退真实操作是？',
+          options: [
+            { key: 'A', text: '在推特连发数十条英文公开信宣称波场是离岸去中心化机构，拒不退款并立即转移以太坊资产对抗监管。', correct: false, failMsg: '【直接踩雷】公然挑衅监管，当晚被经侦专案组全链条查封，直接落网！' },
+            { key: 'B', text: '态度坚决宣布全面配合监管，在48小时内把中国境内ICO募集资产全额退还投资人；暗地里抢在边控网收紧前，火速搭乘红眼航班直飞首尔完成金蝉脱壳！', correct: true, analysis: '【真实历史惊天金蝉脱壳】表面极度配合全额退币换取时间窗口，同时火速离境飞往韩国首尔转赴美国，保全自由与资金，完成币圈最经典的脱身传奇！' },
+            { key: 'C', text: '包机飞往海南博鳌自贸区寻求地方科技沙盒监管保护，并申请地方金融试验田免死牌。', correct: false, failMsg: '【无稽之谈】在全国统一监管法令面前地方保护纯属幻想，落地机场即被边检扣押！' },
+            { key: 'D', text: '宣布服务器遭遇黑客攻击暂时关闭提币通道，通过地下钱庄将法币全部转入海外信托。', correct: false, failMsg: '典型非法集资跑路套路，资金链被央行反洗钱监测中心冻结，人赃俱获！' }
+          ]
+        },
+        {
+          prompt: '拍下 456 万美元巴菲特午餐后传出涉嫌洗钱被边控，眼看午餐日期逼近、海内外媒体紧盯你“到底能不能自由出境”，你的公关神操作是？',
+          options: [
+            { key: 'A', text: '凌晨发微博声称自己“突发突发性肾结石”正在医院治疗被迫取消午餐，数小时后却在旧金山豪华顶层公寓开启视频直播，身后赫然露出旧金山金门大桥！', correct: true, analysis: '【名利场封神公关】经典的“突发肾结石”，随后在旧金山高调开直播向全网展示金门大桥，瞬间击碎“被边控无法出境”的传闻，引爆全球舆论！' },
+            { key: 'B', text: '出具美国大使馆签证延期证明，宣布因国际局势顺延午餐，并追加向巴菲特慈善基金会捐赠 100 万美元。', correct: false, failMsg: '平庸的商业公关不仅没能证明自己自由，反被做空机构当场戳穿，波场币价腰斩雪崩！' },
+            { key: 'C', text: '以拍卖形式将午餐名额无偿转让给埃隆·马斯克，宣布由特斯拉接盘世纪会面。', correct: false, failMsg: '马斯克推特直接回怼表示毫不知情并斥责蹭热度，沦为国际笑柄！' },
+            { key: 'D', text: '在财新网大厦楼下召开外媒发布会，手持最新一期报纸与特稿记者正面辩论。', correct: false, failMsg: '自投罗网，现场被有关部门依法带走协助调查，名利场生涯就此终结！' }
+          ]
+        }
+      ]
     };
 
     // 胜利掉落道具配置
@@ -3014,284 +3108,129 @@
       '教导主任 · 王暴躁':  { id: 'hall_pass', name: '教导主任特批通行证', desc: '在学校区域免疫阻拦', count: 1, use: () => termLog('📋 特批通行证：惠州一中各区域可自由通行！', 'text-cyan-300') },
       '傲慢辩论生':         { id: 'debater_notes', name: '尖子生驳论文集', desc: '辩论战力加成，使用提升名气 +30 与灵感', count: 1, use: () => { Game[Game.perspective].fame += 30; Game[Game.perspective].ap = Game[Game.perspective].maxAp; termLog('📑 你翻阅《尖子生驳论文集》取其精华！名气 +30，灵感完全回满！', 'text-cyan-300 font-bold'); updateUI(); } },
       '校学生会常务主席':   { id: 'election_win', name: '学生会主席竞选铭牌', desc: '使用可大幅提升名气', count: 1, use: () => { Game[Game.perspective].fame += 60; termLog('🏅 你展示竞选铭牌！全校热议，名气 +60！', 'text-amber-300 font-bold'); updateUI(); } },
-      '八卦狗仔记者':       { id: 'scoop', name: '独家八卦独家内幕', desc: '打出可造成双倍伤害', count: 1, use: () => { Game.playerShield += 50; termLog('📸 你掌握了对方的黑历史，获得 50 点护盾！', 'text-rose-300 font-bold'); updateUI(); } },
+      '八卦狗仔记者':       { id: 'scoop', name: '独家八卦独家内幕', desc: '使用可提升名气与公关威慑', count: 1, use: () => { Game[Game.perspective].fame += 50; termLog('📸 你掌握了对方的黑历史，名气 +50！', 'text-rose-300 font-bold'); updateUI(); } },
       '毒舌影评人团':       { id: 'good_review', name: '顶级影评人五星好评', desc: '使用可大幅提升咖位', count: 1, use: () => { Game[Game.perspective].fame += 80; termLog('⭐ 顶级影评人改口五星好评！名气 +80！', 'text-yellow-300 font-bold'); updateUI(); } },
+      '经侦支队带队警官':   { id: 'diplomatic_pass', name: '格林纳达外交官护照', desc: '常驻海外免死金牌，名气 +100', count: 1, use: () => { Game[Game.perspective].fame += 100; termLog('🛂 你出示格林纳达常驻世界贸易组织代表护照！声望达到巅峰！', 'text-amber-300 font-black'); updateUI(); } }
     };
 
     function startCombat(enemy) {
       Game.inCombat = true;
-      Game.playerShield = 0;
-      Game.enemyShield = 0;
-      Game.enemyRageBonus = 0;
-      Game.enemyPoisonTurns = 0;
       Game.combatTurn = 0;
 
-      // Build enemy with state
-      const pattern = ENEMY_PATTERNS[enemy.name] || ['attack', 'heavy', 'taunt'];
+      // Match debate question list
+      const qList = COMBAT_DEBATE_QUESTIONS[enemy.name] || COMBAT_DEBATE_QUESTIONS['教导主任 · 王暴躁'];
       Game.enemy = {
         ...enemy,
-        pattern,
-        patternIdx: 0,
-        status: null,   // rage | shield | poison | taunt
-        statusTurns: 0,
+        hp: 100,
+        maxHp: 100,
+        questions: qList,
+        questionIndex: 0,
+        currentQ: qList[0]
       };
-      Game.enemy.intent = buildIntentText(Game.enemy);
-
-      const char = Game[Game.perspective];
-      char.ap = char.maxAp;
 
       AudioEngine.hit();
       triggerScreenShake();
 
       document.getElementById('combat-arena').classList.remove('hidden');
-      document.getElementById('combat-status-badge').innerText = '⚔️ 论战对决中 (COMBAT)';
+      document.getElementById('combat-status-badge').innerText = '⚔️ 灵魂交锋中 (DEBATE)';
       document.getElementById('combat-status-badge').className = 'text-red-400 font-bold animate-pulse';
-      
-      const endTurnBtn = document.getElementById('btn-end-turn');
-      if (endTurnBtn) endTurnBtn.onclick = () => { if (Game.inCombat) enemyTurn(); };
 
-      termLog(`⚔️ 遭遇【${enemy.name}】！HP: ${enemy.hp} | 进入论战对决！`, 'text-red-400 font-bold');
-      termLog(`🔮 敌方意图: ${Game.enemy.intent}`, 'text-amber-300');
+      const fleeBtn = document.getElementById('btn-combat-flee');
+      if (fleeBtn) fleeBtn.onclick = () => {
+        termLog('🏃 你眼疾手快翻窗逃跑！成功脱离论战！', 'text-yellow-400 font-bold');
+        Game.inCombat = false;
+        document.getElementById('combat-arena').classList.add('hidden');
+        document.getElementById('combat-status-badge').innerText = '探索模式 (PEACE)';
+        document.getElementById('combat-status-badge').className = 'text-slate-400';
+        updateUI();
+      };
+
+      termLog(`⚔️ 遭遇【${enemy.name}】！进入名利场灵魂交锋！四选一生死决断！`, 'text-red-400 font-bold');
       updateCombatUI();
-    }
-
-    function buildIntentText(enemy) {
-      const intentKey = enemy.pattern[enemy.patternIdx % enemy.pattern.length];
-      const tmpl = ENEMY_INTENTS[intentKey] || ENEMY_INTENTS.attack;
-      return `${tmpl.icon} ${tmpl.label}`;
     }
 
     function updateCombatUI() {
       if (!Game.inCombat || !Game.enemy) return;
 
       const e = Game.enemy;
-      const char = Game[Game.perspective];
+      const q = e.currentQ;
+      const totalQ = e.questions.length;
+      const curQIdx = e.questionIndex + 1;
+
+      document.getElementById('enemy-name').innerText = e.name;
+      document.getElementById('combat-round-badge').innerText = `交锋第 ${curQIdx}/${totalQ} 轮`;
+      document.getElementById('enemy-intent').innerText = `【论战交锋】${q.prompt}`;
+      document.getElementById('enemy-hp-text').innerText = `${e.hp} / ${e.maxHp}`;
+
       const hpPct = Math.max(0, (e.hp / e.maxHp) * 100);
-
-      document.getElementById('enemy-name').innerText = e.name + (e.status ? ` [${e.status.toUpperCase()}]` : '');
-      document.getElementById('enemy-intent').innerText = e.intent;
-      document.getElementById('enemy-hp-text').innerText = `${Math.max(0, e.hp)} / ${e.maxHp}`;
-
-      // Color HP bar by health level
       const bar = document.getElementById('enemy-hp-bar');
       bar.style.width = `${hpPct}%`;
-      bar.className = `h-full rounded-full transition-all duration-300 ${
-        hpPct > 60 ? 'bg-gradient-to-r from-red-600 to-rose-500' :
-        hpPct > 30 ? 'bg-gradient-to-r from-orange-600 to-amber-500' :
-                     'bg-gradient-to-r from-yellow-400 to-red-400 animate-pulse'
-      }`;
-
-      document.getElementById('combat-ap-val').innerText = char.ap;
-
-      // Enemy status badge
-      const statusBadge = document.getElementById('enemy-status-badge');
-      if (e.status && statusBadge) {
-        const colors = { rage: 'text-red-400 bg-red-950 border-red-700', shield: 'text-cyan-400 bg-cyan-950 border-cyan-700', poison: 'text-purple-400 bg-purple-950 border-purple-700', taunt: 'text-yellow-400 bg-yellow-950 border-yellow-700' };
-        const col = colors[e.status] || 'text-slate-400 bg-slate-800 border-slate-700';
-        statusBadge.className = `text-[10px] px-1.5 py-0.5 rounded border font-mono ${col}`;
-        statusBadge.innerText = `${e.status.toUpperCase()} ×${e.statusTurns}`;
-        statusBadge.classList.remove('hidden');
-      } else if (statusBadge) {
-        statusBadge.classList.add('hidden');
-      }
-
-      // Player shield display in AP label
-      if (Game.playerShield > 0) {
-        document.getElementById('combat-ap-val').innerText = `${char.ap} | 🛡${Game.playerShield}`;
-      }
+      bar.className = 'bg-gradient-to-r from-red-600 to-rose-500 h-full rounded-full transition-all duration-300';
 
       const cardsBox = document.getElementById('combat-cards');
       cardsBox.innerHTML = '';
 
-      char.deck.forEach(c => {
+      q.options.forEach((opt) => {
         const btn = document.createElement('button');
-        const canAfford = char.ap >= c.cost;
-        btn.className = `p-2.5 rounded-xl border text-left transition shadow flex flex-col justify-between ${
-          canAfford
-            ? 'bg-slate-900 border-slate-700 hover:border-amber-500/80 hover:bg-slate-800 hover:scale-[1.02] cursor-pointer'
-            : 'bg-slate-950 border-slate-800 opacity-40 cursor-not-allowed'
-        }`;
-        // Type badges
-        const typeBadge = c.dmg && c.shield ? '⚔️🛡' : c.dmg ? '⚔️' : c.shield ? '🛡' : c.heal ? '💚' : '';
+        btn.className = 'p-3 rounded-xl border border-slate-800 bg-slate-900/90 hover:bg-slate-800 hover:border-amber-500/80 text-left transition shadow group flex items-start gap-2.5 cursor-pointer';
         btn.innerHTML = `
-          <div class="flex justify-between items-center text-xs font-bold text-slate-200">
-            <span>${c.name}</span>
-            <span class="flex items-center gap-1">
-              <span class="text-[10px] text-slate-500">${typeBadge}</span>
-              <span class="text-amber-400 font-mono">⚡${c.cost}</span>
-            </span>
+          <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center justify-center font-mono font-bold shrink-0 text-xs group-hover:bg-amber-500 group-hover:text-black transition">
+            ${opt.key}
+          </span>
+          <div class="flex-1">
+            <span class="text-xs font-semibold text-slate-200 group-hover:text-amber-200 leading-relaxed">${opt.text}</span>
           </div>
-          <p class="text-[10px] text-slate-400 mt-1">${c.desc}</p>
         `;
-        if (canAfford) btn.onclick = () => playCard(c);
+        btn.onclick = () => submitDebateChoice(opt.key);
         cardsBox.appendChild(btn);
       });
     }
 
-    function playCard(card) {
-      if (!Game.inCombat) return;
-      const char = Game[Game.perspective];
-      if (char.ap < card.cost) return termLog('💡 灵感点不足！无法打出该招式！', 'text-yellow-400');
+    function submitDebateChoice(chosenKey) {
+      if (!Game.inCombat || !Game.enemy) return;
 
-      char.ap -= card.cost;
-      let totalDmg = card.dmg || 0;
+      const e = Game.enemy;
+      const q = e.currentQ;
+      const choice = q.options.find(o => o.key.toUpperCase() === chosenKey.toUpperCase());
 
-      // Apply enemy taunt: AP drain penalty
-      if (Game.enemy.status === 'taunt') {
-        char.ap = Math.max(0, char.ap - 1);
-        termLog('😤 敌方嘲讽效果：你额外消耗 1 灵感！', 'text-yellow-400');
-      }
-
-      // Check enemy shield absorption
-      if (totalDmg > 0 && Game.enemyShield > 0) {
-        const absorbed = Math.min(Game.enemyShield, totalDmg);
-        Game.enemyShield -= absorbed;
-        totalDmg -= absorbed;
-        termLog(`🛡 敌方护盾吸收了 ${absorbed} 点伤害！剩余护盾: ${Game.enemyShield}`, 'text-cyan-400');
-      }
-
-      if (totalDmg > 0) {
-        const isCrit = card.id === 'hanhan' || card.id === 'hollywood' || card.id === 'tape';
-        AudioEngine.crit();
-        triggerScreenShake();
-        showDamagePop(totalDmg, isCrit);
-        Game.enemy.hp -= totalDmg;
-        termLog(`你打出【${card.name}】！${isCrit ? '💥 暴击！' : ''}对【${Game.enemy.name}】造成 ${totalDmg} 点伤害！(敌方剩余 HP: ${Math.max(0, Game.enemy.hp)})`, 'text-amber-300 font-bold');
-      }
-      if (card.shield) {
-        AudioEngine.heal();
-        Game.playerShield += card.shield;
-        termLog(`🛡 你获得 ${card.shield} 点免伤护盾！(当前总护盾: ${Game.playerShield})`, 'text-cyan-300');
-      }
-      if (card.heal) {
-        AudioEngine.heal();
-        char.hp = Math.min(char.maxHp, char.hp + card.heal);
-        termLog(`💚 你恢复了 ${card.heal} 点气血！(当前 HP: ${char.hp}/${char.maxHp})`, 'text-emerald-300');
-      }
-      if (card.apRecover) {
-        char.ap = Math.min(char.maxAp + 2, char.ap + card.apRecover);
-        termLog(`💡 灵感回复 +${card.apRecover}！`, 'text-amber-200');
-      }
-
-      if (Game.enemy.hp <= 0) {
-        winCombat();
+      if (!choice) {
+        termLog(`无效的选项: ${chosenKey}。请输入 A, B, C 或 D。`, 'text-red-400');
         return;
       }
 
-      if (char.ap <= 0) {
-        enemyTurn();
+      termLog(`你选择了选项 【${choice.key}】: "${choice.text}"`, 'text-amber-300 font-bold');
+
+      if (choice.correct) {
+        // Correct answer!
+        AudioEngine.crit();
+        triggerScreenShake();
+        termLog(`🎯【神级公关 / 考据正解！】${choice.analysis}`, 'text-emerald-300 font-black');
+
+        // Deduct psychological defense
+        const totalQ = e.questions.length;
+        const dmg = Math.ceil(100 / totalQ);
+        e.hp = Math.max(0, e.hp - dmg);
+
+        e.questionIndex++;
+        if (e.questionIndex >= e.questions.length || e.hp <= 0) {
+          // Win battle
+          winCombat();
+        } else {
+          // Next round
+          e.currentQ = e.questions[e.questionIndex];
+          termLog(`⚡ 对方被你的逻辑降维压制，防线坍塌！进入下一轮交锋！`, 'text-cyan-300 font-bold');
+          updateCombatUI();
+        }
       } else {
-        updateCombatUI();
-        updateUI();
+        // Wrong answer -> Defeat!
+        AudioEngine.hit();
+        triggerScreenShake();
+        termLog(`❌【回答错误 · 名利场暴雷！】${choice.failMsg}`, 'text-red-500 font-black');
+        triggerDefeat(choice.failMsg);
       }
     }
 
-    function enemyTurn() {
-      if (!Game.inCombat || !Game.enemy) return;
-      Game.combatTurn = (Game.combatTurn || 0) + 1;
-
-      const intentKey = Game.enemy.pattern[Game.enemy.patternIdx % Game.enemy.pattern.length];
-      const tmpl = ENEMY_INTENTS[intentKey] || ENEMY_INTENTS.attack;
-      Game.enemy.patternIdx++;
-
-      termLog(`━━ 回合 ${Game.combatTurn} ━━ 【${Game.enemy.name}】${tmpl.icon} 发动：${tmpl.label}`, 'text-red-400 font-bold');
-
-      setTimeout(() => {
-        const char = Game[Game.perspective];
-
-        // Tick enemy status
-        if (Game.enemy.status && Game.enemy.statusTurns > 0) {
-          Game.enemy.statusTurns--;
-          if (Game.enemy.statusTurns <= 0) {
-            termLog(`✅ 【${Game.enemy.name}】的 [${Game.enemy.status.toUpperCase()}] 状态已解除！`, 'text-slate-400');
-            if (Game.enemy.status === 'rage') Game.enemyRageBonus = 0;
-            if (Game.enemy.status === 'shield') Game.enemyShield = 0;
-            Game.enemy.status = null;
-          }
-        }
-
-        // Apply poison DoT to enemy
-        if (Game.enemy.status === 'poison' && Game.enemyPoisonTurns > 0) {
-          const dot = 12;
-          Game.enemy.hp -= dot;
-          termLog(`☠️ 中毒持续伤害：【${Game.enemy.name}】损失 ${dot} HP！`, 'text-purple-400');
-          Game.enemyPoisonTurns--;
-        }
-
-        if (Game.enemy.hp <= 0) { winCombat(); return; }
-
-        // Execute intent
-        if (tmpl.type === 'attack') {
-          let dmg = Math.round(Game.enemy.dmg * tmpl.mult) + Game.enemyRageBonus;
-          if (Game.playerShield > 0) {
-            const absorbed = Math.min(Game.playerShield, dmg);
-            Game.playerShield -= absorbed;
-            dmg -= absorbed;
-            termLog(`🛡 你的护盾吸收了 ${absorbed} 点伤害！(剩余护盾: ${Game.playerShield})`, 'text-cyan-300');
-          }
-          if (dmg > 0) {
-            AudioEngine.hit();
-            triggerScreenShake();
-            char.hp -= dmg;
-            const isBig = tmpl.mult >= 1.5;
-            termLog(`${isBig ? '💢' : '⚔️'} 【${Game.enemy.name}】${isBig ? '猛烈暴击' : '攻击'}你！造成 ${dmg} 点${isBig ? '巨额' : ''}精神伤害！(你的 HP: ${char.hp}/${char.maxHp})`, 'text-red-400 font-bold');
-          }
-        } else if (tmpl.type === 'shield') {
-          Game.enemyShield = (Game.enemyShield || 0) + tmpl.shieldVal;
-          Game.enemy.status = 'shield';
-          Game.enemy.statusTurns = 2;
-          AudioEngine.heal();
-          termLog(`🛡 【${Game.enemy.name}】布置了 ${tmpl.shieldVal} 点官僚铁幕护盾！(持续 2 回合)`, 'text-cyan-400 font-bold');
-        } else if (tmpl.type === 'rage') {
-          Game.enemyRageBonus = (Game.enemyRageBonus || 0) + tmpl.dmgBoost;
-          Game.enemy.status = 'rage';
-          Game.enemy.statusTurns = 3;
-          AudioEngine.crit();
-          triggerScreenShake();
-          termLog(`🔥 【${Game.enemy.name}】进入狂暴模式！后续攻击伤害 +${tmpl.dmgBoost}！(持续 3 回合)`, 'text-red-500 font-black');
-        } else if (tmpl.type === 'taunt') {
-          Game.enemy.status = 'taunt';
-          Game.enemy.statusTurns = 2;
-          let dmg = Math.round(Game.enemy.dmg * 0.7);
-          if (Game.playerShield > 0) {
-            const abs = Math.min(Game.playerShield, dmg);
-            Game.playerShield -= abs; dmg -= abs;
-          }
-          if (dmg > 0) { AudioEngine.hit(); char.hp -= dmg; }
-          termLog(`😤 【${Game.enemy.name}】发起人身攻击与嘲讽！造成 ${dmg} 点伤害 + 你每次出牌额外耗 1 灵感！(持续 2 回合)`, 'text-yellow-400 font-bold');
-        } else if (tmpl.type === 'poison') {
-          Game.enemy.status = 'poison';
-          Game.enemy.statusTurns = 3;
-          Game.enemyPoisonTurns = 3;
-          let dmg = Math.round(Game.enemy.dmg * 0.5);
-          if (Game.playerShield > 0) { const abs = Math.min(Game.playerShield, dmg); Game.playerShield -= abs; dmg -= abs; }
-          if (dmg > 0) { AudioEngine.hit(); char.hp -= dmg; }
-          termLog(`☠️ 【${Game.enemy.name}】放出黑料毒箭！造成 ${dmg} 点伤害 + 自身每回合流失 12HP 中毒！`, 'text-purple-400 font-bold');
-        } else if (tmpl.type === 'heal') {
-          const healAmt = tmpl.healVal;
-          Game.enemy.hp = Math.min(Game.enemy.maxHp, Game.enemy.hp + healAmt);
-          AudioEngine.heal();
-          termLog(`💊 【${Game.enemy.name}】调用公关团队回血 ${healAmt}！(敌方 HP: ${Game.enemy.hp}/${Game.enemy.maxHp})`, 'text-emerald-400 font-bold');
-        }
-
-        char.ap = char.maxAp;
-
-        // Check player defeat
-        if (char.hp <= 0) {
-          triggerDefeat();
-          return;
-        }
-
-        // Set next intent
-        Game.enemy.intent = buildIntentText(Game.enemy);
-        termLog(`🔮 下回合敌方预告: ${Game.enemy.intent}`, 'text-amber-300/70 text-[11px]');
-
-        updateCombatUI();
-        updateUI();
-      }, 600);
-    }
-
-    function triggerDefeat() {
+    function triggerDefeat(customMsg) {
       const char = Game[Game.perspective];
       char.hp = 0;
       Game.inCombat = false;
@@ -3312,9 +3251,9 @@
       };
 
       const enemyName = Game.enemy ? Game.enemy.name : '';
-      const desc = defeatMsgs[enemyName] || '你精神完全崩溃，在名利场中彻底陨落。声望归零，现金告急，前途一片渺茫。';
+      const desc = customMsg || defeatMsgs[enemyName] || '你在名利场交锋中选错了道路，遭遇全网塌房与行政重击，声望归零。';
 
-      document.getElementById('defeat-title').innerText = `被【${enemyName}】彻底击溃！`;
+      document.getElementById('defeat-title').innerText = `在与【${enemyName}】的交锋中败北！`;
       document.getElementById('defeat-desc').innerText = desc;
 
       // Check if player has tape for revive
@@ -3331,19 +3270,17 @@
           // Consume tape
           tapeItem.count--;
           if (tapeItem.count <= 0) char.inventory.splice(char.inventory.indexOf(tapeItem), 1);
-          // Revive with 40% HP + shield
-          char.hp = Math.round(char.maxHp * 0.4);
-          Game.playerShield = 60;
-          char.ap = char.maxAp;
-          document.getElementById('combat-status-badge').innerText = '⚔️ 论战对决中 (COMBAT)';
+          // Revive with 100% HP
+          char.hp = char.maxHp;
+          document.getElementById('combat-status-badge').innerText = '⚔️ 灵魂交锋中 (DEBATE)';
           document.getElementById('combat-status-badge').className = 'text-red-400 font-bold animate-pulse';
           // Restore enemy
-          if (savedEnemy) { Game.enemy = savedEnemy; Game.enemy.hp = Math.round(savedEnemy.maxHp * 0.5); }
+          if (savedEnemy) { Game.enemy = savedEnemy; }
           Game.inCombat = true;
           document.getElementById('combat-arena').classList.remove('hidden');
           AudioEngine.crit();
           confetti({ particleCount: 80, spread: 60 });
-          termLog('⬛【黑胶带绝地复活】你撕下最后一卷黑胶带，营造出 100% 绝对黑暗结界！趁对手在黑暗中迷失方向，你悄然复苏！获得 60 护盾 + 40% HP 复活！', 'text-amber-300 font-black');
+          termLog('⬛【黑胶带绝地复活】你撕下最后一卷黑胶带，营造出 100% 绝对黑暗结界！趁对手在黑暗中迷失方向，你满血复苏，重获答辩契机！', 'text-amber-300 font-black');
           updateCombatUI();
           updateUI();
         };
@@ -3353,8 +3290,8 @@
       }
 
       document.getElementById('modal-defeat').classList.remove('hidden');
-      termLog('💀【名利场陨落】你的气血归零，被彻底击溃！(弹窗已显示)', 'text-red-500 font-black');
-      char.hp = 1; // prevent negative
+      termLog('💀【名利场陨落】你在答辩中失手，名利场生涯中断！(弹窗已显示)', 'text-red-500 font-black');
+      char.hp = 1;
       updateUI();
     }
 
@@ -3364,14 +3301,12 @@
       const p = Game.perspective;
       const char = Game[p];
 
-      // Fame & money reward scale with enemy max HP
-      const hpScale = Math.ceil((Game.enemy.maxHp || 80) / 30);
-      const fameGain = 20 * hpScale;
-      const moneyGain = 30 * hpScale;
+      const fameGain = 80;
+      const moneyGain = 200;
       char.fame += fameGain;
       char.money += moneyGain;
 
-      termLog(`🎉【大获全胜！】以无可辩驳之姿彻底击垮【${Game.enemy.name}】！🏆 名气 +${fameGain}，现金 +¥${moneyGain}！`, 'text-emerald-300 font-bold');
+      termLog(`🎉【大获全胜！】你的神级回答全方位瓦解了【${Game.enemy.name}】的质疑！🏆 名气 +${fameGain}，现金 +¥${moneyGain}！`, 'text-emerald-300 font-bold');
 
       // Quest progress & Story Flags
       if (!char.storyFlags) char.storyFlags = {};
@@ -3390,6 +3325,8 @@
         char.quest.progress = Math.max(char.quest.progress, 60);
       } else if (Game.enemy.name.includes('毒舌影评人')) {
         char.quest.progress = Math.max(char.quest.progress, 60);
+      } else if (Game.enemy.name.includes('经侦支队')) {
+        char.quest.progress = Math.max(char.quest.progress, 100);
       }
 
       // Drop loot
@@ -3406,9 +3343,6 @@
 
       Game.inCombat = false;
       Game.enemy = null;
-      Game.playerShield = 0;
-      Game.enemyShield = 0;
-      Game.enemyRageBonus = 0;
       document.getElementById('combat-arena').classList.add('hidden');
       document.getElementById('combat-status-badge').innerText = '探索模式 (PEACE)';
       document.getElementById('combat-status-badge').className = 'text-slate-400';
@@ -3728,12 +3662,14 @@
         const target = room.npcs && room.npcs.find(n => n.role === 'Boss' || n.role === '敌对');
         if (target) handleNpcAction(target.action);
         else termLog('当前场景没有可交锋的对手。', 'text-slate-500');
+      } else if (verb === 'choose' || verb === 'ans' || verb === 'answer' || ['a', 'b', 'c', 'd'].includes(verb)) {
+        if (!Game.inCombat) return termLog('当前未在论战对决中，无需做出选择。', 'text-slate-500');
+        const ansKey = ['a', 'b', 'c', 'd'].includes(verb) ? verb.toUpperCase() : (tokens[1] || '').toUpperCase();
+        if (!['A', 'B', 'C', 'D'].includes(ansKey)) return termLog('请选择有效选项：A, B, C 或 D (例如: choose A)', 'text-red-400');
+        submitDebateChoice(ansKey);
       } else if (verb === 'cast') {
-        if (!Game.inCombat) return termLog('未处于战斗状态，无法释放招式！', 'text-slate-500');
-        const spell = tokens[1];
-        const card = char.deck.find(d => d.id.includes(spell) || d.name.toLowerCase().includes(spell));
-        if (card) playCard(card);
-        else termLog(`未知的招式: ${spell}。当前可用: ${char.deck.map(d => d.id).join(', ')}`, 'text-red-400');
+        if (!Game.inCombat) return termLog('当前论战已升级为名利场四选一问答答辩！请点击选项或输入 choose A/B/C/D！', 'text-amber-400');
+        termLog('请直接点击论战选项，或输入 choose A / choose B / choose C / choose D 作出回答！', 'text-amber-300');
       } else if (verb === 'flee' || verb === 'run') {
         if (Game.inCombat) {
           termLog('🏃 你眼疾手快翻窗逃跑！成功脱离论战！', 'text-yellow-400 font-bold');
@@ -3800,7 +3736,7 @@
 - 空间移动: north(n), south(s), east(e), west(w), look(l), map
 - 云端存档: save (保存进度), load (读取进度), register (注册), login (登录)
 - 探索搜寻: search, inventory(i), drink tea, use [道具], eat bbq
-- 论战对决: fight, cast [招式], flee
+- 论战对决: fight (发起交锋), choose A/B/C/D (答题破局), flee (翻窗逃跑)
 - 加密操盘: pump, dump, buy trx, airdrop
 - 公关社交: tweet [内容], shout [豪言], ask [NPC]
 - 状态自检: score, kidney, who, help
