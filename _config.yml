@@ -43,6 +43,7 @@ skip_render:
   - "games/sun-jingtian-life-sim/**"
   - "games/1942/**"
   - "games/bomberman/**"
+  - "games/warzone-fps/**"
   - "tools/*/**"
   - "rubber/**"
   - "roman/**"

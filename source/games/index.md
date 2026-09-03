@@ -114,6 +114,15 @@ aside: false
         <div class="flink-item-desc">经典红白机8-bit炸弹人：放置炸弹、炸开砖块收集道具、智斗气球怪与洋葱怪，寻找隐藏传送门！</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/warzone-fps/" title="战火前线 · 3D特种突击 (Warzone FPS)" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:crosshair.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="战火前线 · 3D特种突击">
+        </div>
+        <div class="flink-item-name">战火前线 · 3D特种突击</div>
+        <div class="flink-item-desc">3D电影级第一人称射击游戏：特种兵夜袭破败战火城市，全息瞄准机瞄、小队协同压制、近距爆炸与低空武装直升机支援！</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>

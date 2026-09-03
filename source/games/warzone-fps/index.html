@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AAA Military FPS - Playable Warzone & Cinematic</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #030406;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    /* Strictly 16:9 cinematic aspect-ratio frame */
+    #cinematic-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 177.778vh; /* 16/9 aspect ratio */
+      max-height: 56.25vw;   /* 9/16 aspect ratio */
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+      box-shadow: 0 0 90px rgba(0, 0, 0, 0.98);
+    }
+    #canvas3d {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Start / Pause Tactical Screen */
+    #start-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 7, 12, 0.82);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+      color: #ffffff;
+      text-align: center;
+      transition: opacity 0.45s ease;
+    }
+    #start-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .tactical-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(255, 153, 0, 0.15);
+      border: 1px solid rgba(255, 153, 0, 0.6);
+      border-radius: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #ff9900;
+      margin-bottom: 16px;
+    }
+    .game-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      color: #f0f4f8;
+      text-shadow: 0 0 20px rgba(255, 153, 0, 0.35);
+    }
+    .click-prompt-box {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+      margin-bottom: 22px;
+      box-shadow: 0 0 35px rgba(255, 153, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    #start-overlay:hover .click-prompt-box {
+      transform: scale(1.1);
+      border-color: #ff9900;
+      background: rgba(255, 153, 0, 0.25);
+      box-shadow: 0 0 50px rgba(255, 153, 0, 0.6);
+    }
+    .play-arrow {
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 24px solid #ffffff;
+      margin-left: 5px;
+    }
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px 24px;
+      max-width: 580px;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #9ab0c6;
+      letter-spacing: 1px;
+    }
+    .control-item span {
+      color: #00ffaa;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    /* Minimal Mode Switcher in top corner */
+    #mode-switch-btn {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      z-index: 1000;
+      background: rgba(12, 18, 26, 0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ccddee;
+      padding: 6px 14px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #mode-switch-btn:hover {
+      background: rgba(255, 153, 0, 0.25);
+      border-color: #ff9900;
+      color: #ffffff;
+    }
+    .mode-indicator-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00ffaa;
+      box-shadow: 0 0 8px #00ffaa;
+    }
+  </style>
+
+  <!-- Three.js and Postprocessing Libraries -->
+  <script src="libs/three.min.js"></script>
+  <script src="libs/CopyShader.js"></script>
+  <script src="libs/LuminosityHighPassShader.js"></script>
+  <script src="libs/EffectComposer.js"></script>
+  <script src="libs/RenderPass.js"></script>
+  <script src="libs/ShaderPass.js"></script>
+  <script src="libs/UnrealBloomPass.js"></script>
+  <script src="libs/OrbitControls.js"></script>
+  <script src="libs/PointerLockControls.js"></script>
+
+  <!-- Application Modules -->
+  <script src="js/audio.js"></script>
+  <script src="js/textures.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/cinematic.js"></script>
+  <script src="js/game.js"></script>
+</head>
+<body>
+
+  <!-- 16:9 Cinematic & Game Container -->
+  <div id="cinematic-container">
+    <canvas id="canvas3d"></canvas>
+
+    <!-- Mode Switcher -->
+    <button id="mode-switch-btn" title="Toggle between Playable FPS and 30s Cinematic">
+      <span class="mode-indicator-dot"></span>
+      <span id="mode-switch-label">切换模式：30秒电影级序列</span>
+    </button>
+
+    <!-- Start / Resume Overlay -->
+    <div id="start-overlay">
+      <div class="tactical-badge">TACTICAL FPS // SPECIAL FORCES</div>
+      <div class="game-title">第一人称自由操控射击 (Playable FPS)</div>
+      <div class="click-prompt-box">
+        <div class="play-arrow"></div>
+      </div>
+      <div style="font-size: 14px; font-weight: 700; letter-spacing: 2px; color: #ff9900; margin-bottom: 12px;">点击进入战斗锁定鼠标</div>
+      <div class="controls-grid">
+        <div class="control-item"><span>W A S D</span> 战术移动</div>
+        <div class="control-item"><span>鼠标左键</span> 射击开火</div>
+        <div class="control-item"><span>鼠标右键</span> 机械/全息瞄准(ADS)</div>
+        <div class="control-item"><span>Shift</span> 冲刺推进</div>
+        <div class="control-item"><span>C</span> 战术下蹲掩护</div>
+        <div class="control-item"><span>R</span> 战术换弹匣</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentMode = 'fps'; // 'fps' or 'cinematic'
+    let activeInstance = null;
+
+    function startMode(mode) {
+      const container = document.getElementById('cinematic-container');
+      const canvas = document.getElementById('canvas3d');
+      const overlay = document.getElementById('start-overlay');
+      const switchBtn = document.getElementById('mode-switch-btn');
+      const switchLabel = document.getElementById('mode-switch-label');
+
+      // Remove existing custom HUD if any
+      const existingHud = document.getElementById('fps-hud');
+      if (existingHud) existingHud.remove();
+      const existingCrosshair = document.getElementById('hud-crosshair');
+      if (existingCrosshair) existingCrosshair.remove();
+
+      currentMode = mode;
+
+      if (mode === 'fps') {
+        switchLabel.innerText = '切换：30秒电影级序列';
+        overlay.querySelector('.tactical-badge').innerText = 'TACTICAL FPS // SPECIAL FORCES';
+        overlay.querySelector('.game-title').innerText = '第一人称自由操控射击 (Playable FPS)';
+        overlay.querySelector('.controls-grid').style.display = 'grid';
+        overlay.classList.remove('hidden');
+
+        activeInstance = new PlayableFPSGame(container);
+        window.activeGame = activeInstance;
+      } else {
+        switchLabel.innerText = '切换：第一人称可玩射击';
+        overlay.querySelector('.tactical-badge').innerText = '30-SECOND AAA FPS CINEMATIC';
+        overlay.querySelector('.game-title').innerText = '战火城市 30秒无缝电影级序列';
+        overlay.querySelector('.controls-grid').style.display = 'none';
+        overlay.classList.remove('hidden');
+
+        activeInstance = new CinematicMaster(container);
+        window.activeCinematic = activeInstance;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialMode = urlParams.get('mode') === 'cinematic' ? 'cinematic' : 'fps';
+      startMode(initialMode);
+
+      const switchBtn = document.getElementById('mode-switch-btn');
+      switchBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const nextMode = currentMode === 'fps' ? 'cinematic' : 'fps';
+        window.location.href = window.location.pathname + '?mode=' + nextMode;
+      });
+    });
+  </script>
+</body>
+</html>
