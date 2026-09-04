@@ -21,6 +21,7 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
   const [showKey, setShowKey] = useState(false);
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [storageInfo, setStorageInfo] = useState<{ usedMB: string; maxMB: number; usagePercent: string; fileCount: number } | null>(null);
 
   useEffect(() => {
     setEngine(config.engine || 'pollinations');
@@ -28,6 +29,13 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
     setGeminiModel(config.geminiModel || 'gemini-2.5-flash-image');
     setCustomGeminiKey(config.customGeminiKey || '');
     setTestResult(null);
+
+    if (isOpen) {
+      fetch('https://140.245.65.111.sslip.io/api/pic-6varieties/storage')
+        .then(r => r.json())
+        .then(data => setStorageInfo(data))
+        .catch(() => {});
+    }
   }, [config, isOpen]);
 
   if (!isOpen) return null;
@@ -52,8 +60,11 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
         const data = await resp.json();
         setTestResult({
           success: true,
-          message: `后端连接通畅！已支持引擎：${(data.supportedEngines || []).join('、')}。`
+          message: `后端连接通畅！已支持引擎：${(data.supportedEngines || []).join('、')}。当前存储：${data.storage?.usedMB}MB / ${data.storage?.maxMB}MB`
         });
+        if (data.storage) {
+          setStorageInfo(data.storage);
+        }
       } else {
         setTestResult({ success: false, message: `服务器返回异常状态: ${resp.status}` });
       }
@@ -74,7 +85,7 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
         <div className="flex items-center justify-between border-b border-gray-800 pb-4">
           <div className="flex items-center gap-2">
             <span className="text-xl">⚙️</span>
-            <h2 className="text-lg font-bold text-white">AI 生成引擎与参数配置</h2>
+            <h2 className="text-lg font-bold text-white">AI 生成引擎与存储配置</h2>
           </div>
           <button 
             onClick={onClose}
@@ -210,6 +221,25 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
             <div className="text-[11px] text-amber-300/90 bg-amber-950/30 p-2.5 rounded-lg border border-amber-900/50 leading-relaxed">
               ⚠️ 提示：Google 官方对图像生成模型要求绑卡结算账户。若遇到配额不足，可直接切回 Pollinations.ai 免费畅享生成。
             </div>
+          </div>
+        )}
+
+        {/* Storage Quota Section */}
+        {storageInfo && (
+          <div className="bg-gray-950/70 border border-gray-800 rounded-xl p-3 text-xs text-gray-400 space-y-1.5">
+            <div className="flex items-center justify-between text-gray-300">
+              <span className="font-medium flex items-center gap-1">💾 服务器存储配额</span>
+              <span className="font-mono text-purple-300">{storageInfo.usedMB} MB / {storageInfo.maxMB} MB ({storageInfo.usagePercent})</span>
+            </div>
+            <div className="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+              <div 
+                className="bg-gradient-to-r from-purple-500 to-pink-500 h-full rounded-full transition-all duration-500" 
+                style={{ width: storageInfo.usagePercent }}
+              ></div>
+            </div>
+            <p className="text-[11px] text-gray-500 leading-tight">
+              现已允许存图（已存 {storageInfo.fileCount} 张）。当存储占用达到 1GB 上限时，系统将自动按先进先出（FIFO）淘汰最旧图片，确保容量永不超标。
+            </p>
           </div>
         )}
 
