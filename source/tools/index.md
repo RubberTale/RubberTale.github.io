@@ -42,6 +42,15 @@ aside: false
         <div class="flink-item-desc">一键将任意输入的文本或字符串进行反向排列倒序输出。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/tools/pic-6varieties/" title="AI 人像写真工坊" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:camera.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AI 人像写真工坊">
+        </div>
+        <div class="flink-item-name">AI 人像写真工坊</div>
+        <div class="flink-item-desc">上传一张个人肖像，一键生成职场、时尚、街拍、艺术等 6 种不同风格的高清摄影写真。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多实用工具卡片 -->
   </div>
 </div>

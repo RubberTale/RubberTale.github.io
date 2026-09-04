@@ -45,6 +45,7 @@ skip_render:
   - "games/bomberman/**"
   - "games/warzone-fps/**"
   - "tools/*/**"
+  - "tools/pic-6varieties/**"
   - "rubber/**"
   - "roman/**"
   - "world-history/**"
