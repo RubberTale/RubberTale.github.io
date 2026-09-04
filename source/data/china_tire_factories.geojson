@@ -1,0 +1,2847 @@
+{
+  "type": "FeatureCollection",
+  "name": "China_Tire_Factories",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6751,
+          37.0542
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "name": "山东华盛橡胶有限公司",
+        "map_name": "华盛橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "路博(Roadboss)、海倍德(Habilead)、康佩森(Kapsen)",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6695,
+          37.0628
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "name": "山东金宇轮胎有限公司",
+        "map_name": "金宇轮胎",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王经济开发区",
+        "brands": "金宇(Jinyu)、黑狮(Blacklion)、玉祺麟",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.4112,
+          37.0425
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "name": "赛轮(东营)轮胎股份有限公司",
+        "map_name": "赛轮(东营)",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "广饶经济开发区",
+        "brands": "赛轮(Sailun)、路极(Roadx)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6798,
+          37.0392
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "name": "山东兴源轮胎集团有限公司",
+        "map_name": "兴源集团",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "华鲁(Hualu)、国宝、安达、强威",
+        "category": "全钢子午胎/工程机械胎(OTR)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6832,
+          37.0481
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "name": "山东盛泰橡胶集团有限公司",
+        "map_name": "盛泰橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "三佳(SANJIA)、奥特莱斯(AOTELI)、欧威森",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6621,
+          37.0563
+        ]
+      },
+      "properties": {
+        "id": 6,
+        "name": "山东泰隆橡胶有限公司",
+        "map_name": "泰隆橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "泰隆(Tailong)、迈驰",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.671,
+          37.0415
+        ]
+      },
+      "properties": {
+        "id": 7,
+        "name": "山东国风橡塑有限公司",
+        "map_name": "国风橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "国风(Guofeng)、日运",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6432,
+          37.0982
+        ]
+      },
+      "properties": {
+        "id": 8,
+        "name": "山东永盛橡胶集团有限公司",
+        "map_name": "山东永盛",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "稻庄镇",
+        "brands": "永盛(Yongsheng)、博莱克、奇创(Rotalla)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.5721,
+          37.5891
+        ]
+      },
+      "properties": {
+        "id": 9,
+        "name": "万达宝通轮胎有限公司",
+        "map_name": "山东万达宝通",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "垦利区",
+        "town": "胜坨镇",
+        "brands": "万达宝通(BOTO)、易程德(WINDA)",
+        "category": "全钢子午胎/半钢子午胎/OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6811,
+          37.0456
+        ]
+      },
+      "properties": {
+        "id": 10,
+        "name": "山东宏盛橡胶有限公司",
+        "map_name": "山东宏盛",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "宏盛(Hongsheng)、途乐",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6745,
+          37.0388
+        ]
+      },
+      "properties": {
+        "id": 11,
+        "name": "山东冠王橡胶有限公司",
+        "map_name": "冠王橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "冠王(Guanwang)、金冠",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6654,
+          37.0472
+        ]
+      },
+      "properties": {
+        "id": 12,
+        "name": "山东皓宇橡胶有限公司",
+        "map_name": "山东皓宇",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "皓宇(Haoyu)、雄鹰",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.678,
+          37.0498
+        ]
+      },
+      "properties": {
+        "id": 13,
+        "name": "山东方兴橡胶有限责任公司",
+        "map_name": "方兴橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "贵马(Gemstone)、德亿(Deestone)",
+        "category": "全钢子午胎/半钢子午胎/OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6389,
+          37.0876
+        ]
+      },
+      "properties": {
+        "id": 14,
+        "name": "山东恒丰橡塑有限公司",
+        "map_name": "恒丰橡塑",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "稻庄镇",
+        "brands": "双丰(Double King)、海福莱(Hifly)、昌丰",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6825,
+          37.0512
+        ]
+      },
+      "properties": {
+        "id": 15,
+        "name": "山东中一橡胶股份有限公司",
+        "map_name": "中一橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "乐路驰(Joyroad)、佳捷仕",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6723,
+          37.0431
+        ]
+      },
+      "properties": {
+        "id": 16,
+        "name": "山东宏宇橡胶车轮有限公司",
+        "map_name": "宏宇橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "宏宇(Hongyu)、固捷",
+        "category": "全钢子午胎/工程机械胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.679,
+          37.0449
+        ]
+      },
+      "properties": {
+        "id": 17,
+        "name": "山东和达橡胶有限公司",
+        "map_name": "和达橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "和达(Heda)、恒拓",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6412,
+          37.0921
+        ]
+      },
+      "properties": {
+        "id": 18,
+        "name": "山东三泰橡胶有限公司",
+        "map_name": "三泰橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "稻庄镇",
+        "brands": "三泰(Santai)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6688,
+          37.0535
+        ]
+      },
+      "properties": {
+        "id": 19,
+        "name": "广饶吉星轮胎有限公司",
+        "map_name": "广饶吉星轮胎",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "吉星(Jixing)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.676,
+          37.0465
+        ]
+      },
+      "properties": {
+        "id": 20,
+        "name": "山东昌丰轮胎有限公司",
+        "map_name": "昌丰橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "昌丰(Changfeng)、欧威森",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6802,
+          37.0501
+        ]
+      },
+      "properties": {
+        "id": 21,
+        "name": "山东汪森橡胶有限公司",
+        "map_name": "汪森橡胶",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "汪森(Wangsen)、驰骋",
+        "category": "全钢子午胎/农用胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.6845,
+          37.0489
+        ]
+      },
+      "properties": {
+        "id": 22,
+        "name": "山东米乐奇轮胎有限公司",
+        "map_name": "米乐奇轮胎",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "大王镇",
+        "brands": "米乐奇(Mirage)",
+        "category": "半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.646,
+          37.095
+        ]
+      },
+      "properties": {
+        "id": 23,
+        "name": "山东领航轮胎有限公司",
+        "map_name": "统领轮胎",
+        "province": "山东省",
+        "city": "东营市",
+        "county": "广饶县",
+        "town": "稻庄镇",
+        "brands": "统领(Tongling)、领航",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.0834,
+          37.1523
+        ]
+      },
+      "properties": {
+        "id": 24,
+        "name": "山东昊华轮胎有限公司",
+        "map_name": "昊华轮胎",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "寿光市",
+        "town": "侯镇工业园",
+        "brands": "莱维特(Aplus)、康威斯(Compasal)、皇家黑(Royal Black)",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.421,
+          36.0125
+        ]
+      },
+      "properties": {
+        "id": 25,
+        "name": "通伊欧轮胎(诸城)有限公司",
+        "map_name": "通伊欧(诸城)",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "诸城市",
+        "town": "经济开发区",
+        "brands": "东洋/通伊欧(Toyo Tires)",
+        "category": "半钢子午胎/卡客车胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.0765,
+          37.1482
+        ]
+      },
+      "properties": {
+        "id": 26,
+        "name": "潍坊跃龙橡胶有限公司",
+        "map_name": "跃龙橡胶",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "寿光市",
+        "town": "侯镇工业园",
+        "brands": "跃龙(Yuelong)、金鼎、倍力士",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.089,
+          37.155
+        ]
+      },
+      "properties": {
+        "id": 27,
+        "name": "潍坊顺福昌橡塑有限公司",
+        "map_name": "顺福昌橡胶",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "寿光市",
+        "town": "侯镇工业园",
+        "brands": "顺福昌、先锋(Pioneer)",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.9832,
+          37.2412
+        ]
+      },
+      "properties": {
+        "id": 28,
+        "name": "山东福麦斯轮胎有限公司",
+        "map_name": "豪华轮胎/福麦斯",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "寿光市",
+        "town": "羊口镇工业园",
+        "brands": "福麦斯(Firemax)、速达",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.521,
+          36.7125
+        ]
+      },
+      "properties": {
+        "id": 29,
+        "name": "山东旗胜橡胶有限公司",
+        "map_name": "旗胜轮胎(青州)",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "青州市",
+        "town": "峱山经济开发区",
+        "brands": "旗胜(Qisheng)、鲁胜",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.979,
+          37.245
+        ]
+      },
+      "properties": {
+        "id": 30,
+        "name": "山东优盛轮胎有限公司",
+        "map_name": "优盛轮胎",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "寿光市",
+        "town": "羊口镇工业园",
+        "brands": "优盛(Yousheng)",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.975,
+          37.248
+        ]
+      },
+      "properties": {
+        "id": 31,
+        "name": "山东优越橡胶科技有限公司",
+        "map_name": "优越轮胎",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "寿光市",
+        "town": "羊口镇工业园",
+        "brands": "优越(Yoyue)",
+        "category": "半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.7341,
+          37.0652
+        ]
+      },
+      "properties": {
+        "id": 32,
+        "name": "山东华东橡胶有限公司",
+        "map_name": "潍坊华东橡胶",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "寿光市",
+        "town": "台头镇工业园",
+        "brands": "华东(Huadong)、金路",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.742,
+          36.3812
+        ]
+      },
+      "properties": {
+        "id": 33,
+        "name": "山东三丰橡胶有限公司",
+        "map_name": "三丰橡胶",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "高密市",
+        "town": "朝阳街道",
+        "brands": "三丰(Sanfeng)",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.215,
+          36.4421
+        ]
+      },
+      "properties": {
+        "id": 34,
+        "name": "山东盛发橡胶有限公司",
+        "map_name": "盛发轮胎",
+        "province": "山东省",
+        "city": "潍坊市",
+        "county": "安丘市",
+        "town": "经济开发区",
+        "brands": "盛发(Shengfa)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4512,
+          36.3825
+        ]
+      },
+      "properties": {
+        "id": 35,
+        "name": "赛轮集团股份有限公司(青岛总部/即墨基地)",
+        "map_name": "赛轮集团",
+        "province": "山东省",
+        "city": "青岛市",
+        "county": "市北区/即墨区",
+        "town": "环保产业园",
+        "brands": "赛轮(Sailun)、黑鹰(Blackhawk)、麦克(Maxam)",
+        "category": "全钢子午胎/半钢子午胎/特种OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.7825,
+          35.6321
+        ]
+      },
+      "properties": {
+        "id": 36,
+        "name": "青岛双星轮胎工业有限公司",
+        "map_name": "双星集团",
+        "province": "山东省",
+        "city": "青岛市",
+        "county": "黄岛区",
+        "town": "董家口经济区",
+        "brands": "双星(Doublestar)、东风(DF)",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.392,
+          36.3512
+        ]
+      },
+      "properties": {
+        "id": 37,
+        "name": "青岛森麒麟轮胎股份有限公司",
+        "map_name": "森麒麟",
+        "province": "山东省",
+        "city": "青岛市",
+        "county": "即墨区",
+        "town": "大信工业园",
+        "brands": "森麒麟(Sentury)、路航(Landsail)、德林特(Delinte)",
+        "category": "高性能半钢子午胎/航空轮胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.9215,
+          36.7521
+        ]
+      },
+      "properties": {
+        "id": 38,
+        "name": "青岛优科豪马轮胎有限公司",
+        "map_name": "优科豪马(青岛)",
+        "province": "山东省",
+        "city": "青岛市",
+        "county": "平度市",
+        "town": "同和街道",
+        "brands": "横滨/优科豪马(Yokohama)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4812,
+          36.8425
+        ]
+      },
+      "properties": {
+        "id": 39,
+        "name": "耐克森轮胎(青岛)有限公司",
+        "map_name": "耐克森轮胎",
+        "province": "山东省",
+        "city": "青岛市",
+        "county": "莱西市",
+        "town": "水集街道",
+        "brands": "耐克森(Nexen Tire)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.932,
+          36.749
+        ]
+      },
+      "properties": {
+        "id": 40,
+        "name": "青岛格锐达橡胶有限公司(佳通合资)",
+        "map_name": "青岛格锐达橡胶",
+        "province": "山东省",
+        "city": "青岛市",
+        "county": "平度市",
+        "town": "同和高新区",
+        "brands": "格锐达(Greatway)、佳安",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.915,
+          36.758
+        ]
+      },
+      "properties": {
+        "id": 41,
+        "name": "青岛福临轮胎有限公司",
+        "map_name": "青岛福临轮胎",
+        "province": "山东省",
+        "city": "青岛市",
+        "county": "平度市",
+        "town": "经济开发区",
+        "brands": "福临(Fullrun)、安驰(Autogrip)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.0512,
+          37.4982
+        ]
+      },
+      "properties": {
+        "id": 42,
+        "name": "三角轮胎股份有限公司",
+        "map_name": "三角集团",
+        "province": "山东省",
+        "city": "威海市",
+        "county": "环翠区/临港区",
+        "town": "张村镇",
+        "brands": "三角(Triangle)、威力斯(Valiant)",
+        "category": "全钢子午胎/半钢子午胎/巨型OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.4215,
+          37.1625
+        ]
+      },
+      "properties": {
+        "id": 43,
+        "name": "浦林成山(山东)轮胎有限公司",
+        "map_name": "浦林成山",
+        "province": "山东省",
+        "city": "威海市",
+        "county": "荣成市",
+        "town": "南山北路",
+        "brands": "浦林(Prinx)、成山(Chengshan)、澳通(Austone)、富神(Fortune)",
+        "category": "全钢子午胎/半钢子午胎/OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          122.182,
+          37.4215
+        ]
+      },
+      "properties": {
+        "id": 44,
+        "name": "腾森橡胶轮胎(威海)有限公司",
+        "map_name": "腾森轮胎",
+        "province": "山东省",
+        "city": "威海市",
+        "county": "环翠区",
+        "town": "经济技术开发区",
+        "brands": "腾森(Timsun)",
+        "category": "高端摩托车轮胎/丁基内胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4125,
+          37.3621
+        ]
+      },
+      "properties": {
+        "id": 45,
+        "name": "山东玲珑轮胎股份有限公司(招远总部基地)",
+        "map_name": "玲珑轮胎",
+        "province": "山东省",
+        "city": "烟台市",
+        "county": "招远市",
+        "town": "金龙路",
+        "brands": "玲珑(Linglong)、利奥(Leao)、山玲、阿特拉斯(ATLAS)",
+        "category": "半钢子午胎/全钢子午胎/OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.4512,
+          34.8925
+        ]
+      },
+      "properties": {
+        "id": 46,
+        "name": "八亿橡胶有限责任公司(枣矿集团)",
+        "map_name": "八亿橡胶",
+        "province": "山东省",
+        "city": "枣庄市",
+        "county": "薛城区",
+        "town": "邹坞镇",
+        "brands": "八亿(BYRUN)、平安达(SAFECESS)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.5821,
+          34.7812
+        ]
+      },
+      "properties": {
+        "id": 47,
+        "name": "山东丰源轮胎制造股份有限公司",
+        "map_name": "丰源轮胎",
+        "province": "山东省",
+        "city": "枣庄市",
+        "county": "峄城区",
+        "town": "榴园镇",
+        "brands": "远路(Farroad)、福瑞驰(FRIDIC)",
+        "category": "高性能半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.782,
+          35.5312
+        ]
+      },
+      "properties": {
+        "id": 48,
+        "name": "倍耐力轮胎有限公司(兖州合资工厂)",
+        "map_name": "倍耐力(兖州)",
+        "province": "山东省",
+        "city": "济宁市",
+        "county": "兖州区",
+        "town": "华勤工业园",
+        "brands": "倍耐力(Pirelli)",
+        "category": "高端半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.775,
+          35.541
+        ]
+      },
+      "properties": {
+        "id": 49,
+        "name": "山东神州轮胎有限公司(华勤通力轮胎)",
+        "map_name": "神州轮胎(济宁)",
+        "province": "山东省",
+        "city": "济宁市",
+        "county": "兖州区",
+        "town": "华勤工业园",
+        "brands": "通力(Roadone)、陆通",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.1215,
+          35.8125
+        ]
+      },
+      "properties": {
+        "id": 50,
+        "name": "梁山中策橡胶有限公司",
+        "map_name": "梁山中策",
+        "province": "山东省",
+        "city": "济宁市",
+        "county": "梁山县",
+        "town": "经济开发区",
+        "brands": "朝阳、好运(挂车配套专线)",
+        "category": "挂车专用胎/轮胎翻新"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.2412,
+          36.8521
+        ]
+      },
+      "properties": {
+        "id": 51,
+        "name": "山东时风(集团)有限责任公司轮胎厂",
+        "map_name": "时风轮胎",
+        "province": "山东省",
+        "city": "聊城市",
+        "county": "高唐县",
+        "town": "时风路",
+        "brands": "时风(Shifeng)",
+        "category": "全钢子午胎/农用轻卡轮胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.0825,
+          37.2125
+        ]
+      },
+      "properties": {
+        "id": 52,
+        "name": "山东恒宇橡胶有限公司(德州生产基地)",
+        "map_name": "恒宇轮胎(德州)",
+        "province": "山东省",
+        "city": "德州市",
+        "county": "武城县",
+        "town": "经济开发区",
+        "brands": "海豚(Headway)、恒宇",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.095,
+          37.221
+        ]
+      },
+      "properties": {
+        "id": 53,
+        "name": "山东格锐特轮胎有限公司",
+        "map_name": "格锐特",
+        "province": "山东省",
+        "city": "德州市",
+        "county": "武城县",
+        "town": "经济开发区",
+        "brands": "格锐特(Greentour)",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.0125,
+          36.8825
+        ]
+      },
+      "properties": {
+        "id": 54,
+        "name": "山东联谊橡胶制品有限公司",
+        "map_name": "联谊橡胶",
+        "province": "山东省",
+        "city": "淄博市",
+        "county": "桓台县",
+        "town": "果里镇",
+        "brands": "联谊(Lianyi)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.4812,
+          36.6821
+        ]
+      },
+      "properties": {
+        "id": 55,
+        "name": "山东耐力轮胎橡胶有限公司",
+        "map_name": "强耐力/耐力轮胎",
+        "province": "山东省",
+        "city": "济南市",
+        "county": "章丘区",
+        "town": "圣井街道",
+        "brands": "强耐力(Challenger)、耐力",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.6215,
+          44.6825
+        ]
+      },
+      "properties": {
+        "id": 56,
+        "name": "桦林佳通轮胎有限公司",
+        "map_name": "桦林佳通",
+        "province": "黑龙江省",
+        "city": "牡丹江市",
+        "county": "阳明区",
+        "town": "桦林镇",
+        "brands": "佳通(Giti)、桦林(Hualin)",
+        "category": "全钢子午胎/半钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.1825,
+          43.9125
+        ]
+      },
+      "properties": {
+        "id": 57,
+        "name": "吉林玲珑轮胎有限公司",
+        "map_name": "玲珑轮胎(吉林)",
+        "province": "吉林省",
+        "city": "长春市",
+        "county": "绿园区",
+        "town": "中韩产业园",
+        "brands": "玲珑(Linglong)、利奥",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          125.2125,
+          43.8521
+        ]
+      },
+      "properties": {
+        "id": 58,
+        "name": "长春一汽富维东阳汽车胎件基地",
+        "map_name": "长春一汽",
+        "province": "吉林省",
+        "city": "长春市",
+        "county": "汽车经济开发区",
+        "town": "东风大街",
+        "brands": "一汽富维(FAW Fuway)",
+        "category": "主机厂原厂配套总成"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.5125,
+          43.9425
+        ]
+      },
+      "properties": {
+        "id": 59,
+        "name": "吉林吉星轮胎有限公司(原吉林双星)",
+        "map_name": "吉星轮胎(吉林)",
+        "province": "吉林省",
+        "city": "吉林市",
+        "county": "龙潭区",
+        "town": "九站工业园",
+        "brands": "吉星(Jixing)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.1825,
+          41.7425
+        ]
+      },
+      "properties": {
+        "id": 60,
+        "name": "米其林沈阳轮胎有限公司",
+        "map_name": "米其林(沈阳)",
+        "province": "辽宁省",
+        "city": "沈阳市",
+        "county": "经济技术开发区",
+        "town": "沈西三东路",
+        "brands": "米其林(Michelin)、百路驰(BFGoodrich)",
+        "category": "高端半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.195,
+          41.7512
+        ]
+      },
+      "properties": {
+        "id": 61,
+        "name": "普利司通(沈阳)轮胎有限公司",
+        "map_name": "普利司通(沈阳)",
+        "province": "辽宁省",
+        "city": "沈阳市",
+        "county": "经济技术开发区",
+        "town": "沈辽西路",
+        "brands": "普利司通(Bridgestone)",
+        "category": "全钢卡客车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.7512,
+          39.3125
+        ]
+      },
+      "properties": {
+        "id": 62,
+        "name": "固特异轮胎有限公司(大连工厂)",
+        "map_name": "大连固特异",
+        "province": "辽宁省",
+        "city": "大连市",
+        "county": "金普新区",
+        "town": "普湾经济区",
+        "brands": "固特异(Goodyear)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4125,
+          41.5821
+        ]
+      },
+      "properties": {
+        "id": 63,
+        "name": "朝阳浪马轮胎有限公司",
+        "map_name": "朝阳浪马轮胎",
+        "province": "辽宁省",
+        "city": "朝阳市",
+        "county": "龙城区",
+        "town": "西区工业园",
+        "brands": "浪马(LongMarch)、路力士(Roadlux)",
+        "category": "全钢子午胎/工程机械胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.425,
+          41.5912
+        ]
+      },
+      "properties": {
+        "id": 64,
+        "name": "辽宁善耐特轮胎有限公司",
+        "map_name": "善耐特轮胎",
+        "province": "辽宁省",
+        "city": "朝阳市",
+        "county": "龙城区",
+        "town": "科技园区",
+        "brands": "善耐特(Sannait)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.0925,
+          41.1525
+        ]
+      },
+      "properties": {
+        "id": 65,
+        "name": "锦州锦湖轮胎有限公司",
+        "map_name": "锦州锦湖轮胎",
+        "province": "辽宁省",
+        "city": "锦州市",
+        "county": "太和区",
+        "town": "锦朝路",
+        "brands": "锦湖(Kumho Tire)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.7512,
+          41.3521
+        ]
+      },
+      "properties": {
+        "id": 66,
+        "name": "辽宁中策橡胶有限公司(原辽宁千山轮胎)",
+        "map_name": "辽宁千山轮胎",
+        "province": "辽宁省",
+        "city": "本溪市",
+        "county": "溪湖区",
+        "town": "火连寨",
+        "brands": "千山(Qianshan)、朝阳",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.0512,
+          39.6125
+        ]
+      },
+      "properties": {
+        "id": 67,
+        "name": "北京首创轮胎有限责任公司",
+        "map_name": "首创轮胎",
+        "province": "北京市",
+        "city": "北京市",
+        "county": "房山区",
+        "town": "琉璃河镇",
+        "brands": "首创(Capital)、奥捷",
+        "category": "斜交胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.2215,
+          39.0215
+        ]
+      },
+      "properties": {
+        "id": 68,
+        "name": "普利司通(天津)轮胎有限公司",
+        "map_name": "天津普利司通",
+        "province": "天津市",
+        "city": "天津市",
+        "county": "西青区",
+        "town": "微电子工业区",
+        "brands": "普利司通(Bridgestone)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.0215,
+          39.2215
+        ]
+      },
+      "properties": {
+        "id": 69,
+        "name": "天津市万达轮胎集团有限公司",
+        "map_name": "天津万达",
+        "province": "天津市",
+        "city": "天津市",
+        "county": "北辰区",
+        "town": "双口工业区",
+        "brands": "万达(Wanda)、海德威",
+        "category": "特种轮胎/ATV/摩托车/全钢胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.5825,
+          39.0521
+        ]
+      },
+      "properties": {
+        "id": 70,
+        "name": "河北巨大橡胶制品有限公司",
+        "map_name": "顶大橡胶/巨大橡胶",
+        "province": "河北省",
+        "city": "保定市",
+        "county": "徐水区",
+        "town": "大王店工业园",
+        "brands": "巨大(Juda)、顶大",
+        "category": "工程机械胎/农业胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.0215,
+          37.2125
+        ]
+      },
+      "properties": {
+        "id": 71,
+        "name": "河北伟峰橡胶科技有限公司",
+        "map_name": "伟峰橡胶(邢台)",
+        "province": "河北省",
+        "city": "邢台市",
+        "county": "巨鹿县",
+        "town": "西区工业园",
+        "brands": "伟峰(Weifeng)",
+        "category": "农用子午胎/半钢胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.7825,
+          37.1521
+        ]
+      },
+      "properties": {
+        "id": 72,
+        "name": "河北远征橡胶制品有限公司",
+        "map_name": "远征橡胶(邢台)",
+        "province": "河北省",
+        "city": "邢台市",
+        "county": "任泽区",
+        "town": "邢家湾工业区",
+        "brands": "远征(Yuanzheng)",
+        "category": "全钢子午胎/农业胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.5125,
+          37.8825
+        ]
+      },
+      "properties": {
+        "id": 73,
+        "name": "风神轮胎(太原)有限公司(原太原双喜)",
+        "map_name": "风神轮胎(太原)",
+        "province": "山西省",
+        "city": "太原市",
+        "county": "万柏林区",
+        "town": "和平北路",
+        "brands": "双喜(Shuangxi)、风神(Aeolus)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4812,
+          31.6821
+        ]
+      },
+      "properties": {
+        "id": 74,
+        "name": "江苏通用科技股份有限公司(无锡总部)",
+        "map_name": "江苏通用科技",
+        "province": "江苏省",
+        "city": "无锡市",
+        "county": "锡山区",
+        "town": "东港镇",
+        "brands": "千里马(CELIMO)、赤兔马、通用(General)",
+        "category": "全钢子午胎/半钢子午胎/OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.4215,
+          33.9521
+        ]
+      },
+      "properties": {
+        "id": 75,
+        "name": "江苏通用科技股份有限公司(宿迁基地)",
+        "map_name": "江苏通用(宿迁)",
+        "province": "江苏省",
+        "city": "宿迁市",
+        "county": "宿豫区",
+        "town": "生态化工科技产业园",
+        "brands": "千里马(CELIMO)、骐达",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.0825,
+          33.5925
+        ]
+      },
+      "properties": {
+        "id": 76,
+        "name": "韩泰轮胎有限公司(江苏淮安工厂)",
+        "map_name": "淮安韩泰",
+        "province": "江苏省",
+        "city": "淮安市",
+        "county": "经济技术开发区",
+        "town": "深圳路",
+        "brands": "韩泰(Hankook)、路欧锋(Laufenn)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.9125,
+          31.3821
+        ]
+      },
+      "properties": {
+        "id": 77,
+        "name": "建大橡胶(中国)有限公司",
+        "map_name": "昆山建大",
+        "province": "江苏省",
+        "city": "苏州市",
+        "county": "昆山市",
+        "town": "精密机械产业园",
+        "brands": "建大(Kenda)",
+        "category": "乘用车半钢胎/自行车/摩托车胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.0425,
+          31.3125
+        ]
+      },
+      "properties": {
+        "id": 78,
+        "name": "正新橡胶(中国)有限公司",
+        "map_name": "正新橡胶(中国)",
+        "province": "江苏省",
+        "city": "苏州市",
+        "county": "昆山市",
+        "town": "陆家镇",
+        "brands": "玛吉斯(Maxxis)、正新(CST)",
+        "category": "全钢子午胎/半钢子午胎/两轮车胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.932,
+          31.2825
+        ]
+      },
+      "properties": {
+        "id": 79,
+        "name": "固铂轮胎(昆山)有限公司",
+        "map_name": "固铂轮胎(昆山)",
+        "province": "江苏省",
+        "city": "苏州市",
+        "county": "昆山市",
+        "town": "张浦镇",
+        "brands": "固铂(Cooper Tires)、斯达飞(Starfire)",
+        "category": "高性能乘用车半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5215,
+          31.3325
+        ]
+      },
+      "properties": {
+        "id": 80,
+        "name": "优科豪马轮胎科技(苏州)有限公司",
+        "map_name": "苏州优科豪马",
+        "province": "江苏省",
+        "city": "苏州市",
+        "county": "高新区",
+        "town": "鹿山路",
+        "brands": "优科豪马/横滨(Yokohama)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.7215,
+          31.6721
+        ]
+      },
+      "properties": {
+        "id": 81,
+        "name": "住友橡胶(常熟)有限公司",
+        "map_name": "住友橡胶(常熟)",
+        "province": "江苏省",
+        "city": "苏州市",
+        "county": "常熟市",
+        "town": "虞山镇",
+        "brands": "邓禄普(Dunlop)、飞劲(Falken)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5125,
+          31.8625
+        ]
+      },
+      "properties": {
+        "id": 82,
+        "name": "张家港通伊欧轮胎制造有限公司",
+        "map_name": "通伊欧橡胶",
+        "province": "江苏省",
+        "city": "苏州市",
+        "county": "张家港市",
+        "town": "经济技术开发区",
+        "brands": "东洋/通伊欧(Toyo Tires)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.4215,
+          31.9821
+        ]
+      },
+      "properties": {
+        "id": 83,
+        "name": "南港橡胶(张家港)有限公司",
+        "map_name": "南港橡胶(张家港)",
+        "province": "江苏省",
+        "city": "苏州市",
+        "county": "张家港市",
+        "town": "保税区",
+        "brands": "南港(Nankang)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.9825,
+          31.8521
+        ]
+      },
+      "properties": {
+        "id": 84,
+        "name": "常州腾森橡胶股份有限公司",
+        "map_name": "常州佳通/腾森",
+        "province": "江苏省",
+        "city": "常州市",
+        "county": "新北区",
+        "town": "罗溪镇",
+        "brands": "腾森(Timsun)",
+        "category": "摩托车胎/特种两轮胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.8925,
+          32.1425
+        ]
+      },
+      "properties": {
+        "id": 85,
+        "name": "南京锦湖轮胎有限公司",
+        "map_name": "南京锦湖",
+        "province": "江苏省",
+        "city": "南京市",
+        "county": "栖霞区",
+        "town": "新港经济开发区",
+        "brands": "锦湖(Kumho Tire)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.1512,
+          34.2025
+        ]
+      },
+      "properties": {
+        "id": 86,
+        "name": "徐州徐轮橡胶有限公司",
+        "map_name": "徐轮橡胶",
+        "province": "江苏省",
+        "city": "徐州市",
+        "county": "铜山区",
+        "town": "高新区珠江路",
+        "brands": "甲友(Armour)、徐轮",
+        "category": "工程机械胎(OTR)/农业胎/全钢胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.1215,
+          33.3421
+        ]
+      },
+      "properties": {
+        "id": 87,
+        "name": "盐城建大橡胶有限公司",
+        "map_name": "盐城建大/红豆",
+        "province": "江苏省",
+        "city": "盐城市",
+        "county": "盐都区",
+        "town": "新区工业园",
+        "brands": "建大(Kenda)",
+        "category": "两轮车胎/特种轮胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.321,
+          34.0825
+        ]
+      },
+      "properties": {
+        "id": 88,
+        "name": "连云港华安橡胶有限公司",
+        "map_name": "华安橡胶",
+        "province": "江苏省",
+        "city": "连云港市",
+        "county": "灌南县",
+        "town": "经济开发区",
+        "brands": "华安(Huaan)",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.3215,
+          30.7425
+        ]
+      },
+      "properties": {
+        "id": 89,
+        "name": "上海双钱轮胎有限公司(金山生产基地)",
+        "map_name": "上海双钱",
+        "province": "上海市",
+        "city": "上海市",
+        "county": "金山区",
+        "town": "碳谷绿湾产业园",
+        "brands": "双钱(Double Coin)、回力(Warrior)",
+        "category": "全钢子午胎/OTR/特种胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.3825,
+          31.0825
+        ]
+      },
+      "properties": {
+        "id": 90,
+        "name": "上海米其林轮胎有限公司",
+        "map_name": "米其林(上海)",
+        "province": "上海市",
+        "city": "上海市",
+        "county": "闵行区",
+        "town": "莘庄工业区",
+        "brands": "米其林(Michelin)、回力(Warrior)",
+        "category": "高端乘用车半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.3512,
+          30.3125
+        ]
+      },
+      "properties": {
+        "id": 91,
+        "name": "中策橡胶集团股份有限公司(总部及杭州生产基地)",
+        "map_name": "中策橡胶",
+        "province": "浙江省",
+        "city": "杭州市",
+        "county": "钱塘区/富阳区",
+        "town": "下沙/鹿山基地",
+        "brands": "朝阳(CHAOYANG)、好运(Goodride)、威狮(Westlake)、全诺(Arisun)",
+        "category": "全钢子午胎/半钢子午胎/斜交胎/OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.3421,
+          30.3015
+        ]
+      },
+      "properties": {
+        "id": 92,
+        "name": "杭州优科豪马轮胎有限公司",
+        "map_name": "优科豪马(杭州)",
+        "province": "浙江省",
+        "city": "杭州市",
+        "county": "钱塘区",
+        "town": "下沙开发区",
+        "brands": "优科豪马(Yokohama)",
+        "category": "全钢/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.1825,
+          31.7825
+        ]
+      },
+      "properties": {
+        "id": 93,
+        "name": "大陆马牌轮胎(中国)有限公司(合肥工厂)",
+        "map_name": "合肥大陆马牌轮胎",
+        "province": "安徽省",
+        "city": "合肥市",
+        "county": "高新区",
+        "town": "柏堰科技园",
+        "brands": "德国马牌(Continental)、将军(General Tire)",
+        "category": "高端乘用车半钢子午胎/两轮胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.2512,
+          31.7521
+        ]
+      },
+      "properties": {
+        "id": 94,
+        "name": "安徽佳通轮胎有限公司",
+        "map_name": "安徽佳通轮胎",
+        "province": "安徽省",
+        "city": "合肥市",
+        "county": "经济技术开发区",
+        "town": "始信路",
+        "brands": "佳通(Giti)、佳安(GitiControl)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.5125,
+          31.8215
+        ]
+      },
+      "properties": {
+        "id": 95,
+        "name": "合肥万力轮胎有限公司",
+        "map_name": "合肥万力",
+        "province": "安徽省",
+        "city": "合肥市",
+        "county": "肥东县",
+        "town": "循环经济示范园",
+        "brands": "万力(Wanli)、阳光(Sunny)",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.2512,
+          32.1215
+        ]
+      },
+      "properties": {
+        "id": 96,
+        "name": "双钱集团(安徽)回力轮胎有限公司",
+        "map_name": "安徽双钱/滁州双钱",
+        "province": "安徽省",
+        "city": "滁州市",
+        "county": "全椒县",
+        "town": "十字工业园",
+        "brands": "回力(Warrior)、双钱(Double Coin)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.3215,
+          32.9215
+        ]
+      },
+      "properties": {
+        "id": 97,
+        "name": "安徽神马橡胶轮胎有限公司",
+        "map_name": "蚌埠神马",
+        "province": "安徽省",
+        "city": "蚌埠市",
+        "county": "禹会区",
+        "town": "沫河口工业园",
+        "brands": "神马(Shenma)",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.0425,
+          24.5621
+        ]
+      },
+      "properties": {
+        "id": 98,
+        "name": "正新厦门集团(正新橡胶工业)",
+        "map_name": "正新橡胶(厦门)",
+        "province": "福建省",
+        "city": "厦门市",
+        "county": "集美区/海沧区",
+        "town": "杏林基地",
+        "brands": "正新(CST)、玛吉斯(Maxxis)、樱花(SAKURA)",
+        "category": "半钢子午胎/全钢子午胎/两轮车胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.1512,
+          25.4821
+        ]
+      },
+      "properties": {
+        "id": 99,
+        "name": "福建佳通轮胎有限公司",
+        "map_name": "福建佳通轮胎",
+        "province": "福建省",
+        "city": "莆田市",
+        "county": "涵江区",
+        "town": "赤港华侨经济开发区",
+        "brands": "佳通(Giti)、登特路(Dextero)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.3825,
+          25.9821
+        ]
+      },
+      "properties": {
+        "id": 100,
+        "name": "建新橡胶(福建)有限公司",
+        "map_name": "建新轮胎(福建)",
+        "province": "福建省",
+        "city": "三明市",
+        "county": "永安市",
+        "town": "尼葛高新技术开发区",
+        "brands": "建新(Jianxin)、福通",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5512,
+          23.9821
+        ]
+      },
+      "properties": {
+        "id": 101,
+        "name": "正新橡胶工业股份有限公司(台湾总厂)",
+        "map_name": "台湾正新橡胶",
+        "province": "台湾省",
+        "city": "彰化县",
+        "county": "大村乡",
+        "town": "中山路",
+        "brands": "玛吉斯(Maxxis)、正新(CST)",
+        "category": "全钢/半钢/摩托车/自行车胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5712,
+          23.9621
+        ]
+      },
+      "properties": {
+        "id": 102,
+        "name": "建大工业股份有限公司(台湾总厂)",
+        "map_name": "建大轮胎台湾",
+        "province": "台湾省",
+        "city": "彰化县",
+        "county": "员林市",
+        "town": "中山路",
+        "brands": "建大(Kenda)",
+        "category": "两轮车胎/半钢乘用车胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          120.5412,
+          24.0215
+        ]
+      },
+      "properties": {
+        "id": 103,
+        "name": "华丰橡胶工业股份有限公司(台湾总厂)",
+        "map_name": "台湾华丰橡胶",
+        "province": "台湾省",
+        "city": "彰化县",
+        "county": "花坛乡",
+        "town": "中山路",
+        "brands": "华丰(Duro)",
+        "category": "两轮车胎/斜交胎/半钢胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.0125,
+          24.8821
+        ]
+      },
+      "properties": {
+        "id": 104,
+        "name": "南港轮胎股份有限公司(台湾总厂)",
+        "map_name": "南港轮胎台湾",
+        "province": "台湾省",
+        "city": "新竹县",
+        "county": "湖口乡",
+        "town": "新竹工业区",
+        "brands": "南港(Nankang)、索奈特(Sonar)",
+        "category": "高性能乘用车半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.1825,
+          35.2512
+        ]
+      },
+      "properties": {
+        "id": 105,
+        "name": "风神轮胎股份有限公司(焦作总部基地)",
+        "map_name": "风神轮胎",
+        "province": "河南省",
+        "city": "焦作市",
+        "county": "中站区",
+        "town": "焦克路",
+        "brands": "风神(Aeolus)、风力、河南(Henan)",
+        "category": "全钢子午胎/巨型工程机械胎(OTR)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.9825,
+          34.7215
+        ]
+      },
+      "properties": {
+        "id": 106,
+        "name": "郑州三力橡胶制品有限公司",
+        "map_name": "郑州开封三力橡胶",
+        "province": "河南省",
+        "city": "郑州市",
+        "county": "中牟县",
+        "town": "汽车工业园",
+        "brands": "三力(Sanli)",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.7825,
+          32.6521
+        ]
+      },
+      "properties": {
+        "id": 107,
+        "name": "双星东风轮胎有限公司",
+        "map_name": "双星东风轮胎(十堰)",
+        "province": "湖北省",
+        "city": "十堰市",
+        "county": "张湾区",
+        "town": "东风大道",
+        "brands": "东风(Dongfeng)、双星",
+        "category": "全钢子午胎/军用特种胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.1825,
+          32.0825
+        ]
+      },
+      "properties": {
+        "id": 108,
+        "name": "佳通轮胎(襄阳)有限公司",
+        "map_name": "襄阳佳通",
+        "province": "湖北省",
+        "city": "襄阳市",
+        "county": "襄州区",
+        "town": "交通路",
+        "brands": "佳通(Giti)、佳安",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.1215,
+          30.6215
+        ]
+      },
+      "properties": {
+        "id": 109,
+        "name": "普利司通(武汉)轮胎有限公司",
+        "map_name": "武汉普利司通",
+        "province": "湖北省",
+        "city": "武汉市",
+        "county": "东西湖区",
+        "town": "吴家山台商投资区",
+        "brands": "普利司通(Bridgestone)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.2215,
+          29.8321
+        ]
+      },
+      "properties": {
+        "id": 110,
+        "name": "湖北奥莱斯轮胎股份有限公司",
+        "map_name": "湖北奥莱斯/双林动力",
+        "province": "湖北省",
+        "city": "黄石市",
+        "county": "阳新县",
+        "town": "经济开发区",
+        "brands": "奥莱斯(Aolis)、三轮(Sanlun)",
+        "category": "全钢子午胎/农用胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.3215,
+          29.8521
+        ]
+      },
+      "properties": {
+        "id": 111,
+        "name": "湖北金云轮胎有限公司(湖北金冠)",
+        "map_name": "金云轮胎/湖北金冠",
+        "province": "湖北省",
+        "city": "咸宁市",
+        "county": "咸安区",
+        "town": "凤凰工业园",
+        "brands": "金云(Jinyun)、金冠",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.5512,
+          28.2825
+        ]
+      },
+      "properties": {
+        "id": 112,
+        "name": "湖南佳通轮胎有限公司",
+        "map_name": "湖南佳通橡胶",
+        "province": "湖南省",
+        "city": "长沙市",
+        "county": "宁乡市",
+        "town": "经济技术开发区",
+        "brands": "佳通(Giti)",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.2215,
+          25.9521
+        ]
+      },
+      "properties": {
+        "id": 113,
+        "name": "湖南金豹轮胎有限公司",
+        "map_name": "郴州金豹",
+        "province": "湖南省",
+        "city": "郴州市",
+        "county": "资兴市",
+        "town": "资五产业园",
+        "brands": "金豹(Jinbao)",
+        "category": "农用子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.4825,
+          23.5512
+        ]
+      },
+      "properties": {
+        "id": 114,
+        "name": "广州万力轮胎有限公司",
+        "map_name": "广州万力轮胎",
+        "province": "广东省",
+        "city": "广州市",
+        "county": "从化区",
+        "town": "鳌头镇万力路",
+        "brands": "万力(Wanli)、阳光(Sunny)、钻石(Diamond)",
+        "category": "半钢子午胎/全钢子午胎/新能源专用胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.8825,
+          23.2125
+        ]
+      },
+      "properties": {
+        "id": 115,
+        "name": "佛山普利司通轮胎有限公司",
+        "map_name": "佛山普利司通",
+        "province": "广东省",
+        "city": "佛山市",
+        "county": "三水区",
+        "town": "中心科技工业区",
+        "brands": "普利司通(Bridgestone)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.6215,
+          22.7521
+        ]
+      },
+      "properties": {
+        "id": 116,
+        "name": "住友橡胶(惠州)有限公司",
+        "map_name": "惠州住友橡胶",
+        "province": "广东省",
+        "city": "惠州市",
+        "county": "大亚湾区",
+        "town": "大亚湾石化区",
+        "brands": "邓禄普(Dunlop)、飞劲(Falken)",
+        "category": "半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112.9215,
+          22.4825
+        ]
+      },
+      "properties": {
+        "id": 117,
+        "name": "江门江裕橡胶有限公司",
+        "map_name": "江门江裕",
+        "province": "广东省",
+        "city": "江门市",
+        "county": "新会区",
+        "town": "司前镇",
+        "brands": "江裕(Jiangyu)",
+        "category": "摩托车胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2512,
+          22.7215
+        ]
+      },
+      "properties": {
+        "id": 118,
+        "name": "双钱集团(广西南宁)轮胎有限公司",
+        "map_name": "双钱集团(南宁)",
+        "province": "广西壮族自治区",
+        "city": "南宁市",
+        "county": "江南区",
+        "town": "邕津路",
+        "brands": "双钱(Double Coin)、万达",
+        "category": "全钢子午胎/巨型OTR"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.3825,
+          24.1825
+        ]
+      },
+      "properties": {
+        "id": 119,
+        "name": "广西玲珑轮胎有限公司",
+        "map_name": "玲珑轮胎(柳州)",
+        "province": "广西壮族自治区",
+        "city": "柳州市",
+        "county": "柳江区",
+        "town": "新兴工业园",
+        "brands": "玲珑(Linglong)、利奥",
+        "category": "全钢子午胎/半钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.3215,
+          25.2625
+        ]
+      },
+      "properties": {
+        "id": 120,
+        "name": "桂林倍耐力轮胎 / 桂林蓝宇航空轮胎",
+        "map_name": "桂林倍耐力/桂林蓝宇",
+        "province": "广西壮族自治区",
+        "city": "桂林市",
+        "county": "七星区",
+        "town": "横塘路",
+        "brands": "倍耐力(Pirelli)、蓝宇(Lanyu)",
+        "category": "全钢子午胎/航空轮胎/特种工程胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.1215,
+          22.5821
+        ]
+      },
+      "properties": {
+        "id": 121,
+        "name": "玉林市新福轮胎有限公司",
+        "map_name": "新福轮胎(玉林)",
+        "province": "广西壮族自治区",
+        "city": "玉林市",
+        "county": "福绵区",
+        "town": "新桥镇",
+        "brands": "新福(Xinfu)",
+        "category": "斜交胎/农用轻卡胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.2825,
+          20.0125
+        ]
+      },
+      "properties": {
+        "id": 122,
+        "name": "海南橡胶/中策橡胶海口生产基地",
+        "map_name": "海南橡胶/中策",
+        "province": "海南省",
+        "city": "海口市",
+        "county": "秀英区",
+        "town": "港澳工业区",
+        "brands": "海胶、朝阳",
+        "category": "天然橡胶深加工/半钢胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5425,
+          30.4125
+        ]
+      },
+      "properties": {
+        "id": 123,
+        "name": "四川海大橡胶集团有限公司",
+        "map_name": "四川海大橡胶",
+        "province": "四川省",
+        "city": "资阳市",
+        "county": "简阳市",
+        "town": "养马街道/建设路",
+        "brands": "天府、海大(Haida)、迈劲(Mileking)",
+        "category": "半钢乘用车子午胎/全钢胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5512,
+          30.4215
+        ]
+      },
+      "properties": {
+        "id": 124,
+        "name": "四川省凯力威科技股份有限公司",
+        "map_name": "四川凯力威",
+        "province": "四川省",
+        "city": "资阳市",
+        "county": "简阳市",
+        "town": "成阿工业园",
+        "brands": "凯力威(Carryway)、雷霆",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.5215,
+          30.5821
+        ]
+      },
+      "properties": {
+        "id": 125,
+        "name": "四川远星橡胶有限责任公司",
+        "map_name": "四川远星",
+        "province": "四川省",
+        "city": "成都市",
+        "county": "大邑县",
+        "town": "晋原街道",
+        "brands": "远星(Yuanxing)、吉斯通",
+        "category": "摩托车胎/ATV/电动车胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.2215,
+          30.5621
+        ]
+      },
+      "properties": {
+        "id": 126,
+        "name": "佳通轮胎(成都)有限公司",
+        "map_name": "成都佳通",
+        "province": "四川省",
+        "city": "成都市",
+        "county": "龙泉驿区",
+        "town": "成龙大道",
+        "brands": "佳通(Giti)",
+        "category": "半钢乘用车子午胎/全钢胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.2215,
+          29.5821
+        ]
+      },
+      "properties": {
+        "id": 127,
+        "name": "正新橡胶(重庆)有限公司",
+        "map_name": "正新橡胶(重庆)",
+        "province": "重庆市",
+        "city": "重庆市",
+        "county": "璧山区",
+        "town": "聚金大道",
+        "brands": "正新(CST)、玛吉斯(Maxxis)",
+        "category": "摩托车胎/两轮车胎/半钢胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.9215,
+          28.9215
+        ]
+      },
+      "properties": {
+        "id": 128,
+        "name": "双钱集团(重庆)轮胎有限公司",
+        "map_name": "重庆双钱",
+        "province": "重庆市",
+        "city": "重庆市",
+        "county": "万盛经开区",
+        "town": "平山产业园区",
+        "brands": "双钱(Double Coin)",
+        "category": "全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7825,
+          29.6821
+        ]
+      },
+      "properties": {
+        "id": 129,
+        "name": "韩泰轮胎(重庆)有限公司",
+        "map_name": "韩泰轮胎(重庆)",
+        "province": "重庆市",
+        "city": "重庆市",
+        "county": "两江新区",
+        "town": "鱼复工业开发区",
+        "brands": "韩泰(Hankook)",
+        "category": "半钢子午胎/全钢子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.6215,
+          26.8521
+        ]
+      },
+      "properties": {
+        "id": 130,
+        "name": "贵州轮胎股份有限公司(扎佐基地)",
+        "map_name": "贵州轮胎",
+        "province": "贵州省",
+        "city": "贵阳市",
+        "county": "修文县",
+        "town": "扎佐工业园",
+        "brands": "前进(Advance)、劲虎、大力士(Samson)",
+        "category": "全钢卡客车胎/巨型OTR/农业子午胎/特种胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.4215,
+          24.9215
+        ]
+      },
+      "properties": {
+        "id": 131,
+        "name": "云南轮胎厂(云轮集团/昆明橡胶厂)",
+        "map_name": "云南轮胎/马龙",
+        "province": "云南省",
+        "city": "昆明市",
+        "county": "安宁市",
+        "town": "草铺工业园",
+        "brands": "云轮(Yunlun)、马龙",
+        "category": "全钢子午胎/斜交胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.7512,
+          34.3821
+        ]
+      },
+      "properties": {
+        "id": 132,
+        "name": "陕西延长石油集团橡胶有限公司",
+        "map_name": "陕西延长石油橡胶",
+        "province": "陕西省",
+        "city": "咸阳市",
+        "county": "西咸新区",
+        "town": "秦汉新城",
+        "brands": "德安通(Duraturn)、利好、德运",
+        "category": "全钢子午胎/半钢乘用车子午胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.5512,
+          38.9215
+        ]
+      },
+      "properties": {
+        "id": 133,
+        "name": "宁夏神州轮胎有限公司(大地循环经济区)",
+        "map_name": "神州轮胎(石嘴山)",
+        "province": "宁夏回族自治区",
+        "city": "石嘴山市",
+        "county": "平罗县",
+        "town": "太沙工业园",
+        "brands": "陆陆通(Lulutong)、富力通",
+        "category": "全钢子午胎/大型航空轮胎/特种工程胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.1512,
+          41.7825
+        ]
+      },
+      "properties": {
+        "id": 134,
+        "name": "双钱集团(新疆)昆仑轮胎有限公司(库尔勒基地)",
+        "map_name": "新疆双钱/昆仑轮胎",
+        "province": "新疆维吾尔自治区",
+        "city": "巴音郭楞蒙古自治州",
+        "county": "库尔勒市",
+        "town": "上户开发区",
+        "brands": "昆仑(Kunlun)、双钱",
+        "category": "全钢子午胎/斜交工程胎/大规格农用胎"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.6512,
+          43.9825
+        ]
+      },
+      "properties": {
+        "id": 135,
+        "name": "双钱集团(新疆)昆仑轮胎米东厂区",
+        "map_name": "乌鲁木齐昆仑",
+        "province": "新疆维吾尔自治区",
+        "city": "乌鲁木齐市",
+        "county": "米东区",
+        "town": "化工工业园",
+        "brands": "昆仑(Kunlun)",
+        "category": "全钢子午胎/斜交工程胎"
+      }
+    }
+  ]
+}
