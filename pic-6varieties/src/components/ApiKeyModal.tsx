@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ApiConfig } from '../types';
+import { ApiConfig, EngineType } from '../types';
 
 interface ApiKeyModalProps {
   isOpen: boolean;
@@ -14,19 +14,19 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
   config,
   onSave
 }) => {
-  const [mode, setMode] = useState<'server' | 'custom'>(config.mode || 'server');
-  const [apiKey, setApiKey] = useState(config.apiKey);
-  const [baseUrl, setBaseUrl] = useState(config.baseUrl);
-  const [model, setModel] = useState(config.model);
+  const [engine, setEngine] = useState<EngineType>(config.engine || 'pollinations');
+  const [pollinationsModel, setPollinationsModel] = useState(config.pollinationsModel || 'flux');
+  const [geminiModel, setGeminiModel] = useState(config.geminiModel || 'gemini-2.5-flash-image');
+  const [customGeminiKey, setCustomGeminiKey] = useState(config.customGeminiKey || '');
   const [showKey, setShowKey] = useState(false);
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
   useEffect(() => {
-    setMode(config.mode || 'server');
-    setApiKey(config.apiKey);
-    setBaseUrl(config.baseUrl);
-    setModel(config.model);
+    setEngine(config.engine || 'pollinations');
+    setPollinationsModel(config.pollinationsModel || 'flux');
+    setGeminiModel(config.geminiModel || 'gemini-2.5-flash-image');
+    setCustomGeminiKey(config.customGeminiKey || '');
     setTestResult(null);
   }, [config, isOpen]);
 
@@ -34,10 +34,10 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
 
   const handleSave = () => {
     onSave({
-      mode,
-      apiKey: apiKey.trim(),
-      baseUrl: baseUrl.trim(),
-      model: model.trim() || 'gemini-2.5-flash-image'
+      engine,
+      pollinationsModel,
+      geminiModel,
+      customGeminiKey: customGeminiKey.trim()
     });
     onClose();
   };
@@ -46,51 +46,26 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
     setTesting(true);
     setTestResult(null);
 
-    if (mode === 'server') {
-      try {
-        const resp = await fetch('https://140.245.65.111.sslip.io/api/pic-6varieties/health', { method: 'GET' });
-        if (resp.ok) {
-          const data = await resp.json();
-          setTestResult({ success: true, message: `服务器后端连接正常！服务: ${data.service}，预设模型: ${data.model}` });
-        } else {
-          setTestResult({ success: false, message: `服务器返回状态异常: ${resp.status}` });
-        }
-      } catch (e: any) {
-        setTestResult({ success: false, message: `无法连接服务器后端: ${e.message}` });
-      } finally {
-        setTesting(false);
-      }
-      return;
-    }
-
-    // Custom mode
-    if (!apiKey.trim()) {
-      setTestResult({ success: false, message: "请先输入自定义 API Key" });
-      setTesting(false);
-      return;
-    }
-
-    const rawBaseUrl = baseUrl.trim() || 'https://generativelanguage.googleapis.com';
-    const cleanBaseUrl = rawBaseUrl.replace(/\/+$/, '');
-    const url = `${cleanBaseUrl}/v1beta/models?key=${encodeURIComponent(apiKey.trim())}`;
-
     try {
-      const resp = await fetch(url, { method: 'GET' });
+      const resp = await fetch('https://140.245.65.111.sslip.io/api/pic-6varieties/health');
       if (resp.ok) {
-        setTestResult({ success: true, message: "连接成功！自定义 API Key 有效且网络通畅。" });
+        const data = await resp.json();
+        setTestResult({
+          success: true,
+          message: `后端连接通畅！已支持引擎：${(data.supportedEngines || []).join('、')}。`
+        });
       } else {
-        const err = await resp.json().catch(() => null);
-        setTestResult({ success: false, message: `连接失败 (${resp.status}): ${err?.error?.message || resp.statusText}` });
+        setTestResult({ success: false, message: `服务器返回异常状态: ${resp.status}` });
       }
     } catch (e: any) {
-      setTestResult({ success: false, message: `网络错误: ${e.message || '无法连接到目标 API，请检查网络或反代设置'}` });
+      setTestResult({ success: false, message: `网络连接失败: ${e.message}` });
     } finally {
       setTesting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
         className="bg-gray-900 border border-gray-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-6 text-gray-200"
         onClick={(e) => e.stopPropagation()}
@@ -99,7 +74,7 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
         <div className="flex items-center justify-between border-b border-gray-800 pb-4">
           <div className="flex items-center gap-2">
             <span className="text-xl">⚙️</span>
-            <h2 className="text-lg font-bold text-white">后端与 API 配置</h2>
+            <h2 className="text-lg font-bold text-white">AI 生成引擎与参数配置</h2>
           </div>
           <button 
             onClick={onClose}
@@ -109,128 +84,136 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
           </button>
         </div>
 
-        {/* Mode Selector */}
+        {/* Engine Selection */}
         <div className="space-y-3">
-          <label className="block text-sm font-medium text-gray-300">
-            运行模式
+          <label className="block text-sm font-semibold text-gray-200">
+            选择生成引擎
           </label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Pollinations */}
             <button
               type="button"
-              onClick={() => { setMode('server'); setTestResult(null); }}
-              className={`p-3 rounded-xl border text-left transition-all ${
-                mode === 'server'
-                  ? 'border-purple-500 bg-purple-950/40 text-white shadow-lg shadow-purple-950/30'
+              onClick={() => setEngine('pollinations')}
+              className={`p-3.5 rounded-xl border text-left transition-all relative ${
+                engine === 'pollinations'
+                  ? 'border-purple-500 bg-purple-950/40 text-white shadow-lg shadow-purple-950/40 ring-1 ring-purple-500'
                   : 'border-gray-800 bg-gray-950/60 text-gray-400 hover:border-gray-700'
               }`}
             >
-              <div className="flex items-center gap-1.5 font-semibold text-xs text-purple-300 mb-1">
-                <span>🚀 专属服务器模式</span>
-                <span className="bg-purple-500/20 text-purple-300 px-1.5 py-0.2 rounded text-[10px]">推荐</span>
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-bold text-sm text-purple-300">🎨 Pollinations.ai</span>
+                <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                  免费免Key
+                </span>
               </div>
-              <p className="text-[11px] text-gray-400 leading-tight">
-                免填 Key，由博客服务器中继调用 Gemini
+              <p className="text-xs text-gray-300 leading-relaxed">
+                基于顶尖 FLUX 开源模型，构图光影唯美，零门槛随点随出。
               </p>
             </button>
 
+            {/* Gemini */}
             <button
               type="button"
-              onClick={() => { setMode('custom'); setTestResult(null); }}
-              className={`p-3 rounded-xl border text-left transition-all ${
-                mode === 'custom'
-                  ? 'border-purple-500 bg-purple-950/40 text-white shadow-lg shadow-purple-950/30'
+              onClick={() => setEngine('gemini')}
+              className={`p-3.5 rounded-xl border text-left transition-all relative ${
+                engine === 'gemini'
+                  ? 'border-purple-500 bg-purple-950/40 text-white shadow-lg shadow-purple-950/40 ring-1 ring-purple-500'
                   : 'border-gray-800 bg-gray-950/60 text-gray-400 hover:border-gray-700'
               }`}
             >
-              <div className="font-semibold text-xs text-gray-200 mb-1">
-                🔑 自定义 Key 模式
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-bold text-sm text-purple-300">👤 Google Gemini</span>
+                <span className="bg-purple-500/20 text-purple-300 text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                  真人五官保持
+                </span>
               </div>
-              <p className="text-[11px] text-gray-400 leading-tight">
-                使用自己申请的 Gemini Key 在本地浏览器直连
+              <p className="text-xs text-gray-300 leading-relaxed">
+                精准锁定并保持本人长相与面部细节（需账户具备有效配额）。
               </p>
             </button>
           </div>
         </div>
 
-        {/* Custom Key Fields */}
-        {mode === 'custom' && (
-          <div className="space-y-4 animate-in fade-in duration-200">
+        {/* Engine Specific Settings */}
+        {engine === 'pollinations' ? (
+          <div className="space-y-3 bg-gray-950/60 border border-gray-800 rounded-xl p-4 animate-in fade-in duration-200">
+            <label className="block text-xs font-semibold text-gray-300">
+              Pollinations 模型档位
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setPollinationsModel('flux')}
+                className={`p-2.5 rounded-lg border text-xs font-medium text-left transition-all ${
+                  pollinationsModel === 'flux'
+                    ? 'border-purple-500 bg-purple-950/50 text-white'
+                    : 'border-gray-800 bg-gray-900 text-gray-400 hover:bg-gray-850'
+                }`}
+              >
+                <div className="font-semibold text-purple-200">FLUX (推荐)</div>
+                <div className="text-[11px] text-gray-400">大画质、写气质感强</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => setPollinationsModel('turbo')}
+                className={`p-2.5 rounded-lg border text-xs font-medium text-left transition-all ${
+                  pollinationsModel === 'turbo'
+                    ? 'border-purple-500 bg-purple-950/50 text-white'
+                    : 'border-gray-800 bg-gray-900 text-gray-400 hover:bg-gray-850'
+                }`}
+              >
+                <div className="font-semibold text-purple-200">Turbo (极速)</div>
+                <div className="text-[11px] text-gray-400">秒级生成出图</div>
+              </button>
+            </div>
+            <p className="text-[11px] text-emerald-400/90 pt-1">
+              ✓ 服务端已配置防并发排队机制，稳定生成 6 种风格，不会报错。
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4 bg-gray-950/60 border border-gray-800 rounded-xl p-4 animate-in fade-in duration-200">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">
-                Gemini API Key <span className="text-red-400">*</span>
+              <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+                自定义 Gemini API Key <span className="text-gray-500 font-normal">(可选，默认走服务器内置 Key)</span>
               </label>
               <div className="relative">
                 <input
                   type={showKey ? "text" : "password"}
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="AIzaSy..."
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2.5 pr-10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                  value={customGeminiKey}
+                  onChange={(e) => setCustomGeminiKey(e.target.value)}
+                  placeholder="留空则使用服务器内置 Key"
+                  className="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 pr-10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
                 />
                 <button
                   type="button"
                   onClick={() => setShowKey(!showKey)}
-                  className="absolute right-3 top-2.5 text-xs text-gray-400 hover:text-gray-200"
+                  className="absolute right-3 top-2 text-xs text-gray-400 hover:text-gray-200"
                 >
                   {showKey ? "隐藏" : "显示"}
                 </button>
               </div>
-              <p className="text-xs text-gray-400 mt-1.5">
-                <a 
-                  href="https://aistudio.google.com/app/apikey" 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="text-purple-400 hover:text-purple-300 underline"
-                >
-                  前往 Google AI Studio 免费获取 API Key ↗
-                </a>
-              </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">
-                API 代理地址 (Base URL) <span className="text-gray-500 text-xs font-normal">可选</span>
+              <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+                Gemini 模型标识
               </label>
               <input
                 type="text"
-                value={baseUrl}
-                onChange={(e) => setBaseUrl(e.target.value)}
-                placeholder="默认: https://generativelanguage.googleapis.com"
-                className="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                value={geminiModel}
+                onChange={(e) => setGeminiModel(e.target.value)}
+                placeholder="gemini-2.5-flash-image"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
               />
             </div>
-          </div>
-        )}
 
-        {mode === 'server' && (
-          <div className="bg-gray-950/80 border border-gray-800 rounded-xl p-3.5 text-xs text-gray-300 space-y-1.5">
-            <div className="flex items-center gap-1.5 text-emerald-400 font-medium">
-              <span>● 服务器状态：正常运行</span>
+            <div className="text-[11px] text-amber-300/90 bg-amber-950/30 p-2.5 rounded-lg border border-amber-900/50 leading-relaxed">
+              ⚠️ 提示：Google 官方对图像生成模型要求绑卡结算账户。若遇到配额不足，可直接切回 Pollinations.ai 免费畅享生成。
             </div>
-            <p className="text-gray-400 leading-relaxed">
-              后端节点运行于本服务器（<code className="text-purple-300">140.245.65.111.sslip.io</code>），由 PM2 守护并配置有全局 Gemini 图像生成凭据，访客可直接使用。
-            </p>
           </div>
         )}
 
-        {/* Model Selection */}
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
-            生成模型 (Model)
-          </label>
-          <input
-            type="text"
-            value={model}
-            onChange={(e) => setModel(e.target.value)}
-            placeholder="默认: gemini-2.5-flash-image"
-            className="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            支持 <code className="text-gray-400">gemini-2.5-flash-image</code>、<code className="text-gray-400">gemini-3.1-flash-image</code> 等。
-          </p>
-        </div>
-
-        {/* Test Result Display */}
+        {/* Test Connection Output */}
         {testResult && (
           <div className={`p-3 rounded-lg text-xs border ${testResult.success ? 'bg-emerald-950/60 border-emerald-800 text-emerald-300' : 'bg-rose-950/60 border-rose-800 text-rose-300'}`}>
             {testResult.message}
@@ -245,7 +228,7 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
             disabled={testing}
             className="px-3 py-2 text-xs font-medium rounded-lg border border-gray-700 hover:bg-gray-800 text-gray-300 disabled:opacity-50 transition-colors"
           >
-            {testing ? "测试中..." : "测试连接"}
+            {testing ? "测试中..." : "测试服务器连接"}
           </button>
           <div className="flex items-center gap-2">
             <button
@@ -260,7 +243,7 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({
               onClick={handleSave}
               className="px-5 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-lg shadow-purple-600/30 transition-all"
             >
-              保存配置
+              保存并应用
             </button>
           </div>
         </div>

@@ -1,3 +1,5 @@
+export type EngineType = 'pollinations' | 'gemini';
+
 export interface StyleConfig {
   id: string;
   title: string;
@@ -15,8 +17,8 @@ export interface GeneratedImage {
 }
 
 export interface ApiConfig {
-  mode: 'server' | 'custom';
-  apiKey: string;
-  baseUrl: string;
-  model: string;
+  engine: EngineType;
+  pollinationsModel: string;
+  geminiModel: string;
+  customGeminiKey: string;
 }

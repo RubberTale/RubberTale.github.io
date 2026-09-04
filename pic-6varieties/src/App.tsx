@@ -3,44 +3,51 @@ import UploadZone from './components/UploadZone';
 import ResultCard from './components/ResultCard';
 import ApiKeyModal from './components/ApiKeyModal';
 import { PHOTO_STYLES } from './constants';
-import { GeneratedImage, ApiConfig } from './types';
+import { GeneratedImage, ApiConfig, EngineType } from './types';
 import { generatePortrait } from './services/geminiService';
 
-const STORAGE_KEY_MODE = 'pic6_api_mode';
-const STORAGE_KEY_API_KEY = 'pic6_gemini_api_key';
-const STORAGE_KEY_BASE_URL = 'pic6_gemini_base_url';
-const STORAGE_KEY_MODEL = 'pic6_gemini_model';
+const STORAGE_KEY_ENGINE = 'pic6_engine';
+const STORAGE_KEY_POLLI_MODEL = 'pic6_polli_model';
+const STORAGE_KEY_GEMINI_MODEL = 'pic6_gemini_model';
+const STORAGE_KEY_CUSTOM_KEY = 'pic6_custom_gemini_key';
 
 const App: React.FC = () => {
   const [sourceImage, setSourceImage] = useState<string | null>(null);
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [apiConfig, setApiConfig] = useState<ApiConfig>({
-    mode: 'server',
-    apiKey: '',
-    baseUrl: '',
-    model: 'gemini-2.5-flash-image'
+    engine: 'pollinations',
+    pollinationsModel: 'flux',
+    geminiModel: 'gemini-2.5-flash-image',
+    customGeminiKey: ''
   });
 
   // Load configuration from localStorage on mount
   useEffect(() => {
-    const savedMode = (localStorage.getItem(STORAGE_KEY_MODE) as 'server' | 'custom') || 'server';
-    const savedKey = localStorage.getItem(STORAGE_KEY_API_KEY) || '';
-    const savedBase = localStorage.getItem(STORAGE_KEY_BASE_URL) || '';
-    const savedModel = localStorage.getItem(STORAGE_KEY_MODEL) || 'gemini-2.5-flash-image';
+    const savedEngine = (localStorage.getItem(STORAGE_KEY_ENGINE) as EngineType) || 'pollinations';
+    const savedPolliModel = localStorage.getItem(STORAGE_KEY_POLLI_MODEL) || 'flux';
+    const savedGeminiModel = localStorage.getItem(STORAGE_KEY_GEMINI_MODEL) || 'gemini-2.5-flash-image';
+    const savedCustomKey = localStorage.getItem(STORAGE_KEY_CUSTOM_KEY) || '';
+
     setApiConfig({
-      mode: savedMode,
-      apiKey: savedKey,
-      baseUrl: savedBase,
-      model: savedModel
+      engine: savedEngine,
+      pollinationsModel: savedPolliModel,
+      geminiModel: savedGeminiModel,
+      customGeminiKey: savedCustomKey
     });
   }, []);
 
   const handleSaveConfig = (newConfig: ApiConfig) => {
     setApiConfig(newConfig);
-    localStorage.setItem(STORAGE_KEY_MODE, newConfig.mode);
-    localStorage.setItem(STORAGE_KEY_API_KEY, newConfig.apiKey);
-    localStorage.setItem(STORAGE_KEY_BASE_URL, newConfig.baseUrl);
-    localStorage.setItem(STORAGE_KEY_MODEL, newConfig.model);
+    localStorage.setItem(STORAGE_KEY_ENGINE, newConfig.engine);
+    localStorage.setItem(STORAGE_KEY_POLLI_MODEL, newConfig.pollinationsModel);
+    localStorage.setItem(STORAGE_KEY_GEMINI_MODEL, newConfig.geminiModel);
+    localStorage.setItem(STORAGE_KEY_CUSTOM_KEY, newConfig.customGeminiKey);
+  };
+
+  const handleSwitchEngine = (newEngine: EngineType) => {
+    const updated = { ...apiConfig, engine: newEngine };
+    setApiConfig(updated);
+    localStorage.setItem(STORAGE_KEY_ENGINE, newEngine);
   };
 
   const [results, setResults] = useState<GeneratedImage[]>(
@@ -82,11 +89,6 @@ const App: React.FC = () => {
   const handleImageSelect = (base64: string) => {
     setSourceImage(base64);
 
-    if (apiConfig.mode === 'custom' && !apiConfig.apiKey.trim()) {
-      setIsConfigOpen(true);
-      return;
-    }
-
     // Reset results & trigger generation for each style
     setResults(prevResults => prevResults.map(r => ({
       ...r,
@@ -102,10 +104,6 @@ const App: React.FC = () => {
 
   const handleRegenerateSingle = (styleId: string) => {
     if (!sourceImage) return;
-    if (apiConfig.mode === 'custom' && !apiConfig.apiKey.trim()) {
-      setIsConfigOpen(true);
-      return;
-    }
     const style = PHOTO_STYLES.find(s => s.id === styleId);
     if (style) {
       generateSingleStyle(sourceImage, style.id, style.prompt, apiConfig);
@@ -114,10 +112,6 @@ const App: React.FC = () => {
 
   const handleRegenerateAll = () => {
     if (!sourceImage) return;
-    if (apiConfig.mode === 'custom' && !apiConfig.apiKey.trim()) {
-      setIsConfigOpen(true);
-      return;
-    }
     PHOTO_STYLES.forEach(style => {
       generateSingleStyle(sourceImage, style.id, style.prompt, apiConfig);
     });
@@ -148,24 +142,28 @@ const App: React.FC = () => {
                 AI Portrait Studio
               </span>
               <span className="text-[11px] text-gray-400 hidden sm:block">
-                6 种风格人像写真工坊
+                双引擎人像写真工坊
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Quick Engine Status / Switch */}
             <button
               onClick={() => setIsConfigOpen(true)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-gray-700 bg-gray-900/80 hover:bg-gray-800 text-xs font-medium transition-all text-gray-200"
             >
               <span className={`w-2 h-2 rounded-full ${
-                apiConfig.mode === 'server'
+                apiConfig.engine === 'pollinations'
                   ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]'
-                  : apiConfig.apiKey
-                    ? 'bg-purple-400'
-                    : 'bg-amber-400 animate-pulse'
+                  : 'bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]'
               }`}></span>
-              <span>{apiConfig.mode === 'server' ? '服务器后端 (免Key)' : '自定义 Key'}</span>
+              <span>
+                {apiConfig.engine === 'pollinations' 
+                  ? `🎨 Pollinations (${apiConfig.pollinationsModel.toUpperCase()})` 
+                  : '👤 Google Gemini'}
+              </span>
+              <span className="text-gray-500 text-[10px]">⚙️</span>
             </button>
             <a
               href="/"
@@ -179,33 +177,42 @@ const App: React.FC = () => {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
-        {/* Banner if Custom mode without key */}
-        {apiConfig.mode === 'custom' && !apiConfig.apiKey && (
-          <div className="mb-8 p-4 rounded-2xl bg-amber-950/30 border border-amber-800/60 text-amber-200 text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
-            <div className="flex items-center gap-2.5">
-              <span className="text-lg">💡</span>
-              <span>
-                当前处于自定义模式：请填写您的 <strong>Google Gemini API Key</strong>，或切换回【服务器免Key模式】。
-              </span>
-            </div>
-            <button
-              onClick={() => setIsConfigOpen(true)}
-              className="px-4 py-1.5 rounded-xl bg-amber-500 text-black font-semibold text-xs hover:bg-amber-400 transition-colors whitespace-nowrap shadow"
-            >
-              配置设置
-            </button>
-          </div>
-        )}
-
-        {/* Hero & Upload */}
-        <div className="text-center mb-12">
+        {/* Hero Section */}
+        <div className="text-center mb-10">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-100 to-purple-400 mb-4">
             专业多风格 AI 肖像写真
           </h1>
           <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            上传一张您的个人正脸或半身照片，由 Gemini 自动生成职场、商业时尚、美术馆街拍、黑白艺术、好莱坞复古、夏日海滩 6 种不同场景写真。
+            上传个人照片，一键生成职场肖像、时尚商业、美术馆街拍、黑白艺术、好莱坞复古、夏日海滩 6 种场景摄影大片。
           </p>
 
+          {/* Engine Selector Pills */}
+          <div className="inline-flex p-1.5 bg-gray-900/90 border border-gray-800 rounded-2xl shadow-xl max-w-md mx-auto mb-8">
+            <button
+              onClick={() => handleSwitchEngine('pollinations')}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-xl text-xs font-semibold transition-all ${
+                apiConfig.engine === 'pollinations'
+                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-600/30'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <span>🎨 Pollinations.ai</span>
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">免费免Key</span>
+            </button>
+            <button
+              onClick={() => handleSwitchEngine('gemini')}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-xl text-xs font-semibold transition-all ${
+                apiConfig.engine === 'gemini'
+                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-600/30'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <span>👤 Google Gemini</span>
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">真人锁脸</span>
+            </button>
+          </div>
+
+          {/* Upload Area */}
           <div className="flex flex-col md:flex-row gap-6 items-center justify-center max-w-3xl mx-auto">
             {sourceImage && (
               <div className="w-40 sm:w-44 shrink-0 animate-in fade-in zoom-in duration-300">
@@ -265,7 +272,7 @@ const App: React.FC = () => {
       {/* Footer */}
       <footer className="border-t border-gray-900 py-8 text-center text-xs text-gray-600">
         <p>
-          由 Google Gemini 提供图像生成能力 · 服务器节点支持全球/国内加速访问
+          双引擎驱动：Pollinations.ai（开源 FLUX/Turbo） + Google Gemini（多模态人像）
         </p>
         <p className="mt-1">
           &copy; {new Date().getFullYear()} 橡胶童话 (RubberTale) · All Rights Reserved
