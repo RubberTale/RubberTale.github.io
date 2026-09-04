@@ -17,7 +17,7 @@ const App: React.FC = () => {
   const [sourceImage, setSourceImage] = useState<string | null>(null);
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [apiConfig, setApiConfig] = useState<ApiConfig>({
-    engine: 'pollinations',
+    engine: 'huggingface',
     pollinationsModel: 'flux',
     hfModel: 'black-forest-labs/FLUX.1-schnell',
     customHfToken: '',
@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   // Load configuration from localStorage on mount
   useEffect(() => {
-    const savedEngine = (localStorage.getItem(STORAGE_KEY_ENGINE) as EngineType) || 'pollinations';
+    const savedEngine = (localStorage.getItem(STORAGE_KEY_ENGINE) as EngineType) || 'huggingface';
     const savedPolliModel = localStorage.getItem(STORAGE_KEY_POLLI_MODEL) || 'flux';
     const savedHfModel = localStorage.getItem(STORAGE_KEY_HF_MODEL) || 'black-forest-labs/FLUX.1-schnell';
     const savedCustomHfToken = localStorage.getItem(STORAGE_KEY_CUSTOM_HF_TOKEN) || '';
