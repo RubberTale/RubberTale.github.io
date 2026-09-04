@@ -8,6 +8,8 @@ import { generatePortrait } from './services/geminiService';
 
 const STORAGE_KEY_ENGINE = 'pic6_engine';
 const STORAGE_KEY_POLLI_MODEL = 'pic6_polli_model';
+const STORAGE_KEY_HF_MODEL = 'pic6_hf_model';
+const STORAGE_KEY_CUSTOM_HF_TOKEN = 'pic6_custom_hf_token';
 const STORAGE_KEY_GEMINI_MODEL = 'pic6_gemini_model';
 const STORAGE_KEY_CUSTOM_KEY = 'pic6_custom_gemini_key';
 
@@ -17,6 +19,8 @@ const App: React.FC = () => {
   const [apiConfig, setApiConfig] = useState<ApiConfig>({
     engine: 'pollinations',
     pollinationsModel: 'flux',
+    hfModel: 'black-forest-labs/FLUX.1-schnell',
+    customHfToken: '',
     geminiModel: 'gemini-2.5-flash-image',
     customGeminiKey: ''
   });
@@ -25,12 +29,16 @@ const App: React.FC = () => {
   useEffect(() => {
     const savedEngine = (localStorage.getItem(STORAGE_KEY_ENGINE) as EngineType) || 'pollinations';
     const savedPolliModel = localStorage.getItem(STORAGE_KEY_POLLI_MODEL) || 'flux';
+    const savedHfModel = localStorage.getItem(STORAGE_KEY_HF_MODEL) || 'black-forest-labs/FLUX.1-schnell';
+    const savedCustomHfToken = localStorage.getItem(STORAGE_KEY_CUSTOM_HF_TOKEN) || '';
     const savedGeminiModel = localStorage.getItem(STORAGE_KEY_GEMINI_MODEL) || 'gemini-2.5-flash-image';
     const savedCustomKey = localStorage.getItem(STORAGE_KEY_CUSTOM_KEY) || '';
 
     setApiConfig({
       engine: savedEngine,
       pollinationsModel: savedPolliModel,
+      hfModel: savedHfModel,
+      customHfToken: savedCustomHfToken,
       geminiModel: savedGeminiModel,
       customGeminiKey: savedCustomKey
     });
@@ -40,6 +48,8 @@ const App: React.FC = () => {
     setApiConfig(newConfig);
     localStorage.setItem(STORAGE_KEY_ENGINE, newConfig.engine);
     localStorage.setItem(STORAGE_KEY_POLLI_MODEL, newConfig.pollinationsModel);
+    localStorage.setItem(STORAGE_KEY_HF_MODEL, newConfig.hfModel);
+    localStorage.setItem(STORAGE_KEY_CUSTOM_HF_TOKEN, newConfig.customHfToken);
     localStorage.setItem(STORAGE_KEY_GEMINI_MODEL, newConfig.geminiModel);
     localStorage.setItem(STORAGE_KEY_CUSTOM_KEY, newConfig.customGeminiKey);
   };
@@ -142,7 +152,7 @@ const App: React.FC = () => {
                 AI Portrait Studio
               </span>
               <span className="text-[11px] text-gray-400 hidden sm:block">
-                双引擎人像写真工坊
+                多引擎人像写真工坊
               </span>
             </div>
           </div>
@@ -156,12 +166,16 @@ const App: React.FC = () => {
               <span className={`w-2 h-2 rounded-full ${
                 apiConfig.engine === 'pollinations'
                   ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]'
-                  : 'bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]'
+                  : apiConfig.engine === 'huggingface'
+                    ? 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]'
+                    : 'bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.8)]'
               }`}></span>
               <span>
                 {apiConfig.engine === 'pollinations' 
                   ? `🎨 Pollinations (${apiConfig.pollinationsModel.toUpperCase()})` 
-                  : '👤 Google Gemini'}
+                  : apiConfig.engine === 'huggingface'
+                    ? '🤗 Hugging Face (FLUX)'
+                    : '👤 Google Gemini'}
               </span>
               <span className="text-gray-500 text-[10px]">⚙️</span>
             </button>
@@ -186,29 +200,40 @@ const App: React.FC = () => {
             上传个人照片，一键生成职场肖像、时尚商业、美术馆街拍、黑白艺术、好莱坞复古、夏日海滩 6 种场景摄影大片。
           </p>
 
-          {/* Engine Selector Pills */}
-          <div className="inline-flex p-1.5 bg-gray-900/90 border border-gray-800 rounded-2xl shadow-xl max-w-md mx-auto mb-8">
+          {/* Engine Selector Pills (3 Engines) */}
+          <div className="inline-flex p-1.5 bg-gray-900/90 border border-gray-800 rounded-2xl shadow-xl max-w-xl mx-auto mb-8 overflow-x-auto">
             <button
               onClick={() => handleSwitchEngine('pollinations')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-xl text-xs font-semibold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 sm:px-4 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 apiConfig.engine === 'pollinations'
                   ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-600/30'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
               <span>🎨 Pollinations.ai</span>
-              <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">免费免Key</span>
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full hidden sm:inline">免费</span>
+            </button>
+            <button
+              onClick={() => handleSwitchEngine('huggingface')}
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 sm:px-4 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                apiConfig.engine === 'huggingface'
+                  ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-lg shadow-amber-600/30'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <span>🤗 Hugging Face</span>
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full hidden sm:inline">FLUX.1</span>
             </button>
             <button
               onClick={() => handleSwitchEngine('gemini')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-xl text-xs font-semibold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 sm:px-4 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                 apiConfig.engine === 'gemini'
                   ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-600/30'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
               <span>👤 Google Gemini</span>
-              <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">真人锁脸</span>
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full hidden sm:inline">锁脸</span>
             </button>
           </div>
 
@@ -272,7 +297,7 @@ const App: React.FC = () => {
       {/* Footer */}
       <footer className="border-t border-gray-900 py-8 text-center text-xs text-gray-600">
         <p>
-          双引擎驱动：Pollinations.ai（开源 FLUX/Turbo） + Google Gemini（多模态人像）
+          三引擎驱动：Pollinations.ai（免费） + Hugging Face（官方 FLUX.1） + Google Gemini（多模态真人锁脸）
         </p>
         <p className="mt-1">
           &copy; {new Date().getFullYear()} 橡胶童话 (RubberTale) · All Rights Reserved

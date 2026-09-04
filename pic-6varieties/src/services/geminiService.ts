@@ -3,8 +3,9 @@ import { ApiConfig } from '../types';
 export const BACKEND_ENDPOINT = 'https://140.245.65.111.sslip.io/api/pic-6varieties/generate';
 
 /**
- * 调度后端生成写真：
+ * 统一调度后端生成写真：
  * - engine = 'pollinations'：调用免费开源 FLUX / Turbo 模型
+ * - engine = 'huggingface'：调用 Hugging Face 官方托管的 FLUX.1-schnell 模型
  * - engine = 'gemini'：调用 Google Gemini 2.5 Flash Image 真实人脸重构
  */
 export const generatePortrait = async (
@@ -13,9 +14,14 @@ export const generatePortrait = async (
   config: ApiConfig
 ): Promise<string> => {
   const engine = config.engine || 'pollinations';
-  const model = engine === 'pollinations' 
-    ? (config.pollinationsModel || 'flux') 
-    : (config.geminiModel || 'gemini-2.5-flash-image');
+  let model = '';
+  if (engine === 'pollinations') {
+    model = config.pollinationsModel || 'flux';
+  } else if (engine === 'huggingface') {
+    model = config.hfModel || 'black-forest-labs/FLUX.1-schnell';
+  } else {
+    model = config.geminiModel || 'gemini-2.5-flash-image';
+  }
 
   try {
     const response = await fetch(BACKEND_ENDPOINT, {
@@ -29,6 +35,7 @@ export const generatePortrait = async (
         engine,
         model,
         customApiKey: (config.customGeminiKey || '').trim(),
+        customHfToken: (config.customHfToken || '').trim(),
       }),
     });
 

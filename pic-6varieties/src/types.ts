@@ -1,4 +1,4 @@
-export type EngineType = 'pollinations' | 'gemini';
+export type EngineType = 'pollinations' | 'huggingface' | 'gemini';
 
 export interface StyleConfig {
   id: string;
@@ -21,4 +21,6 @@ export interface ApiConfig {
   pollinationsModel: string;
   geminiModel: string;
   customGeminiKey: string;
+  hfModel: string;
+  customHfToken: string;
 }
