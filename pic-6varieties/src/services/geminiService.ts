@@ -1,16 +1,48 @@
 import { ApiConfig } from '../types';
 
+export const SERVER_ENDPOINT = 'https://140.245.65.111.sslip.io/api/pic-6varieties/generate';
+
 /**
- * 直接在客户端调用 Google Gemini API 生成特定风格写真照片
+ * 生成特定风格写真照片：
+ * 1. 默认走博客专属服务器后端（免Key直接调用）；
+ * 2. 如果用户配置了自定义 API Key，则直接在客户端调用 Google Gemini 官方 API。
  */
 export const generatePortrait = async (
   base64Image: string,
   prompt: string,
   config: ApiConfig
 ): Promise<string> => {
+  // 模式 1：使用博客服务器后端
+  if (config.mode === 'server' || (!config.apiKey.trim() && config.mode !== 'custom')) {
+    const response = await fetch(SERVER_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        base64Image,
+        prompt,
+        model: config.model || 'gemini-2.5-flash-image',
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      const errMsg = errorData?.error || `后端服务响应错误 (${response.status}: ${response.statusText})`;
+      throw new Error(errMsg);
+    }
+
+    const data = await response.json();
+    if (!data.imageUrl) {
+      throw new Error("后端未返回图片内容");
+    }
+    return data.imageUrl;
+  }
+
+  // 模式 2：使用用户自定义的 Gemini API Key 直连
   const apiKey = (config.apiKey || '').trim();
   if (!apiKey) {
-    throw new Error("未检测到 API Key，请点击右上角【API Key 设置】填写您的 Google Gemini Key。");
+    throw new Error("未检测到 API Key，请点击右上角【API 设置】配置。");
   }
 
   const rawBaseUrl = (config.baseUrl || '').trim() || 'https://generativelanguage.googleapis.com';
@@ -69,14 +101,14 @@ export const generatePortrait = async (
 
     if (!candidate) {
       if (data.promptFeedback?.blockReason) {
-        throw new Error(`提示词被安全过滤拦截: ${data.promptFeedback.blockReason}`);
+        throw new Error(`提示词被安全策略拦截: ${data.promptFeedback.blockReason}`);
       }
-      throw new Error("模型未返回任何结果");
+      throw new Error("模型未返回任何有效结果");
     }
 
     if (candidate.finishReason && candidate.finishReason !== "STOP") {
       if (candidate.finishReason === "SAFETY") {
-        throw new Error("生成内容因安全审核策略被拦截 (SAFETY)");
+        throw new Error("生成内容被安全审核策略拦截 (SAFETY)");
       }
     }
 
@@ -90,7 +122,7 @@ export const generatePortrait = async (
 
       const textPart = candidate.content.parts.find((p: any) => p.text)?.text;
       if (textPart) {
-        throw new Error(`模型返回说明而非图片: ${textPart.slice(0, 100)}...`);
+        throw new Error(`模型返回了文本而非图片: ${textPart.slice(0, 100)}...`);
       }
     }
 

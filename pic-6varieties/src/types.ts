@@ -15,6 +15,7 @@ export interface GeneratedImage {
 }
 
 export interface ApiConfig {
+  mode: 'server' | 'custom';
   apiKey: string;
   baseUrl: string;
   model: string;
