@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>红白机炸弹人 · NES Bomberman 经典复刻</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        body {
+            background-color: #0d1117;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            touch-action: none;
+        }
+        #game-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            height: 100vh;
+            max-height: 860px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            box-shadow: 0 0 35px rgba(230, 74, 25, 0.35), 0 0 80px rgba(0, 0, 0, 0.9);
+            border-radius: 8px;
+            border: 2px solid #2d3748;
+            overflow: hidden;
+        }
+        /* Top Header / HUD */
+        #hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: #111827;
+            border-bottom: 2px solid #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 11px;
+            color: #facc15;
+            text-shadow: 2px 2px #000;
+            z-index: 20;
+        }
+        .hud-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .hud-item span {
+            color: #ffffff;
+        }
+        .hud-icon-bar {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .hud-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #1f2937;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            color: #60a5fa;
+            border: 1px solid #4b5563;
+        }
+        .hud-badge.active {
+            color: #4ade80;
+            border-color: #22c55e;
+            background: #064e3b;
+        }
+
+        /* Canvas Arena */
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 48px;
+            background: #0f172a;
+            overflow: hidden;
+            padding: 8px;
+        }
+        canvas {
+            display: block;
+            background: #388e3c;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.85);
+            max-width: 100%;
+            max-height: 100%;
+            aspect-ratio: 480 / 416;
+            object-fit: contain;
+        }
+
+        /* CRT Filter */
+        .crt::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 25;
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Overlay Screens */
+        .overlay-screen {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            padding: 20px;
+            text-align: center;
+        }
+        .overlay-screen.hidden {
+            display: none !important;
+        }
+        .game-title {
+            font-size: 26px;
+            color: #ef4444;
+            text-shadow: 3px 3px #fbbf24, 6px 6px #000;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            animation: titlePulse 1.5s infinite alternate ease-in-out;
+        }
+        @keyframes titlePulse {
+            0% { transform: scale(0.98); }
+            100% { transform: scale(1.03); }
+        }
+        .subtitle {
+            font-size: 10px;
+            color: #93c5fd;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+        .start-prompt {
+            font-size: 13px;
+            color: #ffffff;
+            margin: 20px 0;
+            animation: blink 0.8s infinite steps(1);
+            cursor: pointer;
+            background: #dc2626;
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: 2px solid #fecaca;
+            box-shadow: 0 4px 0 #991b1b;
+        }
+        .start-prompt:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #991b1b;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .instructions {
+            font-size: 8px;
+            color: #cbd5e1;
+            line-height: 1.9;
+            background: #1e293b;
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            max-width: 480px;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .instructions span {
+            color: #f59e0b;
+        }
+
+        /* Mobile Controls */
+        #touch-controls {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            right: 0;
+            display: none;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 16px;
+            z-index: 35;
+            pointer-events: none;
+        }
+        .dpad-zone {
+            width: 140px;
+            height: 140px;
+            position: relative;
+            pointer-events: auto;
+        }
+        .dpad-btn {
+            position: absolute;
+            background: rgba(55, 65, 81, 0.75);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            touch-action: none;
+        }
+        .dpad-btn:active, .dpad-btn.pressed {
+            background: rgba(239, 68, 68, 0.85);
+            border-color: #fef08a;
+        }
+        .dpad-up { top: 0; left: 46px; width: 48px; height: 48px; }
+        .dpad-down { bottom: 0; left: 46px; width: 48px; height: 48px; }
+        .dpad-left { top: 46px; left: 0; width: 48px; height: 48px; }
+        .dpad-right { top: 46px; right: 0; width: 48px; height: 48px; }
+        .dpad-center { top: 46px; left: 46px; width: 48px; height: 48px; background: #1f2937; border: none; }
+
+        .action-zone {
+            display: flex;
+            gap: 14px;
+            pointer-events: auto;
+            align-items: center;
+        }
+        .action-btn {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #dc2626;
+            border: 3px solid #fecaca;
+            color: #fff;
+            font-size: 10px;
+            font-family: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 0 #7f1d1d;
+            touch-action: none;
+        }
+        .action-btn.btn-b {
+            background: #2563eb;
+            border-color: #bfdbfe;
+            box-shadow: 0 4px 0 #1e3a8a;
+        }
+        .action-btn:active, .action-btn.pressed {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #000;
+        }
+        .action-btn span {
+            font-size: 6px;
+            margin-top: 2px;
+            opacity: 0.8;
+        }
+
+        /* Top control bar buttons */
+        .btn-mini {
+            background: #374151;
+            color: #fff;
+            border: 1px solid #6b7280;
+            padding: 4px 8px;
+            font-size: 8px;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-mini:hover {
+            background: #4b5563;
+        }
+
+        @media (max-width: 768px) {
+            #touch-controls {
+                display: flex;
+            }
+            #hud {
+                padding: 0 8px;
+                font-size: 9px;
+            }
+            .hud-badge {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-wrapper" class="crt">
+        <!-- HUD Header -->
+        <div id="hud">
+            <div class="hud-group">
+                <div class="hud-item">TIME <span id="hud-time">200</span></div>
+                <div class="hud-item">SCORE <span id="hud-score">000000</span></div>
+            </div>
+            <div class="hud-group">
+                <div class="hud-item">LEFT <span id="hud-lives">3</span></div>
+                <div class="hud-item">STAGE <span id="hud-stage">1</span></div>
+                <button id="btn-sound" class="btn-mini" title="切换音效">🔊</button>
+                <button id="btn-pause" class="btn-mini" title="暂停游戏">⏸️</button>
+            </div>
+        </div>
+
+        <!-- Canvas Game Arena -->
+        <div id="canvas-container">
+            <canvas id="gameCanvas" width="480" height="416"></canvas>
+        </div>
+
+        <!-- Title / Start Screen -->
+        <div id="screen-title" class="overlay-screen">
+            <div class="game-title">BOMBERMAN</div>
+            <div class="subtitle">红白机经典炸弹人 · 8-BIT 怀旧传奇</div>
+            <button id="btn-start" class="start-prompt">START GAME</button>
+            <div class="instructions">
+                <div>🎮 <span>操作指南</span>:</div>
+                <div>• 移动: <span>方向键 ↑ ↓ ← →</span> 或 <span>W A S D</span></div>
+                <div>• 放炸弹: <span>空格键 Space</span> 或 <span>J</span></div>
+                <div>• 引爆炸弹 (遥控器): <span>B 键</span> 或 <span>K / X</span></div>
+                <div>• 暂停: <span>P 键</span> 或 <span>Esc</span></div>
+                <div style="margin-top: 6px;">💡 <span>通关秘籍</span>: 消灭关卡中所有怪物，并在砖块中炸出隐藏的<span>传送门</span>进入下一关！小心不要用炸弹炸到传送门哦！</div>
+            </div>
+        </div>
+
+        <!-- Stage Card Screen -->
+        <div id="screen-stage" class="overlay-screen hidden">
+            <div class="game-title" id="stage-card-title" style="color: #facc15;">STAGE 1</div>
+            <div class="subtitle" id="stage-card-desc">READY... GO!</div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="screen-gameover" class="overlay-screen hidden">
+            <div class="game-title" style="color: #ef4444;">GAME OVER</div>
+            <div class="subtitle" id="gameover-score-text">FINAL SCORE: 0</div>
+            <button id="btn-restart" class="start-prompt">CONTINUE</button>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="screen-victory" class="overlay-screen hidden">
+            <div class="game-title" style="color: #10b981;">VICTORY!</div>
+            <div class="subtitle">恭喜通关所有关卡！成为炸弹人之神！</div>
+            <div class="subtitle" id="victory-score-text">TOTAL SCORE: 0</div>
+            <button id="btn-playagain" class="start-prompt">PLAY AGAIN</button>
+        </div>
+
+        <!-- Mobile Touch Controls -->
+        <div id="touch-controls">
+            <div class="dpad-zone">
+                <div class="dpad-btn dpad-up" data-dir="up">▲</div>
+                <div class="dpad-btn dpad-down" data-dir="down">▼</div>
+                <div class="dpad-btn dpad-left" data-dir="left">◀</div>
+                <div class="dpad-btn dpad-right" data-dir="right">▶</div>
+                <div class="dpad-center"></div>
+            </div>
+            <div class="action-zone">
+                <button class="action-btn btn-b" id="touch-detonate">B<span>引爆</span></button>
+                <button class="action-btn" id="touch-bomb">A<span>炸弹</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    /* ==========================================================
+       NES BOMBERMAN Web Audio Chiptune Synthesizer
+       ========================================================== */
+    class RetroAudio {
+        constructor() {
+            this.ctx = null;
+            this.enabled = true;
+            this.bgmPlaying = false;
+            this.bgmTimer = null;
+            this.bgmStep = 0;
+        }
+
+        init() {
+            if (!this.ctx) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext || window.audioContext;
+                if (typeof AudioCtx === 'function') {
+                    try {
+                        this.ctx = new AudioCtx();
+                    } catch (e) {
+                        this.ctx = null;
+                    }
+                }
+            }
+            if (this.ctx && this.ctx.state === 'suspended') {
+                this.ctx.resume().catch(() => {});
+            }
+        }
+
+        playTone(freq, duration, type = 'square', gainVal = 0.1, decay = true) {
+            if (!this.enabled) return;
+            this.init();
+            try {
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+                if (decay) {
+                    gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+                }
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        playNoise(duration = 0.25, gainVal = 0.2, filterFreq = 800) {
+            if (!this.enabled) return;
+            this.init();
+            try {
+                const bufferSize = this.ctx.sampleRate * duration;
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(filterFreq, this.ctx.currentTime);
+                filter.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + duration);
+
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+
+                noise.start();
+                noise.stop(this.ctx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        sfxDropBomb() {
+            if (!this.enabled) return;
+            this.playTone(320, 0.08, 'triangle', 0.18);
+            setTimeout(() => this.playTone(480, 0.08, 'triangle', 0.15), 50);
+        }
+
+        sfxExplode() {
+            if (!this.enabled) return;
+            this.playNoise(0.45, 0.35, 1200);
+            this.playTone(90, 0.35, 'sawtooth', 0.25);
+        }
+
+        sfxPowerup() {
+            if (!this.enabled) return;
+            const notes = [330, 440, 554, 659, 880];
+            notes.forEach((freq, idx) => {
+                setTimeout(() => this.playTone(freq, 0.1, 'square', 0.12), idx * 45);
+            });
+        }
+
+        sfxHitEnemy() {
+            if (!this.enabled) return;
+            this.playTone(600, 0.08, 'square', 0.15);
+            setTimeout(() => this.playTone(300, 0.12, 'sawtooth', 0.15), 60);
+        }
+
+        sfxPlayerDie() {
+            if (!this.enabled) return;
+            const notes = [523, 493, 466, 440, 415, 392, 370, 349, 300, 200];
+            notes.forEach((freq, idx) => {
+                setTimeout(() => this.playTone(freq, 0.12, 'square', 0.15), idx * 70);
+            });
+        }
+
+        sfxStageClear() {
+            if (!this.enabled) return;
+            const tune = [
+                { f: 523, d: 0.1 }, { f: 659, d: 0.1 }, { f: 784, d: 0.1 },
+                { f: 1046, d: 0.25 }, { f: 784, d: 0.1 }, { f: 1046, d: 0.4 }
+            ];
+            let time = 0;
+            tune.forEach(note => {
+                setTimeout(() => this.playTone(note.f, note.d, 'square', 0.15), time * 1000);
+                time += note.d + 0.03;
+            });
+        }
+
+        sfxDetonate() {
+            if (!this.enabled) return;
+            this.playTone(880, 0.05, 'square', 0.12);
+            setTimeout(() => this.playTone(1200, 0.06, 'square', 0.12), 40);
+        }
+
+        startBGM() {
+            if (!this.enabled || this.bgmPlaying) return;
+            this.init();
+            this.bgmPlaying = true;
+            this.bgmStep = 0;
+
+            // Hudson Bomberman Classic Melody sequence
+            const melody = [
+                523, 0, 523, 659, 784, 0, 784, 0,
+                880, 784, 659, 523, 587, 0, 587, 0,
+                587, 0, 587, 698, 784, 0, 784, 0,
+                880, 784, 587, 493, 523, 0, 523, 0
+            ];
+            const bass = [
+                261, 261, 329, 392, 261, 261, 329, 392,
+                293, 293, 349, 440, 246, 246, 293, 392
+            ];
+
+            const tick = () => {
+                if (!this.bgmPlaying) return;
+                const mFreq = melody[this.bgmStep % melody.length];
+                const bFreq = bass[Math.floor(this.bgmStep / 2) % bass.length];
+
+                if (mFreq > 0) {
+                    this.playTone(mFreq, 0.11, 'square', 0.06);
+                }
+                if (bFreq > 0 && this.bgmStep % 2 === 0) {
+                    this.playTone(bFreq, 0.14, 'triangle', 0.08);
+                }
+                if (this.bgmStep % 4 === 2) {
+                    this.playNoise(0.04, 0.03, 1000);
+                }
+
+                this.bgmStep++;
+                this.bgmTimer = setTimeout(tick, 140);
+            };
+            tick();
+        }
+
+        stopBGM() {
+            this.bgmPlaying = false;
+            if (this.bgmTimer) {
+                clearTimeout(this.bgmTimer);
+                this.bgmTimer = null;
+            }
+        }
+    }
+
+    const audio = new RetroAudio();
+
+    /* ==========================================================
+       GAME CONSTANTS & CONFIGURATION
+       ========================================================== */
+    const COLS = 15;
+    const ROWS = 13;
+    const TILE_SIZE = 32; // Canvas: 15*32 = 480, 13*32 = 416
+    const CANVAS_WIDTH = COLS * TILE_SIZE;
+    const CANVAS_HEIGHT = ROWS * TILE_SIZE;
+
+    // Tile Types
+    const TILE_EMPTY = 0;
+    const TILE_WALL = 1;     // Unbreakable concrete/metal pillar
+    const TILE_BRICK = 2;    // Destructible soft brick
+    const TILE_DOOR = 3;     // Exit Door (hidden under brick)
+    const TILE_POWERUP = 4;  // Power-up item (hidden under brick)
+
+    // Power-up Types
+    const ITEM_BOMB = 'bomb';       // +1 bomb capacity
+    const ITEM_FIRE = 'fire';       // +1 flame range
+    const ITEM_SPEED = 'speed';     // Faster run
+    const ITEM_REMOTE = 'remote';   // Manual detonation (B key)
+    const ITEM_BOMBPASS = 'bombpass';// Walk through bombs
+    const ITEM_WALLPASS = 'wallpass';// Walk through soft bricks
+    const ITEM_VEST = 'vest';       // Temporary Invincibility
+
+    // Enemy Types Config
+    const ENEMY_TYPES = {
+        ballom: { name: 'Ballom', speed: 0.9, score: 100, color: '#f97316', eyeColor: '#000', canWallPass: false, smart: 0 },
+        oneal:  { name: 'ONeal',  speed: 1.25, score: 200, color: '#38bdf8', eyeColor: '#fff', canWallPass: false, smart: 1 },
+        dahl:   { name: 'Dahl',   speed: 1.45, score: 400, color: '#ef4444', eyeColor: '#fbbf24', canWallPass: false, smart: 0 },
+        minvo:  { name: 'Minvo',  speed: 1.65, score: 800, color: '#a855f7', eyeColor: '#fff', canWallPass: false, smart: 2 },
+        pass:   { name: 'Pass',   speed: 1.8,  score: 1000, color: '#f43f5e', eyeColor: '#fef08a', canWallPass: false, smart: 3 },
+        pontan: { name: 'Pontan', speed: 1.5,  score: 2000, color: '#eab308', eyeColor: '#dc2626', canWallPass: true, smart: 2 }
+    };
+
+    // Stage Configurations
+    const STAGE_CONFIGS = [
+        { enemies: [{ type: 'ballom', count: 4 }, { type: 'oneal', count: 2 }], item: ITEM_FIRE, bricks: 38 },
+        { enemies: [{ type: 'ballom', count: 3 }, { type: 'oneal', count: 3 }], item: ITEM_BOMB, bricks: 40 },
+        { enemies: [{ type: 'ballom', count: 2 }, { type: 'oneal', count: 3 }, { type: 'dahl', count: 2 }], item: ITEM_REMOTE, bricks: 42 },
+        { enemies: [{ type: 'oneal', count: 3 }, { type: 'dahl', count: 3 }, { type: 'minvo', count: 1 }], item: ITEM_SPEED, bricks: 44 },
+        { enemies: [{ type: 'dahl', count: 3 }, { type: 'minvo', count: 3 }], item: ITEM_BOMBPASS, bricks: 44 },
+        { enemies: [{ type: 'minvo', count: 4 }, { type: 'pass', count: 2 }], item: ITEM_WALLPASS, bricks: 46 },
+        { enemies: [{ type: 'minvo', count: 3 }, { type: 'pass', count: 3 }, { type: 'pontan', count: 1 }], item: ITEM_VEST, bricks: 48 },
+        { enemies: [{ type: 'pass', count: 4 }, { type: 'pontan', count: 3 }], item: ITEM_BOMB, bricks: 50 }
+    ];
+
+    /* ==========================================================
+       GAME STATE
+       ========================================================== */
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let gameState = 'title'; // 'title', 'stage_card', 'playing', 'gameover', 'victory', 'paused'
+    let currentStage = 1;
+    let score = 0;
+    let lives = 3;
+    let timeRemaining = 200;
+    let timerInterval = null;
+
+    let grid = [];
+    let hiddenItems = {}; // key: "c,r" -> { type: 'door' | 'powerup', itemType: ITEM_* }
+    let revealedItems = []; // [{ c, r, type, itemType }]
+    let bombs = [];
+    let explosions = [];
+    let enemies = [];
+    let particles = [];
+    let player = null;
+
+    // Keys State
+    const keys = {
+        up: false, down: false, left: false, right: false,
+        bomb: false, detonate: false
+    };
+
+    /* ==========================================================
+       PLAYER CLASS
+       ========================================================== */
+    class Player {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.width = 24;
+            this.height = 24;
+            this.baseSpeed = 2.1;
+            this.speed = this.baseSpeed;
+            this.dir = 'down'; // 'up', 'down', 'left', 'right'
+            this.animFrame = 0;
+            this.animTimer = 0;
+            this.isMoving = false;
+            this.dead = false;
+            this.deathTimer = 0;
+
+            // Powerups
+            this.maxBombs = 1;
+            this.bombRange = 1;
+            this.hasRemote = false;
+            this.canPassBombs = false;
+            this.canPassWalls = false;
+            this.invincibleTimer = 0; // frames of invulnerability
+        }
+
+        reset(x, y) {
+            this.x = x;
+            this.y = y;
+            this.dir = 'down';
+            this.dead = false;
+            this.deathTimer = 0;
+            this.invincibleTimer = 90; // brief grace period
+        }
+
+        update() {
+            if (this.dead) {
+                this.deathTimer++;
+                return;
+            }
+
+            if (this.invincibleTimer > 0) {
+                this.invincibleTimer--;
+            }
+
+            let vx = 0;
+            let vy = 0;
+
+            if (keys.up) { vy -= 1; this.dir = 'up'; }
+            else if (keys.down) { vy += 1; this.dir = 'down'; }
+            else if (keys.left) { vx -= 1; this.dir = 'left'; }
+            else if (keys.right) { vx += 1; this.dir = 'right'; }
+
+            this.isMoving = (vx !== 0 || vy !== 0);
+
+            if (this.isMoving) {
+                this.animTimer++;
+                if (this.animTimer > 6) {
+                    this.animFrame = (this.animFrame + 1) % 4;
+                    this.animTimer = 0;
+                }
+
+                // Apply corner-assist / lane sliding for crisp retro controls
+                this.moveWithCornerAssist(vx, vy);
+            } else {
+                this.animFrame = 0;
+            }
+
+            // Check contact with revealed powerup or exit door
+            const centerC = Math.floor((this.x + this.width / 2) / TILE_SIZE);
+            const centerR = Math.floor((this.y + this.height / 2) / TILE_SIZE);
+
+            // Pickup power-up
+            for (let i = revealedItems.length - 1; i >= 0; i--) {
+                const it = revealedItems[i];
+                if (it.c === centerC && it.r === centerR) {
+                    if (it.type === 'powerup') {
+                        this.applyPowerup(it.itemType);
+                        revealedItems.splice(i, 1);
+                        createFloatingText(centerC * TILE_SIZE + 16, centerR * TILE_SIZE, it.itemType.toUpperCase(), '#38bdf8');
+                        audio.sfxPowerup();
+                        addScore(1000);
+                    } else if (it.type === 'door') {
+                        // Exit Door
+                        if (enemies.length === 0) {
+                            stageClear();
+                        }
+                    }
+                }
+            }
+        }
+
+        applyPowerup(type) {
+            switch (type) {
+                case ITEM_BOMB:
+                    this.maxBombs = Math.min(8, this.maxBombs + 1);
+                    break;
+                case ITEM_FIRE:
+                    this.bombRange = Math.min(6, this.bombRange + 1);
+                    break;
+                case ITEM_SPEED:
+                    this.speed = Math.min(3.6, this.speed + 0.35);
+                    break;
+                case ITEM_REMOTE:
+                    this.hasRemote = true;
+                    break;
+                case ITEM_BOMBPASS:
+                    this.canPassBombs = true;
+                    break;
+                case ITEM_WALLPASS:
+                    this.canPassWalls = true;
+                    break;
+                case ITEM_VEST:
+                    this.invincibleTimer = 60 * 15; // 15 seconds
+                    break;
+            }
+        }
+
+        moveWithCornerAssist(vx, vy) {
+            const moveDist = this.speed;
+            const targetX = this.x + vx * moveDist;
+            const targetY = this.y + vy * moveDist;
+
+            // Attempt direct move
+            if (this.canMoveTo(targetX, targetY)) {
+                this.x = targetX;
+                this.y = targetY;
+                return;
+            }
+
+            // Corner sliding assist when moving horizontally into a corridor
+            const alignTolerance = 12;
+            if (vx !== 0) {
+                const currentCenterY = this.y + this.height / 2;
+                const tileY = Math.floor(currentCenterY / TILE_SIZE) * TILE_SIZE + (TILE_SIZE - this.height) / 2;
+                const diff = tileY - this.y;
+                if (Math.abs(diff) <= alignTolerance) {
+                    const slideY = this.y + Math.sign(diff) * Math.min(Math.abs(diff), moveDist);
+                    if (this.canMoveTo(targetX, slideY)) {
+                        this.x = targetX;
+                        this.y = slideY;
+                        return;
+                    }
+                }
+            }
+
+            // Corner sliding assist when moving vertically into a corridor
+            if (vy !== 0) {
+                const currentCenterX = this.x + this.width / 2;
+                const tileX = Math.floor(currentCenterX / TILE_SIZE) * TILE_SIZE + (TILE_SIZE - this.width) / 2;
+                const diff = tileX - this.x;
+                if (Math.abs(diff) <= alignTolerance) {
+                    const slideX = this.x + Math.sign(diff) * Math.min(Math.abs(diff), moveDist);
+                    if (this.canMoveTo(slideX, targetY)) {
+                        this.x = slideX;
+                        this.y = targetY;
+                        return;
+                    }
+                }
+            }
+        }
+
+        canMoveTo(newX, newY) {
+            // Screen boundaries
+            if (newX < TILE_SIZE || newX + this.width > (COLS - 1) * TILE_SIZE) return false;
+            if (newY < TILE_SIZE || newY + this.height > (ROWS - 1) * TILE_SIZE) return false;
+
+            // Check overlapping tiles (4 bounding box corners)
+            const margin = 2;
+            const left = Math.floor((newX + margin) / TILE_SIZE);
+            const right = Math.floor((newX + this.width - margin) / TILE_SIZE);
+            const top = Math.floor((newY + margin) / TILE_SIZE);
+            const bottom = Math.floor((newY + this.height - margin) / TILE_SIZE);
+
+            for (let r = top; r <= bottom; r++) {
+                for (let c = left; c <= right; c++) {
+                    const tile = grid[r][c];
+                    if (tile === TILE_WALL) return false;
+                    if (tile === TILE_BRICK && !this.canPassWalls) return false;
+
+                    // Bomb collision check
+                    if (!this.canPassBombs) {
+                        for (const b of bombs) {
+                            if (b.col === c && b.row === r) {
+                                // If bomb is solid (player has left its bounding area), block entry
+                                if (!b.overlapsPlayer) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        draw() {
+            ctx.save();
+            // Invincibility flash
+            if (this.invincibleTimer > 0 && Math.floor(this.invincibleTimer / 4) % 2 === 0) {
+                ctx.globalAlpha = 0.45;
+            }
+
+            if (this.dead) {
+                // Death melting/spinning animation
+                const frame = Math.min(5, Math.floor(this.deathTimer / 8));
+                ctx.fillStyle = '#f87171';
+                ctx.beginPath();
+                ctx.arc(this.x + 12, this.y + 12, Math.max(2, 12 - frame * 2), 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+                return;
+            }
+
+            // Draw Pixel Bomberman Sprite
+            const px = Math.round(this.x);
+            const py = Math.round(this.y);
+
+            // Head / Helmet (White with Pink brim)
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(px + 4, py + 2, 16, 12);
+            // Visor (Pink/Magenta face shield)
+            ctx.fillStyle = '#ec4899';
+            ctx.fillRect(px + 6, py + 5, 12, 6);
+            // Eyes
+            ctx.fillStyle = '#0f172a';
+            if (this.dir === 'left') {
+                ctx.fillRect(px + 7, py + 7, 2, 3);
+            } else if (this.dir === 'right') {
+                ctx.fillRect(px + 15, py + 7, 2, 3);
+            } else {
+                ctx.fillRect(px + 8, py + 7, 2, 3);
+                ctx.fillRect(px + 14, py + 7, 2, 3);
+            }
+            // Antenna Pom-pom
+            ctx.fillStyle = '#f43f5e';
+            ctx.fillRect(px + 10, py, 4, 3);
+
+            // Body (Cyan/Blue suit)
+            ctx.fillStyle = '#0284c7';
+            ctx.fillRect(px + 6, py + 14, 12, 6);
+            // Belt
+            ctx.fillStyle = '#000';
+            ctx.fillRect(px + 6, py + 17, 12, 2);
+
+            // Hands & Feet (Pink)
+            ctx.fillStyle = '#f43f5e';
+            const stepOffset = (this.animFrame % 2 === 1 && this.isMoving) ? 2 : 0;
+            // Left foot
+            ctx.fillRect(px + 5, py + 20 - stepOffset, 5, 4);
+            // Right foot
+            ctx.fillRect(px + 14, py + 20 + stepOffset, 5, 4);
+
+            ctx.restore();
+        }
+    }
+
+    /* ==========================================================
+       ENEMY CLASS
+       ========================================================== */
+    class Enemy {
+        constructor(x, y, typeKey) {
+            this.x = x;
+            this.y = y;
+            this.width = 24;
+            this.height = 24;
+            this.typeKey = typeKey;
+            const config = ENEMY_TYPES[typeKey] || ENEMY_TYPES.ballom;
+            this.config = config;
+            this.speed = config.speed;
+            this.color = config.color;
+            this.score = config.score;
+            this.dir = ['up', 'down', 'left', 'right'][Math.floor(Math.random() * 4)];
+            this.dead = false;
+            this.deathTimer = 0;
+            this.animTimer = 0;
+            this.animFrame = 0;
+            this.changeDirTimer = Math.floor(Math.random() * 60) + 30;
+        }
+
+        update() {
+            if (this.dead) {
+                this.deathTimer++;
+                return;
+            }
+
+            this.animTimer++;
+            if (this.animTimer > 8) {
+                this.animFrame = (this.animFrame + 1) % 2;
+                this.animTimer = 0;
+            }
+
+            this.changeDirTimer--;
+
+            // AI Decision Making
+            if (this.changeDirTimer <= 0 || this.atIntersection()) {
+                this.decideDirection();
+                this.changeDirTimer = Math.floor(Math.random() * 60) + 30;
+            }
+
+            // Move in chosen direction
+            const moved = this.moveInDirection(this.dir);
+            if (!moved) {
+                this.decideDirection(true);
+            }
+
+            // Collision with Player
+            if (!player.dead && player.invincibleTimer <= 0) {
+                if (checkRectOverlap(this.x + 4, this.y + 4, 16, 16, player.x + 4, player.y + 4, 16, 16)) {
+                    killPlayer();
+                }
+            }
+        }
+
+        atIntersection() {
+            const cx = Math.floor((this.x + this.width / 2) / TILE_SIZE) * TILE_SIZE + 4;
+            const cy = Math.floor((this.y + this.height / 2) / TILE_SIZE) * TILE_SIZE + 4;
+            return Math.abs(this.x - cx) < 2 && Math.abs(this.y - cy) < 2;
+        }
+
+        decideDirection(forced = false) {
+            const possibleDirs = ['up', 'down', 'left', 'right'].filter(d => this.canMove(d));
+            if (possibleDirs.length === 0) return;
+
+            // Smart tracker
+            if (this.config.smart > 0 && Math.random() < (this.config.smart * 0.3) && !player.dead) {
+                const dx = player.x - this.x;
+                const dy = player.y - this.y;
+                let preferred = [];
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    preferred = dx > 0 ? ['right', 'down', 'up', 'left'] : ['left', 'down', 'up', 'right'];
+                } else {
+                    preferred = dy > 0 ? ['down', 'right', 'left', 'up'] : ['up', 'right', 'left', 'down'];
+                }
+                const best = preferred.find(d => possibleDirs.includes(d));
+                if (best) {
+                    this.dir = best;
+                    return;
+                }
+            }
+
+            // Normal roaming
+            if (forced || !possibleDirs.includes(this.dir) || Math.random() < 0.25) {
+                this.dir = possibleDirs[Math.floor(Math.random() * possibleDirs.length)];
+            }
+        }
+
+        canMove(dir) {
+            let vx = 0, vy = 0;
+            if (dir === 'up') vy = -1;
+            else if (dir === 'down') vy = 1;
+            else if (dir === 'left') vx = -1;
+            else if (dir === 'right') vx = 1;
+
+            const nextX = this.x + vx * 4;
+            const nextY = this.y + vy * 4;
+
+            if (nextX < TILE_SIZE || nextX + this.width > (COLS - 1) * TILE_SIZE) return false;
+            if (nextY < TILE_SIZE || nextY + this.height > (ROWS - 1) * TILE_SIZE) return false;
+
+            const left = Math.floor((nextX + 2) / TILE_SIZE);
+            const right = Math.floor((nextX + this.width - 2) / TILE_SIZE);
+            const top = Math.floor((nextY + 2) / TILE_SIZE);
+            const bottom = Math.floor((nextY + this.height - 2) / TILE_SIZE);
+
+            for (let r = top; r <= bottom; r++) {
+                for (let c = left; c <= right; c++) {
+                    const tile = grid[r][c];
+                    if (tile === TILE_WALL) return false;
+                    if (tile === TILE_BRICK && !this.config.canWallPass) return false;
+                    // Bomb obstacle
+                    for (const b of bombs) {
+                        if (b.col === c && b.row === r) return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        moveInDirection(dir) {
+            let vx = 0, vy = 0;
+            if (dir === 'up') vy = -1;
+            else if (dir === 'down') vy = 1;
+            else if (dir === 'left') vx = -1;
+            else if (dir === 'right') vx = 1;
+
+            const nx = this.x + vx * this.speed;
+            const ny = this.y + vy * this.speed;
+
+            if (nx < TILE_SIZE || nx + this.width > (COLS - 1) * TILE_SIZE) return false;
+            if (ny < TILE_SIZE || ny + this.height > (ROWS - 1) * TILE_SIZE) return false;
+
+            const left = Math.floor((nx + 2) / TILE_SIZE);
+            const right = Math.floor((nx + this.width - 2) / TILE_SIZE);
+            const top = Math.floor((ny + 2) / TILE_SIZE);
+            const bottom = Math.floor((ny + this.height - 2) / TILE_SIZE);
+
+            for (let r = top; r <= bottom; r++) {
+                for (let c = left; c <= right; c++) {
+                    const tile = grid[r][c];
+                    if (tile === TILE_WALL) return false;
+                    if (tile === TILE_BRICK && !this.config.canWallPass) return false;
+                    for (const b of bombs) {
+                        if (b.col === c && b.row === r) return false;
+                    }
+                }
+            }
+
+            this.x = nx;
+            this.y = ny;
+            return true;
+        }
+
+        draw() {
+            ctx.save();
+            const px = Math.round(this.x);
+            const py = Math.round(this.y);
+
+            if (this.dead) {
+                // Death spin
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(px + 4, py + 4, 16, 16);
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(px + 8, py + 8, 8, 8);
+                ctx.restore();
+                return;
+            }
+
+            // Draw Cute Retro Monster Body
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(px + 12, py + 12, 11, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Monster Details
+            if (this.typeKey === 'ballom') {
+                // Ballom eyes
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(px + 6, py + 8, 4, 5);
+                ctx.fillRect(px + 14, py + 8, 4, 5);
+                ctx.fillStyle = '#000';
+                ctx.fillRect(px + 8, py + 9, 2, 3);
+                ctx.fillRect(px + 14, py + 9, 2, 3);
+            } else if (this.typeKey === 'oneal') {
+                // Onion antennae
+                ctx.fillStyle = '#38bdf8';
+                ctx.fillRect(px + 10, py + 1, 4, 4);
+                // Eyes
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(px + 6, py + 9, 4, 4);
+                ctx.fillRect(px + 14, py + 9, 4, 4);
+                ctx.fillStyle = '#0369a1';
+                ctx.fillRect(px + 7, py + 10, 2, 2);
+                ctx.fillRect(px + 15, py + 10, 2, 2);
+            } else if (this.typeKey === 'dahl') {
+                // Barrel stripes
+                ctx.fillStyle = '#b91c1c';
+                ctx.fillRect(px + 4, py + 7, 16, 3);
+                ctx.fillRect(px + 4, py + 15, 16, 3);
+                ctx.fillStyle = '#fef08a';
+                ctx.fillRect(px + 8, py + 10, 3, 3);
+                ctx.fillRect(px + 13, py + 10, 3, 3);
+            } else {
+                // General monster eyes & spikes
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(px + 6, py + 8, 4, 4);
+                ctx.fillRect(px + 14, py + 8, 4, 4);
+                ctx.fillStyle = '#000';
+                ctx.fillRect(px + 8, py + 9, 2, 2);
+                ctx.fillRect(px + 14, py + 9, 2, 2);
+            }
+
+            ctx.restore();
+        }
+    }
+
+    /* ==========================================================
+       BOMB & EXPLOSION SYSTEM
+       ========================================================== */
+    class Bomb {
+        constructor(col, row, range, isRemote = false) {
+            this.col = col;
+            this.row = row;
+            this.range = range;
+            this.isRemote = isRemote;
+            this.timer = 180; // 3 seconds at 60fps
+            this.animTimer = 0;
+            this.pulseScale = 1;
+            this.overlapsPlayer = true; // Allow player to walk out after placing
+        }
+
+        update() {
+            this.animTimer++;
+            this.pulseScale = 1 + Math.sin(this.animTimer * 0.18) * 0.08;
+
+            // Check if player has completely stepped off this bomb
+            if (this.overlapsPlayer && player) {
+                const bombX = this.col * TILE_SIZE;
+                const bombY = this.row * TILE_SIZE;
+                const margin = 2;
+                // If player's bounding box does not overlap bomb cell at all
+                const isOverlapping = checkRectOverlap(
+                    player.x + margin, player.y + margin, player.width - margin * 2, player.height - margin * 2,
+                    bombX, bombY, TILE_SIZE, TILE_SIZE
+                );
+                if (!isOverlapping) {
+                    this.overlapsPlayer = false;
+                }
+            }
+
+            if (!this.isRemote) {
+                this.timer--;
+                if (this.timer <= 0) {
+                    this.explode();
+                }
+            }
+        }
+
+        explode() {
+            const index = bombs.indexOf(this);
+            if (index !== -1) {
+                bombs.splice(index, 1);
+                createExplosion(this.col, this.row, this.range);
+                audio.sfxExplode();
+            }
+        }
+
+        draw() {
+            const cx = this.col * TILE_SIZE + 16;
+            const cy = this.row * TILE_SIZE + 16;
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.scale(this.pulseScale, this.pulseScale);
+
+            // Bomb sphere (Black with high reflection)
+            ctx.fillStyle = '#111827';
+            ctx.beginPath();
+            ctx.arc(0, 0, 11, 0, Math.PI * 2);
+            ctx.fill();
+
+            // White highlight
+            ctx.fillStyle = '#f9fafb';
+            ctx.fillRect(-5, -6, 3, 3);
+
+            // Fuse cap
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(-2, -13, 4, 3);
+
+            // Burning Fuse Spark
+            ctx.fillStyle = (Math.floor(this.animTimer / 4) % 2 === 0) ? '#f59e0b' : '#ef4444';
+            ctx.fillRect(-1, -16, 3, 3);
+
+            ctx.restore();
+        }
+    }
+
+    function createExplosion(centerCol, centerRow, range) {
+        const segments = [{ col: centerCol, row: centerRow, type: 'center' }];
+        const dirs = [
+            { dc: 0, dr: -1, type: 'up' },
+            { dc: 0, dr: 1, type: 'down' },
+            { dc: -1, dr: 0, type: 'left' },
+            { dc: 1, dr: 0, type: 'right' }
+        ];
+
+        dirs.forEach(dir => {
+            for (let step = 1; step <= range; step++) {
+                const c = centerCol + dir.dc * step;
+                const r = centerRow + dir.dr * step;
+
+                // Boundary check
+                if (c < 0 || c >= COLS || r < 0 || r >= ROWS) break;
+
+                const tile = grid[r][c];
+
+                // Hit solid wall: stopped immediately
+                if (tile === TILE_WALL) {
+                    break;
+                }
+
+                // Hit soft brick: destroy brick and stop flame propagation
+                if (tile === TILE_BRICK) {
+                    destroyBrick(c, r);
+                    segments.push({ col: c, row: r, type: 'brick_hit' });
+                    break;
+                }
+
+                // Check other bombs in range: trigger chain explosion!
+                for (const b of bombs) {
+                    if (b.col === c && b.row === r) {
+                        b.explode();
+                    }
+                }
+
+                const isEnd = (step === range);
+                segments.push({ col: c, row: r, type: dir.type + (isEnd ? '_end' : '_mid') });
+            }
+        });
+
+        explosions.push({
+            segments,
+            duration: 25,
+            age: 0
+        });
+
+        // Trigger damage calculation
+        checkExplosionHits(segments);
+    }
+
+    function checkExplosionHits(segments) {
+        segments.forEach(seg => {
+            const segX = seg.col * TILE_SIZE;
+            const segY = seg.row * TILE_SIZE;
+
+            // Check hit player
+            if (!player.dead && player.invincibleTimer <= 0) {
+                if (checkRectOverlap(segX + 2, segY + 2, 28, 28, player.x + 4, player.y + 4, 16, 16)) {
+                    killPlayer();
+                }
+            }
+
+            // Check hit enemies
+            enemies.forEach(e => {
+                if (!e.dead && checkRectOverlap(segX + 2, segY + 2, 28, 28, e.x + 3, e.y + 3, 18, 18)) {
+                    e.dead = true;
+                    addScore(e.score);
+                    audio.sfxHitEnemy();
+                    createFloatingText(e.x + 12, e.y, `+${e.score}`, '#fde047');
+                }
+            });
+
+            // Check hit door (if exit door is hit, spawn extra enemies as penalty!)
+            for (let i = revealedItems.length - 1; i >= 0; i--) {
+                const it = revealedItems[i];
+                if (it.c === seg.col && it.r === seg.row) {
+                    if (it.type === 'door') {
+                        spawnDoorEnemies(seg.col, seg.row);
+                    } else if (it.type === 'powerup') {
+                        // Destroy power-up if bombed!
+                        revealedItems.splice(i, 1);
+                        createFloatingText(seg.col * TILE_SIZE + 16, seg.row * TILE_SIZE, 'DESTROYED', '#f87171');
+                    }
+                }
+            }
+        });
+    }
+
+    function spawnDoorEnemies(c, r) {
+        createFloatingText(c * TILE_SIZE + 16, r * TILE_SIZE, 'MONSTERS AWAKEN!', '#ef4444');
+        audio.sfxHitEnemy();
+        for (let k = 0; k < 3; k++) {
+            const offset = (k - 1) * 6;
+            enemies.push(new Enemy(c * TILE_SIZE + offset, r * TILE_SIZE + offset, 'oneal'));
+        }
+    }
+
+    function destroyBrick(c, r) {
+        grid[r][c] = TILE_EMPTY;
+
+        // Brick shatter particles
+        for (let i = 0; i < 6; i++) {
+            particles.push({
+                x: c * TILE_SIZE + Math.random() * 24 + 4,
+                y: r * TILE_SIZE + Math.random() * 24 + 4,
+                vx: (Math.random() - 0.5) * 4,
+                vy: (Math.random() - 0.5) * 4 - 2,
+                color: '#b45309',
+                size: Math.random() * 5 + 3,
+                life: 20
+            });
+        }
+
+        // Reveal hidden item or door
+        const key = `${c},${r}`;
+        if (hiddenItems[key]) {
+            const item = hiddenItems[key];
+            revealedItems.push({
+                c, r,
+                type: item.type,
+                itemType: item.itemType
+            });
+            delete hiddenItems[key];
+        }
+    }
+
+    /* ==========================================================
+       MAP & LEVEL GENERATOR
+       ========================================================== */
+    function initStage(stageNum) {
+        currentStage = stageNum;
+        timeRemaining = 200;
+        bombs = [];
+        explosions = [];
+        enemies = [];
+        particles = [];
+        revealedItems = [];
+        hiddenItems = {};
+
+        // 1. Initialize Grid with outer boundary & concrete pillars
+        grid = [];
+        for (let r = 0; r < ROWS; r++) {
+            grid[r] = [];
+            for (let c = 0; c < COLS; c++) {
+                if (r === 0 || r === ROWS - 1 || c === 0 || c === COLS - 1) {
+                    grid[r][c] = TILE_WALL;
+                } else if (r % 2 === 0 && c % 2 === 0) {
+                    grid[r][c] = TILE_WALL; // Classic NES grid pillars
+                } else {
+                    grid[r][c] = TILE_EMPTY;
+                }
+            }
+        }
+
+        // 2. Randomly populate soft destructible bricks
+        const config = STAGE_CONFIGS[(stageNum - 1) % STAGE_CONFIGS.length];
+        const validSpots = [];
+
+        for (let r = 1; r < ROWS - 1; r++) {
+            for (let c = 1; c < COLS - 1; c++) {
+                if (grid[r][c] === TILE_EMPTY) {
+                    // Reserve spawn safe zone around (1,1)
+                    if ((c === 1 && r === 1) || (c === 2 && r === 1) || (c === 1 && r === 2)) {
+                        continue;
+                    }
+                    validSpots.push({ c, r });
+                }
+            }
+        }
+
+        // Shuffle valid spots
+        shuffle(validSpots);
+
+        const brickCount = Math.min(config.bricks, validSpots.length - 6);
+        const brickSpots = validSpots.slice(0, brickCount);
+
+        brickSpots.forEach(pt => {
+            grid[pt.r][pt.c] = TILE_BRICK;
+        });
+
+        // 3. Hide Exit Door under a random brick
+        if (brickSpots.length > 0) {
+            const doorSpot = brickSpots[0];
+            hiddenItems[`${doorSpot.c},${doorSpot.r}`] = { type: 'door' };
+
+            // Hide Powerup under another brick
+            if (brickSpots.length > 1 && config.item) {
+                const itemSpot = brickSpots[1];
+                hiddenItems[`${itemSpot.c},${itemSpot.r}`] = { type: 'powerup', itemType: config.item };
+            }
+        }
+
+        // 4. Initialize Player at top-left
+        if (!player) {
+            player = new Player(1 * TILE_SIZE + 4, 1 * TILE_SIZE + 4);
+        } else {
+            player.reset(1 * TILE_SIZE + 4, 1 * TILE_SIZE + 4);
+        }
+
+        // 5. Spawn Enemies in open empty spaces far from player
+        const enemySpots = validSpots.slice(brickCount);
+        let spotIdx = 0;
+
+        config.enemies.forEach(group => {
+            for (let i = 0; i < group.count; i++) {
+                if (spotIdx < enemySpots.length) {
+                    const pt = enemySpots[spotIdx++];
+                    enemies.push(new Enemy(pt.c * TILE_SIZE + 4, pt.r * TILE_SIZE + 4, group.type));
+                }
+            }
+        });
+
+        updateHUD();
+    }
+
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+    }
+
+    /* ==========================================================
+       GAME FLOW & EVENTS
+       ========================================================== */
+    function startGame() {
+        score = 0;
+        lives = 3;
+        showStageCard(1);
+    }
+
+    function showStageCard(stg) {
+        gameState = 'stage_card';
+        audio.stopBGM();
+        document.getElementById('stage-card-title').textContent = `STAGE ${stg}`;
+        document.getElementById('screen-title').classList.add('hidden');
+        document.getElementById('screen-gameover').classList.add('hidden');
+        document.getElementById('screen-victory').classList.add('hidden');
+        document.getElementById('screen-stage').classList.remove('hidden');
+
+        audio.sfxStageClear();
+
+        setTimeout(() => {
+            document.getElementById('screen-stage').classList.add('hidden');
+            initStage(stg);
+            gameState = 'playing';
+            audio.startBGM();
+            startTimer();
+        }, 1800);
+    }
+
+    function stageClear() {
+        gameState = 'stage_clear';
+        clearInterval(timerInterval);
+        audio.stopBGM();
+        audio.sfxStageClear();
+        addScore(timeRemaining * 10); // Bonus for remaining time
+
+        setTimeout(() => {
+            if (currentStage >= 8) {
+                // Victory!
+                gameState = 'victory';
+                document.getElementById('victory-score-text').textContent = `TOTAL SCORE: ${score}`;
+                document.getElementById('screen-victory').classList.remove('hidden');
+            } else {
+                showStageCard(currentStage + 1);
+            }
+        }, 2200);
+    }
+
+    function killPlayer() {
+        if (player.dead) return;
+        player.dead = true;
+        audio.sfxPlayerDie();
+        audio.stopBGM();
+
+        setTimeout(() => {
+            lives--;
+            updateHUD();
+            if (lives < 0) {
+                gameOver();
+            } else {
+                // Restart current stage
+                initStage(currentStage);
+                audio.startBGM();
+            }
+        }, 2000);
+    }
+
+    function gameOver() {
+        gameState = 'gameover';
+        clearInterval(timerInterval);
+        document.getElementById('gameover-score-text').textContent = `FINAL SCORE: ${score}`;
+        document.getElementById('screen-gameover').classList.remove('hidden');
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (gameState === 'playing') {
+                timeRemaining--;
+                updateHUD();
+                if (timeRemaining <= 0) {
+                    killPlayer();
+                }
+            }
+        }, 1000);
+    }
+
+    function addScore(pts) {
+        score += pts;
+        updateHUD();
+    }
+
+    function updateHUD() {
+        document.getElementById('hud-time').textContent = timeRemaining;
+        document.getElementById('hud-score').textContent = String(score).padStart(6, '0');
+        document.getElementById('hud-lives').textContent = Math.max(0, lives);
+        document.getElementById('hud-stage').textContent = currentStage;
+    }
+
+    function placeBomb() {
+        if (gameState !== 'playing' || player.dead) return;
+        if (bombs.length >= player.maxBombs) return;
+
+        const col = Math.floor((player.x + player.width / 2) / TILE_SIZE);
+        const row = Math.floor((player.y + player.height / 2) / TILE_SIZE);
+
+        // Check if bomb already exists at tile
+        for (const b of bombs) {
+            if (b.col === col && b.row === row) return;
+        }
+
+        bombs.push(new Bomb(col, row, player.bombRange, player.hasRemote));
+        audio.sfxDropBomb();
+    }
+
+    function triggerRemoteDetonate() {
+        if (gameState !== 'playing' || !player.hasRemote || bombs.length === 0) return;
+        audio.sfxDetonate();
+        // Detonate the oldest placed bomb
+        const b = bombs[0];
+        if (b) b.explode();
+    }
+
+    /* ==========================================================
+       RENDER LOOP & PARTICLES
+       ========================================================== */
+    const floatingTexts = [];
+
+    function createFloatingText(x, y, text, color) {
+        floatingTexts.push({ x, y, text, color, life: 40, vy: -1.2 });
+    }
+
+    function checkRectOverlap(x1, y1, w1, h1, x2, y2, w2, h2) {
+        return (x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2);
+    }
+
+    function drawGrid() {
+        // Floor grass
+        ctx.fillStyle = '#388e3c';
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        // Grid lines
+        ctx.strokeStyle = '#2e7d32';
+        ctx.lineWidth = 1;
+        for (let r = 0; r < ROWS; r++) {
+            ctx.beginPath();
+            ctx.moveTo(0, r * TILE_SIZE);
+            ctx.lineTo(CANVAS_WIDTH, r * TILE_SIZE);
+            ctx.stroke();
+        }
+        for (let c = 0; c < COLS; c++) {
+            ctx.beginPath();
+            ctx.moveTo(c * TILE_SIZE, 0);
+            ctx.lineTo(c * TILE_SIZE, CANVAS_HEIGHT);
+            ctx.stroke();
+        }
+
+        // Draw Revealed Exit Door / Powerups
+        revealedItems.forEach(it => {
+            const x = it.c * TILE_SIZE;
+            const y = it.r * TILE_SIZE;
+            if (it.type === 'door') {
+                // Exit Door (Blue portal with door frame)
+                ctx.fillStyle = '#1e3a8a';
+                ctx.fillRect(x + 4, y + 4, 24, 24);
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillRect(x + 7, y + 7, 18, 18);
+                // Door knob
+                ctx.fillStyle = '#facc15';
+                ctx.fillRect(x + 20, y + 15, 3, 3);
+            } else if (it.type === 'powerup') {
+                // Power-up badge
+                ctx.fillStyle = '#1e293b';
+                ctx.fillRect(x + 3, y + 3, 26, 26);
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x + 3, y + 3, 26, 26);
+
+                ctx.fillStyle = '#f8fafc';
+                ctx.font = '8px "Press Start 2P", monospace';
+                ctx.textAlign = 'center';
+                let label = 'ITEM';
+                if (it.itemType === ITEM_BOMB) label = 'BOMB';
+                else if (it.itemType === ITEM_FIRE) label = 'FIRE';
+                else if (it.itemType === ITEM_SPEED) label = 'SPD';
+                else if (it.itemType === ITEM_REMOTE) label = 'REM';
+                else if (it.itemType === ITEM_BOMBPASS) label = 'PASS';
+                else if (it.itemType === ITEM_WALLPASS) label = 'WALL';
+                else if (it.itemType === ITEM_VEST) label = 'VEST';
+
+                ctx.fillText(label, x + 16, y + 19);
+            }
+        });
+
+        // Draw Tiles
+        if (grid && grid.length === ROWS) {
+            for (let r = 0; r < ROWS; r++) {
+                if (!grid[r]) continue;
+                for (let c = 0; c < COLS; c++) {
+                    const tile = grid[r][c];
+                    const x = c * TILE_SIZE;
+                    const y = r * TILE_SIZE;
+
+                    if (tile === TILE_WALL) {
+                        // Concrete metal pillar block (Grey & Metallic)
+                        ctx.fillStyle = '#94a3b8';
+                        ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+                        // 3D Bevel
+                        ctx.fillStyle = '#cbd5e1';
+                        ctx.fillRect(x, y, TILE_SIZE, 3);
+                        ctx.fillRect(x, y, 3, TILE_SIZE);
+                        ctx.fillStyle = '#475569';
+                        ctx.fillRect(x, y + TILE_SIZE - 3, TILE_SIZE, 3);
+                        ctx.fillRect(x + TILE_SIZE - 3, y, 3, TILE_SIZE);
+                        // Center rivet
+                        ctx.fillStyle = '#64748b';
+                        ctx.fillRect(x + 10, y + 10, 12, 12);
+                    } else if (tile === TILE_BRICK) {
+                        // Soft Brick (Retro terracotta brick pattern)
+                        ctx.fillStyle = '#c2410c';
+                        ctx.fillRect(x + 1, y + 1, TILE_SIZE - 2, TILE_SIZE - 2);
+                        // Brick mortar lines
+                        ctx.fillStyle = '#ea580c';
+                        ctx.fillRect(x + 2, y + 2, 13, 12);
+                        ctx.fillRect(x + 17, y + 2, 13, 12);
+                        ctx.fillRect(x + 2, y + 16, 28, 13);
+                        ctx.fillStyle = '#7c2d12';
+                        ctx.fillRect(x + 1, y + 14, TILE_SIZE - 2, 2);
+                        ctx.fillRect(x + 15, y + 1, 2, 13);
+                    }
+                }
+            }
+        }
+    }
+
+    function drawExplosions() {
+        for (let i = explosions.length - 1; i >= 0; i--) {
+            const exp = explosions[i];
+            exp.age++;
+
+            const alpha = Math.max(0, 1 - (exp.age / exp.duration));
+            const flameColor = (exp.age % 4 < 2) ? '#fbbf24' : '#ef4444';
+
+            ctx.save();
+            ctx.globalAlpha = alpha;
+
+            exp.segments.forEach(seg => {
+                const x = seg.col * TILE_SIZE;
+                const y = seg.row * TILE_SIZE;
+
+                ctx.fillStyle = flameColor;
+                ctx.fillRect(x + 3, y + 3, 26, 26);
+
+                // Hot white core
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(x + 8, y + 8, 16, 16);
+            });
+
+            ctx.restore();
+
+            if (exp.age >= exp.duration) {
+                explosions.splice(i, 1);
+            }
+        }
+    }
+
+    function drawParticles() {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.2; // gravity
+            p.life--;
+
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+
+            if (p.life <= 0) {
+                particles.splice(i, 1);
+            }
+        }
+
+        // Draw Floating Score Texts
+        for (let i = floatingTexts.length - 1; i >= 0; i--) {
+            const ft = floatingTexts[i];
+            ft.y += ft.vy;
+            ft.life--;
+
+            ctx.fillStyle = ft.color;
+            ctx.font = '9px "Press Start 2P", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(ft.text, ft.x, ft.y);
+
+            if (ft.life <= 0) {
+                floatingTexts.splice(i, 1);
+            }
+        }
+    }
+
+    function gameLoop() {
+        // Update
+        if (gameState === 'playing') {
+            if (player) player.update();
+            bombs.forEach(b => b.update());
+            enemies.forEach(e => e.update());
+
+            // Remove dead enemies after animation
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                if (enemies[i].dead && enemies[i].deathTimer > 30) {
+                    enemies.splice(i, 1);
+                }
+            }
+        }
+
+        // Render
+        ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        drawGrid();
+        bombs.forEach(b => b.draw());
+        drawExplosions();
+        enemies.forEach(e => e.draw());
+        if (player) player.draw();
+        drawParticles();
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    /* ==========================================================
+       INPUT CONTROLS & EVENT LISTENERS
+       ========================================================== */
+    window.addEventListener('keydown', e => {
+        audio.init();
+        const code = e.code;
+
+        if (code === 'ArrowUp' || code === 'KeyW') { keys.up = true; e.preventDefault(); }
+        if (code === 'ArrowDown' || code === 'KeyS') { keys.down = true; e.preventDefault(); }
+        if (code === 'ArrowLeft' || code === 'KeyA') { keys.left = true; e.preventDefault(); }
+        if (code === 'ArrowRight' || code === 'KeyD') { keys.right = true; e.preventDefault(); }
+
+        if (code === 'Space' || code === 'KeyJ') {
+            placeBomb();
+            e.preventDefault();
+        }
+        if (code === 'KeyB' || code === 'KeyK' || code === 'KeyX') {
+            triggerRemoteDetonate();
+            e.preventDefault();
+        }
+
+        if (code === 'KeyP' || code === 'Escape') {
+            togglePause();
+            e.preventDefault();
+        }
+
+        if (code === 'Enter') {
+            if (gameState === 'title') startGame();
+            else if (gameState === 'gameover') showStageCard(1);
+            else if (gameState === 'victory') showStageCard(1);
+        }
+    });
+
+    window.addEventListener('keyup', e => {
+        const code = e.code;
+        if (code === 'ArrowUp' || code === 'KeyW') keys.up = false;
+        if (code === 'ArrowDown' || code === 'KeyS') keys.down = false;
+        if (code === 'ArrowLeft' || code === 'KeyA') keys.left = false;
+        if (code === 'ArrowRight' || code === 'KeyD') keys.right = false;
+    });
+
+    // Touch / Mobile D-Pad Events
+    document.querySelectorAll('.dpad-btn').forEach(btn => {
+        const dir = btn.dataset.dir;
+        const setDir = (active) => {
+            audio.init();
+            if (dir === 'up') keys.up = active;
+            if (dir === 'down') keys.down = active;
+            if (dir === 'left') keys.left = active;
+            if (dir === 'right') keys.right = active;
+            if (active) btn.classList.add('pressed');
+            else btn.classList.remove('pressed');
+        };
+
+        btn.addEventListener('touchstart', (e) => { e.preventDefault(); setDir(true); });
+        btn.addEventListener('touchend', (e) => { e.preventDefault(); setDir(false); });
+        btn.addEventListener('touchcancel', (e) => { e.preventDefault(); setDir(false); });
+        btn.addEventListener('mousedown', (e) => { setDir(true); });
+        btn.addEventListener('mouseup', (e) => { setDir(false); });
+        btn.addEventListener('mouseleave', (e) => { setDir(false); });
+    });
+
+    // Touch Action Buttons
+    const btnBomb = document.getElementById('touch-bomb');
+    btnBomb.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); placeBomb(); btnBomb.classList.add('pressed'); });
+    btnBomb.addEventListener('touchend', (e) => { e.preventDefault(); btnBomb.classList.remove('pressed'); });
+    btnBomb.addEventListener('click', () => { audio.init(); placeBomb(); });
+
+    const btnDetonate = document.getElementById('touch-detonate');
+    btnDetonate.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); triggerRemoteDetonate(); btnDetonate.classList.add('pressed'); });
+    btnDetonate.addEventListener('touchend', (e) => { e.preventDefault(); btnDetonate.classList.remove('pressed'); });
+    btnDetonate.addEventListener('click', () => { audio.init(); triggerRemoteDetonate(); });
+
+    // UI Buttons
+    document.getElementById('btn-start').addEventListener('click', () => { audio.init(); startGame(); });
+    document.getElementById('btn-restart').addEventListener('click', () => { audio.init(); showStageCard(1); });
+    document.getElementById('btn-playagain').addEventListener('click', () => { audio.init(); showStageCard(1); });
+
+    document.getElementById('btn-sound').addEventListener('click', () => {
+        audio.enabled = !audio.enabled;
+        document.getElementById('btn-sound').textContent = audio.enabled ? '🔊' : '🔇';
+        if (!audio.enabled) audio.stopBGM();
+        else if (gameState === 'playing') audio.startBGM();
+    });
+
+    function togglePause() {
+        if (gameState === 'playing') {
+            gameState = 'paused';
+            audio.stopBGM();
+            document.getElementById('btn-pause').textContent = '▶️';
+        } else if (gameState === 'paused') {
+            gameState = 'playing';
+            audio.startBGM();
+            document.getElementById('btn-pause').textContent = '⏸️';
+        }
+    }
+    document.getElementById('btn-pause').addEventListener('click', togglePause);
+
+    // Initialize Stage 1 preview and start loop
+    initStage(1);
+    updateHUD();
+    requestAnimationFrame(gameLoop);
+    </script>
+</body>
+</html>

@@ -78,6 +78,51 @@ aside: false
         <div class="flink-item-desc">你的AI水货无聊透顶！100%纯人类扮演驱动的实时AI对话与画画联机对战。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/tetris/" title="赛博俄罗斯方块 · Cyber Tetris" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:grid.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="赛博俄罗斯方块">
+        </div>
+        <div class="flink-item-name">赛博俄罗斯方块</div>
+        <div class="flink-item-desc">经典赛博朋克风俄罗斯方块，支持Hold暂存、幽灵投影、行消除粒子特效与音效。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/games/sun-jingtian-life-sim/" title="名利场巅峰 · 双星模拟器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:sparkles.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="名利场巅峰模拟器">
+        </div>
+        <div class="flink-item-name">名利场巅峰 · 双星模拟器</div>
+        <div class="flink-item-desc">孙宇晨与景甜的人生模拟：从惠州网瘾少年逆袭到巴菲特午餐鸽局与宇宙大花交汇。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/games/1942/" title="1942 经典空战 · NES 复刻版" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:plane.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="1942 经典空战">
+        </div>
+        <div class="flink-item-name">1942 经典空战</div>
+        <div class="flink-item-desc">经典红白机街机复刻：驾驶P-38闪电战机，空中大回旋、双翼僚机支援与激战巨型要塞亚矢子！</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/games/bomberman/" title="红白机炸弹人 · NES 复刻版" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:bomb.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="红白机炸弹人">
+        </div>
+        <div class="flink-item-name">红白机炸弹人</div>
+        <div class="flink-item-desc">经典红白机8-bit炸弹人：放置炸弹、炸开砖块收集道具、智斗气球怪与洋葱怪，寻找隐藏传送门！</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/games/warzone-fps/" title="战火前线 · 3D特种突击 (Warzone FPS)" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:crosshair.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="战火前线 · 3D特种突击">
+        </div>
+        <div class="flink-item-name">战火前线 · 3D特种突击</div>
+        <div class="flink-item-desc">3D电影级第一人称射击游戏：特种兵夜袭破败战火城市，全息瞄准机瞄、小队协同压制、近距爆炸与低空武装直升机支援！</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
