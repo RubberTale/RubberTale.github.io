@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { RubberVariety, CalcMode, SpreadInputs, DeliveryInputs } from './types';
+import React, { useState, useEffect, useCallback } from 'react';
+import { RubberVariety, CalcMode, SpreadInputs, DeliveryInputs, LatestPricesPayload } from './types';
 import { VARIETY_CONFIGS, PRESET_SCENARIOS } from './constants/varieties';
 import { calculateSpread, calculateDelivery } from './utils/calculations';
+import { fetchLatestPrices } from './utils/marketData';
 import { Header } from './components/Header';
 import { SpreadCalculator } from './components/SpreadCalculator';
 import { DeliveryCalculator } from './components/DeliveryCalculator';
@@ -9,6 +10,8 @@ import { DeliveryCalculator } from './components/DeliveryCalculator';
 export const App: React.FC = () => {
   const [variety, setVariety] = useState<RubberVariety>('RU');
   const [mode, setMode] = useState<CalcMode>('spread');
+  const [marketData, setMarketData] = useState<LatestPricesPayload | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const currentConfig = VARIETY_CONFIGS[variety];
 
@@ -37,28 +40,72 @@ export const App: React.FC = () => {
     positionLots: 10,
   });
 
+  const applyMarketDataToInputs = useCallback((data: LatestPricesPayload, v: RubberVariety) => {
+    const vData = data.varieties[v];
+    const cfg = VARIETY_CONFIGS[v];
+    if (vData) {
+      setSpreadInputs({
+        variety: v,
+        spotPrice: vData.spotPrice,
+        spotName: vData.spotName,
+        nearContract: vData.nearContract,
+        nearPrice: vData.nearPrice,
+        farContract: vData.farContract,
+        farPrice: vData.farPrice,
+        daysDiff: vData.daysDiff || 120,
+      });
+
+      setDeliveryInputs((prev) => ({
+        ...prev,
+        variety: v,
+        spotBuyPrice: vData.spotPrice,
+        futuresSellPrice: vData.farPrice,
+        holdingDays: vData.daysDiff || 120,
+        storageFeePerDay: cfg.defaultStorageFee,
+      }));
+    }
+  }, []);
+
+  const loadData = useCallback(async () => {
+    setLoading(true);
+    const data = await fetchLatestPrices();
+    if (data) {
+      setMarketData(data);
+      applyMarketDataToInputs(data, variety);
+    }
+    setLoading(false);
+  }, [variety, applyMarketDataToInputs]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   // Handle switching variety
   const handleSwitchVariety = (newVar: RubberVariety) => {
     setVariety(newVar);
-    const cfg = VARIETY_CONFIGS[newVar];
-    setSpreadInputs((prev) => ({
-      ...prev,
-      variety: newVar,
-      spotPrice: cfg.defaultSpotPrice,
-      spotName: cfg.defaultSpotName,
-      nearContract: cfg.defaultNearContract,
-      nearPrice: cfg.defaultNearPrice,
-      farContract: cfg.defaultFarContract,
-      farPrice: cfg.defaultFarPrice,
-    }));
+    if (marketData && marketData.varieties[newVar]) {
+      applyMarketDataToInputs(marketData, newVar);
+    } else {
+      const cfg = VARIETY_CONFIGS[newVar];
+      setSpreadInputs((prev) => ({
+        ...prev,
+        variety: newVar,
+        spotPrice: cfg.defaultSpotPrice,
+        spotName: cfg.defaultSpotName,
+        nearContract: cfg.defaultNearContract,
+        nearPrice: cfg.defaultNearPrice,
+        farContract: cfg.defaultFarContract,
+        farPrice: cfg.defaultFarPrice,
+      }));
 
-    setDeliveryInputs((prev) => ({
-      ...prev,
-      variety: newVar,
-      spotBuyPrice: cfg.defaultSpotPrice,
-      futuresSellPrice: cfg.defaultFarPrice,
-      storageFeePerDay: cfg.defaultStorageFee,
-    }));
+      setDeliveryInputs((prev) => ({
+        ...prev,
+        variety: newVar,
+        spotBuyPrice: cfg.defaultSpotPrice,
+        futuresSellPrice: cfg.defaultFarPrice,
+        storageFeePerDay: cfg.defaultStorageFee,
+      }));
+    }
   };
 
   // Handle preset scenario
@@ -97,6 +144,9 @@ export const App: React.FC = () => {
         variety={variety}
         setVariety={handleSwitchVariety}
         onApplyScenario={handleApplyScenario}
+        marketData={marketData}
+        loading={loading}
+        onRefresh={loadData}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
@@ -106,6 +156,7 @@ export const App: React.FC = () => {
             inputs={spreadInputs}
             onChange={setSpreadInputs}
             results={spreadResults}
+            activeContracts={marketData?.active_contracts?.[variety]}
           />
         ) : (
           <DeliveryCalculator

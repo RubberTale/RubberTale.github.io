@@ -1,7 +1,7 @@
 import React from 'react';
-import { VarietyId, CalcTab } from '../types';
+import { VarietyId, CalcTab, LatestPricesPayload } from '../types';
 import { VARIETY_PRESETS, QUICK_TRADE_TEMPLATES } from '../constants/varieties';
-import { Sliders, Shield, Home, Wrench, Sparkles, TrendingUp } from 'lucide-react';
+import { Sliders, Shield, Home, Wrench, Sparkles, TrendingUp, RefreshCw } from 'lucide-react';
 
 interface HeaderProps {
   variety: VarietyId;
@@ -9,6 +9,9 @@ interface HeaderProps {
   activeTab: CalcTab;
   setActiveTab: (t: CalcTab) => void;
   onApplyTemplate: (tpl: (typeof QUICK_TRADE_TEMPLATES)[0]) => void;
+  marketData: LatestPricesPayload | null;
+  loading: boolean;
+  onRefresh: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,6 +20,9 @@ export const Header: React.FC<HeaderProps> = ({
   activeTab,
   setActiveTab,
   onApplyTemplate,
+  marketData,
+  loading,
+  onRefresh,
 }) => {
   return (
     <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30">
@@ -30,6 +36,32 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="px-2 py-0.5 rounded bg-blue-950/60 text-blue-400 border border-blue-800/60 text-[11px] font-mono">
             资金与风控引擎
           </span>
+
+          {/* MySQL Realtime Status Badge */}
+          {loading ? (
+            <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-950/80 text-blue-300 border border-blue-800/60 text-[11px] font-mono animate-pulse">
+              <RefreshCw className="w-3 h-3 animate-spin text-blue-400" />
+              <span>同步MySQL实盘数据中...</span>
+            </span>
+          ) : marketData ? (
+            <div className="flex items-center gap-1.5 bg-blue-950/40 border border-blue-800/50 rounded-full px-2.5 py-0.5">
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+              <span className="text-[11px] text-blue-300 font-mono">
+                已同步最新行情 ({marketData.trade_date})
+              </span>
+              <button
+                onClick={onRefresh}
+                title={`更新时间: ${marketData.updated_at}，点击重新同步行情`}
+                className="ml-1 p-0.5 text-blue-400/70 hover:text-blue-200 transition-colors"
+              >
+                <RefreshCw className="w-3 h-3" />
+              </button>
+            </div>
+          ) : (
+            <span className="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-[11px] font-mono">
+              离线默认行情
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-2 text-slate-400">

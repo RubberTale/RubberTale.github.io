@@ -39,7 +39,7 @@ aside: false
           <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
         </div>
         <div class="flink-item-name">基差与价差套利测算器</div>
-        <div class="flink-item-desc">天然橡胶、20号胶与顺丁橡胶期现基差、月间价差及全持有交割成本套利在线测算。</div>
+        <div class="flink-item-desc">天然橡胶、20号胶与顺丁橡胶期现基差、月间价差及全持有成本交割套利在线测算（每日自动同步 MySQL 实盘行情）。</div>
       </a>
     </div>
     <div class="flink-list-item">
@@ -48,7 +48,7 @@ aside: false
           <img src="https://api.iconify.design/lucide:calculator.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="持仓盈亏比与凯利仓位计算器">
         </div>
         <div class="flink-item-name">持仓盈亏比与凯利仓位计算器</div>
-        <div class="flink-item-desc">期货量化资金管理利器，包含多空盈亏比、保本胜率、全/半凯利公式及极端回撤压力测试。</div>
+        <div class="flink-item-desc">期货量化资金管理利器，支持自动调取实盘主力收盘价，含多空盈亏比、全/半凯利公式与极端回撤测算。</div>
       </a>
     </div>
     <div class="flink-list-item">

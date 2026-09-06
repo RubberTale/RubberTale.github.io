@@ -67,3 +67,42 @@ export interface DeliveryResults {
   signal: 'STRONG_PROFIT' | 'FAIR_ZONE' | 'DEEP_DISCOUNT';
   recommendation: string;
 }
+
+export interface ContractData {
+  code: string;
+  close: number;
+  settle: number;
+  open_interest: number;
+  volume: number;
+}
+
+export interface VarietyMarketData {
+  name: string;
+  spotName: string;
+  spotPrice: number;
+  nearContract: string;
+  nearPrice: number;
+  nearSettle: number;
+  farContract: string;
+  farPrice: number;
+  daysDiff: number;
+  openInterest: number;
+  basis: number;
+  spread: number;
+}
+
+export interface LatestPricesPayload {
+  updated_at: string;
+  trade_date: string;
+  source: string;
+  varieties: {
+    RU: VarietyMarketData;
+    NR: VarietyMarketData;
+    BR: VarietyMarketData;
+  };
+  active_contracts: {
+    RU: ContractData[];
+    NR: ContractData[];
+    BR: ContractData[];
+  };
+}

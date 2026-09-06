@@ -1,14 +1,15 @@
 import React from 'react';
-import { PositionInputs, VarietyPreset } from '../types';
+import { PositionInputs, VarietyPreset, ContractData } from '../types';
 import { ArrowUpCircle, ArrowDownCircle, DollarSign, Target, ShieldAlert, Percent, Activity } from 'lucide-react';
 
 interface TradePlanFormProps {
   inputs: PositionInputs;
   onChange: (inputs: PositionInputs) => void;
   preset: VarietyPreset;
+  activeContracts?: ContractData[];
 }
 
-export const TradePlanForm: React.FC<TradePlanFormProps> = ({ inputs, onChange, preset }) => {
+export const TradePlanForm: React.FC<TradePlanFormProps> = ({ inputs, onChange, preset, activeContracts }) => {
   const update = (field: keyof PositionInputs, val: any) => {
     onChange({ ...inputs, [field]: val });
   };
@@ -147,6 +148,39 @@ export const TradePlanForm: React.FC<TradePlanFormProps> = ({ inputs, onChange, 
           />
         </div>
       </div>
+
+      {/* Quick Active Contracts Buttons */}
+      {activeContracts && activeContracts.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5 pt-0.5 text-xs">
+          <span className="text-slate-400 text-[11px]">实盘收盘价快捷填入:</span>
+          {activeContracts.slice(0, 5).map((c) => (
+            <button
+              key={c.code}
+              type="button"
+              onClick={() => {
+                const diff = Math.abs(inputs.entryPrice - inputs.stopLossPrice) || 200;
+                const targetDiff = Math.abs(inputs.takeProfitPrice - inputs.entryPrice) || diff * 2.5;
+                const newEntry = c.close;
+                const newStop = inputs.direction === 'LONG' ? newEntry - diff : newEntry + diff;
+                const newTarget = inputs.direction === 'LONG' ? newEntry + targetDiff : newEntry - targetDiff;
+                onChange({
+                  ...inputs,
+                  entryPrice: newEntry,
+                  stopLossPrice: newStop,
+                  takeProfitPrice: newTarget,
+                });
+              }}
+              className={`px-2 py-0.5 rounded font-mono text-[11px] border transition-colors ${
+                inputs.entryPrice === c.close
+                  ? 'bg-blue-600/30 text-blue-300 border-blue-500/60 font-bold'
+                  : 'bg-slate-900 text-slate-400 border-slate-700/60 hover:text-slate-200'
+              }`}
+            >
+              {c.code} (¥{c.close})
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Win Rate Slider & ATR */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-slate-700/60">

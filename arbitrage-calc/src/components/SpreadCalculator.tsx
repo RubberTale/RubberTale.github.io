@@ -1,5 +1,5 @@
 import React from 'react';
-import { SpreadInputs, SpreadResults, VarietyConfig } from '../types';
+import { SpreadInputs, SpreadResults, VarietyConfig, ContractData } from '../types';
 import { TrendingUp, ArrowUpRight, ArrowDownRight, Compass, HelpCircle, BarChart2 } from 'lucide-react';
 
 interface SpreadCalculatorProps {
@@ -7,6 +7,7 @@ interface SpreadCalculatorProps {
   inputs: SpreadInputs;
   onChange: (inputs: SpreadInputs) => void;
   results: SpreadResults;
+  activeContracts?: ContractData[];
 }
 
 export const SpreadCalculator: React.FC<SpreadCalculatorProps> = ({
@@ -14,6 +15,7 @@ export const SpreadCalculator: React.FC<SpreadCalculatorProps> = ({
   inputs,
   onChange,
   results,
+  activeContracts,
 }) => {
   const update = (field: keyof SpreadInputs, val: any) => {
     onChange({ ...inputs, [field]: val });
@@ -59,57 +61,113 @@ export const SpreadCalculator: React.FC<SpreadCalculatorProps> = ({
           </div>
 
           {/* Near Month Contract */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">近月合约代码</label>
-              <input
-                type="text"
-                value={inputs.nearContract}
-                onChange={(e) => update('nearContract', e.target.value)}
-                placeholder="RU2501"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono uppercase focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">近月盘面价 (元/吨)</label>
-              <div className="relative">
-                <span className="absolute left-3 top-2.5 text-slate-400 text-xs font-mono">¥</span>
+          <div className="space-y-1.5">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-300">近月合约代码</label>
                 <input
-                  type="number"
-                  step="5"
-                  value={inputs.nearPrice || ''}
-                  onChange={(e) => update('nearPrice', parseFloat(e.target.value) || 0)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-7 py-2 text-sm text-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  type="text"
+                  value={inputs.nearContract}
+                  onChange={(e) => update('nearContract', e.target.value)}
+                  placeholder="RU2701"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono uppercase focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-300">近月盘面价 (元/吨)</label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2.5 text-slate-400 text-xs font-mono">¥</span>
+                  <input
+                    type="number"
+                    step="5"
+                    value={inputs.nearPrice || ''}
+                    onChange={(e) => update('nearPrice', parseFloat(e.target.value) || 0)}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-7 py-2 text-sm text-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
             </div>
+
+            {activeContracts && activeContracts.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                <span className="text-[10px] text-slate-500">点选近月合约:</span>
+                {activeContracts.slice(0, 4).map((c) => (
+                  <button
+                    key={c.code}
+                    type="button"
+                    onClick={() => {
+                      onChange({
+                        ...inputs,
+                        nearContract: c.code,
+                        nearPrice: c.close,
+                      });
+                    }}
+                    className={`px-2 py-0.5 rounded font-mono text-[10px] border transition-colors ${
+                      inputs.nearContract === c.code
+                        ? 'bg-blue-600/30 text-blue-300 border-blue-500/60 font-bold'
+                        : 'bg-slate-900 text-slate-400 border-slate-700/60 hover:text-slate-200'
+                    }`}
+                  >
+                    {c.code} (¥{c.close})
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Far Month Contract */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">远月合约代码</label>
-              <input
-                type="text"
-                value={inputs.farContract}
-                onChange={(e) => update('farContract', e.target.value)}
-                placeholder="RU2505"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono uppercase focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">远月盘面价 (元/吨)</label>
-              <div className="relative">
-                <span className="absolute left-3 top-2.5 text-slate-400 text-xs font-mono">¥</span>
+          <div className="space-y-1.5">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-300">远月合约代码</label>
                 <input
-                  type="number"
-                  step="5"
-                  value={inputs.farPrice || ''}
-                  onChange={(e) => update('farPrice', parseFloat(e.target.value) || 0)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-7 py-2 text-sm text-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  type="text"
+                  value={inputs.farContract}
+                  onChange={(e) => update('farContract', e.target.value)}
+                  placeholder="RU2705"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono uppercase focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-300">远月盘面价 (元/吨)</label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2.5 text-slate-400 text-xs font-mono">¥</span>
+                  <input
+                    type="number"
+                    step="5"
+                    value={inputs.farPrice || ''}
+                    onChange={(e) => update('farPrice', parseFloat(e.target.value) || 0)}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-7 py-2 text-sm text-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
             </div>
+
+            {activeContracts && activeContracts.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                <span className="text-[10px] text-slate-500">点选远月合约:</span>
+                {activeContracts.slice(0, 4).map((c) => (
+                  <button
+                    key={c.code}
+                    type="button"
+                    onClick={() => {
+                      onChange({
+                        ...inputs,
+                        farContract: c.code,
+                        farPrice: c.close,
+                      });
+                    }}
+                    className={`px-2 py-0.5 rounded font-mono text-[10px] border transition-colors ${
+                      inputs.farContract === c.code
+                        ? 'bg-amber-600/30 text-amber-300 border-amber-500/60 font-bold'
+                        : 'bg-slate-900 text-slate-400 border-slate-700/60 hover:text-slate-200'
+                    }`}
+                  >
+                    {c.code} (¥{c.close})
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Days Difference */}
