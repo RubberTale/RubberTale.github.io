@@ -477,14 +477,14 @@ top_img: false
   </div>
   <!-- 分类筛选栏 -->
   <div class="fnav-tabs-bar" id="fnav-tabs">
-    <button class="fnav-tab-btn active" onclick="filterFNavCategory('all', this)"><i class="fas fa-th-large"></i> <span>全部导航</span> <span class="fnav-tab-count">47</span></button>
+    <button class="fnav-tab-btn active" onclick="filterFNavCategory('all', this)"><i class="fas fa-th-large"></i> <span>全部导航</span> <span class="fnav-tab-count">48</span></button>
     <button class="fnav-tab-btn" onclick="filterFNavCategory('domestic_exchanges', this)"><i class="fas fa-landmark"></i> <span>国内权威期货交易所</span> <span class="fnav-tab-count">6</span></button>
     <button class="fnav-tab-btn" onclick="filterFNavCategory('global_exchanges', this)"><i class="fas fa-globe-americas"></i> <span>国际顶级期货交易所</span> <span class="fnav-tab-count">6</span></button>
     <button class="fnav-tab-btn" onclick="filterFNavCategory('spot_industry', this)"><i class="fas fa-chart-bar"></i> <span>现货报价与产业链高频数据</span> <span class="fnav-tab-count">6</span></button>
     <button class="fnav-tab-btn" onclick="filterFNavCategory('rubber_weather', this)"><i class="fas fa-seedling"></i> <span>橡胶物候、海外原料与产区气象专区</span> <span class="fnav-tab-count">7</span></button>
     <button class="fnav-tab-btn" onclick="filterFNavCategory('macro_capital', this)"><i class="fas fa-coins"></i> <span>宏观流动性、资金持仓与重磅指标</span> <span class="fnav-tab-count">6</span></button>
     <button class="fnav-tab-btn" onclick="filterFNavCategory('regulation_safety', this)"><i class="fas fa-shield-alt"></i> <span>监管合规与账户资金安全</span> <span class="fnav-tab-count">4</span></button>
-    <button class="fnav-tab-btn" onclick="filterFNavCategory('tools_quant', this)"><i class="fas fa-toolbox"></i> <span>投研工具、量化数据与专属看板</span> <span class="fnav-tab-count">7</span></button>
+    <button class="fnav-tab-btn" onclick="filterFNavCategory('tools_quant', this)"><i class="fas fa-toolbox"></i> <span>投研工具、量化数据与专属看板</span> <span class="fnav-tab-count">8</span></button>
     <button class="fnav-tab-btn" onclick="filterFNavCategory('trading_software', this)"><i class="fas fa-desktop"></i> <span>期货行情分析终端与量化交易软件</span> <span class="fnav-tab-count">5</span></button>
   </div>
   <section class="fnav-section" id="sec-domestic_exchanges" data-cat="domestic_exchanges">    <div class="fnav-section-header">      <div class="fnav-section-title">        <i class="fas fa-landmark"></i>        <span>国内权威期货交易所</span>      </div>      <div class="fnav-section-desc">经国务院同意、中国证监会批准设立的六大合法正规场内衍生品交易场所，涵盖大宗商品、金融期权与现货交割</div>    </div>    <div class="fnav-grid">
@@ -720,6 +720,12 @@ top_img: false
             <span class="fnav-tag-pill">#积分接口API</span>
             <span class="fnav-tag-pill">#高校机构生态</span>
           </div>        </div>        <div class="fnav-card-footer">          <a href="https://tushare.pro/" target="_blank" rel="noopener noreferrer" class="fnav-btn-link" title="在新标签页访问官网">            <span>直达官网</span> <i class="fas fa-external-link-alt" style="font-size: 11px;"></i>          </a>          <button type="button" class="fnav-btn-copy" onclick="copyFNavUrl('https://tushare.pro/')" title="复制链接地址">            <i class="far fa-copy"></i> <span>复制网址</span>          </button>        </div>      </div>
+      <div class="fnav-card" data-cat="tools_quant" data-search="奇货可查 (qhkc) qhkch.com 专注于商品期货量化与持仓深度分析平台。提供主力合约席位多空持仓透视、席位四象图、资金沉淀流向监控及python量化api。 席位四象图 主力席位持仓 净多空持仓比 资金流向监控 期货量化持仓分析 投研工具、量化数据与专属看板">        <div>          <div class="fnav-card-top">            <div class="fnav-card-icon" style="background: #e11d48;">              <i class="fas fa-search-dollar"></i>            </div>            <div class="fnav-card-meta">              <div class="fnav-card-name" title="奇货可查 (QHKC)">奇货可查 (QHKC)</div>              <div class="fnav-card-domain">qhkch.com</div>            </div>            <span class="fnav-card-badge">期货持仓透视</span>          </div>          <div class="fnav-card-desc" title="专注于商品期货量化与持仓深度分析平台。提供主力合约席位多空持仓透视、席位四象图、资金沉淀流向监控及Python量化API。">专注于商品期货量化与持仓深度分析平台。提供主力合约席位多空持仓透视、席位四象图、资金沉淀流向监控及Python量化API。</div>          <div class="fnav-card-tags">
+            <span class="fnav-tag-pill">#席位四象图</span>
+            <span class="fnav-tag-pill">#主力席位持仓</span>
+            <span class="fnav-tag-pill">#净多空持仓比</span>
+            <span class="fnav-tag-pill">#资金流向监控</span>
+          </div>        </div>        <div class="fnav-card-footer">          <a href="https://qhkch.com/" target="_blank" rel="noopener noreferrer" class="fnav-btn-link" title="在新标签页访问官网">            <span>直达官网</span> <i class="fas fa-external-link-alt" style="font-size: 11px;"></i>          </a>          <button type="button" class="fnav-btn-copy" onclick="copyFNavUrl('https://qhkch.com/')" title="复制链接地址">            <i class="far fa-copy"></i> <span>复制网址</span>          </button>        </div>      </div>
       <div class="fnav-card" data-cat="tools_quant" data-search="【本站专属】期货基差与价差套利测算器 rubbertale tools 本博客研发的专业级期现套利在线工具。自动调取 mysql 实盘行情，快速测算仓单交割无套利线、利息仓储杂费与年化 irr。 现货基差 跨期价差 年化升贴水 全持有交割利润 自动调取mysql实盘 投研工具、量化数据与专属看板">        <div>          <div class="fnav-card-top">            <div class="fnav-card-icon" style="background: #10b981;">              <i class="fas fa-balance-scale"></i>            </div>            <div class="fnav-card-meta">              <div class="fnav-card-name" title="【本站专属】期货基差与价差套利测算器">【本站专属】期货基差与价差套利测算器</div>              <div class="fnav-card-domain">RubberTale Tools</div>            </div>            <span class="fnav-card-badge">自动调取MySQL实盘</span>          </div>          <div class="fnav-card-desc" title="本博客研发的专业级期现套利在线工具。自动调取 MySQL 实盘行情，快速测算仓单交割无套利线、利息仓储杂费与年化 IRR。">本博客研发的专业级期现套利在线工具。自动调取 MySQL 实盘行情，快速测算仓单交割无套利线、利息仓储杂费与年化 IRR。</div>          <div class="fnav-card-tags">
             <span class="fnav-tag-pill">#现货基差</span>
             <span class="fnav-tag-pill">#跨期价差</span>

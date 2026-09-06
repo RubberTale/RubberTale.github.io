@@ -43,6 +43,15 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
+      <a href="https://qhkch.com/" title="奇货可查 · 期货大数据分析平台" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:chart-column-increasing.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="奇货可查">
+        </div>
+        <div class="flink-item-name">奇货可查</div>
+        <div class="flink-item-desc">专注于商品期货量化与持仓深度分析平台，提供主力合约席位多空持仓透视、席位四象图与资金沉淀监控。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/arbitrage-calc/" title="基差与价差套利测算器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
