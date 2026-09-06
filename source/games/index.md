@@ -1,5 +1,5 @@
 ---
-title: 期货实验室 (Games)
+title: 游戏
 date: 2026-08-26 15:28:00
 aside: false
 ---
@@ -29,7 +29,7 @@ aside: false
 }
 </style>
 
-欢迎来到期货实验室！这里收集了一些互动的期货交易小游戏，帮助你在娱乐中理解市场逻辑。
+欢迎来到游戏专区！这里收集了一些有趣的网页小游戏与模拟器，带你在娱乐中放松与体验乐趣。
 
 <div class="flink">
   <div class="flink-list">
