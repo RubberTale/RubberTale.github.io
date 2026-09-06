@@ -22,6 +22,7 @@ menu:
   归档: /archives/ || fas fa-archive
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
+  期货导航: /futures-nav/ || fas fa-compass
   图表: /charts/ || fas fa-chart-bar
   橡胶主要数据图表: /powerbi/ || fas fa-chart-pie
   地图 || fas fa-map:
@@ -31,6 +32,7 @@ menu:
   游戏: /games/ || fas fa-gamepad
   小工具 || fas fa-tools:
     小工具箱: /tools/ || fas fa-toolbox
+    期货投研导航: /futures-nav/ || fas fa-compass
     基差与价差套利测算: /tools/arbitrage-calc/ || fas fa-balance-scale
     持仓盈亏比与凯利仓位: /tools/position-calculator/ || fas fa-calculator
     产区气象与割胶物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain

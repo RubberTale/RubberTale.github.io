@@ -34,6 +34,15 @@ aside: false
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/futures-nav/" title="期货大宗商品投研导航" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:compass.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货大宗商品投研导航">
+        </div>
+        <div class="flink-item-name">期货大宗商品投研导航</div>
+        <div class="flink-item-desc">全网最全期货投研导航：六大交易所、高频现货报价、橡胶物候气象、CFTC持仓与量化看盘软件一站式检索。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/arbitrage-calc/" title="基差与价差套利测算器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
