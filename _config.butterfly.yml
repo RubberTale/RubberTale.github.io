@@ -31,6 +31,10 @@ menu:
   游戏: /games/ || fas fa-gamepad
   小工具 || fas fa-tools:
     小工具箱: /tools/ || fas fa-toolbox
+    基差与价差套利测算: /tools/arbitrage-calc/ || fas fa-balance-scale
+    持仓盈亏比与凯利仓位: /tools/position-calculator/ || fas fa-calculator
+    产区气象与割胶物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
+    研报平衡表比对: /tools/report-data-diff/ || fas fa-file-invoice
     智能简历工坊: /tools/resume/ || fas fa-file-alt
     文本倒序转换器: /tools/reverse-app/ || fas fa-repeat
     AI 人像写真工坊: /tools/pic-6varieties/ || fas fa-camera

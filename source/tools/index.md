@@ -34,6 +34,42 @@ aside: false
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/tools/arbitrage-calc/" title="基差与价差套利测算器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
+        </div>
+        <div class="flink-item-name">基差与价差套利测算器</div>
+        <div class="flink-item-desc">天然橡胶、20号胶与顺丁橡胶期现基差、月间价差及全持有交割成本套利在线测算。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/tools/position-calculator/" title="持仓盈亏比与凯利仓位计算器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:calculator.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="持仓盈亏比与凯利仓位计算器">
+        </div>
+        <div class="flink-item-name">持仓盈亏比与凯利仓位计算器</div>
+        <div class="flink-item-desc">期货量化资金管理利器，包含多空盈亏比、保本胜率、全/半凯利公式及极端回撤压力测试。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/tools/rubber-weather-calendar/" title="橡胶产区气象与割胶物候看板" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:cloud-sun-rain.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="橡胶产区气象与割胶物候看板">
+        </div>
+        <div class="flink-item-name">橡胶产区气象与割胶物候看板</div>
+        <div class="flink-item-desc">西双版纳、海南、泰南、越南与印尼主产区全年割胶物候对比、未来7天降水预报与减产模拟。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/tools/report-data-diff/" title="研报数据与平衡表比对提取器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:file-diff.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="研报数据与平衡表比对提取器">
+        </div>
+        <div class="flink-item-name">研报数据与平衡表比对提取器</div>
+        <div class="flink-item-desc">供需平衡表与高频库存数据多期变动自动对齐、环比差值高亮与投研异动速报一键生成。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/resume/" title="智能简历工坊" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:file-text.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="智能简历工坊">
