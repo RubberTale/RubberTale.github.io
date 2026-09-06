@@ -464,28 +464,15 @@ top_img: false
 <div class="fnav-container">
   <div class="fnav-hero-header">
     <div class="fnav-hero-title-area">
-      <span class="fnav-hero-badge">
-        <i class="fas fa-compass"></i> 大宗商品投研指南 · 权威收录
-      </span>
+      <span class="fnav-hero-badge"><i class="fas fa-compass"></i> 大宗商品投研指南 · 权威收录</span>
       <h1 class="fnav-hero-h1">期货大宗商品全景投研导航</h1>
-      <p class="fnav-hero-desc">
-        专为大宗商品交易者、产业套保机构与宏观量化研究员打造的一站式常用站点检索中心。涵盖国内六大期货交易所、全球基准衍生品、高频现货资讯、橡胶物候气象、CFTC持仓与量化开发生态。
-      </p>
+      <p class="fnav-hero-desc">专为大宗商品交易者、产业套保机构与宏观量化研究员打造的一站式常用站点检索中心。涵盖国内六大期货交易所、全球基准衍生品、高频现货资讯、橡胶物候气象、CFTC持仓与量化开发生态。</p>
     </div>
-
     <!-- 实时搜索框 -->
     <div class="fnav-search-wrapper">
       <i class="fas fa-search fnav-search-icon"></i>
-      <input 
-        type="text" 
-        id="fnav-search-input"
-        class="fnav-search-input" 
-        placeholder="输入关键词实时搜索（如：橡胶、上期所、CFTC、龙虎榜、泰国、开工率、原油...）"
-        oninput="handleFNavSearch(this.value)"
-      />
-      <button id="fnav-search-clear" class="fnav-search-clear" onclick="clearFNavSearch()" title="清空搜索">
-        <i class="fas fa-times-circle"></i>
-      </button>
+      <input type="text" id="fnav-search-input" class="fnav-search-input" placeholder="输入关键词实时搜索（如：橡胶、上期所、CFTC、龙虎榜、泰国、开工率、原油...）" oninput="handleFNavSearch(this.value)" />
+      <button id="fnav-search-clear" class="fnav-search-clear" onclick="clearFNavSearch()" title="清空搜索"><i class="fas fa-times-circle"></i></button>
     </div>
   </div>
   <!-- 分类筛选栏 -->
@@ -860,7 +847,7 @@ function applyFNavFilters() {
 
     const secCards = sec.querySelectorAll('.fnav-card');
     secCards.forEach(card => {
-      const cardSearchData = card.getAttribute('data-search') || '';
+      const cardSearchData = (card.getAttribute('data-search') || '').toLowerCase();
       
       const matchCategory = (currentCategory === 'all' || currentCategory === secCat);
       const matchSearch = (!currentSearchQuery || cardSearchData.includes(currentSearchQuery));
