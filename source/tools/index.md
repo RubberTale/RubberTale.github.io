@@ -34,6 +34,15 @@ aside: false
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/tools/resume/" title="智能简历工坊" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:file-text.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="智能简历工坊">
+        </div>
+        <div class="flink-item-name">智能简历工坊</div>
+        <div class="flink-item-desc">专业在线简历制作工具，支持多款高颜值排版、一键单页适配、实时预览与高清 PDF/图片导出。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/reverse-app/" title="文本倒序转换器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:repeat.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="文本倒序转换器">

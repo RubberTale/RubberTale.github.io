@@ -29,7 +29,11 @@ menu:
     世界史地图: /world-history/ || fas fa-globe-asia
     欧洲王室谱系: /royal-genealogy/ || fas fa-crown
   游戏: /games/ || fas fa-gamepad
-  小工具: /tools/ || fas fa-tools
+  小工具 || fas fa-tools:
+    小工具箱: /tools/ || fas fa-toolbox
+    智能简历工坊: /tools/resume/ || fas fa-file-alt
+    文本倒序转换器: /tools/reverse-app/ || fas fa-repeat
+    AI 人像写真工坊: /tools/pic-6varieties/ || fas fa-camera
   降雨量 || fas fa-cloud-showers-heavy:
     景洪: https://www.nmc.cn/publish/forecast/AYN/jinghong.html || fas fa-cloud-rain
     勐腊: https://www.nmc.cn/publish/forecast/AYN/zuola.html || fas fa-cloud-rain
