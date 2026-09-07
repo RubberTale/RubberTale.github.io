@@ -52,6 +52,7 @@ skip_render:
   - "tools/position-calculator/**"
   - "tools/rubber-weather-calendar/**"
   - "tools/report-data-diff/**"
+  - "tools/strategy-tracker/**"
   - "rubber/**"
   - "roman/**"
   - "world-history/**"

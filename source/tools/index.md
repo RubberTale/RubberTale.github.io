@@ -52,6 +52,15 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
+      <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
+        </div>
+        <div class="flink-item-name">多品种次日触发量化跟踪器</div>
+        <div class="flink-item-desc">全市场43个活跃商品期货品种胜率多因子打分，次日ATR波动突破触发进场，逐日盯市净值与盈亏曲线自动跟踪。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/arbitrage-calc/" title="基差与价差套利测算器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
