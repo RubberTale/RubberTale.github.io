@@ -313,9 +313,9 @@
       returnEl.className = 'text-sm font-semibold font-mono ' + (summary.total_return_pct >= 0 ? 'text-emerald-400' : 'text-rose-400');
       
       document.getElementById('kpi-equity').textContent = Number(summary.final_equity).toLocaleString('zh-CN', { minimumFractionDigits: 2 });
-      document.getElementById('kpi-win-rate').textContent = summary.win_rate.toFixed(1) + '%';
-      document.getElementById('kpi-pl-ratio').textContent = summary.profit_loss_ratio.toFixed(2);
-      document.getElementById('kpi-max-dd').textContent = summary.max_drawdown_pct.toFixed(2) + '%';
+      document.getElementById('kpi-win-rate').textContent = (summary.win_rate !== null && summary.win_rate !== undefined) ? summary.win_rate.toFixed(1) + '%' : '--';
+      document.getElementById('kpi-pl-ratio').textContent = (summary.profit_loss_ratio !== null && summary.profit_loss_ratio !== undefined) ? summary.profit_loss_ratio.toFixed(2) : '--';
+      document.getElementById('kpi-max-dd').textContent = (summary.max_drawdown_pct !== null && summary.max_drawdown_pct !== undefined) ? summary.max_drawdown_pct.toFixed(2) + '%' : '0.00%';
       document.getElementById('kpi-total-trades').textContent = summary.total_trades;
       document.getElementById('kpi-open-pos').textContent = summary.open_positions_count;
       document.getElementById('kpi-avail-slots').textContent = summary.available_slots;
