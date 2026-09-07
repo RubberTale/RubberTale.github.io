@@ -199,6 +199,7 @@
             <option value="泰国">🇹🇭 泰国 (Thailand)</option>
             <option value="印度尼西亚">🇮🇩 印度尼西亚 (Indonesia)</option>
             <option value="马来西亚">🇲🇾 马来西亚 (Malaysia)</option>
+            <option value="斯里兰卡">🇱🇰 斯里兰卡 (Sri Lanka)</option>
             <option value="科特迪瓦">🇨🇮 科特迪瓦 (Côte d'Ivoire)</option>
             <option value="非洲">🌍 非洲产区 (Africa)</option>
           </select>
@@ -449,10 +450,10 @@
           <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-sm mb-3">
             01
           </div>
-          <h3 class="text-sm font-bold text-slate-100">RU交割双轨制：品牌 vs 生产国检验</h3>
+          <h3 class="text-sm font-bold text-slate-100">RU交割双轨制：品牌 vs 四大原产国</h3>
           <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-            <strong class="text-emerald-400">国产全乳胶 (SCR WF)：</strong>实行严格的<span class="text-emerald-300 font-semibold">品牌注册制</span>，只有上期所公告认证的国产品牌（宝岛、云象、金凤等）方可交割。<br>
-            <strong class="text-amber-400">进口3号烟胶片 (RSS 3)：</strong><span class="text-amber-300 font-semibold">不设品牌注册！</span>实行“生产国海关报关单证 + 《绿皮书》国际标准 + 指定质检机构检验”，不限具体商业品牌。
+            <strong class="text-emerald-400">国产全乳胶 (SCR WF)：</strong>实行严格的<span class="text-emerald-300 font-semibold">品牌注册制</span>，仅限上期所公告认证的国产品牌（宝岛、云象、金凤等）。<br>
+            <strong class="text-amber-400">进口3号烟胶片 (RSS 3)：</strong><span class="text-amber-300 font-semibold">不设品牌注册！</span>官方限定原产于<span class="text-amber-200 font-semibold">泰国、马来西亚、印度尼西亚、斯里兰卡</span>四大原产国，凭海关完税单证及《绿皮书》质检合格交割。
           </p>
         </div>
 
@@ -721,18 +722,18 @@
             exchangeShort: 'SHFE',
             name: '进口3号烟胶片 (RSS 3)',
             nameEn: 'Imported RSS 3 (Standard Grade)',
-            country: '泰国 / 马来 / 印尼等原产国',
-            countryFlag: '🇹🇭🇲🇾🇮🇩',
+            country: '泰国 / 马来西亚 / 印度尼西亚 / 斯里兰卡 (法定四大原产国)',
+            countryFlag: '🇹🇭🇲🇾🇮🇩🇱🇰',
             isAfrica: false,
-            company: '主要天然橡胶生产国合规出口商（实行生产国单证+国际标准质检）',
-            factories: ['泰国经检验合规烟胶厂', '马来西亚合规烟胶厂', '印度尼西亚合规烟胶厂'],
+            company: '四大原产国合规出口商（实行生产国单证+《绿皮书》国际标准质检）',
+            factories: ['泰国合规烟胶厂', '马来西亚合规烟胶厂', '印度尼西亚合规烟胶厂', '斯里兰卡合规烟胶厂'],
             grade: '进口天然橡胶 3号烟胶片 (RSS 3)',
             deliveryType: '生产国标准检验 (非品牌注册)',
             premiumDiscount: '0 元/吨 (合约标准品)',
             standard: '《天然橡胶等级的品质与包装国际标准（绿皮书 The Green Book）》（1979年版）',
             packaging: '胶片复盖的胶包，标准件重为 111.11 kg/包（每吨 9 包，无溢短）；非标件重按实计量，允许 ±0.2% 磅差和 ±3% 溢短。',
             validity: '进口报关单申报日期起 6 个月内必须入库；在库交割有效期限为报关单申报日起 18 个月，逾期转现货。',
-            notes: '【核心规则·非品牌注册制】上期所对进口3号烟胶片不实行品牌注册制度！其交割资格完全取决于“生产国原产地与海关单证 + 《绿皮书》国际标准 + 指定质检机构抽检合格”。实物交割时必须提供：进口货物报关单、合同、海关关税专用缴款书、增值税专用缴款书复印件，以及交易所指定检验机构出具的质检证。不限制具体商业品牌！'
+            notes: '【法定四大原产国·非品牌注册制】上期所官方细则明确规定：天然橡胶期货可交割的3号烟胶片（RSS 3）必须来自四大原产国——泰国、马来西亚、印度尼西亚、斯里兰卡！交割不实行商业品牌注册制度，只要原产于这四个国家，提供进口货物报关单、合同、海关进口关税与增值税专用缴款书复印件，经交易所指定检验机构按《绿皮书》抽检合格即可交割，不限制具体商业品牌！'
           },
           {
             id: 'ru-rss3-traders',
@@ -1495,7 +1496,7 @@
             if (selectedCountry.value !== 'ALL') {
               if (selectedCountry.value === '非洲') {
                 if (!item.isAfrica) return false;
-              } else if (item.country !== selectedCountry.value) {
+              } else if (!item.country.includes(selectedCountry.value)) {
                 return false;
               }
             }
