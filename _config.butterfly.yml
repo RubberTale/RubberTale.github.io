@@ -25,6 +25,7 @@ menu:
   期货导航: /futures-nav/ || fas fa-compass
   图表: /charts/ || fas fa-chart-bar
   橡胶主要数据图表: /powerbi/ || fas fa-chart-pie
+  赞赏支持: /sponsor/ || fas fa-coffee
   地图 || fas fa-map:
     罗马地图: /roman/ || fas fa-map-marked-alt
     世界史地图: /world-history/ || fas fa-globe-asia
@@ -236,15 +237,12 @@ post_copyright:
 
 # Sponsor/reward
 reward:
-  enable: false
-  text:
+  enable: true
+  text: 创作不易，长期维护更需心血。若本文对您有所启发，欢迎赞赏支持作者！☕
   QR_code:
-    # - img: /img/wechat.jpg
-    #   link:
-    #   text: wechat
-    # - img: /img/alipay.jpg
-    #   link:
-    #   text: alipay
+    - img: /img/wechat-reward.jpg
+      link:
+      text: 微信赞赏
 
 # Post edit
 # Easily browse and edit blog source code online.
@@ -322,7 +320,7 @@ aside:
       link: https://github.com/RubberTale
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: '欢迎来到橡胶童话！本站持续独立开发与投研中。若这里的文章与工具对您有所帮助，欢迎 <a href="/sponsor/" style="color:#3b82f6;font-weight:bold;"><i class="fas fa-coffee"></i>【赞助支持】</a> ☕'
   card_recent_post:
     enable: true
     # If set 0 will show all

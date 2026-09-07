@@ -117,6 +117,72 @@ top_img: false
   transform: translateY(-1px);
   box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
 }
+.pbi-btn-sponsor {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
+}
+.pbi-btn-sponsor:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+}
+.pbi-sponsor-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(234, 88, 12, 0.04) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+[data-theme="dark"] .pbi-sponsor-card {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(30, 41, 59, 0.6) 100%);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+.pbi-sponsor-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 99999;
+  justify-content: center;
+  align-items: center;
+}
+.pbi-sponsor-modal-content {
+  background: var(--card-bg, #fff);
+  border-radius: 18px;
+  padding: 28px 24px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--style-border, rgba(0,0,0,0.1));
+  position: relative;
+  animation: pbiFadeIn 0.25s ease-out;
+}
+@keyframes pbiFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.pbi-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px 8px;
+}
 .pbi-btn-outline {
   background: rgba(0, 0, 0, 0.04);
   color: var(--font-color) !important;
@@ -316,6 +382,9 @@ top_img: false
       <button class="pbi-btn pbi-btn-comment" onclick="scrollToComments()" title="前往下方评论与交流区">
         <i class="fas fa-comment-dots"></i> 讨论与留言 (<span id="pbi-comment-count"><i class="fas fa-spinner fa-spin"></i></span>)
       </button>
+      <button class="pbi-btn pbi-btn-sponsor" onclick="togglePBISponsorModal()" title="赞赏支持作者">
+        <i class="fas fa-coffee"></i> 赞赏支持
+      </button>
       <button class="pbi-btn pbi-btn-outline" onclick="togglePBIFullscreen()" title="在当前页面全屏体验">
         <i class="fas fa-expand"></i> 全屏沉浸
       </button>
@@ -342,6 +411,45 @@ top_img: false
       frameborder="0" 
       allowFullScreen="true">
     </iframe>
+  </div>
+
+  <!-- 赞赏与支持横幅 -->
+  <div class="pbi-sponsor-card">
+    <div style="flex: 1; min-width: 260px;">
+      <div style="font-size: 15px; font-weight: 700; color: var(--font-color); display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-coffee" style="color: #f59e0b;"></i> 喜欢这份橡胶数据看板？欢迎赞赏支持作者
+      </div>
+      <div style="font-size: 13px; color: #6b7280; margin-top: 4px; line-height: 1.5;">
+        独立清洗与持续维护全套橡胶产业链高频数据需要付出长期的心血劳动。若本数据大屏对您的投研工作有所启发，欢迎赞赏一杯咖啡，陪伴本站走得更远！
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="pbi-btn pbi-btn-sponsor" onclick="togglePBISponsorModal()">
+        <i class="fab fa-weixin"></i> 微信扫码赞赏
+      </button>
+      <a href="/sponsor/" target="_blank" class="pbi-btn pbi-btn-outline" style="font-size: 13px;">
+        了解更多
+      </a>
+    </div>
+  </div>
+
+  <!-- 赞赏弹窗 -->
+  <div class="pbi-sponsor-modal-overlay" id="pbi-sponsor-modal" onclick="closePBISponsorModal(event)">
+    <div class="pbi-sponsor-modal-content" onclick="event.stopPropagation()">
+      <button class="pbi-modal-close" onclick="togglePBISponsorModal()">&times;</button>
+      <div style="font-size: 17px; font-weight: 700; color: var(--font-color); margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <i class="fas fa-coffee" style="color: #f59e0b;"></i> 赞赏支持作者
+      </div>
+      <div style="font-size: 13px; color: #6b7280; margin-bottom: 16px;">
+        感谢您对「橡胶童话」独立投研智库的认可与支持 ☕
+      </div>
+      <div style="background: #fff; padding: 10px; border-radius: 14px; display: inline-block; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 14px;">
+        <img src="/img/wechat-reward.jpg" alt="微信赞赏码" style="width: 220px; height: 220px; display: block; border-radius: 8px;" />
+      </div>
+      <div style="font-size: 12px; color: #059669; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <i class="fab fa-weixin"></i> 微信扫一扫 · 自由赞赏
+      </div>
+    </div>
   </div>
 
   <!-- 评论与互动引导区 -->
@@ -377,6 +485,20 @@ top_img: false
 </div>
 
 <script>
+function togglePBISponsorModal() {
+  const modal = document.getElementById('pbi-sponsor-modal');
+  if (!modal) return;
+  const isShown = modal.style.display === 'flex';
+  modal.style.display = isShown ? 'none' : 'flex';
+}
+
+function closePBISponsorModal(e) {
+  if (e.target && e.target.id === 'pbi-sponsor-modal') {
+    togglePBISponsorModal();
+  }
+}
+
+// 全屏切换逻辑
 function togglePBIFullscreen() {
   const container = document.getElementById('pbi-wrapper') || document.getElementById('pbi-frame');
   if (!container) return;
