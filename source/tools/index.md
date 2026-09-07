@@ -65,8 +65,8 @@ aside: false
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:stamp.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="橡胶期货交割注册品牌大全">
         </div>
-        <div class="flink-item-name">橡胶交割注册品牌大全</div>
-        <div class="flink-item-desc">全面收录上期所 RU（全乳胶/烟胶片）、上期能源 NR（含非洲科特迪瓦美兰/STCNF等替代品）与 BR 顺丁橡胶官方注册交割品牌与升贴水速查手册。</div>
+        <div class="flink-item-name">橡胶交割注册品牌与标准大全</div>
+        <div class="flink-item-desc">全面收录上期所 RU（国产品牌全乳胶/进口烟胶片生产国检验制）、上期能源 NR（含非洲科特迪瓦美兰/STCNF等替代品）与 BR 顺丁橡胶官方注册交割品牌与升贴水速查手册。</div>
       </a>
     </div>
     <div class="flink-list-item">
