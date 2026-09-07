@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-09-07 (今晚 19:00 待初始化)",
-  "generated_time": "2026-09-07 07:07:29",
+  "updated_at": "2026-09-07",
+  "generated_time": "2026-09-07 07:08:26",
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 1000000.0,
@@ -13,9 +13,42 @@
     "total_trades": 0,
     "open_positions_count": 0,
     "available_slots": 4,
-    "market_status": "空仓防御 (无共振信号)"
+    "market_status": "积极进攻 (共振选出品种)"
   },
-  "latest_signals": [],
+  "latest_signals": [
+    {
+      "symbol": "PG",
+      "name": "液化石油气",
+      "contract": "PG2610",
+      "direction": "做多",
+      "score": 4.3,
+      "win_rate_est": 62.8,
+      "trigger_price": 6660.05,
+      "stop_price": 6221.75,
+      "tp_price": 7268.8,
+      "close": 6587.0,
+      "atr": 243.5,
+      "percentile": 79.9,
+      "sector": "化工品",
+      "logic": "站上MA20均线(+12.9%)，量能放大，估值分位80%具备上行弹性"
+    },
+    {
+      "symbol": "I",
+      "name": "铁矿石",
+      "contract": "I2701",
+      "direction": "做多",
+      "score": 2.8,
+      "win_rate_est": 59.0,
+      "trigger_price": 739.41,
+      "stop_price": 709.96,
+      "tp_price": 780.3,
+      "close": 734.5,
+      "atr": 16.36,
+      "percentile": 29.2,
+      "sector": "黑色系",
+      "logic": "站上MA20均线(+1.9%)，量能放大，估值分位29%具备上行弹性"
+    }
+  ],
   "current_positions": [],
   "equity_curve": [
     {
