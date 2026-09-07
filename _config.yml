@@ -138,6 +138,17 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 
+# Hide posts from homepage and archive while keeping them visible in categories
+hide_posts:
+  enable: true
+  filter: hidden
+  allowlist_generators:
+    - category
+  blocklist_generators:
+    - index
+    - archive
+  noindex: false
+
 # theme: landscape
 theme: butterfly
 
