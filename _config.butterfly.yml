@@ -26,28 +26,27 @@ menu:
   图表: /charts/ || fas fa-chart-bar
   橡胶主要数据图表: /powerbi/ || fas fa-chart-pie
   赞赏支持: /sponsor/ || fas fa-coffee
-  地图 || fas fa-map:
-    罗马地图: /roman/ || fas fa-map-marked-alt
-    世界史地图: /world-history/ || fas fa-globe-asia
-    欧洲王室谱系: /royal-genealogy/ || fas fa-crown
   游戏: /games/ || fas fa-gamepad
   小工具 || fas fa-tools:
     小工具箱: /tools/ || fas fa-toolbox
+    量化跟踪雷达: /tools/strategy-tracker/ || fas fa-crosshairs
     期货投研导航: /futures-nav/ || fas fa-compass
-    奇货可查: https://qhkch.com/ || fas fa-chart-line
-    基差与价差套利测算: /tools/arbitrage-calc/ || fas fa-balance-scale
-    橡胶交割注册品牌: /tools/delivery-brands/ || fas fa-stamp
-    持仓盈亏比与凯利仓位: /tools/position-calculator/ || fas fa-calculator
-    产区气象与割胶物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
+    基差价差套利: /tools/arbitrage-calc/ || fas fa-balance-scale
+    橡胶交割品牌: /tools/delivery-brands/ || fas fa-stamp
+    凯利仓位测算: /tools/position-calculator/ || fas fa-calculator
+    产区气象物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
     研报平衡表比对: /tools/report-data-diff/ || fas fa-file-invoice
+    罗马历史地图: /roman/ || fas fa-map-marked-alt
+    世界史对照地图: /world-history/ || fas fa-globe-asia
+    欧洲王室谱系: /royal-genealogy/ || fas fa-crown
+    景洪降雨预报: https://www.nmc.cn/publish/forecast/AYN/jinghong.html || fas fa-cloud-rain
+    勐腊降雨预报: https://www.nmc.cn/publish/forecast/AYN/zuola.html || fas fa-cloud-rain
+    海南白沙降雨: https://www.nmc.cn/publish/forecast/AHI/baisha.html || fas fa-cloud-rain
+    海南儋州降雨: https://www.nmc.cn/publish/forecast/AHI/zuozhou.html || fas fa-cloud-rain
     智能简历工坊: /tools/resume/ || fas fa-file-alt
-    文本倒序转换器: /tools/reverse-app/ || fas fa-repeat
-    AI 人像写真工坊: /tools/pic-6varieties/ || fas fa-camera
-  降雨量 || fas fa-cloud-showers-heavy:
-    景洪: https://www.nmc.cn/publish/forecast/AYN/jinghong.html || fas fa-cloud-rain
-    勐腊: https://www.nmc.cn/publish/forecast/AYN/zuola.html || fas fa-cloud-rain
-    海南白沙: https://www.nmc.cn/publish/forecast/AHI/baisha.html || fas fa-cloud-rain
-    海南儋州: https://www.nmc.cn/publish/forecast/AHI/zuozhou.html || fas fa-cloud-rain
+    文本倒序转换: /tools/reverse-app/ || fas fa-repeat
+    AI写真工坊: /tools/pic-6varieties/ || fas fa-camera
+    奇货可查: https://qhkch.com/ || fas fa-chart-line
   # ...其他你不需要的可以在前面加 # 注释掉
 
 # --------------------------------------
