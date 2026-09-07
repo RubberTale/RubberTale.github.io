@@ -35,6 +35,7 @@ menu:
     期货投研导航: /futures-nav/ || fas fa-compass
     奇货可查: https://qhkch.com/ || fas fa-chart-line
     基差与价差套利测算: /tools/arbitrage-calc/ || fas fa-balance-scale
+    橡胶交割注册品牌: /tools/delivery-brands/ || fas fa-stamp
     持仓盈亏比与凯利仓位: /tools/position-calculator/ || fas fa-calculator
     产区气象与割胶物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
     研报平衡表比对: /tools/report-data-diff/ || fas fa-file-invoice

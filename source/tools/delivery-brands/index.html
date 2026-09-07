@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>橡胶与顺丁橡胶期货交割注册品牌大全 · RU / NR / 非洲胶 / BR | 橡胶童话</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='6'></circle><path d='M15.477 12.89 17 22l-5-3-5 3 1.523-9.11'></path></svg>" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white">
+
+  <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Top Navigation Breadcrumb -->
+    <header class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <a href="/tools/" class="inline-flex items-center text-sm text-slate-400 hover:text-emerald-400 transition-colors">
+          <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          返回小工具箱
+        </a>
+        <span class="text-slate-600">/</span>
+        <a href="/" class="text-sm text-slate-400 hover:text-emerald-400 transition-colors">博客首页</a>
+        <span class="text-slate-600">/</span>
+        <span class="text-sm text-emerald-400 font-medium">交割注册品牌大全</span>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button @click="exportCSV" class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          <svg class="w-3.5 h-3.5 mr-1 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          导出当前清单 (CSV)
+        </button>
+        <span class="text-xs text-slate-400 font-mono bg-slate-900 px-2.5 py-1 rounded border border-slate-800">
+          已收录 {{ brands.length }} 个品牌/工厂
+        </span>
+      </div>
+    </header>
+
+    <!-- Page Header & Banner -->
+    <div class="mt-8 mb-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>上期所 (SHFE) & 上期能源 (INE) 官方交割准入品牌库</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+            <span>橡胶与顺丁橡胶期货交割注册品牌大全</span>
+          </h1>
+          <p class="mt-2 text-sm text-slate-400 max-w-3xl">
+            收录上期所天然橡胶（RU）、上期能源20号胶（NR，含中/泰/马/印及非洲注册品牌）、顺丁橡胶（BR）全量认证交割品牌、生产工厂、交割品级、升贴水规定与仓单有效期限红线。
+          </p>
+        </div>
+
+        <!-- Quick Summary Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+          <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-2.5">
+            <div class="text-xs text-slate-400">RU 天然橡胶</div>
+            <div class="text-lg font-bold text-emerald-400 font-mono">{{ countByVariety('RU') }}</div>
+            <div class="text-[10px] text-slate-400">全乳胶/烟胶片</div>
+          </div>
+          <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-2.5">
+            <div class="text-xs text-slate-400">NR 20号胶</div>
+            <div class="text-lg font-bold text-blue-400 font-mono">{{ countByVariety('NR') }}</div>
+            <div class="text-[10px] text-slate-400">中泰马印非标胶</div>
+          </div>
+          <div class="bg-slate-900/80 border border-amber-500/30 bg-amber-500/5 rounded-lg p-2.5">
+            <div class="text-xs text-amber-300 font-medium">非洲胶专区</div>
+            <div class="text-lg font-bold text-amber-400 font-mono">{{ countAfrica }}</div>
+            <div class="text-[10px] text-amber-400">含替代交割/贴水</div>
+          </div>
+          <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-2.5">
+            <div class="text-xs text-slate-400">BR 顺丁橡胶</div>
+            <div class="text-lg font-bold text-purple-400 font-mono">{{ countByVariety('BR') }}</div>
+            <div class="text-[10px] text-slate-400">高顺式BR9000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Varieties Filter Tabs -->
+    <div class="flex flex-wrap items-center gap-2 pb-4 pt-2">
+      <button 
+        @click="activeVariety = 'ALL'"
+        :class="activeVariety === 'ALL' ? 'bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-4 py-2 rounded-xl text-sm transition-all flex items-center gap-2">
+        <span>全部品种</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeVariety === 'ALL' ? 'bg-emerald-700 text-white' : 'bg-slate-800 text-slate-400'">{{ brands.length }}</span>
+      </button>
+
+      <button 
+        @click="activeVariety = 'RU'"
+        :class="activeVariety === 'RU' ? 'bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-4 py-2 rounded-xl text-sm transition-all flex items-center gap-2">
+        <span>RU 天然橡胶 (SHFE)</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeVariety === 'RU' ? 'bg-emerald-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByVariety('RU') }}</span>
+      </button>
+
+      <button 
+        @click="activeVariety = 'NR'"
+        :class="activeVariety === 'NR' ? 'bg-blue-600 text-white font-semibold shadow-lg shadow-blue-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-4 py-2 rounded-xl text-sm transition-all flex items-center gap-2">
+        <span>NR 20号胶 (INE)</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeVariety === 'NR' ? 'bg-blue-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByVariety('NR') }}</span>
+      </button>
+
+      <button 
+        @click="activeVariety = 'AFRICA'"
+        :class="activeVariety === 'AFRICA' ? 'bg-amber-600 text-white font-semibold shadow-lg shadow-amber-900/40 ring-2 ring-amber-400/40' : 'bg-slate-900 text-amber-400 hover:bg-slate-800 hover:text-amber-300 border border-amber-500/30'"
+        class="px-4 py-2 rounded-xl text-sm transition-all flex items-center gap-2">
+        <span>🌍 非洲胶专区 (科特迪瓦等)</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeVariety === 'AFRICA' ? 'bg-amber-700 text-white' : 'bg-amber-950 text-amber-300'">{{ countAfrica }}</span>
+      </button>
+
+      <button 
+        @click="activeVariety = 'BR'"
+        :class="activeVariety === 'BR' ? 'bg-purple-600 text-white font-semibold shadow-lg shadow-purple-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-4 py-2 rounded-xl text-sm transition-all flex items-center gap-2">
+        <span>BR 顺丁橡胶 (SHFE)</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeVariety === 'BR' ? 'bg-purple-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByVariety('BR') }}</span>
+      </button>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 mb-6 shadow-xl backdrop-blur-sm">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+        
+        <!-- Search Input -->
+        <div class="md:col-span-5 relative">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input 
+            type="text" 
+            v-model="searchQuery" 
+            placeholder="搜索品牌名称、企业名、工厂、品级 (如 宝岛, Mainland, 昆仑, TSR10)..."
+            class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm text-slate-100 placeholder-slate-400 transition" />
+          <button v-if="searchQuery" @click="searchQuery = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <!-- Country Filter -->
+        <div class="md:col-span-3">
+          <select v-model="selectedCountry" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+            <option value="ALL">全部产国 / 地区</option>
+            <option value="中国">🇨🇳 中国 (China)</option>
+            <option value="泰国">🇹🇭 泰国 (Thailand)</option>
+            <option value="印度尼西亚">🇮🇩 印度尼西亚 (Indonesia)</option>
+            <option value="马来西亚">🇲🇾 马来西亚 (Malaysia)</option>
+            <option value="科特迪瓦">🇨🇮 科特迪瓦 (Côte d'Ivoire)</option>
+            <option value="非洲">🌍 非洲产区 (Africa)</option>
+          </select>
+        </div>
+
+        <!-- Delivery Type Filter -->
+        <div class="md:col-span-2">
+          <select v-model="selectedDeliveryType" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+            <option value="ALL">全部交割属性</option>
+            <option value="基准交割品">基准交割品 (0贴水)</option>
+            <option value="替代交割品">替代交割品 (含升贴水)</option>
+            <option value="现货流通参考">现货流通参考</option>
+          </select>
+        </div>
+
+        <!-- View Switcher (Grid vs Table) -->
+        <div class="md:col-span-2 flex justify-end space-x-1">
+          <button 
+            @click="viewMode = 'grid'" 
+            :class="viewMode === 'grid' ? 'bg-slate-800 text-emerald-400 border-emerald-500/40' : 'bg-slate-950 text-slate-400 hover:text-slate-200 border-slate-800'"
+            class="p-2 rounded-lg border text-sm transition" title="卡片视图">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+            </svg>
+          </button>
+          <button 
+            @click="viewMode = 'table'" 
+            :class="viewMode === 'table' ? 'bg-slate-800 text-emerald-400 border-emerald-500/40' : 'bg-slate-950 text-slate-400 hover:text-slate-200 border-slate-800'"
+            class="p-2 rounded-lg border text-sm transition" title="紧凑表格视图">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Active Filters Tag Bar -->
+      <div v-if="searchQuery || selectedCountry !== 'ALL' || selectedDeliveryType !== 'ALL' || activeVariety !== 'ALL'" class="flex flex-wrap items-center gap-2 mt-3 pt-3 border-t border-slate-800 text-xs text-slate-400">
+        <span>当前筛选：</span>
+        <span v-if="activeVariety !== 'ALL'" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          品种: {{ activeVariety }}
+          <button @click="activeVariety = 'ALL'" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <span v-if="selectedCountry !== 'ALL'" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          国家: {{ selectedCountry }}
+          <button @click="selectedCountry = 'ALL'" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <span v-if="selectedDeliveryType !== 'ALL'" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          属性: {{ selectedDeliveryType }}
+          <button @click="selectedDeliveryType = 'ALL'" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <span v-if="searchQuery" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          关键字: "{{ searchQuery }}"
+          <button @click="searchQuery = ''" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <button @click="resetFilters" class="text-emerald-400 hover:underline ml-auto">重置全部筛选</button>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div v-if="filteredBrands.length === 0" class="text-center py-16 bg-slate-900/40 rounded-2xl border border-slate-800 my-8">
+      <div class="inline-flex p-3 rounded-full bg-slate-800 text-slate-400 mb-3">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <p class="text-base text-slate-300 font-medium">未找到符合条件的交割品牌</p>
+      <p class="text-xs text-slate-400 mt-1">请尝试调整搜索关键词或重置筛选标签</p>
+      <button @click="resetFilters" class="mt-4 px-4 py-2 rounded-xl text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition">
+        重置筛选条件
+      </button>
+    </div>
+
+    <!-- VIEW 1: Grid Cards View -->
+    <div v-if="viewMode === 'grid' && filteredBrands.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div 
+        v-for="item in filteredBrands" 
+        :key="item.id"
+        @click="openModal(item)"
+        class="bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-lg hover:shadow-xl relative overflow-hidden"
+        :class="item.isAfrica ? 'ring-1 ring-amber-500/30' : ''">
+        
+        <!-- Top Colored Border Indicator -->
+        <div class="absolute top-0 left-0 right-0 h-1" 
+             :class="{
+               'bg-emerald-500': item.variety === 'RU',
+               'bg-blue-500': item.variety === 'NR' && !item.isAfrica,
+               'bg-amber-500': item.isAfrica,
+               'bg-purple-500': item.variety === 'BR'
+             }"></div>
+
+        <div>
+          <!-- Header Badges -->
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-center space-x-1.5">
+              <span class="px-2 py-0.5 rounded-md text-xs font-bold font-mono"
+                    :class="{
+                      'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30': item.variety === 'RU',
+                      'bg-blue-500/10 text-blue-400 border border-blue-500/30': item.variety === 'NR' && !item.isAfrica,
+                      'bg-amber-500/10 text-amber-300 border border-amber-500/30': item.isAfrica,
+                      'bg-purple-500/10 text-purple-400 border border-purple-500/30': item.variety === 'BR'
+                    }">
+                {{ item.variety }} · {{ item.exchangeShort }}
+              </span>
+              <span class="text-xs text-slate-400 flex items-center gap-1">
+                <span>{{ item.countryFlag }}</span>
+                <span>{{ item.country }}</span>
+              </span>
+            </div>
+
+            <!-- Delivery Type Tag -->
+            <span class="text-[11px] px-2 py-0.5 rounded-full font-medium"
+                  :class="{
+                    'bg-slate-800 text-slate-300': item.deliveryType === '基准交割品',
+                    'bg-amber-500/20 text-amber-300 border border-amber-500/30': item.deliveryType === '替代交割品',
+                    'bg-slate-800 text-slate-400 border border-slate-700': item.deliveryType === '现货流通参考'
+                  }">
+              {{ item.deliveryType }}
+            </span>
+          </div>
+
+          <!-- Brand Names -->
+          <div class="mb-2">
+            <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+              <span>{{ item.name }}</span>
+              <span v-if="item.nameEn" class="text-xs text-slate-400 font-normal">({{ item.nameEn }})</span>
+            </h3>
+            <p class="text-xs text-slate-400 line-clamp-1 mt-0.5" :title="item.company">{{ item.company }}</p>
+          </div>
+
+          <!-- Key Details Pill Grid -->
+          <div class="mt-4 space-y-2 text-xs">
+            <div class="flex items-center justify-between text-slate-400 py-1 border-t border-slate-800/60">
+              <span>认证品级</span>
+              <span class="font-mono text-slate-200 font-medium">{{ item.grade }}</span>
+            </div>
+            <div class="flex items-center justify-between text-slate-400 py-1 border-t border-slate-800/60">
+              <span>升贴水规定</span>
+              <span class="font-mono font-medium" :class="item.premiumDiscount.includes('贴水') ? 'text-amber-400 font-bold' : (item.premiumDiscount.includes('0') ? 'text-emerald-400' : 'text-slate-300')">
+                {{ item.premiumDiscount }}
+              </span>
+            </div>
+            <div class="flex items-center justify-between text-slate-400 py-1 border-t border-slate-800/60">
+              <span>核心工厂/代码</span>
+              <span class="text-slate-300 truncate max-w-[180px]" :title="item.factories.join('、')">
+                {{ item.factories[0] }} {{ item.factories.length > 1 ? '+' + (item.factories.length - 1) + '家' : '' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Card Action -->
+        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+          <span class="text-[11px] text-slate-400 truncate max-w-[200px]">{{ item.validity }}</span>
+          <span class="inline-flex items-center text-emerald-400 group-hover:translate-x-0.5 transition-transform font-medium">
+            查看详情
+            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIEW 2: Compact Table View -->
+    <div v-if="viewMode === 'table' && filteredBrands.length > 0" class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden mb-12 shadow-xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase tracking-wider font-mono">
+            <tr>
+              <th scope="col" class="px-4 py-3">品种 / 交易所</th>
+              <th scope="col" class="px-4 py-3">注册品牌</th>
+              <th scope="col" class="px-4 py-3">产地</th>
+              <th scope="col" class="px-4 py-3">生产企业</th>
+              <th scope="col" class="px-4 py-3">交割品级</th>
+              <th scope="col" class="px-4 py-3">交割属性</th>
+              <th scope="col" class="px-4 py-3">升贴水</th>
+              <th scope="col" class="px-4 py-3">仓单有效期</th>
+              <th scope="col" class="px-4 py-3 text-right">操作</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 font-normal">
+            <tr v-for="item in filteredBrands" :key="item.id" @click="openModal(item)" class="hover:bg-slate-800/50 cursor-pointer transition">
+              <td class="px-4 py-3 font-mono whitespace-nowrap">
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold"
+                      :class="{
+                        'bg-emerald-500/10 text-emerald-400': item.variety === 'RU',
+                        'bg-blue-500/10 text-blue-400': item.variety === 'NR' && !item.isAfrica,
+                        'bg-amber-500/10 text-amber-300': item.isAfrica,
+                        'bg-purple-500/10 text-purple-400': item.variety === 'BR'
+                      }">
+                  {{ item.variety }} ({{ item.exchangeShort }})
+                </span>
+              </td>
+              <td class="px-4 py-3 font-semibold text-white whitespace-nowrap">
+                {{ item.name }}
+                <span v-if="item.nameEn" class="text-slate-400 font-normal ml-1">({{ item.nameEn }})</span>
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap">
+                {{ item.countryFlag }} {{ item.country }}
+              </td>
+              <td class="px-4 py-3 max-w-[200px] truncate" :title="item.company">
+                {{ item.company }}
+              </td>
+              <td class="px-4 py-3 font-mono text-slate-200 whitespace-nowrap">
+                {{ item.grade }}
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap">
+                <span class="text-[11px] px-2 py-0.5 rounded"
+                      :class="item.deliveryType === '基准交割品' ? 'bg-slate-800 text-slate-300' : (item.deliveryType === '替代交割品' ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-slate-800 text-slate-400')">
+                  {{ item.deliveryType }}
+                </span>
+              </td>
+              <td class="px-4 py-3 font-mono font-medium whitespace-nowrap"
+                  :class="item.premiumDiscount.includes('贴水') ? 'text-amber-400 font-bold' : (item.premiumDiscount.includes('0') ? 'text-emerald-400' : 'text-slate-300')">
+                {{ item.premiumDiscount }}
+              </td>
+              <td class="px-4 py-3 text-slate-400 truncate max-w-[160px]" :title="item.validity">
+                {{ item.validity }}
+              </td>
+              <td class="px-4 py-3 text-right whitespace-nowrap">
+                <span class="text-emerald-400 hover:text-emerald-300 font-medium">详情</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Practical Delivery Knowledge & Rule Red Lines Section -->
+    <div class="mt-12 pt-8 border-t border-slate-800">
+      <div class="mb-6">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          期货橡胶实盘交割核心规则与避坑指南
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">交割套利与仓单注册实务中必须严守的四项制度边界</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Card 1 -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-sm mb-3">
+            01
+          </div>
+          <h3 class="text-sm font-bold text-slate-100">保税交割 vs 完税交割</h3>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            <strong class="text-blue-400">NR 20号胶：</strong>国际化品种，实行保税交割、净价交易。报价不含关税与增值税。国内流通现货必须为保税区内保税现货才能交割。<br>
+            <strong class="text-emerald-400">RU 与 BR：</strong>内盘常规品种，实行完税交割，包含增值税。切勿混淆两者的税负与计价口径。
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-slate-900/60 border border-amber-500/20 bg-amber-500/5 rounded-2xl p-5">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-sm mb-3">
+            02
+          </div>
+          <h3 class="text-sm font-bold text-amber-200">非洲胶交割核心细则</h3>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            INE 已正式将科特迪瓦“美兰”与“STCNF”下属工厂生产的 <strong class="text-amber-300">10号胶（TSR10）</strong> 注册为 20号胶替代交割品，执行 <strong class="text-amber-400 font-bold">贴水 400 元/吨</strong>。<br>
+            注意：国内市场流通的 SAPH、SOGB 等知名非洲品牌若未在 INE 独立注册，不能直接生成期货仓单！
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-sm mb-3">
+            03
+          </div>
+          <h3 class="text-sm font-bold text-slate-100">仓单有效期“三大红线”</h3>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            <strong class="text-emerald-400">RU：</strong>当年生产的全乳胶最晚必须在次年11月前交割完毕，逾期强制注销。<br>
+            <strong class="text-blue-400">NR：</strong>生产之日起12个月内须入库制单，仓单有效期自生产起最长12个月。<br>
+            <strong class="text-purple-400">BR：</strong>生产日起12个月内入库，仓单自生产日起最长不超过18个月。
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-sm mb-3">
+            04
+          </div>
+          <h3 class="text-sm font-bold text-slate-100">交易所官方查验渠道</h3>
+          <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+            交割资质与注册工厂实行动态年审调整，实操前建议核对最新官方公告：<br>
+            • <a href="https://www.shfe.com.cn" target="_blank" class="text-emerald-400 hover:underline">上期所官网 (SHFE)</a>：产品 &rarr; 能源化工 &rarr; 天然橡胶 / 合成橡胶合约附表。<br>
+            • <a href="https://www.ine.cn" target="_blank" class="text-blue-400 hover:underline">上期能源官网 (INE)</a>：业务规则 &rarr; 20号胶注册商品信息列表。
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal: Brand Detail Drawer -->
+    <div v-if="modalItem" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" @click.self="closeModal">
+      <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        
+        <!-- Close Button -->
+        <button @click="closeModal" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <!-- Modal Header -->
+        <div class="flex items-center space-x-2 mb-3">
+          <span class="px-2.5 py-1 rounded text-xs font-bold font-mono"
+                :class="{
+                  'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40': modalItem.variety === 'RU',
+                  'bg-blue-500/20 text-blue-400 border border-blue-500/40': modalItem.variety === 'NR' && !modalItem.isAfrica,
+                  'bg-amber-500/20 text-amber-300 border border-amber-500/40': modalItem.isAfrica,
+                  'bg-purple-500/20 text-purple-400 border border-purple-500/40': modalItem.variety === 'BR'
+                }">
+            {{ modalItem.variety }} · {{ modalItem.exchange }}
+          </span>
+          <span class="text-xs text-slate-300">{{ modalItem.countryFlag }} {{ modalItem.country }}</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">{{ modalItem.deliveryType }}</span>
+        </div>
+
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+          <span>{{ modalItem.name }}</span>
+          <span v-if="modalItem.nameEn" class="text-slate-400 text-base font-normal">({{ modalItem.nameEn }})</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">{{ modalItem.company }}</p>
+
+        <!-- Information Table / Specs -->
+        <div class="mt-6 space-y-3 text-xs">
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 grid grid-cols-2 gap-3">
+            <div>
+              <span class="text-slate-400 block mb-1">交割品级</span>
+              <span class="text-sm font-semibold font-mono text-emerald-400">{{ modalItem.grade }}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block mb-1">升贴水规定</span>
+              <span class="text-sm font-semibold font-mono" :class="modalItem.premiumDiscount.includes('贴水') ? 'text-amber-400 font-bold' : (modalItem.premiumDiscount.includes('0') ? 'text-emerald-400' : 'text-slate-200')">
+                {{ modalItem.premiumDiscount }}
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80">
+            <span class="text-slate-400 block mb-1 font-medium">执行标准 / 质量指标</span>
+            <span class="text-slate-200 font-mono">{{ modalItem.standard }}</span>
+          </div>
+
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80">
+            <span class="text-slate-400 block mb-1 font-medium">指定生产企业 / 工厂代码</span>
+            <div class="flex flex-wrap gap-1.5 mt-1">
+              <span v-for="fac in modalItem.factories" :key="fac" class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-xs">
+                {{ fac }}
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80 grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <span class="text-slate-400 block mb-1 font-medium">包装规格与要求</span>
+              <span class="text-slate-300 leading-relaxed">{{ modalItem.packaging }}</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block mb-1 font-medium">仓单有效期限红线</span>
+              <span class="text-slate-300 leading-relaxed">{{ modalItem.validity }}</span>
+            </div>
+          </div>
+
+          <div v-if="modalItem.notes" class="p-3.5 rounded-xl border" :class="modalItem.isAfrica ? 'bg-amber-500/10 border-amber-500/30 text-amber-200' : 'bg-slate-950 border-slate-800 text-slate-300'">
+            <strong class="block mb-1 text-xs" :class="modalItem.isAfrica ? 'text-amber-300' : 'text-emerald-400'">
+              💡 期现交割实操提示：
+            </strong>
+            <p class="leading-relaxed text-xs">{{ modalItem.notes }}</p>
+          </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end space-x-3">
+          <button @click="copyBrandInfo(modalItem)" class="px-4 py-2 rounded-xl text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            复制品牌信息
+          </button>
+          <button @click="closeModal" class="px-4 py-2 rounded-xl text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition">
+            完成浏览
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- App Logic & Brands Data -->
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const activeVariety = ref('ALL');
+        const selectedCountry = ref('ALL');
+        const selectedDeliveryType = ref('ALL');
+        const searchQuery = ref('');
+        const viewMode = ref('grid');
+        const modalItem = ref(null);
+
+        // Authoritative Database of Registered Brands
+        const brands = ref([
+          // ======================== RU (上海期货交易所 - 天然橡胶) ========================
+          {
+            id: 'ru-baodao',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '宝岛',
+            nameEn: 'BAODAO',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '海南天然橡胶产业集团股份有限公司',
+            factories: ['金隆加工分公司', '金水加工分公司', '金星加工分公司', '金平加工分公司', '金联加工分公司', '红光加工分公司'],
+            grade: '国产全乳胶 (SCR WF)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8081-2018《天然生胶 技术分级橡胶 (TSR) 规范》',
+            packaging: '采用内衬聚乙烯薄膜的复合编织袋或托盘包装，标称净重 33.33 kg/包 或 40 kg/包。',
+            validity: '生产年份第二年的最后一个交割月份（11月）之前交割完毕，逾期强制注销转为现货。',
+            notes: '国内最核心基准交割品牌之一，交割仓单流动性极好，主要分布在上海、山东青岛及海南指定交割仓库。'
+          },
+          {
+            id: 'ru-yunxiang',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '云象',
+            nameEn: 'YUNXIANG',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '云南天然橡胶产业集团有限公司',
+            factories: ['景洪制胶厂', '勐腊制胶厂', '江城制胶厂', '普洱制胶厂', '西双版纳云垦分公司'],
+            grade: '国产全乳胶 (SCR WF)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8081-2018《天然生胶 技术分级橡胶 (TSR) 规范》',
+            packaging: '标称净重 33.33 kg/包，胶包表面喷印云象注册标识与生产年份/批号。',
+            validity: '生产年份第二年的11月之前必须交割完毕（最长18个月），不可跨年交割。',
+            notes: '云南产区主力品牌，市场认可度极高，深色胶乳品质上乘，常年作为交割和下游轮胎核心原料。'
+          },
+          {
+            id: 'ru-jinfeng',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '金凤',
+            nameEn: 'JINFENG',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '云南天然橡胶产业集团墨江有限公司',
+            factories: ['墨江坝沙田制胶厂', '通关制胶厂'],
+            grade: '国产全乳胶 (SCR WF)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8081-2018',
+            packaging: '标称净重 33.33 kg/包，聚乙烯薄膜衬袋包装。',
+            validity: '生产年份次年11月份之前交割完毕。',
+            notes: '云南农垦下属优质注册商标，质检指标稳定性优异，可直接抵扣交割履约。'
+          },
+          {
+            id: 'ru-gkr',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '广垦橡胶',
+            nameEn: 'GKR',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '广东省广垦橡胶集团有限公司',
+            factories: ['云南广垦橡胶小街制胶厂', '茂名农垦制胶厂', '湛江农垦制胶厂'],
+            grade: '国产全乳胶 (SCR WF)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8081-2018',
+            packaging: '托盘化包装或胶包单袋装（33.33kg/包），带 GKR 注册防伪标识。',
+            validity: '生产年份次年11月前交割完毕。',
+            notes: '华南农垦重要上市交割主力，加工工厂分布于广东与云南，具有较强品牌溢价。'
+          },
+          {
+            id: 'ru-sinochem',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '中化 / 五指山',
+            nameEn: 'SINOCHEM / WUZHISHAN',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中化国际（控股）股份有限公司 / 海南中化橡胶有限公司',
+            factories: ['中化澄迈加工厂', '中化琼中加工厂'],
+            grade: '国产全乳胶 (SCR WF)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8081-2018',
+            packaging: '33.33 kg/包，PE 内膜复合包装袋。',
+            validity: '生产年份次年11月前交割完毕。',
+            notes: '央企中化集团旗下胶厂生产，具备标准化追溯系统与质量检测资质。'
+          },
+          {
+            id: 'ru-thaihua',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '泰华',
+            nameEn: 'Thai Hua',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Thai Hua Rubber Public Co., Ltd.',
+            factories: ['Rayong 工厂', 'Yala 工厂', 'Songkhla 工厂'],
+            grade: '进口天然橡胶 3号烟胶片 (RSS 3)',
+            deliveryType: '替代交割品',
+            premiumDiscount: '按交易所现行升贴水公告执行',
+            standard: '绿色国际天然橡胶品质与包装规格 (The Green Book)',
+            packaging: '传统大包打捆（通常 111.11 kg/包）或经认证的标准托盘紧固包装。',
+            validity: '核准发证日起12个月内有效。',
+            notes: '泰国老牌大型橡胶加工集团，烟胶片物理性能极高，通常在特定月份作为期现套利替代物。'
+          },
+          {
+            id: 'ru-sritrang',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '诗董',
+            nameEn: 'Sri Trang',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Sri Trang Agro-Industry Public Co., Ltd.',
+            factories: ['Hat Yai 总厂', 'Surat Thani 工厂', 'Trang 工厂'],
+            grade: '进口天然橡胶 3号烟胶片 (RSS 3)',
+            deliveryType: '替代交割品',
+            premiumDiscount: '按交易所现行升贴水公告执行',
+            standard: 'The Green Book RSS 3 规范',
+            packaging: '标准烟胶包压制捆扎，外表面附官方品级印戳与产地条形码。',
+            validity: '核准发证日起12个月内有效。',
+            notes: '全球最大天然橡胶综合供应商，跨越烟胶片与标胶两大品种交割。'
+          },
+          {
+            id: 'ru-southland',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '联润',
+            nameEn: 'Southland',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Southland Rubber Co., Ltd.',
+            factories: ['Songkhla 工厂', 'Trang 工厂', 'Yala 工厂'],
+            grade: '进口天然橡胶 3号烟胶片 (RSS 3)',
+            deliveryType: '替代交割品',
+            premiumDiscount: '按交易所现行升贴水公告执行',
+            standard: 'The Green Book RSS 3 规范',
+            packaging: '标准橡胶木托盘装或烟胶大包，带 Southland 专属标志。',
+            validity: '核准发证日起12个月内有效。',
+            notes: '泰南重点胶商，欧美与国内高端轮胎厂长期指定供应商。'
+          },
+          {
+            id: 'ru-vonbundit',
+            variety: 'RU',
+            varietyName: '天然橡胶 (RU)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '宏曼历',
+            nameEn: 'Von Bundit',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Von Bundit Co., Ltd.',
+            factories: ['Phuket 工厂', 'Surat Thani 工厂'],
+            grade: '进口天然橡胶 3号烟胶片 (RSS 3)',
+            deliveryType: '替代交割品',
+            premiumDiscount: '按交易所现行升贴水公告执行',
+            standard: 'The Green Book RSS 3 规范',
+            packaging: '标准烟胶包，托盘缠膜固定。',
+            validity: '核准发证日起12个月内有效。',
+            notes: '泰国著名高品质胶企，深色烟胶片出口主力。'
+          },
+
+          // ======================== NR 20号胶 (上海国际能源交易中心 - INE) ========================
+          {
+            id: 'nr-gkr-cn',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '广垦橡胶 (中国)',
+            nameEn: 'GKR',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '广东省广垦橡胶集团有限公司',
+            factories: ['云南广垦小街制胶厂', '景洪市坝卡制胶有限公司'],
+            grade: '技术分类天然橡胶 20号 (SCR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶期货标准合约及交割细则',
+            packaging: '标准木托盘或金属箱托盘，35 kg/包，每托盘标称净重 1.26 吨。',
+            validity: '自生产之日起12个月内须入库制单；仓单有效期为自生产之日起12个月。',
+            notes: '国内为数不多的国标 SCR20 认证交割品，在上海及青岛保税区均有交割案例。'
+          },
+          {
+            id: 'nr-baodao',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '宝岛',
+            nameEn: 'BAODAO',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '海南天然橡胶产业集团股份有限公司',
+            factories: ['金隆加工分公司', '金水加工分公司'],
+            grade: '技术分类天然橡胶 20号 (SCR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶期货标准合约及交割细则',
+            packaging: '35 kg/包，标准托盘紧固包装，印有宝岛注册标识。',
+            validity: '自生产之日起12个月有效。',
+            notes: '海胶集团标准颗粒胶，性能符合上海国际能源交易中心所有理化指标。'
+          },
+          {
+            id: 'nr-jinfeng',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '金凤',
+            nameEn: 'JINFENG',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '云南天然橡胶产业集团有限公司',
+            factories: ['墨江有限公司坝沙田制胶厂'],
+            grade: '技术分类天然橡胶 20号 (SCR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶期货标准合约及交割细则',
+            packaging: '35 kg/包，托盘净重 1.26 吨。',
+            validity: '自生产之日起12个月有效。',
+            notes: '云垦集团认证 20号胶，具备良好的塑性初值 (P0) 与塑性保持率 (PRI)。'
+          },
+          {
+            id: 'nr-jiashu',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '佳树橡胶',
+            nameEn: 'JIASHU RUBBER',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '海南合盛橡胶科技有限公司',
+            factories: ['海南合盛二厂', '云南合盛景洪胶厂'],
+            grade: '技术分类天然橡胶 20号 (SCR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶期货标准合约及交割细则',
+            packaging: '35 kg/包，带佳树专用注册标志。',
+            validity: '生产之日起12个月内有效。',
+            notes: '合盛农业（Halcyon Agri）旗下国内工厂品牌，产业流通覆盖广。'
+          },
+          {
+            id: 'nr-sritrang',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '诗董 / 南华泰',
+            nameEn: 'Sri Trang / Nam Hua',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Sri Trang Agro-Industry Public Co., Ltd.',
+            factories: ['合艾工厂', '素叻他尼工厂', '乌隆他尼工厂', '董里工厂', '普吉工厂'],
+            grade: '技术分类天然橡胶 20号 (STR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准及泰国 STR20 国家规范',
+            packaging: '标准托盘（木质或塑料箱），35 kg/包，标称 1.26 吨/托盘。',
+            validity: '生产之日起12个月内有效。',
+            notes: '20号胶期货实盘中交割量最大、流通性最强的泰国标胶品牌，现货商期现对冲的首选。'
+          },
+          {
+            id: 'nr-thaihua',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '泰华树胶',
+            nameEn: 'Thai Hua',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Thai Hua Rubber Public Co., Ltd.',
+            factories: ['Rayong 工厂', 'Yala 工厂', 'Songkhla 工厂', 'Buriram 工厂'],
+            grade: '技术分类天然橡胶 20号 (STR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '35 kg/包，标准托盘装。',
+            validity: '生产之日起12个月内有效。',
+            notes: '泰国传统五大胶企之一，长期活跃于国内青岛保税区与一般贸易。'
+          },
+          {
+            id: 'nr-vonbundit',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '宏曼历',
+            nameEn: 'Von Bundit',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Von Bundit Co., Ltd.',
+            factories: ['Phuket 工厂', 'Surat Thani 工厂', 'Krabi 工厂'],
+            grade: '技术分类天然橡胶 20号 (STR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '35 kg/包，托盘化装载。',
+            validity: '生产之日起12个月内有效。',
+            notes: '工厂质控极严，胶质纯净度高，交割及下游工厂均非常认可。'
+          },
+          {
+            id: 'nr-southland',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '联润',
+            nameEn: 'Southland',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Southland Rubber Co., Ltd.',
+            factories: ['Songkhla 工厂', 'Trang 工厂', 'Yala 工厂', 'Surat Thani 工厂'],
+            grade: '技术分类天然橡胶 20号 (STR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '35 kg/包，标准托盘装。',
+            validity: '生产之日起12个月内有效。',
+            notes: '东南亚最具实力的标胶贸易商之一，青岛口岸常年有现货保税库存。'
+          },
+          {
+            id: 'nr-stt',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '新同泰',
+            nameEn: 'STT',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: 'Sin Tong Thai Rubber Co., Ltd.',
+            factories: ['Rayong 罗勇工厂'],
+            grade: '技术分类天然橡胶 20号 (STR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '35 kg/包，标准木箱或铁框托盘装。',
+            validity: '生产之日起12个月内有效。',
+            notes: '泰国中东部重要工厂，长期服务中国轮胎制造企业。'
+          },
+          {
+            id: 'nr-gkr-th',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '广垦海外工厂 (泰国)',
+            nameEn: 'GKR Thailand',
+            country: '泰国',
+            countryFlag: '🇹🇭',
+            isAfrica: false,
+            company: '广垦橡胶（沙墩）/（湄公河）/（泰南）有限公司',
+            factories: ['Satun 工厂', 'Nong Khai 湄公河工厂', 'Trang 泰南工厂'],
+            grade: '技术分类天然橡胶 20号 (STR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '35 kg/包，标称 1.26 吨/托盘。',
+            validity: '生产之日起12个月内有效。',
+            notes: '中资国企在海外建立的现代化加工厂，仓单生成手续熟悉，通关顺畅。'
+          },
+          {
+            id: 'nr-mardec',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: 'MARDEC',
+            nameEn: 'MARDEC',
+            country: '马来西亚',
+            countryFlag: '🇲🇾',
+            isAfrica: false,
+            company: 'MARDEC Processing Sdn Bhd',
+            factories: ['Baling 工厂', 'Mentakab 工厂', 'Tapah 工厂'],
+            grade: '技术分类天然橡胶 20号 (SMR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准及马标 SMR20 规范',
+            packaging: '标准托盘装，35 kg/包。',
+            validity: '生产之日起12个月内有效。',
+            notes: '大马国家橡胶开发公司旗下加工厂，马来标胶的标杆品牌。'
+          },
+          {
+            id: 'nr-felda',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: 'Felda Rubber',
+            nameEn: 'Felda Rubber',
+            country: '马来西亚',
+            countryFlag: '🇲🇾',
+            isAfrica: false,
+            company: 'Felda Global Ventures (FGV) Rubber Sdn Bhd',
+            factories: ['Trolak 工厂', 'Jerantut 工厂'],
+            grade: '技术分类天然橡胶 20号 (SMR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '标准托盘装，35 kg/包。',
+            validity: '生产之日起12个月内有效。',
+            notes: '马来西亚大型种植园联合体，原料自供比例高，杂质指标控制好。'
+          },
+          {
+            id: 'nr-lee-rubber',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '李氏橡胶',
+            nameEn: 'Lee Rubber',
+            country: '马来西亚',
+            countryFlag: '🇲🇾',
+            isAfrica: false,
+            company: 'Lee Rubber Co. (Pte) Ltd',
+            factories: ['Kluang 工厂', 'Kota Tinggi 哥打丁宜工厂'],
+            grade: '技术分类天然橡胶 20号 (SMR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '标准托盘装，35 kg/包。',
+            validity: '生产之日起12个月内有效。',
+            notes: '华人橡胶先驱创办的老牌企业，品质享誉全球橡胶界。'
+          },
+          {
+            id: 'nr-kirana',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: 'Kirana / Djambi Waras',
+            nameEn: 'Kirana Megatara',
+            country: '印度尼西亚',
+            countryFlag: '🇮🇩',
+            isAfrica: false,
+            company: 'PT Kirana Megatara Tbk',
+            factories: ['PT Djambi Waras (Jambi/Jujuhan)', 'PT Kirana Musi', 'PT Komering Jaya'],
+            grade: '技术分类天然橡胶 20号 (SIR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准及印尼 SIR20 规范',
+            packaging: '标准印尼木箱托盘或热缩膜托盘，35 kg/包。',
+            validity: '生产之日起12个月内有效。',
+            notes: '印度尼西亚最大的颗粒橡胶生产巨头，印尼标胶（SIR20）交割基准主力。'
+          },
+          {
+            id: 'nr-hoktong',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '福同',
+            nameEn: 'Hok Tong',
+            country: '印度尼西亚',
+            countryFlag: '🇮🇩',
+            isAfrica: false,
+            company: 'PT Hok Tong',
+            factories: ['Palembang 巨港工厂', 'Jambi 占碑工厂'],
+            grade: '技术分类天然橡胶 20号 (SIR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '35 kg/包，标准托盘装。',
+            validity: '生产之日起12个月内有效。',
+            notes: '印尼知名工厂，深色标胶门尼粘度适中，轮胎配方相容性佳。'
+          },
+          {
+            id: 'nr-abp',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: 'ABP',
+            nameEn: 'Aneka Bumi Pratama',
+            country: '印度尼西亚',
+            countryFlag: '🇮🇩',
+            isAfrica: false,
+            company: 'PT Aneka Bumi Pratama (ABP)',
+            factories: ['Palembang 巨港加工厂'],
+            grade: '技术分类天然橡胶 20号 (SIR 20)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'INE 20号胶标准',
+            packaging: '35 kg/包，托盘装。',
+            validity: '生产之日起12个月内有效。',
+            notes: '印尼现代工厂，采用高洁净水洗和烘干生产线，理化杂质低。'
+          },
+
+          // ======================== 非洲胶交割专区 (INE TSR 替代交割 & 现货参考) ========================
+          {
+            id: 'nr-africa-mainland',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: '美兰',
+            nameEn: 'Mainland',
+            country: '科特迪瓦',
+            countryFlag: '🇨🇮',
+            isAfrica: true,
+            company: 'Mainland Group Rare Rubber S.A.',
+            factories: ['科特迪瓦阿比让生产工厂 (CI Factory 01)'],
+            grade: '10号标胶 (TSR 10)',
+            deliveryType: '替代交割品',
+            premiumDiscount: '贴水 400 元/吨',
+            standard: '上海国际能源交易中心20号胶期货替代交割品规范',
+            packaging: '标准出口托盘紧固包装，35 kg/包，带 Mainland 注册标志与 INE 认证注册号。',
+            validity: '自生产之日起12个月内有效。',
+            notes: '【重要里程碑】INE 正式公告注册的非洲科特迪瓦交割品牌！作为 TSR10 替代交割品履约，固定执行贴水 400 元/吨。国内流通现货若在保税库且批次合规，可直接申请注册交割仓单！'
+          },
+          {
+            id: 'nr-africa-stcnf',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心',
+            exchangeShort: 'INE',
+            name: 'STCNF',
+            nameEn: 'STCNF',
+            country: '科特迪瓦',
+            countryFlag: '🇨🇮',
+            isAfrica: true,
+            company: 'Société de Transformation du caoutchouc Naturel de la Frontière',
+            factories: ['STCNF 科特迪瓦边境加工分厂'],
+            grade: '10号标胶 (TSR 10)',
+            deliveryType: '替代交割品',
+            premiumDiscount: '贴水 400 元/吨',
+            standard: '上海国际能源交易中心20号胶期货替代交割品规范',
+            packaging: '标准托盘装，35 kg/包，喷印工厂专属标识代码与批号。',
+            validity: '自生产之日起12个月内有效。',
+            notes: '【重要里程碑】非洲科特迪瓦第二批获批注册的替代交割商品，执行贴水 400 元/吨。是当前交割套利核算中理论成本极具竞争力的非洲货源。'
+          },
+          {
+            id: 'nr-africa-saph',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心 / 现货',
+            exchangeShort: 'INE/现货',
+            name: 'SAPH',
+            nameEn: 'SAPH (Sifca)',
+            country: '科特迪瓦',
+            countryFlag: '🇨🇮',
+            isAfrica: true,
+            company: 'Société Africaine de Plantations d\'Hévéas (Sifca Group)',
+            factories: ['Toupah 工厂', 'Bettié 工厂', 'Yapo 工厂', 'Dabou 工厂'],
+            grade: '技术分类天然橡胶 (TSR 20 / TSR 10)',
+            deliveryType: '现货流通参考',
+            premiumDiscount: '现货流通贴水（非直接盘面交割）',
+            standard: 'ISO 2000 / 科特迪瓦国家标准',
+            packaging: '标准托盘化装载，35 kg/包。',
+            validity: '现货贸易流转，注意入库出厂批次。',
+            notes: '【非洲最大橡胶商】科特迪瓦及非洲产能最大的龙头企业（Sifca与米其林合资背景）。国内青岛港口保税区流通量极大。注意：虽为流通主流，但未经 INE 特批独立注册代码前不可直接生成仓单交割！'
+          },
+          {
+            id: 'nr-africa-sogb',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '上海国际能源交易中心 / 现货',
+            exchangeShort: 'INE/现货',
+            name: 'SOGB',
+            nameEn: 'SOGB (Socfin)',
+            country: '科特迪瓦',
+            countryFlag: '🇨🇮',
+            isAfrica: true,
+            company: 'Société des Caoutchoucs de Grand-Béréby',
+            factories: ['Grand-Béréby 加工基地'],
+            grade: '技术分类天然橡胶 (TSR 20)',
+            deliveryType: '现货流通参考',
+            premiumDiscount: '现货流通贴水',
+            standard: 'ISO 2000',
+            packaging: '35 kg/包，标准托盘装。',
+            validity: '现货流通流转。',
+            notes: '欧洲 Socfin 集团旗下非洲旗舰种植园，产品物理性能出众，常作为期转现（EFP）与工厂配方现货交收。'
+          },
+          {
+            id: 'nr-africa-chc',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '现货流通参考',
+            exchangeShort: '现货',
+            name: 'CHC / Cavally',
+            nameEn: 'CHC',
+            country: '科特迪瓦',
+            countryFlag: '🇨🇮',
+            isAfrica: true,
+            company: 'Compagnie Hévéicole du Cavally',
+            factories: ['西部 Cavally 制胶厂'],
+            grade: '技术分类天然橡胶 (TSR 20)',
+            deliveryType: '现货流通参考',
+            premiumDiscount: '现货流通贴水',
+            standard: 'ISO 2000',
+            packaging: '35 kg/包，标准托盘。',
+            validity: '现货流转。',
+            notes: '科特迪瓦西部知名中大型加工厂，近年来对中国出口量稳步攀升。'
+          },
+          {
+            id: 'nr-africa-trci',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '现货流通参考',
+            exchangeShort: '现货',
+            name: 'TRCI',
+            nameEn: 'TRCI',
+            country: '科特迪瓦',
+            countryFlag: '🇨🇮',
+            isAfrica: true,
+            company: 'Tropical Rubber Côte d\'Ivoire',
+            factories: ['阿比让工业区工厂'],
+            grade: '技术分类天然橡胶 (TSR 20)',
+            deliveryType: '现货流通参考',
+            premiumDiscount: '现货流通贴水',
+            standard: 'ISO 2000',
+            packaging: '35 kg/包。',
+            validity: '现货流转。',
+            notes: '科特迪瓦民营大厂，与国内轮胎企业有稳定的长约直供关系。'
+          },
+          {
+            id: 'nr-africa-hevecam',
+            variety: 'NR',
+            varietyName: '20号胶 (NR)',
+            exchange: '现货流通参考',
+            exchangeShort: '现货',
+            name: 'HEVECAM',
+            nameEn: 'Hevecam',
+            country: '非洲',
+            countryFlag: '🇨🇲',
+            isAfrica: true,
+            company: 'Société Hevea Cameroun (合盛农业旗下)',
+            factories: ['Niété 种植园加工厂'],
+            grade: '技术分类天然橡胶 (TSR 20)',
+            deliveryType: '现货流通参考',
+            premiumDiscount: '现货流通贴水',
+            standard: 'ISO 2000',
+            packaging: '35 kg/包，托盘装。',
+            validity: '现货流转。',
+            notes: '喀麦隆核心橡胶生产商，现为合盛农业（Halcyon Agri）旗下资产，橡胶品质均一。'
+          },
+
+          // ======================== BR 丁二烯橡胶 / 顺丁橡胶 (上海期货交易所 - SHFE) ========================
+          {
+            id: 'br-petrochina-daqing',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '昆仑 (大庆石化)',
+            nameEn: 'Kunlun (Daqing)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石油天然气股份有限公司大庆石化分公司',
+            factories: ['黑龙江大庆石化化工一厂'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018《丁二烯橡胶 (BR) 9000》中 I 类指标',
+            packaging: '聚乙烯薄膜紧密包装，外套纸塑复合袋，标称净重 25.0 kg/袋，托盘净重 1.05 吨或 1.2 吨。',
+            validity: '自生产之日起12个月内必须入库并生成仓单；仓单有效期限最长不超过生产之日起18个月。',
+            notes: '中石油北方核心交割品牌，门尼粘度 ML(1+4) 100℃ 稳定在 40~50 之间，胶质纯度高。'
+          },
+          {
+            id: 'br-petrochina-jinzhou',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '昆仑 (锦州石化)',
+            nameEn: 'Kunlun (Jinzhou)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石油天然气股份有限公司锦州石化分公司',
+            factories: ['辽宁锦州石化顺丁橡胶车间'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋，复合纸塑袋，印有昆仑注册商标。',
+            validity: '自生产之日起最长18个月有效。',
+            notes: '东北华北地区现货流通主力，交割仓单多存放在辽宁及山东指定仓库。'
+          },
+          {
+            id: 'br-petrochina-duzi',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '昆仑 (独山子石化)',
+            nameEn: 'Kunlun (Dushanzi)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石油天然气股份有限公司独山子石化分公司',
+            factories: ['新疆独山子橡塑加工分厂'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋，托盘包装。',
+            validity: '生产之日起18个月内有效。',
+            notes: '西北大型石化基地生产，主要通过铁路专线移库至华东、华北交割库。'
+          },
+          {
+            id: 'br-petrochina-sichuan',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '昆仑 (四川石化)',
+            nameEn: 'Kunlun (Sichuan)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石油天然气股份有限公司四川石化有限责任公司',
+            factories: ['四川彭州化工园区生产厂'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋。',
+            validity: '生产之日起18个月内有效。',
+            notes: '西南地区首家合成橡胶交割认证品牌，弥补了西南交割资源。'
+          },
+          {
+            id: 'br-sinopec-yanshan',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '中国石化 (燕山石化)',
+            nameEn: 'SINOPEC (Yanshan)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石油化工股份有限公司北京燕山分公司',
+            factories: ['北京燕山合成橡胶一厂/二厂'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋，覆膜纸塑袋，中石化朝阳标志清晰。',
+            validity: '自生产日起最长不超过18个月。',
+            notes: '【国内顺丁标杆】燕山高顺式顺丁在行业内被誉为“免检胶”，下游轮胎与高抗冲聚苯乙烯（HIPS）指定原料。'
+          },
+          {
+            id: 'br-sinopec-qilu',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '中国石化 (齐鲁石化)',
+            nameEn: 'SINOPEC (Qilu)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石油化工股份有限公司齐鲁分公司',
+            factories: ['山东淄博橡胶厂'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋。',
+            validity: '自生产日起最长18个月。',
+            notes: '地处轮胎制造大省山东，短驳运费低，期现套利中仓库出入库极其频繁。'
+          },
+          {
+            id: 'br-sinopec-maoming',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '中国石化 (茂名石化)',
+            nameEn: 'SINOPEC (Maoming)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石油化工股份有限公司茂名分公司',
+            factories: ['广东茂名化工园区合成胶车间'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋。',
+            validity: '自生产日起最长18个月。',
+            notes: '华南核心合成橡胶基地，主要供应珠三角及出口海外东南亚市场。'
+          },
+          {
+            id: 'br-sinopec-yangzi',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '中国石化 (扬子石化)',
+            nameEn: 'SINOPEC (Yangzi)',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '中国石化扬子石油化工有限公司',
+            factories: ['江苏南京化工园区扬子胶厂'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋。',
+            validity: '自生产日起最长18个月。',
+            notes: '长三角重要产能基地，辐射江浙沪各大交割指定仓库。'
+          },
+          {
+            id: 'br-transfar',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '传化',
+            nameEn: 'Transfar',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '浙江传化合成材料股份有限公司',
+            factories: ['浙江嘉兴港区生产基地'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋，标准托盘覆膜。',
+            validity: '自生产日起最长18个月。',
+            notes: '民营合成橡胶领军企业，稀土顺丁及镍系顺丁技术沉淀深厚。'
+          },
+          {
+            id: 'br-hegu',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: '合固',
+            nameEn: 'Hegu',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '浩普新材料科技股份有限公司',
+            factories: ['山东菏泽化工园区工厂'],
+            grade: '顺丁橡胶 (牌号 BR9000，优级品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋。',
+            validity: '自生产日起最长18个月。',
+            notes: '上期所后续扩容认证的优质民营商品牌，丰富了华东及华北交割货源。'
+          },
+          {
+            id: 'br-taipol',
+            variety: 'BR',
+            varietyName: '丁二烯橡胶 (BR)',
+            exchange: '上海期货交易所',
+            exchangeShort: 'SHFE',
+            name: 'TAIPOL (台橡)',
+            nameEn: 'TAIPOL',
+            country: '中国',
+            countryFlag: '🇨🇳',
+            isAfrica: false,
+            company: '台橡（南通）实业有限公司',
+            factories: ['江苏南通经济开发区工厂'],
+            grade: '顺丁橡胶 (BR9000 认证品)',
+            deliveryType: '基准交割品',
+            premiumDiscount: '0 元/吨 (基准品)',
+            standard: 'GB/T 8659-2018 (I 类指标)',
+            packaging: '25.0 kg/袋，TAIPOL 品牌托盘紧固包装。',
+            validity: '自生产日起最长18个月。',
+            notes: '合资外资背景优质企业，产品质量均一稳定，广泛应用于特种橡胶与外资品牌轮胎。'
+          }
+        ]);
+
+        // Computed Counts
+        const countByVariety = (v) => brands.value.filter(b => b.variety === v).length;
+        const countAfrica = computed(() => brands.value.filter(b => b.isAfrica).length);
+
+        // Filtered Brands List
+        const filteredBrands = computed(() => {
+          return brands.value.filter(item => {
+            // Variety Filter
+            if (activeVariety.value === 'AFRICA') {
+              if (!item.isAfrica) return false;
+            } else if (activeVariety.value !== 'ALL') {
+              if (item.variety !== activeVariety.value) return false;
+            }
+
+            // Country Filter
+            if (selectedCountry.value !== 'ALL') {
+              if (selectedCountry.value === '非洲') {
+                if (!item.isAfrica) return false;
+              } else if (item.country !== selectedCountry.value) {
+                return false;
+              }
+            }
+
+            // Delivery Type Filter
+            if (selectedDeliveryType.value !== 'ALL') {
+              if (item.deliveryType !== selectedDeliveryType.value) return false;
+            }
+
+            // Search Query Filter
+            if (searchQuery.value.trim() !== '') {
+              const q = searchQuery.value.trim().toLowerCase();
+              const matchName = item.name.toLowerCase().includes(q);
+              const matchEn = (item.nameEn || '').toLowerCase().includes(q);
+              const matchCompany = item.company.toLowerCase().includes(q);
+              const matchGrade = item.grade.toLowerCase().includes(q);
+              const matchCountry = item.country.toLowerCase().includes(q);
+              const matchFactories = item.factories.some(f => f.toLowerCase().includes(q));
+              if (!matchName && !matchEn && !matchCompany && !matchGrade && !matchCountry && !matchFactories) {
+                return false;
+              }
+            }
+
+            return true;
+          });
+        });
+
+        const resetFilters = () => {
+          activeVariety.value = 'ALL';
+          selectedCountry.value = 'ALL';
+          selectedDeliveryType.value = 'ALL';
+          searchQuery.value = '';
+        };
+
+        const openModal = (item) => {
+          modalItem.value = item;
+        };
+
+        const closeModal = () => {
+          modalItem.value = null;
+        };
+
+        const copyBrandInfo = (item) => {
+          const text = `【${item.variety}交割品牌】${item.name} (${item.nameEn || ''})\n交易所: ${item.exchange}\n生产企业: ${item.company}\n原产地: ${item.country}\n交割品级: ${item.grade}\n升贴水: ${item.premiumDiscount}\n仓单有效期: ${item.validity}`;
+          navigator.clipboard.writeText(text).then(() => {
+            alert(`已成功复制【${item.name}】的交割品牌信息到剪贴板！`);
+          }).catch(() => {
+            alert('复制失败，请手动选择复制。');
+          });
+        };
+
+        const exportCSV = () => {
+          const headers = ['品种代码', '交易所', '品牌中文名', '品牌英文名', '原产国', '生产企业', '交割品级', '交割属性', '升贴水规定', '仓单有效期红线'];
+          const rows = filteredBrands.value.map(b => [
+            `"${b.variety}"`,
+            `"${b.exchangeShort}"`,
+            `"${b.name}"`,
+            `"${b.nameEn || ''}"`,
+            `"${b.country}"`,
+            `"${b.company.replace(/"/g, '""')}"`,
+            `"${b.grade}"`,
+            `"${b.deliveryType}"`,
+            `"${b.premiumDiscount}"`,
+            `"${b.validity.replace(/"/g, '""')}"`
+          ]);
+          const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.setAttribute('href', url);
+          link.setAttribute('download', `橡胶与顺丁橡胶交割注册品牌清单_${new Date().toISOString().slice(0,10)}.csv`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+
+        return {
+          activeVariety,
+          selectedCountry,
+          selectedDeliveryType,
+          searchQuery,
+          viewMode,
+          modalItem,
+          brands,
+          countByVariety,
+          countAfrica,
+          filteredBrands,
+          resetFilters,
+          openModal,
+          closeModal,
+          copyBrandInfo,
+          exportCSV
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
