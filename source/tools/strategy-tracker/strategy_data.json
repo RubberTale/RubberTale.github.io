@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
   "updated_at": "2026-09-08",
-  "generated_time": "2026-09-08 11:40:04",
+  "generated_time": "2026-09-08 19:21:44",
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 1002036.0,
@@ -66,6 +66,32 @@
       "sector": "黑色系",
       "unrealized_pnl": 2036.0,
       "return_pct": 6.88
+    }
+  ],
+  "entry_history": [
+    {
+      "symbol": "I",
+      "name": "铁矿石",
+      "contract": "I2701",
+      "direction": "做多",
+      "lots": 4,
+      "entry_date": "2026-09-08",
+      "trigger_price": 739.41,
+      "entry_price": 739.41,
+      "stop_price": 714.87,
+      "tp_price": 785.22,
+      "atr": 16.36,
+      "sector": "黑色系",
+      "logic": "站上MA20均线(+1.8%)，量能放大，估值分位82%具备上行弹性",
+      "status": "持仓中",
+      "current_price": 744.5,
+      "unrealized_pnl": 2036.0,
+      "return_pct": 6.88,
+      "exit_date": null,
+      "exit_price": null,
+      "pnl": null,
+      "exit_reason": null,
+      "hold_days": 1
     }
   ],
   "equity_curve": [

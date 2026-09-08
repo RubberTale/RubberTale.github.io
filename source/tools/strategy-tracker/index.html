@@ -264,6 +264,52 @@
 
     </div>
 
+    <!-- 模块 4：历史触发进场交易记录 (Triggered Entry History) -->
+    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-gray-800">
+        <div>
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">历史进场交易记录 (Triggered Entry History)</h3>
+            <span id="entry-count-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">-- 笔记录</span>
+          </div>
+          <p class="text-xs text-gray-400 mt-1">
+            记录盘中成功突破预设条件触发价、实际执行建仓的所有订单明细（包含当前在持与历史已平仓头寸）
+          </p>
+        </div>
+        <div class="flex items-center space-x-2 text-xs">
+          <button id="btn-entry-all" onclick="filterEntryHistory('ALL')" class="px-2.5 py-1 rounded bg-blue-600 text-white font-medium shadow">全部</button>
+          <button id="btn-entry-active" onclick="filterEntryHistory('ACTIVE')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-amber-400 border border-gray-700 font-medium">持仓中</button>
+          <button id="btn-entry-closed" onclick="filterEntryHistory('CLOSED')" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 font-medium">已平仓</button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto custom-scrollbar max-h-[460px]">
+        <table class="w-full text-left text-xs text-gray-300">
+          <thead class="bg-gray-950/70 text-gray-400 text-[11px] uppercase tracking-wider sticky top-0">
+            <tr>
+              <th class="py-2.5 px-3">进场日期</th>
+              <th class="py-2.5 px-3">品种 / 合约</th>
+              <th class="py-2.5 px-2">方向</th>
+              <th class="py-2.5 px-2 text-right">设定的触发价</th>
+              <th class="py-2.5 px-2 text-right">实际成交价</th>
+              <th class="py-2.5 px-2 text-right">开仓手数</th>
+              <th class="py-2.5 px-3 text-center">初始风控 (止损 / 止盈)</th>
+              <th class="py-2.5 px-3 text-center">当前状态 / 盈亏</th>
+              <th class="py-2.5 px-3">进场驱动逻辑</th>
+            </tr>
+          </thead>
+          <tbody id="entry-history-table-body" class="divide-y divide-gray-800/60 font-mono">
+            <tr>
+              <td colspan="9" class="text-center py-8 text-gray-500 font-sans">暂无进场记录数据</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- 底部说明与免责 -->
     <div class="p-4 rounded-xl bg-gray-950/40 border border-gray-800/60 text-xs text-gray-400 leading-relaxed flex items-start space-x-3">
       <svg class="w-5 h-5 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -283,6 +329,7 @@
     let myChart = null;
     let currentChartTab = 'equity';
     let currentTradeFilter = 'ALL';
+    let currentEntryFilter = 'ALL';
 
     // 页面加载时抓取数据
     document.addEventListener('DOMContentLoaded', async () => {
@@ -334,10 +381,13 @@
       // 3. 渲染当前在持头寸
       renderCurrentPositions(data.current_positions);
 
-      // 4. 渲染历史交易表格
+      // 4. 渲染历史平仓表格
       renderTradesTable(data.recent_trades);
 
-      // 5. 初始化 ECharts 图表
+      // 5. 渲染历史进场交易记录
+      renderEntryHistoryTable(data.entry_history);
+
+      // 6. 初始化 ECharts 图表
       initChart(data.equity_curve);
     }
 
@@ -507,6 +557,158 @@
     function filterTrades(type) {
       currentTradeFilter = type;
       if (globalData) renderTradesTable(globalData.recent_trades);
+    }
+
+    // 渲染历史进场交易表格
+    function renderEntryHistoryTable(entryHistory) {
+      const tbody = document.getElementById('entry-history-table-body');
+      const badge = document.getElementById('entry-count-badge');
+
+      let list = entryHistory || [];
+      // 容错与回退：若无独立 entry_history，则从在持仓位与平仓交易动态合成
+      if (list.length === 0 && globalData) {
+        const active = (globalData.current_positions || []).map(p => ({
+          symbol: p.symbol,
+          name: p.name,
+          contract: p.contract,
+          direction: p.direction,
+          lots: p.lots,
+          entry_date: p.entry_date,
+          trigger_price: p.trigger_price || p.entry_price,
+          entry_price: p.entry_price,
+          stop_price: p.stop_price,
+          tp_price: p.tp_price,
+          sector: p.sector,
+          status: '持仓中',
+          unrealized_pnl: p.unrealized_pnl,
+          return_pct: p.return_pct,
+          logic: p.logic || '满足MA20均线与量能共振突破'
+        }));
+        const closed = (globalData.recent_trades || []).map(t => ({
+          symbol: t.symbol,
+          name: t.name,
+          contract: t.contract,
+          direction: t.direction,
+          lots: t.lots,
+          entry_date: t.entry_date,
+          trigger_price: t.trigger_price || t.entry_price,
+          entry_price: t.entry_price,
+          stop_price: t.stop_price || '--',
+          tp_price: t.tp_price || '--',
+          sector: t.sector,
+          status: '已平仓',
+          pnl: t.pnl,
+          return_pct: t.return_pct,
+          exit_reason: t.reason,
+          logic: '满足突破条件单建仓进场'
+        }));
+        list = [...active, ...closed];
+      }
+
+      if (badge) {
+        badge.textContent = `${list.length} 笔记录`;
+      }
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-gray-500 font-sans">暂无进场记录数据</td></tr>`;
+        return;
+      }
+
+      let filtered = list;
+      if (currentEntryFilter === 'ACTIVE') {
+        filtered = list.filter(item => item.status === '持仓中');
+      } else if (currentEntryFilter === 'CLOSED') {
+        filtered = list.filter(item => item.status === '已平仓');
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-gray-500 font-sans">该分类下暂无进场记录</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(item => {
+        const isLong = item.direction === '做多';
+        const dirCol = isLong ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30' : 'text-rose-400 bg-rose-500/10 border-rose-500/30';
+        const isHolding = item.status === '持仓中';
+        
+        let statusHtml = '';
+        if (isHolding) {
+          const pnl = item.unrealized_pnl !== undefined && item.unrealized_pnl !== null ? item.unrealized_pnl : 0;
+          const ret = item.return_pct !== undefined && item.return_pct !== null ? item.return_pct : 0;
+          const pnlCol = pnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+          statusHtml = `
+            <div class="flex items-center justify-center space-x-1.5">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-sans font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1 animate-pulse"></span>持仓中
+              </span>
+              <span class="text-xs font-bold font-mono ${pnlCol}">${pnl >= 0 ? '+' : ''}${Number(pnl).toLocaleString()} (${ret >= 0 ? '+' : ''}${ret}%)</span>
+            </div>
+          `;
+        } else {
+          const pnl = item.pnl !== undefined && item.pnl !== null ? item.pnl : 0;
+          const ret = item.return_pct !== undefined && item.return_pct !== null ? item.return_pct : 0;
+          const pnlCol = pnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
+          statusHtml = `
+            <div class="flex items-center justify-center space-x-1.5">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-sans font-medium bg-gray-800 text-gray-400 border border-gray-700">
+                已平仓
+              </span>
+              <span class="text-xs font-bold font-mono ${pnlCol}">${pnl >= 0 ? '+' : ''}${Number(pnl).toLocaleString()} (${ret >= 0 ? '+' : ''}${ret}%)</span>
+            </div>
+          `;
+        }
+
+        const triggerPxStr = item.trigger_price !== undefined && item.trigger_price !== null ? Number(item.trigger_price).toFixed(2) : '--';
+        const entryPxStr = item.entry_price !== undefined && item.entry_price !== null ? Number(item.entry_price).toFixed(2) : '--';
+        const lotsStr = item.lots ? `${item.lots}手` : '--';
+        const slStr = item.stop_price ? item.stop_price : '--';
+        const tpStr = item.tp_price ? item.tp_price : '--';
+        const logicStr = item.logic || '突破ATR波动阈值确认进场';
+        const sectorStr = item.sector ? `<span class="text-[10px] px-1 py-0.5 rounded bg-gray-800 text-gray-400 border border-gray-700 ml-1 font-sans">${item.sector}</span>` : '';
+
+        return `
+          <tr class="hover:bg-gray-800/40 transition">
+            <td class="py-2.5 px-3 text-gray-400 text-xs">${item.entry_date}</td>
+            <td class="py-2.5 px-3 font-sans">
+              <span class="font-bold text-gray-200">${item.name}</span>
+              <span class="text-[11px] text-gray-500 font-mono ml-1">${item.contract}</span>
+              ${sectorStr}
+            </td>
+            <td class="py-2.5 px-2">
+              <span class="text-xs px-2 py-0.5 rounded border font-semibold ${dirCol}">${item.direction}</span>
+            </td>
+            <td class="py-2.5 px-2 text-right text-amber-300 font-semibold">${triggerPxStr}</td>
+            <td class="py-2.5 px-2 text-right text-gray-100 font-bold">${entryPxStr}</td>
+            <td class="py-2.5 px-2 text-right text-gray-300">${lotsStr}</td>
+            <td class="py-2.5 px-3 text-center text-gray-400 text-xs font-mono">
+              <span class="text-rose-400">${slStr}</span> / <span class="text-emerald-400">${tpStr}</span>
+            </td>
+            <td class="py-2.5 px-3 text-center">${statusHtml}</td>
+            <td class="py-2.5 px-3 text-gray-400 text-xs font-sans max-w-xs truncate" title="${logicStr}">${logicStr}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterEntryHistory(filter) {
+      currentEntryFilter = filter;
+      const buttons = {
+        'ALL': 'btn-entry-all',
+        'ACTIVE': 'btn-entry-active',
+        'CLOSED': 'btn-entry-closed'
+      };
+      Object.keys(buttons).forEach(k => {
+        const btn = document.getElementById(buttons[k]);
+        if (!btn) return;
+        if (k === filter) {
+          btn.className = 'px-2.5 py-1 rounded bg-blue-600 text-white font-medium shadow';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 font-medium';
+        }
+      });
+      if (globalData) {
+        renderEntryHistoryTable(globalData.entry_history);
+      }
     }
 
     // ECharts 图表初始化
