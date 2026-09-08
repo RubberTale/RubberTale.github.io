@@ -1,55 +1,73 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-09-07",
-  "generated_time": "2026-09-07 11:40:04",
+  "updated_at": "2026-09-08",
+  "generated_time": "2026-09-08 11:40:04",
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 1000000.0,
-    "net_value": 1.0,
-    "total_return_pct": 0.0,
+    "final_equity": 1002036.0,
+    "net_value": 1.002,
+    "total_return_pct": 0.2,
     "max_drawdown_pct": 0.0,
     "win_rate": null,
     "profit_loss_ratio": null,
     "total_trades": 0,
-    "open_positions_count": 0,
-    "available_slots": 4,
+    "open_positions_count": 1,
+    "available_slots": 3,
     "market_status": "积极进攻 (共振选出品种)"
   },
   "latest_signals": [
     {
-      "symbol": "PG",
-      "name": "液化石油气",
-      "contract": "PG2610",
+      "symbol": "MA",
+      "name": "甲醇",
+      "contract": "MA610",
       "direction": "做多",
-      "score": 4.3,
-      "win_rate_est": 62.8,
-      "trigger_price": 6660.05,
-      "stop_price": 6221.75,
-      "tp_price": 7268.8,
-      "close": 6587.0,
-      "atr": 243.5,
-      "percentile": 79.9,
+      "score": 6.3,
+      "win_rate_est": 67.8,
+      "trigger_price": 3394.01,
+      "stop_price": 3183.93,
+      "tp_price": 3685.8,
+      "close": 3359.0,
+      "atr": 116.71,
+      "percentile": 87.5,
       "sector": "化工品",
-      "logic": "站上MA20均线(+12.9%)，量能放大，估值分位80%具备上行弹性"
+      "logic": "站上MA20均线(+15.0%)，量能放大，估值分位87%具备上行弹性"
     },
+    {
+      "symbol": "TA",
+      "name": "PTA",
+      "contract": "TA701",
+      "direction": "做多",
+      "score": 3.3,
+      "win_rate_est": 60.2,
+      "trigger_price": 6264.6,
+      "stop_price": 5937.0,
+      "tp_price": 6719.6,
+      "close": 6210.0,
+      "atr": 182.0,
+      "percentile": 87.0,
+      "sector": "化工品",
+      "logic": "站上MA20均线(+7.1%)，量能放大，估值分位87%具备上行弹性"
+    }
+  ],
+  "current_positions": [
     {
       "symbol": "I",
       "name": "铁矿石",
       "contract": "I2701",
       "direction": "做多",
-      "score": 2.8,
-      "win_rate_est": 59.0,
-      "trigger_price": 739.41,
-      "stop_price": 709.96,
-      "tp_price": 780.3,
-      "close": 734.5,
+      "lots": 4,
+      "entry_date": "2026-09-08",
+      "entry_price": 739.41,
+      "current_price": 744.5,
+      "stop_price": 714.87,
+      "tp_price": 785.22,
+      "hold_days": 1,
       "atr": 16.36,
-      "percentile": 29.2,
       "sector": "黑色系",
-      "logic": "站上MA20均线(+1.9%)，量能放大，估值分位29%具备上行弹性"
+      "unrealized_pnl": 2036.0,
+      "return_pct": 6.88
     }
   ],
-  "current_positions": [],
   "equity_curve": [
     {
       "date": "2026-09-07",
@@ -58,6 +76,14 @@
       "daily_pnl": 0.0,
       "drawdown": 0.0,
       "open_positions": 0
+    },
+    {
+      "date": "2026-09-08",
+      "net_value": 1.002,
+      "equity": 1002036.0,
+      "daily_pnl": 2036.0,
+      "drawdown": 0.0,
+      "open_positions": 1
     }
   ],
   "recent_trades": []
