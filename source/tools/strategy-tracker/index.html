@@ -331,6 +331,25 @@
     let currentTradeFilter = 'ALL';
     let currentEntryFilter = 'ALL';
 
+    // 43个核心商品最小变动价位规范
+    const TICK_SIZES = {
+      'SR': 1, 'CF': 5, 'RM': 1, 'OI': 1, 'TA': 2, 'MA': 1, 'FG': 1, 'SA': 1, 'UR': 1,
+      'AP': 1, 'CJ': 5, 'SF': 2, 'SM': 2, 'M': 1, 'Y': 2, 'C': 1, 'I': 0.5, 'L': 1,
+      'PP': 1, 'V': 1, 'PG': 1, 'LH': 5, 'JD': 1, 'J': 0.5, 'JM': 0.5, 'P': 2,
+      'CS': 1, 'EB': 1, 'EG': 1, 'CU': 10, 'AL': 5, 'ZN': 5, 'PB': 5, 'NI': 10,
+      'SN': 10, 'RB': 1, 'HC': 1, 'FU': 1, 'BU': 2, 'RU': 5, 'SP': 2, 'AG': 1, 'AU': 0.02
+    };
+
+    function formatPrice(val, symbol) {
+      if (val === null || val === undefined || isNaN(val) || val === '--') return '--';
+      const num = Number(val);
+      const tick = (symbol && TICK_SIZES[symbol]) ? TICK_SIZES[symbol] : 1;
+      if (tick === 0.02) return num.toFixed(2);
+      if (tick === 0.5) return num.toFixed(1);
+      if (tick >= 1) return (num % 1 === 0) ? num.toFixed(0) : Math.round(num).toString();
+      return num.toString();
+    }
+
     // 页面加载时抓取数据
     document.addEventListener('DOMContentLoaded', async () => {
       try {
@@ -427,7 +446,7 @@
                     <span class="text-xs font-mono text-gray-400 font-semibold">${sig.contract}</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 border border-gray-700">${sig.sector}</span>
                   </div>
-                  <div class="text-xs text-gray-400 mt-1">收盘: <span class="font-mono text-gray-200 font-medium">${sig.close}</span> | ATR(14): <span class="font-mono text-gray-200">${sig.atr}</span></div>
+                  <div class="text-xs text-gray-400 mt-1">收盘: <span class="font-mono text-gray-200 font-medium">${formatPrice(sig.close, sig.symbol)}</span> | ATR(14): <span class="font-mono text-gray-200">${sig.atr}</span></div>
                 </div>
                 <div class="text-right">
                   <span class="text-xs px-2.5 py-1 rounded-md font-bold border ${badgeColor}">
@@ -444,15 +463,15 @@
                     <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     次日入场触发价:
                   </span>
-                  <span class="font-bold ${isLong ? 'text-emerald-400' : 'text-rose-400'} text-sm">${sig.trigger_price}</span>
+                  <span class="font-bold ${isLong ? 'text-emerald-400' : 'text-rose-400'} text-sm">${formatPrice(sig.trigger_price, sig.symbol)}</span>
                 </div>
                 <div class="flex items-center justify-between text-[11px]">
                   <span class="text-gray-400 font-sans">🛡️ 防守止损位:</span>
-                  <span class="text-rose-400">${sig.stop_price}</span>
+                  <span class="text-rose-400">${formatPrice(sig.stop_price, sig.symbol)}</span>
                 </div>
                 <div class="flex items-center justify-between text-[11px]">
                   <span class="text-gray-400 font-sans">🎯 预期止盈位:</span>
-                  <span class="text-emerald-400">${sig.tp_price}</span>
+                  <span class="text-emerald-400">${formatPrice(sig.tp_price, sig.symbol)}</span>
                 </div>
               </div>
             </div>
@@ -501,14 +520,14 @@
             </div>
 
             <div class="grid grid-cols-3 gap-1 pt-1.5 border-t border-gray-800/60 text-[11px] font-mono text-gray-400">
-              <div>入场: <span class="text-gray-200">${pos.entry_price}</span></div>
-              <div>现价: <span class="text-gray-200 font-semibold">${pos.current_price}</span></div>
+              <div>入场: <span class="text-gray-200">${formatPrice(pos.entry_price, pos.symbol)}</span></div>
+              <div>现价: <span class="text-gray-200 font-semibold">${formatPrice(pos.current_price, pos.symbol)}</span></div>
               <div class="text-right">持仓: <span class="text-gray-200">${pos.hold_days}天</span></div>
             </div>
             
             <div class="flex items-center justify-between text-[10px] font-mono text-gray-500">
-              <span>止损: ${pos.stop_price}</span>
-              <span>止盈: ${pos.tp_price}</span>
+              <span>止损: ${formatPrice(pos.stop_price, pos.symbol)}</span>
+              <span>止盈: ${formatPrice(pos.tp_price, pos.symbol)}</span>
               <span>建仓: ${pos.entry_date}</span>
             </div>
           </div>
@@ -543,8 +562,8 @@
             <td class="py-2 px-2 font-semibold ${dirCol}">${t.direction}</td>
             <td class="py-2 px-2 text-gray-400 text-[11px]">${t.entry_date}</td>
             <td class="py-2 px-2 text-gray-400 text-[11px]">${t.exit_date}</td>
-            <td class="py-2 px-2 text-right text-gray-300">${t.entry_price}</td>
-            <td class="py-2 px-2 text-right text-gray-300">${t.exit_price}</td>
+            <td class="py-2 px-2 text-right text-gray-300">${formatPrice(t.entry_price, t.symbol)}</td>
+            <td class="py-2 px-2 text-right text-gray-300">${formatPrice(t.exit_price, t.symbol)}</td>
             <td class="py-2 px-3 text-right font-bold ${pnlCol}">
               ${t.pnl >= 0 ? '+' : ''}${Number(t.pnl).toLocaleString()}
             </td>
@@ -658,11 +677,11 @@
           `;
         }
 
-        const triggerPxStr = item.trigger_price !== undefined && item.trigger_price !== null ? Number(item.trigger_price).toFixed(2) : '--';
-        const entryPxStr = item.entry_price !== undefined && item.entry_price !== null ? Number(item.entry_price).toFixed(2) : '--';
+        const triggerPxStr = formatPrice(item.trigger_price, item.symbol);
+        const entryPxStr = formatPrice(item.entry_price, item.symbol);
         const lotsStr = item.lots ? `${item.lots}手` : '--';
-        const slStr = item.stop_price ? item.stop_price : '--';
-        const tpStr = item.tp_price ? item.tp_price : '--';
+        const slStr = formatPrice(item.stop_price, item.symbol);
+        const tpStr = formatPrice(item.tp_price, item.symbol);
         const logicStr = item.logic || '突破ATR波动阈值确认进场';
         const sectorStr = item.sector ? `<span class="text-[10px] px-1 py-0.5 rounded bg-gray-800 text-gray-400 border border-gray-700 ml-1 font-sans">${item.sector}</span>` : '';
 
