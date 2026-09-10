@@ -149,14 +149,18 @@
         </div>
       </div>
 
-      <!-- 当前保证金与仓位占用 -->
+      <!-- 当前账户风险率与仓位占用 -->
       <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">保证金总占用率</span>
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider flex items-center gap-1.5" title="期货账户标准风险率 = 当前持仓保证金 / 动态总权益 × 100%">
+            <span>账户风险率</span>
+            <span id="kpi-risk-badge" class="text-[10px] px-1.5 py-0.5 rounded font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">安全</span>
+          </span>
           <span id="kpi-open-pos-badge" class="text-[10px] px-1.5 py-0.5 rounded font-mono bg-gray-800 text-gray-300">-- 槽位</span>
         </div>
-        <div class="mt-2 flex items-baseline space-x-1">
+        <div class="mt-2 flex items-baseline space-x-1.5">
           <span id="kpi-margin-ratio-pct" class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono">--%</span>
+          <span class="text-[11px] text-gray-500 font-mono">(保证金占用比)</span>
         </div>
         <div class="mt-2 text-xs text-gray-400 flex items-center justify-between">
           <span>占用: <span id="kpi-total-margin" class="font-mono text-gray-200">--</span> 元</span>
@@ -388,8 +392,25 @@
       document.getElementById('kpi-total-trades').textContent = summary.total_trades;
       
       const marginRatioEl = document.getElementById('kpi-margin-ratio-pct');
+      const riskBadgeEl = document.getElementById('kpi-risk-badge');
+      const rPct = (summary.margin_ratio_pct !== undefined && summary.margin_ratio_pct !== null) ? Number(summary.margin_ratio_pct) : 0.0;
       if (marginRatioEl) {
-        marginRatioEl.textContent = (summary.margin_ratio_pct !== undefined && summary.margin_ratio_pct !== null ? summary.margin_ratio_pct.toFixed(2) : '0.00') + '%';
+        marginRatioEl.textContent = rPct.toFixed(2) + '%';
+      }
+      if (riskBadgeEl) {
+        if (rPct <= 30) {
+          riskBadgeEl.textContent = '安全健康';
+          riskBadgeEl.className = 'text-[10px] px-1.5 py-0.5 rounded font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+        } else if (rPct <= 60) {
+          riskBadgeEl.textContent = '适中稳健';
+          riskBadgeEl.className = 'text-[10px] px-1.5 py-0.5 rounded font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20';
+        } else if (rPct <= 80) {
+          riskBadgeEl.textContent = '偏高警惕';
+          riskBadgeEl.className = 'text-[10px] px-1.5 py-0.5 rounded font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20';
+        } else {
+          riskBadgeEl.textContent = '高危预警';
+          riskBadgeEl.className = 'text-[10px] px-1.5 py-0.5 rounded font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20';
+        }
       }
       const openPosBadge = document.getElementById('kpi-open-pos-badge');
       if (openPosBadge) {
