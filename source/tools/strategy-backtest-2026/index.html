@@ -192,7 +192,7 @@
             <i class="fa-solid fa-chart-area text-amber-400"></i>
             <span>2026年度净值曲线与动态回撤水深图 (Daily Equity & Underwater Drawdown)</span>
           </h2>
-          <p class="text-xs text-gray-400 mt-0.5">自 2026年1月5日 100 万元起步，160 个交易日期间稳步爬坡，春季大宗行情录得显著超额</p>
+          <p class="text-xs text-gray-400 mt-0.5">自 2026年1月5日 100 万元起步，160 个交易日期间稳步爬坡。支持鼠标悬停移动十字指针查验任意日期、按住拖拽漫游或通过底部时间滑块缩放区间</p>
         </div>
         <div class="flex items-center space-x-2 text-xs">
           <span class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
@@ -205,7 +205,7 @@
           </span>
         </div>
       </div>
-      <div id="chart-equity" class="w-full h-80 sm:h-96 mt-4"></div>
+      <div id="chart-equity" class="w-full h-96 sm:h-[420px] mt-4"></div>
     </div>
 
     <!-- 两列图表：月度表现与板块分布 -->
@@ -424,6 +424,23 @@
       eqChart.setOption({
         tooltip: {
           trigger: 'axis',
+          axisPointer: {
+            type: 'line',
+            snap: true,
+            lineStyle: {
+              color: 'rgba(245, 158, 11, 0.7)',
+              width: 1.5,
+              type: 'dashed'
+            },
+            label: {
+              show: true,
+              backgroundColor: '#1e293b',
+              borderColor: '#475569',
+              borderWidth: 1,
+              color: '#f8fafc',
+              fontSize: 11
+            }
+          },
           backgroundColor: '#0f172a',
           borderColor: '#334155',
           textStyle: { color: '#f8fafc', fontSize: 12 },
@@ -438,9 +455,30 @@
                     <div>动态回撤: <span class="font-mono text-rose-400 font-semibold">${dd}%</span></div>`;
           }
         },
+        dataZoom: [
+          {
+            type: 'inside',
+            xAxisIndex: [0, 1],
+            start: 0,
+            end: 100
+          },
+          {
+            type: 'slider',
+            xAxisIndex: [0, 1],
+            start: 0,
+            end: 100,
+            height: 18,
+            bottom: '1%',
+            borderColor: '#1e293b',
+            backgroundColor: '#090d16',
+            fillerColor: 'rgba(245, 158, 11, 0.18)',
+            handleStyle: { color: '#f59e0b', borderColor: '#d97706' },
+            textStyle: { color: '#94a3b8', fontSize: 10 }
+          }
+        ],
         grid: [
-          { left: '1%', right: '2%', top: '10%', height: '56%', containLabel: true },
-          { left: '1%', right: '2%', top: '74%', height: '20%', containLabel: true }
+          { left: '1%', right: '2%', top: '8%', height: '52%', containLabel: true },
+          { left: '1%', right: '2%', top: '68%', height: '18%', containLabel: true }
         ],
         xAxis: [
           { type: 'category', data: dates, gridIndex: 0, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { show: false } },
