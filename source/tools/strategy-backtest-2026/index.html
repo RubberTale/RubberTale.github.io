@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026年度多品种次日触发量化策略 · 历史回测深度报告</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- ECharts 5 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              dark: '#0a0d14',
+              card: '#111827',
+              border: '#1f2937'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080c14;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#080c14] text-gray-200 antialiased selection:bg-amber-500 selection:text-black">
+
+  <!-- 顶部全局导航栏 -->
+  <header class="border-b border-gray-800/80 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center shadow-lg shadow-amber-500/20">
+          <i class="fa-solid fa-chart-line text-gray-950 text-base font-bold"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-wide">2026年度多品种次日触发量化策略 · 历史回测报告</h1>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">1-8月全样本</span>
+          </div>
+          <p class="text-[11px] text-gray-400 hidden sm:block">严格按照次日触碰ATR突破入场、固定1.2%风险预算、4个槽位上限严谨回测</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-3">
+        <!-- 核心链接：一键直达实盘前向跟踪器 -->
+        <a href="/tools/strategy-tracker/" class="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/30 text-xs font-semibold transition-all shadow-sm group">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>前往实盘前向跟踪器 (9月至今)</span>
+          <i class="fa-solid fa-arrow-right text-[10px] transform group-hover:translate-x-0.5 transition-transform"></i>
+        </a>
+        <a href="/tools/" class="hidden md:inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-gray-800/80 hover:bg-gray-700/80 text-gray-300 text-xs transition">
+          <i class="fa-solid fa-toolbox text-gray-400 text-xs"></i>
+          <span>工具箱</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- 回测背景与机制简述 Banner -->
+    <div class="bg-gradient-to-r from-gray-900/90 via-gray-900/60 to-gray-950 border border-gray-800 rounded-2xl p-5 shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none">
+        <i class="fa-solid fa-scale-balanced text-[200px] text-white"></i>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+        <div class="space-y-1.5">
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved"></i>
+              量化策略回测参数规约
+            </span>
+            <span class="text-gray-500 text-xs">•</span>
+            <span class="text-xs text-gray-300 font-mono">2026-01-05 至 2026-08-31 (160个交易日)</span>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-4xl">
+            本回测基于全市场 <strong class="text-white">43个活跃商品期货品种</strong> 真实主力日线量价数据。每日收盘通过均线趋势、涨跌动量、量能放大及估值分位数筛选候选，次日严格执行盘中触碰突破挂单撮合。仓位管理采取机构级 <strong class="text-amber-400">1.2% 固定风险预算与 1.5×ATR 动态定仓模型</strong>，最大持仓槽位锁定为 4 个，单品种保证金上限 12%。
+          </p>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="text-right">
+            <div class="text-[11px] text-gray-400">回测数据更新时间</div>
+            <div id="bt-generated-time" class="text-xs font-mono text-gray-200">2026-08-31 盘后</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心 KPI 仪表盘 (6大核心指标) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+      <!-- KPI 1: 累计收益率 -->
+      <div class="bg-gray-900/70 border border-gray-800 rounded-xl p-4 flex flex-col justify-between">
+        <span class="text-xs text-gray-400 font-medium">累计收益率</span>
+        <div class="my-1.5">
+          <span id="kpi-total-ret" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">+14.03%</span>
+        </div>
+        <div class="text-[11px] text-gray-400 flex items-center justify-between">
+          <span>年化: <strong id="kpi-ann-ret" class="text-gray-200 font-mono">+21.92%</strong></span>
+        </div>
+      </div>
+
+      <!-- KPI 2: 期末权益 -->
+      <div class="bg-gray-900/70 border border-gray-800 rounded-xl p-4 flex flex-col justify-between">
+        <span class="text-xs text-gray-400 font-medium">期末总资产 (100万起)</span>
+        <div class="my-1.5">
+          <span id="kpi-final-equity" class="text-2xl sm:text-3xl font-extrabold text-white font-mono">1,140,330</span>
+        </div>
+        <div class="text-[11px] text-gray-400 flex items-center justify-between">
+          <span>净收益: <strong id="kpi-net-profit" class="text-emerald-400 font-mono">+140,330</strong> 元</span>
+        </div>
+      </div>
+
+      <!-- KPI 3: 最大动态回撤 -->
+      <div class="bg-gray-900/70 border border-gray-800 rounded-xl p-4 flex flex-col justify-between">
+        <span class="text-xs text-gray-400 font-medium">最大动态回撤</span>
+        <div class="my-1.5">
+          <span id="kpi-max-dd" class="text-2xl sm:text-3xl font-extrabold text-rose-400 font-mono">-12.05%</span>
+        </div>
+        <div class="text-[11px] text-gray-400 flex items-center justify-between">
+          <span>卡玛比率: <strong id="kpi-calmar" class="text-gray-200 font-mono">1.82</strong></span>
+        </div>
+      </div>
+
+      <!-- KPI 4: 夏普比率 & 盈利因子 -->
+      <div class="bg-gray-900/70 border border-gray-800 rounded-xl p-4 flex flex-col justify-between">
+        <span class="text-xs text-gray-400 font-medium">夏普比率 (Sharpe)</span>
+        <div class="my-1.5">
+          <span id="kpi-sharpe" class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono">0.87</span>
+        </div>
+        <div class="text-[11px] text-gray-400 flex items-center justify-between">
+          <span>盈利因子: <strong id="kpi-profit-factor" class="text-gray-200 font-mono">1.19</strong></span>
+        </div>
+      </div>
+
+      <!-- KPI 5: 胜率与盈亏比 -->
+      <div class="bg-gray-900/70 border border-gray-800 rounded-xl p-4 flex flex-col justify-between">
+        <span class="text-xs text-gray-400 font-medium">交易胜率 / 盈亏比</span>
+        <div class="my-1.5">
+          <span id="kpi-win-rate" class="text-2xl sm:text-3xl font-extrabold text-blue-400 font-mono">43.9%</span>
+        </div>
+        <div class="text-[11px] text-gray-400 flex items-center justify-between">
+          <span>盈亏比: <strong id="kpi-pl-ratio" class="text-gray-200 font-mono">1.53</strong></span>
+        </div>
+      </div>
+
+      <!-- KPI 6: 账户风险率 (保证金占用) -->
+      <div class="bg-gray-900/70 border border-gray-800 rounded-xl p-4 flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-gray-400 font-medium">平均账户风险率</span>
+          <span class="text-[10px] px-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">安全防守</span>
+        </div>
+        <div class="my-1.5">
+          <span id="kpi-risk-ratio" class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono">8.62%</span>
+        </div>
+        <div class="text-[11px] text-gray-400 flex items-center justify-between">
+          <span>峰值: <strong id="kpi-max-risk" class="text-gray-200 font-mono">21.32%</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心图表 1：逐日净值曲线 & 水深回撤图 -->
+    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-800">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-chart-area text-amber-400"></i>
+            <span>2026年度净值曲线与动态回撤水深图 (Daily Equity & Underwater Drawdown)</span>
+          </h2>
+          <p class="text-xs text-gray-400 mt-0.5">自 2026年1月5日 100 万元起步，160 个交易日期间稳步爬坡，春季大宗行情录得显著超额</p>
+        </div>
+        <div class="flex items-center space-x-2 text-xs">
+          <span class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <span class="w-2 h-0.5 bg-amber-400 inline-block"></span>
+            <span>策略动态净值</span>
+          </span>
+          <span class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">
+            <span class="w-2 h-0.5 bg-rose-400 inline-block"></span>
+            <span>水深回撤(%)</span>
+          </span>
+        </div>
+      </div>
+      <div id="chart-equity" class="w-full h-80 sm:h-96 mt-4"></div>
+    </div>
+
+    <!-- 两列图表：月度表现与板块分布 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- 图表 2：2026 逐月收益率分布 -->
+      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
+        <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-calendar-days text-blue-400"></i>
+              <span>2026年 逐月收益率与月度盈亏 (Monthly Returns)</span>
+            </h3>
+            <p class="text-[11px] text-gray-400 mt-0.5">1月把握春季大突破净赚+11.8%，5-7月商品弱势横盘期间回撤控制在合理范围</p>
+          </div>
+        </div>
+        <div id="chart-monthly" class="w-full h-72 sm:h-80 mt-3"></div>
+      </div>
+
+      <!-- 图表 3：商品五大板块盈亏贡献 -->
+      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
+        <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-cubes text-emerald-400"></i>
+              <span>五大板块累计盈亏与胜率分布 (Sector Breakdown)</span>
+            </h3>
+            <p class="text-[11px] text-gray-400 mt-0.5">贵金属（白银、黄金）获利逾15.4万元为主要盈利引擎，化工品贡献平稳</p>
+          </div>
+        </div>
+        <div id="chart-sector" class="w-full h-72 sm:h-80 mt-3"></div>
+      </div>
+
+    </div>
+
+    <!-- 图表 4：全品种盈亏贡献排行榜 Top Winners & Losers -->
+    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
+      <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+        <div>
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-trophy text-amber-400"></i>
+            <span>各品种历史回测盈利贡献榜 (Top Performers & Risk Varieties)</span>
+          </h3>
+          <p class="text-[11px] text-gray-400 mt-0.5">白银 (+9.71万)、燃料油 (+6.50万)、黄金 (+5.70万)、苯乙烯 (+4.30万) 位列盈利前列</p>
+        </div>
+      </div>
+      <div id="chart-varieties" class="w-full h-80 sm:h-96 mt-3"></div>
+    </div>
+
+    <!-- 模块 5：全量 114 笔历史平仓交易流水明细 (可搜索、筛选、分页) -->
+    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-800">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-blue-400"></i>
+            <span>全量平仓交易流水 (Full Closed Trades Audit: <span id="table-total-count" class="text-amber-400 font-mono">114</span> 笔)</span>
+          </h3>
+          <p class="text-xs text-gray-400 mt-0.5">每笔交易严格记录入场价、离场价、离场触发原因与精确盈亏比率</p>
+        </div>
+
+        <!-- 筛选器与搜索框 -->
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <!-- 搜索输入框 -->
+          <div class="relative">
+            <input id="search-input" type="text" placeholder="搜索代码/品种名..." class="bg-gray-950 border border-gray-700 rounded-lg pl-8 pr-3 py-1.5 text-xs text-gray-200 placeholder-gray-500 focus:outline-none focus:border-amber-400 w-36 sm:w-44">
+            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-gray-500 text-[11px]"></i>
+          </div>
+
+          <!-- 板块筛选 -->
+          <select id="filter-sector" class="bg-gray-950 border border-gray-700 rounded-lg px-2.5 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-amber-400">
+            <option value="all">全部板块</option>
+            <option value="贵金属">贵金属</option>
+            <option value="化工品">化工品</option>
+            <option value="农产品">农产品</option>
+            <option value="黑色系">黑色系</option>
+            <option value="有色金属">有色金属</option>
+          </select>
+
+          <!-- 方向筛选 -->
+          <select id="filter-direction" class="bg-gray-950 border border-gray-700 rounded-lg px-2.5 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-amber-400">
+            <option value="all">多空不限</option>
+            <option value="做多">做多</option>
+            <option value="做空">做空</option>
+          </select>
+
+          <!-- 离场原因筛选 -->
+          <select id="filter-reason" class="bg-gray-950 border border-gray-700 rounded-lg px-2.5 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-amber-400">
+            <option value="all">离场原因</option>
+            <option value="触碰止盈">触碰止盈</option>
+            <option value="触碰止损">触碰止损</option>
+            <option value="均线">均线/到期</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 表格容器 -->
+      <div class="overflow-x-auto custom-scrollbar mt-4">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-gray-800 text-gray-400 uppercase font-medium bg-gray-950/50">
+              <th class="py-2.5 px-3">#</th>
+              <th class="py-2.5 px-3">平仓日期</th>
+              <th class="py-2.5 px-3">标的品种</th>
+              <th class="py-2.5 px-3">合约代码</th>
+              <th class="py-2.5 px-3">方向</th>
+              <th class="py-2.5 px-3 text-right">手数</th>
+              <th class="py-2.5 px-3 text-right">入场价</th>
+              <th class="py-2.5 px-3 text-right">平仓价</th>
+              <th class="py-2.5 px-3">离场原因</th>
+              <th class="py-2.5 px-3 text-center">持仓</th>
+              <th class="py-2.5 px-3 text-right">净盈亏 (元)</th>
+              <th class="py-2.5 px-3 text-right">收益率</th>
+            </tr>
+          </thead>
+          <tbody id="trades-tbody" class="divide-y divide-gray-800/60 font-mono">
+            <!-- 动态渲染流水记录 -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 分页栏 -->
+      <div class="flex items-center justify-between pt-4 border-t border-gray-800 mt-3 text-xs text-gray-400">
+        <div>
+          显示第 <span id="page-range-start" class="font-mono text-gray-200">1</span> - <span id="page-range-end" class="font-mono text-gray-200">15</span> 条，共 <span id="page-total-items" class="font-mono text-gray-200">114</span> 条
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <button id="btn-prev-page" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 disabled:opacity-40 disabled:pointer-events-none transition">上一页</button>
+          <span id="page-indicator" class="px-2 py-1 font-mono text-gray-200">1 / 8</span>
+          <button id="btn-next-page" class="px-2.5 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 disabled:opacity-40 disabled:pointer-events-none transition">下一页</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心底部导航卡片：承接回测并引导前往实盘跟踪器 (双向链接) -->
+    <div class="bg-gradient-to-r from-emerald-950/40 via-gray-900/90 to-blue-950/40 border border-emerald-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+        <div class="space-y-2 text-center md:text-left">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+            <i class="fa-solid fa-satellite-dish animate-pulse"></i>
+            <span>从历史回测迈向真实前向验证</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+            历史回测已充分验证 · 欢迎查阅【实盘前向跟踪器】
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed">
+            2026 年前 8 个月的严谨回测沉淀了扎实的收益风险比数据。从 2026 年 9 月起，该量化系统已正式部署为每日收盘自动前向推进与实盘追踪（目前持有液化石油气、铁矿石、甲醇，风险率 7.61%）。点击下方按钮即可无缝跳转至实盘实时跟踪看板。
+          </p>
+        </div>
+
+        <div class="shrink-0">
+          <a href="/tools/strategy-tracker/" class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-gray-950 font-bold text-sm sm:text-base shadow-lg shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-bolt text-gray-950"></i>
+            <span>立即前往：多品种次日触发量化跟踪器</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-gray-800/80 py-6 text-center text-xs text-gray-500">
+    <p>多品种次日触发量化投资体系 · 2026 年度历史回测报告</p>
+    <p class="mt-1">由 Hexo 博客投研工具箱自动驱动 · 严谨量化 · 严格止损 · 敬畏市场</p>
+  </footer>
+
+  <!-- 数据加载与可视化逻辑 -->
+  <script>
+    let backtestData = null;
+    let filteredTrades = [];
+    let currentPage = 1;
+    const pageSize = 15;
+
+    // 初始化加载
+    async function init() {
+      try {
+        const resp = await fetch('./backtest_data.json');
+        backtestData = await resp.json();
+        renderSummary(backtestData.summary, backtestData.backtest_info);
+        renderCharts(backtestData);
+        initTradesTable(backtestData.trades);
+      } catch (err) {
+        console.error("加载 backtest_data.json 失败:", err);
+      }
+    }
+
+    function renderSummary(summary, info) {
+      document.getElementById('bt-generated-time').textContent = info.period;
+      document.getElementById('kpi-total-ret').textContent = (summary.total_return_pct >= 0 ? '+' : '') + summary.total_return_pct.toFixed(2) + '%';
+      document.getElementById('kpi-ann-ret').textContent = (summary.annualized_return_pct >= 0 ? '+' : '') + summary.annualized_return_pct.toFixed(2) + '%';
+      document.getElementById('kpi-final-equity').textContent = Number(summary.final_equity).toLocaleString('zh-CN', { maximumFractionDigits: 0 });
+      const netProfit = summary.final_equity - summary.initial_capital;
+      document.getElementById('kpi-net-profit').textContent = (netProfit >= 0 ? '+' : '') + Number(netProfit).toLocaleString('zh-CN', { maximumFractionDigits: 0 });
+      document.getElementById('kpi-max-dd').textContent = summary.max_drawdown_pct.toFixed(2) + '%';
+      document.getElementById('kpi-calmar').textContent = summary.calmar_ratio.toFixed(2);
+      document.getElementById('kpi-sharpe').textContent = summary.sharpe_ratio.toFixed(2);
+      document.getElementById('kpi-profit-factor').textContent = summary.profit_factor.toFixed(2);
+      document.getElementById('kpi-win-rate').textContent = summary.win_rate.toFixed(1) + '%';
+      document.getElementById('kpi-pl-ratio').textContent = summary.profit_loss_ratio.toFixed(2);
+      document.getElementById('kpi-risk-ratio').textContent = summary.avg_risk_ratio.toFixed(2) + '%';
+      document.getElementById('kpi-max-risk').textContent = summary.max_risk_ratio.toFixed(2) + '%';
+    }
+
+    function renderCharts(data) {
+      // 1. 逐日权益与水深图
+      const eqChart = echarts.init(document.getElementById('chart-equity'));
+      const dates = data.equity_curve.map(d => d.date);
+      const equities = data.equity_curve.map(d => d.equity);
+      // 动态计算回撤
+      let peak = 1000000;
+      const drawdowns = data.equity_curve.map(d => {
+        if (d.equity > peak) peak = d.equity;
+        return Number(((d.equity - peak) / peak * 100).toFixed(2));
+      });
+
+      eqChart.setOption({
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#0f172a',
+          borderColor: '#334155',
+          textStyle: { color: '#f8fafc', fontSize: 12 },
+          formatter: function (params) {
+            const date = params[0].name;
+            const eq = params[0].value;
+            const dd = params[1].value;
+            const ret = ((eq - 1000000) / 1000000 * 100).toFixed(2);
+            return `<div class="font-bold text-amber-400 mb-1">${date}</div>
+                    <div>动态总权益: <span class="font-mono text-white font-semibold">${Number(eq).toLocaleString()} 元</span></div>
+                    <div>累计收益率: <span class="font-mono ${ret>=0?'text-emerald-400':'text-rose-400'} font-semibold">${ret>=0?'+':''}${ret}%</span></div>
+                    <div>动态回撤: <span class="font-mono text-rose-400 font-semibold">${dd}%</span></div>`;
+          }
+        },
+        grid: [
+          { left: '3%', right: '3%', top: '10%', height: '56%' },
+          { left: '3%', right: '3%', top: '74%', height: '20%' }
+        ],
+        xAxis: [
+          { type: 'category', data: dates, gridIndex: 0, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { show: false } },
+          { type: 'category', data: dates, gridIndex: 1, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#94a3b8', fontSize: 10 } }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            gridIndex: 0,
+            scale: true,
+            axisLine: { show: false },
+            splitLine: { lineStyle: { color: '#1e293b' } },
+            axisLabel: { color: '#94a3b8', fontSize: 11, formatter: val => (val / 10000).toFixed(1) + '万' }
+          },
+          {
+            type: 'value',
+            gridIndex: 1,
+            max: 0,
+            min: -15,
+            splitNumber: 2,
+            axisLine: { show: false },
+            splitLine: { lineStyle: { color: '#1e293b' } },
+            axisLabel: { color: '#f43f5e', fontSize: 10, formatter: val => val + '%' }
+          }
+        ],
+        series: [
+          {
+            name: '动态权益',
+            type: 'line',
+            data: equities,
+            xAxisIndex: 0,
+            yAxisIndex: 0,
+            showSymbol: false,
+            smooth: true,
+            lineStyle: { color: '#f59e0b', width: 2.5 },
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: 'rgba(245, 158, 11, 0.25)' },
+                { offset: 1, color: 'rgba(245, 158, 11, 0.0)' }
+              ])
+            }
+          },
+          {
+            name: '动态回撤',
+            type: 'line',
+            data: drawdowns,
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            showSymbol: false,
+            lineStyle: { color: '#f43f5e', width: 1.5 },
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: 'rgba(244, 63, 94, 0.1)' },
+                { offset: 1, color: 'rgba(244, 63, 94, 0.4)' }
+              ])
+            }
+          }
+        ]
+      });
+
+      // 2. 逐月收益率条形图
+      const monthlyChart = echarts.init(document.getElementById('chart-monthly'));
+      const months = data.monthly_stats.map(m => m.month);
+      const mReturns = data.monthly_stats.map(m => m.return_pct);
+      monthlyChart.setOption({
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#0f172a',
+          borderColor: '#334155',
+          textStyle: { color: '#f8fafc', fontSize: 12 },
+          formatter: function(params) {
+            const item = data.monthly_stats[params[0].dataIndex];
+            return `<div class="font-bold text-amber-400">${item.month} 表现</div>
+                    <div>月收益率: <span class="font-mono font-bold ${item.return_pct>=0?'text-emerald-400':'text-rose-400'}">${item.return_pct>=0?'+':''}${item.return_pct}%</span></div>
+                    <div>月度盈亏: <span class="font-mono text-white">${item.pnl.toLocaleString()} 元</span></div>
+                    <div>交易笔数: <span class="font-mono text-gray-200">${item.trades_count} 笔 (胜率 ${item.win_rate}%)</span></div>
+                    <div>期末权益: <span class="font-mono text-gray-300">${item.end_equity.toLocaleString()} 元</span></div>`;
+          }
+        },
+        grid: { left: '3%', right: '3%', top: '10%', bottom: '5%', containLabel: true },
+        xAxis: {
+          type: 'category',
+          data: months,
+          axisLine: { lineStyle: { color: '#334155' } },
+          axisLabel: { color: '#94a3b8', fontSize: 11 }
+        },
+        yAxis: {
+          type: 'value',
+          axisLine: { show: false },
+          splitLine: { lineStyle: { color: '#1e293b' } },
+          axisLabel: { color: '#94a3b8', fontSize: 11, formatter: val => val + '%' }
+        },
+        series: [{
+          name: '月度收益率',
+          type: 'bar',
+          data: mReturns.map(val => ({
+            value: val,
+            itemStyle: {
+              color: val >= 0 ? '#10b981' : '#f43f5e',
+              borderRadius: val >= 0 ? [4, 4, 0, 0] : [0, 0, 4, 4]
+            }
+          })),
+          barWidth: '45%'
+        }]
+      });
+
+      // 3. 板块分布图
+      const sectorChart = echarts.init(document.getElementById('chart-sector'));
+      const secNames = data.sector_stats.map(s => s.sector);
+      const secPnls = data.sector_stats.map(s => s.total_pnl);
+      sectorChart.setOption({
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#0f172a',
+          borderColor: '#334155',
+          textStyle: { color: '#f8fafc', fontSize: 12 },
+          formatter: function(params) {
+            const item = data.sector_stats[params[0].dataIndex];
+            return `<div class="font-bold text-amber-400">${item.sector}</div>
+                    <div>累计盈亏: <span class="font-mono font-bold ${item.total_pnl>=0?'text-emerald-400':'text-rose-400'}">${item.total_pnl>=0?'+':''}${item.total_pnl.toLocaleString()} 元</span></div>
+                    <div>总交易: <span class="font-mono text-gray-200">${item.trades} 笔</span></div>
+                    <div>胜率: <span class="font-mono text-blue-400">${item.win_rate}%</span></div>`;
+          }
+        },
+        grid: { left: '3%', right: '5%', top: '8%', bottom: '5%', containLabel: true },
+        xAxis: {
+          type: 'value',
+          splitLine: { lineStyle: { color: '#1e293b' } },
+          axisLabel: { color: '#94a3b8', fontSize: 10, formatter: val => (val / 10000).toFixed(1) + '万' }
+        },
+        yAxis: {
+          type: 'category',
+          data: secNames.slice().reverse(),
+          axisLine: { lineStyle: { color: '#334155' } },
+          axisLabel: { color: '#cbd5e1', fontSize: 11 }
+        },
+        series: [{
+          type: 'bar',
+          data: secPnls.slice().reverse().map(val => ({
+            value: val,
+            itemStyle: {
+              color: val >= 0 ? '#10b981' : '#f43f5e',
+              borderRadius: val >= 0 ? [0, 4, 4, 0] : [4, 0, 0, 4]
+            }
+          })),
+          barWidth: '50%'
+        }]
+      });
+
+      // 4. 品种盈亏排行排行榜 (Top 12 核心展示)
+      const varChart = echarts.init(document.getElementById('chart-varieties'));
+      // 取出头部与尾部组合
+      const topItems = [...data.variety_rankings.slice(0, 7), ...data.variety_rankings.slice(-5)];
+      topItems.sort((a, b) => a.total_pnl - b.total_pnl);
+
+      varChart.setOption({
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: '#0f172a',
+          borderColor: '#334155',
+          textStyle: { color: '#f8fafc', fontSize: 12 },
+          formatter: function(params) {
+            const item = topItems[params[0].dataIndex];
+            return `<div class="font-bold text-amber-400">${item.name} (${item.symbol}) - ${item.sector}</div>
+                    <div>累计贡献: <span class="font-mono font-bold ${item.total_pnl>=0?'text-emerald-400':'text-rose-400'}">${item.total_pnl>=0?'+':''}${item.total_pnl.toLocaleString()} 元</span></div>
+                    <div>交易次数: <span class="font-mono text-gray-200">${item.trades} 笔 (胜率 ${item.win_rate}%)</span></div>
+                    <div>单笔最佳: <span class="font-mono text-emerald-400">+${item.best_trade.toLocaleString()} 元</span></div>
+                    <div>单笔最大亏损: <span class="font-mono text-rose-400">${item.worst_trade.toLocaleString()} 元</span></div>`;
+          }
+        },
+        grid: { left: '3%', right: '5%', top: '6%', bottom: '5%', containLabel: true },
+        xAxis: {
+          type: 'value',
+          splitLine: { lineStyle: { color: '#1e293b' } },
+          axisLabel: { color: '#94a3b8', fontSize: 10, formatter: val => (val / 10000).toFixed(1) + '万' }
+        },
+        yAxis: {
+          type: 'category',
+          data: topItems.map(i => `${i.name} (${i.symbol})`),
+          axisLine: { lineStyle: { color: '#334155' } },
+          axisLabel: { color: '#cbd5e1', fontSize: 11 }
+        },
+        series: [{
+          type: 'bar',
+          data: topItems.map(i => ({
+            value: i.total_pnl,
+            itemStyle: {
+              color: i.total_pnl >= 0 ? '#f59e0b' : '#64748b',
+              borderRadius: i.total_pnl >= 0 ? [0, 4, 4, 0] : [4, 0, 0, 4]
+            }
+          })),
+          barWidth: '55%'
+        }]
+      });
+
+      window.addEventListener('resize', () => {
+        eqChart.resize();
+        monthlyChart.resize();
+        sectorChart.resize();
+        varChart.resize();
+      });
+    }
+
+    // 表格与筛选逻辑
+    function initTradesTable(trades) {
+      filteredTrades = [...trades];
+      applyFilters();
+
+      document.getElementById('search-input').addEventListener('input', applyFilters);
+      document.getElementById('filter-sector').addEventListener('change', applyFilters);
+      document.getElementById('filter-direction').addEventListener('change', applyFilters);
+      document.getElementById('filter-reason').addEventListener('change', applyFilters);
+
+      document.getElementById('btn-prev-page').addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderTable();
+        }
+      });
+      document.getElementById('btn-next-page').addEventListener('click', () => {
+        const maxPage = Math.ceil(filteredTrades.length / pageSize) || 1;
+        if (currentPage < maxPage) {
+          currentPage++;
+          renderTable();
+        }
+      });
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('search-input').value.trim().toUpperCase();
+      const sec = document.getElementById('filter-sector').value;
+      const dir = document.getElementById('filter-direction').value;
+      const reason = document.getElementById('filter-reason').value;
+
+      filteredTrades = backtestData.trades.filter(t => {
+        if (q && !t.symbol.toUpperCase().includes(q) && !t.name.includes(q) && !t.contract.toUpperCase().includes(q)) return false;
+        if (sec !== 'all' && t.sector !== sec) return false;
+        if (dir !== 'all' && t.direction !== dir) return false;
+        if (reason !== 'all' && !t.reason.includes(reason)) return false;
+        return true;
+      });
+
+      currentPage = 1;
+      document.getElementById('table-total-count').textContent = filteredTrades.length;
+      renderTable();
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('trades-tbody');
+      const startIdx = (currentPage - 1) * pageSize;
+      const endIdx = Math.min(startIdx + pageSize, filteredTrades.length);
+      const pageItems = filteredTrades.slice(startIdx, endIdx);
+
+      if (pageItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="12" class="text-center py-8 text-gray-500 font-sans">没有找到符合条件的交易记录</td></tr>`;
+      } else {
+        tbody.innerHTML = pageItems.map((t, idx) => {
+          const isWin = t.pnl > 0;
+          const pnlColor = isWin ? 'text-emerald-400' : (t.pnl < 0 ? 'text-rose-400' : 'text-gray-400');
+          const dirBg = t.direction === '做多' ? 'text-rose-400 bg-rose-500/10 border-rose-500/20' : 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
+          let reasonBadge = 'text-gray-400 bg-gray-800';
+          if (t.reason.includes('止盈')) reasonBadge = 'text-emerald-400 bg-emerald-500/10 border border-emerald-500/20';
+          else if (t.reason.includes('止损')) reasonBadge = 'text-rose-400 bg-rose-500/10 border border-rose-500/20';
+          else if (t.reason.includes('均线') || t.reason.includes('到期')) reasonBadge = 'text-blue-400 bg-blue-500/10 border border-blue-500/20';
+
+          return `
+            <tr class="hover:bg-gray-800/40 transition">
+              <td class="py-2.5 px-3 text-gray-500">${startIdx + idx + 1}</td>
+              <td class="py-2.5 px-3 text-gray-300 font-mono text-[11px]">${t.exit_date}</td>
+              <td class="py-2.5 px-3 font-sans font-medium text-white">${t.name} <span class="text-gray-500 text-[10px]">(${t.sector})</span></td>
+              <td class="py-2.5 px-3 text-gray-300">${t.contract}</td>
+              <td class="py-2.5 px-3">
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-sans border ${dirBg}">${t.direction}</span>
+              </td>
+              <td class="py-2.5 px-3 text-right text-gray-300">${t.lots}手</td>
+              <td class="py-2.5 px-3 text-right text-gray-400">${t.entry_price}</td>
+              <td class="py-2.5 px-3 text-right font-medium text-white">${t.exit_price}</td>
+              <td class="py-2.5 px-3">
+                <span class="px-1.5 py-0.5 rounded text-[10px] font-sans ${reasonBadge}">${t.reason}</span>
+              </td>
+              <td class="py-2.5 px-3 text-center text-gray-400">${t.hold_days}天</td>
+              <td class="py-2.5 px-3 text-right font-bold ${pnlColor}">${t.pnl >= 0 ? '+' : ''}${t.pnl.toLocaleString('zh-CN', {minimumFractionDigits: 2})}</td>
+              <td class="py-2.5 px-3 text-right font-semibold ${pnlColor}">${t.return_pct >= 0 ? '+' : ''}${t.return_pct.toFixed(1)}%</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 更新分页指示
+      const maxPage = Math.ceil(filteredTrades.length / pageSize) || 1;
+      document.getElementById('page-indicator').textContent = `${currentPage} / ${maxPage}`;
+      document.getElementById('page-range-start').textContent = filteredTrades.length === 0 ? 0 : startIdx + 1;
+      document.getElementById('page-range-end').textContent = endIdx;
+      document.getElementById('page-total-items').textContent = filteredTrades.length;
+
+      document.getElementById('btn-prev-page').disabled = (currentPage <= 1);
+      document.getElementById('btn-next-page').disabled = (currentPage >= maxPage);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

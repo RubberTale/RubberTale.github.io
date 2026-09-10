@@ -61,6 +61,15 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
+      <a href="/tools/strategy-backtest-2026/" title="2026年度次日触发策略历史回测报告" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="2026年度次日触发策略历史回测报告">
+        </div>
+        <div class="flink-item-name">2026年度策略历史回测报告</div>
+        <div class="flink-item-desc">2026年1月至8月全市场43个商品期货严谨历史回测复盘：160个交易日114笔交易深度剖析、逐月收益、板块贡献与全量交易流水。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/arbitrage-calc/" title="基差与价差套利测算器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
