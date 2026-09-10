@@ -439,8 +439,8 @@
           }
         },
         grid: [
-          { left: '3%', right: '3%', top: '10%', height: '56%' },
-          { left: '3%', right: '3%', top: '74%', height: '20%' }
+          { left: '1%', right: '2%', top: '10%', height: '56%', containLabel: true },
+          { left: '1%', right: '2%', top: '74%', height: '20%', containLabel: true }
         ],
         xAxis: [
           { type: 'category', data: dates, gridIndex: 0, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { show: false } },
@@ -453,7 +453,7 @@
             scale: true,
             axisLine: { show: false },
             splitLine: { lineStyle: { color: '#1e293b' } },
-            axisLabel: { color: '#94a3b8', fontSize: 11, formatter: val => (val / 10000).toFixed(1) + '万' }
+            axisLabel: { color: '#94a3b8', fontSize: 11, formatter: val => (val / 10000).toFixed(0) + '万' }
           },
           {
             type: 'value',
