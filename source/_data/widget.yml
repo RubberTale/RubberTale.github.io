@@ -1,4 +1,100 @@
 top:
+  - class_name: card-weather-summary
+    id_name: card-weather-summary
+    icon: fas fa-cloud-sun-rain
+    name: 主要产区气象概述与预测
+    html: |
+      <div class="weather-summary-widget" style="font-size: 0.84rem; line-height: 1.55;">
+        <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px; padding: 6px 8px; margin-bottom: 8px; font-size: 0.80rem; line-height: 1.45;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+            <strong style="color: #2563eb; font-size: 0.81rem;"><i class="fas fa-bullhorn" style="margin-right: 4px;"></i>产区气象物候综述</strong>
+            <span style="font-size: 0.70rem; color: #64748b; background: rgba(100, 116, 139, 0.1); padding: 1px 5px; border-radius: 3px;">9月中旬 · 旺产季</span>
+          </div>
+          当前全球处于产胶增产高峰。<strong>版纳</strong>晴好干燥利于割胶；<strong>泰南</strong>短时阵雨、早割窗口顺畅；<strong>海南/越南</strong>受季风与对流影响雨日偏多，局地需防范冲胶；<strong>西非</strong>水热适宜产能稳步释放。
+        </div>
+        <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+              <span><strong>🇹🇭 泰南核心</strong> <small style="color: #64748b; font-size: 0.70rem;">(全球33%)</small></span>
+              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(245, 158, 11, 0.12); color: #d97706; font-weight: 600;">局地阵雨</span>
+            </div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+              <span>7天累积: <b style="color: #2563eb;">45.9mm</b></span> · <span>扰动: <b>3天</b></span> · <span>24~33°C</span>
+            </div>
+            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+              降水多在傍晚热对流，凌晨早割窗口通畅，增产顺畅。
+            </div>
+          </li>
+          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+              <span><strong>🇨🇳 云南版纳</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内主力)</small></span>
+              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">晴好少雨</span>
+            </div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+              <span>7天累积: <b style="color: #059669;">4.6mm</b></span> · <span>扰动: <b>0天</b></span> · <span>19~32°C</span>
+            </div>
+            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+              干燥少雨且温差适宜，出胶干含双优，开割条件极佳。
+            </div>
+          </li>
+          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+              <span><strong>🇨🇳 海南主产</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内核心)</small></span>
+              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(59, 130, 246, 0.12); color: #2563eb; font-weight: 600;">对流偏强</span>
+            </div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+              <span>7天累积: <b style="color: #2563eb;">117.9mm</b></span> · <span>扰动: <b>5天</b></span> · <span>22~31°C</span>
+            </div>
+            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+              南海热带扰动频繁，中后期雷雨密，需重点防范雨冲胶。
+            </div>
+          </li>
+          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+              <span><strong>🇻🇳 越南南部</strong> <small style="color: #64748b; font-size: 0.70rem;">(平福/同奈)</small></span>
+              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(139, 92, 246, 0.12); color: #7c3aed; font-weight: 600;">季风雨盛</span>
+            </div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+              <span>7天累积: <b style="color: #7c3aed;">121.8mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~31°C</span>
+            </div>
+            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+              季风雨量充沛，早间对流频繁，局部割胶进度阶段性受阻。
+            </div>
+          </li>
+          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+              <span><strong>🇮🇩 印尼苏岛</strong> <small style="color: #64748b; font-size: 0.70rem;">(棉兰/巨港)</small></span>
+              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(6, 182, 212, 0.12); color: #0891b2; font-weight: 600;">常态雷雨</span>
+            </div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+              <span>7天累积: <b style="color: #0891b2;">135.4mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~32°C</span>
+            </div>
+            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+              赤道对流常态活跃，多为午后雷雨，错峰收胶生产平稳。
+            </div>
+          </li>
+          <li style="margin-bottom: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+              <span><strong>🇨🇮 西非科特</strong> <small style="color: #64748b; font-size: 0.70rem;">(阿比让)</small></span>
+              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">水热均衡</span>
+            </div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+              <span>7天累积: <b style="color: #059669;">41.7mm</b></span> · <span>扰动: <b>3天</b></span> · <span>23~28°C</span>
+            </div>
+            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+              降雨温和绵密，新割胶林产能持续释放，供应增量稳定。
+            </div>
+          </li>
+        </ul>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; padding-top: 5px; border-top: 1px solid rgba(128, 128, 128, 0.15); font-size: 0.76rem;">
+          <div style="display: flex; gap: 6px;">
+            <a href="/tools/rubber-weather-calendar/" style="color: #059669; text-decoration: none; font-weight: 500;" title="产区气象与割胶物候看板"><i class="fas fa-calendar-alt"></i> 物候看板</a>
+            <a href="/rubber/weather_forecast/" style="color: #3b82f6; text-decoration: none; font-weight: 500;" title="重点资源区域卫星云图观察"><i class="fas fa-satellite"></i> 卫星云图</a>
+          </div>
+          <a href="/2026/09/10/全球主要橡胶及大宗农产区天气概述与割胶物候预测（2026年9月中旬）/" style="color: #2563eb; font-weight: 600; text-decoration: none;">完整研报 →</a>
+        </div>
+      </div>
+
   - class_name: card-hot-news
     id_name: card-hot-news
     icon: fas fa-globe-asia
