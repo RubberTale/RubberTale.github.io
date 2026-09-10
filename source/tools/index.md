@@ -97,6 +97,15 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
+      <a href="/rubber/weather_forecast/" title="重点资源区域卫星云图观察" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:satellite.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="重点资源区域卫星云图观察">
+        </div>
+        <div class="flink-item-name">重点资源区域卫星云图观察</div>
+        <div class="flink-item-desc">基于德国气象局 DWD ICON 13km 高精模型，逐 2 小时跟踪东南亚、中国、西非等六大关键产区降水云系演变与指标联动。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/report-data-diff/" title="研报数据与平衡表比对提取器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:file-diff.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="研报数据与平衡表比对提取器">

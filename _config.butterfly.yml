@@ -35,6 +35,7 @@ menu:
     橡胶交割品牌: /tools/delivery-brands/ || fas fa-stamp
     凯利仓位测算: /tools/position-calculator/ || fas fa-calculator
     产区气象物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
+    卫星云图观察: /rubber/weather_forecast/ || fas fa-satellite
     研报平衡表比对: /tools/report-data-diff/ || fas fa-file-invoice
     罗马历史地图: /roman/ || fas fa-map-marked-alt
     世界史对照地图: /world-history/ || fas fa-globe-asia

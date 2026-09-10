@@ -59,7 +59,7 @@ function updateProgressControl(frameIndex = null) {
   const videoRatio = duration ? Math.min(0.99999, Math.max(0, video.currentTime / duration)) : 0;
   const index = Number.isInteger(frameIndex)
     ? Math.min(lastIndex, Math.max(0, frameIndex))
-    : Math.min(lastIndex, Math.floor(videoRatio * Math.max(1, frames.length)));
+    : (duration > 0 ? Math.min(lastIndex, Math.floor(videoRatio * Math.max(1, frames.length))) : Number(videoProgress.value || 0));
   const progressRatio = lastIndex ? index / lastIndex : 0;
   videoProgress.max = String(lastIndex);
   videoProgress.value = String(index);
@@ -67,7 +67,7 @@ function updateProgressControl(frameIndex = null) {
   videoProgress.setAttribute("aria-valuetext", frames[index]
     ? `第 ${index + 1} 帧，${frames[index].valid_time_china}`
     : `第 ${index + 1} 帧`);
-  videoClock.textContent = `${formatMediaTime(video.currentTime)} / ${formatMediaTime(duration)}`;
+  videoClock.textContent = duration > 0 ? `${formatMediaTime(video.currentTime)} / ${formatMediaTime(duration)}` : `帧 ${index + 1} / ${frames.length}`;
 }
 
 function peakFrame(meta) {
@@ -95,12 +95,24 @@ function updatePlaybackFrame() {
   updateProgressControl(index);
 }
 
-function showFallback(region, animated = true) {
+function showFallback(region, animated = false) {
   video.hidden = true;
   fallback.hidden = false;
-  fallback.src = versionedAsset(region, animated ? "latest.webp" : "latest_preview.png");
+  fallback.onerror = function() {
+    this.onerror = null;
+    this.src = versionedAsset(region, "latest_preview.png");
+  };
+  fallback.src = versionedAsset(region, "latest_preview.png");
   loading.hidden = true;
-  mediaControls.hidden = true;
+  mediaControls.hidden = false;
+  playbackMode.textContent = "高精云图 · 84帧指标联动";
+  state.exportUrl = versionedAsset(region, "latest_preview.png");
+  state.exportFilename = `dwd-icon-${region}-preview.png`;
+  if (exportButton) {
+    exportButton.textContent = "导出高精云图";
+    exportButton.disabled = false;
+  }
+  updateProgressControl(0);
 }
 
 function setRegion(region) {
@@ -271,11 +283,15 @@ document.querySelectorAll(".region-tab").forEach(button => {
 videoProgress.addEventListener("input", () => {
   const meta = state.metadata[state.active];
   const frames = meta?.frames || [];
-  if (!frames.length || !Number.isFinite(video.duration) || video.duration <= 0) return;
+  if (!frames.length) return;
   const index = Math.min(frames.length - 1, Math.max(0, Number(videoProgress.value)));
-  video.pause();
-  playbackMode.textContent = "已暂停 · 手动选帧";
-  video.currentTime = Math.min(video.duration - 0.001, ((index + 0.5) / frames.length) * video.duration);
+  if (!video.hidden && Number.isFinite(video.duration) && video.duration > 0) {
+    video.pause();
+    playbackMode.textContent = "已暂停 · 手动选帧";
+    video.currentTime = Math.min(video.duration - 0.001, ((index + 0.5) / frames.length) * video.duration);
+  } else {
+    playbackMode.textContent = "手动选帧 · 84帧指标联动";
+  }
   updateFrameMetrics(frames[index]);
   updateProgressControl(index);
 });
@@ -288,7 +304,7 @@ video.addEventListener("loadeddata", () => {
 });
 video.addEventListener("play", () => { playbackMode.textContent = "自动播放"; });
 video.addEventListener("timeupdate", updatePlaybackFrame);
-video.addEventListener("error", () => showFallback(state.active, !reduceMotion));
+video.addEventListener("error", () => showFallback(state.active, false));
 
 loadMetadata().catch(error => {
   loading.textContent = `天气模块读取失败：${error.message}`;
