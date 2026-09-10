@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
   "updated_at": "2026-09-09",
-  "generated_time": "2026-09-09 22:23:55",
+  "generated_time": "2026-09-10 05:10:20",
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 1004380.0,
@@ -13,6 +13,9 @@
     "total_trades": 0,
     "open_positions_count": 3,
     "available_slots": 1,
+    "total_margin": 76405.4,
+    "margin_ratio_pct": 7.61,
+    "available_cash": 927974.6,
     "market_status": "积极进攻 (共振选出品种)"
   },
   "latest_signals": [
@@ -67,7 +70,11 @@
       "sector": "化工品",
       "unrealized_pnl": 3860.0,
       "return_pct": 28.98,
-      "logic": "站上MA20均线(+12.9%)，量能放大，估值分位80%具备上行弹性"
+      "logic": "站上MA20均线(+12.9%)，量能放大，估值分位80%具备上行弹性",
+      "margin_rate": 10.0,
+      "contract_value": 137060.0,
+      "position_margin": 13706.0,
+      "margin_ratio": 1.36
     },
     {
       "symbol": "I",
@@ -86,7 +93,11 @@
       "sector": "黑色系",
       "unrealized_pnl": -500.0,
       "return_pct": -1.35,
-      "logic": "站上MA20均线(+1.8%)，量能放大，估值分位29%具备上行弹性"
+      "logic": "站上MA20均线(+1.8%)，量能放大，估值分位29%具备上行弹性",
+      "margin_rate": 12.0,
+      "contract_value": 369000.0,
+      "position_margin": 44280.0,
+      "margin_ratio": 4.41
     },
     {
       "symbol": "MA",
@@ -105,7 +116,11 @@
       "sector": "化工品",
       "unrealized_pnl": 1020.0,
       "return_pct": 5.01,
-      "logic": "站上MA20均线(+15.0%)，量能放大，估值分位87%具备上行弹性"
+      "logic": "站上MA20均线(+15.0%)，量能放大，估值分位87%具备上行弹性",
+      "margin_rate": 9.0,
+      "contract_value": 204660.0,
+      "position_margin": 18419.4,
+      "margin_ratio": 1.83
     }
   ],
   "entry_history": [
@@ -131,7 +146,10 @@
       "exit_price": null,
       "pnl": null,
       "exit_reason": null,
-      "hold_days": 1
+      "hold_days": 1,
+      "margin_rate": 9.0,
+      "position_margin": 18419.4,
+      "margin_ratio": 1.83
     },
     {
       "symbol": "I",
@@ -155,7 +173,10 @@
       "exit_price": null,
       "pnl": null,
       "exit_reason": null,
-      "hold_days": 2
+      "hold_days": 2,
+      "margin_rate": 12.0,
+      "position_margin": 44280.0,
+      "margin_ratio": 4.41
     },
     {
       "symbol": "PG",
@@ -179,7 +200,10 @@
       "exit_price": null,
       "pnl": null,
       "exit_reason": null,
-      "hold_days": 2
+      "hold_days": 2,
+      "margin_rate": 10.0,
+      "position_margin": 13706.0,
+      "margin_ratio": 1.36
     }
   ],
   "equity_curve": [

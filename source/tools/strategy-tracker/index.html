@@ -149,15 +149,18 @@
         </div>
       </div>
 
-      <!-- 当前仓位占用 -->
+      <!-- 当前保证金与仓位占用 -->
       <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
-        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">持仓槽位 (最大4个)</span>
-        <div class="mt-2 flex items-baseline space-x-1">
-          <span id="kpi-open-pos" class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono">--</span>
-          <span class="text-gray-500 text-sm font-mono">/ 4</span>
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">保证金总占用率</span>
+          <span id="kpi-open-pos-badge" class="text-[10px] px-1.5 py-0.5 rounded font-mono bg-gray-800 text-gray-300">-- 槽位</span>
         </div>
-        <div class="mt-2 text-xs text-gray-400">
-          剩余空闲: <span id="kpi-avail-slots" class="font-mono text-gray-200">--</span> 个
+        <div class="mt-2 flex items-baseline space-x-1">
+          <span id="kpi-margin-ratio-pct" class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono">--%</span>
+        </div>
+        <div class="mt-2 text-xs text-gray-400 flex items-center justify-between">
+          <span>占用: <span id="kpi-total-margin" class="font-mono text-gray-200">--</span> 元</span>
+          <span>可用: <span id="kpi-available-cash" class="font-mono text-gray-300">--</span></span>
         </div>
       </div>
 
@@ -383,8 +386,23 @@
       document.getElementById('kpi-pl-ratio').textContent = (summary.profit_loss_ratio !== null && summary.profit_loss_ratio !== undefined) ? summary.profit_loss_ratio.toFixed(2) : '--';
       document.getElementById('kpi-max-dd').textContent = (summary.max_drawdown_pct !== null && summary.max_drawdown_pct !== undefined) ? summary.max_drawdown_pct.toFixed(2) + '%' : '0.00%';
       document.getElementById('kpi-total-trades').textContent = summary.total_trades;
-      document.getElementById('kpi-open-pos').textContent = summary.open_positions_count;
-      document.getElementById('kpi-avail-slots').textContent = summary.available_slots;
+      
+      const marginRatioEl = document.getElementById('kpi-margin-ratio-pct');
+      if (marginRatioEl) {
+        marginRatioEl.textContent = (summary.margin_ratio_pct !== undefined && summary.margin_ratio_pct !== null ? summary.margin_ratio_pct.toFixed(2) : '0.00') + '%';
+      }
+      const openPosBadge = document.getElementById('kpi-open-pos-badge');
+      if (openPosBadge) {
+        openPosBadge.textContent = `${summary.open_positions_count} / 4 槽位`;
+      }
+      const totalMarginEl = document.getElementById('kpi-total-margin');
+      if (totalMarginEl) {
+        totalMarginEl.textContent = Number(summary.total_margin || 0).toLocaleString('zh-CN', { maximumFractionDigits: 0 });
+      }
+      const availCashEl = document.getElementById('kpi-available-cash');
+      if (availCashEl) {
+        availCashEl.textContent = Number(summary.available_cash || (summary.final_equity - (summary.total_margin || 0))).toLocaleString('zh-CN', { maximumFractionDigits: 0 }) + ' 元';
+      }
 
       const statusPill = document.getElementById('market-status-pill');
       statusPill.textContent = summary.market_status;
@@ -524,6 +542,19 @@
               <div>现价: <span class="text-gray-200 font-semibold">${formatPrice(pos.current_price, pos.symbol)}</span></div>
               <div class="text-right">持仓: <span class="text-gray-200">${pos.hold_days}天</span></div>
             </div>
+
+            <!-- 保证金占比与占用明细 (交易所标准+1%) -->
+            <div class="flex items-center justify-between text-[11px] font-mono px-2.5 py-1.5 rounded-lg bg-gray-900/80 border border-gray-800/80">
+              <span class="text-gray-400 flex items-center gap-1.5 font-sans">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                <span>保证金占比:</span>
+                <strong class="text-amber-400 font-bold font-mono text-xs">${pos.margin_ratio !== undefined ? pos.margin_ratio : '--'}%</strong>
+              </span>
+              <span class="text-gray-300">
+                占用 <strong class="text-white">${pos.position_margin ? Number(pos.position_margin).toLocaleString('zh-CN', {maximumFractionDigits: 0}) : '--'}</strong> 元
+                <span class="text-gray-500 text-[10px] ml-1">(${pos.margin_rate || '--'}% 费率)</span>
+              </span>
+            </div>
             
             <div class="flex items-center justify-between text-[10px] font-mono text-gray-500">
               <span>止损: ${formatPrice(pos.stop_price, pos.symbol)}</span>
@@ -661,6 +692,7 @@
                 <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1 animate-pulse"></span>持仓中
               </span>
               <span class="text-xs font-bold font-mono ${pnlCol}">${pnl >= 0 ? '+' : ''}${Number(pnl).toLocaleString()} (${ret >= 0 ? '+' : ''}${ret}%)</span>
+              ${item.margin_ratio ? `<span class="text-[10px] text-amber-300 font-mono bg-amber-500/10 border border-amber-500/20 px-1 py-0.5 rounded" title="持仓保证金占比: ${item.margin_ratio}% (占用 ${Number(item.position_margin || 0).toLocaleString()} 元, 费率 ${item.margin_rate}%)">保 ${item.margin_ratio}%</span>` : ''}
             </div>
           `;
         } else {
