@@ -178,22 +178,44 @@ function hydrateRegionTabs() {
 }
 
 async function loadMetadata() {
+  // 1. Prioritize fresh dynamic fetch of aggregated metadata_data.json
+  try {
+    const response = await fetch(`../weather_assets/icon_forecast/metadata_data.json?t=${Date.now()}`, { cache: "no-store" });
+    if (response.ok) {
+      state.metadata = await response.json();
+      document.getElementById("cycle-time").textContent = state.metadata.southeast_asia?.run_china || "--";
+      hydrateRegionTabs();
+      setRegion(state.active);
+      return;
+    }
+  } catch (e) {
+    console.warn("Direct JSON metadata fetch failed, falling back to per-region fetch", e);
+  }
+
+  // 2. Fallback to fetching per-region latest.json with timestamp
+  try {
+    const entries = await Promise.all(Object.keys(REGION_CONFIG).map(async region => {
+      const response = await fetch(`${assetPath(region, "latest.json")}?t=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error(`${region} metadata ${response.status}`);
+      return [region, await response.json()];
+    }));
+    state.metadata = Object.fromEntries(entries);
+    document.getElementById("cycle-time").textContent = state.metadata.southeast_asia?.run_china || "--";
+    hydrateRegionTabs();
+    setRegion(state.active);
+    return;
+  } catch (e) {
+    console.warn("Per-region fetch failed, checking window global", e);
+  }
+
+  // 3. Fallback to static window.ICON_WEATHER_METADATA if offline / file:// protocol
   if (window.ICON_WEATHER_METADATA) {
     state.metadata = window.ICON_WEATHER_METADATA;
-    document.getElementById("cycle-time").textContent = state.metadata.southeast_asia.run_china || "--";
+    document.getElementById("cycle-time").textContent = state.metadata.southeast_asia?.run_china || "--";
     hydrateRegionTabs();
     setRegion(state.active);
     return;
   }
-  const entries = await Promise.all(Object.keys(REGION_CONFIG).map(async region => {
-    const response = await fetch(`${assetPath(region, "latest.json")}?v=${Date.now()}`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`${region} metadata ${response.status}`);
-    return [region, await response.json()];
-  }));
-  state.metadata = Object.fromEntries(entries);
-  document.getElementById("cycle-time").textContent = state.metadata.southeast_asia.run_china || "--";
-  hydrateRegionTabs();
-  setRegion(state.active);
 }
 
 async function sha256(value) {
