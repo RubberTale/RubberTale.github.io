@@ -483,43 +483,40 @@
 
 <!-- ================= MODALS ================= -->
 
-<!-- 1. Auth Modal (Login & Register) -->
+<!-- 1. Auth Modal (Smart Login & Register) -->
 <div class="modal-mask hidden" id="authModal">
-  <div class="modal">
+  <div class="modal" style="max-width:440px">
     <button class="modal-close" id="authCloseBtn">✕</button>
-    <div class="modal-title">台球俱乐部</div>
-    <div class="modal-sub">EIGHT BALL ACCOUNT</div>
+    <div class="modal-title">球手登录 / 极速入场</div>
+    <div class="modal-sub">EIGHT BALL ONLINE · 本机后端服务</div>
 
-    <div class="modal-tabs">
-      <button class="m-tab active" id="tabLogin">账号登录</button>
-      <button class="m-tab" id="tabReg">注册新账号</button>
+    <!-- Quick Guest One-Click Button -->
+    <div style="margin: 16px 0 12px;">
+      <button class="btn" id="guestPlayBtn" style="width:100%;background:linear-gradient(135deg,#d97706,#b45309);border:none;color:#fff;font-size:15px;font-weight:bold;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 15px rgba(217,119,6,0.3);cursor:pointer;border-radius:8px;">
+        🎲 游客一键试玩 (免输账号·秒进对局)
+      </button>
     </div>
 
-    <!-- Login Form -->
-    <div id="loginForm">
-      <div class="form-group">
-        <label class="form-label">账号名称</label>
-        <input class="form-input" id="loginUsername" placeholder="请输入用户名" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">账号密码</label>
-        <input class="form-input" id="loginPassword" type="password" placeholder="请输入密码" />
-      </div>
-      <button class="btn btn-primary" style="width:100%;margin-top:10px" id="doLoginBtn">登 录</button>
+    <div style="display:flex;align-items:center;text-align:center;color:var(--muted);font-size:12px;margin:12px 0 16px;">
+      <span style="flex:1;height:1px;background:rgba(255,255,255,0.1)"></span>
+      <span style="padding:0 10px">或使用专属账号（未注册则自动注册）</span>
+      <span style="flex:1;height:1px;background:rgba(255,255,255,0.1)"></span>
     </div>
 
-    <!-- Register Form -->
-    <div id="regForm" style="display:none">
+    <!-- Smart Auth Form -->
+    <div id="smartAuthForm">
       <div class="form-group">
-        <label class="form-label">账号名称（3~20位字母/数字/汉字）</label>
-        <input class="form-input" id="regUsername" placeholder="如：billiard_king" />
+        <label class="form-label">球手名称（支持任意中英文，如：张三、球王）</label>
+        <input class="form-input" id="smartUsername" placeholder="请输入球手名称" maxlength="30" />
       </div>
+
       <div class="form-group">
-        <label class="form-label">对战昵称</label>
-        <input class="form-input" id="regNickname" placeholder="游戏中显示的名称" />
+        <label class="form-label">登录密码（默认 123456）</label>
+        <input class="form-input" id="smartPassword" type="password" placeholder="请输入密码" value="123456" />
       </div>
+
       <div class="form-group">
-        <label class="form-label">选择专属头像</label>
+        <label class="form-label">选择专属球手头像</label>
         <div class="avatar-picker" id="avatarPicker">
           <div class="avatar-opt selected" data-av="0">🎱</div>
           <div class="avatar-opt" data-av="1">🎯</div>
@@ -531,11 +528,14 @@
           <div class="avatar-opt" data-av="7">👑</div>
         </div>
       </div>
-      <div class="form-group">
-        <label class="form-label">密码（至少6位）</label>
-        <input class="form-input" id="regPassword" type="password" placeholder="设置登录密码" />
+
+      <button class="btn btn-primary" style="width:100%;margin-top:10px;padding:12px;font-size:14px;font-weight:bold" id="doSmartAuthBtn">
+        🚀 立即进入（未注册自动注册，已注册直接登录）
+      </button>
+
+      <div id="authStatusTip" style="margin-top:14px;text-align:center;font-size:12px;color:#94a3b8;line-height:1.5">
+        🟢 本机后端服务就绪（端口 8094 · 战绩持久保存）
       </div>
-      <button class="btn btn-primary" style="width:100%;margin-top:8px" id="doRegBtn">立即注册并登录</button>
     </div>
   </div>
 </div>
@@ -673,10 +673,41 @@
    物理引擎 + 国际标准8球规则 + 账号认证 + 实时WebSocket对战同步
    ================================================================ */
 
-// ---------- API & WebSocket Endpoints ----------
-const IS_HTTPS = window.location.protocol === 'https:';
-const API_BASE = 'https://140.245.65.111.sslip.io/api/billiards';
-const WS_BASE = 'wss://140.245.65.111.sslip.io/ws/billiards/';
+// ---------- API & WebSocket Endpoints (智能识别 本机 / 局域网 / 线上) ----------
+function resolveBackendEndpoints() {
+  const loc = window.location;
+  const isLocal = loc.hostname === 'localhost' || loc.hostname === '127.0.0.1' || loc.hostname === '0.0.0.0';
+  const isDirectHost = loc.hostname === '140.245.65.111.sslip.io';
+
+  if (isLocal) {
+    // 本机本地开发/测试（如端口 4000 等），直接直连本机 8094 端口
+    return {
+      api: `http://${loc.hostname}:8094/api`,
+      ws: `ws://${loc.hostname}:8094/`,
+      name: `本机直连服务 (${loc.hostname}:8094)`
+    };
+  } else if (isDirectHost) {
+    // 通过本服务器域名访问
+    const isHttps = loc.protocol === 'https:';
+    return {
+      api: `${isHttps ? 'https:' : 'http:'}//${loc.host}/api/billiards`,
+      ws: `${isHttps ? 'wss:' : 'ws:'}//${loc.host}/ws/billiards/`,
+      name: `本机公共服务 (${loc.host})`
+    };
+  } else {
+    // Hexo 博客主站或其他外部域名访问，连接当前服务器公网代理
+    return {
+      api: 'https://140.245.65.111.sslip.io/api/billiards',
+      ws: 'wss://140.245.65.111.sslip.io/ws/billiards/',
+      name: '本机后端云端节点 (140.245.65.111.sslip.io)'
+    };
+  }
+}
+
+const BACKEND_CONFIG = resolveBackendEndpoints();
+const API_BASE = BACKEND_CONFIG.api;
+const WS_BASE = BACKEND_CONFIG.ws;
+console.log('[黑八台球] 当前后端接入点:', BACKEND_CONFIG.name, API_BASE);
 
 const AVATAR_ICONS = ['🎱', '🎯', '🦁', '🐯', '🦊', '🐼', '🦅', '👑', '⚡', '🔥', '🐉', '🐺'];
 
@@ -2235,21 +2266,6 @@ function showUserProfileModal(){
   alert(`【个人球手战绩】\n\n球手昵称：${currentUser.nickname} (${currentUser.username})\n专属头像：${av}\n天梯战力：${currentUser.elo} 分\n总对局数：${currentUser.matches || 0} 场\n胜场胜率：${currentUser.wins || 0} 胜 (${winRate}%)\n当前连胜：${currentUser.streak || 0} 场 (历史最高 ${currentUser.maxStreak || 0} 连胜)`);
 }
 
-// Auth Tabs
-const tabLogin = document.getElementById('tabLogin');
-const tabReg = document.getElementById('tabReg');
-const loginForm = document.getElementById('loginForm');
-const regForm = document.getElementById('regForm');
-
-tabLogin.addEventListener('click', () => {
-  tabLogin.classList.add('active'); tabReg.classList.remove('active');
-  loginForm.style.display = 'block'; regForm.style.display = 'none';
-});
-tabReg.addEventListener('click', () => {
-  tabReg.classList.add('active'); tabLogin.classList.remove('active');
-  loginForm.style.display = 'none'; regForm.style.display = 'block';
-});
-
 // Avatar selection
 let selectedAvatarIndex = 0;
 document.querySelectorAll('.avatar-opt').forEach(opt => {
@@ -2260,24 +2276,63 @@ document.querySelectorAll('.avatar-opt').forEach(opt => {
   });
 });
 
-// Register
-document.getElementById('doRegBtn').addEventListener('click', async () => {
-  const username = document.getElementById('regUsername').value.trim();
-  const nickname = document.getElementById('regNickname').value.trim() || username;
-  const password = document.getElementById('regPassword').value;
+// 1. One-click Guest Play
+const guestPlayBtn = document.getElementById('guestPlayBtn');
+if(guestPlayBtn){
+  guestPlayBtn.addEventListener('click', async () => {
+    guestPlayBtn.disabled = true;
+    guestPlayBtn.textContent = '🎲 正在创建游客账号...';
+    try {
+      const res = await fetch(API_BASE + '/guest', { method: 'POST' });
+      const data = await res.json();
+      if(data.ok){
+        authToken = data.token;
+        currentUser = data.user;
+        localStorage.setItem('billiards_token', authToken);
+        updateUserWidget();
+        document.getElementById('authModal').classList.add('hidden');
+        toast(`欢迎试玩，球手【${currentUser.nickname}】！`, 'good');
+        if(ws && wsConnected){
+          ws.send(JSON.stringify({ type: 'AUTH', token: authToken }));
+        }
+        checkUrlAutoJoin();
+      } else {
+        alert(data.error || '游客体验生成失败');
+      }
+    } catch(e) {
+      alert(`无法连接后端服务 (${API_BASE})，请确保服务已启动！`);
+    } finally {
+      guestPlayBtn.disabled = false;
+      guestPlayBtn.textContent = '🎲 游客一键试玩 (免输账号·秒进对局)';
+    }
+  });
+}
 
-  if(!username || username.length < 3){
-    return alert('账号名称至少需3位字符');
+// 2. Smart Auth (Auto login or Auto register)
+const doSmartAuthBtn = document.getElementById('doSmartAuthBtn');
+async function handleSmartAuth() {
+  const usernameInput = document.getElementById('smartUsername');
+  const passwordInput = document.getElementById('smartPassword');
+  const username = usernameInput ? usernameInput.value.trim() : '';
+  const password = passwordInput ? passwordInput.value : '123456';
+
+  if(!username){
+    return alert('请输入球手名称（支持中文、英文、数字）');
   }
-  if(!password || password.length < 6){
-    return alert('密码长度至少需6位');
-  }
+
+  doSmartAuthBtn.disabled = true;
+  doSmartAuthBtn.textContent = '⏳ 正在进入...';
 
   try {
-    const res = await fetch(API_BASE + '/register', {
+    const res = await fetch(API_BASE + '/auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, nickname, password, avatar: selectedAvatarIndex })
+      body: JSON.stringify({
+        username,
+        password: password || '123456',
+        nickname: username,
+        avatar: selectedAvatarIndex
+      })
     });
     const data = await res.json();
     if(data.ok){
@@ -2286,51 +2341,36 @@ document.getElementById('doRegBtn').addEventListener('click', async () => {
       localStorage.setItem('billiards_token', authToken);
       updateUserWidget();
       document.getElementById('authModal').classList.add('hidden');
-      toast('注册成功，已自动登录！', 'good');
+      const msg = data.isNew
+        ? `注册成功！欢迎新球手【${currentUser.nickname}】加入俱乐部`
+        : `登录成功！欢迎回来，球手【${currentUser.nickname}】`;
+      toast(msg, 'good');
       if(ws && wsConnected){
         ws.send(JSON.stringify({ type: 'AUTH', token: authToken }));
       }
       checkUrlAutoJoin();
     } else {
-      alert(data.error || '注册失败');
+      alert(data.error || '认证失败，请核对信息');
     }
   } catch(e) {
-    alert('网络请求失败，请检查连接');
+    alert(`连接后端服务失败 (${API_BASE})，请检查网络或后端状态`);
+  } finally {
+    doSmartAuthBtn.disabled = false;
+    doSmartAuthBtn.textContent = '🚀 立即进入（未注册自动注册，已注册直接登录）';
   }
-});
+}
 
-// Login
-document.getElementById('doLoginBtn').addEventListener('click', async () => {
-  const username = document.getElementById('loginUsername').value.trim();
-  const password = document.getElementById('loginPassword').value;
+if(doSmartAuthBtn){
+  doSmartAuthBtn.addEventListener('click', handleSmartAuth);
+}
 
-  if(!username || !password){
-    return alert('请输入账号名称和密码');
-  }
-
-  try {
-    const res = await fetch(API_BASE + '/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+// Enter key submit
+['smartUsername', 'smartPassword'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el){
+    el.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') handleSmartAuth();
     });
-    const data = await res.json();
-    if(data.ok){
-      authToken = data.token;
-      currentUser = data.user;
-      localStorage.setItem('billiards_token', authToken);
-      updateUserWidget();
-      document.getElementById('authModal').classList.add('hidden');
-      toast('登录成功！欢迎回到黑八俱乐部', 'good');
-      if(ws && wsConnected){
-        ws.send(JSON.stringify({ type: 'AUTH', token: authToken }));
-      }
-      checkUrlAutoJoin();
-    } else {
-      alert(data.error || '登录失败');
-    }
-  } catch(e) {
-    alert('网络请求失败，请检查连接');
   }
 });
 
