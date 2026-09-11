@@ -149,8 +149,39 @@ export const App: React.FC = () => {
   // Handle preset prompt click
   const handlePresetSelect = (preset: typeof DOCUMENT_TYPE_PRESETS[0]) => {
     setSelectedPresetId(preset.id);
-    setGlobalPrompt(preset.prompt);
-    showToast(`已应用「${preset.name}」顶层指令与提示词`);
+
+    const matchingSample = EXAMPLE_DRAFTS.find((d) => d.presetId === preset.id);
+    const isSampleDraft = !draft.trim() || EXAMPLE_DRAFTS.some((d) => d.content.trim() === draft.trim());
+
+    if (!isSampleDraft && matchingSample) {
+      const confirmLoad = window.confirm(
+        `检测到您已有正在编辑的文稿。\n\n切换文种为「${preset.name}」时，是否同步载入该文种的【专属范文初稿与批注示范】？\n\n【确定】：载入「${preset.name}」专属范文与批注（替换当前文稿）\n【取消】：仅切换文种顶层提示词，保留您当前编辑的内容`
+      );
+      if (confirmLoad) {
+        setDraft(matchingSample.content);
+        setAnnotations(matchingSample.initialAnnotations);
+        setGlobalPrompt(matchingSample.globalPrompt || preset.prompt);
+        setRevisedText('');
+        setRound(1);
+        showToast(`已切换至「${preset.name}」，并载入配套专属范文与批注`);
+      } else {
+        setGlobalPrompt(preset.prompt);
+        showToast(`已应用「${preset.name}」顶层指令（保留当前文稿）`);
+      }
+      return;
+    }
+
+    if (matchingSample) {
+      setDraft(matchingSample.content);
+      setAnnotations(matchingSample.initialAnnotations);
+      setGlobalPrompt(matchingSample.globalPrompt || preset.prompt);
+      setRevisedText('');
+      setRound(1);
+      showToast(`已切换至「${preset.name}」，并载入配套专属范文与批注`);
+    } else {
+      setGlobalPrompt(preset.prompt);
+      showToast(`已应用「${preset.name}」顶层指令与提示词`);
+    }
   };
 
   // Handle load sample draft
@@ -162,7 +193,7 @@ export const App: React.FC = () => {
     setRound(1);
     setRevisedText('');
     setSampleMenuOpen(false);
-    showToast(`已载入示例初稿：《${sample.title}》`);
+    showToast(`已载入「${sample.docType}」配套范文：《${sample.title}》`);
   };
 
   // Trigger pinpoint modal from text selection
@@ -611,32 +642,39 @@ export const App: React.FC = () => {
                 </button>
 
                 {sampleMenuOpen && (
-                  <div className="absolute right-0 mt-1.5 w-72 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1.5 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
-                    <div className="px-3 py-1 text-[10px] text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-800 flex items-center justify-between">
-                      <span>选择预设初稿范例</span>
+                  <div className="absolute right-0 mt-1.5 w-80 max-h-[30rem] overflow-y-auto bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1.5 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
+                    <div className="px-3 py-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-800 flex items-center justify-between sticky top-0 bg-slate-900/95 backdrop-blur-sm z-10">
+                      <span>文种专属配套范文库（7套）</span>
                       <span className="text-[10px] text-slate-500 font-normal">点击即载入</span>
                     </div>
-                    {EXAMPLE_DRAFTS.map((sample) => (
-                      <button
-                        key={sample.id}
-                        onClick={() => handleLoadSample(sample)}
-                        className="w-full text-left px-3 py-2.5 hover:bg-slate-800/80 transition flex flex-col gap-1 border-b border-slate-800/50 last:border-b-0"
-                      >
-                        <div className="flex items-center justify-between gap-1.5">
-                          <span className="font-medium text-slate-200 truncate">{sample.title}</span>
-                          <span className={`text-[10px] px-1.5 py-0.5 rounded border shrink-0 font-medium ${
-                            sample.presetId === 'novel'
-                              ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                              : 'bg-blue-500/20 text-blue-300 border-blue-500/30'
-                          }`}>
-                            {sample.docType}
+                    {EXAMPLE_DRAFTS.map((sample) => {
+                      const isCurrent = selectedPresetId === sample.presetId;
+                      return (
+                        <button
+                          key={sample.id}
+                          onClick={() => handleLoadSample(sample)}
+                          className={`w-full text-left px-3 py-2.5 hover:bg-slate-800/80 transition flex flex-col gap-1 border-b border-slate-800/50 last:border-b-0 ${
+                            isCurrent ? 'bg-blue-950/40 border-l-2 border-l-blue-500' : ''
+                          }`}
+                        >
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className={`font-medium truncate ${isCurrent ? 'text-blue-300' : 'text-slate-200'}`}>
+                              {sample.title}
+                            </span>
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded border shrink-0 font-medium ${
+                              sample.presetId === 'novel'
+                                ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                                : 'bg-blue-500/20 text-blue-300 border-blue-500/30'
+                            }`}>
+                              {sample.docType}
+                            </span>
+                          </div>
+                          <span className="text-[11px] text-slate-400">
+                            预置 {sample.initialAnnotations.length} 处典型精准批注示范
                           </span>
-                        </div>
-                        <span className="text-[11px] text-slate-400">
-                          预置 {sample.initialAnnotations.length} 处典型精准批注示范
-                        </span>
-                      </button>
-                    ))}
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
               </div>
