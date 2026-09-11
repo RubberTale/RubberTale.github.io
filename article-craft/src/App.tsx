@@ -48,7 +48,8 @@ export const App: React.FC = () => {
   // Draft and Round
   const [draft, setDraft] = useState<string>(EXAMPLE_DRAFTS[0].content);
   const [round, setRound] = useState<number>(1);
-  const [draftMode, setDraftMode] = useState<'interactive' | 'raw'>('interactive');
+  const [draftMode, setDraftMode] = useState<'edit' | 'preview'>('edit');
+  const [selectedTextareaQuote, setSelectedTextareaQuote] = useState<string | null>(null);
 
   // Pinpoint Annotations
   const [annotations, setAnnotations] = useState<PinpointAnnotation[]>(
@@ -137,8 +138,8 @@ export const App: React.FC = () => {
       setAnnotations([]);
       setRound(1);
       setRevisedText('');
-      setDraftMode('interactive');
-      showToast(`🎉 成功导入「${file.name}」（${importedText.length} 字）！已自动转为排版草稿`);
+      setDraftMode('edit');
+      showToast(`🎉 成功导入「${file.name}」（${importedText.length} 字）！已载入并可直接编辑`);
     } catch (err: any) {
       console.error('File import error:', err);
       showToast('文档解析失败: ' + (err.message || '未知错误'));
@@ -172,6 +173,21 @@ export const App: React.FC = () => {
       tag: selectedPresetId === 'novel' ? '细节刻画' : '措辞规范'
     });
     setPinpointModalOpen(true);
+  };
+
+  // Handle text selection inside the live editable textarea
+  const handleTextareaSelect = (e: React.SyntheticEvent<HTMLTextAreaElement>) => {
+    const target = e.currentTarget;
+    const start = target.selectionStart;
+    const end = target.selectionEnd;
+    if (start !== end && end - start >= 2) {
+      const text = target.value.substring(start, end).trim();
+      if (text.length >= 2 && text.length <= 300) {
+        setSelectedTextareaQuote(text);
+        return;
+      }
+    }
+    setSelectedTextareaQuote(null);
   };
 
   // Save annotation
@@ -358,8 +374,8 @@ export const App: React.FC = () => {
     setRound(nextRound);
     setRevisedText('');
     setAnnotations([]); // clear annotations for new round
-    setDraftMode('interactive');
-    showToast(`🔄 已成功升级为第 ${nextRound} 版草稿！您可继续在左侧添加精确批注`);
+    setDraftMode('edit');
+    showToast(`🔄 已成功升级为第 ${nextRound} 版草稿！支持直接编辑与添加批注`);
   };
 
   // Copy revised text
@@ -628,26 +644,28 @@ export const App: React.FC = () => {
               {/* Mode Toggle */}
               <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
                 <button
-                  onClick={() => setDraftMode('interactive')}
-                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition ${
-                    draftMode === 'interactive'
-                      ? 'bg-blue-600 text-white'
+                  onClick={() => setDraftMode('edit')}
+                  className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
+                    draftMode === 'edit'
+                      ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
-                  title="高亮显示已设批注，用鼠标划选文字即可直接添加精确修改意见"
+                  title="实时编辑模式：直接在左侧修改文字，修改后即视同最新原文"
                 >
-                  🎯 顶点标注
+                  <Edit3 className="w-3 h-3" />
+                  <span>实时编辑 (视同原文)</span>
                 </button>
                 <button
-                  onClick={() => setDraftMode('raw')}
-                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition ${
-                    draftMode === 'raw'
-                      ? 'bg-blue-600 text-white'
+                  onClick={() => setDraftMode('preview')}
+                  className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
+                    draftMode === 'preview'
+                      ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
-                  title="纯文本编辑模式，可直接粘贴大段文本"
+                  title="批注高亮对照视图：直观查看已设批注的黄色高亮与序号标记"
                 >
-                  ✏️ 编辑源码
+                  <Eye className="w-3 h-3" />
+                  <span>批注对照</span>
                 </button>
               </div>
             </div>
@@ -666,8 +684,19 @@ export const App: React.FC = () => {
               const file = e.dataTransfer.files?.[0];
               if (file) handleFileImport(file);
             }}
-            className="h-[360px] bg-slate-950/40 relative border-b border-slate-800"
+            className="h-[380px] bg-slate-950/40 relative border-b border-slate-800 flex flex-col"
           >
+            {/* Direct Edit Helper Bar */}
+            <div className="px-3.5 py-1.5 bg-slate-950/80 border-b border-slate-800/80 flex items-center justify-between text-[11px] select-none">
+              <span className="flex items-center gap-1.5 text-slate-300 font-medium">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>左侧实时编辑区 · 任何修改直接视同最新原文（可直接打字或划选批注）</span>
+              </span>
+              <span className="text-[10px] text-slate-500 hidden sm:inline">
+                {draftMode === 'edit' ? '选中文中文字可直接添加精准批注' : '当前为批注高亮排版视图'}
+              </span>
+            </div>
+
             {/* Drag & Drop Visual Overlay */}
             {isDragging && (
               <div className="absolute inset-0 z-50 bg-blue-950/90 backdrop-blur-sm border-2 border-dashed border-blue-400 rounded-xl flex flex-col items-center justify-center gap-2 text-blue-200 pointer-events-none animate-in fade-in zoom-in duration-150">
@@ -676,7 +705,46 @@ export const App: React.FC = () => {
                 <div className="text-xs text-blue-300/80">支持 Word (.docx) / Markdown (.md) / 纯文本 (.txt)</div>
               </div>
             )}
-            {draftMode === 'interactive' ? (
+
+            {draftMode === 'edit' ? (
+              <div className="relative flex-1 h-full overflow-hidden">
+                <textarea
+                  ref={leftTextareaRef}
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  onSelect={handleTextareaSelect}
+                  onMouseUp={handleTextareaSelect}
+                  onKeyUp={handleTextareaSelect}
+                  placeholder={
+                    selectedPresetId === 'novel'
+                      ? '在此直接编写或编辑小说故事（编辑后的文字直接视同原文）... 选中文中任意语句可直接添加精确批注'
+                      : '在此直接编写或编辑公文初稿（编辑后的文字直接视同原文）... 选中文中任意文字可点击下方按钮添加精确批注'
+                  }
+                  className="w-full h-full p-4 bg-transparent text-slate-100 text-xs md:text-sm font-sans leading-relaxed focus:outline-none resize-none selection:bg-amber-500/30 selection:text-amber-200"
+                />
+
+                {/* Floating Add Annotation Button for Textarea Selection */}
+                {selectedTextareaQuote && (
+                  <div className="absolute bottom-3 right-4 z-30 animate-in fade-in zoom-in-95 duration-150">
+                    <button
+                      type="button"
+                      onMouseDown={(e) => e.preventDefault()}
+                      onClick={() => {
+                        handleAddAnnotationForQuote(selectedTextareaQuote);
+                        setSelectedTextareaQuote(null);
+                      }}
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold shadow-2xl shadow-amber-950/80 border border-amber-300 transition hover:scale-105 cursor-pointer"
+                    >
+                      <BookmarkPlus className="w-4 h-4 text-slate-950" />
+                      <span>对选中文本添加修改意见</span>
+                      <span className="text-[10px] bg-slate-950/20 px-1.5 py-0.5 rounded text-slate-900 truncate max-w-[130px]">
+                        「{selectedTextareaQuote}」
+                      </span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
               <AnnotatedDraftView
                 draft={draft}
                 annotations={annotations}
@@ -685,18 +753,6 @@ export const App: React.FC = () => {
                   setEditingAnnotation(ann);
                   setPinpointModalOpen(true);
                 }}
-              />
-            ) : (
-              <textarea
-                ref={leftTextareaRef}
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                placeholder={
-                  selectedPresetId === 'novel'
-                    ? '在此粘贴或输入小说故事初稿... 选中文中任意语句可直接添加细节刻画、对白润色、动作神态等精确批注'
-                    : '在此粘贴或输入公文初稿... 选中文中任意文字可点击下方按钮添加精确批注'
-                }
-                className="w-full h-full p-4 bg-transparent text-slate-200 text-xs md:text-sm font-mono leading-relaxed focus:outline-none resize-none"
               />
             )}
           </div>
