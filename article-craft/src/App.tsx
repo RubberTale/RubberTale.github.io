@@ -83,6 +83,7 @@ export const App: React.FC = () => {
   const leftTextareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const sampleMenuRef = useRef<HTMLDivElement>(null);
+  const rightColumnRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [sampleMenuOpen, setSampleMenuOpen] = useState<boolean>(false);
 
@@ -280,6 +281,68 @@ export const App: React.FC = () => {
         onError: (err) => {
           setIsGenerating(false);
           showToast('精修生成失败: ' + err.message);
+        }
+      },
+      controller.signal
+    );
+  };
+
+  // Dedicated Surgical Generation: strictly based on left draft + pinpoint annotations, strictly preserving un-annotated text
+  const handleGenerateStrictSurgical = async () => {
+    if (!draft.trim()) {
+      showToast('草稿内容不能为空');
+      return;
+    }
+
+    if (isGenerating) {
+      abortControllerRef.current?.abort();
+      setIsGenerating(false);
+      showToast('已停止生成');
+      return;
+    }
+
+    const activeCount = annotations.filter((a) => a && a.enabled !== false && a.comment?.trim()).length;
+    if (activeCount === 0) {
+      showToast('当前无有效批注，将为您严格保留全文呈现于右侧。您也可随时在草稿中划选文字添加批注！');
+    }
+
+    const isNovel = selectedPresetId === 'novel';
+    setIsGenerating(true);
+    setRevisedText('');
+    setViewMode('preview');
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    // Scroll to right side on smaller screens
+    if (window.innerWidth < 1024) {
+      setTimeout(() => {
+        rightColumnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    const surgicalInstruction = isNovel
+      ? '请完全根据左侧提供的小说故事原文，结合文中所列的批注提示词进行修改。批注提示词没有涉及的部分，全部100%原样保留原文；批注提示词涉及的部分，严格按照要求修改。'
+      : '请完全根据左侧提供的公文草稿原文，结合文中所列的批注提示词进行修改。批注提示词没有涉及的部分，全部100%原样保留原文；批注提示词涉及的部分，严格按照要求修改。';
+
+    await streamOfficialDocument(
+      {
+        globalPrompt: surgicalInstruction,
+        draft,
+        annotations,
+        round,
+        docType: selectedPresetId,
+        preserveOriginal: true,
+        onChunk: (chunk) => {
+          setRevisedText((prev) => prev + chunk);
+        },
+        onDone: () => {
+          setIsGenerating(false);
+          showToast(`🎉 第 ${round} 轮精准生文完成！未涉及内容已全部保留在右侧`);
+        },
+        onError: (err) => {
+          setIsGenerating(false);
+          showToast('精准生文失败: ' + err.message);
         }
       },
       controller.signal
@@ -760,11 +823,47 @@ export const App: React.FC = () => {
                 ))
               )}
             </div>
+
+            {/* Dedicated Generation Action Bar Under Modification Panel (修改板块下方的生文按钮) */}
+            <div className="mt-3.5 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/70 p-3 rounded-xl border border-slate-800/90 shadow-sm">
+              <div className="flex flex-col gap-0.5">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>修改板块专属生文 · 保留未改原文</span>
+                </div>
+                <div className="text-[11px] text-slate-400 leading-tight">
+                  完全根据左侧原文与批注提示词进行修改；未涉及部分 100% 严格保留，成文置于右侧。
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleGenerateStrictSurgical}
+                className={`px-4 py-2.5 rounded-xl font-semibold text-xs md:text-sm transition flex items-center justify-center gap-2 shadow-lg whitespace-nowrap shrink-0 ${
+                  isGenerating
+                    ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-900/40'
+                    : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-emerald-950/60 hover:scale-[1.02]'
+                }`}
+                title="完全根据左侧草稿与批注提示词修改，未涉及部分一字不差全部保留，生成成文呈现在右侧"
+              >
+                {isGenerating ? (
+                  <>
+                    <Square className="w-3.5 h-3.5 fill-current animate-spin" />
+                    <span>停止生成</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4 text-emerald-100" />
+                    <span>⚡ 依据批注精准生文 (严格保留未改处)</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
         {/* ================= RIGHT COLUMN: 成文成品与对比 ================= */}
-        <div className="flex flex-col bg-slate-900/70 border border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[640px] flex-1">
+        <div ref={rightColumnRef} className="flex flex-col bg-slate-900/70 border border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[640px] flex-1">
           {/* Header */}
           <div className="px-4 py-3 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
