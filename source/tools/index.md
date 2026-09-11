@@ -150,6 +150,15 @@ aside: false
         <div class="flink-item-desc">上传一张个人肖像，一键生成职场、时尚、街拍、艺术等 6 种不同风格的高清摄影写真。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/tools/comic-avatar/" title="AI 漫画头像工坊" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:sparkles.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AI 漫画头像工坊">
+        </div>
+        <div class="flink-item-name">AI 漫画头像工坊</div>
+        <div class="flink-item-desc">上传自拍或肖像，多模态大模型智能提取面容神态，FLUX.1 扩散引擎秒级定制 7 种风格漫画头像（自动 1GB 容量保护）。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多实用工具卡片 -->
   </div>
 </div>
