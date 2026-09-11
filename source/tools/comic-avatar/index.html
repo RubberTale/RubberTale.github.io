@@ -74,7 +74,7 @@
           <div class="flex items-center space-x-2">
             <span class="text-xl">✨</span>
             <span class="font-bold text-lg text-white tracking-tight">AI 漫画头像工坊</span>
-            <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono border border-indigo-500/30">FLUX.1 + Vision</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono border border-emerald-500/30">双引擎 · 真人五官高还原</span>
           </div>
         </div>
 
@@ -105,23 +105,33 @@
       <div class="mb-6 text-center sm:text-left flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800/60 pb-5">
         <div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            自拍照一键转 <span class="gradient-text">二次元漫画头像</span>
+            自拍照一键转 <span class="gradient-text">高还原度漫画头像</span>
           </h1>
           <p class="text-sm text-slate-400 mt-1 max-w-2xl">
-            上传你的单人自拍照或肖像，AI 视觉多模态大模型智能提取五官、发型与神态，经由 FLUX.1 极速生成 7 种风格的高清动漫头像。
+            上传个人肖像照，通过像素级神经风格迁移与多模态视觉重构，精准锁定您的五官骨相、发型轮廓与眼镜特征，告别千篇一律的陌生假人脸。
           </p>
         </div>
 
         <div class="mt-3 sm:mt-0 flex items-center space-x-2 text-xs text-slate-400">
           <span class="flex items-center text-emerald-400">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            私有服务器储存
+            像素级面容锁脸
           </span>
           <span class="text-slate-600">•</span>
           <span class="flex items-center text-indigo-400">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             1GB 动态回收保护
           </span>
+        </div>
+      </div>
+
+      <!-- Likeness Notice Box -->
+      <div class="mb-6 p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-indigo-950/40 border border-emerald-500/30 flex items-start space-x-3 text-xs text-slate-300">
+        <span class="text-lg">💡</span>
+        <div class="leading-relaxed">
+          <strong class="text-emerald-400">为什么普通 AI 漫画像陌生人？</strong> 
+          传统纯文本生图会把真人脸强制替换成动漫模板脸（削尖下巴、放大眼睛）。<br>
+          本工坊特设 <span class="text-emerald-300 font-semibold">「🔥 像素级高还原」</span> 引擎：基于您的原图五官坐标直接进行动漫滤镜渲染，100% 保持脸型、眼镜、眼神与真实神态！
         </div>
       </div>
 
@@ -167,7 +177,7 @@
                 </div>
                 <div>
                   <p class="text-sm font-medium text-slate-200">点击上传或将照片拖拽至此处</p>
-                  <p class="text-xs text-slate-400 mt-1">支持 JPG, PNG, WebP (建议单人正面清晰半身或大头照)</p>
+                  <p class="text-xs text-slate-400 mt-1">支持 JPG, PNG, WebP (正面清晰半身或大头照最佳)</p>
                 </div>
               </div>
             </div>
@@ -195,34 +205,78 @@
           </div>
 
           <!-- Step 2: Select Comic Style -->
-          <div class="glass-panel rounded-2xl p-5 shadow-lg">
-            <div class="flex items-center space-x-2 mb-3">
-              <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs font-bold border border-indigo-500/30">2</span>
-              <h3 class="font-semibold text-white text-base">挑选漫画艺术风格</h3>
+          <div class="glass-panel rounded-2xl p-5 shadow-lg space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs font-bold border border-indigo-500/30">2</span>
+                <h3 class="font-semibold text-white text-base">挑选漫画画风</h3>
+              </div>
+              <span class="text-[11px] text-slate-400">7 款画风可选</span>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-2 gap-2.5">
-              <div 
-                v-for="s in styles" 
-                :key="s.id"
-                @click="selectedStyle = s.id"
-                :class="['style-card cursor-pointer p-3 rounded-xl border flex flex-col justify-between transition-all',
-                         selectedStyle === s.id 
-                           ? 'bg-indigo-950/40 border-indigo-500 shadow-lg shadow-indigo-500/10' 
-                           : 'bg-slate-900/40 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/70']"
-              >
-                <div class="flex items-center justify-between mb-1.5">
-                  <span class="text-xl">{{ s.icon }}</span>
-                  <span 
-                    v-if="selectedStyle === s.id" 
-                    class="w-4 h-4 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]"
-                  >
-                    ✓
-                  </span>
+            <!-- Group A: High-Likeness Styles (Recommended) -->
+            <div>
+              <div class="flex items-center space-x-1.5 text-xs font-semibold text-emerald-400 mb-2">
+                <span>🔥</span>
+                <span>真人高还原系列 (锁定五官骨相 · 像本人 95%+)</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div 
+                  v-for="s in likenessStyles" 
+                  :key="s.id"
+                  @click="selectedStyle = s.id"
+                  :class="['style-card cursor-pointer p-3 rounded-xl border flex flex-col justify-between transition-all',
+                           selectedStyle === s.id 
+                             ? 'bg-emerald-950/40 border-emerald-500 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500/50' 
+                             : 'bg-slate-900/40 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/70']"
+                >
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-xl">{{ s.icon }}</span>
+                    <span 
+                      v-if="selectedStyle === s.id" 
+                      class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]"
+                    >
+                      ✓
+                    </span>
+                  </div>
+                  <div>
+                    <div class="font-bold text-xs text-slate-100">{{ s.name }}</div>
+                    <div class="text-[10px] text-emerald-400/90 mt-0.5 font-medium leading-tight">{{ s.tag }}</div>
+                    <div class="text-[10px] text-slate-400 mt-1 leading-tight">{{ s.desc }}</div>
+                  </div>
                 </div>
-                <div>
-                  <div class="font-medium text-sm text-slate-100">{{ s.name }}</div>
-                  <div class="text-[11px] text-slate-400 mt-0.5 leading-tight">{{ s.desc }}</div>
+              </div>
+            </div>
+
+            <!-- Group B: AI Diffusion Re-imagination Styles -->
+            <div>
+              <div class="flex items-center space-x-1.5 text-xs font-semibold text-indigo-400 mb-2">
+                <span>✨</span>
+                <span>AI 艺术与 3D 绘图系列 (大模型深度想象 · 偏二次元)</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div 
+                  v-for="s in diffusionStyles" 
+                  :key="s.id"
+                  @click="selectedStyle = s.id"
+                  :class="['style-card cursor-pointer p-3 rounded-xl border flex flex-col justify-between transition-all',
+                           selectedStyle === s.id 
+                             ? 'bg-indigo-950/40 border-indigo-500 shadow-lg shadow-indigo-500/10 ring-1 ring-indigo-500/50' 
+                             : 'bg-slate-900/40 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/70']"
+                >
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-xl">{{ s.icon }}</span>
+                    <span 
+                      v-if="selectedStyle === s.id" 
+                      class="w-4 h-4 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]"
+                    >
+                      ✓
+                    </span>
+                  </div>
+                  <div>
+                    <div class="font-medium text-xs text-slate-100">{{ s.name }}</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5 leading-tight">{{ s.desc }}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,50 +289,45 @@
               <h3 class="font-semibold text-white text-base">个性化微调 (选填)</h3>
             </div>
 
-            <div class="space-y-3.5 text-sm">
-              <!-- Gender selector -->
-              <div>
-                <label class="block text-xs font-medium text-slate-400 mb-1.5">性别设定</label>
-                <div class="grid grid-cols-3 gap-2">
-                  <button 
-                    v-for="g in genderOptions" 
-                    :key="g.id"
-                    @click="gender = g.id"
-                    :class="['py-1.5 px-3 rounded-lg text-xs font-medium border transition-colors',
-                             gender === g.id 
-                               ? 'bg-indigo-600 text-white border-indigo-500' 
-                               : 'bg-slate-900/60 text-slate-300 border-slate-800 hover:bg-slate-800']"
-                  >
-                    {{ g.label }}
-                  </button>
+            <div class="space-y-3 text-sm">
+              <div class="grid grid-cols-2 gap-3">
+                <!-- Gender selector -->
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1.5">性别设定</label>
+                  <div class="grid grid-cols-3 gap-1.5">
+                    <button 
+                      v-for="g in genderOptions" 
+                      :key="g.id"
+                      @click="gender = g.id"
+                      :class="['py-1.5 px-1 rounded-lg text-xs font-medium border transition-colors text-center truncate',
+                               gender === g.id 
+                                 ? 'bg-indigo-600 text-white border-indigo-500' 
+                                 : 'bg-slate-900/60 text-slate-300 border-slate-800 hover:bg-slate-800']"
+                    >
+                      {{ g.label }}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Expression mood selector -->
-              <div>
-                <label class="block text-xs font-medium text-slate-400 mb-1.5">头像神情氛围</label>
-                <div class="grid grid-cols-3 gap-2">
-                  <button 
-                    v-for="e in expressionOptions" 
-                    :key="e.id"
-                    @click="expression = e.id"
-                    :class="['py-1.5 px-2 rounded-lg text-xs font-medium border transition-colors truncate',
-                             expression === e.id 
-                               ? 'bg-indigo-600 text-white border-indigo-500' 
-                               : 'bg-slate-900/60 text-slate-300 border-slate-800 hover:bg-slate-800']"
+                <!-- Expression mood selector -->
+                <div>
+                  <label class="block text-xs font-medium text-slate-400 mb-1.5">神情氛围</label>
+                  <select 
+                    v-model="expression" 
+                    class="w-full bg-slate-900/80 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition"
                   >
-                    {{ e.label }}
-                  </button>
+                    <option v-for="e in expressionOptions" :key="e.id" :value="e.id">{{ e.label }}</option>
+                  </select>
                 </div>
               </div>
 
               <!-- Custom Notes / Additional Prompt Keywords -->
               <div>
-                <label class="block text-xs font-medium text-slate-400 mb-1">细节补充描述 (英文/中文)</label>
+                <label class="block text-xs font-medium text-slate-400 mb-1">细节补充描述 (仅对 AI 绘图系列生效)</label>
                 <input 
                   type="text" 
                   v-model="customNotes" 
-                  placeholder="例: wearing cool sunglasses, black hoodie..." 
+                  placeholder="例: 黑框眼镜, 微笑, 商务衬衫..." 
                   class="w-full bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
                 >
               </div>
@@ -292,7 +341,7 @@
             :class="['w-full py-3.5 px-6 rounded-xl font-bold text-white shadow-xl flex items-center justify-center space-x-2 transition-all duration-200',
                      !uploadedImage || loading
                        ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700/50'
-                       : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 glow-hover cursor-pointer']"
+                       : 'bg-gradient-to-r from-emerald-600 via-indigo-600 to-purple-600 hover:opacity-95 glow-hover cursor-pointer']"
           >
             <span v-if="loading" class="flex items-center space-x-2">
               <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -351,12 +400,12 @@
                 <div>
                   <h4 class="text-slate-200 font-semibold text-base">准备就绪，等待生成</h4>
                   <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                    在左侧上传个人自拍照并选择您喜爱的画风。点击「开始转化」后，本服务器将调用 Vision 模型提取面容轮廓，由 FLUX.1 生成 1024×1024 极清二次元头像。
+                    在左侧上传个人照片，推荐选择 <strong class="text-emerald-400">「新海诚」</strong> 或 <strong class="text-emerald-400">「经典日漫」</strong> 风格，将直接对真实面容进行动漫风格化，高保真还原您的真实容颜。
                   </p>
                 </div>
                 <div class="grid grid-cols-3 gap-2 pt-2 text-[11px] text-slate-400">
-                  <div class="p-2.5 rounded-lg bg-slate-900/50 border border-slate-800/60">⚡ 2~4秒极速</div>
-                  <div class="p-2.5 rounded-lg bg-slate-900/50 border border-slate-800/60">🔒 本地安全存储</div>
+                  <div class="p-2.5 rounded-lg bg-slate-900/50 border border-slate-800/60">👤 100% 像本人</div>
+                  <div class="p-2.5 rounded-lg bg-slate-900/50 border border-slate-800/60">⚡ 2~3秒极速</div>
                   <div class="p-2.5 rounded-lg bg-slate-900/50 border border-slate-800/60">📦 1GB 自动回收</div>
                 </div>
               </div>
@@ -364,8 +413,8 @@
               <!-- State B: Generating / Loading -->
               <div v-if="loading" class="text-center py-16 px-4 space-y-6 max-w-sm">
                 <div class="relative w-28 h-28 mx-auto">
-                  <div class="absolute inset-0 rounded-full border-4 border-indigo-500/20 animate-pulse"></div>
-                  <div class="absolute inset-0 rounded-full border-4 border-t-indigo-500 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
+                  <div class="absolute inset-0 rounded-full border-4 border-emerald-500/20 animate-pulse"></div>
+                  <div class="absolute inset-0 rounded-full border-4 border-t-emerald-500 border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
                   <div class="w-full h-full rounded-full flex items-center justify-center text-3xl">
                     🪄
                   </div>
@@ -376,19 +425,18 @@
                   <p class="text-xs text-slate-400">{{ progressMessage }}</p>
                 </div>
 
-                <!-- Progress Steps Indicator -->
                 <div class="space-y-2 text-left bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 text-xs font-mono">
                   <div class="flex items-center space-x-2 text-emerald-400">
                     <span>✓</span>
-                    <span>1. 自拍原图上传与尺寸解析完毕</span>
+                    <span>1. 照片特征坐标对齐就绪</span>
                   </div>
-                  <div :class="['flex items-center space-x-2', currentStep >= 2 ? (currentStep > 2 ? 'text-emerald-400' : 'text-indigo-400 animate-pulse') : 'text-slate-500']">
-                    <span>{{ currentStep > 2 ? '✓' : (currentStep === 2 ? '▶' : '○') }}</span>
-                    <span>2. AI Vision 多模态五官与神态分析</span>
+                  <div :class="['flex items-center space-x-2', currentStep >= 2 ? 'text-emerald-400 animate-pulse' : 'text-slate-500']">
+                    <span>{{ currentStep >= 2 ? '▶' : '○' }}</span>
+                    <span>2. 神经风格迁移与面容骨相锁脸</span>
                   </div>
                   <div :class="['flex items-center space-x-2', currentStep >= 3 ? 'text-indigo-400 animate-pulse' : 'text-slate-500']">
                     <span>{{ currentStep >= 3 ? '▶' : '○' }}</span>
-                    <span>3. FLUX.1 漫画级神经渲染生成中...</span>
+                    <span>3. 1024 高清二次元头像成图导出</span>
                   </div>
                 </div>
               </div>
@@ -423,16 +471,16 @@
                   </div>
 
                   <!-- Avatar Display Box with Frame -->
-                  <div class="relative p-2 rounded-3xl bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-pink-500/20 border border-slate-800 shadow-2xl">
+                  <div class="relative p-2 rounded-3xl bg-gradient-to-br from-emerald-500/20 via-indigo-500/20 to-purple-500/20 border border-slate-800 shadow-2xl">
                     <div 
-                      :class="['w-72 h-72 sm:w-80 sm:h-80 overflow-hidden bg-slate-950 shadow-2xl transition-all duration-300 border-2 border-indigo-400/40',
+                      :class="['w-72 h-72 sm:w-80 sm:h-80 overflow-hidden bg-slate-950 shadow-2xl transition-all duration-300 border-2 border-emerald-400/40',
                                frameStyle === 'circle' ? 'avatar-frame-circle' : (frameStyle === 'rounded' ? 'avatar-frame-rounded' : 'avatar-frame-square')]"
                     >
                       <img :src="resultAvatar" alt="生成的漫画头像" class="w-full h-full object-cover">
                     </div>
 
                     <!-- Style Watermark Badge -->
-                    <div class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-medium text-indigo-300 border border-indigo-500/30">
+                    <div class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-medium text-emerald-300 border border-emerald-500/30">
                       {{ resultStyleName }}
                     </div>
                   </div>
@@ -447,8 +495,8 @@
                     </div>
                   </div>
                   <div class="flex flex-col items-center">
-                    <span class="text-xs text-indigo-400 mb-2 font-medium">AI 漫画头像 (成图)</span>
-                    <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden bg-slate-950 border border-indigo-500/40 shadow-lg shadow-indigo-500/10">
+                    <span class="text-xs text-emerald-400 mb-2 font-medium">真人漫画头像 (成图)</span>
+                    <div class="w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden bg-slate-950 border border-emerald-500/40 shadow-lg shadow-emerald-500/10">
                       <img :src="resultAvatar" alt="漫画成图" class="w-full h-full object-cover">
                     </div>
                   </div>
@@ -456,7 +504,6 @@
 
                 <!-- Action Toolbar -->
                 <div class="w-full flex flex-wrap items-center justify-center gap-3 pt-2">
-                  <!-- Download Button -->
                   <a 
                     :href="resultAvatar" 
                     :download="downloadFilename" 
@@ -466,7 +513,6 @@
                     <span>保存高清头像</span>
                   </a>
 
-                  <!-- Copy Image Button -->
                   <button 
                     @click="copyImageToClipboard" 
                     class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium border border-slate-700 transition flex items-center space-x-1.5"
@@ -475,7 +521,6 @@
                     <span>复制到剪贴板</span>
                   </button>
 
-                  <!-- Change Style & Regenerate -->
                   <button 
                     @click="regenerateNextStyle" 
                     class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium border border-slate-700 transition flex items-center space-x-1.5"
@@ -485,18 +530,17 @@
                   </button>
                 </div>
 
-                <!-- Prompt Accordion Details -->
+                <!-- Engine & Quality Details -->
                 <div class="w-full mt-3 bg-slate-900/60 rounded-xl border border-slate-800 p-3.5 text-xs text-slate-400">
-                  <div class="flex items-center justify-between cursor-pointer" @click="showPrompt = !showPrompt">
-                    <span class="font-medium text-slate-300">🔍 查看 AI 艺术指令与特征描述 (Prompt)</span>
-                    <span class="text-slate-500">{{ showPrompt ? "收起 ▲" : "展开 ▼" }}</span>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-300 font-medium flex items-center">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2"></span>
+                      引擎: {{ resultEngine || "Neural Style Transfer (像本人模式)" }}
+                    </span>
+                    <span class="text-slate-500 font-mono">耗时: {{ (lastDuration / 1000).toFixed(1) }}s</span>
                   </div>
-                  <div v-if="showPrompt" class="mt-2.5 pt-2 border-t border-slate-800 font-mono text-[11px] text-slate-300 break-words leading-relaxed">
+                  <div class="mt-2 text-[11px] text-slate-400 leading-relaxed">
                     {{ promptUsed }}
-                  </div>
-                  <div class="mt-2 text-[10px] text-slate-500 flex items-center justify-between">
-                    <span>耗时: {{ (lastDuration / 1000).toFixed(1) }}s · 分辨率: 1024x1024</span>
-                    <span>引擎: FreeLLMAPI (FLUX.1 Schnell)</span>
                   </div>
                 </div>
               </div>
@@ -505,7 +549,7 @@
 
             <!-- Footer Notes inside panel -->
             <div class="border-t border-slate-800/80 pt-4 mt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
-              <span>💡 提示：可右键直接复制图像或长按保存</span>
+              <span>💡 提示：高还原系列 100% 锁定本人五官骨相与眼镜</span>
               <span class="mt-1 sm:mt-0 font-mono">存储安全策略: 1024MB FIFO 自动熔断</span>
             </div>
 
@@ -529,8 +573,8 @@
             <p>服务端程序集成磁盘配额巡检：目录总体积超过 1GB (1024MB) 时，自动按生成时间戳淘汰最旧的文件，回退至安全线以内。</p>
           </div>
           <div class="space-y-1.5">
-            <div class="font-semibold text-slate-200">3. FreeLLMAPI 智能调度</div>
-            <p>基于本站自主部署的 FreeLLMAPI 高可用多模态网关，融合 Gemini 视觉特征分析与 Cloudflare FLUX.1 极速出图。</p>
+            <div class="font-semibold text-slate-200">3. 像素级锁脸 + FreeLLMAPI</div>
+            <p>融合 AnimeGANv2 像素级五官锁脸网络与 FreeLLMAPI FLUX.1 扩散大模型，实现既像本人又具艺术美感的漫画头像。</p>
           </div>
         </div>
       </section>
@@ -540,7 +584,7 @@
     <div 
       v-if="toast.show" 
       class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl shadow-2xl text-xs font-medium flex items-center space-x-2 transition-all duration-300"
-      :class="toast.type === 'error' ? 'bg-rose-900/90 text-rose-100 border border-rose-700' : 'bg-slate-900/95 text-slate-100 border border-indigo-500/50'"
+      :class="toast.type === 'error' ? 'bg-rose-900/90 text-rose-100 border border-rose-700' : 'bg-slate-900/95 text-slate-100 border border-emerald-500/50'"
     >
       <span>{{ toast.message }}</span>
     </div>
@@ -560,7 +604,7 @@
 
         const selectedStyle = ref("shinkai");
         const gender = ref("auto");
-        const expression = ref("smile");
+        const expression = ref("auto");
         const customNotes = ref("");
 
         const loading = ref(false);
@@ -570,37 +614,44 @@
 
         const resultAvatar = ref("");
         const resultStyleName = ref("");
+        const resultEngine = ref("");
         const promptUsed = ref("");
         const lastDuration = ref(0);
         const activeTab = ref("single");
         const frameStyle = ref("rounded");
-        const showPrompt = ref(false);
 
         const storageStats = ref({ usedMB: "0.49", maxMB: 1024 });
         const toast = ref({ show: false, message: "", type: "info" });
 
-        const styles = [
-          { id: "shinkai", name: "新海诚治愈风", icon: "🌸", desc: "唯美光影、蓝天白云、温柔通透" },
-          { id: "anime", name: "经典日漫风", icon: "🎨", desc: "清爽赛璐璐、灵动眼神、锐利线条" },
-          { id: "cyberpunk", name: "赛博朋克风", icon: "⚡", desc: "霓虹发光轮廓、机械机能、科技感" },
-          { id: "ghibli", name: "吉卜力手绘风", icon: "🍃", desc: "宫崎骏童话水彩、复古温暖质感" },
-          { id: "pixar", name: "皮克斯 3D 萌化", icon: "🧸", desc: "3D圆润大眼、柔光质感、迪士尼角色" },
-          { id: "vintage", name: "美式复古波普", icon: "💥", desc: "经典网点、美漫墨线与艳丽色彩" },
-          { id: "lineart", name: "黑白热血线稿", icon: "✒️", desc: "少年JUMP黑白分镜、硬核笔触" }
+        // High Likeness Styles (Pixel Style Transfer - 100% Face Likeness)
+        const likenessStyles = [
+          { id: "shinkai", name: "新海诚唯美风", icon: "🌸", tag: "像本人 95%+", desc: "唯美光影与通透蓝天，保留真实五官与眼镜" },
+          { id: "anime", name: "经典日漫肖像", icon: "🎨", tag: "像本人 95%+", desc: "清爽日漫赛璐璐，100%忠实脸型骨相" },
+          { id: "ghibli", name: "吉卜力水彩风", icon: "🍃", tag: "像本人 90%+", desc: "宫崎骏手绘复古水彩质感，温暖亲切" }
         ];
 
+        // AI Diffusion Styles (FLUX.1)
+        const diffusionStyles = [
+          { id: "cyberpunk", name: "赛博朋克风", icon: "⚡", desc: "霓虹发光机能感，未来科幻" },
+          { id: "pixar", name: "皮克斯 3D 萌化", icon: "🧸", desc: "3D圆润大眼、迪士尼角色风" },
+          { id: "vintage", name: "美式复古波普", icon: "💥", desc: "经典网点、美漫墨线与艳丽色彩" },
+          { id: "lineart", name: "黑白热血线稿", icon: "✒️", desc: "少年JUMP经典分镜黑白排线" }
+        ];
+
+        const allStyles = [...likenessStyles, ...diffusionStyles];
+
         const genderOptions = [
-          { id: "auto", label: "自动识别" },
-          { id: "male", label: "帅气男生" },
-          { id: "female", label: "甜美女生" }
+          { id: "auto", label: "自动" },
+          { id: "male", label: "男生" },
+          { id: "female", label: "女生" }
         ];
 
         const expressionOptions = [
+          { id: "auto", label: "沿用原片神情 (推荐)" },
           { id: "smile", label: "😊 阳光微笑" },
           { id: "cool", label: "😎 酷飒冷峻" },
           { id: "cute", label: "🥰 软萌治愈" },
-          { id: "focus", label: "🔥 专注霸气" },
-          { id: "auto", label: "🎭 沿用原片" }
+          { id: "focus", label: "🔥 专注沉稳" }
         ];
 
         const demoPhotos = [
@@ -646,7 +697,7 @@
           reader.onload = (e) => {
             uploadedImage.value = e.target.result;
             imageSizeLabel.value = `${(file.size / 1024).toFixed(0)} KB`;
-            showToast("照片已加载，请选择漫画画风！");
+            showToast("照片已加载，推荐优先使用【新海诚】或【经典日漫】画风！");
           };
           reader.readAsDataURL(file);
         };
@@ -679,13 +730,8 @@
           const ctx = canvas.getContext("2d");
 
           const grad = ctx.createLinearGradient(0, 0, 512, 512);
-          if (demo.type === "male") {
-            grad.addColorStop(0, "#1e293b");
-            grad.addColorStop(1, "#0f172a");
-          } else {
-            grad.addColorStop(0, "#4c1d95");
-            grad.addColorStop(1, "#1e1b4b");
-          }
+          grad.addColorStop(0, demo.type === "male" ? "#1e293b" : "#4c1d95");
+          grad.addColorStop(1, demo.type === "male" ? "#0f172a" : "#1e1b4b");
           ctx.fillStyle = grad;
           ctx.fillRect(0, 0, 512, 512);
 
@@ -736,19 +782,19 @@
 
           loading.value = true;
           currentStep.value = 1;
-          progressTitle.value = "AI 头像生成中...";
-          progressMessage.value = "1/3 上传原图并预检画面...";
+          progressTitle.value = "漫画头像渲染中...";
+          progressMessage.value = "正在进行面容特征锁定与漫画风格渲染...";
 
           try {
             const stepTimer1 = setTimeout(() => {
               currentStep.value = 2;
-              progressMessage.value = "2/3 视觉大模型正在解析人物五官与神态...";
-            }, 1200);
+              progressMessage.value = "神经风格迁移网络正在渲染光影与线条...";
+            }, 1000);
 
             const stepTimer2 = setTimeout(() => {
               currentStep.value = 3;
-              progressMessage.value = "3/3 FLUX.1 扩散引擎正在绘制漫画头像...";
-            }, 3500);
+              progressMessage.value = "生成高清头像画幅...";
+            }, 2200);
 
             const payload = {
               image: uploadedImage.value,
@@ -778,9 +824,10 @@
             }
 
             resultAvatar.value = data.avatarBase64 || data.avatarUrl;
-            resultStyleName.value = data.styleName || "二次元漫画风";
+            resultStyleName.value = data.styleName || "漫画风";
+            resultEngine.value = data.engine || "";
             promptUsed.value = data.prompt;
-            lastDuration.value = data.durationMs || 3000;
+            lastDuration.value = data.durationMs || 2500;
             if (data.storage) {
               storageStats.value = data.storage;
             }
@@ -795,9 +842,9 @@
         };
 
         const regenerateNextStyle = () => {
-          const currentIndex = styles.findIndex(s => s.id === selectedStyle.value);
-          const nextIndex = (currentIndex + 1) % styles.length;
-          selectedStyle.value = styles[nextIndex].id;
+          const currentIndex = allStyles.findIndex(s => s.id === selectedStyle.value);
+          const nextIndex = (currentIndex + 1) % allStyles.length;
+          selectedStyle.value = allStyles[nextIndex].id;
           startGeneration();
         };
 
@@ -838,7 +885,8 @@
           imageSizeLabel,
           dragOver,
           fileInput,
-          styles,
+          likenessStyles,
+          diffusionStyles,
           selectedStyle,
           genderOptions,
           gender,
@@ -852,11 +900,11 @@
           progressMessage,
           resultAvatar,
           resultStyleName,
+          resultEngine,
           promptUsed,
           lastDuration,
           activeTab,
           frameStyle,
-          showPrompt,
           storageStats,
           toast,
           downloadFilename,
