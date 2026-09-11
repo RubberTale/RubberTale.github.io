@@ -104,26 +104,25 @@ top:
         <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
           <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ef4444;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="美伊冲突升级，涉核议题移交安理会">美伊冲突升级，涉核议题移交安理会</a>
+            <a href="/2026/09/11/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="沙特、阿联酋、巴林及科威特考虑军事选项应对伊朗袭击基础设施，美国间接参与协调，显著推升中东航道安全风险。">海湾国家拟对伊朗军事行动</a>
           </li>
           <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="布油突破100美元，化工橡胶跟涨">布油突破100美元，化工橡胶跟涨</a>
+            <a href="/2026/09/11/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="WTI原油交易于89.00-89.40美元/桶，周跌2.4%，地缘缓和预期与拉美增产叠加压制价格，但军事冲突风险限制跌幅。">原油跌破90美元心理关口</a>
           </li>
           <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b82f6;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="联大81届开幕；欧盟加码格陵兰">联大81届开幕；欧盟加码格陵兰</a>
+            <a href="/2026/09/11/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="地缘紧张推升避险需求，但实际利率上升导致金价周跌12%，短期波动反映风险资产抛售与美元流动性博弈。">黄金周跌12%后避险再平衡</a>
           </li>
           <li style="margin-bottom: 4px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="2026中国服贸会开幕，聚焦高水平开放">2026服贸会开幕，聚焦高水平开放</a>
+            <a href="/2026/09/11/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="全球增长忧虑压制工业金属需求，LME铜价跌至11950美元/吨，创年内新低，电动汽车转型加速削弱传统需求预期。">铜价跌破12000美元/吨关键位</a>
           </li>
         </ul>
         <div style="text-align: right; margin-top: 4px;">
-          <a href="/2026/09/09/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年9月）/" style="font-size: 0.82rem; color: #3b82f6; font-weight: 500; text-decoration: none;">完整速览与推演 →</a>
+          <a href="/2026/09/11/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月11日）/" style="font-size: 0.82rem; color: #3b82f6; font-weight: 500; text-decoration: none;">完整速览与推演 →</a>
         </div>
       </div>
-
   - class_name: card-ai-news
     id_name: card-ai-news
     icon: fas fa-robot
@@ -133,22 +132,22 @@ top:
         <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
           <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="OpenAI发布GPT-6 Astra，Agent系统成绝对主流">OpenAI发布GPT-6 Astra，Agent成主流</a>
+            <a href="/2026/09/11/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="DeepSeek R1 0528在Artificial Analysis指数从60跃至68分，超越xAI、Meta及Anthropic，成开源权重领域绝对领导者">DeepSeek R1跃升全球AI实验室第二</a>
           </li>
           <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#06b6d4;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="DeepSeek即将推出V4.1 Flash，推理降本提速">DeepSeek将推V4.1 Flash，降本提速</a>
+            <a href="/2026/09/11/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="DeepSeek发布V4-Pro模型，支持动态推理强度调节与OpenAI API原生兼容，生产效率提升显著">V4-Pro Agent能力重大升级</a>
           </li>
           <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ec4899;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="NVIDIA拟百亿美元整合开源生态HuggingFace">NVIDIA拟百亿美元并购HuggingFace</a>
+            <a href="/2026/09/11/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="英伟达完成对开源AI平台的收购，全面强化开源权重模型生态布局与算力整合能力">NVIDIA 129.3亿美元收购Hugging Face</a>
           </li>
           <li style="margin-bottom: 4px;">
             <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/09/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年9月）/" style="color: inherit; text-decoration: none;" title="万卡集群与世界模型加速落地具身智能">万卡集群与世界模型加速具身智能</a>
+            <a href="/2026/09/11/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）/" style="color: inherit; text-decoration: none;" title="模型输出、硬件接口与数据采集标准形成行业共识，推动碎片化生态向协同化演进">具身智能标准体系加速构建</a>
           </li>
         </ul>
         <div style="text-align: right; margin-top: 4px;">
-          <a href="/2026/09/09/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年9月）/" style="font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration: none;">完整解读与趋势 →</a>
+          <a href="/2026/09/11/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）/" style="font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration: none;">完整解读与趋势 →</a>
         </div>
       </div>
