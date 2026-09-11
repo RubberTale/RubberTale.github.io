@@ -124,7 +124,7 @@
                 // Or calling the server port directly if it's open (e.g. 8092)
                 const apiUrl = '/api/tts'; // Using relative path, which should be proxied by blog server
 
-                const response = await fetch('http://andy.freellmapi.com:8092/api/tts', {
+                const response = await fetch('https://140.245.65.111.sslip.io/api/article-craft/api/tts', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
