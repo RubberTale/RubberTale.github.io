@@ -18,7 +18,6 @@ import {
   Share2,
   ChevronDown,
   ArrowRight,
-  ShieldCheck,
   CheckCircle2
 } from 'lucide-react';
 import { marked } from 'marked';
@@ -283,7 +282,7 @@ export const App: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="text-lg">🏛️</span>
             <span className="font-bold text-sm sm:text-base text-white tracking-tight">
-              WorkBuddy · 公文智匠
+              WriteBuddy · 公文智匠
             </span>
             <span className="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">
               精确顶点审校 · 多轮闭环迭代
@@ -292,14 +291,6 @@ export const App: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-2.5 py-1 rounded-lg">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="font-medium">Gemini 3.8/3.6 Flash 官方引擎</span>
-            <span className="text-[10px] text-emerald-500/80 hidden md:inline">
-              (高精自愈 · GB/T 9704)
-            </span>
-          </div>
-
           <a
             href="https://rubbertale.github.io"
             target="_blank"

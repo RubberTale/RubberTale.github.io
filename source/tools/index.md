@@ -160,11 +160,11 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
-      <a href="/tools/article-craft/" title="WorkBuddy · 公文智匠（精确顶点审校工作台）" target="_blank">
+      <a href="/tools/article-craft/" title="WriteBuddy · 公文智匠（精确顶点审校工作台）" target="_blank">
         <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:feather.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="WorkBuddy · 公文智匠">
+          <img src="https://api.iconify.design/lucide:feather.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="WriteBuddy · 公文智匠">
         </div>
-        <div class="flink-item-name">WorkBuddy · 公文智匠</div>
+        <div class="flink-item-name">WriteBuddy · 公文智匠</div>
         <div class="flink-item-desc">国家标准公文写作与精确顶点审校工作台：顶部设定发文总指令，原文划选实现点对点精准修改，AI智能审校建言，支持成文一键回传多轮迭代。</div>
       </a>
     </div>
