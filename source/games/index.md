@@ -52,12 +52,12 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
-      <a href="/games/billiards/" title="黑八台球 · Eight Ball" target="_blank">
+      <a href="/games/billiards/" title="黑八台球 · 线上联机对战版" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:circle-dot.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="黑八台球">
         </div>
-        <div class="flink-item-name">黑八台球</div>
-        <div class="flink-item-desc">经典美式八球对战，击球入袋，切磋球技。</div>
+        <div class="flink-item-name">黑八台球 · 线上联机版</div>
+        <div class="flink-item-desc">支持注册账号、好友开房口令邀约、全网天梯快速匹配实时互打！</div>
       </a>
     </div>
     <div class="flink-list-item">
