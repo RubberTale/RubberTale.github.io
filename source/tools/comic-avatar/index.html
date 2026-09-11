@@ -175,7 +175,7 @@
                 <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs font-bold border border-indigo-500/30">2</span>
                 <h3 class="font-semibold text-white text-base">挑选头像风格</h3>
               </div>
-              <span class="text-xs text-slate-400">9 款精选画风</span>
+              <span class="text-xs text-slate-400">6 款精选风格</span>
             </div>
 
             <!-- Style Grid -->
@@ -475,7 +475,7 @@
         const dragOver = ref(false);
         const fileInput = ref(null);
 
-        const selectedStyle = ref("sketch");
+        const selectedStyle = ref("bw_photo");
         const gender = ref("auto");
         const expression = ref("auto");
         const customNotes = ref("");
@@ -491,12 +491,9 @@
 
         const toast = ref({ show: false, message: "", type: "info" });
 
-        // 9 Curated Styles
+        // 6 Curated Styles
         const styles = [
-          { id: "sketch", name: "艺术黑白素描", icon: "✏️", badge: "精选推荐", desc: "纯正铅笔素描排线与明暗纸感，100%保留神态，细节惊艳" },
-          { id: "photo2cartoon", name: "经典写实漫化", icon: "🖼️", badge: "Photo2Cartoon", desc: "经典卡通肖像，锁死人脸关键特征，清爽红润手绘质感" },
-          { id: "color_sketch", name: "唯美彩铅淡彩", icon: "🖍️", badge: "彩铅手绘", desc: "彩色铅笔细腻手绘笔触，淡彩纸张颗粒质感，保留原容" },
-          { id: "watercolor", name: "吉卜力水彩风", icon: "🍃", badge: "水彩插画", desc: "纯正手绘水彩插画，柔和色彩晕染与自然手绘边缘" },
+          { id: "bw_photo", name: "经典艺术黑白照", icon: "🎞️", badge: "新上线 · 推荐", desc: "大师级黑白摄影光影，银盐胶片质感，细腻平滑减龄，立体深邃" },
           { id: "anime", name: "经典日漫肖像", icon: "🎨", badge: "日漫赛璐璐", desc: "清爽日漫赛璐璐动漫勾线，自然减龄，忠实脸型骨相" },
           { id: "pixar", name: "皮克斯 3D 萌化", icon: "🧸", badge: "3D 角色", desc: "圆润柔光萌系、明亮大眼、年轻活力、柔滑质感" },
           { id: "vintage", name: "美式复古波普", icon: "💥", badge: "复古潮流", desc: "经典复古潮漫海报，自信英气，鲜明波普撞色" },
