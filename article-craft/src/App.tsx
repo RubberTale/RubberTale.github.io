@@ -69,6 +69,7 @@ export const App: React.FC = () => {
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isSuggesting, setIsSuggesting] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<'preview' | 'diff' | 'raw'>('preview');
+  const [preserveOriginal, setPreserveOriginal] = useState<boolean>(true);
 
   // Export Modal
   const [exportModalOpen, setExportModalOpen] = useState<boolean>(false);
@@ -268,6 +269,7 @@ export const App: React.FC = () => {
         annotations,
         round,
         docType: selectedPresetId,
+        preserveOriginal,
         onChunk: (chunk) => {
           setRevisedText((prev) => prev + chunk);
         },
@@ -391,7 +393,7 @@ export const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Quick Document Type Chips */}
+            {/* Quick Document Type Chips & Surgical Precision Toggle */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
               <span className="text-[11px] text-slate-500 whitespace-nowrap">
                 文种模板：
@@ -410,6 +412,30 @@ export const App: React.FC = () => {
                   {p.name}
                 </button>
               ))}
+
+              <div className="h-3.5 w-[1px] bg-slate-700 mx-1 shrink-0 hidden sm:block" />
+
+              {/* Surgical Precision Toggle */}
+              <button
+                type="button"
+                onClick={() => {
+                  setPreserveOriginal((prev) => !prev);
+                  showToast(!preserveOriginal ? '已启用「严格保留未改原文」模式（仅改批注处）' : '已切换为「通篇重构改写」模式');
+                }}
+                className={`px-2 py-0.5 rounded-lg text-xs transition whitespace-nowrap flex items-center gap-1.5 border shrink-0 ${
+                  preserveOriginal
+                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30 hover:bg-emerald-500/25'
+                    : 'bg-slate-800/70 text-slate-400 border-slate-700 hover:text-slate-200'
+                }`}
+                title={
+                  preserveOriginal
+                    ? '【当前：严格保留模式】草稿中未批注的部分100%一字不差保留，仅对批注点进行外科手术式精准替换'
+                    : '【当前：全篇重构模式】AI将根据顶层提示词对整篇草稿进行通篇重写润色'
+                }
+              >
+                <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${preserveOriginal ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
+                <span>{preserveOriginal ? '🎯 严格保留未改原文' : '⚡ 通篇重构改写'}</span>
+              </button>
             </div>
           </div>
 
@@ -658,7 +684,7 @@ export const App: React.FC = () => {
             <div className="mb-3 px-3 py-2 rounded-xl bg-amber-500/5 border border-amber-500/20 text-[11px] text-amber-300/80 leading-relaxed flex items-center gap-2">
               <span className="text-amber-400 text-sm">💡</span>
               <span>
-                <strong>精确顶点修改特色</strong>：用鼠标在上方草稿中<strong>划选任意文字</strong>，会立即弹出添加批注浮窗；AI 将对标靶语句实现“精准指哪改哪、无缝融入正文”。
+                <strong>精确修改特色</strong>：{preserveOriginal ? '当前处于「严格保留原文」模式。草稿中未批注的地方将 100% 一字不差原样保留；仅对批注点进行外科手术式精准替换（指哪改哪，绝不擅自变动其余文字）。' : '当前处于「通篇重构」模式。AI 将结合顶层提示词与批注通篇重构。'}
               </span>
             </div>
 

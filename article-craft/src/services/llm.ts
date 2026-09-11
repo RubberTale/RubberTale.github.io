@@ -17,6 +17,7 @@ export interface GenerateParams {
   annotations: PinpointAnnotation[];
   round: number;
   docType?: string;
+  preserveOriginal?: boolean;
   onChunk: (text: string) => void;
   onDone: () => void;
   onError: (err: Error) => void;
@@ -31,7 +32,7 @@ export async function streamOfficialDocument(
   params: GenerateParams,
   abortSignal?: AbortSignal
 ): Promise<void> {
-  const { globalPrompt, draft, annotations, round, docType, onChunk, onDone, onError } = params;
+  const { globalPrompt, draft, annotations, round, docType, preserveOriginal = true, onChunk, onDone, onError } = params;
 
   try {
     const response = await fetch(`${API_BASE}/generate`, {
@@ -44,7 +45,8 @@ export async function streamOfficialDocument(
         draft,
         annotations,
         round,
-        docType
+        docType,
+        preserveOriginal
       }),
       signal: abortSignal
     });
