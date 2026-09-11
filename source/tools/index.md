@@ -164,8 +164,8 @@ aside: false
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:feather.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="WriteBuddy · 公文智匠">
         </div>
-        <div class="flink-item-name">WriteBuddy · 公文智匠</div>
-        <div class="flink-item-desc">国家标准公文写作与精确顶点审校工作台：顶部设定发文总指令，原文划选实现点对点精准修改，AI智能审校建言，支持成文一键回传多轮迭代。</div>
+        <div class="flink-item-name">WriteBuddy · 写作智匠</div>
+        <div class="flink-item-desc">党政公文规范与小说文学创作工作台：顶部设定总指令，草稿划选实现精确顶点修改，AI智能审校建言，支持 Word/Markdown 导入与成文回传多轮迭代。</div>
       </a>
     </div>
     <!-- 可以在此处添加更多实用工具卡片 -->
