@@ -16,6 +16,7 @@ export interface GenerateParams {
   draft: string;
   annotations: PinpointAnnotation[];
   round: number;
+  docType?: string;
   onChunk: (text: string) => void;
   onDone: () => void;
   onError: (err: Error) => void;
@@ -30,7 +31,7 @@ export async function streamOfficialDocument(
   params: GenerateParams,
   abortSignal?: AbortSignal
 ): Promise<void> {
-  const { globalPrompt, draft, annotations, round, onChunk, onDone, onError } = params;
+  const { globalPrompt, draft, annotations, round, docType, onChunk, onDone, onError } = params;
 
   try {
     const response = await fetch(`${API_BASE}/generate`, {
@@ -42,7 +43,8 @@ export async function streamOfficialDocument(
         globalPrompt,
         draft,
         annotations,
-        round
+        round,
+        docType
       }),
       signal: abortSignal
     });
@@ -107,7 +109,8 @@ export async function streamOfficialDocument(
  */
 export async function fetchSuggestedAnnotations(
   globalPrompt: string,
-  draft: string
+  draft: string,
+  docType?: string
 ): Promise<Array<{ quote: string; comment: string; tag: string }>> {
   const response = await fetch(`${API_BASE}/suggest-annotations`, {
     method: 'POST',
@@ -116,7 +119,8 @@ export async function fetchSuggestedAnnotations(
     },
     body: JSON.stringify({
       globalPrompt,
-      draft
+      draft,
+      docType
     })
   });
 

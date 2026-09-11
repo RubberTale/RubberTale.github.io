@@ -81,7 +81,20 @@ export const App: React.FC = () => {
   const abortControllerRef = useRef<AbortController | null>(null);
   const leftTextareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const sampleMenuRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [sampleMenuOpen, setSampleMenuOpen] = useState<boolean>(false);
+
+  // Close sample menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (sampleMenuRef.current && !sampleMenuRef.current.contains(e.target as Node)) {
+        setSampleMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -134,16 +147,18 @@ export const App: React.FC = () => {
   const handlePresetSelect = (preset: typeof DOCUMENT_TYPE_PRESETS[0]) => {
     setSelectedPresetId(preset.id);
     setGlobalPrompt(preset.prompt);
-    showToast(`已应用「${preset.name}」顶层公文提示词`);
+    showToast(`已应用「${preset.name}」顶层指令与提示词`);
   };
 
   // Handle load sample draft
   const handleLoadSample = (sample: ExampleDraft) => {
     setDraft(sample.content);
     setGlobalPrompt(sample.globalPrompt);
+    setSelectedPresetId(sample.presetId || 'notice');
     setAnnotations(sample.initialAnnotations);
     setRound(1);
     setRevisedText('');
+    setSampleMenuOpen(false);
     showToast(`已载入示例初稿：《${sample.title}》`);
   };
 
@@ -152,7 +167,7 @@ export const App: React.FC = () => {
     setEditingAnnotation({
       quote,
       comment: '',
-      tag: '措辞规范'
+      tag: selectedPresetId === 'novel' ? '细节刻画' : '措辞规范'
     });
     setPinpointModalOpen(true);
   };
@@ -193,27 +208,28 @@ export const App: React.FC = () => {
   // AI Suggest Annotations
   const handleAISuggestAnnotations = async () => {
     if (!draft.trim()) {
-      showToast('请先输入或粘贴公文草稿');
+      showToast(selectedPresetId === 'novel' ? '请先输入或粘贴故事草稿' : '请先输入或粘贴公文草稿');
       return;
     }
 
+    const isNovel = selectedPresetId === 'novel';
     setIsSuggesting(true);
-    showToast('🤖 AI 公文专家正在通读草稿并标出瑕疵...');
+    showToast(isNovel ? '🤖 AI 文学顾问正在通读故事并挖掘细节优化点...' : '🤖 AI 公文专家正在通读草稿并标出瑕疵...');
 
     try {
-      const suggestions = await fetchSuggestedAnnotations(globalPrompt, draft);
+      const suggestions = await fetchSuggestedAnnotations(globalPrompt, draft, selectedPresetId);
       if (suggestions && suggestions.length > 0) {
         const newItems: PinpointAnnotation[] = suggestions.map((s, idx) => ({
           id: `ai-sug-${Date.now()}-${idx}`,
           quote: s.quote,
           comment: s.comment,
-          tag: s.tag || '公文规范',
+          tag: s.tag || (isNovel ? '细节刻画' : '公文规范'),
           enabled: true
         }));
         setAnnotations((prev) => [...newItems, ...prev]);
-        showToast(`✨ 成功生成 ${suggestions.length} 处公文精确审校批注！`);
+        showToast(isNovel ? `✨ 成功生成 ${suggestions.length} 处文学润色与细节建言！` : `✨ 成功生成 ${suggestions.length} 处公文精确审校批注！`);
       } else {
-        showToast('草稿整体规范度较高，未发现显著需修改处');
+        showToast(isNovel ? '草稿叙事与画面感良好，未发现显著需修改处' : '草稿整体规范度较高，未发现显著需修改处');
       }
     } catch (err: any) {
       showToast('生成建议失败: ' + err.message);
@@ -237,6 +253,7 @@ export const App: React.FC = () => {
       return;
     }
 
+    const isNovel = selectedPresetId === 'novel';
     setIsGenerating(true);
     setRevisedText('');
     setViewMode('preview');
@@ -250,12 +267,13 @@ export const App: React.FC = () => {
         draft,
         annotations,
         round,
+        docType: selectedPresetId,
         onChunk: (chunk) => {
           setRevisedText((prev) => prev + chunk);
         },
         onDone: () => {
           setIsGenerating(false);
-          showToast(`🎉 第 ${round} 轮公文精修完成！`);
+          showToast(`🎉 第 ${round} 轮${isNovel ? '文学故事' : '公文'}精修完成！`);
         },
         onError: (err) => {
           setIsGenerating(false);
@@ -285,17 +303,18 @@ export const App: React.FC = () => {
     navigator.clipboard.writeText(revisedText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-    showToast('公文全文已复制到剪贴板');
+    showToast(selectedPresetId === 'novel' ? '故事全文已复制到剪贴板' : '公文全文已复制到剪贴板');
   };
 
   // Download md
   const handleDownloadMd = () => {
     if (!revisedText) return;
+    const isNovel = selectedPresetId === 'novel';
     const blob = new Blob([revisedText], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `公文精修稿_V${round}.md`;
+    a.download = `${isNovel ? '文学故事精修稿' : '公文精修稿'}_V${round}.md`;
     a.click();
     URL.revokeObjectURL(url);
     showToast('已下载 Markdown 文档');
@@ -326,12 +345,12 @@ export const App: React.FC = () => {
           </a>
           <span className="text-slate-700">/</span>
           <div className="flex items-center gap-2">
-            <span className="text-lg">🏛️</span>
+            <span className="text-lg">{selectedPresetId === 'novel' ? '📖' : '🏛️'}</span>
             <span className="font-bold text-sm sm:text-base text-white tracking-tight">
-              WriteBuddy · 公文智匠
+              WriteBuddy · {selectedPresetId === 'novel' ? '灵作笔友' : '公文智匠'}
             </span>
             <span className="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">
-              精确顶点审校 · 多轮闭环迭代
+              {selectedPresetId === 'novel' ? '小说文学精修 · 精确顶点批注' : '党政公文规范 · 精确顶点审校'}
             </span>
           </div>
         </div>
@@ -358,9 +377,15 @@ export const App: React.FC = () => {
               </div>
               <div>
                 <h2 className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
-                  <span>📝 顶部公文总提示词 / 发文总指令 (Prompt)</span>
+                  <span>
+                    {selectedPresetId === 'novel'
+                      ? '📖 顶部小说/文学创作总指令 (Prompt)'
+                      : '📝 顶部公文总提示词 / 发文总指令 (Prompt)'}
+                  </span>
                   <span className="text-[10px] text-blue-400 font-normal">
-                    (统领全篇行文格局与政策导向)
+                    {selectedPresetId === 'novel'
+                      ? '(统领故事主旨、文风基调、叙事视角与节奏)'
+                      : '(统领全篇行文格局与政策导向)'}
                   </span>
                 </h2>
               </div>
@@ -395,7 +420,11 @@ export const App: React.FC = () => {
                 value={globalPrompt}
                 onChange={(e) => setGlobalPrompt(e.target.value)}
                 rows={2}
-                placeholder="在此输入顶层公文提示词（如：发文文种、核心主旨、发文机关层级、重点解决的堵点问题、行文口吻等）..."
+                placeholder={
+                  selectedPresetId === 'novel'
+                    ? '在此输入小说创作指令（如：故事基调、悬疑节奏、白描与感官细节要求、人物口吻风格、特定叙事视角等）...'
+                    : '在此输入顶层公文提示词（如：发文文种、核心主旨、发文机关层级、重点解决的堵点问题、行文口吻等）...'
+                }
                 className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs md:text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-blue-500/70 transition leading-relaxed resize-none font-sans"
               />
             </div>
@@ -465,14 +494,47 @@ export const App: React.FC = () => {
                 <span>导入文件</span>
               </button>
 
-              {/* Load Sample Draft */}
-              <button
-                onClick={() => handleLoadSample(EXAMPLE_DRAFTS[0])}
-                className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
-                title="载入公文范例初稿"
-              >
-                范例初稿
-              </button>
+              {/* Load Sample Draft Dropdown */}
+              <div className="relative" ref={sampleMenuRef}>
+                <button
+                  onClick={() => setSampleMenuOpen((prev) => !prev)}
+                  className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                  title="选择并载入写作范例初稿"
+                >
+                  <span>范例初稿</span>
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-150 ${sampleMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {sampleMenuOpen && (
+                  <div className="absolute right-0 mt-1.5 w-72 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-1.5 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
+                    <div className="px-3 py-1 text-[10px] text-slate-400 font-semibold uppercase tracking-wider border-b border-slate-800 flex items-center justify-between">
+                      <span>选择预设初稿范例</span>
+                      <span className="text-[10px] text-slate-500 font-normal">点击即载入</span>
+                    </div>
+                    {EXAMPLE_DRAFTS.map((sample) => (
+                      <button
+                        key={sample.id}
+                        onClick={() => handleLoadSample(sample)}
+                        className="w-full text-left px-3 py-2.5 hover:bg-slate-800/80 transition flex flex-col gap-1 border-b border-slate-800/50 last:border-b-0"
+                      >
+                        <div className="flex items-center justify-between gap-1.5">
+                          <span className="font-medium text-slate-200 truncate">{sample.title}</span>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded border shrink-0 font-medium ${
+                            sample.presetId === 'novel'
+                              ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                              : 'bg-blue-500/20 text-blue-300 border-blue-500/30'
+                          }`}>
+                            {sample.docType}
+                          </span>
+                        </div>
+                        <span className="text-[11px] text-slate-400">
+                          预置 {sample.initialAnnotations.length} 处典型精准批注示范
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Mode Toggle */}
               <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
@@ -540,7 +602,11 @@ export const App: React.FC = () => {
                 ref={leftTextareaRef}
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
-                placeholder="在此粘贴或输入公文初稿... 选中文中任意文字可点击下方按钮添加精确批注"
+                placeholder={
+                  selectedPresetId === 'novel'
+                    ? '在此粘贴或输入小说故事初稿... 选中文中任意语句可直接添加细节刻画、对白润色、动作神态等精确批注'
+                    : '在此粘贴或输入公文初稿... 选中文中任意文字可点击下方按钮添加精确批注'
+                }
                 className="w-full h-full p-4 bg-transparent text-slate-200 text-xs md:text-sm font-mono leading-relaxed focus:outline-none resize-none"
               />
             )}
@@ -565,10 +631,14 @@ export const App: React.FC = () => {
                   onClick={handleAISuggestAnnotations}
                   disabled={isSuggesting}
                   className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 text-[11px] font-medium transition disabled:opacity-50"
-                  title="大模型自动通读草稿，在文中找出不规范之处并标出精准修改意见"
+                  title={
+                    selectedPresetId === 'novel'
+                      ? '大模型通读故事，自动挖掘情节推进、对话神态、环境描摹的精修亮点'
+                      : '大模型自动通读草稿，在文中找出不规范之处并标出精准修改意见'
+                  }
                 >
                   <Sparkles className="w-3 h-3 text-purple-400" />
-                  <span>{isSuggesting ? '审校中...' : '💡 AI 智能审校建言'}</span>
+                  <span>{isSuggesting ? '审校中...' : selectedPresetId === 'novel' ? '💡 AI 文学润色建言' : '💡 AI 智能审校建言'}</span>
                 </button>
 
                 {/* Manual Add Button */}
@@ -588,7 +658,7 @@ export const App: React.FC = () => {
             <div className="mb-3 px-3 py-2 rounded-xl bg-amber-500/5 border border-amber-500/20 text-[11px] text-amber-300/80 leading-relaxed flex items-center gap-2">
               <span className="text-amber-400 text-sm">💡</span>
               <span>
-                <strong>精确顶点修改特色</strong>：用鼠标在上方草稿中<strong>划选任意文字</strong>，会立即弹出添加批注按钮；AI 将对标靶语句实现“精准指哪改哪、无缝融入正文”。
+                <strong>精确顶点修改特色</strong>：用鼠标在上方草稿中<strong>划选任意文字</strong>，会立即弹出添加批注浮窗；AI 将对标靶语句实现“精准指哪改哪、无缝融入正文”。
               </span>
             </div>
 
@@ -596,7 +666,9 @@ export const App: React.FC = () => {
             <div className="space-y-2.5 max-h-[220px] overflow-y-auto pr-1">
               {annotations.length === 0 ? (
                 <div className="text-center py-8 text-xs text-slate-500 border border-dashed border-slate-800 rounded-xl">
-                  暂无精确批注。请在草稿中划选文字添加，或点击右上角「💡 AI 智能审校建言」自动排查。
+                  {selectedPresetId === 'novel'
+                    ? '暂无故事批注。请在上方草稿中划选文字添加，或点击右上角「💡 AI 文学润色建言」自动提质。'
+                    : '暂无精确批注。请在草稿中划选文字添加，或点击右上角「💡 AI 智能审校建言」自动排查。'}
                 </div>
               ) : (
                 annotations.map((ann, idx) => (
@@ -670,8 +742,12 @@ export const App: React.FC = () => {
           {/* Header */}
           <div className="px-4 py-3 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-xs font-semibold">
-                成文成品第 {round} 版
+              <span className={`px-2 py-0.5 rounded-md text-xs font-semibold ${
+                selectedPresetId === 'novel'
+                  ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20'
+                  : 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20'
+              }`}>
+                {selectedPresetId === 'novel' ? '故事成文第' : '成文成品第'} {round} 版
               </span>
               {revisedText && (
                 <span className="text-xs text-slate-400">
@@ -693,7 +769,7 @@ export const App: React.FC = () => {
                   }`}
                 >
                   <Eye className="w-3 h-3" />
-                  公文排版
+                  {selectedPresetId === 'novel' ? '文学排版' : '公文排版'}
                 </button>
                 <button
                   onClick={() => setViewMode('diff')}
@@ -725,7 +801,7 @@ export const App: React.FC = () => {
                   <button
                     onClick={handleCopyResult}
                     className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
-                    title="复制公文全文"
+                    title={selectedPresetId === 'novel' ? '复制故事全文' : '复制公文全文'}
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -770,16 +846,22 @@ export const App: React.FC = () => {
             {isGenerating && !revisedText ? (
               <div className="h-full flex flex-col items-center justify-center text-slate-400 gap-3 py-20 select-none">
                 <Sparkles className="w-8 h-8 text-blue-400 animate-pulse" />
-                <div className="text-sm font-medium">大秘正在对照国家公文规范与顶点批注精心润色...</div>
+                <div className="text-sm font-medium">
+                  {selectedPresetId === 'novel'
+                    ? '文学大师正在对照批注精心雕琢场景沉浸感与对白...'
+                    : '大秘正在对照国家公文规范与顶点批注精心润色...'}
+                </div>
                 <div className="text-xs text-slate-500">
-                  严密落实每一处精确批注，重塑规范公文架构
+                  {selectedPresetId === 'novel'
+                    ? '严密落实每处细节刻画批注，重塑戏剧张力与画面感'
+                    : '严密落实每一处精确批注，重塑规范公文架构'}
                 </div>
               </div>
             ) : !revisedText ? (
               <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-3 py-24 select-none">
                 <FileText className="w-10 h-10 text-slate-700" />
                 <div className="text-xs text-slate-400">
-                  右侧是规范公文成文展示区。
+                  {selectedPresetId === 'novel' ? '右侧是小说故事精修成文展示区。' : '右侧是规范公文成文展示区。'}
                 </div>
                 <div className="text-[11px] text-slate-600 max-w-sm text-center">
                   在左侧草稿中划选文字添加精确批注后，点击顶部「🚀 按照总提示词与精确批注一键精修成文」启动！
@@ -787,8 +869,20 @@ export const App: React.FC = () => {
               </div>
             ) : viewMode === 'preview' ? (
               <div className="bg-slate-950/60 p-6 rounded-2xl border border-slate-800 shadow-inner">
-                {/* Official Red Line Accent */}
-                <div className="w-full h-1 bg-rose-600/80 mb-6 rounded-full" />
+                {/* Visual Accent */}
+                {selectedPresetId === 'novel' ? (
+                  <div className="flex items-center justify-between pb-3 mb-5 border-b border-amber-500/30">
+                    <span className="text-xs font-medium text-amber-300/90 flex items-center gap-1.5">
+                      <span>📖</span>
+                      <span>文学故事 · 沉浸精修成文</span>
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">
+                      Show, don't tell · 画面白描
+                    </span>
+                  </div>
+                ) : (
+                  <div className="w-full h-1 bg-rose-600/80 mb-6 rounded-full" />
+                )}
                 <div
                   className="prose prose-invert prose-slate max-w-none text-xs md:text-sm leading-relaxed font-sans"
                   dangerouslySetInnerHTML={{ __html: marked.parse(revisedText) as string }}
