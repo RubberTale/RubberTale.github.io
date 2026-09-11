@@ -340,6 +340,134 @@
       </div>
     </div>
 
+    <!-- 模块 6：量化核心指标名词解释 (Glossary: 夏普比率 / 胜率 / 盈亏比) -->
+    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-800">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-book-bookmark text-amber-400"></i>
+            <span>量化核心指标名词解释 (Metric Definitions & Methodology)</span>
+          </h3>
+          <p class="text-xs text-gray-400 mt-0.5">深度解析夏普比率、交易胜率与盈亏比在期货量化交易中的统计学内涵与实战指导意义</p>
+        </div>
+        <div class="flex items-center space-x-1.5 text-[11px] text-gray-400 bg-gray-950 px-2.5 py-1 rounded-lg border border-gray-800">
+          <i class="fa-solid fa-circle-info text-blue-400"></i>
+          <span>专业投研知识库 · 破除高胜率迷信</span>
+        </div>
+      </div>
+
+      <!-- 3列网格卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <!-- 卡片 1：夏普比率 -->
+        <div class="bg-gray-950/70 border border-gray-800/90 hover:border-amber-500/40 rounded-xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-bold font-mono">01</span>
+                <h4 class="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">夏普比率 (Sharpe Ratio)</h4>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 font-mono border border-amber-500/20">本策略: 0.87</span>
+            </div>
+            
+            <div class="bg-gray-900/90 rounded-lg p-2.5 border border-gray-800/80 font-mono text-[11px] text-amber-200/90">
+              公式: (年化收益率 - 无风险利率) ÷ 年化波动率
+            </div>
+
+            <p class="text-xs text-gray-300 leading-relaxed">
+              <strong class="text-white">本质涵义：</strong>衡量策略在承担“每单位总风险（波动）”时所获取的<span class="text-amber-400 font-medium">超额回报能力</span>。若单纯追求高收益却伴随剧烈的资金净值颠簸，夏普比率会被惩罚走低。
+            </p>
+
+            <div class="text-[11px] text-gray-400 leading-normal space-y-1 pt-1 border-t border-gray-800/60">
+              <div>• <strong class="text-gray-300">&gt; 1.0</strong>：极为优秀的风险收益性价比，机构核心配置区间；</div>
+              <div>• <strong class="text-gray-300">0.8 ~ 1.0</strong>：稳健优良的工业级量化策略（本系统在严格限制 7%~8% 低保证金占用下取得 0.87）；</div>
+              <div>• <strong class="text-gray-300">&lt; 0.5</strong>：承担波动过大，收益性价比偏低。</div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-2.5 border-t border-gray-800/60 text-[11px] text-gray-500">
+            💡 核心启示：夏普比率越高，净值曲线越平滑稳健，资金利用与回撤控制越成熟。
+          </div>
+        </div>
+
+        <!-- 卡片 2：交易胜率 -->
+        <div class="bg-gray-950/70 border border-gray-800/90 hover:border-blue-500/40 rounded-xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold font-mono">02</span>
+                <h4 class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">交易胜率 (Win Rate)</h4>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 font-mono border border-blue-500/20">本策略: 43.9%</span>
+            </div>
+
+            <div class="bg-gray-900/90 rounded-lg p-2.5 border border-gray-800/80 font-mono text-[11px] text-blue-200/90">
+              公式: (盈利平仓交易笔数 ÷ 总平仓交易笔数) × 100%
+            </div>
+
+            <p class="text-xs text-gray-300 leading-relaxed">
+              <strong class="text-white">本质涵义：</strong>反映策略在单次交易决策中方向判断正确的概率。在量化投资中需彻底<span class="text-blue-400 font-medium">破除“高胜率执念”</span>——期货趋势突破型系统的胜率普遍处于 40%~50% 区间。
+            </p>
+
+            <div class="text-[11px] text-gray-400 leading-normal space-y-1 pt-1 border-t border-gray-800/60">
+              <div>• <strong class="text-gray-300">破除误区</strong>：盲目追求 80%+ 胜率往往伴随着“不止损、死扛单”，极易遭遇单次极端黑天鹅直接爆仓；</div>
+              <div>• <strong class="text-gray-300">真实常态</strong>：趋势跟踪体系依赖多次小幅试错（止损出局）换取少数大波段主升/主跌浪利润；</div>
+              <div>• <strong class="text-gray-300">胜率并非唯一</strong>：43.9% 的胜率在严谨仓位控制下足以实现 +21.92% 年化回报。</div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-2.5 border-t border-gray-800/60 text-[11px] text-gray-500">
+            💡 核心启示：量化交易不是猜单准确率的单项比赛，而是正期望值驱动的长期概率游戏。
+          </div>
+        </div>
+
+        <!-- 卡片 3：盈亏比 -->
+        <div class="bg-gray-950/70 border border-gray-800/90 hover:border-emerald-500/40 rounded-xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 group">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold font-mono">03</span>
+                <h4 class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">盈亏比 (Profit/Loss Ratio)</h4>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-mono border border-emerald-500/20">本策略: 1.53</span>
+            </div>
+
+            <div class="bg-gray-900/90 rounded-lg p-2.5 border border-gray-800/80 font-mono text-[11px] text-emerald-200/90">
+              公式: 平均单笔盈利金额 ÷ 平均单笔亏损金额
+            </div>
+
+            <p class="text-xs text-gray-300 leading-relaxed">
+              <strong class="text-white">本质涵义：</strong>衡量每次交易“赚大赔小”的赔率不对称性。盈亏比即<span class="text-emerald-400 font-medium">每冒 1 元亏损风险能够预期兑现的利润空间</span>，是量化策略盈利引擎的核心源泉。
+            </p>
+
+            <div class="text-[11px] text-gray-400 leading-normal space-y-1 pt-1 border-t border-gray-800/60">
+              <div>• <strong class="text-gray-300">&gt; 1.5</strong>：具备强劲的正期望盈利优势（本策略 1.53，单笔盈利均值显著大于止损均值）；</div>
+              <div>• <strong class="text-gray-300">1.0 ~ 1.5</strong>：要求胜率必须稳定大于 50% 方能保持净值平衡；</div>
+              <div>• <strong class="text-gray-300">&lt; 1.0</strong>：“赚小赔大”，即便胜率达 70%，稍有不慎亦会被极少数大亏侵蚀本金。</div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-2.5 border-t border-gray-800/60 text-[11px] text-gray-500">
+            💡 核心启示：依靠“1.5×ATR 纪律止损 + 2.8×ATR 充分止盈”，用高盈亏比构建坚固护城河。
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 底部综合联动解析横幅：数学期望公式 -->
+      <div class="bg-gray-950/60 border border-gray-800 rounded-xl p-3.5 sm:p-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+        <div class="flex items-start sm:items-center space-x-2.5">
+          <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold font-mono border border-amber-500/20 shrink-0">数学期望定理</span>
+          <p class="leading-relaxed">
+            长期净值增长由 <strong class="text-white">单笔数学期望 E = (胜率 × 盈亏比) - (1 - 胜率)</strong> 决定。在本策略中：
+            <span class="font-mono text-emerald-400 font-semibold">(43.9% × 1.53) - (56.1% × 1.0) = +0.111</span>。
+            这意味着每笔交易产生稳定的正期望值，正是回测实现 <strong class="text-emerald-400">+14.03% 稳步复利</strong>（年化 +21.92%）的底层数理根基。
+          </p>
+        </div>
+      </div>
+
+    </div>
+
     <!-- 核心底部导航卡片：承接回测并引导前往实盘跟踪器 (双向链接) -->
     <div class="bg-gradient-to-r from-emerald-950/40 via-gray-900/90 to-blue-950/40 border border-emerald-500/30 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
