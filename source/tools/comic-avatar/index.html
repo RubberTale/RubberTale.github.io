@@ -475,7 +475,7 @@
         const dragOver = ref(false);
         const fileInput = ref(null);
 
-        const selectedStyle = ref("bw_photo");
+        const selectedStyle = ref("pm_disney");
         const gender = ref("auto");
         const expression = ref("auto");
         const customNotes = ref("");
@@ -491,14 +491,14 @@
 
         const toast = ref({ show: false, message: "", type: "info" });
 
-        // 6 Curated Styles
+        // 6 Curated Styles with TencentARC PhotoMaker Deep Face Remodeling
         const styles = [
-          { id: "bw_photo", name: "经典艺术黑白照", icon: "🎞️", badge: "新上线 · 推荐", desc: "大师级黑白摄影光影，银盐胶片质感，细腻平滑减龄，立体深邃" },
-          { id: "anime", name: "经典日漫肖像", icon: "🎨", badge: "日漫赛璐璐", desc: "清爽日漫赛璐璐动漫勾线，自然减龄，忠实脸型骨相" },
-          { id: "pixar", name: "皮克斯 3D 萌化", icon: "🧸", badge: "3D 角色", desc: "圆润柔光萌系、明亮大眼、年轻活力、柔滑质感" },
-          { id: "vintage", name: "美式复古波普", icon: "💥", badge: "复古潮流", desc: "经典复古潮漫海报，自信英气，鲜明波普撞色" },
-          { id: "cyberpunk", name: "赛博朋克漫风", icon: "⚡", badge: "科幻机能", desc: "霓虹发光科技机能感，酷炫未来科幻主角" },
-          { id: "lineart", name: "黑白热血线稿", icon: "✒️", badge: "热血分镜", desc: "少年 JUMP 经典分镜，清爽利落的主角黑白墨线" }
+          { id: "pm_disney", name: "PhotoMaker 迪士尼 3D", icon: "🧸", badge: "AI 定制 · 荐", desc: "TencentARC 深度人脸重塑，迪士尼 3D 萌系动画主角" },
+          { id: "pm_comic", name: "PhotoMaker 经典美漫", icon: "💥", badge: "AI 定制 · 荐", desc: "TencentARC 深度人脸重塑，美漫超级英雄分镜质感" },
+          { id: "pm_digital", name: "PhotoMaker 概念艺术", icon: "🎨", badge: "AI 定制 · 荐", desc: "TencentARC 深度人脸重塑，唯美数码手绘概念插画" },
+          { id: "bw_photo", name: "经典艺术黑白照", icon: "🎞️", badge: "秒级出图", desc: "大师级黑白摄影光影，银盐胶片质感，细腻平滑减龄" },
+          { id: "anime", name: "经典日漫肖像", icon: "✨", badge: "秒级出图", desc: "清爽日漫赛璐璐动漫勾线，自然减龄，忠实脸型骨相" },
+          { id: "lineart", name: "黑白热血线稿", icon: "✒️", badge: "极简分镜", desc: "少年 JUMP 经典分镜，清爽利落的主角黑白墨线" }
         ];
 
         const genderOptions = [
@@ -629,8 +629,16 @@
           if (!uploadedImage.value || loading.value) return;
 
           loading.value = true;
-          progressTitle.value = "漫画头像渲染中...";
-          progressMessage.value = "正在进行面容特征提取与动漫艺术渲染...";
+          if (selectedStyle.value.startsWith("pm_")) {
+            progressTitle.value = "PhotoMaker 深度人脸定制中...";
+            progressMessage.value = "正在调用 Tencent ARC 算力引擎，精准融合五官骨相与漫画风格 (约需 20~30 秒)...";
+          } else if (selectedStyle.value === "bw_photo" || selectedStyle.value === "anime") {
+            progressTitle.value = "艺术人像渲染中...";
+            progressMessage.value = "正在极速渲染高质感人像 (秒级完成)...";
+          } else {
+            progressTitle.value = "漫画头像渲染中...";
+            progressMessage.value = "正在进行面容特征提取与动漫艺术渲染...";
+          }
 
           try {
             const payload = {
