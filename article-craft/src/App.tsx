@@ -1,3 +1,4 @@
+import mammoth from "mammoth";
 import React, { useState, useRef, useEffect } from 'react';
 import {
   FileText,
@@ -18,6 +19,7 @@ import {
   Share2,
   ChevronDown,
   ArrowRight,
+  Upload,
   CheckCircle2
 } from 'lucide-react';
 import { marked } from 'marked';
@@ -78,10 +80,54 @@ export const App: React.FC = () => {
   // Abort controller
   const abortControllerRef = useRef<AbortController | null>(null);
   const leftTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  // Handle file import (.docx, .md, .txt)
+  const handleFileImport = async (file: File) => {
+    const ext = file.name.split('.').pop()?.toLowerCase();
+    if (!['docx', 'md', 'markdown', 'txt'].includes(ext || '')) {
+      showToast('仅支持导入 .docx, .md, .txt 格式文档');
+      return;
+    }
+
+    showToast(`📄 正在解析导入「${file.name}」...`);
+
+    try {
+      let importedText = '';
+
+      if (ext === 'docx') {
+        const arrayBuffer = await file.arrayBuffer();
+        const res = await mammoth.convertToMarkdown({ arrayBuffer });
+        importedText = res.value;
+        if (!importedText.trim()) {
+          const raw = await mammoth.extractRawText({ arrayBuffer });
+          importedText = raw.value;
+        }
+      } else {
+        importedText = await file.text();
+      }
+
+      if (!importedText.trim()) {
+        showToast('导入失败：文档内容为空');
+        return;
+      }
+
+      setDraft(importedText);
+      setAnnotations([]);
+      setRound(1);
+      setRevisedText('');
+      setDraftMode('interactive');
+      showToast(`🎉 成功导入「${file.name}」（${importedText.length} 字）！已自动转为排版草稿`);
+    } catch (err: any) {
+      console.error('File import error:', err);
+      showToast('文档解析失败: ' + (err.message || '未知错误'));
+    }
   };
 
   // Handle preset prompt click
@@ -396,6 +442,29 @@ export const App: React.FC = () => {
 
             {/* Actions */}
             <div className="flex items-center gap-2">
+              {/* Hidden File Input */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".docx,.md,.markdown,.txt"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleFileImport(file);
+                  e.target.value = '';
+                }}
+                className="hidden"
+              />
+
+              {/* Import File Button */}
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 font-medium transition"
+                title="导入 Word (.docx)、Markdown (.md) 或纯文本 (.txt)"
+              >
+                <Upload className="w-3.5 h-3.5" />
+                <span>导入文件</span>
+              </button>
+
               {/* Load Sample Draft */}
               <button
                 onClick={() => handleLoadSample(EXAMPLE_DRAFTS[0])}
@@ -433,8 +502,29 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Draft Display Area */}
-          <div className="h-[360px] bg-slate-950/40 relative border-b border-slate-800">
+          {/* Draft Display Area with Drag & Drop */}
+          <div
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragging(true);
+            }}
+            onDragLeave={() => setIsDragging(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setIsDragging(false);
+              const file = e.dataTransfer.files?.[0];
+              if (file) handleFileImport(file);
+            }}
+            className="h-[360px] bg-slate-950/40 relative border-b border-slate-800"
+          >
+            {/* Drag & Drop Visual Overlay */}
+            {isDragging && (
+              <div className="absolute inset-0 z-50 bg-blue-950/90 backdrop-blur-sm border-2 border-dashed border-blue-400 rounded-xl flex flex-col items-center justify-center gap-2 text-blue-200 pointer-events-none animate-in fade-in zoom-in duration-150">
+                <Upload className="w-10 h-10 text-blue-400 animate-bounce" />
+                <div className="text-sm font-semibold">松开鼠标即可导入此文件</div>
+                <div className="text-xs text-blue-300/80">支持 Word (.docx) / Markdown (.md) / 纯文本 (.txt)</div>
+              </div>
+            )}
             {draftMode === 'interactive' ? (
               <AnnotatedDraftView
                 draft={draft}
