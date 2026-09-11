@@ -503,7 +503,7 @@
               <div class="flex items-start justify-between">
                 <div>
                   <div class="flex items-center space-x-2">
-                    <span class="text-base font-bold text-white">${sig.name}</span>
+                    <span class="text-base font-bold text-white">${sig.name || sig.symbol}</span>
                     <span class="text-xs font-mono text-gray-400 font-semibold">${sig.contract}</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 border border-gray-700">${sig.sector}</span>
                   </div>
@@ -566,7 +566,7 @@
           <div class="p-3 bg-gray-950/60 border border-gray-800/80 rounded-xl flex flex-col justify-between space-y-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-2">
-                <span class="font-bold text-white text-sm">${pos.name}</span>
+                <span class="font-bold text-white text-sm">${pos.name || pos.symbol}</span>
                 <span class="text-xs font-mono text-gray-400">${pos.contract}</span>
                 <span class="text-[10px] px-1.5 py-0.5 rounded font-bold ${dirBadge}">${pos.direction} ${pos.lots}手</span>
               </div>
@@ -630,7 +630,7 @@
         return `
           <tr class="hover:bg-gray-800/40 transition">
             <td class="py-2 px-3 font-sans">
-              <span class="font-bold text-gray-200">${t.name}</span>
+              <span class="font-bold text-gray-200">${t.name || t.symbol}</span>
               <span class="text-[11px] text-gray-500 ml-1 font-mono">${t.contract}</span>
             </td>
             <td class="py-2 px-2 font-semibold ${dirCol}">${t.direction}</td>
@@ -662,7 +662,7 @@
       if (list.length === 0 && globalData) {
         const active = (globalData.current_positions || []).map(p => ({
           symbol: p.symbol,
-          name: p.name,
+          name: p.name || p.symbol,
           contract: p.contract,
           direction: p.direction,
           lots: p.lots,
@@ -679,7 +679,7 @@
         }));
         const closed = (globalData.recent_trades || []).map(t => ({
           symbol: t.symbol,
-          name: t.name,
+          name: t.name || t.symbol,
           contract: t.contract,
           direction: t.direction,
           lots: t.lots,
@@ -764,7 +764,7 @@
           <tr class="hover:bg-gray-800/40 transition">
             <td class="py-2.5 px-3 text-gray-400 text-xs">${item.entry_date}</td>
             <td class="py-2.5 px-3 font-sans">
-              <span class="font-bold text-gray-200">${item.name}</span>
+              <span class="font-bold text-gray-200">${item.name || item.symbol}</span>
               <span class="text-[11px] text-gray-500 font-mono ml-1">${item.contract}</span>
               ${sectorStr}
             </td>

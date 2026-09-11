@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
   "updated_at": "2026-09-10",
-  "generated_time": "2026-09-10 11:40:05",
+  "generated_time": "2026-09-11 02:47:31",
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 982560.0,
@@ -38,7 +38,7 @@
     },
     {
       "symbol": "OI",
-      "name": null,
+      "name": "菜油",
       "contract": "OI701",
       "direction": "做空",
       "score": 2.6,
@@ -54,7 +54,7 @@
     },
     {
       "symbol": "FU",
-      "name": null,
+      "name": "燃料油",
       "contract": "FU2611",
       "direction": "做多",
       "score": 2.5,
