@@ -215,6 +215,46 @@
   }
   .emoji-item:hover{background:rgba(216,161,61,.2);color:var(--accent)}
 
+  /* ---------- Cue Ball Spin Controller (母球击球点 / 杆法调节器) ---------- */
+  .spin-ctrl-wrap{
+    position:absolute;bottom:14px;left:18px;
+    background:rgba(18,22,29,.9);border:1px solid var(--line);
+    border-radius:14px;padding:7px 10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;
+    z-index:15;backdrop-filter:blur(6px);box-shadow:0 8px 24px rgba(0,0,0,.5);
+    user-select:none;transition:border-color .2s;
+  }
+  .spin-ctrl-wrap:hover{border-color:var(--line-active)}
+  .spin-ctrl-head{display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px}
+  .spin-ctrl-title{font-size:10px;color:var(--muted);letter-spacing:.05em;font-weight:600}
+  .spin-reset-btn{
+    background:none;border:none;color:var(--accent);font-size:10px;cursor:pointer;padding:1px 5px;border-radius:4px;font-family:inherit;
+  }
+  .spin-reset-btn:hover{background:rgba(216,161,61,.18)}
+  .spin-ball-disc{
+    width:64px;height:64px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #ffffff 0%, #ece8de 40%, #c4beaf 85%, #9e988a 100%);
+    box-shadow:inset -3px -4px 6px rgba(0,0,0,.45), inset 3px 3px 5px rgba(255,255,255,.9), 0 4px 10px rgba(0,0,0,.5);
+    position:relative;cursor:crosshair;touch-action:none;
+  }
+  .spin-axis{position:absolute;background:rgba(0,0,0,.18);pointer-events:none}
+  .spin-axis-x{width:100%;height:1px;top:50%;left:0;transform:translateY(-50%)}
+  .spin-axis-y{height:100%;width:1px;left:50%;top:0;transform:translateX(-50%)}
+  .spin-circle-guide{
+    position:absolute;width:38px;height:38px;border-radius:50%;
+    border:1px dashed rgba(0,0,0,.2);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+  }
+  .spin-marker{
+    position:absolute;width:9px;height:9px;border-radius:50%;
+    background:#e23c28;box-shadow:0 0 5px rgba(226,60,40,.9), inset 1px 1px 2px rgba(255,255,255,.6);
+    top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+  }
+  .spin-label{position:absolute;font-size:8px;color:rgba(0,0,0,.35);font-weight:700;pointer-events:none}
+  .spin-label-top{top:3px;left:50%;transform:translateX(-50%)}
+  .spin-label-bottom{bottom:3px;left:50%;transform:translateX(-50%)}
+  .spin-label-left{left:4px;top:50%;transform:translateY(-50%)}
+  .spin-label-right{right:4px;top:50%;transform:translateY(-50%)}
+  .spin-desc{font-size:10px;color:var(--accent);font-weight:600;letter-spacing:.02em;white-space:nowrap}
+
   /* ---------- Footer ---------- */
   footer{
     display:flex;align-items:center;justify-content:space-between;
@@ -389,6 +429,25 @@
       </div>
 
       <div id="toasts"></div>
+
+      <!-- Cue Ball Spin / English Controller (母球击球点 / 杆法调节器) -->
+      <div class="spin-ctrl-wrap" id="spinCtrlWrap" title="点击或拖拽红点调整击球点（高杆/低杆/加塞）">
+        <div class="spin-ctrl-head">
+          <span class="spin-ctrl-title">击球点 · 杆法</span>
+          <button class="spin-reset-btn" id="spinResetBtn" title="点击重置为中杆">重置</button>
+        </div>
+        <div class="spin-ball-disc" id="spinBallDisc">
+          <div class="spin-axis spin-axis-x"></div>
+          <div class="spin-axis spin-axis-y"></div>
+          <div class="spin-circle-guide"></div>
+          <div class="spin-marker" id="spinMarker"></div>
+          <span class="spin-label spin-label-top">高</span>
+          <span class="spin-label spin-label-bottom">低</span>
+          <span class="spin-label spin-label-left">左</span>
+          <span class="spin-label spin-label-right">右</span>
+        </div>
+        <div class="spin-desc" id="spinDesc">中杆 · 定杆</div>
+      </div>
 
       <!-- In-Game Quick Emojis & Surrender Bar -->
       <div class="in-game-bar" id="inGameBar">
@@ -690,6 +749,98 @@ const netStatusText=document.getElementById('netStatusText');
 const userWidget=document.getElementById('userWidget');
 const surrenderBtn=document.getElementById('surrenderBtn');
 const emojiDrawer=document.getElementById('emojiDrawer');
+const spinCtrlWrap=document.getElementById('spinCtrlWrap');
+const spinBallDisc=document.getElementById('spinBallDisc');
+const spinMarker=document.getElementById('spinMarker');
+const spinDesc=document.getElementById('spinDesc');
+const spinResetBtn=document.getElementById('spinResetBtn');
+let spinOffset={x:0, y:0}; // x: -1 to 1 (left to right spin), y: -1 to 1 (backspin to topspin)
+
+// ---------- 母球击球点 / 杆法调节器 ----------
+function getSpinDescription(x, y){
+  const dist = Math.hypot(x, y);
+  if(dist < 0.12) return '中杆 · 定杆 (中规中矩)';
+  
+  let vText = '';
+  if(y > 0.22) vText = y > 0.65 ? '强力高杆 (强烈跟进)' : '高杆 (跟球推进)';
+  else if(y < -0.22) vText = y < -0.65 ? '强力低杆 (强烈倒吸/拉杆)' : '低杆 (拉杆/缩杆)';
+
+  let hText = '';
+  if(x < -0.22) hText = x < -0.65 ? '强力左塞' : '左塞 (顺库走位)';
+  else if(x > 0.22) hText = x > 0.65 ? '强力右塞' : '右塞 (顺库走位)';
+
+  if(vText && hText) return `${hText} + ${vText}`;
+  return vText || hText || '中杆 · 微调';
+}
+
+function updateSpinUI(s){
+  spinOffset = { x: clamp(s.x, -1, 1), y: clamp(s.y, -1, 1) };
+  const maxR = 23;
+  const px = 32 + spinOffset.x * maxR;
+  const py = 32 - spinOffset.y * maxR;
+  if(spinMarker){
+    spinMarker.style.left = px + 'px';
+    spinMarker.style.top = py + 'px';
+  }
+  if(spinDesc){
+    spinDesc.textContent = getSpinDescription(spinOffset.x, spinOffset.y);
+  }
+}
+
+function resetSpin(){
+  updateSpinUI({ x: 0, y: 0 });
+  if(gameMode === 'ONLINE' && wsConnected && cur === myPlayerIndex){
+    sendAimSyncThrottled(true);
+  }
+}
+
+function initSpinController(){
+  let isDraggingSpin = false;
+
+  function handleSpinPointer(clientX, clientY){
+    if(gameMode === 'ONLINE' && cur !== myPlayerIndex) return;
+    const rect = spinBallDisc.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    let dx = clientX - cx;
+    let dy = clientY - cy;
+    const maxR = 23;
+    const dist = Math.hypot(dx, dy);
+    if(dist > maxR){
+      dx = (dx / dist) * maxR;
+      dy = (dy / dist) * maxR;
+    }
+    const normX = dx / maxR;
+    const normY = -dy / maxR;
+    updateSpinUI({ x: normX, y: normY });
+    if(gameMode === 'ONLINE' && wsConnected && cur === myPlayerIndex){
+      sendAimSyncThrottled(true);
+    }
+  }
+
+  spinBallDisc.addEventListener('pointerdown', (e) => {
+    ensureAC();
+    isDraggingSpin = true;
+    spinBallDisc.setPointerCapture(e.pointerId);
+    handleSpinPointer(e.clientX, e.clientY);
+  });
+
+  spinBallDisc.addEventListener('pointermove', (e) => {
+    if(isDraggingSpin){
+      handleSpinPointer(e.clientX, e.clientY);
+    }
+  });
+
+  spinBallDisc.addEventListener('pointerup', (e) => {
+    if(isDraggingSpin){
+      isDraggingSpin = false;
+      try { spinBallDisc.releasePointerCapture(e.pointerId); } catch(err){}
+    }
+  });
+
+  spinBallDisc.addEventListener('dblclick', resetSpin);
+  spinResetBtn.addEventListener('click', resetSpin);
+}
 
 // ---------- 游戏状态机 ----------
 let balls=[];              // {id,x,y,vx,vy,active,inHand}
@@ -931,6 +1082,36 @@ function collideBalls(a,b){
     if(a.id===0) lastShot.firstHit=b.id;
     else if(b.id===0) lastShot.firstHit=a.id;
   }
+  // 母球杆法（高杆跟进 / 低杆拉杆 / 左右塞）碰撞物理响应
+  const isCueA = a.id === 0, isCueB = b.id === 0;
+  if((isCueA || isCueB) && lastShot && !lastShot.spinApplied){
+    lastShot.spinApplied = true;
+    const cue = isCueA ? a : b;
+    const sDir = cue.shotDir || aimDir;
+    const p = cue.shotPower != null ? cue.shotPower : 0.5;
+
+    // 1. 低杆 / 缩杆 / 拉杆 (spinY < -0.08)
+    if(cue.spinY < -0.08){
+      const drawForce = (-cue.spinY) * (380 + p * 860);
+      cue.vx -= sDir.x * drawForce;
+      cue.vy -= sDir.y * drawForce;
+      cue.spinY = 0;
+    }
+    // 2. 高杆 / 跟球推进 (spinY > 0.08)
+    else if(cue.spinY > 0.08){
+      const followForce = (cue.spinY) * (260 + p * 640);
+      cue.vx += sDir.x * followForce;
+      cue.vy += sDir.y * followForce;
+      cue.spinY = 0;
+    }
+
+    // 3. 左右塞侧向切线微调
+    if(Math.abs(cue.spinX || 0) > 0.1){
+      const sideForce = (cue.spinX) * (55 + p * 130);
+      cue.vx += -sDir.y * sideForce;
+      cue.vy += sDir.x * sideForce;
+    }
+  }
 }
 
 function railsAndPockets(b){
@@ -944,23 +1125,54 @@ function railsAndPockets(b){
     b.x=np.x;b.y=np.y;potBall(b);return;
   }
   const v=hyp(b.vx,b.vy);
+  // 左右塞碰库反弹角物理变化
+  const sKick = (b.id === 0 && b.spinX && Math.abs(b.spinX) > 0.05) ? (b.spinX * (190 + v * 0.25)) : 0;
+
   if(b.y-R<T){
     const sideZone=Math.abs(b.x-CXM)<SIDE_MOUTH;
     const cornerZone=b.x<L+CORNER_MOUTH||b.x>Rt-CORNER_MOUTH;
-    if(!sideZone&&!cornerZone){b.y=T+R;if(b.vy<0){b.vy=-b.vy*CUSH_E;if(v>60)sndCush(v);}}
+    if(!sideZone&&!cornerZone){
+      b.y=T+R;
+      if(b.vy<0){
+        b.vy=-b.vy*CUSH_E;
+        if(sKick){ b.vx += sKick; b.spinX *= 0.55; }
+        if(v>60)sndCush(v);
+      }
+    }
   }
   if(b.y+R>B){
     const sideZone=Math.abs(b.x-CXM)<SIDE_MOUTH;
     const cornerZone=b.x<L+CORNER_MOUTH||b.x>Rt-CORNER_MOUTH;
-    if(!sideZone&&!cornerZone){b.y=B-R;if(b.vy>0){b.vy=-b.vy*CUSH_E;if(v>60)sndCush(v);}}
+    if(!sideZone&&!cornerZone){
+      b.y=B-R;
+      if(b.vy>0){
+        b.vy=-b.vy*CUSH_E;
+        if(sKick){ b.vx -= sKick; b.spinX *= 0.55; }
+        if(v>60)sndCush(v);
+      }
+    }
   }
   if(b.x-R<L){
     const cornerZone=b.y<T+CORNER_MOUTH||b.y>B-CORNER_MOUTH;
-    if(!cornerZone){b.x=L+R;if(b.vx<0){b.vx=-b.vx*CUSH_E;if(v>60)sndCush(v);}}
+    if(!cornerZone){
+      b.x=L+R;
+      if(b.vx<0){
+        b.vx=-b.vx*CUSH_E;
+        if(sKick){ b.vy -= sKick; b.spinX *= 0.55; }
+        if(v>60)sndCush(v);
+      }
+    }
   }
   if(b.x+R>Rt){
     const cornerZone=b.y<T+CORNER_MOUTH||b.y>B-CORNER_MOUTH;
-    if(!cornerZone){b.x=Rt-R;if(b.vx>0){b.vx=-b.vx*CUSH_E;if(v>60)sndCush(v);}}
+    if(!cornerZone){
+      b.x=Rt-R;
+      if(b.vx>0){
+        b.vx=-b.vx*CUSH_E;
+        if(sKick){ b.vy += sKick; b.spinX *= 0.55; }
+        if(v>60)sndCush(v);
+      }
+    }
   }
 }
 
@@ -991,12 +1203,18 @@ function physStep(dt){
 function allStopped(){return balls.every(b=>!b.active||(b.vx===0&&b.vy===0));}
 
 // ---------- 击球触发与动画 ----------
-function applyShot(cue,dir,p){
+function applyShot(cue,dir,p,spin = null){
   const v=MIN_V+p*(MAX_V-MIN_V);
   cue.vx=dir.x*v; cue.vy=dir.y*v;
+  const s = spin || spinOffset;
+  cue.spinX = s.x || 0;
+  cue.spinY = s.y || 0;
+  cue.shotDir = { ...dir };
+  cue.shotPower = p;
   lastShot={
     firstHit:null, potted:[], isBreak:shotCount===0,
     clearedBefore: players[cur].group ? remaining(players[cur].group)===0 : false,
+    spinApplied: false
   };
   shotCount++;
   state='ROLLING';
@@ -1347,6 +1565,28 @@ function drawGuide(){
       ctx.stroke();
       ctx.setLineDash([]);
     }
+    // 杆法走位轨迹预测（低杆倒吸 / 高杆跟进）
+    if(spinOffset.y < -0.15){
+      const drawLen = (-spinOffset.y) * 50;
+      ctx.strokeStyle='rgba(228,101,75,.85)';
+      ctx.lineWidth=2.2;
+      ctx.setLineDash([3,4]);
+      ctx.beginPath();
+      ctx.moveTo(hit.x,hit.y);
+      ctx.lineTo(hit.x - aimDir.x * drawLen, hit.y - aimDir.y * drawLen);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    } else if(spinOffset.y > 0.15){
+      const followLen = spinOffset.y * 50;
+      ctx.strokeStyle='rgba(78,184,120,.85)';
+      ctx.lineWidth=2.2;
+      ctx.setLineDash([3,4]);
+      ctx.beginPath();
+      ctx.moveTo(hit.x,hit.y);
+      ctx.lineTo(hit.x + aimDir.x * followLen, hit.y + aimDir.y * followLen);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
   }else{
     ctx.strokeStyle='rgba(255,255,255,.35)';
     ctx.lineWidth=2;
@@ -1420,7 +1660,7 @@ function frame(now){
     if(tt>=1){
       const a=strikeAnim;
       strikeAnim=null;
-      applyShot(balls[0],a.dir,a.p);
+      applyShot(balls[0],a.dir,a.p,a.spin);
     }
   }
   for(let i=dropAnims.length-1;i>=0;i--){
@@ -1527,12 +1767,14 @@ function sendAimSyncThrottled(force = false){
     type: 'AIM_SYNC',
     dir: aimDir,
     target: aimTarget,
-    power: state === 'CHARGE' ? power : 0
+    power: state === 'CHARGE' ? power : 0,
+    spin: spinOffset
   }));
 }
 
-function beginStrike(dir, p){
-  strikeAnim={from:14+p*110,t:0,dir:{...dir},p};
+function beginStrike(dir, p, spin = null){
+  const activeSpin = spin || spinOffset;
+  strikeAnim={from:14+p*110,t:0,dir:{...dir},p,spin:activeSpin};
   state='STRIKE';
   // Send to opponent
   if(gameMode === 'ONLINE' && cur === myPlayerIndex && wsConnected){
@@ -1541,7 +1783,8 @@ function beginStrike(dir, p){
       dir,
       power: p,
       cuePos: { x: balls[0].x, y: balls[0].y },
-      balls: balls.map(b => ({ id: b.id, x: b.x, y: b.y, active: b.active }))
+      balls: balls.map(b => ({ id: b.id, x: b.x, y: b.y, active: b.active })),
+      spin: activeSpin
     }));
   }
 }
@@ -1558,6 +1801,7 @@ function startLocalGame(){
   lastShot = null; strikeAnim = null; power = 0; chargeStart = null;
   dropAnims = [];
   buildBalls();
+  resetSpin();
   state = 'AIM';
   surrenderBtn.style.display = 'none';
   resetTurnTimer(45);
@@ -1724,6 +1968,9 @@ function handleServerMessage(msg){
       aimDir = msg.dir;
       aimTarget = msg.target;
       power = msg.power || 0;
+      if(msg.spin){
+        updateSpinUI(msg.spin);
+      }
       if(power > 0){
         state = 'CHARGE';
         powerBar.classList.add('show');
@@ -1758,7 +2005,10 @@ function handleServerMessage(msg){
       powerBar.classList.remove('show');
       aimDir = msg.dir;
       power = msg.power;
-      beginStrike(msg.dir, msg.power);
+      if(msg.spin){
+        updateSpinUI(msg.spin);
+      }
+      beginStrike(msg.dir, msg.power, msg.spin);
     }
     return;
   }
@@ -1860,6 +2110,7 @@ function setupOnlineGame(room, p1User, p2User, turn = 0){
   dropAnims = [];
 
   buildBalls();
+  resetSpin();
   state = 'AIM';
   surrenderBtn.style.display = 'inline-flex';
   resetTurnTimer(45);
@@ -2256,6 +2507,7 @@ bg=makeBackground();
 buildBalls();
 updateHUD();
 renderMute();
+initSpinController();
 
 // Connect server & check user session
 connectWebSocket();
