@@ -175,7 +175,7 @@
                 <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs font-bold border border-indigo-500/30">2</span>
                 <h3 class="font-semibold text-white text-base">挑选头像风格</h3>
               </div>
-              <span class="text-xs text-slate-400">7 款画风</span>
+              <span class="text-xs text-slate-400">8 款精选画风</span>
             </div>
 
             <!-- Style Grid -->
@@ -191,12 +191,17 @@
               >
                 <div class="flex items-center justify-between mb-1.5">
                   <span class="text-2xl">{{ s.icon }}</span>
-                  <span 
-                    v-if="selectedStyle === s.id" 
-                    class="w-4 h-4 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]"
-                  >
-                    ✓
-                  </span>
+                  <div class="flex items-center space-x-1">
+                    <span v-if="s.badge" class="px-1.5 py-0.5 text-[10px] rounded bg-indigo-500/20 text-indigo-300 font-medium border border-indigo-500/30">
+                      {{ s.badge }}
+                    </span>
+                    <span 
+                      v-if="selectedStyle === s.id" 
+                      class="w-4 h-4 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]"
+                    >
+                      ✓
+                    </span>
+                  </div>
                 </div>
                 <div>
                   <div class="font-bold text-sm text-slate-100">{{ s.name }}</div>
@@ -470,7 +475,7 @@
         const dragOver = ref(false);
         const fileInput = ref(null);
 
-        const selectedStyle = ref("shinkai");
+        const selectedStyle = ref("sketch");
         const gender = ref("auto");
         const expression = ref("auto");
         const customNotes = ref("");
@@ -486,15 +491,16 @@
 
         const toast = ref({ show: false, message: "", type: "info" });
 
-        // 7 Curated Styles
+        // 8 Curated Styles
         const styles = [
-          { id: "shinkai", name: "新海诚唯美风", icon: "🌸", desc: "唯美光影与通透蓝天，保留五官神态" },
-          { id: "anime", name: "经典日漫肖像", icon: "🎨", desc: "清爽日漫赛璐璐，线条自然生动" },
-          { id: "ghibli", name: "吉卜力水彩风", icon: "🍃", desc: "宫崎骏手绘复古水彩质感，温暖亲切" },
-          { id: "pixar", name: "皮克斯 3D 萌化", icon: "🧸", desc: "圆润柔光萌系、明亮大眼、年轻活力" },
-          { id: "vintage", name: "美式复古波普", icon: "💥", desc: "经典潮漫海报，活力自信帅气" },
-          { id: "cyberpunk", name: "赛博朋克漫风", icon: "⚡", desc: "霓虹发光科技机能感，酷炫未来" },
-          { id: "lineart", name: "黑白热血线稿", icon: "✒️", desc: "少年 JUMP 分镜，利落清爽线稿" }
+          { id: "sketch", name: "艺术黑白素描", icon: "✏️", badge: "精选推荐", desc: "纯正铅笔素描排线与明暗纸感，100%保留神态，细节惊艳" },
+          { id: "color_sketch", name: "唯美彩铅淡彩", icon: "🖍️", badge: "彩铅手绘", desc: "彩色铅笔细腻手绘笔触，淡彩纸张颗粒质感，保留原容" },
+          { id: "watercolor", name: "吉卜力水彩风", icon: "🍃", badge: "水彩插画", desc: "纯正手绘水彩插画，柔和色彩晕染与自然手绘边缘" },
+          { id: "anime", name: "经典日漫肖像", icon: "🎨", badge: "日漫赛璐璐", desc: "清爽日漫赛璐璐动漫勾线，自然减龄，忠实脸型骨相" },
+          { id: "pixar", name: "皮克斯 3D 萌化", icon: "🧸", badge: "3D 角色", desc: "圆润柔光萌系、明亮大眼、年轻活力、柔滑质感" },
+          { id: "vintage", name: "美式复古波普", icon: "💥", badge: "复古潮流", desc: "经典复古潮漫海报，自信英气，鲜明波普撞色" },
+          { id: "cyberpunk", name: "赛博朋克漫风", icon: "⚡", badge: "科幻机能", desc: "霓虹发光科技机能感，酷炫未来科幻主角" },
+          { id: "lineart", name: "黑白热血线稿", icon: "✒️", badge: "热血分镜", desc: "少年 JUMP 经典分镜，清爽利落的主角黑白墨线" }
         ];
 
         const genderOptions = [
