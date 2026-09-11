@@ -209,6 +209,22 @@ export const App: React.FC = () => {
     showToast(`已载入「${sample.docType}」配套范文：《${sample.title}》`);
   };
 
+  // Clear draft & annotations
+  const handleClearDraft = () => {
+    if (!draft.trim() && annotations.length === 0) {
+      showToast('左侧文稿已为空');
+      return;
+    }
+    if (window.confirm('确定要清空左侧文稿与所有批注吗？清空后可重新输入或导入新文稿。')) {
+      setDraft('');
+      setAnnotations([]);
+      setRevisedText('');
+      setRound(1);
+      setSelectedTextareaQuote(null);
+      showToast('已清空草稿与所有批注');
+    }
+  };
+
   // Trigger pinpoint modal from text selection
   const handleAddAnnotationForQuote = (quote: string) => {
     let defaultTag = '措辞规范';
@@ -725,6 +741,16 @@ export const App: React.FC = () => {
                   </div>
                 )}
               </div>
+
+              {/* Clear Draft Button */}
+              <button
+                onClick={handleClearDraft}
+                className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 font-medium transition"
+                title="清空当前草稿与所有批注"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>清空</span>
+              </button>
 
               {/* Mode Toggle Tabs */}
               <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
