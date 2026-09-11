@@ -168,6 +168,15 @@ aside: false
         <div class="flink-item-desc">党政公文规范与小说文学创作工作台：顶部设定总指令，草稿划选实现精确顶点修改，AI智能审校建言，支持 Word/Markdown 导入与成文回传多轮迭代。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/tools/edge-tts/" title="语音智坊 · 神经语音合成工坊" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:mic.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="语音智坊">
+        </div>
+        <div class="flink-item-name">语音智坊 (Edge-TTS)</div>
+        <div class="flink-item-desc">免费、无限量的微软高品质神经语音合成工具：支持多种音色（晓晓、云扬、云希、粤语、台湾话等），支持语速无级微调与超长文本一键一键转换高质MP3。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多实用工具卡片 -->
   </div>
 </div>

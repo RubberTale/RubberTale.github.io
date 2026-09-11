@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音智坊 (Edge-TTS) | 橡胶童话</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-gradient { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); transition: all 0.3s ease; }
+        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4); }
+        .btn-gradient:active { transform: translateY(0); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-slate-200 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-2xl w-full glass rounded-3xl p-8 shadow-2xl">
+        <!-- Header -->
+        <div class="flex items-center space-x-4 mb-8">
+            <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/20">
+                <i class="fas fa-microphone-lines text-2xl text-white"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">语音智坊</h1>
+                <p class="text-slate-400 text-sm">利用 Microsoft Edge TTS 生成高品质神经语音</p>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-slate-400 mb-2">输入文字 (最多 5000 字)</label>
+                <textarea id="textInput" rows="6" 
+                    class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl p-4 text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all custom-scrollbar"
+                    placeholder="请输入您想要转换成语音的文字..."></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">选择音色</label>
+                    <select id="voiceSelect" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none cursor-pointer">
+                        <option value="zh-CN-XiaoxiaoNeural">晓晓 (女声, 温暖)</option>
+                        <option value="zh-CN-YunyangNeural">云扬 (男声, 专业)</option>
+                        <option value="zh-CN-YunxiNeural">云希 (男声, 阳光)</option>
+                        <option value="zh-CN-XiaoyiNeural">晓伊 (女声, 俏皮)</option>
+                        <option value="zh-CN-YunjianNeural">云健 (男声, 稳重)</option>
+                        <option value="zh-CN-XiaobeiNeural">小北 (女声, 东北方言)</option>
+                        <option value="zh-CN-XiaoniNeural">小妮 (女声, 陕西方言)</option>
+                        <option value="zh-HK-HiuGaaiNeural">晓佳 (女声, 粤语)</option>
+                        <option value="zh-TW-HsiaoChenNeural">晓臻 (女声, 台湾普通话)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">语速调节</label>
+                    <div class="flex items-center space-x-4 h-[50px]">
+                        <input type="range" id="rateSlider" min="-50" max="50" value="0" class="flex-1 accent-blue-500 cursor-pointer">
+                        <span id="rateValue" class="text-xs font-mono text-slate-400 w-8">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button id="generateBtn" class="w-full btn-gradient py-4 rounded-2xl font-bold text-white shadow-xl flex items-center justify-center space-x-2">
+                <i class="fas fa-play"></i>
+                <span>立即合成</span>
+            </button>
+
+            <!-- Result Section -->
+            <div id="resultBox" class="hidden space-y-4 pt-4 border-t border-slate-800">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-slate-400">生成结果</span>
+                    <a id="downloadBtn" href="#" download="speech.mp3" class="text-xs text-blue-400 hover:text-blue-300 transition-colors">
+                        <i class="fas fa-download mr-1"></i> 下载音频
+                    </a>
+                </div>
+                <audio id="audioPlayer" controls class="w-full h-12 filter invert"></audio>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="mt-8 text-center text-xs text-slate-500 italic">
+            * 语音合成由 Andy 部署的后端服务驱动
+        </div>
+    </div>
+
+    <script>
+        const textInput = document.getElementById('textInput');
+        const voiceSelect = document.getElementById('voiceSelect');
+        const rateSlider = document.getElementById('rateSlider');
+        const rateValue = document.getElementById('rateValue');
+        const generateBtn = document.getElementById('generateBtn');
+        const resultBox = document.getElementById('resultBox');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Update rate label
+        rateSlider.addEventListener('input', () => {
+            const val = rateSlider.value;
+            rateValue.textContent = (val >= 0 ? '+' : '') + val + '%';
+        });
+
+        generateBtn.addEventListener('click', async () => {
+            const text = textInput.value.trim();
+            if (!text) {
+                alert('请输入文字内容');
+                return;
+            }
+
+            // UI Feedback
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>合成中...</span>';
+            resultBox.classList.add('hidden');
+
+            const rateStr = (parseInt(rateSlider.value) >= 0 ? '+' : '') + rateSlider.value + '%';
+            
+            try {
+                // Determine API URL based on current host
+                // Assuming the backend is mapped to /api/tts via cloudflared or nginx
+                // Or calling the server port directly if it's open (e.g. 8092)
+                const apiUrl = '/api/tts'; // Using relative path, which should be proxied by blog server
+
+                const response = await fetch('http://andy.freellmapi.com:8092/api/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: text,
+                        voice: voiceSelect.value,
+                        rate: rateStr
+                    })
+                });
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error || '合成失败');
+                }
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                
+                audioPlayer.src = url;
+                downloadBtn.href = url;
+                resultBox.classList.remove('hidden');
+                audioPlayer.play();
+                
+            } catch (err) {
+                console.error(err);
+                alert('语音合成失败: ' + err.message);
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '<i class="fas fa-play"></i><span>立即合成</span>';
+            }
+        });
+    </script>
+</body>
+</html>

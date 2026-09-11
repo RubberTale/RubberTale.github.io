@@ -47,6 +47,7 @@ menu:
     智能简历工坊: /tools/resume/ || fas fa-file-alt
     文本倒序转换: /tools/reverse-app/ || fas fa-repeat
     AI写真工坊: /tools/pic-6varieties/ || fas fa-camera
+    语音智坊 (TTS): /tools/edge-tts/ || fas fa-microphone-alt
     AI漫画头像: /tools/comic-avatar/ || fas fa-magic
     奇货可查: https://qhkch.com/ || fas fa-chart-line
   # ...其他你不需要的可以在前面加 # 注释掉

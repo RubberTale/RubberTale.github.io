@@ -1,4 +1,72 @@
 top:
+  - class_name: card-edge-tts
+    id_name: card-edge-tts
+    icon: fas fa-microphone-lines
+    name: 语音智坊 (TTS) 快捷工具
+    html: |
+      <div class="edge-tts-widget" style="font-size: 0.84rem; line-height: 1.55;">
+        <div style="margin-bottom: 8px;">
+          <textarea id="widget-tts-text" style="width: 100%; height: 75px; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 6px; padding: 6px 8px; font-size: 0.8rem; outline: none; resize: none; color: inherit;" placeholder="填入文字，快速生成语音..."></textarea>
+        </div>
+        <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+          <select id="widget-tts-voice" style="flex: 1; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 4px; padding: 4px; font-size: 0.76rem; color: inherit; outline: none; cursor: pointer;">
+            <option value="zh-CN-XiaoxiaoNeural">晓晓 (标准女声)</option>
+            <option value="zh-CN-YunyangNeural" selected>云扬 (专业男声)</option>
+            <option value="zh-CN-YunxiNeural">云希 (阳光男声)</option>
+            <option value="zh-CN-XiaoyiNeural">晓伊 (俏皮女声)</option>
+          </select>
+          <button id="widget-tts-btn" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #fff; border: none; border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;" onclick="generateWidgetTTS()">合成</button>
+        </div>
+        <div id="widget-tts-audio-container" style="display: none; margin-top: 6px; border-top: 1px solid rgba(128, 128, 128, 0.15); padding-top: 6px;">
+          <audio id="widget-tts-audio" controls style="width: 100%; height: 30px; outline: none;" class="filter-invert"></audio>
+        </div>
+        <script>
+          async function generateWidgetTTS() {
+            const text = document.getElementById('widget-tts-text').value.trim();
+            const voice = document.getElementById('widget-tts-voice').value;
+            const btn = document.getElementById('widget-tts-btn');
+            
+            if (!text) {
+              alert('请输入要合成的文本');
+              return;
+            }
+            
+            btn.disabled = true;
+            btn.textContent = '合成中...';
+            btn.style.opacity = '0.7';
+            
+            try {
+              const response = await fetch('http://andy.freellmapi.com:8092/api/tts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, voice })
+              });
+              
+              if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error || '合成错误');
+              }
+              
+              const blob = await response.blob();
+              const url = URL.createObjectURL(blob);
+              
+              const audio = document.getElementById('widget-tts-audio');
+              audio.src = url;
+              
+              document.getElementById('widget-tts-audio-container').style.display = 'block';
+              audio.play();
+            } catch (err) {
+              console.error(err);
+              alert('语音合成失败: ' + err.message);
+            } finally {
+              btn.disabled = false;
+              btn.textContent = '合成';
+              btn.style.opacity = '1';
+            }
+          }
+        </script>
+      </div>
+
   - class_name: card-weather-summary
     id_name: card-weather-summary
     icon: fas fa-cloud-sun-rain
