@@ -11,12 +11,12 @@ export const ExportHexoModal: React.FC<Props> = ({ isOpen, onClose, content }) =
   if (!isOpen) return null;
 
   // Infer a title from the first heading if available
-  const detectedTitle = content.match(/^#\s+(.+)$/m)?.[1]?.trim() || '未命名规范公文';
+  const detectedTitle = content.match(/^#\s+(.+)$/m)?.[1]?.trim() || '未命名文章';
   const cleanBody = content.replace(/^#\s+.+$/m, '').trim();
 
   const [title, setTitle] = useState(detectedTitle);
-  const [tags, setTags] = useState('公文写作, 机关规章, 规范化');
-  const [category, setCategory] = useState('公文工作台');
+  const [tags, setTags] = useState('文章写作, 文本精修, 优质创作');
+  const [category, setCategory] = useState('写作工作台');
   const [copied, setCopied] = useState(false);
 
   // Format today's date
@@ -75,7 +75,7 @@ ${cleanBody}`;
         {/* Form Body */}
         <div className="p-6 space-y-4 overflow-y-auto flex-1">
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1.5">公文文章标题 (title)</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">文章标题 (title)</label>
             <input
               type="text"
               value={title}

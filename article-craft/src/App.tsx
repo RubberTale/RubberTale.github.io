@@ -41,14 +41,27 @@ import { AnnotatedDraftView } from './components/AnnotatedDraftView';
 export const App: React.FC = () => {
   // Global Prompt
   const [globalPrompt, setGlobalPrompt] = useState<string>(
-    '这是一份市级直属机关发给下属各区县局的正式公文。要求主旨明确、措辞严谨、条理清晰，严格遵循国家党政公文格式标准（一、 (一) 1. (1)），坚决落实精准批注，彻底消除初稿中的口语化表达。'
+    EXAMPLE_DRAFTS[0]?.globalPrompt || '这是一份正式文稿。要求主旨明确、措辞严谨、条理清晰，严格遵循行文体例规范，坚决落实精准批注，彻底消除初稿中的瑕疵与口语化表达。'
   );
   const [selectedPresetId, setSelectedPresetId] = useState<string>('notice');
+
+  // Genre helpers
+  const isNovel = selectedPresetId === 'novel';
+  const isClassicPoem = selectedPresetId === 'classic-poem';
+  const isModernPoem = selectedPresetId === 'modern-poem';
+  const isPoetry = isClassicPoem || isModernPoem;
+
+  const getDocTypeLabel = () => {
+    if (isNovel) return '小说故事';
+    if (isClassicPoem) return '古典诗词';
+    if (isModernPoem) return '现代诗歌';
+    return '文章';
+  };
 
   // Draft and Round
   const [draft, setDraft] = useState<string>(EXAMPLE_DRAFTS[0].content);
   const [round, setRound] = useState<number>(1);
-  const [draftMode, setDraftMode] = useState<'edit' | 'preview'>('edit');
+  const [draftMode, setDraftMode] = useState<'edit' | 'preview' | 'annotated'>('edit');
   const [selectedTextareaQuote, setSelectedTextareaQuote] = useState<string | null>(null);
 
   // Pinpoint Annotations
@@ -198,10 +211,15 @@ export const App: React.FC = () => {
 
   // Trigger pinpoint modal from text selection
   const handleAddAnnotationForQuote = (quote: string) => {
+    let defaultTag = '措辞规范';
+    if (isNovel) defaultTag = '细节刻画';
+    else if (isClassicPoem) defaultTag = '炼字推敲';
+    else if (isModernPoem) defaultTag = '意象淬炼';
+
     setEditingAnnotation({
       quote,
       comment: '',
-      tag: selectedPresetId === 'novel' ? '细节刻画' : '措辞规范'
+      tag: defaultTag
     });
     setPinpointModalOpen(true);
   };
@@ -257,28 +275,40 @@ export const App: React.FC = () => {
   // AI Suggest Annotations
   const handleAISuggestAnnotations = async () => {
     if (!draft.trim()) {
-      showToast(selectedPresetId === 'novel' ? '请先输入或粘贴故事草稿' : '请先输入或粘贴公文草稿');
+      showToast(`请先输入或粘贴${getDocTypeLabel()}草稿`);
       return;
     }
 
-    const isNovel = selectedPresetId === 'novel';
     setIsSuggesting(true);
-    showToast(isNovel ? '🤖 AI 文学顾问正在通读故事并挖掘细节优化点...' : '🤖 AI 公文专家正在通读草稿并标出瑕疵...');
+    showToast(
+      isNovel
+        ? '🤖 AI 文学顾问正在通读故事并挖掘细节优化点...'
+        : isClassicPoem
+        ? '🤖 AI 诗词名家正在审度平仄声律并推敲炼字...'
+        : isModernPoem
+        ? '🤖 AI 诗人正在通读诗作并淬炼意象张力...'
+        : '🤖 AI 文章专家正在通读草稿并标出瑕疵与修改建议...'
+    );
 
     try {
       const suggestions = await fetchSuggestedAnnotations(globalPrompt, draft, selectedPresetId);
       if (suggestions && suggestions.length > 0) {
+        let fallbackTag = '措辞规范';
+        if (isNovel) fallbackTag = '细节刻画';
+        else if (isClassicPoem) fallbackTag = '炼字推敲';
+        else if (isModernPoem) fallbackTag = '意象淬炼';
+
         const newItems: PinpointAnnotation[] = suggestions.map((s, idx) => ({
           id: `ai-sug-${Date.now()}-${idx}`,
           quote: s.quote,
           comment: s.comment,
-          tag: s.tag || (isNovel ? '细节刻画' : '公文规范'),
+          tag: s.tag || fallbackTag,
           enabled: true
         }));
         setAnnotations((prev) => [...newItems, ...prev]);
-        showToast(isNovel ? `✨ 成功生成 ${suggestions.length} 处文学润色与细节建言！` : `✨ 成功生成 ${suggestions.length} 处公文精确审校批注！`);
+        showToast(`✨ 成功生成 ${suggestions.length} 处${getDocTypeLabel()}精准修改建言！`);
       } else {
-        showToast(isNovel ? '草稿叙事与画面感良好，未发现显著需修改处' : '草稿整体规范度较高，未发现显著需修改处');
+        showToast(`草稿整体质量良好，未发现显著需修改处`);
       }
     } catch (err: any) {
       showToast('生成建议失败: ' + err.message);
@@ -302,7 +332,6 @@ export const App: React.FC = () => {
       return;
     }
 
-    const isNovel = selectedPresetId === 'novel';
     setIsGenerating(true);
     setRevisedText('');
     setViewMode('preview');
@@ -323,7 +352,7 @@ export const App: React.FC = () => {
         },
         onDone: () => {
           setIsGenerating(false);
-          showToast(`🎉 第 ${round} 轮${isNovel ? '文学故事' : '公文'}精修完成！`);
+          showToast(`🎉 第 ${round} 轮${getDocTypeLabel()}精修完成！`);
         },
         onError: (err) => {
           setIsGenerating(false);
@@ -353,7 +382,6 @@ export const App: React.FC = () => {
       showToast('当前无有效批注，将为您严格保留全文呈现于右侧。您也可随时在草稿中划选文字添加批注！');
     }
 
-    const isNovel = selectedPresetId === 'novel';
     setIsGenerating(true);
     setRevisedText('');
     setViewMode('preview');
@@ -370,7 +398,9 @@ export const App: React.FC = () => {
 
     const surgicalInstruction = isNovel
       ? '请完全根据左侧提供的小说故事原文，结合文中所列的批注提示词进行修改。批注提示词没有涉及的部分，全部100%原样保留原文；批注提示词涉及的部分，严格按照要求修改。'
-      : '请完全根据左侧提供的公文草稿原文，结合文中所列的批注提示词进行修改。批注提示词没有涉及的部分，全部100%原样保留原文；批注提示词涉及的部分，严格按照要求修改。';
+      : isPoetry
+      ? '请完全根据左侧提供的诗词草稿原文，结合文中所列的批注提示词进行修改。批注提示词没有涉及的部分，全部100%原样保留原有诗句与排版；批注提示词涉及的部分，严格按照要求精修改进。'
+      : '请完全根据左侧提供的文章草稿原文，结合文中所列的批注提示词进行修改。批注提示词没有涉及的部分，全部100%原样保留原文；批注提示词涉及的部分，严格按照要求修改。';
 
     await streamOfficialDocument(
       {
@@ -415,18 +445,17 @@ export const App: React.FC = () => {
     navigator.clipboard.writeText(revisedText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-    showToast(selectedPresetId === 'novel' ? '故事全文已复制到剪贴板' : '公文全文已复制到剪贴板');
+    showToast(`${getDocTypeLabel()}全文已复制到剪贴板`);
   };
 
   // Download md
   const handleDownloadMd = () => {
     if (!revisedText) return;
-    const isNovel = selectedPresetId === 'novel';
     const blob = new Blob([revisedText], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${isNovel ? '文学故事精修稿' : '公文精修稿'}_V${round}.md`;
+    a.download = `${getDocTypeLabel()}精修稿_V${round}.md`;
     a.click();
     URL.revokeObjectURL(url);
     showToast('已下载 Markdown 文档');
@@ -457,12 +486,18 @@ export const App: React.FC = () => {
           </a>
           <span className="text-slate-700">/</span>
           <div className="flex items-center gap-2">
-            <span className="text-lg">{selectedPresetId === 'novel' ? '📖' : '🏛️'}</span>
+            <span className="text-lg">
+              {selectedPresetId === 'novel' ? '📖' : isPoetry ? '🖋️' : '📝'}
+            </span>
             <span className="font-bold text-sm sm:text-base text-white tracking-tight">
-              WriteBuddy · {selectedPresetId === 'novel' ? '灵作笔友' : '公文智匠'}
+              WriteBuddy · {selectedPresetId === 'novel' ? '灵作笔友' : isPoetry ? '诗韵笔友' : '妙笔智匠'}
             </span>
             <span className="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">
-              {selectedPresetId === 'novel' ? '小说文学精修 · 精确顶点批注' : '党政公文规范 · 精确顶点审校'}
+              {selectedPresetId === 'novel'
+                ? '小说文学精修 · 精确顶点批注'
+                : isPoetry
+                ? '诗词格律精炼 · 精确炼字推敲'
+                : '全品类文章写作精修 · 外科手术式修改'}
             </span>
           </div>
         </div>
@@ -492,12 +527,16 @@ export const App: React.FC = () => {
                   <span>
                     {selectedPresetId === 'novel'
                       ? '📖 顶部小说/文学创作总指令 (Prompt)'
-                      : '📝 顶部公文总提示词 / 发文总指令 (Prompt)'}
+                      : isPoetry
+                      ? '🖋️ 顶部诗词创作与推敲总指令 (Prompt)'
+                      : '📝 顶部文章总提示词 / 写作总指令 (Prompt)'}
                   </span>
                   <span className="text-[10px] text-blue-400 font-normal">
                     {selectedPresetId === 'novel'
                       ? '(统领故事主旨、文风基调、叙事视角与节奏)'
-                      : '(统领全篇行文格局与政策导向)'}
+                      : isPoetry
+                      ? '(统领诗词格律、韵调、意象与炼字取向)'
+                      : '(统领全篇文章主旨、文风基调与逻辑架构)'}
                   </span>
                 </h2>
               </div>
@@ -559,7 +598,11 @@ export const App: React.FC = () => {
                 placeholder={
                   selectedPresetId === 'novel'
                     ? '在此输入小说创作指令（如：故事基调、悬疑节奏、白描与感官细节要求、人物口吻风格、特定叙事视角等）...'
-                    : '在此输入顶层公文提示词（如：发文文种、核心主旨、发文机关层级、重点解决的堵点问题、行文口吻等）...'
+                    : isClassicPoem
+                    ? '在此输入古典诗词推敲指令（如：韵部声律、平仄协调、对仗工稳、炼字取向、高远意境等）...'
+                    : isModernPoem
+                    ? '在此输入现代诗创作指令（如：意象淬炼、语言张力、隐喻与陌生化、情感克制与留白等）...'
+                    : '在此输入顶层文章提示词（如：文章类型、核心主旨、目标受众、重点论据、行文口吻与逻辑架构等）...'
                 }
                 className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs md:text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-blue-500/70 transition leading-relaxed resize-none font-sans"
               />
@@ -582,7 +625,11 @@ export const App: React.FC = () => {
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  <span>🚀 按照总提示词与精确批注一键精修成文</span>
+                  <span>
+                    {preserveOriginal
+                      ? '🎯 按照总提示词与精确批注一键精准生文 (严格保留未改处)'
+                      : `⚡ 按照总提示词与批注通篇重构${getDocTypeLabel()}`}
+                  </span>
                 </>
               )}
             </button>
@@ -679,7 +726,7 @@ export const App: React.FC = () => {
                 )}
               </div>
 
-              {/* Mode Toggle */}
+              {/* Mode Toggle Tabs */}
               <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
                 <button
                   onClick={() => setDraftMode('edit')}
@@ -691,7 +738,7 @@ export const App: React.FC = () => {
                   title="实时编辑模式：直接在左侧修改文字，修改后即视同最新原文"
                 >
                   <Edit3 className="w-3 h-3" />
-                  <span>实时编辑 (视同原文)</span>
+                  <span>实时编辑</span>
                 </button>
                 <button
                   onClick={() => setDraftMode('preview')}
@@ -700,9 +747,21 @@ export const App: React.FC = () => {
                       ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
-                  title="批注高亮对照视图：直观查看已设批注的黄色高亮与序号标记"
+                  title="排版预览模式：优雅呈现 Markdown 标题、排版与段落效果"
                 >
                   <Eye className="w-3 h-3" />
+                  <span>排版预览</span>
+                </button>
+                <button
+                  onClick={() => setDraftMode('annotated')}
+                  className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
+                    draftMode === 'annotated'
+                      ? 'bg-blue-600 text-white shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                  title="批注对照模式：直观查看已设批注的黄色高亮与序号标记"
+                >
+                  <BookmarkPlus className="w-3 h-3" />
                   <span>批注对照</span>
                 </button>
               </div>
@@ -728,10 +787,20 @@ export const App: React.FC = () => {
             <div className="px-3.5 py-1.5 bg-slate-950/80 border-b border-slate-800/80 flex items-center justify-between text-[11px] select-none">
               <span className="flex items-center gap-1.5 text-slate-300 font-medium">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>左侧实时编辑区 · 任何修改直接视同最新原文（可直接打字或划选批注）</span>
+                <span>
+                  {draftMode === 'edit'
+                    ? '左侧实时编辑区 · 任何修改直接视同最新原文（可直接打字或划选批注）'
+                    : draftMode === 'preview'
+                    ? '左侧排版预览区 · 当前原文排版与段落渲染视图'
+                    : '左侧批注对照区 · 高亮显示已标记的精准批注与锚定句'}
+                </span>
               </span>
               <span className="text-[10px] text-slate-500 hidden sm:inline">
-                {draftMode === 'edit' ? '选中文中文字可直接添加精准批注' : '当前为批注高亮排版视图'}
+                {draftMode === 'edit'
+                  ? '选中文中文字可直接添加精准批注'
+                  : draftMode === 'preview'
+                  ? 'Markdown 格式排版渲染'
+                  : '点击高亮处可快速查看修改意见'}
               </span>
             </div>
 
@@ -756,7 +825,11 @@ export const App: React.FC = () => {
                   placeholder={
                     selectedPresetId === 'novel'
                       ? '在此直接编写或编辑小说故事（编辑后的文字直接视同原文）... 选中文中任意语句可直接添加精确批注'
-                      : '在此直接编写或编辑公文初稿（编辑后的文字直接视同原文）... 选中文中任意文字可点击下方按钮添加精确批注'
+                      : isClassicPoem
+                      ? '在此直接编写或编辑古典诗词（编辑后的文字直接视同原文）... 选中诗句可添加炼字或格律批注'
+                      : isModernPoem
+                      ? '在此直接编写或编辑现代诗歌（编辑后的文字直接视同原文）... 选中诗句可添加意象与张力批注'
+                      : '在此直接编写或编辑文章初稿（编辑后的文字直接视同原文）... 选中文中任意文字可点击下方按钮添加精确批注'
                   }
                   className="w-full h-full p-4 bg-transparent text-slate-100 text-xs md:text-sm font-sans leading-relaxed focus:outline-none resize-none selection:bg-amber-500/30 selection:text-amber-200"
                 />
@@ -779,6 +852,20 @@ export const App: React.FC = () => {
                         「{selectedTextareaQuote}」
                       </span>
                     </button>
+                  </div>
+                )}
+              </div>
+            ) : draftMode === 'preview' ? (
+              <div className="flex-1 h-full overflow-y-auto p-4 md:p-6 bg-slate-950/30">
+                {draft.trim() ? (
+                  <div
+                    className="prose prose-invert prose-slate max-w-none text-xs md:text-sm leading-relaxed font-sans"
+                    dangerouslySetInnerHTML={{ __html: marked.parse(draft) as string }}
+                  />
+                ) : (
+                  <div className="h-full flex flex-col items-center justify-center text-slate-500 text-xs gap-2">
+                    <FileText className="w-8 h-8 opacity-40" />
+                    <span>文章草稿为空，请切换到「实时编辑」选项卡输入或导入内容</span>
                   </div>
                 )}
               </div>
@@ -817,11 +904,25 @@ export const App: React.FC = () => {
                   title={
                     selectedPresetId === 'novel'
                       ? '大模型通读故事，自动挖掘情节推进、对话神态、环境描摹的精修亮点'
-                      : '大模型自动通读草稿，在文中找出不规范之处并标出精准修改意见'
+                      : isClassicPoem
+                      ? '大模型通读古诗，推敲平仄格律、炼字炼句与深远意境'
+                      : isModernPoem
+                      ? '大模型通读现代诗，淬炼诗意意象、隐喻与语言张力'
+                      : '大模型自动通读草稿，在文中找出瑕疵薄弱点并标出精准修改意见'
                   }
                 >
                   <Sparkles className="w-3 h-3 text-purple-400" />
-                  <span>{isSuggesting ? '审校中...' : selectedPresetId === 'novel' ? '💡 AI 文学润色建言' : '💡 AI 智能审校建言'}</span>
+                  <span>
+                    {isSuggesting
+                      ? '推敲审读中...'
+                      : selectedPresetId === 'novel'
+                      ? '💡 AI 文学润色建言'
+                      : isClassicPoem
+                      ? '💡 AI 诗词炼字建言'
+                      : isModernPoem
+                      ? '💡 AI 现代诗意建言'
+                      : '💡 AI 智能精修建言'}
+                  </span>
                 </button>
 
                 {/* Manual Add Button */}
@@ -831,27 +932,23 @@ export const App: React.FC = () => {
                     setPinpointModalOpen(true);
                   }}
                   className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-medium transition"
+                  title="手动输入原文引用语句添加批注"
                 >
-                  + 手工添加
+                  <BookmarkPlus className="w-3 h-3 text-blue-400" />
+                  <span>手动添加</span>
                 </button>
               </div>
             </div>
 
-            {/* Hint Box */}
-            <div className="mb-3 px-3 py-2 rounded-xl bg-amber-500/5 border border-amber-500/20 text-[11px] text-amber-300/80 leading-relaxed flex items-center gap-2">
-              <span className="text-amber-400 text-sm">💡</span>
-              <span>
-                <strong>精确修改特色</strong>：{preserveOriginal ? '当前处于「严格保留原文」模式。草稿中未批注的地方将 100% 一字不差原样保留；仅对批注点进行外科手术式精准替换（指哪改哪，绝不擅自变动其余文字）。' : '当前处于「通篇重构」模式。AI 将结合顶层提示词与批注通篇重构。'}
-              </span>
-            </div>
-
             {/* Annotations List */}
-            <div className="space-y-2.5 max-h-[220px] overflow-y-auto pr-1">
+            <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
               {annotations.length === 0 ? (
-                <div className="text-center py-8 text-xs text-slate-500 border border-dashed border-slate-800 rounded-xl">
-                  {selectedPresetId === 'novel'
-                    ? '暂无故事批注。请在上方草稿中划选文字添加，或点击右上角「💡 AI 文学润色建言」自动提质。'
-                    : '暂无精确批注。请在草稿中划选文字添加，或点击右上角「💡 AI 智能审校建言」自动排查。'}
+                <div className="py-8 text-center text-slate-500 text-xs border border-dashed border-slate-800 rounded-xl bg-slate-950/20">
+                  <BookmarkPlus className="w-6 h-6 mx-auto mb-2 opacity-30 text-slate-400" />
+                  <p>暂无修改批注</p>
+                  <p className="text-[10px] text-slate-600 mt-1">
+                    在左侧草稿中划选文字，或点击上方「AI 智能建言」自动分析
+                  </p>
                 </div>
               ) : (
                 annotations.map((ann, idx) => (
@@ -964,9 +1061,11 @@ export const App: React.FC = () => {
               <span className={`px-2 py-0.5 rounded-md text-xs font-semibold ${
                 selectedPresetId === 'novel'
                   ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20'
+                  : isPoetry
+                  ? 'bg-purple-500/10 text-purple-300 border border-purple-500/20'
                   : 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20'
               }`}>
-                {selectedPresetId === 'novel' ? '故事成文第' : '成文成品第'} {round} 版
+                {getDocTypeLabel()}成文第 {round} 版
               </span>
               {revisedText && (
                 <span className="text-xs text-slate-400">
@@ -988,7 +1087,7 @@ export const App: React.FC = () => {
                   }`}
                 >
                   <Eye className="w-3 h-3" />
-                  {selectedPresetId === 'novel' ? '文学排版' : '公文排版'}
+                  {selectedPresetId === 'novel' ? '文学排版' : isPoetry ? '诗词排版' : '文章排版'}
                 </button>
                 <button
                   onClick={() => setViewMode('diff')}
@@ -1020,7 +1119,7 @@ export const App: React.FC = () => {
                   <button
                     onClick={handleCopyResult}
                     className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
-                    title={selectedPresetId === 'novel' ? '复制故事全文' : '复制公文全文'}
+                    title={`复制${getDocTypeLabel()}全文`}
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -1068,22 +1167,32 @@ export const App: React.FC = () => {
                 <div className="text-sm font-medium">
                   {selectedPresetId === 'novel'
                     ? '文学大师正在对照批注精心雕琢场景沉浸感与对白...'
-                    : '大秘正在对照国家公文规范与顶点批注精心润色...'}
+                    : isClassicPoem
+                    ? '诗词名家正在推敲平仄格律、炼字炼句与深远意境...'
+                    : isModernPoem
+                    ? '诗人正在淬炼现代意象、打破陈词俗套与语言张力...'
+                    : '编辑专家正在对照文章要求与顶点批注精心润色...'}
                 </div>
                 <div className="text-xs text-slate-500">
                   {selectedPresetId === 'novel'
                     ? '严密落实每处细节刻画批注，重塑戏剧张力与画面感'
-                    : '严密落实每一处精确批注，重塑规范公文架构'}
+                    : isPoetry
+                    ? '落实每一处炼字与意象批注，铸就凝练诗韵'
+                    : '严密落实每一处精确批注，重塑规范文章体例'}
                 </div>
               </div>
             ) : !revisedText ? (
               <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-3 py-24 select-none">
                 <FileText className="w-10 h-10 text-slate-700" />
                 <div className="text-xs text-slate-400">
-                  {selectedPresetId === 'novel' ? '右侧是小说故事精修成文展示区。' : '右侧是规范公文成文展示区。'}
+                  {selectedPresetId === 'novel'
+                    ? '右侧是小说故事精修成文展示区。'
+                    : isPoetry
+                    ? '右侧是诗词精修成文展示区。'
+                    : '右侧是文章精修成文展示区。'}
                 </div>
                 <div className="text-[11px] text-slate-600 max-w-sm text-center">
-                  在左侧草稿中划选文字添加精确批注后，点击顶部「🚀 按照总提示词与精确批注一键精修成文」启动！
+                  在左侧草稿中划选文字添加精确批注后，点击「⚡ 依据批注精准生文」或顶部按钮启动！
                 </div>
               </div>
             ) : viewMode === 'preview' ? (
@@ -1099,8 +1208,18 @@ export const App: React.FC = () => {
                       Show, don't tell · 画面白描
                     </span>
                   </div>
+                ) : isPoetry ? (
+                  <div className="flex items-center justify-between pb-3 mb-5 border-b border-purple-500/30">
+                    <span className="text-xs font-medium text-purple-300/90 flex items-center gap-1.5">
+                      <span>🖋️</span>
+                      <span>{isClassicPoem ? '古典诗词 · 韵律精修成文' : '现代诗歌 · 意象淬炼成文'}</span>
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">
+                      {isClassicPoem ? '格律谐协 · 炼字入微' : '意象奇崛 · 语言张力'}
+                    </span>
+                  </div>
                 ) : (
-                  <div className="w-full h-1 bg-rose-600/80 mb-6 rounded-full" />
+                  <div className="w-full h-1 bg-blue-600/80 mb-6 rounded-full" />
                 )}
                 <div
                   className="prose prose-invert prose-slate max-w-none text-xs md:text-sm leading-relaxed font-sans"
