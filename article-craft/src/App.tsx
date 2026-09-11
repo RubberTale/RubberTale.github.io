@@ -294,9 +294,9 @@ export const App: React.FC = () => {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-2.5 py-1 rounded-lg">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="font-medium">Gemini 3.8 Flash 官方公文大秘</span>
+            <span className="font-medium">Gemini 3.8/3.6 Flash 官方引擎</span>
             <span className="text-[10px] text-emerald-500/80 hidden md:inline">
-              (已定死锁定 · GB/T 9704)
+              (高精自愈 · GB/T 9704)
             </span>
           </div>
 
