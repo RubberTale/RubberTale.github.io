@@ -1,170 +1,194 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { marked } from 'marked';
+import React, { useState, useRef, useEffect } from 'react';
 import {
+  FileText,
   Sparkles,
-  RotateCcw,
+  RefreshCw,
   Copy,
   Download,
-  Settings,
-  History,
-  FileText,
-  CheckCircle2,
+  Check,
+  Tag,
   Trash2,
-  Plus,
-  ArrowRight,
-  TrendingUp,
-  Feather,
-  Smartphone,
-  GraduationCap,
+  Edit3,
+  BookmarkPlus,
+  Send,
+  Square,
   Eye,
-  Code2,
   GitCompare,
-  Lightbulb,
-  ExternalLink,
-  ChevronRight
+  Code2,
+  Share2,
+  ChevronDown,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2
 } from 'lucide-react';
-
+import { marked } from 'marked';
 import {
-  ApiConfig,
-  DEFAULT_API_CONFIG,
-  callRefineArticle,
-  generateAiAnnotations
+  PinpointAnnotation,
+  streamOfficialDocument,
+  fetchSuggestedAnnotations
 } from './services/llm';
-import { STYLE_PRESETS, EXAMPLE_DRAFTS, StylePreset } from './data/presets';
-import { SettingsModal } from './components/SettingsModal';
-import { ExportHexoModal } from './components/ExportHexoModal';
+import {
+  DOCUMENT_TYPE_PRESETS,
+  EXAMPLE_DRAFTS,
+  ExampleDraft
+} from './data/presets';
 import { DiffViewer } from './components/DiffViewer';
+import { ExportHexoModal } from './components/ExportHexoModal';
+import { PinpointModal } from './components/PinpointModal';
+import { AnnotatedDraftView } from './components/AnnotatedDraftView';
 
-interface AnnotationItem {
-  id: string;
-  text: string;
-  enabled: boolean;
-}
+export const App: React.FC = () => {
+  // Global Prompt
+  const [globalPrompt, setGlobalPrompt] = useState<string>(
+    '这是一份市级直属机关发给下属各区县局的正式公文。要求主旨明确、措辞严谨、条理清晰，严格遵循国家党政公文格式标准（一、 (一) 1. (1)），坚决落实精准批注，彻底消除初稿中的口语化表达。'
+  );
+  const [selectedPresetId, setSelectedPresetId] = useState<string>('notice');
 
-interface HistoryItem {
-  version: number;
-  baseDraft: string;
-  annotations: string[];
-  revisedText: string;
-  timestamp: string;
-}
+  // Draft and Round
+  const [draft, setDraft] = useState<string>(EXAMPLE_DRAFTS[0].content);
+  const [round, setRound] = useState<number>(1);
+  const [draftMode, setDraftMode] = useState<'interactive' | 'raw'>('interactive');
 
-export default function App() {
-  // Config & Modals
-  const [apiConfig, setApiConfig] = useState<ApiConfig>(() => {
-    const saved = localStorage.getItem('article_craft_api_config');
-    if (saved) {
-      try { return JSON.parse(saved); } catch (e) {}
-    }
-    return DEFAULT_API_CONFIG;
-  });
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const [exportOpen, setExportOpen] = useState(false);
-  const [historyOpen, setHistoryOpen] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
+  // Pinpoint Annotations
+  const [annotations, setAnnotations] = useState<PinpointAnnotation[]>(
+    EXAMPLE_DRAFTS[0].initialAnnotations
+  );
 
-  // Core Editor State
-  const [originalDraft, setOriginalDraft] = useState('');
-  const [draftVersion, setDraftVersion] = useState(1);
-  const [annotations, setAnnotations] = useState<AnnotationItem[]>([]);
-  const [newAnnotationInput, setNewAnnotationInput] = useState('');
-  
-  // Top Prompts & Style
-  const [topPrompt, setTopPrompt] = useState('提升语言的专业度与逻辑深度，精简多余套话，强化论点与数据结合');
-  const [selectedStyle, setSelectedStyle] = useState<StylePreset>(STYLE_PRESETS[0]);
+  // Modal states
+  const [pinpointModalOpen, setPinpointModalOpen] = useState(false);
+  const [editingAnnotation, setEditingAnnotation] = useState<{
+    id?: string;
+    quote: string;
+    comment: string;
+    tag: string;
+  } | null>(null);
 
-  // Right Output State
-  const [revisedText, setRevisedText] = useState('');
-  const [revisedVersion, setRevisedVersion] = useState(1);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [viewMode, setViewMode] = useState<'preview' | 'raw' | 'diff'>('preview');
+  // Result and Stream
+  const [revisedText, setRevisedText] = useState<string>('');
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [isSuggesting, setIsSuggesting] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<'preview' | 'diff' | 'raw'>('preview');
 
-  // Iteration History
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  // Export Modal
+  const [exportModalOpen, setExportModalOpen] = useState<boolean>(false);
+
+  // Notification Toast
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [copied, setCopied] = useState<boolean>(false);
+
+  // Abort controller
   const abortControllerRef = useRef<AbortController | null>(null);
-
-  // Save config
-  const handleSaveConfig = (cfg: ApiConfig) => {
-    setApiConfig(cfg);
-    localStorage.setItem('article_craft_api_config', JSON.stringify(cfg));
-    showToast('API 配置已保存到浏览器本地');
-  };
+  const leftTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   const showToast = (msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 3500);
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Keyboard shortcut Ctrl+Enter to run
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        e.preventDefault();
-        if (!isGenerating && originalDraft.trim()) {
-          handleRunRefine();
-        }
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isGenerating, originalDraft, annotations, topPrompt, selectedStyle, apiConfig]);
-
-  // Add Annotation
-  const handleAddAnnotation = (text?: string) => {
-    const content = text || newAnnotationInput.trim();
-    if (!content) return;
-    setAnnotations(prev => [
-      ...prev,
-      { id: Date.now().toString() + Math.random().toString(36).substring(2, 5), text: content, enabled: true }
-    ]);
-    if (!text) setNewAnnotationInput('');
+  // Handle preset prompt click
+  const handlePresetSelect = (preset: typeof DOCUMENT_TYPE_PRESETS[0]) => {
+    setSelectedPresetId(preset.id);
+    setGlobalPrompt(preset.prompt);
+    showToast(`已应用「${preset.name}」顶层公文提示词`);
   };
 
-  const handleDeleteAnnotation = (id: string) => {
-    setAnnotations(prev => prev.filter(a => a.id !== id));
-  };
-
-  const handleToggleAnnotation = (id: string) => {
-    setAnnotations(prev => prev.map(a => a.id === id ? { ...a, enabled: !a.enabled } : a));
-  };
-
-  // Load Example Draft
-  const handleLoadExample = (index: number) => {
-    const example = EXAMPLE_DRAFTS[index];
-    if (!example) return;
-    setOriginalDraft(example.content);
-    setAnnotations(example.annotations.map(a => ({ ...a })));
-    setTopPrompt(example.prompt);
-    setDraftVersion(1);
+  // Handle load sample draft
+  const handleLoadSample = (sample: ExampleDraft) => {
+    setDraft(sample.content);
+    setGlobalPrompt(sample.globalPrompt);
+    setAnnotations(sample.initialAnnotations);
+    setRound(1);
     setRevisedText('');
-    setRevisedVersion(1);
-    showToast(`已载入示例：《${example.title}》`);
+    showToast(`已载入示例初稿：《${sample.title}》`);
   };
 
-  // AI Critique helper
-  const handleAiCritique = async () => {
-    if (!originalDraft.trim()) {
-      showToast('请先在左侧输入或粘贴文章原文！');
+  // Trigger pinpoint modal from text selection
+  const handleAddAnnotationForQuote = (quote: string) => {
+    setEditingAnnotation({
+      quote,
+      comment: '',
+      tag: '措辞规范'
+    });
+    setPinpointModalOpen(true);
+  };
+
+  // Save annotation
+  const handleSaveAnnotation = (
+    data: Omit<PinpointAnnotation, 'id'>,
+    editId?: string
+  ) => {
+    if (editId) {
+      setAnnotations((prev) =>
+        prev.map((a) => (a.id === editId ? { ...a, ...data } : a))
+      );
+      showToast('批注已更新');
+    } else {
+      const newAnn: PinpointAnnotation = {
+        id: `ann-${Date.now()}`,
+        ...data
+      };
+      setAnnotations((prev) => [newAnn, ...prev]);
+      showToast('精确批注已添加');
+    }
+  };
+
+  // Delete annotation
+  const handleDeleteAnnotation = (id: string) => {
+    setAnnotations((prev) => prev.filter((a) => a.id !== id));
+    showToast('批注已删除');
+  };
+
+  // Toggle annotation
+  const handleToggleAnnotation = (id: string) => {
+    setAnnotations((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, enabled: !a.enabled } : a))
+    );
+  };
+
+  // AI Suggest Annotations
+  const handleAISuggestAnnotations = async () => {
+    if (!draft.trim()) {
+      showToast('请先输入或粘贴公文草稿');
       return;
     }
-    setIsAnalyzing(true);
-    showToast('AI 正在深度审阅原文并提炼批注建议...');
+
+    setIsSuggesting(true);
+    showToast('🤖 AI 公文专家正在通读草稿并标出瑕疵...');
+
     try {
-      const suggestions = await generateAiAnnotations({ config: apiConfig, draft: originalDraft });
-      suggestions.forEach(s => handleAddAnnotation(s));
-      showToast(`已自动注入 ${suggestions.length} 条专业审校批注！`);
-    } catch (e: any) {
-      showToast(`生成建议失败: ${e.message}`);
+      const suggestions = await fetchSuggestedAnnotations(globalPrompt, draft);
+      if (suggestions && suggestions.length > 0) {
+        const newItems: PinpointAnnotation[] = suggestions.map((s, idx) => ({
+          id: `ai-sug-${Date.now()}-${idx}`,
+          quote: s.quote,
+          comment: s.comment,
+          tag: s.tag || '公文规范',
+          enabled: true
+        }));
+        setAnnotations((prev) => [...newItems, ...prev]);
+        showToast(`✨ 成功生成 ${suggestions.length} 处公文精确审校批注！`);
+      } else {
+        showToast('草稿整体规范度较高，未发现显著需修改处');
+      }
+    } catch (err: any) {
+      showToast('生成建议失败: ' + err.message);
     } finally {
-      setIsAnalyzing(false);
+      setIsSuggesting(false);
     }
   };
 
-  // Run Refinement Stream
-  const handleRunRefine = async () => {
-    if (!originalDraft.trim()) {
-      showToast('请先在左侧输入需要精修的文章原文！');
+  // Run Generation
+  const handleGenerate = async () => {
+    if (!draft.trim()) {
+      showToast('草稿内容不能为空');
+      return;
+    }
+
+    if (isGenerating) {
+      // Stop
+      abortControllerRef.current?.abort();
+      setIsGenerating(false);
+      showToast('已停止生成');
       return;
     }
 
@@ -172,77 +196,51 @@ export default function App() {
     setRevisedText('');
     setViewMode('preview');
 
-    const enabledAnnotations = annotations.filter(a => a.enabled).map(a => a.text);
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
-    try {
-      const finalResult = await callRefineArticle({
-        config: apiConfig,
-        systemPrompt: selectedStyle.systemPrompt,
-        topPrompt,
-        baseDraft: originalDraft,
-        annotations: enabledAnnotations,
-        onChunk: (chunk) => setRevisedText(chunk),
-        signal: controller.signal
-      });
-
-      // Push to history
-      const now = new Date();
-      const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-      const newHistoryItem: HistoryItem = {
-        version: draftVersion,
-        baseDraft: originalDraft,
-        annotations: enabledAnnotations,
-        revisedText: finalResult,
-        timestamp: timeStr
-      };
-      setHistory(prev => [newHistoryItem, ...prev]);
-      showToast('✨ 成文重塑完成！如果满意可直接导出，不满意可一键回传迭代。');
-    } catch (e: any) {
-      if (e.name !== 'AbortError') {
-        showToast(`精修出错: ${e.message}`);
-      }
-    } finally {
-      setIsGenerating(false);
-      abortControllerRef.current = null;
-    }
+    await streamOfficialDocument(
+      {
+        globalPrompt,
+        draft,
+        annotations,
+        round,
+        onChunk: (chunk) => {
+          setRevisedText((prev) => prev + chunk);
+        },
+        onDone: () => {
+          setIsGenerating(false);
+          showToast(`🎉 第 ${round} 轮公文精修完成！`);
+        },
+        onError: (err) => {
+          setIsGenerating(false);
+          showToast('精修生成失败: ' + err.message);
+        }
+      },
+      controller.signal
+    );
   };
 
-  // CANCEL stream
-  const handleCancelGenerate = () => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-      setIsGenerating(false);
-      showToast('已中断本次生成');
-    }
+  // Loop back: transfer right to left for next round
+  const handleTransferBackToDraft = () => {
+    if (!revisedText.trim()) return;
+
+    const nextRound = round + 1;
+    setDraft(revisedText);
+    setRound(nextRound);
+    setRevisedText('');
+    setAnnotations([]); // clear annotations for new round
+    setDraftMode('interactive');
+    showToast(`🔄 已成功升级为第 ${nextRound} 版草稿！您可继续在左侧添加精确批注`);
   };
 
-  // ⭐ KEY LOOP: 回传至左侧草稿 (THE EDITORIAL LOOP)
-  const handleSendBackToDraft = () => {
-    if (!revisedText.trim()) {
-      showToast('右侧尚无成文内容可回传！');
-      return;
-    }
-
-    const nextVer = draftVersion + 1;
-    // Overwrite left draft
-    setOriginalDraft(revisedText);
-    setDraftVersion(nextVer);
-    setRevisedVersion(nextVer);
-
-    // Clear active annotations, leaving a blank slate for round 2 comments
-    setAnnotations([]);
-    setNewAnnotationInput('');
-
-    showToast(`🔄 已成功将右侧成文回传为【草稿 V${nextVer}】！旧批注已归档，请在左侧输入新一轮修改意见。`);
-  };
-
-  // Copy revised
-  const handleCopyRevised = () => {
+  // Copy revised text
+  const handleCopyResult = () => {
     if (!revisedText) return;
     navigator.clipboard.writeText(revisedText);
-    showToast('成文内容已复制到剪贴板！');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    showToast('公文全文已复制到剪贴板');
   };
 
   // Download md
@@ -252,383 +250,501 @@ export default function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `ArticleCraft_V${revisedVersion}_${Date.now()}.md`;
+    a.download = `公文精修稿_V${round}.md`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Markdown 文件已开始下载');
+    showToast('已下载 Markdown 文档');
   };
 
+  const activeAnnotationCount = annotations.filter((a) => a.enabled).length;
+
   return (
-    <div className="flex flex-col h-screen bg-slate-950 text-slate-100 overflow-hidden font-sans">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
       {/* Toast Notification */}
-      {toast && (
-        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-medium shadow-2xl shadow-blue-500/40 border border-blue-400/30 flex items-center gap-2 animate-fade-in">
-          <Sparkles className="w-4 h-4 text-blue-200" />
-          <span>{toast}</span>
+      {toastMessage && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-top-4 duration-200">
+          <div className="px-4 py-2 rounded-xl bg-blue-600/90 text-white text-xs md:text-sm font-medium shadow-2xl backdrop-blur-md border border-blue-400/40 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-blue-200" />
+            <span>{toastMessage}</span>
+          </div>
         </div>
       )}
 
-      {/* ── 1. 顶部控制栏 (Top Bar) ───────────────────────── */}
-      <header className="flex-shrink-0 bg-slate-900/90 border-b border-slate-800 px-4 py-2.5 backdrop-blur-md z-20">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-          {/* Brand & Mode */}
-          <div className="flex items-center justify-between lg:justify-start gap-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
-                <Feather className="w-4 h-4" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold tracking-tight text-white">WorkBuddy</span>
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-400 border border-blue-500/30">
-                    写作精修版
-                  </span>
-                </div>
-                <div className="text-[11px] text-slate-400">双栏迭代审校流 · 原文 + 批注 $\rightarrow$ 成文回传</div>
-              </div>
-            </div>
+      {/* 1. Header Bar */}
+      <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <a
+            href="/tools/"
+            className="flex items-center gap-1 text-slate-400 hover:text-blue-400 text-xs font-medium transition"
+          >
+            ← 小工具箱
+          </a>
+          <span className="text-slate-700">/</span>
+          <div className="flex items-center gap-2">
+            <span className="text-lg">🏛️</span>
+            <span className="font-bold text-sm sm:text-base text-white tracking-tight">
+              WorkBuddy · 公文智匠
+            </span>
+            <span className="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">
+              精确顶点审校 · 多轮闭环迭代
+            </span>
+          </div>
+        </div>
 
-            {/* Link back to blog tools */}
-            <a
-              href="/tools/"
-              className="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1 transition px-2 py-1 rounded hover:bg-slate-800"
-            >
-              <span>工具箱</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-2.5 py-1 rounded-lg">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="font-medium">官方公文大秘已就绪</span>
+            <span className="text-[10px] text-emerald-500/80 hidden md:inline">
+              (GB/T 9704-2012)
+            </span>
           </div>
 
-          {/* Prompt & Style Controls */}
-          <div className="flex-1 flex flex-col md:flex-row items-stretch md:items-center gap-2 max-w-4xl">
-            {/* Style Selector */}
-            <div className="relative flex-shrink-0">
-              <select
-                value={selectedStyle.id}
-                onChange={(e) => {
-                  const s = STYLE_PRESETS.find(x => x.id === e.target.value);
-                  if (s) setSelectedStyle(s);
-                }}
-                className="w-full md:w-auto px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700/90 text-xs text-slate-200 focus:outline-none focus:border-blue-500 font-medium"
-              >
-                {STYLE_PRESETS.map(s => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Overall Prompt Input */}
-            <div className="flex-1 relative">
-              <input
-                type="text"
-                value={topPrompt}
-                onChange={(e) => setTopPrompt(e.target.value)}
-                placeholder="输入全局精修大方向，如：突出橡胶供需基本面，文字严谨犀利，去除口水话..."
-                className="w-full px-3.5 py-1.5 rounded-xl bg-slate-950 border border-slate-700/90 text-xs text-slate-100 focus:outline-none focus:border-blue-500 placeholder:text-slate-500"
-              />
-            </div>
-          </div>
-
-          {/* Action & Settings Buttons */}
-          <div className="flex items-center gap-2 justify-end">
-            <button
-              onClick={() => setSettingsOpen(true)}
-              title="配置 AI 接口与模型"
-              className="p-2 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition flex items-center gap-1 text-xs"
-            >
-              <Settings className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline font-mono">{apiConfig.model.split('/').pop()?.slice(0, 12)}</span>
-            </button>
-
-            {isGenerating ? (
-              <button
-                onClick={handleCancelGenerate}
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold shadow-lg shadow-rose-500/20 transition"
-              >
-                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                停止生成
-              </button>
-            ) : (
-              <button
-                onClick={handleRunRefine}
-                disabled={!originalDraft.trim()}
-                title="快捷键: Ctrl + Enter"
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-lg shadow-blue-500/25 transition disabled:opacity-40 disabled:cursor-not-allowed group"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-blue-200 group-hover:rotate-12 transition" />
-                <span>智能精修成文</span>
-                <span className="text-[10px] opacity-70 font-mono hidden sm:inline">Ctrl+↵</span>
-              </button>
-            )}
-          </div>
+          <a
+            href="https://rubbertale.github.io"
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:bg-slate-800 transition"
+          >
+            博客首页
+          </a>
         </div>
       </header>
 
-      {/* ── 2. 主体双栏区域 (Split Canvas) ──────────────────────── */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
-
-        {/* ── 左栏：基底原文与批注审校区 ──────────────────── */}
-        <section className="flex-1 flex flex-col border-b md:border-b-0 md:border-r border-slate-800 bg-slate-950/70 overflow-hidden">
-          {/* Left Header */}
-          <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-900/40 text-xs">
+      {/* 2. Top Prompt Section (极其显眼的顶部提示词区) */}
+      <section className="border-b border-slate-800/80 bg-slate-900/40 px-4 sm:px-6 py-4">
+        <div className="max-w-7xl mx-auto space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md font-mono text-[11px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
-                草稿 V{draftVersion}
-              </span>
-              <span className="text-slate-400 font-mono text-[11px]">
-                {originalDraft.length} 字
-              </span>
+              <div className="p-1 rounded-lg bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                <Send className="w-4 h-4" />
+              </div>
+              <div>
+                <h2 className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
+                  <span>📝 顶部公文总提示词 / 发文总指令 (Prompt)</span>
+                  <span className="text-[10px] text-blue-400 font-normal">
+                    (统领全篇行文格局与政策导向)
+                  </span>
+                </h2>
+              </div>
             </div>
 
-            {/* Quick Loaders & Actions */}
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => handleLoadExample(0)}
-                className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] transition"
-              >
-                投研示例
-              </button>
-              <button
-                onClick={() => handleLoadExample(1)}
-                className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] transition"
-              >
-                随笔示例
-              </button>
-              {originalDraft && (
+            {/* Quick Document Type Chips */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+              <span className="text-[11px] text-slate-500 whitespace-nowrap">
+                文种模板：
+              </span>
+              {DOCUMENT_TYPE_PRESETS.map((p) => (
                 <button
-                  onClick={() => setOriginalDraft('')}
-                  title="清空原文"
-                  className="p-1 text-slate-400 hover:text-slate-200 rounded hover:bg-slate-800"
+                  key={p.id}
+                  onClick={() => handlePresetSelect(p)}
+                  className={`px-2 py-0.5 rounded-lg text-xs transition whitespace-nowrap ${
+                    selectedPresetId === p.id
+                      ? 'bg-blue-600 text-white font-medium shadow-sm'
+                      : 'bg-slate-800/70 text-slate-300 hover:bg-slate-700 hover:text-white'
+                  }`}
+                  title={p.description}
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  {p.name}
                 </button>
-              )}
+              ))}
             </div>
           </div>
 
-          {/* Left Upper: 原文输入区 */}
-          <div className="flex-1 p-3 overflow-hidden flex flex-col">
-            <textarea
-              value={originalDraft}
-              onChange={(e) => setOriginalDraft(e.target.value)}
-              placeholder="在此处粘贴你的原创草稿，或从右上角载入投研/随笔示例..."
-              className="w-full h-full p-3.5 rounded-xl bg-slate-900/50 border border-slate-800/80 text-slate-100 text-xs md:text-sm font-mono leading-relaxed focus:outline-none focus:border-blue-500/70 resize-none"
-            />
+          {/* Prompt Input & Execute Button */}
+          <div className="flex flex-col md:flex-row items-stretch gap-3">
+            <div className="flex-1 relative">
+              <textarea
+                value={globalPrompt}
+                onChange={(e) => setGlobalPrompt(e.target.value)}
+                rows={2}
+                placeholder="在此输入顶层公文提示词（如：发文文种、核心主旨、发文机关层级、重点解决的堵点问题、行文口吻等）..."
+                className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs md:text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-blue-500/70 transition leading-relaxed resize-none font-sans"
+              />
+            </div>
+
+            {/* Primary Action Button */}
+            <button
+              onClick={handleGenerate}
+              className={`px-6 py-2.5 rounded-xl font-semibold text-xs md:text-sm transition flex items-center justify-center gap-2 shadow-xl whitespace-nowrap ${
+                isGenerating
+                  ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-900/40'
+                  : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 text-white shadow-blue-900/40 hover:scale-[1.01]'
+              }`}
+            >
+              {isGenerating ? (
+                <>
+                  <Square className="w-4 h-4 fill-current animate-spin" />
+                  <span>停止生成</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4 h-4" />
+                  <span>🚀 按照总提示词与精确批注一键精修成文</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Main Workspace: Dual Columns (左草稿+精确顶点修改，右成文成品) */}
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        {/* ================= LEFT COLUMN: 原文草稿与精确批注 ================= */}
+        <div className="flex flex-col bg-slate-900/70 border border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[640px] flex-1">
+          {/* Header */}
+          <div className="px-4 py-3 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20 text-xs font-semibold">
+                草稿第 {round} 版
+              </span>
+              <span className="text-xs text-slate-400">
+                {draft.length} 字 · {activeAnnotationCount} 处精确顶点批注
+              </span>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              {/* Load Sample Draft */}
+              <button
+                onClick={() => handleLoadSample(EXAMPLE_DRAFTS[0])}
+                className="text-[11px] px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                title="载入公文范例初稿"
+              >
+                范例初稿
+              </button>
+
+              {/* Mode Toggle */}
+              <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
+                <button
+                  onClick={() => setDraftMode('interactive')}
+                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition ${
+                    draftMode === 'interactive'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                  title="高亮显示已设批注，用鼠标划选文字即可直接添加精确修改意见"
+                >
+                  🎯 顶点标注
+                </button>
+                <button
+                  onClick={() => setDraftMode('raw')}
+                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition ${
+                    draftMode === 'raw'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                  title="纯文本编辑模式，可直接粘贴大段文本"
+                >
+                  ✏️ 编辑源码
+                </button>
+              </div>
+            </div>
           </div>
 
-          {/* Left Lower: 核心修改批注栏 (Annotations) */}
-          <div className="h-[240px] border-t border-slate-800 bg-slate-900/30 p-3 flex flex-col overflow-hidden">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-slate-200">📌 修改批注与审校意见</span>
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-500/20 text-blue-300 font-mono">
-                  {annotations.filter(a => a.enabled).length}/{annotations.length}
+          {/* Draft Display Area */}
+          <div className="h-[360px] bg-slate-950/40 relative border-b border-slate-800">
+            {draftMode === 'interactive' ? (
+              <AnnotatedDraftView
+                draft={draft}
+                annotations={annotations}
+                onAddAnnotationForQuote={handleAddAnnotationForQuote}
+                onAnnotationClick={(ann) => {
+                  setEditingAnnotation(ann);
+                  setPinpointModalOpen(true);
+                }}
+              />
+            ) : (
+              <textarea
+                ref={leftTextareaRef}
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="在此粘贴或输入公文初稿... 选中文中任意文字可点击下方按钮添加精确批注"
+                className="w-full h-full p-4 bg-transparent text-slate-200 text-xs md:text-sm font-mono leading-relaxed focus:outline-none resize-none"
+              />
+            )}
+          </div>
+
+          {/* Pinpoint Annotations Tray (核心特色区) */}
+          <div className="p-4 flex-1 flex flex-col bg-slate-900/30">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-1.5">
+                <BookmarkPlus className="w-4 h-4 text-amber-400" />
+                <h3 className="text-xs sm:text-sm font-semibold text-white">
+                  📌 文中精确顶点修改清单
+                </h3>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 font-medium">
+                  {annotations.length} 项
                 </span>
               </div>
-              <button
-                onClick={handleAiCritique}
-                disabled={isAnalyzing || !originalDraft.trim()}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-500/15 border border-indigo-500/30 hover:bg-indigo-500/25 text-indigo-300 text-[11px] transition disabled:opacity-40"
-              >
-                <Lightbulb className="w-3 h-3 text-indigo-400" />
-                <span>{isAnalyzing ? 'AI 审校中...' : 'AI 智能建言'}</span>
-              </button>
+
+              <div className="flex items-center gap-2">
+                {/* AI Suggest Button */}
+                <button
+                  onClick={handleAISuggestAnnotations}
+                  disabled={isSuggesting}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 text-[11px] font-medium transition disabled:opacity-50"
+                  title="大模型自动通读草稿，在文中找出不规范之处并标出精准修改意见"
+                >
+                  <Sparkles className="w-3 h-3 text-purple-400" />
+                  <span>{isSuggesting ? '审校中...' : '💡 AI 智能审校建言'}</span>
+                </button>
+
+                {/* Manual Add Button */}
+                <button
+                  onClick={() => {
+                    setEditingAnnotation(null);
+                    setPinpointModalOpen(true);
+                  }}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-medium transition"
+                >
+                  + 手工添加
+                </button>
+              </div>
             </div>
 
-            {/* Input to add custom annotation */}
-            <div className="flex items-center gap-1.5 mb-2">
-              <input
-                type="text"
-                value={newAnnotationInput}
-                onChange={e => setNewAnnotationInput(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && handleAddAnnotation()}
-                placeholder="添加一条具体批改要求（如：第三段缺少橡胶库存数据，补充上去）..."
-                className="flex-1 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-blue-500"
-              />
-              <button
-                onClick={() => handleAddAnnotation()}
-                className="p-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition flex-shrink-0"
-              >
-                <Plus className="w-3.5 h-3.5" />
-              </button>
+            {/* Hint Box */}
+            <div className="mb-3 px-3 py-2 rounded-xl bg-amber-500/5 border border-amber-500/20 text-[11px] text-amber-300/80 leading-relaxed flex items-center gap-2">
+              <span className="text-amber-400 text-sm">💡</span>
+              <span>
+                <strong>精确顶点修改特色</strong>：用鼠标在上方草稿中<strong>划选任意文字</strong>，会立即弹出添加批注按钮；AI 将对标靶语句实现“精准指哪改哪、无缝融入正文”。
+              </span>
             </div>
 
             {/* Annotations List */}
-            <div className="flex-1 overflow-y-auto space-y-1.5 pr-1">
+            <div className="space-y-2.5 max-h-[220px] overflow-y-auto pr-1">
               {annotations.length === 0 ? (
-                <div className="h-full flex items-center justify-center text-slate-500 text-xs">
-                  暂无批注。你可以自己手动添加意见，或点击上方「AI 智能建言」自动推荐。
+                <div className="text-center py-8 text-xs text-slate-500 border border-dashed border-slate-800 rounded-xl">
+                  暂无精确批注。请在草稿中划选文字添加，或点击右上角「💡 AI 智能审校建言」自动排查。
                 </div>
               ) : (
-                annotations.map((item, idx) => (
+                annotations.map((ann, idx) => (
                   <div
-                    key={item.id}
-                    className={`flex items-start gap-2 p-2 rounded-lg border text-xs transition ${
-                      item.enabled
-                        ? 'bg-slate-900/80 border-slate-700/70 text-slate-200'
-                        : 'bg-slate-950/40 border-slate-800 text-slate-500 line-through'
+                    key={ann.id}
+                    className={`p-3 rounded-xl border transition flex flex-col gap-1.5 ${
+                      ann.enabled
+                        ? 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
+                        : 'bg-slate-950/30 border-slate-900 opacity-60'
                     }`}
                   >
-                    <input
-                      type="checkbox"
-                      checked={item.enabled}
-                      onChange={() => handleToggleAnnotation(item.id)}
-                      className="mt-0.5 rounded border-slate-700 text-blue-600 focus:ring-0 cursor-pointer"
-                    />
-                    <span className="flex-1 leading-normal break-words select-text">
-                      <span className="font-mono text-slate-500 mr-1.5">#{idx + 1}</span>
-                      {item.text}
-                    </span>
-                    <button
-                      onClick={() => handleDeleteAnnotation(item.id)}
-                      className="text-slate-500 hover:text-rose-400 transition"
-                    >
-                      <Trash2 className="w-3 h-3" />
-                    </button>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 overflow-hidden">
+                        <input
+                          type="checkbox"
+                          checked={ann.enabled}
+                          onChange={() => handleToggleAnnotation(ann.id)}
+                          className="w-3.5 h-3.5 rounded text-blue-600 bg-slate-900 border-slate-700 focus:ring-0 cursor-pointer"
+                        />
+                        <span className="text-[11px] font-mono font-bold text-amber-300">
+                          #{idx + 1}
+                        </span>
+                        {ann.tag && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 font-medium">
+                            {ann.tag}
+                          </span>
+                        )}
+                        {ann.quote && (
+                          <span
+                            className="text-[11px] text-slate-400 truncate max-w-[180px] sm:max-w-[240px]"
+                            title={ann.quote}
+                          >
+                            原句：<code className="text-amber-200/90 font-mono">「{ann.quote}」</code>
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => {
+                            setEditingAnnotation(ann);
+                            setPinpointModalOpen(true);
+                          }}
+                          className="p-1 text-slate-400 hover:text-blue-400 hover:bg-slate-800 rounded transition"
+                          title="编辑批注"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteAnnotation(ann.id)}
+                          className="p-1 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded transition"
+                          title="删除批注"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-200 pl-5 leading-relaxed font-sans">
+                      {ann.comment}
+                    </p>
                   </div>
                 ))
               )}
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* ── 右栏：成文成果画布与回传回路 ─────────────────── */}
-        <section className="flex-1 flex flex-col bg-slate-950/90 overflow-hidden">
-          {/* Right Header */}
-          <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-900/40 text-xs">
+        {/* ================= RIGHT COLUMN: 成文成品与对比 ================= */}
+        <div className="flex flex-col bg-slate-900/70 border border-slate-800 rounded-2xl shadow-xl overflow-hidden min-h-[640px] flex-1">
+          {/* Header */}
+          <div className="px-4 py-3 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md font-mono text-[11px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
-                成文成品 V{revisedVersion}.0
+              <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-xs font-semibold">
+                成文成品第 {round} 版
               </span>
-              <span className="text-slate-400 font-mono text-[11px]">
-                {revisedText.length} 字
-              </span>
-              {originalDraft && revisedText && (
-                <span className="text-[10px] text-emerald-400/80 font-mono hidden sm:inline">
-                  (比草稿 {revisedText.length >= originalDraft.length ? '+' : ''}{revisedText.length - originalDraft.length} 字)
+              {revisedText && (
+                <span className="text-xs text-slate-400">
+                  {revisedText.length} 字
                 </span>
               )}
             </div>
 
-            {/* View Mode Tabs */}
-            <div className="flex items-center gap-1 bg-slate-950 p-0.5 rounded-lg border border-slate-800">
-              <button
-                onClick={() => setViewMode('preview')}
-                className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] transition ${
-                  viewMode === 'preview' ? 'bg-blue-600 text-white font-medium' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <Eye className="w-3 h-3" />
-                <span>预览</span>
-              </button>
-              <button
-                onClick={() => setViewMode('raw')}
-                className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] transition ${
-                  viewMode === 'raw' ? 'bg-blue-600 text-white font-medium' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <Code2 className="w-3 h-3" />
-                <span>源码</span>
-              </button>
-              <button
-                onClick={() => setViewMode('diff')}
-                className={`flex items-center gap-1 px-2 py-1 rounded text-[11px] transition ${
-                  viewMode === 'diff' ? 'bg-blue-600 text-white font-medium' : 'text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <GitCompare className="w-3 h-3" />
-                <span>差异对比</span>
-              </button>
+            {/* Views & Export */}
+            <div className="flex items-center gap-2">
+              {/* View Switcher */}
+              <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
+                <button
+                  onClick={() => setViewMode('preview')}
+                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
+                    viewMode === 'preview'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Eye className="w-3 h-3" />
+                  公文排版
+                </button>
+                <button
+                  onClick={() => setViewMode('diff')}
+                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
+                    viewMode === 'diff'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <GitCompare className="w-3 h-3" />
+                  差异对比
+                </button>
+                <button
+                  onClick={() => setViewMode('raw')}
+                  className={`px-2 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
+                    viewMode === 'raw'
+                      ? 'bg-blue-600 text-white'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  <Code2 className="w-3 h-3" />
+                  Markdown
+                </button>
+              </div>
+
+              {/* Actions */}
+              {revisedText && (
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={handleCopyResult}
+                    className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                    title="复制公文全文"
+                  >
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                  <button
+                    onClick={handleDownloadMd}
+                    className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                    title="下载 Markdown 文件"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={() => setExportModalOpen(true)}
+                    className="p-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 transition"
+                    title="导出为 Hexo 博客文章"
+                  >
+                    <Share2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Right Content Area */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          {/* Feedback Loop Banner (成文不满意回传升级) */}
+          {revisedText && !isGenerating && (
+            <div className="px-4 py-3 bg-gradient-to-r from-blue-950/60 via-indigo-950/40 to-slate-900 border-b border-blue-900/40 flex items-center justify-between gap-3">
+              <div className="text-xs text-blue-200 flex items-center gap-1.5">
+                <RefreshCw className="w-4 h-4 text-blue-400 shrink-0" />
+                <span>成文还需调整？一键将右侧成文回传为左侧新草稿继续精确批修</span>
+              </div>
+              <button
+                onClick={handleTransferBackToDraft}
+                className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-900/30 transition flex items-center gap-1.5 shrink-0 hover:scale-[1.02]"
+              >
+                <span>🔄 回传至左侧 (升级草稿 V{round + 1})</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+
+          {/* Content Area */}
+          <div className="flex-1 p-5 overflow-y-auto max-h-[580px]">
             {isGenerating && !revisedText ? (
-              <div className="h-full flex flex-col items-center justify-center text-slate-400 gap-3">
-                <div className="w-8 h-8 border-3 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                <div className="text-xs">AI 正在深度结合原文与批注重塑成文...</div>
+              <div className="h-full flex flex-col items-center justify-center text-slate-400 gap-3 py-20 select-none">
+                <Sparkles className="w-8 h-8 text-blue-400 animate-pulse" />
+                <div className="text-sm font-medium">大秘正在对照国家公文规范与顶点批注精心润色...</div>
+                <div className="text-xs text-slate-500">
+                  严密落实每一处精确批注，重塑规范公文架构
+                </div>
               </div>
             ) : !revisedText ? (
-              <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-2 select-none">
-                <FileText className="w-8 h-8 text-slate-700" />
-                <div className="text-xs">右侧是成文展示区。配置好左侧草稿与批注后，点击顶部「智能精修成文」启动！</div>
+              <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-3 py-24 select-none">
+                <FileText className="w-10 h-10 text-slate-700" />
+                <div className="text-xs text-slate-400">
+                  右侧是规范公文成文展示区。
+                </div>
+                <div className="text-[11px] text-slate-600 max-w-sm text-center">
+                  在左侧草稿中划选文字添加精确批注后，点击顶部「🚀 按照总提示词与精确批注一键精修成文」启动！
+                </div>
               </div>
             ) : viewMode === 'preview' ? (
-              <div
-                className="prose prose-invert prose-slate max-w-none text-xs md:text-sm leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: marked.parse(revisedText) as string }}
-              />
+              <div className="bg-slate-950/60 p-6 rounded-2xl border border-slate-800 shadow-inner">
+                {/* Official Red Line Accent */}
+                <div className="w-full h-1 bg-rose-600/80 mb-6 rounded-full" />
+                <div
+                  className="prose prose-invert prose-slate max-w-none text-xs md:text-sm leading-relaxed font-sans"
+                  dangerouslySetInnerHTML={{ __html: marked.parse(revisedText) as string }}
+                />
+              </div>
             ) : viewMode === 'raw' ? (
               <textarea
                 value={revisedText}
                 onChange={(e) => setRevisedText(e.target.value)}
-                className="w-full h-full p-3 rounded-xl bg-slate-900/50 border border-slate-800 text-slate-200 text-xs md:text-sm font-mono leading-relaxed focus:outline-none focus:border-blue-500/70 resize-none"
+                className="w-full h-full p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 text-xs md:text-sm font-mono leading-relaxed focus:outline-none focus:border-blue-500 resize-none"
               />
             ) : (
-              <DiffViewer oldText={originalDraft} newText={revisedText} />
+              <DiffViewer oldText={draft} newText={revisedText} />
             )}
           </div>
+        </div>
+      </main>
 
-          {/* ── 3. 关键闭环动作栏 (The Feedback Loop Bar) ─────── */}
-          <div className="border-t border-slate-800 bg-slate-900/60 p-3 flex flex-wrap items-center justify-between gap-2.5">
-            {/* ⭐ THE CORE LOOP BUTTON: 回传至左侧草稿 */}
-            <button
-              onClick={handleSendBackToDraft}
-              disabled={!revisedText.trim() || isGenerating}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition disabled:opacity-40 disabled:cursor-not-allowed group"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-slate-950 group-hover:-rotate-45 transition" />
-              <span>不满意？成文回传至左侧 (升级草稿 V{draftVersion + 1})</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
-
-            {/* Export & Actions */}
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={handleCopyRevised}
-                disabled={!revisedText.trim()}
-                title="复制全文 Markdown"
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition disabled:opacity-40"
-              >
-                <Copy className="w-3.5 h-3.5 text-slate-400" />
-                <span>复制</span>
-              </button>
-              <button
-                onClick={handleDownloadMd}
-                disabled={!revisedText.trim()}
-                title="下载为 .md 文件"
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition disabled:opacity-40"
-              >
-                <Download className="w-3.5 h-3.5 text-slate-400" />
-                <span>下载</span>
-              </button>
-              <button
-                onClick={() => setExportOpen(true)}
-                disabled={!revisedText.trim()}
-                title="生成 Hexo 博客文章并复制"
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition disabled:opacity-40"
-              >
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>导出博客草稿</span>
-              </button>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* Modals */}
-      <SettingsModal
-        isOpen={settingsOpen}
-        onClose={() => setSettingsOpen(false)}
-        config={apiConfig}
-        onSave={handleSaveConfig}
+      {/* Pinpoint Modal */}
+      <PinpointModal
+        isOpen={pinpointModalOpen}
+        onClose={() => {
+          setPinpointModalOpen(false);
+          setEditingAnnotation(null);
+        }}
+        onSave={handleSaveAnnotation}
+        initialData={editingAnnotation}
       />
 
+      {/* Export Hexo Modal */}
       <ExportHexoModal
-        isOpen={exportOpen}
-        onClose={() => setExportOpen(false)}
+        isOpen={exportModalOpen}
+        onClose={() => setExportModalOpen(false)}
         content={revisedText}
       />
     </div>
   );
-}
+};
+
+export default App;
