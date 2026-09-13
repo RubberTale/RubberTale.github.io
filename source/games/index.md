@@ -32,6 +32,15 @@ aside: false
 欢迎来到游戏专区！这里收集了一些有趣的网页小游戏与模拟器，带你在娱乐中放松与体验乐趣。
 
 <div class="flink">
+    <div class="flink-list-item">
+      <a href="/games/futures-quiz/" title="期货竞答游戏" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:question.svg" alt="期货竞答游戏">
+        </div>
+        <div class="flink-item-name">期货竞答游戏</div>
+        <div class="flink-item-desc">测试你的期货知识：交易所、技术指标、图形识别与涨幅预测。</div>
+      </a>
+    </div>
   <div class="flink-list">
     <div class="flink-list-item">
       <a href="/games/kline-duel/" title="K线盲盒 · 极速决斗" target="_blank">
