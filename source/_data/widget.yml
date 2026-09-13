@@ -225,4 +225,11 @@ top:
             <a href="/2026/03/13/2026-03-13-anthropic-the-story-behind-claude/" style="color: inherit; text-decoration: none;" title="Anthropic 与 Claude 的完整故事">Anthropic 与 Claude 的完整故事</a>
           </li>
         </ul>
+        <!-- Anthropic 2026年9月威胁情报报告 -->
+        <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/13/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="Anthropic发布154页威胁情报报告：披露2025年12月至2026年8月间破坏的40余个恶意AI使用案例，涵盖网络攻击、监视、影响行动、诈骗、生物武器、常规武器及非法蒸馏七大领域">Anthropic发布9月威胁情报报告：AI滥用进入自主执行阶段</a>
+          </li>
+        </ul>
       </div>
