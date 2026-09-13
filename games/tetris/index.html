@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>俄罗斯方块 · Cyber Tetris</title>
+  <!-- Baidu Analytics -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?301a591b476305494eb47a7821a42915";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #0b0c14;
+      --card-bg: rgba(20, 24, 38, 0.85);
+      --card-border: rgba(99, 102, 241, 0.28);
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.5);
+      --text: #f8fafc;
+      --text-sub: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #151828 0%, #08090e 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+    }
+
+    .app {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    /* 顶部导航栏 */
+    .header {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .header-tools {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+
+    .tool-btn:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* 主游戏工作区：左栏 + 主棋盘 + 右栏 */
+    .game-arena {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex: 1;
+      max-height: calc(100vh - 140px);
+      position: relative;
+    }
+
+    /* 侧边信息卡片 */
+    .side-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 96px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .stat-num {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: "Courier New", monospace;
+      color: #38bdf8;
+    }
+
+    /* 预览画布 (HOLD & NEXT) */
+    .preview-canvas {
+      width: 76px;
+      height: 76px;
+      display: block;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* 主棋盘容器 */
+    .board-container {
+      position: relative;
+      height: 100%;
+      aspect-ratio: 1 / 2;
+      border-radius: 14px;
+      border: 2px solid rgba(99, 102, 241, 0.45);
+      background: #08090f;
+      box-shadow: 0 0 35px rgba(0,0,0,0.8), 0 0 20px var(--accent-glow);
+      overflow: hidden;
+    }
+
+    #board {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 遮罩弹窗 (开始 / 暂停 / 结束) */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 10, 16, 0.88);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 30;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overlay-title {
+      font-size: 26px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .overlay-msg {
+      font-size: 14px;
+      color: var(--text-sub);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .overlay-msg span {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      border: none;
+      padding: 11px 32px;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(99, 102, 241, 0.5);
+      transition: all 0.2s;
+    }
+
+    .btn-main:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.7);
+    }
+
+    /* 底部操作与提示 */
+    .footer {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .touch-grid {
+      display: none; /* 电脑端隐藏，手机端显示 */
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .touch-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .t-btn {
+      flex: 1;
+      height: 44px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .t-btn:active {
+      background: var(--accent);
+    }
+
+    .t-btn.accent {
+      background: rgba(99, 102, 241, 0.35);
+      border-color: var(--accent);
+    }
+
+    .t-btn.drop {
+      background: rgba(239, 68, 68, 0.3);
+      border-color: rgba(239, 68, 68, 0.6);
+    }
+
+    .tips-row {
+      font-size: 11px;
+      color: #64748b;
+      text-align: center;
+    }
+
+    .tips-row kbd {
+      background: rgba(255,255,255,0.06);
+      padding: 1px 4px;
+      border-radius: 4px;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 640px) {
+      .touch-grid {
+        display: flex;
+      }
+      .tips-row {
+        display: none;
+      }
+      .side-col {
+        width: 68px;
+        gap: 8px;
+      }
+      .stat-card {
+        padding: 6px 4px;
+        border-radius: 10px;
+      }
+      .stat-label {
+        font-size: 9px;
+        margin-bottom: 2px;
+      }
+      .stat-num {
+        font-size: 13px;
+      }
+      .preview-canvas {
+        width: 56px;
+        height: 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <!-- 顶栏 -->
+    <header class="header">
+      <div class="brand">
+        <span style="font-size:20px;">🕹️</span>
+        <h1 class="brand-title">CYBER TETRIS</h1>
+      </div>
+      <div class="header-tools">
+        <button class="tool-btn" id="btn-fullscreen" title="全屏 (F)">⛶</button>
+        <button class="tool-btn" id="btn-sound" title="音效 (S)">🔊</button>
+        <button class="tool-btn" id="btn-pause" title="暂停 (P)">⏸️</button>
+        <button class="tool-btn" id="btn-restart" title="重新开始 (R)">🔄</button>
+      </div>
+    </header>
+
+    <!-- 主游戏区 -->
+    <main class="game-arena">
+      <!-- 左侧：暂存 & 分数 -->
+      <aside class="side-col">
+        <div class="stat-card" id="card-hold" title="点击或按 C 键暂存" style="cursor:pointer;">
+          <div class="stat-label">暂存 HOLD</div>
+          <canvas id="hold-canvas" class="preview-canvas" width="80" height="80"></canvas>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">得分 SCORE</div>
+          <div class="stat-num" id="score-val">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">行数 LINES</div>
+          <div class="stat-num" id="lines-val" style="color:#c084fc;">0</div>
+        </div>
+      </aside>
+
+      <!-- 中间：主棋盘 -->
+      <section class="board-container">
+        <canvas id="board" width="300" height="600"></canvas>
+        
+        <!-- 弹窗覆盖层 -->
+        <div class="overlay active" id="overlay">
+          <div class="overlay-title" id="overlay-title">俄罗斯方块</div>
+          <div class="overlay-msg" id="overlay-msg">点击下方按钮或按空格键开局</div>
+          <button class="btn-main" id="btn-start">开始游戏</button>
+        </div>
+      </section>
+
+      <!-- 右侧：下一个 & 等级 -->
+      <aside class="side-col">
+        <div class="stat-card">
+          <div class="stat-label">下一个 NEXT</div>
+          <canvas id="next-canvas" class="preview-canvas" width="80" height="80"></canvas>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">等级 LEVEL</div>
+          <div class="stat-num" id="level-val" style="color:#10b981;">1</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">最高 HIGH</div>
+          <div class="stat-num" id="high-val" style="color:#eab308;">0</div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- 底栏 -->
+    <footer class="footer">
+      <!-- 手机触控按键 -->
+      <div class="touch-grid">
+        <div class="touch-row">
+          <button class="t-btn" id="t-hold">暂存 C</button>
+          <button class="t-btn accent" id="t-rotate">旋转 ↻</button>
+          <button class="t-btn drop" id="t-hard">瞬间落下 ⬇</button>
+        </div>
+        <div class="touch-row">
+          <button class="t-btn" id="t-left">◀ 左移</button>
+          <button class="t-btn" id="t-down">▼ 软降</button>
+          <button class="t-btn" id="t-right">右移 ▶</button>
+        </div>
+      </div>
+      <!-- 电脑键盘提示 -->
+      <div class="tips-row">
+        <kbd>←</kbd><kbd>→</kbd> 左右移动 | <kbd>↑</kbd>/<kbd>X</kbd> 旋转 | <kbd>Space</kbd> 瞬间落地 | <kbd>C</kbd> 暂存 | <kbd>F</kbd> 全屏 | <kbd>P</kbd> 暂停
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /**
+     * Web Audio API 音效系统
+     */
+    class SoundFX {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+      }
+      playTone(freq, type = 'sine', duration = 0.08, gainVal = 0.08) {
+        if (!this.enabled) return;
+        this.init();
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {}
+      }
+      move() { this.playTone(280, 'sine', 0.04, 0.03); }
+      rotate() { this.playTone(420, 'triangle', 0.05, 0.05); }
+      drop() { this.playTone(160, 'triangle', 0.08, 0.08); }
+      clear() {
+        if (!this.enabled) return;
+        this.playTone(523, 'square', 0.08, 0.05);
+        setTimeout(() => this.playTone(659, 'square', 0.08, 0.05), 60);
+        setTimeout(() => this.playTone(784, 'square', 0.12, 0.05), 120);
+      }
+      tetris() {
+        if (!this.enabled) return;
+        [523, 659, 784, 1046].forEach((f, i) => {
+          setTimeout(() => this.playTone(f, 'square', 0.12, 0.06), i * 70);
+        });
+      }
+      gameover() {
+        if (!this.enabled) return;
+        [320, 260, 200, 140].forEach((f, i) => {
+          setTimeout(() => this.playTone(f, 'sawtooth', 0.15, 0.06), i * 90);
+        });
+      }
+    }
+
+    const sound = new SoundFX();
+
+    const COLS = 10;
+    const ROWS = 20;
+    const BLOCK_SIZE = 30; // 300x600
+
+    const SHAPES = {
+      I: { shape: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]], color: '#06b6d4' },
+      J: { shape: [[1,0,0],[1,1,1],[0,0,0]], color: '#3b82f6' },
+      L: { shape: [[0,0,1],[1,1,1],[0,0,0]], color: '#f97316' },
+      O: { shape: [[1,1],[1,1]], color: '#eab308' },
+      S: { shape: [[0,1,1],[1,1,0],[0,0,0]], color: '#10b981' },
+      T: { shape: [[0,1,0],[1,1,1],[0,0,0]], color: '#a855f7' },
+      Z: { shape: [[1,1,0],[0,1,1],[0,0,0]], color: '#ef4444' }
+    };
+    const PIECE_TYPES = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+
+    class BagRandomizer {
+      constructor() { this.bag = []; }
+      next() {
+        if (this.bag.length === 0) {
+          this.bag = [...PIECE_TYPES];
+          for (let i = this.bag.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.bag[i], this.bag[j]] = [this.bag[j], this.bag[i]];
+          }
+        }
+        return this.bag.pop();
+      }
+    }
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.vx = (Math.random() - 0.5) * 8;
+        this.vy = (Math.random() - 0.5) * 8 - 2;
+        this.size = Math.random() * 4 + 2;
+        this.alpha = 1;
+        this.decay = Math.random() * 0.03 + 0.02;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.2;
+        this.alpha -= this.decay;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = this.color;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.restore();
+      }
+    }
+
+    class TetrisGame {
+      constructor() {
+        this.canvas = document.getElementById('board');
+        this.ctx = this.canvas.getContext('2d');
+        this.holdCanvas = document.getElementById('hold-canvas');
+        this.holdCtx = this.holdCanvas.getContext('2d');
+        this.nextCanvas = document.getElementById('next-canvas');
+        this.nextCtx = this.nextCanvas.getContext('2d');
+
+        this.scoreEl = document.getElementById('score-val');
+        this.linesEl = document.getElementById('lines-val');
+        this.levelEl = document.getElementById('level-val');
+        this.highEl = document.getElementById('high-val');
+        this.overlay = document.getElementById('overlay');
+        this.overlayTitle = document.getElementById('overlay-title');
+        this.overlayMsg = document.getElementById('overlay-msg');
+        this.btnStart = document.getElementById('btn-start');
+
+        this.grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+        this.bag = new BagRandomizer();
+        this.currentPiece = null;
+        this.nextPieceType = null;
+        this.holdPieceType = null;
+        this.canHold = true;
+
+        this.score = 0;
+        this.lines = 0;
+        this.level = 1;
+        this.highScore = parseInt(localStorage.getItem('tetris_high_score') || '0', 10);
+        this.highEl.textContent = this.highScore;
+
+        this.dropInterval = 1000;
+        this.lastDropTime = 0;
+        this.particles = [];
+        this.floatingTexts = [];
+
+        this.isGameOver = false;
+        this.isPaused = false;
+        this.isPlaying = false;
+        this.animationId = null;
+
+        // 初始画出第一个预览
+        this.nextPieceType = this.bag.next();
+        this.drawMiniPiece(this.nextCtx, this.nextPieceType);
+        this.drawMiniPiece(this.holdCtx, null);
+
+        this.initEvents();
+        this.render();
+      }
+
+      start() {
+        this.grid = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+        this.score = 0;
+        this.lines = 0;
+        this.level = 1;
+        this.dropInterval = 1000;
+        this.isGameOver = false;
+        this.isPaused = false;
+        this.isPlaying = true;
+        this.holdPieceType = null;
+        this.canHold = true;
+        this.particles = [];
+        this.floatingTexts = [];
+
+        this.updateStats();
+        this.spawnPiece();
+
+        this.overlay.classList.remove('active');
+        this.lastDropTime = performance.now();
+
+        if (this.animationId) cancelAnimationFrame(this.animationId);
+        this.loop(performance.now());
+      }
+
+      spawnPiece() {
+        const type = this.nextPieceType || this.bag.next();
+        this.nextPieceType = this.bag.next();
+        this.currentPiece = {
+          type: type,
+          matrix: SHAPES[type].shape.map(row => [...row]),
+          color: SHAPES[type].color,
+          x: Math.floor((COLS - SHAPES[type].shape[0].length) / 2),
+          y: 0
+        };
+
+        this.canHold = true;
+        this.drawMiniPiece(this.nextCtx, this.nextPieceType);
+        this.drawMiniPiece(this.holdCtx, this.holdPieceType);
+
+        if (this.checkCollision(this.currentPiece.x, this.currentPiece.y, this.currentPiece.matrix)) {
+          this.gameOver();
+        }
+      }
+
+      hold() {
+        if (!this.canHold || this.isGameOver || this.isPaused || !this.isPlaying) return;
+        sound.rotate();
+
+        if (this.holdPieceType === null) {
+          this.holdPieceType = this.currentPiece.type;
+          this.spawnPiece();
+        } else {
+          const temp = this.holdPieceType;
+          this.holdPieceType = this.currentPiece.type;
+          this.currentPiece = {
+            type: temp,
+            matrix: SHAPES[temp].shape.map(row => [...row]),
+            color: SHAPES[temp].color,
+            x: Math.floor((COLS - SHAPES[temp].shape[0].length) / 2),
+            y: 0
+          };
+          this.drawMiniPiece(this.holdCtx, this.holdPieceType);
+        }
+        this.canHold = false;
+      }
+
+      move(dir) {
+        if (this.isGameOver || this.isPaused || !this.currentPiece) return;
+        if (!this.checkCollision(this.currentPiece.x + dir, this.currentPiece.y, this.currentPiece.matrix)) {
+          this.currentPiece.x += dir;
+          sound.move();
+        }
+      }
+
+      rotate(dir = 1) {
+        if (this.isGameOver || this.isPaused || !this.currentPiece) return;
+        const matrix = this.currentPiece.matrix;
+        const N = matrix.length;
+        const rotated = Array.from({ length: N }, () => Array(N).fill(0));
+
+        for (let r = 0; r < N; r++) {
+          for (let c = 0; c < N; c++) {
+            if (dir > 0) rotated[c][N - 1 - r] = matrix[r][c];
+            else rotated[N - 1 - c][r] = matrix[r][c];
+          }
+        }
+
+        const offsets = [0, 1, -1, 2, -2];
+        for (const offset of offsets) {
+          if (!this.checkCollision(this.currentPiece.x + offset, this.currentPiece.y, rotated)) {
+            this.currentPiece.x += offset;
+            this.currentPiece.matrix = rotated;
+            sound.rotate();
+            return;
+          }
+        }
+      }
+
+      softDrop() {
+        if (this.isGameOver || this.isPaused || !this.currentPiece) return;
+        if (!this.checkCollision(this.currentPiece.x, this.currentPiece.y + 1, this.currentPiece.matrix)) {
+          this.currentPiece.y += 1;
+          this.score += 1;
+          this.scoreEl.textContent = this.score;
+        } else {
+          this.lockPiece();
+        }
+      }
+
+      hardDrop() {
+        if (this.isGameOver || this.isPaused || !this.currentPiece) return;
+        let dropCount = 0;
+        while (!this.checkCollision(this.currentPiece.x, this.currentPiece.y + 1, this.currentPiece.matrix)) {
+          this.currentPiece.y += 1;
+          dropCount++;
+        }
+        this.score += dropCount * 2;
+        this.scoreEl.textContent = this.score;
+        sound.drop();
+        this.lockPiece();
+      }
+
+      getGhostY() {
+        if (!this.currentPiece) return 0;
+        let ghostY = this.currentPiece.y;
+        while (!this.checkCollision(this.currentPiece.x, ghostY + 1, this.currentPiece.matrix)) {
+          ghostY++;
+        }
+        return ghostY;
+      }
+
+      checkCollision(x, y, matrix) {
+        for (let r = 0; r < matrix.length; r++) {
+          for (let c = 0; c < matrix[r].length; c++) {
+            if (matrix[r][c]) {
+              const newX = x + c;
+              const newY = y + r;
+              if (newX < 0 || newX >= COLS || newY >= ROWS) return true;
+              if (newY >= 0 && this.grid[newY][newX]) return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      lockPiece() {
+        const { x, y, matrix, color } = this.currentPiece;
+        for (let r = 0; r < matrix.length; r++) {
+          for (let c = 0; c < matrix[r].length; c++) {
+            if (matrix[r][c]) {
+              const gridY = y + r;
+              const gridX = x + c;
+              if (gridY >= 0 && gridY < ROWS && gridX >= 0 && gridX < COLS) {
+                this.grid[gridY][gridX] = color;
+              }
+            }
+          }
+        }
+
+        this.clearLines();
+        this.spawnPiece();
+      }
+
+      clearLines() {
+        let cleared = 0;
+        for (let r = ROWS - 1; r >= 0; r--) {
+          if (this.grid[r].every(cell => cell !== 0)) {
+            for (let c = 0; c < COLS; c++) {
+              const px = c * BLOCK_SIZE + BLOCK_SIZE / 2;
+              const py = r * BLOCK_SIZE + BLOCK_SIZE / 2;
+              for (let i = 0; i < 4; i++) {
+                this.particles.push(new Particle(px, py, this.grid[r][c]));
+              }
+            }
+            this.grid.splice(r, 1);
+            this.grid.unshift(Array(COLS).fill(0));
+            cleared++;
+            r++;
+          }
+        }
+
+        if (cleared > 0) {
+          const points = [0, 100, 300, 500, 800];
+          const pts = (points[cleared] || 1000) * this.level;
+          this.score += pts;
+          this.lines += cleared;
+
+          if (cleared === 4) {
+            sound.tetris();
+            this.addFloatingText('TETRIS! +' + pts, '#38bdf8');
+          } else {
+            sound.clear();
+            this.addFloatingText('+' + pts, '#eab308');
+          }
+
+          const nextLevel = Math.floor(this.lines / 10) + 1;
+          if (nextLevel > this.level) {
+            this.level = nextLevel;
+            this.dropInterval = Math.max(120, 1000 - (this.level - 1) * 80);
+            this.addFloatingText('LEVEL UP!', '#10b981');
+          }
+
+          this.updateStats();
+        }
+      }
+
+      addFloatingText(text, color) {
+        this.floatingTexts.push({
+          text,
+          color,
+          x: this.canvas.width / 2,
+          y: this.canvas.height / 2,
+          alpha: 1,
+          vy: -1.2
+        });
+      }
+
+      updateStats() {
+        this.scoreEl.textContent = this.score;
+        this.linesEl.textContent = this.lines;
+        this.levelEl.textContent = this.level;
+
+        if (this.score > this.highScore) {
+          this.highScore = this.score;
+          this.highEl.textContent = this.highScore;
+          localStorage.setItem('tetris_high_score', this.highScore.toString());
+        }
+      }
+
+      togglePause() {
+        if (!this.isPlaying || this.isGameOver) return;
+        this.isPaused = !this.isPaused;
+        if (this.isPaused) {
+          this.overlayTitle.textContent = '游戏暂停';
+          this.overlayMsg.innerHTML = `当前得分：<span>${this.score}</span>`;
+          this.btnStart.textContent = '继续游戏';
+          this.overlay.classList.add('active');
+        } else {
+          this.overlay.classList.remove('active');
+          this.lastDropTime = performance.now();
+        }
+      }
+
+      gameOver() {
+        this.isGameOver = true;
+        this.isPlaying = false;
+        sound.gameover();
+
+        this.overlayTitle.textContent = 'GAME OVER';
+        this.overlayMsg.innerHTML = `最终得分：<span>${this.score}</span><br>消除行数：<span>${this.lines}</span>`;
+        this.btnStart.textContent = '再来一局';
+        this.overlay.classList.add('active');
+      }
+
+      drawBlock(ctx, x, y, color, size = BLOCK_SIZE, isGhost = false) {
+        ctx.save();
+        if (isGhost) {
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(x + 1.5, y + 1.5, size - 3, size - 3);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+          ctx.fillRect(x + 1.5, y + 1.5, size - 3, size - 3);
+        } else {
+          ctx.fillStyle = color;
+          ctx.fillRect(x + 1, y + 1, size - 2, size - 2);
+
+          // 高光
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+          ctx.fillRect(x + 1, y + 1, size - 2, 3);
+          ctx.fillRect(x + 1, y + 1, 3, size - 2);
+
+          // 阴影
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+          ctx.fillRect(x + 1, y + size - 4, size - 2, 3);
+          ctx.fillRect(x + size - 4, y + 1, 3, size - 2);
+        }
+        ctx.restore();
+      }
+
+      drawMiniPiece(ctx, type) {
+        ctx.clearRect(0, 0, 80, 80);
+        if (!type) return;
+
+        const info = SHAPES[type];
+        const matrix = info.shape;
+        const size = 16;
+        const offsetX = (80 - matrix[0].length * size) / 2;
+        const offsetY = (80 - matrix.length * size) / 2;
+
+        for (let r = 0; r < matrix.length; r++) {
+          for (let c = 0; c < matrix[r].length; c++) {
+            if (matrix[r][c]) {
+              this.drawBlock(ctx, offsetX + c * size, offsetY + r * size, info.color, size);
+            }
+          }
+        }
+      }
+
+      render() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // 网格线
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+        this.ctx.lineWidth = 1;
+        for (let x = 0; x <= COLS; x++) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(x * BLOCK_SIZE, 0);
+          this.ctx.lineTo(x * BLOCK_SIZE, this.canvas.height);
+          this.ctx.stroke();
+        }
+        for (let y = 0; y <= ROWS; y++) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(0, y * BLOCK_SIZE);
+          this.ctx.lineTo(this.canvas.width, y * BLOCK_SIZE);
+          this.ctx.stroke();
+        }
+
+        // 固定方块
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            if (this.grid[r][c]) {
+              this.drawBlock(this.ctx, c * BLOCK_SIZE, r * BLOCK_SIZE, this.grid[r][c]);
+            }
+          }
+        }
+
+        // 幽灵投影与下落方块
+        if (this.currentPiece && !this.isGameOver) {
+          const ghostY = this.getGhostY();
+          const { x, matrix, color } = this.currentPiece;
+          for (let r = 0; r < matrix.length; r++) {
+            for (let c = 0; c < matrix[r].length; c++) {
+              if (matrix[r][c]) {
+                this.drawBlock(this.ctx, (x + c) * BLOCK_SIZE, (ghostY + r) * BLOCK_SIZE, color, BLOCK_SIZE, true);
+              }
+            }
+          }
+
+          for (let r = 0; r < matrix.length; r++) {
+            for (let c = 0; c < matrix[r].length; c++) {
+              if (matrix[r][c]) {
+                this.drawBlock(this.ctx, (x + c) * BLOCK_SIZE, (this.currentPiece.y + r) * BLOCK_SIZE, color);
+              }
+            }
+          }
+        }
+
+        // 粒子
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.update();
+          p.draw(this.ctx);
+          if (p.alpha <= 0) this.particles.splice(i, 1);
+        }
+
+        // 浮动得分
+        for (let i = this.floatingTexts.length - 1; i >= 0; i--) {
+          const ft = this.floatingTexts[i];
+          ft.y += ft.vy;
+          ft.alpha -= 0.02;
+          this.ctx.save();
+          this.ctx.font = 'bold 20px -apple-system, sans-serif';
+          this.ctx.fillStyle = ft.color;
+          this.ctx.globalAlpha = Math.max(0, ft.alpha);
+          this.ctx.textAlign = 'center';
+          this.ctx.shadowBlur = 10;
+          this.ctx.shadowColor = ft.color;
+          this.ctx.fillText(ft.text, ft.x, ft.y);
+          this.ctx.restore();
+          if (ft.alpha <= 0) this.floatingTexts.splice(i, 1);
+        }
+      }
+
+      loop(timestamp) {
+        if (this.isPlaying && !this.isPaused && !this.isGameOver) {
+          if (timestamp - this.lastDropTime > this.dropInterval) {
+            this.softDrop();
+            this.lastDropTime = timestamp;
+          }
+        }
+        this.render();
+        this.animationId = requestAnimationFrame(t => this.loop(t));
+      }
+
+      initEvents() {
+        const handleStart = (e) => {
+          if (e) e.stopPropagation();
+          sound.init();
+          if (this.isPaused) this.togglePause();
+          else this.start();
+        };
+
+        this.btnStart.addEventListener('click', handleStart);
+        this.overlay.addEventListener('click', (e) => {
+          if (e.target === this.overlay) handleStart();
+        });
+
+        document.getElementById('btn-pause').addEventListener('click', () => this.togglePause());
+        document.getElementById('btn-restart').addEventListener('click', () => this.start());
+
+        const btnFullscreen = document.getElementById('btn-fullscreen');
+        const toggleFullscreen = () => {
+          if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) elem.requestFullscreen();
+            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+          } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+          }
+        };
+
+        btnFullscreen.addEventListener('click', toggleFullscreen);
+
+        const updateFullscreenBtn = () => {
+          const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement);
+          btnFullscreen.textContent = isFull ? '🗗' : '⛶';
+          btnFullscreen.title = isFull ? '退出全屏 (F)' : '全屏 (F)';
+        };
+
+        document.addEventListener('fullscreenchange', updateFullscreenBtn);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
+
+        const btnSound = document.getElementById('btn-sound');
+        btnSound.addEventListener('click', () => {
+          sound.enabled = !sound.enabled;
+          btnSound.textContent = sound.enabled ? '🔊' : '🔇';
+        });
+
+        document.getElementById('card-hold').addEventListener('click', () => this.hold());
+
+        // 键盘操作
+        window.addEventListener('keydown', e => {
+          if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
+            e.preventDefault();
+          }
+
+          if (!this.isPlaying && (e.code === 'Space' || e.code === 'Enter')) {
+            handleStart();
+            return;
+          }
+
+          if (e.code === 'KeyF') {
+            toggleFullscreen();
+            return;
+          }
+
+          if (e.code === 'KeyP' || e.code === 'Escape') {
+            this.togglePause();
+            return;
+          }
+
+          if (!this.isPlaying || this.isPaused || this.isGameOver) return;
+
+          switch (e.code) {
+            case 'ArrowLeft':
+            case 'KeyA':
+              this.move(-1);
+              break;
+            case 'ArrowRight':
+            case 'KeyD':
+              this.move(1);
+              break;
+            case 'ArrowUp':
+            case 'KeyW':
+            case 'KeyX':
+              this.rotate(1);
+              break;
+            case 'KeyZ':
+            case 'ControlLeft':
+              this.rotate(-1);
+              break;
+            case 'ArrowDown':
+            case 'KeyS':
+              this.softDrop();
+              break;
+            case 'Space':
+              this.hardDrop();
+              break;
+            case 'KeyC':
+            case 'ShiftLeft':
+            case 'ShiftRight':
+              this.hold();
+              break;
+            case 'KeyR':
+              this.start();
+              break;
+          }
+        });
+
+        // 触控支持
+        const bindTouch = (id, action) => {
+          const btn = document.getElementById(id);
+          if (!btn) return;
+          const handler = e => {
+            e.preventDefault();
+            action();
+          };
+          btn.addEventListener('touchstart', handler, { passive: false });
+          btn.addEventListener('click', handler);
+        };
+
+        bindTouch('t-left', () => this.move(-1));
+        bindTouch('t-right', () => this.move(1));
+        bindTouch('t-rotate', () => this.rotate(1));
+        bindTouch('t-down', () => this.softDrop());
+        bindTouch('t-hard', () => this.hardDrop());
+        bindTouch('t-hold', () => this.hold());
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      new TetrisGame();
+    });
+  </script>
+</body>
+</html>

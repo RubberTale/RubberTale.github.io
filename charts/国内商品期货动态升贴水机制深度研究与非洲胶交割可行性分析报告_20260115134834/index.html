@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非洲橡胶市场深度分析 | 非洲胶的崛起</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 配色方案: 深海蓝 & 活力青 (Deep Ocean & Electric Teal) 
+         背景: #F0F9FF (Alice Blue / Slate 50)
+         卡片: #FFFFFF
+         主文字: #0F172A (Slate 900)
+         主色调: #0284C7 (Sky 600)
+         强调色: #0D9488 (Teal 600) - 用于突出科特迪瓦
+         警示色: #EF4444 (Red 500)
+    -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+
+        /* 图表容器样式 - 严格控制 */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0D9488;
+            border-radius: 4px;
+        }
+
+        /* 时间轴/流程样式 (无SVG) */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid #CBD5E1;
+            padding-bottom: 2rem;
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #0D9488;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 1px #CBD5E1;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-teal-100 selection:text-teal-900">
+
+    <!-- 导航栏 -->
+    <nav class="bg-slate-900 text-white sticky top-0 z-50 shadow-lg backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center font-bold text-slate-900">胶</div>
+                    <span class="font-bold text-xl tracking-wide">非洲橡胶<span class="text-teal-400 font-light">洞察报告</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#overview" class="hover:text-teal-400 transition-colors text-sm font-medium">市场概览</a>
+                    <a href="#production" class="hover:text-teal-400 transition-colors text-sm font-medium">产地分布</a>
+                    <a href="#players" class="hover:text-teal-400 transition-colors text-sm font-medium">巨头与品牌</a>
+                    <a href="#logistics" class="hover:text-teal-400 transition-colors text-sm font-medium">物流痛点</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体内容 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <!-- 摘要 / 核心数据 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 p-8 md:p-12 text-center md:text-left relative overflow-hidden">
+                <!-- 装饰性背景元素 (CSS Only) -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 -mr-16 -mt-16"></div>
+                
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-6 relative z-10">
+                    全球橡胶版图的<span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">重构者</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-4xl relative z-10">
+                    东南亚的老化与病害正在重塑全球供应链，<strong>西非</strong>已成为新的增长引擎。本报告深入剖析非洲胶的真实产能、被低估的物流风险，以及即将冲击上海期货交易所（SHFE）交割名单的潜力品牌。除去市场泡沫，我们为您呈现最真实的非洲橡胶产业图景。
+                </p>
+            </div>
+            
+            <!-- 核心指标卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100 bg-white">
+                <div class="p-8 text-center hover:bg-slate-50 transition-colors">
+                    <div class="text-5xl font-black text-teal-600 mb-2 tracking-tighter">188<span class="text-2xl text-slate-400 align-top">+</span></div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-widest">科特迪瓦年产量 (万吨)</div>
+                    <p class="text-xs text-slate-400 mt-2">已超越越南，逼近200万吨大关</p>
+                </div>
+                <div class="p-8 text-center hover:bg-slate-50 transition-colors">
+                    <div class="text-5xl font-black text-indigo-600 mb-2 tracking-tighter">45-60</div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-widest">至中国船期 (天)</div>
+                    <p class="text-xs text-slate-400 mt-2">相比泰国的10-15天，物流劣势明显</p>
+                </div>
+                <div class="p-8 text-center hover:bg-slate-50 transition-colors">
+                    <div class="text-5xl font-black text-sky-600 mb-2 tracking-tighter">TOP 3</div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-widest">全球排名</div>
+                    <p class="text-xs text-slate-400 mt-2">科特迪瓦已跻身世界前三</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 板块：产地分布与修正 -->
+        <section id="production" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-7 bg-white rounded-xl shadow-md p-8 border border-slate-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 border-l-4 border-teal-500 pl-4">产能真相：一家独大</h2>
+                </div>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    非洲橡胶并非均匀分布。数据修正后显示，<strong>科特迪瓦（Côte d'Ivoire）</strong> 是绝对的核心，其产量呈现爆发式增长。相比之下，尼日利亚和喀麦隆受限于基础设施和树龄结构，实际商业出口量远低于部分市场研报的夸大预期。
+                </p>
+                
+                <!-- 修正提示 -->
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
+                    <div class="flex">
+                        <div class="ml-3">
+                            <h3 class="text-sm font-bold text-amber-800">数据修正说明</h3>
+                            <div class="mt-1 text-sm text-amber-700">
+                                <p>我们已核实最新出口数据：</p>
+                                <ul class="list-disc list-inside mt-1">
+                                    <li><strong>尼日利亚：</strong> 实际稳定出口约 7-9万吨/年（非此前传闻的数十万吨）。</li>
+                                    <li><strong>喀麦隆：</strong> 实际稳定出口约 5-6万吨/年。</li>
+                                    <li><strong>科特迪瓦：</strong> 修正为 188万吨+，占据西非总量的85%以上。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 图表：产量对比 -->
+                <div class="chart-container">
+                    <canvas id="productionChart"></canvas>
+                </div>
+                <p class="text-xs text-center text-slate-400 mt-3">图 1：2024-2025年度主要生产国产量预估 (单位：吨)</p>
+            </div>
+
+            <div class="lg:col-span-5 flex flex-col gap-8">
+                <!-- 区域占比图 -->
+                <div class="bg-white rounded-xl shadow-md p-8 border border-slate-100 flex-1 flex flex-col">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">西非产能集中度</h3>
+                    <div class="chart-container flex-1 flex items-center justify-center">
+                        <canvas id="shareChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-400 mt-2">科特迪瓦的统治级地位</p>
+                </div>
+
+                <!-- SWOT 优势劣势 -->
+                <div class="bg-white rounded-xl shadow-md p-8 border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">非洲胶综合竞争力分析</h3>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 板块：掌控者与上期所 (SHFE) -->
+        <section id="players" class="bg-slate-900 text-slate-300 rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-8 md:p-12">
+                <div class="md:flex md:justify-between md:items-end mb-10">
+                    <div class="max-w-2xl">
+                        <h2 class="text-3xl font-bold text-white mb-4">谁掌控着非洲胶？</h2>
+                        <p class="text-lg text-slate-400">
+                            不同于东南亚的小农分散模式，非洲胶更多掌握在大型跨国农业集团手中，这意味着更统一的品控，但也意味着更高的议价权集中度。
+                        </p>
+                    </div>
+                    <div class="mt-6 md:mt-0">
+                        <span class="inline-flex items-center px-4 py-2 rounded-full bg-teal-900/50 text-teal-400 border border-teal-700/50 text-sm font-semibold">
+                            重点关注：上期所交割潜力
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- 企業卡片 1 -->
+                    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">Halcyon Agri</h3>
+                            <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">全球巨头</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4">通过 Corrie MacColl 运营，掌控喀麦隆的 <strong>Sudcam</strong> 和 <strong>Hevecam</strong>。</p>
+                        <div class="pt-4 border-t border-slate-700">
+                            <span class="text-xs font-bold text-teal-500 uppercase">核心品牌</span>
+                            <p class="text-white font-mono mt-1">HeveaPro</p>
+                        </div>
+                    </div>
+
+                    <!-- 企業卡片 2 -->
+                    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">Socfin Group</h3>
+                            <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">欧洲背景</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4">在科特迪瓦、尼日利亚和喀麦隆拥有庞大的种植园网络。</p>
+                        <div class="pt-4 border-t border-slate-700">
+                            <span class="text-xs font-bold text-teal-500 uppercase">核心品牌</span>
+                            <p class="text-white font-mono mt-1">LAC, SOGB, SAFACAM</p>
+                        </div>
+                    </div>
+
+                    <!-- 企業卡片 3 -->
+                    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">SIPH</h3>
+                            <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">米其林合资</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4">西非橡胶的领军者，品控严格，主要供应高端轮胎厂。</p>
+                        <div class="pt-4 border-t border-slate-700">
+                            <span class="text-xs font-bold text-teal-500 uppercase">核心品牌 / 上期所热门</span>
+                            <p class="text-white font-mono mt-1">SAPH, GREL</p>
+                        </div>
+                    </div>
+
+                    <!-- 企業卡片 4 -->
+                    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-white group-hover:text-teal-400 transition-colors">Olam Agri</h3>
+                            <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">新加坡</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4">在科特迪瓦持续扩大加工产能，贸易流向灵活。</p>
+                        <div class="pt-4 border-t border-slate-700">
+                            <span class="text-xs font-bold text-teal-500 uppercase">核心品牌</span>
+                            <p class="text-white font-mono mt-1">Olam Rubber</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 板块：物流与运输 -->
+        <section id="logistics" class="bg-white rounded-xl shadow-md p-8 border border-slate-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-red-500 pl-4">阿喀琉斯之踵：漫长的海运</h2>
+                    <p class="text-slate-600 mb-8">
+                        虽然产能巨大，但非洲胶到中国的物流成本和时间是其最大劣势。相比东南亚的“快船”，非洲胶往往需要经过欧洲或新加坡中转，这带来了船期不稳定和受潮霉变的风险。
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="timeline-item">
+                            <h4 class="font-bold text-slate-800 text-lg">发货港口装运</h4>
+                            <p class="text-sm text-slate-500 mt-1">主要港口：阿比让 (Abidjan), 圣佩德罗 (San Pedro), 杜阿拉 (Douala)。雨季可能影响内陆运输到港口的时效。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold text-slate-800 text-lg">中转与航程 (45-60天)</h4>
+                            <p class="text-sm text-slate-500 mt-1">大多数航线并非直达。货物常在地中海（阿尔赫西拉斯、丹吉尔）或新加坡中转，增加了不可控延误的风险。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold text-slate-800 text-lg">抵达中国主港</h4>
+                            <p class="text-sm text-slate-500 mt-1">目的港：青岛、上海。长途海运导致的货物受潮（水湿）是买家索赔的主要原因。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-center">
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 text-center">至中国青岛港航程对比 (天)</h3>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="shippingChart"></canvas>
+                        </div>
+                        <p class="text-xs text-center text-slate-400 mt-3">数据来源：主要航运公司排期表</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-slate-400 text-sm py-8 border-t border-slate-200">
+            <p>&copy; 2026 非洲大宗商品研究小组 | 数据来源：ANRPC, 海关数据及各大胶企财报</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- 工具函数 ---
+
+        // 1. 标签自动换行处理 (针对中文优化)
+        function formatLabels(labels) {
+            return labels.map(label => {
+                // 中文每行大概8-10个字比较合适
+                if (label.length > 8) {
+                   // 简单粗暴的切分，实际项目中可更精细
+                   const mid = Math.ceil(label.length / 2);
+                   return [label.slice(0, mid), label.slice(mid)];
+                }
+                return label;
+            });
+        }
+
+        // 2. Tooltip配置
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join('');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- 图表生成 ---
+
+        // 图表 1: 产量对比 (柱状图)
+        const ctxProduction = document.getElementById('productionChart').getContext('2d');
+        new Chart(ctxProduction, {
+            type: 'bar',
+            data: {
+                labels: ['科特迪瓦', '尼日利亚 (修正值)', '喀麦隆 (修正值)', '加纳', '利比里亚'],
+                datasets: [{
+                    label: '年出口产量预估 (吨)',
+                    data: [1880000, 85000, 55000, 45000, 35000], // 更新后的科特迪瓦数据
+                    backgroundColor: [
+                        '#0D9488', // Teal (Ivory Coast - Highlight)
+                        '#64748B', // Slate
+                        '#64748B',
+                        '#94A3B8',
+                        '#94A3B8'
+                    ],
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#F1F5F9' },
+                        title: { display: true, text: '吨 (Tonnes)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 图表 2: 西非市场份额 (甜甜圈图)
+        const ctxShare = document.getElementById('shareChart').getContext('2d');
+        new Chart(ctxShare, {
+            type: 'doughnut',
+            data: {
+                labels: ['科特迪瓦', '其他西非国家合计'],
+                datasets: [{
+                    data: [89, 11], // 1.88M vs ~220k
+                    backgroundColor: ['#0D9488', '#E2E8F0'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'bottom', labels: { usePointStyle: true } }
+                },
+                cutout: '75%'
+            }
+        });
+
+        // 图表 3: 竞争力雷达图 (Radar)
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['产量增长潜力', '物流时效', '基础设施', '政治稳定性', '价格竞争力'],
+                datasets: [{
+                    label: '非洲胶 (西非)',
+                    data: [95, 30, 45, 60, 90], // High Growth, Low Logistics, High Price Competitive
+                    borderColor: '#0D9488',
+                    backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                    pointBackgroundColor: '#0D9488',
+                    pointBorderColor: '#fff'
+                }, {
+                    label: '东南亚胶 (泰/越)',
+                    data: [50, 95, 85, 80, 60], // Low Growth, Great Logistics
+                    borderColor: '#6366F1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    pointBackgroundColor: '#6366F1',
+                    pointBorderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'top', labels: { font: { size: 11 } } }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#E2E8F0' },
+                        grid: { color: '#E2E8F0' },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 图表 4: 航运时间 (水平柱状图)
+        const ctxShipping = document.getElementById('shippingChart').getContext('2d');
+        new Chart(ctxShipping, {
+            type: 'bar',
+            data: {
+                labels: ['泰国 -> 中国', '越南 -> 中国', '科特迪瓦 -> 中国', '尼日利亚 -> 中国'],
+                datasets: [{
+                    label: '航程天数',
+                    data: [12, 8, 50, 55],
+                    backgroundColor: [
+                        '#CBD5E1', 
+                        '#CBD5E1',
+                        '#EF4444', // Red for slow
+                        '#EF4444'
+                    ],
+                    borderRadius: 4,
+                    barPercentage: 0.5
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: '#F1F5F9' }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

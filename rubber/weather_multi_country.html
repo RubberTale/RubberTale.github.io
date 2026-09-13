@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>三国橡胶主产区降雨量化跟踪</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root { --bg:#f7f9fb; --card:#fff; --ink:#17202a; --muted:#5d6d7e; --line:#d8dee9; --blue:#1f77b4; --orange:#d35400; --green:#148f77; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans SC",sans-serif; background:var(--bg); color:var(--ink); }
+    header { padding:22px 28px 14px; background:#fff; border-bottom:1px solid var(--line); }
+    h1 { margin:0 0 6px; font-size:24px; letter-spacing:0; }
+    .sub { color:var(--muted); font-size:13px; line-height:1.5; }
+    main { padding:18px 28px 32px; max-width:1680px; margin:auto; }
+    .country-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .country-card { border:1px solid var(--line); border-radius:9px; padding:14px; background:var(--card); cursor:pointer; }
+    .country-card.active { border-color:#1f4e78; box-shadow:0 0 0 2px rgba(31,78,120,.12); }
+    .country-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+    .country-head h2 { margin:0; font-size:18px; }
+    .country-title { min-width:0; }
+    .state-basis { display:block; margin-top:2px; color:var(--muted); font-size:11px; line-height:1.2; }
+    .tag { flex:0 0 auto; white-space:nowrap; border-radius:999px; padding:3px 8px; font-size:12px; font-weight:700; }
+    .tag.wet { color:var(--orange); background:rgba(211,84,0,.1); border:1px solid rgba(211,84,0,.2); }
+    .tag.dry { color:var(--blue); background:rgba(31,119,180,.1); border:1px solid rgba(31,119,180,.2); }
+    .tag.normal { color:var(--muted); background:#f3f6f8; border:1px solid var(--line); }
+    .metric-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    .metric { border-left:3px solid #c8d4e3; background:#f9fbfd; padding:7px 9px; min-height:58px; }
+    .metric.wide { grid-column:1 / -1; }
+    .metric.high { border-left-color:var(--orange); } .metric.low { border-left-color:var(--blue); }
+    .metric span { display:block; color:var(--muted); font-size:12px; margin-bottom:4px; }
+    .metric strong { display:block; font-size:18px; line-height:1.15; }
+    .metric em { display:block; color:var(--muted); font-style:normal; font-size:11px; margin-top:3px; line-height:1.25; }
+    .panel { background:#fff; border:1px solid var(--line); border-radius:9px; padding:16px; margin-top:14px; }
+    .panel-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px; }
+    .panel h2 { margin:0; font-size:16px; }
+    .panel-note { color:var(--muted); font-size:12px; line-height:1.5; }
+    .chart-grid { display:grid; grid-template-columns:1fr; gap:14px; }
+    .chart-wrap { height:360px; }
+    .chart-wrap.primary { height:470px; }
+    .summary-line { margin-top:10px; border-left:4px solid var(--orange); background:#fff8f2; padding:10px 12px; font-size:14px; line-height:1.6; }
+    table { width:100%; border-collapse:collapse; font-size:12px; white-space:nowrap; }
+    th,td { border-bottom:1px solid var(--line); padding:7px 8px; text-align:right; }
+    th:first-child,td:first-child { text-align:left; }
+    th { background:#1f4e78; color:#fff; }
+    .compact header { padding:11px 16px 8px; }
+    .compact h1 { font-size:15px; margin-bottom:3px; }
+    .compact .sub { font-size:9px; }
+    .compact main { padding:10px 14px 16px; max-width:none; }
+    .compact .country-grid { gap:6px; }
+    .compact .country-card { padding:8px; border-radius:6px; }
+    .compact .country-head { margin-bottom:6px; }
+    .compact .country-head h2 { font-size:12px; }
+    .compact .state-basis { font-size:7px; margin-top:1px; }
+    .compact .tag { font-size:8px; padding:2px 5px; }
+    .compact .metric-grid { gap:5px; }
+    .compact .metric { min-height:38px; padding:5px 6px; border-left-width:2px; }
+    .compact .metric span { font-size:8px; margin-bottom:2px; }
+    .compact .metric strong { font-size:12px; }
+    .compact .metric em { font-size:8px; margin-top:2px; }
+    .compact .panel { padding:9px; margin-top:8px; border-radius:6px; }
+    .compact .panel-head { margin-bottom:5px; }
+    .compact .panel h2 { font-size:11px; }
+    .compact .panel-note { font-size:8px; }
+    .compact .chart-grid { gap:7px; }
+    .compact .chart-wrap { height:250px; }
+    .compact .chart-wrap.primary { height:360px; }
+    .compact .summary-line { font-size:9px; padding:7px 8px; margin-top:6px; border-left-width:3px; }
+    .compact table { font-size:9px; }
+    .compact th,.compact td { padding:4px 5px; }
+    @media(max-width:900px){ .country-grid,.chart-grid { grid-template-columns:1fr; } main,header{padding-left:14px;padding-right:14px;} .chart-wrap{height:320px;} }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>印尼 / 泰国 / 印度主产区降雨量化跟踪</h1>
+    <div class="sub" id="subtitle">读取数据中...</div>
+  </header>
+  <main>
+    <section class="country-grid" id="countryGrid"></section>
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2 id="detailTitle">国家详情</h2>
+          <div class="panel-note" id="detailNote"></div>
+        </div>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-wrap primary"><canvas id="monthlyChart"></canvas></div>
+        <div class="chart-wrap"><canvas id="weeklyChart"></canvas></div>
+      </div>
+      <div class="summary-line" id="implication"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>最近周度明细</h2>
+        <div class="panel-note">Actual 为实况/再分析，Forecast 为预报，Mixed 为混合窗口。</div>
+      </div>
+      <div style="overflow-x:auto"><table id="weeklyTable"></table></div>
+    </section>
+  </main>
+  <script>
+    if (new URLSearchParams(location.search).get("compact") === "1") document.body.classList.add("compact");
+    const fmt = (v, digits=1) => v == null || Number.isNaN(Number(v)) ? "--" : Number(v).toLocaleString("zh-CN", { maximumFractionDigits: digits });
+    const pct = v => v == null ? "--" : `${Number(v).toFixed(1)}%`;
+    const typeLabel = v => v === "Forecast" ? "预测" : v === "Mixed" ? "含预测" : "实况";
+    const typeColor = v => v === "Forecast" ? "#d35400" : v === "Mixed" ? "#b9770e" : "#5d6d7e";
+    let payload = null, activeCountry = null, monthlyChart = null, weeklyChart = null;
+
+    function metric(label, value, unit, meta, tone="") {
+      return `<div class="metric ${tone}"><span>${label}</span><strong>${value}${unit || ""}</strong><em>${meta || ""}</em></div>`;
+    }
+
+    function renderCards() {
+      const grid = document.getElementById("countryGrid");
+      grid.innerHTML = payload.countries.map(country => {
+        const m = country.metrics;
+        const ytdTone = m.ytd_state === "wet" ? "high" : m.ytd_state === "dry" ? "low" : "";
+        return `<article class="country-card ${country.country === activeCountry ? "active" : ""}" data-country="${country.country}">
+          <div class="country-head">
+            <div class="country-title"><h2>${country.country_cn}</h2><span class="state-basis">${country.state_basis || "近4周降雨"}信号</span></div>
+            <span class="tag ${country.state}">${country.state_label}</span>
+          </div>
+          <div class="metric-grid">
+            ${metric("今年以来降雨", fmt(m.ytd_rain_mm), " mm", `${m.ytd_state_label || "年内正常"} · 较5年同期 ${fmt(m.ytd_dev5_mm)}mm / ${fmt(m.ytd_dev5_pct)}%`, `wide ${ytdTone}`)}
+            ${metric("当月降雨", fmt(m.month_rain_mm), " mm", `${typeLabel(m.month_data_type)} · 较5年同期 ${fmt(m.month_dev5_mm)}mm`, m.month_dev5_mm > 0 ? "high" : m.month_dev5_mm < 0 ? "low" : "")}
+            ${metric("近4周降雨", fmt(m.recent_4w_rain_mm), " mm", `分位 ${pct(m.recent_4w_percentile)} · ${typeLabel(m.recent_4w_data_type)}`, m.recent_4w_percentile >= 75 ? "high" : m.recent_4w_percentile <= 25 ? "low" : "")}
+            ${metric("干扰雨日", fmt(m.recent_4w_interruption_days, 0), " 天", m.recent_4w_window)}
+            ${metric("未来14天", fmt(m.next_14d_forecast_rain_mm), " mm", `干扰 ${m.next_14d_interruption_days} 天`)}
+          </div>
+        </article>`;
+      }).join("");
+      grid.querySelectorAll(".country-card").forEach(card => card.addEventListener("click", () => {
+        activeCountry = card.dataset.country;
+        renderAll();
+      }));
+    }
+
+    function renderDetail() {
+      const country = payload.countries.find(item => item.country === activeCountry) || payload.countries[0];
+      const m = country.metrics;
+      document.getElementById("detailTitle").textContent = `${country.country_cn}主产区`;
+      document.getElementById("detailNote").textContent = `代表点：${country.regions.join("、")}；近4周窗口：${m.recent_4w_window}`;
+      document.getElementById("implication").textContent = `${country.country_cn}：${country.implication} 当前评分 ${fmt(country.score, 0)}/100；${m.ytd_state_label || "年内正常"}，年内累计较5年同期 ${fmt(m.ytd_dev5_mm)}mm；当月较5年同期 ${fmt(m.month_dev5_mm)}mm，近4周较5年同期 ${fmt(m.recent_4w_dev5_mm)}mm。`;
+
+      const tracker = country.weekly_tracker || [];
+      const labels = tracker.map(item => item.week_label);
+      const monthTicks = tracker.map(item => item.month_label);
+      const current = tracker.map(item => item.rain_mm);
+      const actual = tracker.map(item => item.data_type === "Actual" ? item.rain_mm : null);
+      const forecast = tracker.map(item => item.data_type && item.data_type !== "Actual" ? item.rain_mm : null);
+      const firstForecast = forecast.findIndex(item => item != null);
+      if (firstForecast > 0) forecast[firstForecast - 1] = current[firstForecast - 1];
+      const monthlyTracker = country.monthly_tracker || [];
+      const monthLabels = monthlyTracker.map(item => item.month_label);
+      const monthlyActual = monthlyTracker.map(item => item.data_type === "Actual" ? item.rain_mm : null);
+      const monthlyForecast = monthlyTracker.map(item => item.data_type && item.data_type !== "Actual" ? item.rain_mm : null);
+      const firstMonthForecast = monthlyForecast.findIndex(item => item != null);
+      if (firstMonthForecast > 0) monthlyForecast[firstMonthForecast - 1] = monthlyTracker[firstMonthForecast - 1].rain_mm;
+      const compact = document.body.classList.contains("compact");
+      const common = {
+        responsive:true,
+        maintainAspectRatio:false,
+        interaction:{ mode:"index", intersect:false },
+        plugins:{
+          legend:{ position:"top", labels:{ boxWidth:compact ? 12 : 16, padding:compact ? 8 : 14, font:{ size:compact ? 9 : 12 } } }
+        },
+        scales:{
+          y:{ beginAtZero:true, title:{display:!compact,text:"mm"}, ticks:{ font:{ size: compact ? 9 : 11 } }, grid:{ color:"rgba(120,130,140,.18)" } },
+          x:{ ticks:{ autoSkip:false, maxRotation:0, callback:(value, index)=> monthTicks[index] || "", font:{ size: compact ? 8 : 10 } }, grid:{ display:false } }
+        }
+      };
+      if (monthlyChart) monthlyChart.destroy();
+      if (weeklyChart) weeklyChart.destroy();
+      monthlyChart = new Chart(document.getElementById("monthlyChart"), {
+        type:"line",
+        data:{ labels, datasets:[
+          { label:"2016-2025区间上沿", data:tracker.map(item => item.max10_mm), borderColor:"rgba(180,190,196,0)", backgroundColor:"rgba(150,160,165,.16)", pointRadius:0, borderWidth:0, fill:false, tension:.25 },
+          { label:"2016-2025历史区间", data:tracker.map(item => item.min10_mm), borderColor:"rgba(180,190,196,0)", backgroundColor:"rgba(150,160,165,.16)", pointRadius:0, borderWidth:0, fill:"-1", tension:.25 },
+          { label:"2026周度实况", data:actual, borderColor:"#1f77b4", backgroundColor:"rgba(31,119,180,.12)", pointRadius:compact ? 1.5 : 2.5, borderWidth:compact ? 2 : 3, fill:false, tension:.28 },
+          { label:"2026预测/混合", data:forecast, borderColor:"#1f77b4", backgroundColor:"rgba(31,119,180,.08)", pointRadius:compact ? 1.5 : 2.5, borderWidth:compact ? 2 : 3, borderDash:[7,5], fill:false, tension:.28 },
+          { label:"2021-2025均值", data:tracker.map(item => item.avg5_mm), borderColor:"#148f77", pointRadius:0, borderWidth:compact ? 1.8 : 2.5, fill:false, tension:.25 },
+          { label:"2016-2025均值", data:tracker.map(item => item.avg10_mm), borderColor:"#5d6d7e", pointRadius:0, borderWidth:compact ? 1.5 : 2, borderDash:[6,5], fill:false, tension:.25 },
+        ] },
+        options:{ ...common, plugins:{ ...common.plugins, title:{display:true,text:"周度降雨跟踪：2026逐周 vs 历史同周区间",font:{size:compact?10:14}}, legend:{...common.plugins.legend, labels:{...common.plugins.legend.labels, filter:item=>item.text!=="2016-2025区间上沿"}} } }
+      });
+      weeklyChart = new Chart(document.getElementById("weeklyChart"), {
+        type:"line",
+        data:{ labels:monthLabels, datasets:[
+          { label:"2016-2025区间上沿", data:monthlyTracker.map(item => item.max10_mm), borderColor:"rgba(180,190,196,0)", backgroundColor:"rgba(150,160,165,.16)", pointRadius:0, borderWidth:0, fill:false, tension:.35 },
+          { label:"2016-2025历史区间", data:monthlyTracker.map(item => item.min10_mm), borderColor:"rgba(180,190,196,0)", backgroundColor:"rgba(150,160,165,.16)", pointRadius:0, borderWidth:0, fill:"-1", tension:.35 },
+          { label:"2026实况", data:monthlyActual, borderColor:"#d35400", backgroundColor:"rgba(211,84,0,.1)", pointRadius:compact ? 2 : 4, borderWidth:compact ? 2.2 : 3.4, fill:false, tension:.35 },
+          { label:"2026预测/混合", data:monthlyForecast, borderColor:"#d35400", backgroundColor:"rgba(211,84,0,.08)", pointRadius:compact ? 2 : 4, borderWidth:compact ? 2.2 : 3.4, borderDash:[7,5], fill:false, tension:.35 },
+          { label:"2021-2025均值", data:monthlyTracker.map(item => item.avg5_mm), borderColor:"#148f77", pointRadius:compact ? 1 : 3, borderWidth:compact ? 1.8 : 2.8, fill:false, tension:.35 },
+          { label:"2016-2025均值", data:monthlyTracker.map(item => item.avg10_mm), borderColor:"#5d6d7e", pointRadius:compact ? 1 : 3, borderWidth:compact ? 1.5 : 2.2, borderDash:[6,5], fill:false, tension:.35 },
+        ] },
+        options:{
+          ...common,
+          scales:{
+            ...common.scales,
+            x:{ ...common.scales.x, ticks:{ ...common.scales.x.ticks, callback:(value, index)=> monthLabels[index] || "" } }
+          },
+          plugins:{ ...common.plugins, title:{display:true,text:"月度降雨对比：2026年初至当前月 vs 历史同期区间",font:{size:compact?10:14}}, legend:{...common.plugins.legend, labels:{...common.plugins.legend.labels, filter:item=>item.text!=="2016-2025区间上沿"}} }
+        }
+      });
+      document.getElementById("weeklyTable").innerHTML = `<thead><tr><th>周起</th><th>周止</th><th>雨量mm</th><th>干扰日</th><th>强降雨日</th><th>类型</th></tr></thead><tbody>` +
+        country.weekly.slice(-8).map(row => `<tr><td>${row.week_start}</td><td>${row.week_end}</td><td>${fmt(row.rain_mm)}</td><td>${row.interruption_days}</td><td>${row.heavy_rain_days}</td><td style="color:${typeColor(row.data_type)}">${typeLabel(row.data_type)}</td></tr>`).join("") +
+        `</tbody>`;
+    }
+
+    function renderAll() {
+      renderCards();
+      renderDetail();
+    }
+
+    fetch(`weather_multi_country.json?v=${Date.now()}`, { cache:"no-store" })
+      .then(res => res.json())
+      .then(data => {
+        payload = data;
+        activeCountry = payload.countries.find(item => item.country === "thailand")?.country || payload.countries[0]?.country;
+        document.getElementById("subtitle").textContent = `更新：${data.updated_at}；基准：${data.baseline_years.join("-")}；来源：${data.sources.rainfall}`;
+        renderAll();
+      })
+      .catch(error => {
+        document.getElementById("subtitle").textContent = `读取失败：${error.message}`;
+      });
+  </script>
+</body>
+</html>

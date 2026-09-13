@@ -1,0 +1,647 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>为什么我们需要图表？——从爬行脑说起，聊聊我做的这套橡胶期货图表分析大全 | 橡胶童话</title><meta name="author" content="童长征"><meta name="copyright" content="童长征"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="你的大脑，其实不爱看数字人脑有一个很古老的部分，神经科学家把它叫做”爬行脑”（Reptilian Brain）。它是大脑最底层、最原始的结构，掌管着我们最本能的反应：趋利避害、快速判断。爬行脑不讲道理，不做推演，它只认模式——看到一条线在往上走，它立刻知道”在涨”；看到两条线剪刀差越来越大，它立刻感到”不对劲”。 这恰恰是图表的价值所在。 如果我把一张Excel表格摆在你面前，上面密密麻麻写着三千">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么我们需要图表？——从爬行脑说起，聊聊我做的这套橡胶期货图表分析大全">
+<meta property="og:url" content="https://rubbertale.github.io/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:site_name" content="橡胶童话">
+<meta property="og:description" content="你的大脑，其实不爱看数字人脑有一个很古老的部分，神经科学家把它叫做”爬行脑”（Reptilian Brain）。它是大脑最底层、最原始的结构，掌管着我们最本能的反应：趋利避害、快速判断。爬行脑不讲道理，不做推演，它只认模式——看到一条线在往上走，它立刻知道”在涨”；看到两条线剪刀差越来越大，它立刻感到”不对劲”。 这恰恰是图表的价值所在。 如果我把一张Excel表格摆在你面前，上面密密麻麻写着三千">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://rubbertale.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-08-16T15:47:00.000Z">
+<meta property="article:modified_time" content="2026-08-16T19:00:03.964Z">
+<meta property="article:author" content="童长征">
+<meta property="article:tag" content="公众号">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rubbertale.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "为什么我们需要图表？——从爬行脑说起，聊聊我做的这套橡胶期货图表分析大全",
+  "url": "https://rubbertale.github.io/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/",
+  "image": "https://rubbertale.github.io/img/avatar.png",
+  "datePublished": "2026-08-16T15:47:00.000Z",
+  "dateModified": "2026-08-16T19:00:03.964Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "童长征",
+      "url": "https://RubberTale.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://rubbertale.github.io/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "y4m29olp1v");
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '为什么我们需要图表？——从爬行脑说起，聊聊我做的这套橡胶期货图表分析大全',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">276</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">248</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货导航</span></a></div><div class="menus_item"><a class="site-page" href="/charts/"><i class="fa-fw fas fa-chart-bar"></i><span> 图表</span></a></div><div class="menus_item"><a class="site-page" href="/powerbi/"><i class="fa-fw fas fa-chart-pie"></i><span> 橡胶主要数据图表</span></a></div><div class="menus_item"><a class="site-page" href="/sponsor/"><i class="fa-fw fas fa-coffee"></i><span> 赞赏支持</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 小工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-toolbox"></i><span> 小工具箱</span></a></li><li><a class="site-page child" href="/tools/strategy-tracker/"><i class="fa-fw fas fa-crosshairs"></i><span> 量化跟踪雷达</span></a></li><li><a class="site-page child" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货投研导航</span></a></li><li><a class="site-page child" href="/tools/arbitrage-calc/"><i class="fa-fw fas fa-balance-scale"></i><span> 基差价差套利</span></a></li><li><a class="site-page child" href="/tools/delivery-brands/"><i class="fa-fw fas fa-stamp"></i><span> 橡胶交割品牌</span></a></li><li><a class="site-page child" href="/tools/position-calculator/"><i class="fa-fw fas fa-calculator"></i><span> 凯利仓位测算</span></a></li><li><a class="site-page child" href="/tools/rubber-weather-calendar/"><i class="fa-fw fas fa-cloud-sun-rain"></i><span> 产区气象物候</span></a></li><li><a class="site-page child" href="/rubber/weather_forecast/"><i class="fa-fw fas fa-satellite"></i><span> 卫星云图观察</span></a></li><li><a class="site-page child" href="/tools/report-data-diff/"><i class="fa-fw fas fa-file-invoice"></i><span> 研报平衡表比对</span></a></li><li><a class="site-page child" href="/roman/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 罗马历史地图</span></a></li><li><a class="site-page child" href="/world-history/"><i class="fa-fw fas fa-globe-asia"></i><span> 世界史对照地图</span></a></li><li><a class="site-page child" href="/royal-genealogy/"><i class="fa-fw fas fa-crown"></i><span> 欧洲王室谱系</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/jinghong.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 景洪降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/zuola.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 勐腊降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/baisha.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南白沙降雨</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/zuozhou.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南儋州降雨</span></a></li><li><a class="site-page child" href="/tools/resume/"><i class="fa-fw fas fa-file-alt"></i><span> 智能简历工坊</span></a></li><li><a class="site-page child" href="/tools/reverse-app/"><i class="fa-fw fas fa-repeat"></i><span> 文本倒序转换</span></a></li><li><a class="site-page child" href="/tools/pic-6varieties/"><i class="fa-fw fas fa-camera"></i><span> AI写真工坊</span></a></li><li><a class="site-page child" href="/tools/edge-tts/"><i class="fa-fw fas fa-microphone-alt"></i><span> 语音智坊 (TTS)</span></a></li><li><a class="site-page child" href="/tools/comic-avatar/"><i class="fa-fw fas fa-magic"></i><span> AI漫画头像</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://qhkch.com/"><i class="fa-fw fas fa-chart-line"></i><span> 奇货可查</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/%E6%A9%A1%E8%83%B6%E7%AB%A5%E8%AF%9Dlogo.png" alt="Logo"><span class="site-name">橡胶童话</span></a><a class="nav-page-title" href="/"><span class="site-name">为什么我们需要图表？——从爬行脑说起，聊聊我做的这套橡胶期货图表分析大全</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货导航</span></a></div><div class="menus_item"><a class="site-page" href="/charts/"><i class="fa-fw fas fa-chart-bar"></i><span> 图表</span></a></div><div class="menus_item"><a class="site-page" href="/powerbi/"><i class="fa-fw fas fa-chart-pie"></i><span> 橡胶主要数据图表</span></a></div><div class="menus_item"><a class="site-page" href="/sponsor/"><i class="fa-fw fas fa-coffee"></i><span> 赞赏支持</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 小工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-toolbox"></i><span> 小工具箱</span></a></li><li><a class="site-page child" href="/tools/strategy-tracker/"><i class="fa-fw fas fa-crosshairs"></i><span> 量化跟踪雷达</span></a></li><li><a class="site-page child" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货投研导航</span></a></li><li><a class="site-page child" href="/tools/arbitrage-calc/"><i class="fa-fw fas fa-balance-scale"></i><span> 基差价差套利</span></a></li><li><a class="site-page child" href="/tools/delivery-brands/"><i class="fa-fw fas fa-stamp"></i><span> 橡胶交割品牌</span></a></li><li><a class="site-page child" href="/tools/position-calculator/"><i class="fa-fw fas fa-calculator"></i><span> 凯利仓位测算</span></a></li><li><a class="site-page child" href="/tools/rubber-weather-calendar/"><i class="fa-fw fas fa-cloud-sun-rain"></i><span> 产区气象物候</span></a></li><li><a class="site-page child" href="/rubber/weather_forecast/"><i class="fa-fw fas fa-satellite"></i><span> 卫星云图观察</span></a></li><li><a class="site-page child" href="/tools/report-data-diff/"><i class="fa-fw fas fa-file-invoice"></i><span> 研报平衡表比对</span></a></li><li><a class="site-page child" href="/roman/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 罗马历史地图</span></a></li><li><a class="site-page child" href="/world-history/"><i class="fa-fw fas fa-globe-asia"></i><span> 世界史对照地图</span></a></li><li><a class="site-page child" href="/royal-genealogy/"><i class="fa-fw fas fa-crown"></i><span> 欧洲王室谱系</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/jinghong.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 景洪降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/zuola.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 勐腊降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/baisha.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南白沙降雨</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/zuozhou.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南儋州降雨</span></a></li><li><a class="site-page child" href="/tools/resume/"><i class="fa-fw fas fa-file-alt"></i><span> 智能简历工坊</span></a></li><li><a class="site-page child" href="/tools/reverse-app/"><i class="fa-fw fas fa-repeat"></i><span> 文本倒序转换</span></a></li><li><a class="site-page child" href="/tools/pic-6varieties/"><i class="fa-fw fas fa-camera"></i><span> AI写真工坊</span></a></li><li><a class="site-page child" href="/tools/edge-tts/"><i class="fa-fw fas fa-microphone-alt"></i><span> 语音智坊 (TTS)</span></a></li><li><a class="site-page child" href="/tools/comic-avatar/"><i class="fa-fw fas fa-magic"></i><span> AI漫画头像</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://qhkch.com/"><i class="fa-fw fas fa-chart-line"></i><span> 奇货可查</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">为什么我们需要图表？——从爬行脑说起，聊聊我做的这套橡胶期货图表分析大全</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-16T15:47:00.000Z" title="发表于 2026-08-16 23:47:00">2026-08-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-16T19:00:03.964Z" title="更新于 2026-08-17 03:00:03">2026-08-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span class="waline-pageview-count" data-path="/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/#post-comment"><span class="waline-comment-count" data-path="/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="你的大脑，其实不爱看数字"><a href="#你的大脑，其实不爱看数字" class="headerlink" title="你的大脑，其实不爱看数字"></a>你的大脑，其实不爱看数字</h2><p>人脑有一个很古老的部分，神经科学家把它叫做”爬行脑”（Reptilian Brain）。它是大脑最底层、最原始的结构，掌管着我们最本能的反应：趋利避害、快速判断。爬行脑不讲道理，不做推演，它只认<strong>模式</strong>——看到一条线在往上走，它立刻知道”在涨”；看到两条线剪刀差越来越大，它立刻感到”不对劲”。</p>
+<p>这恰恰是图表的价值所在。</p>
+<p>如果我把一张Excel表格摆在你面前，上面密密麻麻写着三千行橡胶期货的每日收盘价，你的大脑会本能地抗拒。但如果我把这三千行数据画成一条折线，你一眼就能看到趋势、高点、低点、季节性规律。</p>
+<p><strong>数据是理性的，但读取数据的我们是感性的。</strong> 图表，就是连接这两者的桥梁。</p>
+<p>这就是我做这套图表分析大全的初衷——让数据从冰冷的数字变成一眼能读懂的视觉语言。</p>
+<p><img src="https://raw.githubusercontent.com/RubberTale/pic-go/main/img/20260816224959057.png" alt="image.png"></p>
+<hr>
+<h2 id="一个关于橡胶的项目，但又不仅仅是橡胶"><a href="#一个关于橡胶的项目，但又不仅仅是橡胶" class="headerlink" title="一个关于橡胶的项目，但又不仅仅是橡胶"></a>一个关于橡胶的项目，但又不仅仅是橡胶</h2><p>这套报表系统基于 Power BI 搭建，后端连接着一整套云端 MySQL 数据库集群，包括期货行情、交易所仓单库存、海关进出口、全球气象站降雨、宏观经济指标等多个数据库，每日自动更新。整套报表共计 <strong>65个分析页面</strong>，覆盖了一个橡胶产业研究员日常需要关注的几乎所有维度。</p>
+<p>它的名字叫”橡胶期货与图表分析大全”，主角当然是橡胶。但打开报表的第一件事，你看到的不是橡胶——而是<strong>全品种的比较</strong>。</p>
+<hr>
+<h2 id="鸟瞰全局：全品种排名"><a href="#鸟瞰全局：全品种排名" class="headerlink" title="鸟瞰全局：全品种排名"></a>鸟瞰全局：全品种排名</h2><h3 id="分位排名"><a href="#分位排名" class="headerlink" title="分位排名"></a>分位排名</h3><p>做橡胶研究，不能只盯着橡胶。一个品种的涨跌，如果是全市场普涨普跌的一部分，和它独立走出行情，含义完全不同。所以我在报表最前面就放了两个全品种排名页面。</p>
+<p>第一个是<strong>分位排名</strong>——把国内商品期货70多个品种当天的历史价格分位数全部拉出来，用柱状图排列。哪个品种处于历史高位，哪个品种处于历史低位，一览无余。</p>
+<p>因为品种太多，单张图会很拥挤，所以我做了一个小处理：用DAX把品种按排名一分为二，上半部分展示强势品种，下半部分展示弱势品种，上下两张图铺满全屏。</p>
+<p><img src="https://raw.githubusercontent.com/RubberTale/pic-go/main/img/20260816225104741.png" alt="image.png"></p>
+<p>这里有一个比较特别的设计：<strong>它不仅仅能看到当天的排名，还能看到过去七天的排名。</strong> 页面上内嵌了日期筛选，你可以回溯查看前几天某个品种在全市场中排在什么位置。为什么只放七天？更长的历史当然也能看到，但我觉得对于”全品种横截面比较”这件事来说，七天的窗口已经足够捕捉到变化的趋势了。</p>
+<p><img src="https://raw.githubusercontent.com/RubberTale/pic-go/main/img/20260816225037662.png" alt="image.png"></p>
+<h3 id="涨跌排名"><a href="#涨跌排名" class="headerlink" title="涨跌排名"></a>涨跌排名</h3><p>第二个是<strong>涨跌幅排名</strong>——更直观地呈现当日谁涨得最多、谁跌得最惨。同样采用上下分屏设计。</p>
+<p>这两个页面的作用是<strong>鸟瞰</strong>。在进入橡胶的细分分析之前，先对整个商品期货市场建立一个全景感知。</p>
+<hr>
+<h2 id="仓单数据：做到了分仓库"><a href="#仓单数据：做到了分仓库" class="headerlink" title="仓单数据：做到了分仓库"></a>仓单数据：做到了分仓库</h2><p>仓单是期货市场中一个非常重要的数据指标，它反映的是可供交割的实物商品存量。但大多数平台只提供一个汇总数字——“今天仓单多少吨”。</p>
+<p>我做得比较细。</p>
+<p><img src="https://raw.githubusercontent.com/RubberTale/pic-go/main/img/20260816225205221.png" alt="image.png"></p>
+<p>首先，RU（天然橡胶）和NR（20号胶）的仓单是分开做的，各自有独立的页面。每个页面上有三个图表：</p>
+<ul>
+<li><strong>左边</strong>是全历史走势，看长趋势；</li>
+<li><strong>右边</strong>是多年季节性叠加图，把2020年到2026年的仓单曲线按”季节刻度”映射到同一个时间轴上进行对比，2026年用加粗红色高亮标注，一眼就能看到今年的仓单节奏和往年有什么不同；</li>
+<li><strong>下方</strong>是最新的明细数据表。</li>
+</ul>
+<p>然后，更特别的是<strong>分仓库页面</strong>。</p>
+<p>橡胶交割仓库分布在不同的省份、不同的城市。比如天津的仓库、海南的仓库、云南的仓库、山东青岛的仓库，它们的仓单变化往往反映着不同产区、不同贸易流向的微观信号。我把所有交割仓库做成了筛选器——你可以看整体走势，也可以点选某个仓库或某个地区，单独查看它的仓单历史变化。</p>
+<p>这种粒度，在大多数公开的分析报表里是看不到的。</p>
+<hr>
+<h2 id="库存、价差：扎实的基本功"><a href="#库存、价差：扎实的基本功" class="headerlink" title="库存、价差：扎实的基本功"></a>库存、价差：扎实的基本功</h2><h3 id="库存数据"><a href="#库存数据" class="headerlink" title="库存数据"></a>库存数据</h3><p>库存做了三个层次：</p>
+<ol>
+<li><strong>交易所期货库存</strong>（上期所RU库存、能源中心NR库存）：追踪注册库存的周度变动。</li>
+<li><strong>青岛保税区库存</strong>：保税区内与区外的库存合计以及每周环比变动。</li>
+<li><strong>社会总库存</strong>：拆分为深色胶（如NR&#x2F;STR20&#x2F;混合胶，主要用于轮胎制造）和浅色胶（如全乳&#x2F;3L），分别呈现季节性走势。</li>
+</ol>
+<h3 id="价差数据"><a href="#价差数据" class="headerlink" title="价差数据"></a>价差数据</h3><p>价差覆盖了橡胶研究中最常用的几组关系：</p>
+<ul>
+<li><strong>跨品种价差</strong>：RU-NR、RU-BR、NR-BR。天然橡胶之间的强弱、天然胶和合成胶之间的替代关系，都在这里。</li>
+<li><strong>跨期价差</strong>：RU01-09月差，是观察主力换月节奏和升贴水结构的经典指标。</li>
+<li><strong>期现基差</strong>：国产全乳基差、泰混基差、3L基差——盘面相对现货是升水还是贴水、贴水多深，直接关系到套保和交割逻辑。</li>
+</ul>
+<p>所有价差图表都采用了多年季节性叠加的方式呈现，你可以很直观地看到当前价差处于历史同期的什么水平。</p>
+<p>这些板块和其他平台提供的分析差别不大，属于基本功，但做得齐全、更新及时。</p>
+<hr>
+<h2 id="历史分位：看清一年内价格的相对位置"><a href="#历史分位：看清一年内价格的相对位置" class="headerlink" title="历史分位：看清一年内价格的相对位置"></a>历史分位：看清一年内价格的相对位置</h2><p>我对橡胶每年的价格做了<strong>年度内历史分位数处理</strong>。简单来说，就是把某一年内每一天的价格和这一年内所有日期的价格做比较，计算出它在当年的百分位排名。</p>
+<p>这样做的好处是：剥离了不同年份绝对价格的差异（比如2020年和2024年的胶价可能差了好几千），只看每年内部的价格相对高低。</p>
+<p>把多年的年内分位曲线画在一起，看起来会有点凌乱，但大致能看出一个规律：<strong>两头高、中间低</strong>。也就是年初和年末价格偏高，年中（大概是开割旺季前后）价格偏低。这和橡胶的季节性供应节奏是吻合的。</p>
+<hr>
+<h2 id="降雨数据：做到了真正的细"><a href="#降雨数据：做到了真正的细" class="headerlink" title="降雨数据：做到了真正的细"></a>降雨数据：做到了真正的细</h2><p>降雨是天然橡胶研究中一个经常被提到、但很少被认真做的维度。</p>
+<p>天然橡胶的割胶作业对天气极度敏感——连续降雨意味着无法割胶，供应收缩；长期干旱则可能影响胶树产胶。但”降雨数据”本身是非常碎片化的：不同国家、不同地区、不同气象站，数据来源和格式各不相同。</p>
+<p>我把全球所有主要橡胶产区的降雨数据都整合了进来，总共覆盖了<strong>七大产区</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>产区</th>
+<th>页面</th>
+<th>典型站点举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国</td>
+<td>国内降雨、中国降雨累计均值</td>
+<td>景洪、海口、儋州</td>
+</tr>
+<tr>
+<td>泰国</td>
+<td>泰国降雨、泰国降雨累计均值</td>
+<td>素叻他尼、宋卡、合艾</td>
+</tr>
+<tr>
+<td>马来西亚</td>
+<td>马来西亚降雨、马来西亚降雨累计均值</td>
+<td>吉隆坡、关丹、亚庇</td>
+</tr>
+<tr>
+<td>越南</td>
+<td>越南降雨、越南降雨累计均值</td>
+<td>胡志明市、平阳、西宁</td>
+</tr>
+<tr>
+<td>印度尼西亚</td>
+<td>印尼降雨、印尼降雨累计均值</td>
+<td>棉兰、巨港、坤甸</td>
+</tr>
+<tr>
+<td>科特迪瓦</td>
+<td>科特迪瓦降雨、科特迪瓦降雨累计均值</td>
+<td>阿比让、布瓦凯</td>
+</tr>
+<tr>
+<td>中南半岛（老、缅、柬）</td>
+<td>老缅柬降雨、中南半岛降雨累计均值</td>
+<td>万象、仰光、金边</td>
+</tr>
+</tbody></table>
+<p>每个产区都有<strong>两个页面</strong>：</p>
+<p><img src="https://raw.githubusercontent.com/RubberTale/pic-go/main/img/20260816225334113.png" alt="image.png"></p>
+<p><strong>第一个是日度降雨页面。</strong> 配有气象站点切片器，你可以选择查看单个站点的每日降雨柱状图，也可以看区域汇总。</p>
+<p><strong>第二个是累计均值页面。</strong> 这是我觉得更有分析价值的视角。</p>
+<p>为什么要看累计均值？因为我想比较不同年份的降雨总量差异。一个很自然的想法是看”累计值”——把每天的降雨量逐日累加。但累计值有一个问题：到了年底，数字会变得非常大，不同年份之间的早期差异在图上会被压缩得很难辨认。</p>
+<p>所以我用了<strong>累计均值</strong>——把截至某一天的累计降雨总量除以天数，得到”日均降雨量”。它和累计值其实反映的是同一件事，本质上没有区别：如果2024年的累计均值在2025年上方，那么2024年的累计总量也一定在2025年上方。但累计均值的变动范围要温和得多，不同年份的曲线可以更紧凑地排列在一起，肉眼比较时更加舒适。</p>
+<p>另外，报表里还有一个<strong>地图分布页面</strong>，使用ArcGIS地图控件，在真实的地理底图上标注了所有气象观测站的经纬度位置。你可以直观地看到数据覆盖了哪些区域，也可以点击地图上的站点做交互式筛选。</p>
+<p>再加上<strong>SOI（南方涛动指数）和ONI（厄尔尼诺&#x2F;拉尼娜指数）</strong> 页面——这两个是中长期气候周期的先行指标，厄尔尼诺年份往往意味着东南亚干旱加剧，对橡胶产量形成直接影响。</p>
+<p>降雨这个板块，是整套报表里我花精力最多、也最有特色的部分。</p>
+<hr>
+<h2 id="主力换月：一个容易被忽视的日常事件"><a href="#主力换月：一个容易被忽视的日常事件" class="headerlink" title="主力换月：一个容易被忽视的日常事件"></a>主力换月：一个容易被忽视的日常事件</h2><p>“主力换月”说的是商品期货的主力合约从近月切换到远月的过程。听起来是个很常规的事，但它发生的时间、持仓转移的速度，有时会带来短期的价格波动和价差异动。</p>
+<p>我的定义标准很简单：<strong>谁的持仓量增至第一，谁就是新的主力。</strong> 如果后来又变回去了，仍然以远月为准。</p>
+<p>报表中有一个专门的主力换月页面，以表格形式展示每天发生换月的品种、原主力合约、新主力合约，以及换月的详细说明。配有日期筛选器，默认展示最新交易日。</p>
+<p>这个页面覆盖的是全品种，不仅仅是橡胶。每天商品期货市场都有合约在换月，把它们集中在一个视图里，可以方便地监控整个市场的换月节奏。</p>
+<p><img src="https://raw.githubusercontent.com/RubberTale/pic-go/main/img/20260816225359993.png" alt="image.png"></p>
+<hr>
+<h2 id="更多的页面，更完整的图景"><a href="#更多的页面，更完整的图景" class="headerlink" title="更多的页面，更完整的图景"></a>更多的页面，更完整的图景</h2><p>除了上面重点介绍的板块，这套报表还覆盖了以下方面，在此简要列举：</p>
+<h3 id="橡胶现货与原料"><a href="#橡胶现货与原料" class="headerlink" title="橡胶现货与原料"></a>橡胶现货与原料</h3><ul>
+<li><strong>橡胶现货价格</strong>（两个页面）：国产全乳、人民币3L、泰混、非洲10号胶、海南散装乳胶、合艾烟片等主要胶种的现货价格走势。</li>
+<li><strong>泰国原料走势</strong>：泰国橡胶协会（TRA）发布的STR20、RSS3、胶水、杯胶等上游原料收购价格。</li>
+</ul>
+<h3 id="外盘与汇率"><a href="#外盘与汇率" class="headerlink" title="外盘与汇率"></a>外盘与汇率</h3><ul>
+<li><strong>外盘橡胶</strong>：新加坡SICOM TSR20、日本TOCOM RSS3的国际橡胶价格走势。</li>
+<li><strong>汇率</strong>（两个页面）：美元指数、美元兑人民币、欧元、英镑，以及产区货币——美元兑泰铢、印尼盾、越南盾。</li>
+<li><strong>原油价格</strong>：WTI、Brent、上海INE三大原油基准价格。</li>
+</ul>
+<h3 id="下游需求"><a href="#下游需求" class="headerlink" title="下游需求"></a>下游需求</h3><ul>
+<li><strong>轮胎产能利用率</strong>：中国半钢胎和全钢胎的周度开工率走势。</li>
+<li><strong>米其林全球轮胎消费分布</strong>：来自米其林官方投资者数据的全球各区域轮胎消费占比饼图。</li>
+<li><strong>汽车产销数据</strong>（四个页面）：汽车总体、乘用车、商用车、重卡的月度产销量及同比增速。</li>
+</ul>
+<h3 id="进出口"><a href="#进出口" class="headerlink" title="进出口"></a>进出口</h3><ul>
+<li><strong>橡胶进口&#x2F;出口</strong>：海关月度数据，支持按全口径（天然胶&#x2F;合成胶&#x2F;轮胎等）筛选。</li>
+</ul>
+<h3 id="宏观经济"><a href="#宏观经济" class="headerlink" title="宏观经济"></a>宏观经济</h3><ul>
+<li><strong>中国宏观</strong>：CPI、PPI、M1&#x2F;M2增速及剪刀差、GDP产业分类增速、全社会用电量、制造业PMI、社融与信贷。</li>
+<li><strong>美国经济</strong>：核心PPI、核心PCE、失业率、个人消费支出。</li>
+<li><strong>中国房地产</strong>：开发投资完成额、新开工面积、施工面积、竣工面积。</li>
+</ul>
+<h3 id="其他品种延伸"><a href="#其他品种延伸" class="headerlink" title="其他品种延伸"></a>其他品种延伸</h3><ul>
+<li><strong>大豆压榨利润</strong>：理论压榨利润走势曲线。</li>
+<li><strong>豆粕分位</strong>：豆粕期货年度历史分位数季节性曲线。</li>
+</ul>
+<hr>
+<h2 id="一些设计上的细节"><a href="#一些设计上的细节" class="headerlink" title="一些设计上的细节"></a>一些设计上的细节</h2><p>最后聊几个工程和交互层面的小细节，虽然用户未必会注意到，但它们让整套报表用起来更顺手：</p>
+<ol>
+<li><p><strong>统一导航栏</strong>：所有65个页面顶部都有一个全局页面导航器，在任何页面都可以一键跳转到其他板块，不需要回到首页。</p>
+</li>
+<li><p><strong>当前年份高亮</strong>：在所有多年季节性对比图中，2026年（当前年）的曲线统一使用加粗描边和高对比度配色，历史年份的线条则以浅色呈现。这样你的视线会自然地被当前年份吸引，历史数据安静地待在背景里提供参照。</p>
+</li>
+<li><p><strong>季节刻度</strong>：这是一个核心的技术设计。我在日历维度表里加了一列”季节刻度”——用DAX公式将所有年份的日期统一映射到同一个虚拟年份的坐标轴上。这使得2020年的3月15日和2026年的3月15日可以精确地对齐在X轴的同一个位置上，实现真正意义上的季节性叠加对比。</p>
+</li>
+<li><p><strong>首页导航中心</strong>：报表首页是一个分类索引页，把所有57个业务板块按主题归类，点击即可跳转到对应的分析页面。</p>
+</li>
+</ol>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>回到开头那个关于爬行脑的话题。</p>
+<p>做这套报表的过程让我越来越相信一件事：<strong>好的分析工具，不是让你思考得更多，而是让你思考得更快。</strong> 图表不会替你做判断，但它能把信号从噪声中提取出来，让你的直觉有据可循。</p>
+<p>65个页面、77张数据表、50多个DAX度量值——这些数字听起来很多，但它们最终的目的只有一个：让你打开报表的那一刻，不需要翻看任何Excel，就能对橡胶市场的供需、库存、季节性、天气和宏观环境形成一个完整的、直觉性的判断。</p>
+<p>毕竟，我们的爬行脑已经进化了几亿年。用好它，比对抗它聪明得多。</p>
+<p>好了，最后我给一下该图表的地址吧：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://tinyurl.com/2a6f5m3x">https://tinyurl.com/2a6f5m3x</a></p>
+<p>如果你有什么好的建议，欢迎和我微信联系：40096239</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://RubberTale.github.io">童长征</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://rubbertale.github.io/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/">https://rubbertale.github.io/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E5%9B%BE%E8%A1%A8%E5%88%86%E6%9E%90%E5%A4%A7%E5%85%A8_%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://RubberTale.github.io" target="_blank">橡胶童话</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>创作不易，长期维护更需心血。若本文对您有所启发，欢迎赞赏支持作者！☕</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat-reward.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat-reward.jpg" alt="微信赞赏"/></a><div class="post-qr-code-desc">微信赞赏</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/08/19/%E6%A9%A1%E8%83%B6%E5%9B%BE%E8%A1%A8%E7%9C%8B%E6%9D%BF%E7%9A%84%E5%87%A0%E4%B8%AA%E6%9B%B4%E6%96%B0/" title="橡胶图表看板的几个更新"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">橡胶图表看板的几个更新</div></div><div class="info-2"><div class="info-item-1">最近再度更新了橡胶图表看板。  链接地址迁移到“橡胶童话”博客：https://rubbertale.github.io/powerbi/   点击全局沉浸浏览的效果应该是最好的。  米其林的轮胎消费分布数据：分为旧的和新的两类。米其林还有一个市场趋势数据，还没有整理好。    增加了不同橡胶期货品种的对比，但目前数据还需要完善，数据关系还需要在重整。    </div></div></div></a><a class="pagination-related" href="/2026/08/16/%E6%A9%A1%E8%83%B6%E6%9C%9F%E8%B4%A7%E4%B8%8E%E5%AE%8F%E8%A7%82%E5%88%86%E6%9E%90%E5%9B%BE%E8%A1%A8%E5%A4%A7%E5%85%A8/" title="橡胶期货与宏观分析图表大全"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">橡胶期货与宏观分析图表大全</div></div><div class="info-2"><div class="info-item-1">爬行脑与数据分析的关系。为什么要做这个图表分析大全，是因为如果数据光秃秃的给我们，没有图表的话，我们是很难进行分析的。 这个橡胶期货与图表分析大全 </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/04/07/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%99%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%9F/" title="我为什么要写公众号？"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-07</div><div class="info-item-2">我为什么要写公众号？</div></div><div class="info-2"><div class="info-item-1">从第一篇文章算起，这个公众号也有11年的历史了。该公众号的第一篇文章发表于2013年5月28日，甚至都没有阅读量。一直到2015年，连续2年过去了，阅读量也了了无几，不到100。看不到当时的粉丝数据，应该也是寥寥无几。写公众号的目的不外乎几个：一个是表达自我，一个是争取流量。当然，还有一个我很意外的收获：就是在这个公众号下收获了不少牛人。   公众号的内容确实从一开始就是以橡胶为主，但是我一直都没想把它定位为完全的橡胶主题。所以这中间掺杂了其实许多其他主题的文章，当然更多的时候还是和期货相关的。流量是很缓慢的在增长的。直到2016年，文章的流量还才不到100。   第一篇高阅读量的文章是2017年1月12日的那篇文章： “必然”一词在此之前我从未用过，在这之后，也从未用过。当时是笃定这胶价要涨。后来是涨到当年的2月15日见顶。 那个时候是微博大行其道的时候。那时候我觉得微博增粉比公众号容易多了。公众号那个时候还是在私域传播，流量要增长极为困难。可能到今年年初，我的整个粉丝数也才3000多，而现在已经快速增长到8000多。我也很震惊，目前公众号的流量增长非常迅速。甚至一些只是广告性...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">童长征</div><div class="author-info-description">橡胶童话——专注于天然橡胶、大宗商品期货、宏观经济分析与量化交易研究的深度智库博客。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">276</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">248</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/RubberTale"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到橡胶童话！本站持续独立开发与投研中。若这里的文章与工具对您有所帮助，欢迎 <a href="/sponsor/" style="color:#3b82f6;font-weight:bold;"><i class="fas fa-coffee"></i>【赞助支持】</a> ☕</div></div><div class="card-widget card-edge-tts" id="card-edge-tts"><div class="item-headline"><i class="fas fa-microphone-lines"></i><span>语音智坊 (TTS) 快捷工具</span></div><div class="item-content"><div class="edge-tts-widget" style="font-size: 0.84rem; line-height: 1.55;">
+  <div style="margin-bottom: 8px;">
+    <textarea id="widget-tts-text" style="width: 100%; height: 75px; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 6px; padding: 6px 8px; font-size: 0.8rem; outline: none; resize: none; color: inherit;" placeholder="填入文字，快速生成语音..."></textarea>
+  </div>
+  <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+    <select id="widget-tts-voice" style="flex: 1; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 4px; padding: 4px; font-size: 0.76rem; color: inherit; outline: none; cursor: pointer;">
+      <option value="zh-CN-XiaoxiaoNeural">晓晓 (标准女声)</option>
+      <option value="zh-CN-YunyangNeural" selected>云扬 (专业男声)</option>
+      <option value="zh-CN-YunxiNeural">云希 (阳光男声)</option>
+      <option value="zh-CN-XiaoyiNeural">晓伊 (俏皮女声)</option>
+    </select>
+    <button id="widget-tts-btn" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #fff; border: none; border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;" onclick="generateWidgetTTS()">合成</button>
+  </div>
+  <div id="widget-tts-audio-container" style="display: none; margin-top: 6px; border-top: 1px solid rgba(128, 128, 128, 0.15); padding-top: 6px;">
+    <audio id="widget-tts-audio" controls style="width: 100%; height: 30px; outline: none;" class="filter-invert"></audio>
+  </div>
+  <script>
+    async function generateWidgetTTS() {
+      const text = document.getElementById('widget-tts-text').value.trim();
+      const voice = document.getElementById('widget-tts-voice').value;
+      const btn = document.getElementById('widget-tts-btn');
+      
+      if (!text) {
+        alert('请输入要合成的文本');
+        return;
+      }
+      
+      btn.disabled = true;
+      btn.textContent = '合成中...';
+      btn.style.opacity = '0.7';
+      
+      try {
+        const response = await fetch('https://140.245.65.111.sslip.io/api/article-craft/api/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, voice })
+        });
+        
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || '合成错误');
+        }
+        
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        
+        const audio = document.getElementById('widget-tts-audio');
+        audio.src = url;
+        
+        document.getElementById('widget-tts-audio-container').style.display = 'block';
+        audio.play();
+      } catch (err) {
+        console.error(err);
+        alert('语音合成失败: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '合成';
+        btn.style.opacity = '1';
+      }
+    }
+  </script>
+</div>
+</div></div><div class="card-widget card-weather-summary" id="card-weather-summary"><div class="item-headline"><i class="fas fa-cloud-sun-rain"></i><span>主要产区气象概述与预测</span></div><div class="item-content"><div class="weather-summary-widget" style="font-size: 0.84rem; line-height: 1.55;">
+  <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px; padding: 6px 8px; margin-bottom: 8px; font-size: 0.80rem; line-height: 1.45;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+      <strong style="color: #2563eb; font-size: 0.81rem;"><i class="fas fa-bullhorn" style="margin-right: 4px;"></i>产区气象物候综述</strong>
+      <span style="font-size: 0.70rem; color: #64748b; background: rgba(100, 116, 139, 0.1); padding: 1px 5px; border-radius: 3px;">9月中旬 · 旺产季</span>
+    </div>
+    当前全球处于产胶增产高峰。<strong>版纳</strong>晴好干燥利于割胶；<strong>泰南</strong>短时阵雨、早割窗口顺畅；<strong>海南/越南</strong>受季风与对流影响雨日偏多，局地需防范冲胶；<strong>西非</strong>水热适宜产能稳步释放。
+  </div>
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇹🇭 泰南核心</strong> <small style="color: #64748b; font-size: 0.70rem;">(全球33%)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(245, 158, 11, 0.12); color: #d97706; font-weight: 600;">局地阵雨</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #2563eb;">45.9mm</b></span> · <span>扰动: <b>3天</b></span> · <span>24~33°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        降水多在傍晚热对流，凌晨早割窗口通畅，增产顺畅。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇨🇳 云南版纳</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内主力)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">晴好少雨</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #059669;">4.6mm</b></span> · <span>扰动: <b>0天</b></span> · <span>19~32°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        干燥少雨且温差适宜，出胶干含双优，开割条件极佳。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇨🇳 海南主产</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内核心)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(59, 130, 246, 0.12); color: #2563eb; font-weight: 600;">对流偏强</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #2563eb;">117.9mm</b></span> · <span>扰动: <b>5天</b></span> · <span>22~31°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        南海热带扰动频繁，中后期雷雨密，需重点防范雨冲胶。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇻🇳 越南南部</strong> <small style="color: #64748b; font-size: 0.70rem;">(平福/同奈)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(139, 92, 246, 0.12); color: #7c3aed; font-weight: 600;">季风雨盛</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #7c3aed;">121.8mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~31°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        季风雨量充沛，早间对流频繁，局部割胶进度阶段性受阻。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇮🇩 印尼苏岛</strong> <small style="color: #64748b; font-size: 0.70rem;">(棉兰/巨港)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(6, 182, 212, 0.12); color: #0891b2; font-weight: 600;">常态雷雨</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #0891b2;">135.4mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~32°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        赤道对流常态活跃，多为午后雷雨，错峰收胶生产平稳。
+      </div>
+    </li>
+    <li style="margin-bottom: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇨🇮 西非科特</strong> <small style="color: #64748b; font-size: 0.70rem;">(阿比让)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">水热均衡</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #059669;">41.7mm</b></span> · <span>扰动: <b>3天</b></span> · <span>23~28°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        降雨温和绵密，新割胶林产能持续释放，供应增量稳定。
+      </div>
+    </li>
+  </ul>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; padding-top: 5px; border-top: 1px solid rgba(128, 128, 128, 0.15); font-size: 0.76rem;">
+    <div style="display: flex; gap: 6px;">
+      <a href="/tools/rubber-weather-calendar/" style="color: #059669; text-decoration: none; font-weight: 500;" title="产区气象与割胶物候看板"><i class="fas fa-calendar-alt"></i> 物候看板</a>
+      <a href="/rubber/weather_forecast/" style="color: #3b82f6; text-decoration: none; font-weight: 500;" title="重点资源区域卫星云图观察"><i class="fas fa-satellite"></i> 卫星云图</a>
+    </div>
+    <a href="/2026/09/10/全球主要橡胶及大宗农产区天气概述与割胶物候预测（2026年9月中旬）/" style="color: #2563eb; font-weight: 600; text-decoration: none;">完整研报 →</a>
+  </div>
+</div>
+</div></div><div class="card-widget card-hot-news" id="card-hot-news"><div class="item-headline"><i class="fas fa-globe-asia"></i><span>时政与大宗速览</span></div><div class="item-content"><div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ef4444;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="伊朗强化对霍尔木兹海峡控制，全球油运风险溢价飙升，2026年油市供应缺口深化，Reuters专栏警示新秩序形成">伊朗掌控霍尔木兹，中东油路危机</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="高市加速修订'安保三文件'，'台湾有事'纳入存亡危机，东亚地缘格局重构引发供应链重置预期">日本安保政策右转，台海风险升温</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b82f6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="美国SPR降至2.866亿桶，拟进口委内瑞拉原油缓解中期选举前油价压力，短期压制WTI上行空间">美战略油储44年新低，委内瑞拉补库</a>
+    </li>
+    <li style="margin-bottom: 4px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="美联储鹰派信号致金价周跌12%，实际利率上行压制贵金属需求，市场转向通胀韧性定价">加息预期重燃，黄金避险属性弱化</a>
+    </li>
+  </ul>
+  <div style="text-align: right; margin-top: 4px;">
+    <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="font-size: 0.82rem; color: #3b82f6; font-weight: 500; text-decoration: none;">完整速览与推演 →</a>
+  </div>
+</div>
+</div></div><div class="card-widget card-ai-news" id="card-ai-news"><div class="item-headline"><i class="fas fa-robot"></i><span>AI 科技前沿大事</span></div><div class="item-content"><div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="DeepSeek-V4-Flash-Vision-Exp实验模型性能接近Anthropic上月发布的Opus 5，在多模态任务中展现自主操作能力">DeepSeek视觉模型逼近Anthropic Opus 5</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#06b6d4;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="HUMAIN基于MiniMax M3开源底座训练4280亿参数MoE模型，阿拉伯语基准测试均分89.37%">沙特4280亿参数阿拉伯语大模型落地</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ec4899;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="IDC预测2026年机器人将融合3D视觉、触觉等多源感知，实现环境与状态统一理解">具身智能多模态感知成核心趋势</a>
+    </li>
+    <li style="margin-bottom: 4px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="Artificial Analysis指数显示DeepSeek R1 0528评分68，跃居全球第二AI实验室">DeepSeek R1登顶开源权重实验室榜首</a>
+    </li>
+  </ul>
+  <div style="text-align: right; margin-top: 4px;">
+    <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration: none;">完整解读与趋势 →</a>
+  </div>
+  <!-- 新增 Anthropic 报告入口 -->
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/03/13/2026-03-13-anthropic-the-story-behind-claude/" style="color: inherit; text-decoration: none;" title="Anthropic 与 Claude 的完整故事">Anthropic 与 Claude 的完整故事</a>
+    </li>
+  </ul>
+  <!-- Anthropic 2026年9月威胁情报报告 -->
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/13/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="Anthropic发布154页威胁情报报告：披露2025年12月至2026年8月间破坏的40余个恶意AI使用案例，涵盖网络攻击、监视、影响行动、诈骗、生物武器、常规武器及非法蒸馏七大领域">Anthropic发布9月威胁情报报告：AI滥用进入自主执行阶段</a>
+    </li>
+  </ul>
+</div>
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E7%9A%84%E5%A4%A7%E8%84%91%EF%BC%8C%E5%85%B6%E5%AE%9E%E4%B8%8D%E7%88%B1%E7%9C%8B%E6%95%B0%E5%AD%97"><span class="toc-number">1.</span> <span class="toc-text">你的大脑，其实不爱看数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%85%B3%E4%BA%8E%E6%A9%A1%E8%83%B6%E7%9A%84%E9%A1%B9%E7%9B%AE%EF%BC%8C%E4%BD%86%E5%8F%88%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E6%A9%A1%E8%83%B6"><span class="toc-number">2.</span> <span class="toc-text">一个关于橡胶的项目，但又不仅仅是橡胶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B8%9F%E7%9E%B0%E5%85%A8%E5%B1%80%EF%BC%9A%E5%85%A8%E5%93%81%E7%A7%8D%E6%8E%92%E5%90%8D"><span class="toc-number">3.</span> <span class="toc-text">鸟瞰全局：全品种排名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E4%BD%8D%E6%8E%92%E5%90%8D"><span class="toc-number">3.1.</span> <span class="toc-text">分位排名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%A8%E8%B7%8C%E6%8E%92%E5%90%8D"><span class="toc-number">3.2.</span> <span class="toc-text">涨跌排名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%93%E5%8D%95%E6%95%B0%E6%8D%AE%EF%BC%9A%E5%81%9A%E5%88%B0%E4%BA%86%E5%88%86%E4%BB%93%E5%BA%93"><span class="toc-number">4.</span> <span class="toc-text">仓单数据：做到了分仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%93%E5%AD%98%E3%80%81%E4%BB%B7%E5%B7%AE%EF%BC%9A%E6%89%8E%E5%AE%9E%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8A%9F"><span class="toc-number">5.</span> <span class="toc-text">库存、价差：扎实的基本功</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%93%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="toc-number">5.1.</span> <span class="toc-text">库存数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%B7%AE%E6%95%B0%E6%8D%AE"><span class="toc-number">5.2.</span> <span class="toc-text">价差数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%86%E5%8F%B2%E5%88%86%E4%BD%8D%EF%BC%9A%E7%9C%8B%E6%B8%85%E4%B8%80%E5%B9%B4%E5%86%85%E4%BB%B7%E6%A0%BC%E7%9A%84%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">历史分位：看清一年内价格的相对位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%8D%E9%9B%A8%E6%95%B0%E6%8D%AE%EF%BC%9A%E5%81%9A%E5%88%B0%E4%BA%86%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%BB%86"><span class="toc-number">7.</span> <span class="toc-text">降雨数据：做到了真正的细</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E5%8A%9B%E6%8D%A2%E6%9C%88%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%AE%B9%E6%98%93%E8%A2%AB%E5%BF%BD%E8%A7%86%E7%9A%84%E6%97%A5%E5%B8%B8%E4%BA%8B%E4%BB%B6"><span class="toc-number">8.</span> <span class="toc-text">主力换月：一个容易被忽视的日常事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E9%A1%B5%E9%9D%A2%EF%BC%8C%E6%9B%B4%E5%AE%8C%E6%95%B4%E7%9A%84%E5%9B%BE%E6%99%AF"><span class="toc-number">9.</span> <span class="toc-text">更多的页面，更完整的图景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A9%A1%E8%83%B6%E7%8E%B0%E8%B4%A7%E4%B8%8E%E5%8E%9F%E6%96%99"><span class="toc-number">9.1.</span> <span class="toc-text">橡胶现货与原料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E7%9B%98%E4%B8%8E%E6%B1%87%E7%8E%87"><span class="toc-number">9.2.</span> <span class="toc-text">外盘与汇率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E6%B8%B8%E9%9C%80%E6%B1%82"><span class="toc-number">9.3.</span> <span class="toc-text">下游需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%87%BA%E5%8F%A3"><span class="toc-number">9.4.</span> <span class="toc-text">进出口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E"><span class="toc-number">9.5.</span> <span class="toc-text">宏观经济</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%93%81%E7%A7%8D%E5%BB%B6%E4%BC%B8"><span class="toc-number">9.6.</span> <span class="toc-text">其他品种延伸</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E8%AE%BE%E8%AE%A1%E4%B8%8A%E7%9A%84%E7%BB%86%E8%8A%82"><span class="toc-number">10.</span> <span class="toc-text">一些设计上的细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">11.</span> <span class="toc-text">写在最后</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/12/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8813%E6%97%A5%EF%BC%89/" title="地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）">地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）</a><time datetime="2026-09-12T22:00:01.000Z" title="发表于 2026-09-13 06:00:01">2026-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/12/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8813%E6%97%A5%EF%BC%89/" title="智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）">智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）</a><time datetime="2026-09-12T22:00:01.000Z" title="发表于 2026-09-13 06:00:01">2026-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/11/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8812%E6%97%A5%EF%BC%89/" title="地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月12日）">地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月12日）</a><time datetime="2026-09-11T22:00:01.000Z" title="发表于 2026-09-12 06:00:01">2026-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/11/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8812%E6%97%A5%EF%BC%89/" title="智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月12日）">智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月12日）</a><time datetime="2026-09-11T22:00:01.000Z" title="发表于 2026-09-12 06:00:01">2026-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/11/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8811%E6%97%A5%EF%BC%89/" title="智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）">智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）</a><time datetime="2026-09-11T06:03:51.000Z" title="发表于 2026-09-11 14:03:51">2026-09-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By 童长征</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"reaction":true,"emoji":["https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/qq"],"requiredMeta":["nick"]}
+
+  const destroyWaline = ele => ele.destroy()
+
+  const initWaline = (Fn, el = document, path = window.location.pathname) => {
+    const waline = Fn({
+      el: el.querySelector('#waline-wrap'),
+      serverURL: 'https://140.245.65.111.sslip.io',
+      pageview: true,
+      dark: 'html[data-theme="dark"]',
+      comment: true,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyWaline = () => {
+        destroyWaline(waline)
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const loadWaline = (el, path) => {
+    if (initFn) initWaline(initFn, el, path)
+    else {
+      btf.getCSS('https://cdn.jsdelivr.net/npm/@waline/client@3.8.0/dist/waline.min.css')
+        .then(() => import('https://cdn.jsdelivr.net/npm/@waline/client@3.8.0/dist/waline.min.js'))
+        .then(({ init }) => {
+          initFn = init || Waline.init
+          initWaline(initFn, el, path)
+          window.walineFn = initFn
+        })
+    }
+  }
+
+  if (isShuoshuo) {
+    'Waline' === 'Waline'
+      ? window.shuoshuoComment = { loadComment: loadWaline } 
+      : window.loadOtherComment = loadWaline
+    return
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div></div></body></html>

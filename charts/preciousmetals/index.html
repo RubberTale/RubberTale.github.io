@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年贵金属超级牛市深度研报</title>
+    <!-- Tailwind CSS (用于布局和样式) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js (用于数据可视化) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+         配色方案: 午夜霓虹 (Midnight & Neon)
+         背景: slate-900 (#0f172a)
+         卡片: slate-800 (#1e293b)
+         文字: slate-200 (#e2e8f0)
+         强调色 1 (黄金): #fbbf24
+         强调色 2 (青色): #2dd4bf
+         强调色 3 (粉色): #f472b6
+    -->
+
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        
+        /* 图表容器样式：强制设置最小高度，防止加载时塌陷为空白 */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-height: 400px;
+            margin: 0 auto;
+            min-height: 300px; /* 防止未加载时高度为0 */
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* 霓虹边框效果 */
+        .neon-border-gold { border-left: 4px solid #fbbf24; }
+        .neon-border-teal { border-left: 4px solid #2dd4bf; }
+        .neon-border-pink { border-left: 4px solid #f472b6; }
+        
+        /* 玻璃拟态 */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-teal-500 selection:text-white">
+
+    <!-- 顶部导航 -->
+    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-700 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <!-- 图标 -->
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 to-yellow-600 shadow-lg shadow-yellow-500/20"></div>
+                    <span class="text-xl font-bold tracking-tight text-white">金属<span class="text-yellow-400">洞察</span> 2025</span>
+                </div>
+                <div class="hidden md:block">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-slate-400">第四季度深度研报</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体内容 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- 第1部分: 核心摘要 (Header & Summary) -->
+        <section>
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-300 to-pink-400 mb-4">
+                    2025：贵金属超级牛市
+                </h1>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-400">
+                    深度解析：为何黄金、白银及铂族金属在2025年末创下历史新高？
+                </p>
+            </div>
+
+            <!-- 关键数据卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 黄金 -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg shadow-black/20 neon-border-gold transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-slate-400 text-sm font-semibold uppercase mb-1">黄金 (Gold)</div>
+                    <div class="text-3xl font-bold text-yellow-400">$3,250.40</div>
+                    <div class="mt-2 flex items-center text-sm text-green-400">
+                        <span class="mr-1">▲</span> 24.5% 年初至今
+                    </div>
+                    <p class="mt-3 text-xs text-slate-500">驱动力：央行储备增加 & 美联储降息。</p>
+                </div>
+
+                <!-- 白银 -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg shadow-black/20 border-l-4 border-slate-300 transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-slate-400 text-sm font-semibold uppercase mb-1">白银 (Silver)</div>
+                    <div class="text-3xl font-bold text-slate-100">$45.80</div>
+                    <div class="mt-2 flex items-center text-sm text-green-400">
+                        <span class="mr-1">▲</span> 38.2% 年初至今
+                    </div>
+                    <p class="mt-3 text-xs text-slate-500">表现优于黄金：光伏工业需求爆发。</p>
+                </div>
+
+                <!-- 钯金 -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg shadow-black/20 neon-border-teal transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-slate-400 text-sm font-semibold uppercase mb-1">钯金 (Palladium)</div>
+                    <div class="text-3xl font-bold text-teal-400">$1,450.00</div>
+                    <div class="mt-2 flex items-center text-sm text-green-400">
+                        <span class="mr-1">▲</span> 18.4% 第四季度
+                    </div>
+                    <p class="mt-3 text-xs text-slate-500">催化剂：广期所上市带来的流动性溢价。</p>
+                </div>
+
+                <!-- 铂金 -->
+                <div class="bg-slate-800 rounded-xl p-6 shadow-lg shadow-black/20 neon-border-pink transform hover:-translate-y-1 transition duration-300">
+                    <div class="text-slate-400 text-sm font-semibold uppercase mb-1">铂金 (Platinum)</div>
+                    <div class="text-3xl font-bold text-pink-400">$1,210.50</div>
+                    <div class="mt-2 flex items-center text-sm text-green-400">
+                        <span class="mr-1">▲</span> 12.1% 年初至今
+                    </div>
+                    <p class="mt-3 text-xs text-slate-500">氢能源经济导致的供应短缺。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第2部分: 价格走势 (Line Chart) -->
+        <section class="bg-slate-800 rounded-2xl p-6 md:p-8 shadow-xl border border-slate-700">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-2">2024-2025 价格走势复盘</h2>
+                    <p class="text-slate-400 text-sm max-w-xl">
+                        这是一场同步的上涨。2024年是筑底期，而2025年随着美联储转向降息以及地缘政治风险升级，贵金属迎来了爆发式增长。
+                    </p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-slate-700 text-xs font-medium text-yellow-400">避险资产</span>
+                    <span class="px-3 py-1 rounded-full bg-slate-700 text-xs font-medium text-teal-400">工业属性</span>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="priceTrendChart"></canvas>
+            </div>
+        </section>
+
+        <!-- 第3部分: 驱动力分析 (Flowchart + Donut) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- 左侧：逻辑推演 -->
+            <div class="bg-slate-800 rounded-2xl p-6 md:p-8 border border-slate-700 flex flex-col">
+                <h3 class="text-xl font-bold text-white mb-4">核心驱动：完美风暴</h3>
+                <p class="text-slate-400 mb-6">
+                    2025年的牛市独特之处在于：<strong class="text-yellow-400">货币贬值</strong>（黄金的传统驱动力）与<strong class="text-teal-400">供应链重构</strong>（工业金属驱动力）形成了共振。
+                </p>
+
+                <!-- 流程图 (HTML/CSS) -->
+                <div class="flex-grow flex flex-col justify-center space-y-4">
+                    <!-- 步骤 1 -->
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 flex-shrink-0 bg-blue-600 rounded-lg flex items-center justify-center text-xl font-bold text-white">1</div>
+                        <div class="ml-4 p-3 bg-slate-700/50 rounded-lg w-full border border-slate-600">
+                            <div class="text-white font-semibold">美联储转向 (2025 Q2)</div>
+                            <div class="text-xs text-slate-400">利率降至 3.5%，美元指数走弱。</div>
+                        </div>
+                    </div>
+                    <!-- 连接线 -->
+                    <div class="pl-6 h-6 border-l-2 border-dashed border-slate-600"></div>
+                    <!-- 步骤 2 -->
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 flex-shrink-0 bg-purple-600 rounded-lg flex items-center justify-center text-xl font-bold text-white">2</div>
+                        <div class="ml-4 p-3 bg-slate-700/50 rounded-lg w-full border border-slate-600">
+                            <div class="text-white font-semibold">地缘政治风险溢价</div>
+                            <div class="text-xs text-slate-400">资本从股市逃离，涌入实物资产。</div>
+                        </div>
+                    </div>
+                     <!-- 连接线 -->
+                     <div class="pl-6 h-6 border-l-2 border-dashed border-slate-600"></div>
+                     <!-- 步骤 3 -->
+                     <div class="flex items-center">
+                         <div class="w-12 h-12 flex-shrink-0 bg-teal-600 rounded-lg flex items-center justify-center text-xl font-bold text-white">3</div>
+                         <div class="ml-4 p-3 bg-slate-700/50 rounded-lg w-full border border-slate-600">
+                             <div class="text-white font-semibold">广期所上市 (GFEX)</div>
+                             <div class="text-xs text-slate-400">亚洲流动性解锁，铂/钯定价权东移。</div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+
+            <!-- 右侧：需求结构 (Donut) -->
+            <div class="bg-slate-800 rounded-2xl p-6 md:p-8 border border-slate-700">
+                <h3 class="text-xl font-bold text-white mb-2">谁在买黄金？</h3>
+                <p class="text-sm text-slate-400 mb-6">2025年全球黄金需求预估占比。东方国家央行正在加速“去美元化”。</p>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="demandPieChart"></canvas>
+                </div>
+                <div class="mt-4 text-center text-xs text-slate-500">
+                    数据来源: 世界黄金协会 (WGC) 2025模拟数据
+                </div>
+            </div>
+        </section>
+
+        <!-- 第4部分: 工业属性脱钩 (Bar Chart) -->
+        <section class="bg-slate-800 rounded-2xl p-6 md:p-8 shadow-xl border border-slate-700">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-white mb-2">工业属性的“脱钩”</h2>
+                <p class="text-slate-400 text-sm">
+                    白银和铂金不再仅仅是“穷人的黄金”。它们是关键的科技金属。2025年，AI硬件热潮（高导电性触点需求）和氢能经济的成熟，将工业短缺推向历史新高。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2">
+                    <div class="chart-container">
+                        <canvas id="industrialDemandChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700 flex flex-col justify-center">
+                    <h4 class="text-teal-400 font-bold text-lg mb-3">关键洞察</h4>
+                    <p class="text-slate-300 text-sm mb-4">
+                        “历史上首次，白银的工业需求超过了总供应量的 65%，主要驱动力来自下一代光伏电池 (TOPCon) 和 AI 服务器互连组件。”
+                    </p>
+                    <div class="w-full h-px bg-slate-700 my-4"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400 text-xs">AI 行业用银增长</span>
+                        <span class="text-green-400 font-bold">+145%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第5部分: 中国因素 & 广期所 -->
+        <section class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-2xl p-8 border border-indigo-700/50 shadow-2xl relative overflow-hidden">
+            <!-- 装饰背景 -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full mix-blend-overlay filter blur-3xl opacity-20"></div>
+
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 relative z-10">广州期货交易所 (GFEX) 的催化作用</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
+                <div class="space-y-4">
+                    <p class="text-indigo-100 leading-relaxed">
+                        铂金和钯金期货在**广州期货交易所 (GFEX)** 的上市，是2025年末的“黑天鹅”事件。它为中国的零售和机构资本打开了直接对冲铂族金属供应风险的大门。
+                    </p>
+                    <ul class="space-y-3 mt-4">
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold mt-0.5 text-white">✓</span>
+                            <span class="ml-3 text-sm text-slate-300">建立了新的全球定价中心，削弱了伦敦/纽约的定价权。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold mt-0.5 text-white">✓</span>
+                            <span class="ml-3 text-sm text-slate-300">全球日均交易量 (ADV) 增加了 40%。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 h-6 w-6 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold mt-0.5 text-white">✓</span>
+                            <span class="ml-3 text-sm text-slate-300">便利了中国新能源车企（EV）的战略储备囤货。</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 交易量转移可视化 -->
+                <div class="bg-slate-800/80 p-6 rounded-xl backdrop-blur border border-indigo-500/30">
+                    <h4 class="text-sm font-semibold text-indigo-300 uppercase mb-4">全球铂族金属交易量分布 (2025)</h4>
+                    
+                    <!-- CSS 进度条对比 -->
+                    <div class="space-y-4">
+                        <!-- 西方 -->
+                        <div>
+                            <div class="flex justify-between text-xs text-slate-400 mb-1">
+                                <span>纽约 NYMEX / 伦敦 LPPM (西方)</span>
+                                <span>55%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-slate-400 h-2 rounded-full" style="width: 55%"></div>
+                            </div>
+                        </div>
+                        <!-- 东方 -->
+                        <div>
+                            <div class="flex justify-between text-xs text-indigo-300 mb-1">
+                                <span>广期所 GFEX / 上期所 SHFE (东方)</span>
+                                <span class="font-bold">45%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-indigo-500 h-2 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.6)]" style="width: 45%"></div>
+                            </div>
+                            <p class="text-[10px] text-indigo-400 mt-1 italic">较 2023 年的 15% 大幅提升</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第6部分: 未来展望 (Radar Chart) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+             <!-- 文字分析 -->
+             <div class="bg-slate-800 rounded-2xl p-6 md:p-8 border border-slate-700">
+                <h3 class="text-xl font-bold text-white mb-4">2026年 机构展望</h3>
+                <p class="text-slate-400 text-sm mb-4">
+                    市场共识认为牛市尚未结束。虽然在黄金触及 $3,300 阻力位时可能会出现获利回吐带来的波动，但白银和铂金的供需缺口提供了坚实的价格底板。
+                </p>
+                <div class="grid grid-cols-2 gap-4 mt-6">
+                    <div class="p-3 bg-slate-900 rounded-lg border border-slate-700 text-center">
+                        <div class="text-xs text-slate-500 uppercase">牛市情境 (2026)</div>
+                        <div class="text-yellow-400 font-bold">黄金 $3,500</div>
+                    </div>
+                    <div class="p-3 bg-slate-900 rounded-lg border border-slate-700 text-center">
+                        <div class="text-xs text-slate-500 uppercase">熊市情境 (2026)</div>
+                        <div class="text-red-400 font-bold">黄金 $2,800</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 雷达图: 资产属性对比 -->
+            <div class="bg-slate-800 rounded-2xl p-6 md:p-8 border border-slate-700">
+                <h3 class="text-xl font-bold text-white mb-2">资产属性画像</h3>
+                <p class="text-xs text-slate-500 mb-4">当前宏观环境下：贵金属 vs 加密货币 vs 股票。</p>
+                <div class="chart-container">
+                    <canvas id="outlookRadarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="text-center text-slate-500 text-sm py-8 border-t border-slate-800">
+            <p>&copy; 2025 深度研究组 (Deep Research). 模拟数据仅用于展示。</p>
+            <p class="text-xs mt-2">基于 2025 年第四季度市场状况分析。</p>
+        </footer>
+
+    </main>
+
+    <!-- 图表逻辑脚本 -->
+    <script>
+        // --- 统一的 Tooltip 配置 (处理多行文本) ---
+        const commonTooltipOptions = {
+            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+            titleColor: '#fbbf24',
+            bodyColor: '#e2e8f0',
+            borderColor: 'rgba(255,255,255,0.1)',
+            borderWidth: 1,
+            padding: 12,
+            titleFont: { family: "'Noto Sans SC', sans-serif", size: 13 },
+            bodyFont: { family: "'Noto Sans SC', sans-serif", size: 12 },
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(''); // 中文不需要空格拼接
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- Chart 1: 价格走势 (Line Chart) ---
+        const ctxTrend = document.getElementById('priceTrendChart').getContext('2d');
+        const trendLabels = ['24年1月', '24年3月', '24年6月', '24年9月', '24年12月', '25年3月', '25年6月', '25年9月', '25年12月'];
+        
+        new Chart(ctxTrend, {
+            type: 'line',
+            data: {
+                labels: trendLabels,
+                datasets: [
+                    {
+                        label: '黄金 (Au)',
+                        data: [100, 108, 112, 118, 125, 130, 145, 155, 162],
+                        borderColor: '#fbbf24',
+                        backgroundColor: 'rgba(251, 191, 36, 0.1)',
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        fill: true
+                    },
+                    {
+                        label: '白银 (Ag)',
+                        data: [100, 105, 115, 122, 128, 138, 155, 175, 192],
+                        borderColor: '#e2e8f0',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        pointRadius: 3
+                    },
+                    {
+                        label: '钯金 (Pd)',
+                        data: [100, 95, 92, 98, 105, 115, 128, 142, 158],
+                        borderColor: '#2dd4bf',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { labels: { color: '#94a3b8', font: { family: "'Noto Sans SC'" } }, position: 'top' }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#64748b' },
+                        title: { display: true, text: '相对表现 (以2024年初为基准)', color: '#475569' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#64748b' }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 2: 需求结构 (Donut) ---
+        const ctxPie = document.getElementById('demandPieChart').getContext('2d');
+        // 中文标签较短，一般不需要换行，但为了演示数组格式：
+        const pieLabels = [['央行储备', '& 机构'], '珠宝首饰', '投资 (ETF/金币)', '工业科技'];
+
+        new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: pieLabels,
+                datasets: [{
+                    data: [35, 30, 25, 10],
+                    backgroundColor: ['#fbbf24', '#f59e0b', '#3b82f6', '#2dd4bf'],
+                    borderColor: '#1e293b',
+                    borderWidth: 4,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { position: 'right', labels: { color: '#94a3b8', boxWidth: 12, font: { family: "'Noto Sans SC'" } } }
+                },
+                cutout: '65%'
+            }
+        });
+
+        // --- Chart 3: 工业需求 (Horizontal Bar) ---
+        const ctxInd = document.getElementById('industrialDemandChart').getContext('2d');
+        // 使用数组进行换行，确保手机端显示正常
+        const indLabels = [
+            ['光伏太阳能', '(白银)'], 
+            ['AI/半导体', '(金/银)'], 
+            ['氢燃料电池', '(铂金)'], 
+            ['汽车催化剂', '(钯金)'], 
+            ['高端医疗器械', '(铂金)']
+        ];
+
+        new Chart(ctxInd, {
+            type: 'bar',
+            data: {
+                labels: indLabels,
+                datasets: [{
+                    label: '年同比增长率 (%)',
+                    data: [18, 22, 14, 5, 8],
+                    backgroundColor: [
+                        'rgba(255, 255, 255, 0.8)',
+                        'rgba(251, 191, 36, 0.8)',
+                        'rgba(244, 114, 182, 0.8)',
+                        'rgba(45, 212, 191, 0.8)',
+                        'rgba(148, 163, 184, 0.8)'
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#64748b' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: '#e2e8f0', font: { size: 12, family: "'Noto Sans SC'" } }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 4: 资产属性 (Radar) ---
+        const ctxRadar = document.getElementById('outlookRadarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['避险属性', '抗通胀', '工业用途', '高波动性', '流动性', '增长潜力'],
+                datasets: [{
+                    label: '贵金属',
+                    data: [95, 90, 80, 40, 85, 60],
+                    fill: true,
+                    backgroundColor: 'rgba(251, 191, 36, 0.2)',
+                    borderColor: '#fbbf24',
+                    pointBackgroundColor: '#fbbf24',
+                }, {
+                    label: '加密资产',
+                    data: [30, 70, 20, 95, 75, 95],
+                    fill: true,
+                    backgroundColor: 'rgba(45, 212, 191, 0.2)',
+                    borderColor: '#2dd4bf',
+                    pointBackgroundColor: '#2dd4bf',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#94a3b8', font: { size: 12, family: "'Noto Sans SC'" } },
+                        ticks: { display: false, backdropColor: 'transparent' }
+                    }
+                },
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { labels: { color: '#e2e8f0', font: { family: "'Noto Sans SC'" } }, position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

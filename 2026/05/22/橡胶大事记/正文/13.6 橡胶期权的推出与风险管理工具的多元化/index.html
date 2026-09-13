@@ -1,0 +1,577 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>13.6 橡胶期权的推出与风险管理工具的多元化 | 橡胶童话</title><meta name="author" content="童长征"><meta name="copyright" content="童长征"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="只有刹车没有保险杠的汽车期货市场是一台极度精密且残酷的机器。在前面几章中，我们见证了轮胎厂如何用买入套保锁定成本，贸易商如何用基差贸易赚取利差，也看到了当市场失控时，这台机器如何将那些判断失误的投机客绞得粉碎。 然而，即便是对于最熟练的产业玩家来说，单纯的期货套期保值也存在一个难以克服的致命缺陷——它是线性的，且需要不断地”充值”。 让我们回到13.2章中那个因为暴涨而差点毁约的轮胎厂采购总监赵明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="13.6 橡胶期权的推出与风险管理工具的多元化">
+<meta property="og:url" content="https://rubbertale.github.io/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/index.html">
+<meta property="og:site_name" content="橡胶童话">
+<meta property="og:description" content="只有刹车没有保险杠的汽车期货市场是一台极度精密且残酷的机器。在前面几章中，我们见证了轮胎厂如何用买入套保锁定成本，贸易商如何用基差贸易赚取利差，也看到了当市场失控时，这台机器如何将那些判断失误的投机客绞得粉碎。 然而，即便是对于最熟练的产业玩家来说，单纯的期货套期保值也存在一个难以克服的致命缺陷——它是线性的，且需要不断地”充值”。 让我们回到13.2章中那个因为暴涨而差点毁约的轮胎厂采购总监赵明">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://rubbertale.github.io/img/avatar.png">
+<meta property="article:published_time" content="2026-05-22T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-21T02:00:05.556Z">
+<meta property="article:author" content="童长征">
+<meta property="article:tag" content="橡胶">
+<meta property="article:tag" content="风险管理">
+<meta property="article:tag" content="期权">
+<meta property="article:tag" content="保险+期货">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rubbertale.github.io/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "13.6 橡胶期权的推出与风险管理工具的多元化",
+  "url": "https://rubbertale.github.io/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/",
+  "image": "https://rubbertale.github.io/img/avatar.png",
+  "datePublished": "2026-05-22T01:00:00.000Z",
+  "dateModified": "2026-07-21T02:00:05.556Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "童长征",
+      "url": "https://RubberTale.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://rubbertale.github.io/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "y4m29olp1v");
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '13.6 橡胶期权的推出与风险管理工具的多元化',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">276</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">248</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货导航</span></a></div><div class="menus_item"><a class="site-page" href="/charts/"><i class="fa-fw fas fa-chart-bar"></i><span> 图表</span></a></div><div class="menus_item"><a class="site-page" href="/powerbi/"><i class="fa-fw fas fa-chart-pie"></i><span> 橡胶主要数据图表</span></a></div><div class="menus_item"><a class="site-page" href="/sponsor/"><i class="fa-fw fas fa-coffee"></i><span> 赞赏支持</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 小工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-toolbox"></i><span> 小工具箱</span></a></li><li><a class="site-page child" href="/tools/strategy-tracker/"><i class="fa-fw fas fa-crosshairs"></i><span> 量化跟踪雷达</span></a></li><li><a class="site-page child" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货投研导航</span></a></li><li><a class="site-page child" href="/tools/arbitrage-calc/"><i class="fa-fw fas fa-balance-scale"></i><span> 基差价差套利</span></a></li><li><a class="site-page child" href="/tools/delivery-brands/"><i class="fa-fw fas fa-stamp"></i><span> 橡胶交割品牌</span></a></li><li><a class="site-page child" href="/tools/position-calculator/"><i class="fa-fw fas fa-calculator"></i><span> 凯利仓位测算</span></a></li><li><a class="site-page child" href="/tools/rubber-weather-calendar/"><i class="fa-fw fas fa-cloud-sun-rain"></i><span> 产区气象物候</span></a></li><li><a class="site-page child" href="/rubber/weather_forecast/"><i class="fa-fw fas fa-satellite"></i><span> 卫星云图观察</span></a></li><li><a class="site-page child" href="/tools/report-data-diff/"><i class="fa-fw fas fa-file-invoice"></i><span> 研报平衡表比对</span></a></li><li><a class="site-page child" href="/roman/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 罗马历史地图</span></a></li><li><a class="site-page child" href="/world-history/"><i class="fa-fw fas fa-globe-asia"></i><span> 世界史对照地图</span></a></li><li><a class="site-page child" href="/royal-genealogy/"><i class="fa-fw fas fa-crown"></i><span> 欧洲王室谱系</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/jinghong.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 景洪降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/zuola.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 勐腊降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/baisha.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南白沙降雨</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/zuozhou.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南儋州降雨</span></a></li><li><a class="site-page child" href="/tools/resume/"><i class="fa-fw fas fa-file-alt"></i><span> 智能简历工坊</span></a></li><li><a class="site-page child" href="/tools/reverse-app/"><i class="fa-fw fas fa-repeat"></i><span> 文本倒序转换</span></a></li><li><a class="site-page child" href="/tools/pic-6varieties/"><i class="fa-fw fas fa-camera"></i><span> AI写真工坊</span></a></li><li><a class="site-page child" href="/tools/edge-tts/"><i class="fa-fw fas fa-microphone-alt"></i><span> 语音智坊 (TTS)</span></a></li><li><a class="site-page child" href="/tools/comic-avatar/"><i class="fa-fw fas fa-magic"></i><span> AI漫画头像</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://qhkch.com/"><i class="fa-fw fas fa-chart-line"></i><span> 奇货可查</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/%E6%A9%A1%E8%83%B6%E7%AB%A5%E8%AF%9Dlogo.png" alt="Logo"><span class="site-name">橡胶童话</span></a><a class="nav-page-title" href="/"><span class="site-name">13.6 橡胶期权的推出与风险管理工具的多元化</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货导航</span></a></div><div class="menus_item"><a class="site-page" href="/charts/"><i class="fa-fw fas fa-chart-bar"></i><span> 图表</span></a></div><div class="menus_item"><a class="site-page" href="/powerbi/"><i class="fa-fw fas fa-chart-pie"></i><span> 橡胶主要数据图表</span></a></div><div class="menus_item"><a class="site-page" href="/sponsor/"><i class="fa-fw fas fa-coffee"></i><span> 赞赏支持</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> 小工具</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tools/"><i class="fa-fw fas fa-toolbox"></i><span> 小工具箱</span></a></li><li><a class="site-page child" href="/tools/strategy-tracker/"><i class="fa-fw fas fa-crosshairs"></i><span> 量化跟踪雷达</span></a></li><li><a class="site-page child" href="/futures-nav/"><i class="fa-fw fas fa-compass"></i><span> 期货投研导航</span></a></li><li><a class="site-page child" href="/tools/arbitrage-calc/"><i class="fa-fw fas fa-balance-scale"></i><span> 基差价差套利</span></a></li><li><a class="site-page child" href="/tools/delivery-brands/"><i class="fa-fw fas fa-stamp"></i><span> 橡胶交割品牌</span></a></li><li><a class="site-page child" href="/tools/position-calculator/"><i class="fa-fw fas fa-calculator"></i><span> 凯利仓位测算</span></a></li><li><a class="site-page child" href="/tools/rubber-weather-calendar/"><i class="fa-fw fas fa-cloud-sun-rain"></i><span> 产区气象物候</span></a></li><li><a class="site-page child" href="/rubber/weather_forecast/"><i class="fa-fw fas fa-satellite"></i><span> 卫星云图观察</span></a></li><li><a class="site-page child" href="/tools/report-data-diff/"><i class="fa-fw fas fa-file-invoice"></i><span> 研报平衡表比对</span></a></li><li><a class="site-page child" href="/roman/"><i class="fa-fw fas fa-map-marked-alt"></i><span> 罗马历史地图</span></a></li><li><a class="site-page child" href="/world-history/"><i class="fa-fw fas fa-globe-asia"></i><span> 世界史对照地图</span></a></li><li><a class="site-page child" href="/royal-genealogy/"><i class="fa-fw fas fa-crown"></i><span> 欧洲王室谱系</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/jinghong.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 景洪降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AYN/zuola.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 勐腊降雨预报</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/baisha.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南白沙降雨</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://www.nmc.cn/publish/forecast/AHI/zuozhou.html"><i class="fa-fw fas fa-cloud-rain"></i><span> 海南儋州降雨</span></a></li><li><a class="site-page child" href="/tools/resume/"><i class="fa-fw fas fa-file-alt"></i><span> 智能简历工坊</span></a></li><li><a class="site-page child" href="/tools/reverse-app/"><i class="fa-fw fas fa-repeat"></i><span> 文本倒序转换</span></a></li><li><a class="site-page child" href="/tools/pic-6varieties/"><i class="fa-fw fas fa-camera"></i><span> AI写真工坊</span></a></li><li><a class="site-page child" href="/tools/edge-tts/"><i class="fa-fw fas fa-microphone-alt"></i><span> 语音智坊 (TTS)</span></a></li><li><a class="site-page child" href="/tools/comic-avatar/"><i class="fa-fw fas fa-magic"></i><span> AI漫画头像</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://qhkch.com/"><i class="fa-fw fas fa-chart-line"></i><span> 奇货可查</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">13.6 橡胶期权的推出与风险管理工具的多元化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-22T01:00:00.000Z" title="发表于 2026-05-22 09:00:00">2026-05-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-21T02:00:05.556Z" title="更新于 2026-07-21 10:00:05">2026-07-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/">橡胶大事记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span class="waline-pageview-count" data-path="/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/#post-comment"><span class="waline-comment-count" data-path="/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="只有刹车没有保险杠的汽车"><a href="#只有刹车没有保险杠的汽车" class="headerlink" title="只有刹车没有保险杠的汽车"></a>只有刹车没有保险杠的汽车</h2><p>期货市场是一台极度精密且残酷的机器。在前面几章中，我们见证了轮胎厂如何用买入套保锁定成本，贸易商如何用基差贸易赚取利差，也看到了当市场失控时，这台机器如何将那些判断失误的投机客绞得粉碎。</p>
+<p>然而，即便是对于最熟练的产业玩家来说，单纯的期货套期保值也存在一个难以克服的致命缺陷——<strong>它是线性的，且需要不断地”充值”</strong>。</p>
+<p>让我们回到13.2章中那个因为暴涨而差点毁约的轮胎厂采购总监赵明远。假设在另一条平行时间线里，赵明远学乖了，他在签约的同时就在期货盘面上做了一笔”完美”的买入套保：买入了一万吨橡胶期货多单。</p>
+<p>接下来会发生什么？</p>
+<p>如果橡胶价格真的暴涨，他固然能够通过期货盘面的盈利对冲现货采购成本的增加。但如果他猜错了呢？如果橡胶价格突然遭遇黑天鹅事件，开始连续暴跌呢？</p>
+<p>对于他的轮胎厂来说，现货市场橡胶价格下跌本来是件大好事，意味着采购成本降低，利润变厚。但在期货盘面上，他持有的多单会产生<strong>巨大的浮亏</strong>。每天收盘后，期货公司都会打来催命般的电话，要求他追加保证金。如果公司账上的现金流不够，他的套保头寸就会被强行平仓，造成实打实的巨额损失。</p>
+<p>这就是传统期货套保的窘境：<strong>它锁定了风险，但也抹杀了意外获利的可能；它要求企业必须准备极其充裕的现金流来应对盘面的波动，否则就会倒在黎明前。</strong></p>
+<p>“做期货套保，就像开着一辆只有刹车没有保险杠的汽车。”一位资深橡胶交易员曾这样比喻，”你踩下刹车（套保），车是停住了，风险锁死了，但你也失去了继续往前走的可能。而且如果你刹车踩得太猛（保证金不足被强平），自己还会被甩出车窗。”</p>
+<p>那么，有没有一种金融工具，能够让企业在规避下跌风险的同时，还能保留上涨带来的收益？有没有一种工具，在买入时只需支付一笔固定的费用，此后无论市场怎么剧烈波动，都不需要再追加一分钱的保证金？</p>
+<p>有的。</p>
+<p>在西方金融市场，这个工具已经成熟运转了几十年。但对于中国的天然橡胶市场来说，直到2019年，这扇通往更高阶风险管理的大门才被正式推开。</p>
+<p>这个工具，叫做<strong>期权（Options）</strong>。</p>
+<h2 id="2019：全球首个天然橡胶期权的诞生"><a href="#2019：全球首个天然橡胶期权的诞生" class="headerlink" title="2019：全球首个天然橡胶期权的诞生"></a>2019：全球首个天然橡胶期权的诞生</h2><p>2019年1月28日上午9时，上海期货交易所的交易大厅里响起了一声清脆的锣声。</p>
+<p>伴随着这声锣响，<strong>全球首个天然橡胶期权</strong>正式挂牌交易。这也是上期所继铜期权之后上市的第二个工业品期权。</p>
+<p>期权的本质，是一份**”权利的买卖合同”**。</p>
+<p>为了理解这种抽象的金融衍生品，我们可以把它想象成买保险或者买楼花的定金。</p>
+<p>假设你是一个橡胶贸易商，你手里有一大批现货，你非常担心下个月价格会暴跌。在只有期货的年代，你只能卖出空单套保。但现在有了期权，你可以花一笔小钱（称为<strong>权利金</strong>，Premium），去市场上买入一张**”看跌期权”（Put Option）**。</p>
+<p>这张看跌期权上写着：”买方有权在下个月月底，以12000元&#x2F;吨的价格（称为<strong>行权价</strong>，Strike Price），卖出10吨天然橡胶。”</p>
+<p>接下来会有两种情况：</p>
+<p>第一种情况，<strong>天塌了，橡胶价格暴跌到10000元。</strong><br>此时，现货市场哀鸿遍野。但你丝毫不慌。因为你手里拿着看跌期权，你有权利按照12000元的高价把橡胶卖掉。这张期权帮你挽回了每吨2000元的损失。这就好比你给汽车买了车损险，撞车之后保险公司赔了你修车钱。</p>
+<p>第二种情况，<strong>行情大好，橡胶价格暴涨到14000元。</strong><br>如果你当初做的是期货空单套保，现在你已经被追缴保证金追到倾家荡产了。但因为你买的是期权，期权赋予你的是”权利”而不是”义务”。既然市场价已经涨到了14000，傻子才会按照12000元的行权价去卖。所以你可以潇洒地撕掉这张期权合同，<strong>放弃行权</strong>。<br>你的损失是什么？仅仅是当初买这张期权时支付的那一小笔权利金。这就好比你买了一年车险，结果一年都没出车祸，保险费算是白交了，但你不会觉得亏，因为你的车完好无损（现货卖出了高价）。</p>
+<p>反过来，如果你是需要采购橡胶的轮胎厂，怕价格涨，你就可以去买**”看涨期权”（Call Option）**。价格涨了，你行权锁定低价成本；价格跌了，你放弃行权，去现货市场捡便宜，损失的同样只是有限的权利金。</p>
+<p>这就是期权最迷人的地方——<strong>收益无限（或锁定底线），风险有限（最大损失就是权利金）。</strong> </p>
+<p>对于产业客户来说，期权的上市无异于给那辆只有刹车的汽车装上了安全气囊和保险杠。</p>
+<p>在天然橡胶期权上市的首日，共有120家会员单位、868个客户参与了交易。其中不仅有金融机构的量化团队，更出现了大量轮胎企业、橡胶加工厂和贸易商的身影。他们敏锐地嗅到了这种新工具带来的战略价值。</p>
+<p>例如，一些手握大量全乳胶现货的大型农垦企业，开始尝试一种名为**”备兑看涨”（Covered Call）**的策略：他们在持有现货的同时，在期权市场上不断卖出虚值看涨期权。因为他们判断短期内价格不会大涨，通过卖出期权收取权利金，相当于变相降低了现货的持仓成本，每个月都能获得稳定的额外现金流。一旦价格真的意外大涨，大不了就把现货按行权价交割给对方，横竖都不亏。</p>
+<p>但天然橡胶期权带来的最大改变，并非发生在高楼林立的陆家嘴交易室里，而是发生在数千里之外、那些云雾缭绕的热带雨林之中。</p>
+<p>它解决了一个困扰中国橡胶产业长达二十年的终极难题：<strong>如何拯救那些在暴跌中绝望的胶农？</strong></p>
+<h2 id="给胶农吃下”定心丸”：揭开”保险-期货”的魔法"><a href="#给胶农吃下”定心丸”：揭开”保险-期货”的魔法" class="headerlink" title="给胶农吃下”定心丸”：揭开”保险+期货”的魔法"></a>给胶农吃下”定心丸”：揭开”保险+期货”的魔法</h2><p>云南省西盟佤族自治县，地处中缅边境，曾是国家级深度贫困县。这里山高谷深，气候湿热，是天然橡胶的绝佳生长地。对于当地许多佤族村民来说，橡胶树就是他们的”摇钱树”、”存钱罐”。</p>
+<p>但在2011年之后的漫漫熊市中，这棵摇钱树变成了”催命树”。</p>
+<p>当橡胶价格跌破10000元&#x2F;吨的成本线时，胶农们面临着一个残酷的现实：割胶，连人工费都赚不回来；不割，一年到头就没有了经济来源。在最惨淡的2014年到2016年，西盟县的大片橡胶林里出现了严重的”弃割”和”弃管”现象。胶杯里落满了枯叶，锋利的割胶刀生了锈，年轻的劳动力被迫背井离乡去沿海打工，留下老人在山寨里望着日益荒芜的胶林叹息。</p>
+<p>“那时候真是不想干了，一公斤胶水才卖两三块钱，连买瓶水的钱都不够。”一位西盟的胶农回忆道。</p>
+<p>政府看在眼里，急在心里。直接发钱补贴？财政压力太大，且不可持续。让胶农去炒期货套保？这更是天方夜谭——让连汉字都认不全、连智能手机都不会用的边疆老农去开立期货账户、盯盘、交保证金，一旦爆仓后果不堪设想。</p>
+<p>这就形成了一个死结：<strong>金融市场里有最强大的避险工具，但最需要避险的弱势群体却根本用不上。</strong></p>
+<p>直到”保险+期货”模式的出现，这个死结才被彻底解开。</p>
+<p>“保险+期货”，堪称中国金融史上最伟大的惠农创新之一。它的运作逻辑，就是利用<strong>期权</strong>作为核心传导机制，将复杂的金融风险转移到资本市场，把简单的保障留在田间地头。</p>
+<p>让我们看看这个魔法是如何在西盟县变出来的：</p>
+<p><strong>第一步：保险公司下乡，给胶农卖”跌价险”。</strong><br>太平洋产险等保险公司来到西盟县，推出了一款”天然橡胶目标价格保险”。合同非常简单易懂：约定一个目标价格，比如12000元&#x2F;吨。到了年底，如果橡胶市场价跌到了10000元&#x2F;吨，保险公司就把这2000元的差价赔给胶农。<br>对于胶农来说，这就是一颗定心丸。买了这个保险（保费大部分由政府或交易所补贴，胶农只需出很少的钱甚至免费），无论市场怎么跌，12000元的保底收入是雷打不动的。胶农们开开心心地拿起割胶刀，重新回到了胶林。</p>
+<p><strong>第二步：保险公司去期货市场”买保险”。</strong><br>胶农开心了，保险公司却慌了。万一橡胶价格真的腰斩，全县几万吨橡胶的巨额赔款会让保险公司瞬间破产。保险公司怎么转嫁这个巨大的风险？<br>这时候，<strong>看跌期权</strong>登场了。<br>保险公司拿着收来的保费，找到期货公司的风险管理子公司，在场外市场买入了一张<strong>天然橡胶看跌期权</strong>（挂钩上期所的RU合约）。约定的行权价同样是12000元&#x2F;吨。</p>
+<p><strong>第三步：风险管理子公司的对冲。</strong><br>期货公司的风险管理子公司卖出了看跌期权，相当于承担了价格下跌的风险。他们怎么自保？他们会在上期所的场内天然橡胶期货和期权市场上，通过复杂的计算机算法，实时买卖期货合约和期权合约，进行动态的<strong>Delta对冲</strong>，将风险在成千上万的投机者和套保者之间分散掉。</p>
+<p><strong>第四步：暴跌来临，理赔兑现。</strong><br>假设到了年底，橡胶价格真的暴跌到了10000元。<br>保险公司按照合同，必须赔给胶农每吨2000元。钱从哪来？<br>保险公司转身去找期货公司：”我买的看跌期权行权！”期货公司按照期权合约，理赔给保险公司每吨2000元。期货公司的钱又从哪来？他们已经在场内的期货对冲交易中，赚到了这笔钱（或者由那些在期货市场上做多亏损的投机客买单）。</p>
+<p><strong>这就是”保险+期货”的终极闭环。</strong></p>
+<p>在这个闭环中，不懂金融的佤族胶农，只需签一份简单的保险合同，就享受到了华尔街级别的风险对冲服务。巨大的暴跌风险，通过”保险单 → 场外期权 → 场内期货与期权”的链条，被无缝传导到了流动性极强的上海期货交易所，最终被整个资本市场消化吸收。</p>
+<p>2017年起，在上海期货交易所的专项资金支持下，”保险+期货”精准扶贫试点在云南、海南的橡胶主产区全面铺开。</p>
+<p>在海南省白沙黎族自治县，当地政府甚至将模式进一步升级为**”保险+期货+订单”**。当市场价格低迷时，胶农不仅能拿到保险公司的差价理赔，当地的橡胶加工企业（如海胶集团）还会按照约定的底价敞开收购他们的胶水，确保胶农”既能卖得出去，又能卖得起价”。</p>
+<p>那一笔笔打到贫困户惠农卡里的理赔款，成为了割胶刀上最坚实的防线。在脱贫攻坚的决战之年，天然橡胶”保险+期货”项目惠及了数十万户次胶农，成功阻止了产业的萎缩，保住了边疆群众的饭碗。</p>
+<p>这不仅是金融工具的胜利，更是金融伦理的升华——期货市场不再只是资本大鳄博弈的屠宰场，它真正成为了一把庇护弱者的保护伞。</p>
+<h2 id="场外期权：企业风控的”高级定制”"><a href="#场外期权：企业风控的”高级定制”" class="headerlink" title="场外期权：企业风控的”高级定制”"></a>场外期权：企业风控的”高级定制”</h2><p>如果说场内期权（如上期所挂牌交易的标准期权合约）像是一家成衣店，提供标准尺码的防弹衣；那么**场外期权（OTC Options）**就像是一家位于萨维尔街的高级裁缝店，为大型企业提供量身定制的专属铠甲。</p>
+<p>随着中国橡胶产业链的成熟，传统的套保工具已经无法满足那些跨国轮胎巨头和超级贸易商的胃口。他们的现货合同往往有着极其复杂的定价条款，比如”挂钩某个特定月份的均价”、”带有涨跌幅限制的采购协议”等。场内的标准期权合约，在到期日和行权价上都是固定的，很难与这些复杂的现货合同完美匹配。</p>
+<p>这时候，期货公司的风险管理子公司便推出了更高级的玩法——场外期权。</p>
+<p>回到轮胎厂采购总监赵明远的故事。</p>
+<p>赵明远最近遇到一个棘手的问题：他的轮胎厂接到了一个为期半年的海外大订单。为了锁定利润，他需要锁定这半年内三万吨天然橡胶的采购成本。但他又不想现在就买入期货套保，因为他觉得当前价格有点高，未来半年可能会跌；可万一涨了，利润就没了。</p>
+<p>他找到了某头部期货公司的场外衍生品团队。经过一番精密的计算，对方为他量身定制了一款名为**”亚式看涨期权”（Asian Call Option）**的场外产品。</p>
+<p>与普通的场内期权（到期日只看当天的价格）不同，亚式期权的结算价不看某一天，而是看<strong>一段时期内价格的平均值</strong>。</p>
+<p>期货公司对赵明远说：”你支付一笔权利金买入这个亚式期权。未来半年内，如果橡胶的<strong>月度平均价格</strong>涨过了13000元&#x2F;吨，高出多少，我们就赔你多少；如果平均价格没涨过去，你亏的只是权利金，你依然可以在现货市场上买便宜的橡胶。”</p>
+<p>赵明远算了算账：轮胎厂的实际采购本来就是分批进行的，月度均价完美契合了他的现货采购节奏。而且，由于亚式期权的波动率通常低于普通期权，这款定制产品的<strong>权利金比场内期权便宜了将近三分之一</strong>。</p>
+<p>他果断签下了这份场外期权合同。半年后，行情如他所料发生了一次剧烈的宽幅震荡。如果是做期货多单，他可能早就被震出局了；但在亚式期权的保护下，他安稳地度过了这半年，完美锁定了海外订单的利润。</p>
+<p>除了亚式期权，场外市场上还诞生了各种各样名字如同魔法咒语般的奇异期权（Exotic Options）：</p>
+<p>比如**”敲出期权”（Knock-out Option）**：如果你觉得价格只会温和上涨，不可能涨破某个天花板，你可以买入这种期权。它的权利金极其便宜，代价是一旦价格触碰到了设定的”天花板”（敲出价），期权瞬间作废。</p>
+<p>比如**”累积期权”（Accumulator）**：适合那些需要长期、分批建仓的现货商。只要价格在一个设定的区间内，你就可以每天以低于市场价的折扣买入一定数量的橡胶；但如果价格跌破了安全垫，你必须以约定价格买入双倍的橡胶。这种被香港金融圈戏称为”I kill you later”的复杂衍生品，在专业现货商手里却成了降低采购成本的利器。</p>
+<p>这些高度定制化的场外衍生品，极大地丰富了橡胶产业的风险管理工具箱。它们就像一堆形状各异的乐高积木，企业的财务总监可以根据自己的风险偏好、现金流状况和现货购销合同，拼装出最适合自己的那面盾牌。</p>
+<h2 id="第四维度：做市商与希腊字母的微观战争"><a href="#第四维度：做市商与希腊字母的微观战争" class="headerlink" title="第四维度：做市商与希腊字母的微观战争"></a>第四维度：做市商与希腊字母的微观战争</h2><p>当我们惊叹于期权为产业客户带来的巨大便利时，不能忽略了支撑起这个庞大体系的另一个关键群体——<strong>做市商（Market Makers）</strong>。</p>
+<p>在期权市场里，有一个非常现实的问题：如果一个轮胎厂想买看涨期权，一个贸易商想买看跌期权，他们怎么保证在想买的时候一定有人愿意卖给他们？尤其是对于那些行权价偏离当前市场价很远（深度虚值）的期权合约，平常几乎无人问津，流动性极差。</p>
+<p>为了解决这个问题，上海期货交易所在天然橡胶期权上市之初，就引入了做市商制度。这些做市商通常是拥有强大资金实力和顶尖量化交易团队的券商或期货公司风险管理子公司。他们的职责很简单：<strong>在市场上持续不断地报出买价和卖价，为市场提供流动性。</strong></p>
+<p>只要你想交易期权，哪怕再冷门的合约，做市商都会接下你的单子。</p>
+<p>但做市商不是做慈善的。他们接下这些风险暴露极高的单子后，必须立刻将风险对冲掉。在这个对冲的过程中，期权交易展现出了它极其硬核、充满极客气息的一面——那就是**”希腊字母”（The Greeks）**的微观战争。</p>
+<p>如果说期货交易员看的是K线图、均线和供需基本面，那么期权做市商的电脑屏幕上，则闪烁着一行行以希腊字母命名的风险参数：</p>
+<p><strong>Delta（德尔塔）</strong>：衡量期权价格对标的期货价格变动的敏感度。做市商卖出一张看涨期权后，他的Delta就变成了负数。为了保持风险中性（Delta Neutral），他必须立刻在期货市场上买入相应比例的橡胶多单。这种期货与期权之间的动态对冲，是做市商每天操作最频繁的动作。</p>
+<p><strong>Gamma（伽马）</strong>：衡量Delta本身对期货价格的敏感度。它代表了风险的”加速度”。对于做市商来说，Gamma就像是一条随时可能失控的疯狗。在橡胶价格剧烈波动时，Gamma会急剧放大做市商的对冲难度，迫使他们在期货盘面上疯狂地高买低卖。</p>
+<p><strong>Vega（维加）</strong>：衡量期权价格对**隐含波动率（Implied Volatility）**的敏感度。这是期权交易中最核心的变量。很多时候，橡胶的绝对价格没怎么动，但市场预期未来会有大行情（比如产区台风来袭、东南亚港口罢工），隐含波动率就会飙升，带动期权权利金大幅上涨。专门做Vega交易的量化基金，根本不关心橡胶最后是涨是跌，他们只赌市场的”恐慌情绪”是否被高估或低估。</p>
+<p><strong>Theta（西塔）</strong>：衡量期权价格随着时间流逝的损耗速度。期权本质上是一份带有保质期的权利合同，就像一块在阳光下融化的冰。每天太阳升起，期权的时间价值就会折损一部分。做市商作为期权的主要卖方，每天都在贪婪地赚取这部分时间损耗的钱（赚取Theta）；而买方则必须在冰块融化完之前，期盼一场暴风雨（大行情）的降临。</p>
+<p>在天然橡胶期权上市后的这些年里，随着市场参与者的不断丰富，这套基于希腊字母的微观生态系统已经运转得极为成熟。</p>
+<p>当一个云南的胶农通过”保险+期货”买入一份看跌保障时，那份风险首先转移给了保险公司；保险公司通过场外市场将它卖给了一家风险管理子公司；这跨子公司的量化系统瞬间计算出它的Delta暴露，然后在千分之一秒内向上海期货交易所发出指令，卖空几手橡胶期货合约来进行对冲；而这些期货空单的对手盘，可能恰好是一个为了锁定利润而卖出看跌期权的做市商，或者是一个坚信基本面即将反转的投机客。</p>
+<p>在这个由光纤、算法和数学公式构成的第四维度里，数以百亿计的资金如同一条条看不见的暗流，在期货、场内期权、场外期权和现货市场之间疯狂涌动，最终将巨大的宏观系统性风险，悄无声息地化解为了无数个可以被精确计算和交易的数学期望。</p>
+<h2 id="结语：从”搏杀”到”管理”"><a href="#结语：从”搏杀”到”管理”" class="headerlink" title="结语：从”搏杀”到”管理”"></a>结语：从”搏杀”到”管理”</h2><p>当我们回顾天然橡胶金融史的前半段（从1993年到2015年），那是一部充满了血腥搏杀的草莽史。从海南中商所的R708事件，到2008年的大崩盘，再到2011年的史诗级逼空，人们谈论橡胶期货，往往伴随着”暴富”、”爆仓”、”跳楼”这样的刺眼词汇。那时的市场，工具单一，要么做多要么做空，不是你死就是我活。</p>
+<p>但当时间线进入2019年，随着天然橡胶期权的上市，以及”保险+期货”和场外衍生品市场的蓬勃发展，这部历史正在悄然改变叙事的主题。</p>
+<p>市场依然有波动，多空依然在交锋，但产业玩家的手里不再只有长矛和砍刀。</p>
+<p>他们有了防弹衣（看跌期权），有了安全气囊（看涨期权），有了可以定制形状的盾牌（场外期权），甚至连最底层、最弱势的胶农，也有了一张坚固的保护伞（保险+期货）。</p>
+<p>金融衍生品的演进，本质上是人类管理风险能力的进化。</p>
+<p>天然橡胶期权的推出，标志着中国橡胶市场正式步入了**”立体化风险管理”**的新纪元。在这个时代，最优秀的交易员不再是那些敢于满仓单边对赌的狂徒，而是那些能够熟练运用期权、期货和现货这三种工具，像调配鸡尾酒一样精准构建出复杂对冲策略的”风险工程师”。</p>
+<p>大宗商品市场的核心功能，也终于从刺刀见红的”价格搏杀”，回归到了它最本源的使命——<strong>为实体产业保驾护航</strong>。</p>
+<p>当云南西盟的胶农在割胶刀旁露出安心的笑容，当青岛轮胎厂的采购总监在办公桌前签下场外期权合同时，数字时代的橡胶金融，才算真正补齐了它最重要的一块拼图。</p>
+<hr>
+<blockquote>
+<p>如果有人想获得本书的全集，可以在评论区留下888，我将全书完成以后一并发出。</p>
+</blockquote>
+<p><strong>下一章预告</strong>：<br><strong>第13.7章：碳交易与ESG：橡胶期货的绿色金融新维度</strong> —— 欧盟零毁林法案（EUDR）强势来袭，碳指标与ESG评级正式挂钩价格。在这场超越供需关系的博弈中，数据为何变得与胶水一样重要？敬请期待。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://RubberTale.github.io">童长征</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://rubbertale.github.io/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/">https://rubbertale.github.io/2026/05/22/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.6%20%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E6%8E%A8%E5%87%BA%E4%B8%8E%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E5%A4%9A%E5%85%83%E5%8C%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://RubberTale.github.io" target="_blank">橡胶童话</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A9%A1%E8%83%B6/">橡胶</a><a class="post-meta__tags" href="/tags/%E9%A3%8E%E9%99%A9%E7%AE%A1%E7%90%86/">风险管理</a><a class="post-meta__tags" href="/tags/%E6%9C%9F%E6%9D%83/">期权</a><a class="post-meta__tags" href="/tags/%E4%BF%9D%E9%99%A9-%E6%9C%9F%E8%B4%A7/">保险+期货</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>创作不易，长期维护更需心血。若本文对您有所启发，欢迎赞赏支持作者！☕</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat-reward.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat-reward.jpg" alt="微信赞赏"/></a><div class="post-qr-code-desc">微信赞赏</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/05/25/%E8%AE%BA%E9%A3%8E%E9%99%A9%E4%B8%8E%E6%94%B6%E7%9B%8A%E7%9A%84%E5%85%B3%E7%B3%BB/" title="论风险与收益的关系"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">论风险与收益的关系</div></div><div class="info-2"><div class="info-item-1">在资产管理理论中，有一条最基本的定理：风险与收益成正比。要想获得更高的收益，就必须要冒更大的风险。但是这二者的关系真的是那么简单吗？  这个定理换用数学的方式来表达，那就是如果用收益对风险求导，那么这个值大于0。但是在搞清楚这个规律之前，我们首先需要给这两个概念下一个明确的定义。收益这个定义很清晰，我想没有任何人会对这个概念的理解会有分歧。收益&#x3D;期末价-期初价-成本费用等那么最大的问题在于如何对风险进行定义。在风险管理领域，标准差是衡量风险的重要指标。但是衡量指标并非定义。也就是说我们不能把标准差完全等同于风险。我们只能说，在过去标准差大的资产，它的面临风险比较大，我们并不能必然推出标准差的资产一定风险更大。因为我们所能获取的标准差，只能是历史值。而历史值不代表将来。我认为，不存在任何可以准确衡量风险的数量指标。任何数量指标，都只能划归为我们对风险的认知，而这种认知带有很强的主观性。一个品种，对于不同的人，在不同的时期，风险是一定不一样的。比如对我来说，ru是风险最小的品种，因为我在这个品种上沉浸的时间最长，我最了解该品种的习性。j, rb, m, 等等其他品种，我不了...</div></div></div></a><a class="pagination-related" href="/2026/05/21/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/13.5%20%E6%9C%9F%E8%B4%A7%E4%BA%A4%E5%89%B2%E5%88%B6%E5%BA%A6%E4%B8%8E%E4%BB%93%E5%82%A8%E7%89%A9%E6%B5%81/" title="13.5 期货交割制度与仓储物流：从注册仓库到实物交割"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">13.5 期货交割制度与仓储物流：从注册仓库到实物交割</div></div><div class="info-2"><div class="info-item-1">一张纸条的生死簿凌晨四点三十七分，青岛西海岸新区前湾保税港区。 一辆重型平板拖车拖着一个四十英尺的集装箱，在昏暗的路灯下缓缓驶入编号为”E-17”的仓库大门。铁门在液压臂的推动下沉重地张开，露出了里面堆积如山的黑色方块——那是上千吨经过压制、包装的天然橡胶标准胶块，每一块重33.33公斤，用聚乙烯薄膜严严实实地裹着，整齐地码放在钢制”巧固架”上，从地面一直堆到接近十米高的天花板。 空气中弥漫着一种独特的味道——不像轮胎店里那种刺鼻的橡胶臭味，而是一种更原始、更醇厚的气息，带着热带雨林的潮湿和胶乳凝固时那种微微发酸的甜腻。老仓管员老赵说，这个味道他闻了二十年，闭着眼睛就能分辨出哪块是海南产的全乳胶、哪块是泰国来的三号烟片——全乳胶偏淡偏甜，烟片胶带一股烟熏味儿，像是老腊肉。 但今天凌晨，老赵没有心情开玩笑。 他手里攥着一张从上海期货交易所标准仓单管理系统打印出来的纸条——或者更准确地说，是一份电子仓单的纸质回执。这张看上去平平无奇的A4纸上，打印着一串编号、一个品牌名称、一个生产日期、一个入库日期，以及一个至关重要的数字：10吨。 就是这张纸条——这张”标准仓单”——决定了眼前这堆...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/18/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/11.2%20%E6%A9%A1%E8%83%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9C%9F%E8%B4%A7%EF%BC%9A%E4%BB%B7%E6%A0%BC%E5%89%A7%E7%83%88%E6%B3%A2%E5%8A%A8%E4%B8%8E%E4%BA%A7%E4%B8%9A%E9%81%BF%E9%99%A9%E9%9C%80%E6%B1%82/" title="11.2 橡胶为什么需要期货：价格剧烈波动与产业避险需求"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-18</div><div class="info-item-2">11.2 橡胶为什么需要期货：价格剧烈波动与产业避险需求</div></div><div class="info-2"><div class="info-item-1">11.2 橡胶为什么需要期货：价格剧烈波动与产业避险需求 橡胶树需要七年才能长成，而一场金融危机只需要七天就能摧毁整个市场的信心。这种供给的迟缓与需求的狂热之间的致命错位，让天然橡胶注定成为世界上价格波动最剧烈的大宗商品之一——也注定了它对期货市场的渴求，比任何其他商品都更为迫切。   上一节，我们追溯了期货这一金融工具从古巴比伦泥板到芝加哥交易大厅的漫长演化史。现在，让我们把目光拉回橡胶。 在数百种农产品和工业原料中，为什么天然橡胶会成为全球期货市场上最核心、最活跃的交易品种之一？为什么世界上有那么多的交易所——从伦敦到东京，从新加坡到上海——争先恐后地推出橡胶期货合约？ 答案隐藏在天然橡胶独一无二的**”双重属性”中：它既是靠天吃饭的热带农产品**，又是与宏观经济同频共振的核心工业原料。这种看似矛盾的二元身份，造就了其价格极端的不稳定性，也催生了整个产业链对风险管理工具最深沉的渴求。  致命的错位：一种注定暴涨暴跌的商品天然橡胶的价格之所以犹如脱缰野马，核心原因在于其供需结构存在一种结构性的、几乎无法自我修复的错配。 七年之痒：供给迟滞的诅咒我们在第十章（10.4节）中详细讨...</div></div></div></a><a class="pagination-related" href="/2026/04/12/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/10.3%20%E6%A9%A1%E8%83%B6%E7%A7%8D%E6%A4%8D%E7%9A%84%E7%BB%8F%E6%B5%8E%E4%B8%8E%E7%A4%BE%E4%BC%9A%E5%BD%B1%E5%93%8D/" title="10.3 橡胶种植的经济与社会影响：千万小农户的生计"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-12</div><div class="info-item-2">10.3 橡胶种植的经济与社会影响：千万小农户的生计</div></div><div class="info-2"><div class="info-item-1">10.3 橡胶种植的经济与社会影响：千万小农户的生计 在泰国南部的素叻他尼府，50岁的胶农颂猜正举起一把生锈的电锯，对着他亲手种下、照料了十五年的橡胶树狠狠锯下。伴随着木材断裂的巨响和飞溅的白色汁液，一棵正值高产期的壮年树重重倒下。这原本是颂猜一家人最后的经济指望，但现在，这片占地不到两公顷的胶林成了彻底的”赔钱货”——全球天然橡胶价格已经跌穿了他在化肥和劳力上的投入成本。几天后，这些被砍倒的橡胶木将被廉价卖给家具厂，而颂猜将在树坑里种下榴莲。与此同时，在地球的另一端，全球顶级的轮胎巨头们正凭借低廉的原材料成本，在财报会议上向华尔街展示历史新高的利润率。   一、断裂的锁链与沉默的多数这种极度荒诞且残酷的割裂，正是现代天然橡胶产业最刺眼的现实。 当我们谈论天然橡胶时，脑海中浮现的往往是庞大的跨国公司、轰鸣的轮胎生产线，或者是华尔街与陆家嘴期货屏幕上激烈跳动的K线。但如果我们顺着这条价值链不断向下溯源，穿透层层贸易商、加工厂、跨国资本，最终站在这条锁链最底端的，是一副异常虚弱的面孔——全球近600万名天然橡胶小农户。 他们是这个庞大帝国真正的基石：全球约85%的天然橡胶，产自这些经...</div></div></div></a><a class="pagination-related" href="/2026/06/29/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/14.4%20%E5%8F%AF%E6%8C%81%E7%BB%AD%E6%A9%A1%E8%83%B6%E5%80%A1%E8%AE%AE%E4%B8%8E%E5%85%AC%E5%B9%B3%E8%B4%B8%E6%98%93%E8%BF%90%E5%8A%A8/" title="14.4 可持续橡胶倡议与公平贸易运动"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-30</div><div class="info-item-2">14.4 可持续橡胶倡议与公平贸易运动</div></div><div class="info-2"><div class="info-item-1">一面旗帜，还是一块遮羞布？2018年3月，新加坡。 一间灯光明亮的会议室里，坐着一群西装革履的人。他们来自世界上最大的轮胎公司、最大的汽车制造商、最大的橡胶贸易商——以及几个名字听起来很正义的国际非政府组织。会议的主题印在精美的文件夹封面上，字体是那种让人联想到环保与希望的绿色：“天然橡胶可持续发展全球平台”（Global Platform for Sustainable Natural Rubber，简称GPSNR）。 这是GPSNR的成立大会。 如果你从来没有听说过这个组织——不要担心，全世界百分之九十九点九的人都没有听说过它。但在天然橡胶这个年产值超过两百五十亿美元的行业里，GPSNR的成立被称为一个”历史性时刻”——至少，在它自己的新闻稿里是这样写的。 让我们先退后一步，看看这个”历史性时刻”是怎么来的。  迟到的觉醒：橡胶行业为什么需要”可持续”？在上一章中，我们已经详细描绘了一幅令人不安的画面：凌晨三点在蛇出没的黑暗胶林中弯腰劳作的小农户、被没收护照的移民劳工、手臂上布满伤疤的童工——以及一条从十九世纪延伸至今、从未断裂的剥削链。 但令人震惊的是，在相当长的时间里，这...</div></div></div></a><a class="pagination-related" href="/2026/04/15/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/10.5%20%E5%A4%A9%E7%84%B6%E6%A9%A1%E8%83%B6%E7%9A%84%E5%8A%A0%E5%B7%A5%E4%B8%8E%E5%88%86%E7%B1%BB/" title="10.5 天然橡胶的加工与分类：从树上的汁液到工厂的原料"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-15</div><div class="info-item-2">10.5 天然橡胶的加工与分类：从树上的汁液到工厂的原料</div></div><div class="info-2"><div class="info-item-1">10.5 天然橡胶的加工与分类：从树上的汁液到工厂的原料 一滴白色的胶乳，从橡胶树的割口渗出，沿着刻在树皮上的螺旋沟槽缓缓流下，最终滴入系在树干底部的小瓷杯中。此时此刻，它不过是一种含有约30%干物质、其余70%全是水的乳白色悬浊液——闻起来带着淡淡的氨臭，摸起来黏糊糊的，放置几个小时就会发臭凝固成一团恶心的胶块。然而，就是这团毫不起眼的”树浆”，在经过一系列古老或现代的加工工序之后，将变成轮胎厂采购清单上那些标注着”STR 20””RSS 3””HA Latex 60%”等神秘代码的标准化工业原料——每一个代码背后，都是一套精密的技术标准和一段各国利益争夺的故事。   一、从树到杯：原料的两条道路让我们从最基本的起点说起——胶乳离开割口之后，会发生什么？ 答案取决于它被保留在什么状态。在这个最初的分叉点上，天然橡胶的全部加工体系就分化成了两条截然不同的道路。 道路一：保液——胶乳如果想让胶乳保持液态，就必须在采割后 立即 向收集杯中加入 氨水——通常是浓度约1%的稀氨溶液。 氨水的作用是 防腐 和 防凝。新鲜胶乳暴露在空气中后，其中的细菌会迅速繁殖并产生挥发性脂肪酸，降低胶乳的...</div></div></div></a><a class="pagination-related" href="/2026/07/06/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/" title="参考文献"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-06</div><div class="info-item-2">参考文献</div></div><div class="info-2"><div class="info-item-1"> 本参考文献汇编了《橡胶大事记——天然橡胶的前世今生》全书撰写过程中参考和引用的主要文献资料，按类别分组排列。每条文献后标注了主要对应的章节编号，方便读者按需查阅原始出处。   一、综合性橡胶史著作 Loadman, John. Tears of the Tree: The Story of Rubber — A Modern Marvel. Oxford University Press, 2005. 【全书通用】 Tully, John. The Devil’s Milk: A Social History of Rubber. Monthly Review Press, 2011. 【全书通用】 Jackson, Joe. The Thief at the End of the World: Rubber, Power, and the Seeds of Empire. Viking, 2008. 【第五、六章】 Dean, Warren. Brazil and the Struggle for Rubber: A Study in Environmental Histor...</div></div></div></a><a class="pagination-related" href="/2026/03/25/%E6%A9%A1%E8%83%B6%E5%A4%A7%E4%BA%8B%E8%AE%B0/%E6%AD%A3%E6%96%87/6.4%20%E4%B8%9C%E5%8D%97%E4%BA%9A%E6%A9%A1%E8%83%B6%E7%A7%8D%E6%A4%8D%E5%9B%AD%E7%9A%84%E5%B4%9B%E8%B5%B7/" title="6.4 东南亚橡胶种植园的崛起"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-25</div><div class="info-item-2">6.4 东南亚橡胶种植园的崛起</div></div><div class="info-2"><div class="info-item-1">6.4 东南亚橡胶种植园的崛起 一个被同事嘲笑为”疯子”的植物学家，用二十年时间把一种没人当回事的热带树木变成了马来亚的经济支柱。当汽车时代轰鸣着到来，嘲笑他的人才意识到——这个疯子押对了整个二十世纪。   “疯子里德利”东南亚橡胶产业的真正缔造者，不是偷种子的威克汉姆，不是育苗的邱园园丁，而是一个在新加坡被嘲笑了二十年的英国植物学家——亨利·尼古拉斯·里德利（Henry Nicholas Ridley, 1855–1956）。 里德利1888年被任命为 新加坡植物园园长，这一干就是24年，直到1912年退休。他抵达新加坡时，植物园里的那些橡胶树不过是科学标本——没有人把它们当作经济作物看待。 但里德利看到了不同的东西。他相信橡胶将成为一种极其重要的商业产品，而马来亚拥有种植橡胶的完美条件。为此，他做了两件改变历史的事情。  鱼骨纹割胶法：技术突破里德利面临的第一个挑战是：如何科学地割胶？ 亚马逊的传统做法是用弯刀在树干上砍出深深的V型伤口，让乳胶流出。这种”砍树取胶”的方式对橡胶树的伤害是毁灭性的——树皮被破坏后难以再生，伤口容易感染病菌，一棵树往往在被割几次后就死掉了。 这种...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">童长征</div><div class="author-info-description">橡胶童话——专注于天然橡胶、大宗商品期货、宏观经济分析与量化交易研究的深度智库博客。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">276</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">248</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">38</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/RubberTale"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到橡胶童话！本站持续独立开发与投研中。若这里的文章与工具对您有所帮助，欢迎 <a href="/sponsor/" style="color:#3b82f6;font-weight:bold;"><i class="fas fa-coffee"></i>【赞助支持】</a> ☕</div></div><div class="card-widget card-edge-tts" id="card-edge-tts"><div class="item-headline"><i class="fas fa-microphone-lines"></i><span>语音智坊 (TTS) 快捷工具</span></div><div class="item-content"><div class="edge-tts-widget" style="font-size: 0.84rem; line-height: 1.55;">
+  <div style="margin-bottom: 8px;">
+    <textarea id="widget-tts-text" style="width: 100%; height: 75px; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 6px; padding: 6px 8px; font-size: 0.8rem; outline: none; resize: none; color: inherit;" placeholder="填入文字，快速生成语音..."></textarea>
+  </div>
+  <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
+    <select id="widget-tts-voice" style="flex: 1; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 4px; padding: 4px; font-size: 0.76rem; color: inherit; outline: none; cursor: pointer;">
+      <option value="zh-CN-XiaoxiaoNeural">晓晓 (标准女声)</option>
+      <option value="zh-CN-YunyangNeural" selected>云扬 (专业男声)</option>
+      <option value="zh-CN-YunxiNeural">云希 (阳光男声)</option>
+      <option value="zh-CN-XiaoyiNeural">晓伊 (俏皮女声)</option>
+    </select>
+    <button id="widget-tts-btn" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #fff; border: none; border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;" onclick="generateWidgetTTS()">合成</button>
+  </div>
+  <div id="widget-tts-audio-container" style="display: none; margin-top: 6px; border-top: 1px solid rgba(128, 128, 128, 0.15); padding-top: 6px;">
+    <audio id="widget-tts-audio" controls style="width: 100%; height: 30px; outline: none;" class="filter-invert"></audio>
+  </div>
+  <script>
+    async function generateWidgetTTS() {
+      const text = document.getElementById('widget-tts-text').value.trim();
+      const voice = document.getElementById('widget-tts-voice').value;
+      const btn = document.getElementById('widget-tts-btn');
+      
+      if (!text) {
+        alert('请输入要合成的文本');
+        return;
+      }
+      
+      btn.disabled = true;
+      btn.textContent = '合成中...';
+      btn.style.opacity = '0.7';
+      
+      try {
+        const response = await fetch('https://140.245.65.111.sslip.io/api/article-craft/api/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text, voice })
+        });
+        
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || '合成错误');
+        }
+        
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        
+        const audio = document.getElementById('widget-tts-audio');
+        audio.src = url;
+        
+        document.getElementById('widget-tts-audio-container').style.display = 'block';
+        audio.play();
+      } catch (err) {
+        console.error(err);
+        alert('语音合成失败: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '合成';
+        btn.style.opacity = '1';
+      }
+    }
+  </script>
+</div>
+</div></div><div class="card-widget card-weather-summary" id="card-weather-summary"><div class="item-headline"><i class="fas fa-cloud-sun-rain"></i><span>主要产区气象概述与预测</span></div><div class="item-content"><div class="weather-summary-widget" style="font-size: 0.84rem; line-height: 1.55;">
+  <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px; padding: 6px 8px; margin-bottom: 8px; font-size: 0.80rem; line-height: 1.45;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+      <strong style="color: #2563eb; font-size: 0.81rem;"><i class="fas fa-bullhorn" style="margin-right: 4px;"></i>产区气象物候综述</strong>
+      <span style="font-size: 0.70rem; color: #64748b; background: rgba(100, 116, 139, 0.1); padding: 1px 5px; border-radius: 3px;">9月中旬 · 旺产季</span>
+    </div>
+    当前全球处于产胶增产高峰。<strong>版纳</strong>晴好干燥利于割胶；<strong>泰南</strong>短时阵雨、早割窗口顺畅；<strong>海南/越南</strong>受季风与对流影响雨日偏多，局地需防范冲胶；<strong>西非</strong>水热适宜产能稳步释放。
+  </div>
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇹🇭 泰南核心</strong> <small style="color: #64748b; font-size: 0.70rem;">(全球33%)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(245, 158, 11, 0.12); color: #d97706; font-weight: 600;">局地阵雨</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #2563eb;">45.9mm</b></span> · <span>扰动: <b>3天</b></span> · <span>24~33°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        降水多在傍晚热对流，凌晨早割窗口通畅，增产顺畅。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇨🇳 云南版纳</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内主力)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">晴好少雨</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #059669;">4.6mm</b></span> · <span>扰动: <b>0天</b></span> · <span>19~32°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        干燥少雨且温差适宜，出胶干含双优，开割条件极佳。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇨🇳 海南主产</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内核心)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(59, 130, 246, 0.12); color: #2563eb; font-weight: 600;">对流偏强</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #2563eb;">117.9mm</b></span> · <span>扰动: <b>5天</b></span> · <span>22~31°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        南海热带扰动频繁，中后期雷雨密，需重点防范雨冲胶。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇻🇳 越南南部</strong> <small style="color: #64748b; font-size: 0.70rem;">(平福/同奈)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(139, 92, 246, 0.12); color: #7c3aed; font-weight: 600;">季风雨盛</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #7c3aed;">121.8mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~31°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        季风雨量充沛，早间对流频繁，局部割胶进度阶段性受阻。
+      </div>
+    </li>
+    <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇮🇩 印尼苏岛</strong> <small style="color: #64748b; font-size: 0.70rem;">(棉兰/巨港)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(6, 182, 212, 0.12); color: #0891b2; font-weight: 600;">常态雷雨</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #0891b2;">135.4mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~32°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        赤道对流常态活跃，多为午后雷雨，错峰收胶生产平稳。
+      </div>
+    </li>
+    <li style="margin-bottom: 4px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
+        <span><strong>🇨🇮 西非科特</strong> <small style="color: #64748b; font-size: 0.70rem;">(阿比让)</small></span>
+        <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">水热均衡</span>
+      </div>
+      <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
+        <span>7天累积: <b style="color: #059669;">41.7mm</b></span> · <span>扰动: <b>3天</b></span> · <span>23~28°C</span>
+      </div>
+      <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
+        降雨温和绵密，新割胶林产能持续释放，供应增量稳定。
+      </div>
+    </li>
+  </ul>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; padding-top: 5px; border-top: 1px solid rgba(128, 128, 128, 0.15); font-size: 0.76rem;">
+    <div style="display: flex; gap: 6px;">
+      <a href="/tools/rubber-weather-calendar/" style="color: #059669; text-decoration: none; font-weight: 500;" title="产区气象与割胶物候看板"><i class="fas fa-calendar-alt"></i> 物候看板</a>
+      <a href="/rubber/weather_forecast/" style="color: #3b82f6; text-decoration: none; font-weight: 500;" title="重点资源区域卫星云图观察"><i class="fas fa-satellite"></i> 卫星云图</a>
+    </div>
+    <a href="/2026/09/10/全球主要橡胶及大宗农产区天气概述与割胶物候预测（2026年9月中旬）/" style="color: #2563eb; font-weight: 600; text-decoration: none;">完整研报 →</a>
+  </div>
+</div>
+</div></div><div class="card-widget card-hot-news" id="card-hot-news"><div class="item-headline"><i class="fas fa-globe-asia"></i><span>时政与大宗速览</span></div><div class="item-content"><div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ef4444;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="伊朗强化对霍尔木兹海峡控制，全球油运风险溢价飙升，2026年油市供应缺口深化，Reuters专栏警示新秩序形成">伊朗掌控霍尔木兹，中东油路危机</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="高市加速修订'安保三文件'，'台湾有事'纳入存亡危机，东亚地缘格局重构引发供应链重置预期">日本安保政策右转，台海风险升温</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b82f6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="美国SPR降至2.866亿桶，拟进口委内瑞拉原油缓解中期选举前油价压力，短期压制WTI上行空间">美战略油储44年新低，委内瑞拉补库</a>
+    </li>
+    <li style="margin-bottom: 4px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="美联储鹰派信号致金价周跌12%，实际利率上行压制贵金属需求，市场转向通胀韧性定价">加息预期重燃，黄金避险属性弱化</a>
+    </li>
+  </ul>
+  <div style="text-align: right; margin-top: 4px;">
+    <a href="/2026/09/12/地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）/" style="font-size: 0.82rem; color: #3b82f6; font-weight: 500; text-decoration: none;">完整速览与推演 →</a>
+  </div>
+</div>
+</div></div><div class="card-widget card-ai-news" id="card-ai-news"><div class="item-headline"><i class="fas fa-robot"></i><span>AI 科技前沿大事</span></div><div class="item-content"><div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="DeepSeek-V4-Flash-Vision-Exp实验模型性能接近Anthropic上月发布的Opus 5，在多模态任务中展现自主操作能力">DeepSeek视觉模型逼近Anthropic Opus 5</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#06b6d4;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="HUMAIN基于MiniMax M3开源底座训练4280亿参数MoE模型，阿拉伯语基准测试均分89.37%">沙特4280亿参数阿拉伯语大模型落地</a>
+    </li>
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ec4899;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="IDC预测2026年机器人将融合3D视觉、触觉等多源感知，实现环境与状态统一理解">具身智能多模态感知成核心趋势</a>
+    </li>
+    <li style="margin-bottom: 4px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="Artificial Analysis指数显示DeepSeek R1 0528评分68，跃居全球第二AI实验室">DeepSeek R1登顶开源权重实验室榜首</a>
+    </li>
+  </ul>
+  <div style="text-align: right; margin-top: 4px;">
+    <a href="/2026/09/12/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration: none;">完整解读与趋势 →</a>
+  </div>
+  <!-- 新增 Anthropic 报告入口 -->
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/03/13/2026-03-13-anthropic-the-story-behind-claude/" style="color: inherit; text-decoration: none;" title="Anthropic 与 Claude 的完整故事">Anthropic 与 Claude 的完整故事</a>
+    </li>
+  </ul>
+  <!-- Anthropic 2026年9月威胁情报报告 -->
+  <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+    <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+      <a href="/2026/09/13/智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）/" style="color: inherit; text-decoration: none;" title="Anthropic发布154页威胁情报报告：披露2025年12月至2026年8月间破坏的40余个恶意AI使用案例，涵盖网络攻击、监视、影响行动、诈骗、生物武器、常规武器及非法蒸馏七大领域">Anthropic发布9月威胁情报报告：AI滥用进入自主执行阶段</a>
+    </li>
+  </ul>
+</div>
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AA%E6%9C%89%E5%88%B9%E8%BD%A6%E6%B2%A1%E6%9C%89%E4%BF%9D%E9%99%A9%E6%9D%A0%E7%9A%84%E6%B1%BD%E8%BD%A6"><span class="toc-number">1.</span> <span class="toc-text">只有刹车没有保险杠的汽车</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2019%EF%BC%9A%E5%85%A8%E7%90%83%E9%A6%96%E4%B8%AA%E5%A4%A9%E7%84%B6%E6%A9%A1%E8%83%B6%E6%9C%9F%E6%9D%83%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="toc-number">2.</span> <span class="toc-text">2019：全球首个天然橡胶期权的诞生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99%E8%83%B6%E5%86%9C%E5%90%83%E4%B8%8B%E2%80%9D%E5%AE%9A%E5%BF%83%E4%B8%B8%E2%80%9D%EF%BC%9A%E6%8F%AD%E5%BC%80%E2%80%9D%E4%BF%9D%E9%99%A9-%E6%9C%9F%E8%B4%A7%E2%80%9D%E7%9A%84%E9%AD%94%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">给胶农吃下”定心丸”：揭开”保险+期货”的魔法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%BA%E5%A4%96%E6%9C%9F%E6%9D%83%EF%BC%9A%E4%BC%81%E4%B8%9A%E9%A3%8E%E6%8E%A7%E7%9A%84%E2%80%9D%E9%AB%98%E7%BA%A7%E5%AE%9A%E5%88%B6%E2%80%9D"><span class="toc-number">4.</span> <span class="toc-text">场外期权：企业风控的”高级定制”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%BB%B4%E5%BA%A6%EF%BC%9A%E5%81%9A%E5%B8%82%E5%95%86%E4%B8%8E%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E7%9A%84%E5%BE%AE%E8%A7%82%E6%88%98%E4%BA%89"><span class="toc-number">5.</span> <span class="toc-text">第四维度：做市商与希腊字母的微观战争</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD%EF%BC%9A%E4%BB%8E%E2%80%9D%E6%90%8F%E6%9D%80%E2%80%9D%E5%88%B0%E2%80%9D%E7%AE%A1%E7%90%86%E2%80%9D"><span class="toc-number">6.</span> <span class="toc-text">结语：从”搏杀”到”管理”</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/12/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8813%E6%97%A5%EF%BC%89/" title="地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）">地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月13日）</a><time datetime="2026-09-12T22:00:01.000Z" title="发表于 2026-09-13 06:00:01">2026-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/12/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8813%E6%97%A5%EF%BC%89/" title="智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）">智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月13日）</a><time datetime="2026-09-12T22:00:01.000Z" title="发表于 2026-09-13 06:00:01">2026-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/11/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8812%E6%97%A5%EF%BC%89/" title="地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月12日）">地缘烽火与商品重定价：全球时政与大宗商品要点速览（2026年09月12日）</a><time datetime="2026-09-11T22:00:01.000Z" title="发表于 2026-09-12 06:00:01">2026-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/11/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8812%E6%97%A5%EF%BC%89/" title="智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月12日）">智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月12日）</a><time datetime="2026-09-11T22:00:01.000Z" title="发表于 2026-09-12 06:00:01">2026-09-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/11/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8811%E6%97%A5%EF%BC%89/" title="智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）">智能体爆发与算力竞逐：全球AI前沿大事速览（2026年09月11日）</a><time datetime="2026-09-11T06:03:51.000Z" title="发表于 2026-09-11 14:03:51">2026-09-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By 童长征</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"reaction":true,"emoji":["https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/qq"],"requiredMeta":["nick"]}
+
+  const destroyWaline = ele => ele.destroy()
+
+  const initWaline = (Fn, el = document, path = window.location.pathname) => {
+    const waline = Fn({
+      el: el.querySelector('#waline-wrap'),
+      serverURL: 'https://140.245.65.111.sslip.io',
+      pageview: true,
+      dark: 'html[data-theme="dark"]',
+      comment: true,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyWaline = () => {
+        destroyWaline(waline)
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const loadWaline = (el, path) => {
+    if (initFn) initWaline(initFn, el, path)
+    else {
+      btf.getCSS('https://cdn.jsdelivr.net/npm/@waline/client@3.8.0/dist/waline.min.css')
+        .then(() => import('https://cdn.jsdelivr.net/npm/@waline/client@3.8.0/dist/waline.min.js'))
+        .then(({ init }) => {
+          initFn = init || Waline.init
+          initWaline(initFn, el, path)
+          window.walineFn = initFn
+        })
+    }
+  }
+
+  if (isShuoshuo) {
+    'Waline' === 'Waline'
+      ? window.shuoshuoComment = { loadComment: loadWaline } 
+      : window.loadOtherComment = loadWaline
+    return
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script></div></div></body></html>

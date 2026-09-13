@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+Disallow: /charts/*/
+Disallow: /模板/
+
+Sitemap: https://RubberTale.github.io/sitemap.xml
+Sitemap: https://RubberTale.github.io/baidusitemap.xml

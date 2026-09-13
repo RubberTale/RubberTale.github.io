@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年黑色系品种深度展望：供给冲击与需求转型</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Google Fonts (Noto Sans SC for Chinese support) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Font and Base Styles */
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f1f5f9; /* Slate 100 */
+            color: #1e293b; /* Slate 800 */
+        }
+
+        /* CHART CONTAINER STYLING RULES (MANDATORY)
+           - Relative positioning for internal scaling
+           - Width 100% of parent
+           - Max-width to prevent stretching
+           - Centered
+           - Fixed/Responsive Height
+        */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Custom Scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Utility for creating diagrams with CSS only (No SVG) */
+        .diagram-box {
+            border-left: 4px solid #0ea5e9; /* Sky 500 */
+            transition: all 0.3s ease;
+        }
+        .diagram-box:hover {
+            transform: translateX(5px);
+            border-left-color: #f97316; /* Orange 500 */
+        }
+        .arrow-down {
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #cbd5e1;
+            margin: 10px auto;
+        }
+    </style>
+
+    <!-- 
+        Palette Selection: "Deep Ocean & Industrial"
+        Primary: #0f172a (Slate 900 - Text/Headings)
+        Secondary: #0284c7 (Sky 600 - Primary Charts)
+        Accent: #f97316 (Orange 500 - Warnings/Highlights)
+        Background: #f8fafc (Slate 50)
+        Chart Colors: 
+            - Blue: #0284c7
+            - Teal: #14b8a6
+            - Indigo: #6366f1
+            - Orange: #f97316
+            - Grey: #94a3b8
+    -->
+</head>
+<body class="antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-slate-900 text-white py-12 px-4 shadow-lg">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="inline-block bg-sky-600 text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-wide uppercase">
+                2026 Commodity Research Report
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">
+                2026年黑色系品种展望
+            </h1>
+            <h2 class="text-xl md:text-2xl font-light text-slate-300 max-w-3xl mx-auto">
+                供给冲击与需求转型：在<span class="text-sky-400 font-bold">西芒杜投产</span>与<span class="text-orange-400 font-bold">地产筑底</span>的夹缝中寻找平衡
+            </h2>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-12 gap-8 -mt-8">
+
+        <!-- Intro / Executive Summary -->
+        <div class="md:col-span-12 bg-white rounded-xl shadow-md p-8 border-t-4 border-sky-500 z-10 relative">
+            <h3 class="text-2xl font-bold text-slate-800 mb-4">核心观点：周期的转折点</h3>
+            <p class="text-slate-600 leading-relaxed mb-6">
+                2026年将被视为全球黑色产业链供需格局重塑的关键一年。长达数年的“地产驱动”模式彻底让位于“高质量制造”驱动。核心矛盾在于原料端（特别是铁矿石）面临历史上最大的单一项目产能投放（西芒杜），而成材端需求正在经历结构性分化。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="diagram-box bg-slate-50 p-4 rounded">
+                    <div class="text-4xl font-black text-sky-600 mb-1">9000<span class="text-lg text-slate-500 ml-1">万吨</span></div>
+                    <div class="font-bold text-slate-700">铁矿石新增产能</div>
+                    <p class="text-xs text-slate-500 mt-2">西芒杜项目预计在2026年释放巨大增量，彻底改变全球海运平衡表。</p>
+                </div>
+                <div class="diagram-box bg-slate-50 p-4 rounded">
+                    <div class="text-4xl font-black text-orange-500 mb-1">-5.2<span class="text-lg text-slate-500 ml-1">%</span></div>
+                    <div class="font-bold text-slate-700">建筑用钢需求</div>
+                    <p class="text-xs text-slate-500 mt-2">由于房地产新开工面积持续低位徘徊，螺纹钢需求中枢继续下移。</p>
+                </div>
+                <div class="diagram-box bg-slate-50 p-4 rounded">
+                    <div class="text-4xl font-black text-emerald-500 mb-1">$75-85</div>
+                    <div class="font-bold text-slate-700">铁矿石价格中枢</div>
+                    <p class="text-xs text-slate-500 mt-2">供强需弱格局下，成本支撑线将受到考验，价格重心显著下移。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Iron Ore Supply Shock -->
+        <section class="md:col-span-6 bg-white rounded-xl shadow-md p-6">
+            <div class="mb-4 border-b border-slate-100 pb-2">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center">
+                    <span class="w-2 h-8 bg-sky-600 mr-3 rounded-sm"></span>
+                    铁矿石：西芒杜的冲击
+                </h3>
+            </div>
+            <p class="text-sm text-slate-600 mb-6">
+                2026年是几内亚西芒杜（Simandou）项目的产能爬坡大年。加上澳洲和巴西主要矿山的效率提升，全球铁矿石供应将出现显著过剩。下图展示了2026年主要产区的预期供应增量。
+            </p>
+            
+            <div class="chart-container">
+                <canvas id="ironOreSupplyChart"></canvas>
+            </div>
+            <div class="mt-4 p-3 bg-sky-50 rounded text-xs text-sky-800">
+                <strong>分析师备注：</strong> 非主流矿山将在低价环境下被迫出清，但西芒杜的高品位矿（65%+）将挤压低品粉矿的市场份额。
+            </div>
+        </section>
+
+        <!-- Section 2: Steel Demand Structure -->
+        <section class="md:col-span-6 bg-white rounded-xl shadow-md p-6">
+            <div class="mb-4 border-b border-slate-100 pb-2">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center">
+                    <span class="w-2 h-8 bg-orange-500 mr-3 rounded-sm"></span>
+                    成材需求：结构性分化
+                </h3>
+            </div>
+            <p class="text-sm text-slate-600 mb-6">
+                “螺纹强，热卷弱”的传统逻辑在2026年将彻底反转。制造业（汽车、家电、造船）对板材的需求支撑较强，而建筑用钢（螺纹）占比持续萎缩。
+            </p>
+
+            <div class="chart-container">
+                <canvas id="steelDemandChart"></canvas>
+            </div>
+            <div class="mt-4 p-3 bg-orange-50 rounded text-xs text-orange-800">
+                <strong>关键趋势：</strong> 2026年造船与新能源汽车用钢占比预计首次突破25%，部分弥补了地产端的减量。
+            </div>
+        </section>
+
+        <!-- Section 3: Price Trends -->
+        <section class="md:col-span-12 bg-white rounded-xl shadow-md p-6">
+            <div class="mb-4 border-b border-slate-100 pb-2">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center">
+                    <span class="w-2 h-8 bg-indigo-600 mr-3 rounded-sm"></span>
+                    价格趋势与利润模拟 (2024-2026E)
+                </h3>
+            </div>
+            <p class="text-sm text-slate-600 mb-6 max-w-4xl">
+                随着原料成本塌陷，钢厂理论利润在2026年有望小幅修复，但成材价格绝对值将跟随成本下行。双轴图展示了铁矿价格（左轴）与螺纹钢价格（右轴）的预期走势。
+            </p>
+
+            <div class="chart-container" style="max-width: 900px;">
+                <canvas id="priceTrendChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 4: Risk Matrix -->
+        <section class="md:col-span-5 bg-white rounded-xl shadow-md p-6">
+            <div class="mb-4 border-b border-slate-100 pb-2">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center">
+                    <span class="w-2 h-8 bg-emerald-500 mr-3 rounded-sm"></span>
+                    2026 市场风险气泡图
+                </h3>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                影响2026年市场的关键变量及其潜在冲击力与发生概率。
+            </p>
+            <div class="chart-container">
+                <canvas id="riskMatrixChart"></canvas>
+            </div>
+            <ul class="text-xs text-slate-500 mt-4 space-y-2">
+                <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span> 红色：利空因素</li>
+                <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span> 绿色：利多因素</li>
+            </ul>
+        </section>
+
+        <!-- Section 5: Forecast Ranges (Plotly) -->
+        <section class="md:col-span-7 bg-white rounded-xl shadow-md p-6">
+            <div class="mb-4 border-b border-slate-100 pb-2">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center">
+                    <span class="w-2 h-8 bg-slate-700 mr-3 rounded-sm"></span>
+                    2026年价格区间预测 (Box Plot)
+                </h3>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">
+                基于悲观、中性与乐观情景，对2026年核心品种的全年均价预测范围。箱体代表核心波动区间，须影线代表极端行情。
+            </p>
+            <!-- Plotly Container -->
+            <div id="priceForecastPlot" class="chart-container"></div>
+            
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <div class="p-3 border border-slate-200 rounded">
+                    <h4 class="font-bold text-slate-700 text-sm">螺纹钢 (Rebar)</h4>
+                    <p class="text-xs text-slate-500 mt-1">
+                        预计均价重心下移至 3100-3300 元/吨。成本支撑减弱，由于废钢替代效应，下方空间有限。
+                    </p>
+                </div>
+                <div class="p-3 border border-slate-200 rounded">
+                    <h4 class="font-bold text-slate-700 text-sm">焦煤 (Coking Coal)</h4>
+                    <p class="text-xs text-slate-500 mt-1">
+                        国内安监常态化支撑价格，但铁水产量封顶限制了上方空间。预计在 1300-1600 元/吨 宽幅震荡。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process/Relationship Diagram (HTML/CSS only) -->
+        <section class="md:col-span-12 bg-white rounded-xl shadow-md p-6 mb-8">
+             <div class="mb-4 border-b border-slate-100 pb-2">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center">
+                    <span class="w-2 h-8 bg-pink-500 mr-3 rounded-sm"></span>
+                    产业链传导机制
+                </h3>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center px-4">
+                
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center w-full md:w-1/4">
+                    <div class="bg-sky-100 p-4 rounded-lg w-full border border-sky-200">
+                        <div class="text-3xl mb-2">⛏️</div>
+                        <h4 class="font-bold text-sky-800">上游矿端</h4>
+                        <p class="text-xs text-sky-600 mt-1">供给激增 (Simandou)</p>
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="hidden md:block text-slate-300 text-2xl">➔</div>
+                <div class="md:hidden text-slate-300 text-2xl">↓</div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center w-full md:w-1/4">
+                    <div class="bg-indigo-100 p-4 rounded-lg w-full border border-indigo-200">
+                        <div class="text-3xl mb-2">🏭</div>
+                        <h4 class="font-bold text-indigo-800">中游冶炼</h4>
+                        <p class="text-xs text-indigo-600 mt-1">利润修复，产量微降</p>
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="hidden md:block text-slate-300 text-2xl">➔</div>
+                <div class="md:hidden text-slate-300 text-2xl">↓</div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center w-full md:w-1/4">
+                    <div class="bg-orange-100 p-4 rounded-lg w-full border border-orange-200">
+                        <div class="text-3xl mb-2">🏗️ / 🚢</div>
+                        <h4 class="font-bold text-orange-800">下游需求</h4>
+                        <p class="text-xs text-orange-600 mt-1">地产弱势 vs 制造强势</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm mt-8">
+        <p>© 2025 Commodity Insights Lab. Generative Analysis for Visualization Demo.</p>
+        <p class="mt-2 text-xs">Based on market consensus data simulated for 2026 outlook scenarios.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. Utility: Label Wrapping (Mandatory) ---
+        function processLabels(labels, maxLength = 16) {
+            return labels.map(label => {
+                if (label.length <= maxLength) return label;
+                const words = label.split(''); // Splitting by char for Chinese, or ' ' for English
+                let lines = [];
+                let currentLine = '';
+                
+                // Optimized for mixed English/Chinese content
+                // Simple logic: chunk by length
+                for (let i = 0; i < label.length; i += maxLength) {
+                    lines.push(label.substring(i, i + maxLength));
+                }
+                return lines;
+            });
+        }
+
+        // --- 2. Shared Configs ---
+        const commonTooltip = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(''); // Join back for tooltip title
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        const chartColors = {
+            blue: '#0284c7',
+            sky: '#0ea5e9',
+            teal: '#14b8a6',
+            orange: '#f97316',
+            red: '#ef4444',
+            purple: '#8b5cf6',
+            grey: '#cbd5e1'
+        };
+
+        // --- 3. Chart Implementations ---
+
+        // Chart 1: Iron Ore Supply Increment (Bar)
+        const ctxSupply = document.getElementById('ironOreSupplyChart').getContext('2d');
+        const supplyLabels = ['澳洲主流矿山', '巴西Vale', '几内亚西芒杜', '非主流矿山(退出)', '国产矿'];
+        
+        new Chart(ctxSupply, {
+            type: 'bar',
+            data: {
+                labels: processLabels(supplyLabels),
+                datasets: [{
+                    label: '2026年预计供应增量 (万吨)',
+                    data: [1500, 1000, 9000, -2500, 500],
+                    backgroundColor: [
+                        chartColors.blue,
+                        chartColors.blue,
+                        chartColors.orange, // Highlight Simandou
+                        chartColors.red, // Highlight Exit
+                        chartColors.teal
+                    ],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltip
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f1f5f9' },
+                        title: { display: true, text: '增量 (万吨)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Steel Demand Structure (Doughnut)
+        const ctxDemand = document.getElementById('steelDemandChart').getContext('2d');
+        const demandLabels = ['房地产 (Real Estate)', '基建 (Infrastructure)', '机械制造 (Machinery)', '汽车 (Automotive)', '造船 (Shipbuilding)', '家电 (Appliances)', '其他'];
+        
+        new Chart(ctxDemand, {
+            type: 'doughnut',
+            data: {
+                labels: processLabels(demandLabels),
+                datasets: [{
+                    data: [28, 22, 18, 10, 6, 4, 12],
+                    backgroundColor: [
+                        '#cbd5e1', // Real Estate (Greyed out to show weakness)
+                        chartColors.blue,
+                        chartColors.teal,
+                        chartColors.sky,
+                        chartColors.orange, // Highlight growth sectors
+                        '#6366f1',
+                        '#94a3b8'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { boxWidth: 12, font: { size: 10 } } },
+                    tooltip: commonTooltip
+                },
+                cutout: '60%'
+            }
+        });
+
+        // Chart 3: Price Trend (Line - Dual Axis)
+        const ctxPrice = document.getElementById('priceTrendChart').getContext('2d');
+        const quarters = ['2024-Q1', '2024-Q3', '2025-Q1', '2025-Q3', '2026-Q1 (E)', '2026-Q2 (E)', '2026-Q3 (E)', '2026-Q4 (E)'];
+
+        new Chart(ctxPrice, {
+            type: 'line',
+            data: {
+                labels: quarters,
+                datasets: [
+                    {
+                        label: '铁矿石 (Iron Ore) $/t',
+                        data: [120, 95, 110, 98, 85, 78, 72, 75],
+                        borderColor: chartColors.orange,
+                        backgroundColor: chartColors.orange,
+                        yAxisID: 'y',
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 3
+                    },
+                    {
+                        label: '螺纹钢 (Rebar) ¥/t',
+                        data: [3800, 3300, 3450, 3200, 3150, 3050, 2980, 3100],
+                        borderColor: chartColors.blue,
+                        backgroundColor: chartColors.blue,
+                        yAxisID: 'y1',
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointRadius: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    tooltip: commonTooltip,
+                    legend: { position: 'top' }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: '铁矿石 ($)' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: { drawOnChartArea: false },
+                        title: { display: true, text: '螺纹钢 (¥)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Chart 4: Risk Matrix (Bubble)
+        const ctxRisk = document.getElementById('riskMatrixChart').getContext('2d');
+        
+        new Chart(ctxRisk, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: '利空因素 (Bearish)',
+                    data: [
+                        { x: 90, y: 85, r: 15, label: '西芒杜投产' }, // High Prob, High Impact
+                        { x: 80, y: 60, r: 10, label: '地产继续探底' },
+                        { x: 50, y: 40, r: 8, label: '废钢供应增加' }
+                    ],
+                    backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                    borderColor: 'rgba(239, 68, 68, 1)'
+                },
+                {
+                    label: '利多因素 (Bullish)',
+                    data: [
+                        { x: 60, y: 70, r: 12, label: '超预期财政刺激' },
+                        { x: 75, y: 50, r: 10, label: '制造业出口强劲' },
+                        { x: 40, y: 30, r: 6, label: '环保限产重启' }
+                    ],
+                    backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                    borderColor: 'rgba(16, 185, 129, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw.label + ` (概率:${context.raw.x}%, 冲击:${context.raw.y})`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: '发生概率 (%)' },
+                        min: 20, max: 100
+                    },
+                    y: {
+                        title: { display: true, text: '市场冲击力 (Impact)' },
+                        min: 20, max: 100
+                    }
+                }
+            }
+        });
+
+        // Chart 5: Price Forecast (Plotly Box Plot)
+        // Using Plotly for advanced statistical representation
+        
+        var trace1 = {
+            y: [80, 85, 90, 75, 70, 65, 95, 82, 78, 88], // Simulated distribution Iron Ore
+            type: 'box',
+            name: '铁矿石 ($)',
+            marker: { color: chartColors.orange },
+            boxpoints: false
+        };
+
+        var trace2 = {
+            y: [1400, 1500, 1600, 1350, 1450, 1550, 1300, 1650], // Simulated Coke
+            type: 'box',
+            name: '焦炭 (¥)',
+            marker: { color: chartColors.grey },
+            yaxis: 'y2',
+            boxpoints: false
+        };
+
+        var trace3 = {
+            y: [3100, 3200, 3300, 3000, 2900, 3400, 3150, 3250], // Simulated Rebar
+            type: 'box',
+            name: '螺纹钢 (¥)',
+            marker: { color: chartColors.blue },
+            yaxis: 'y2',
+            boxpoints: false
+        };
+
+        var plotlyData = [trace1, trace2, trace3];
+
+        var plotlyLayout = {
+            margin: { t: 30, b: 30, l: 50, r: 50 },
+            showlegend: true,
+            legend: { orientation: 'h', y: 1.1 },
+            yaxis: {
+                title: '铁矿石价格 ($)',
+                titlefont: {color: chartColors.orange},
+                tickfont: {color: chartColors.orange},
+                side: 'left'
+            },
+            yaxis2: {
+                title: '成材/焦炭价格 (¥)',
+                titlefont: {color: chartColors.blue},
+                tickfont: {color: chartColors.blue},
+                overlaying: 'y',
+                side: 'right'
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { family: 'Noto Sans SC' }
+        };
+        
+        // Render Plotly (Configured for performance/no svg export primarily)
+        Plotly.newPlot('priceForecastPlot', plotlyData, plotlyLayout, {displayModeBar: false, responsive: true});
+
+    </script>
+</body>
+</html>
