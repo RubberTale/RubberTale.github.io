@@ -36,6 +36,7 @@ skip_render:
   - "Prompts/**"
   - "games/commodity-crisis/**"
   - "games/kline-duel/**"
+  - "games/futures-quiz/**"
   - "games/reverse-app/**"
   - "games/billiards/**"
   - "games/deepslop/**"

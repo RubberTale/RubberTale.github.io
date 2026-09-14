@@ -1,15 +1,17 @@
 [
   {
     "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
+    "question": "以下哪些属于技术指标？（可多选）",
     "options": [
       "能量潮 (OBV)",
-      "累积/派发线 (A/D)",
-      "动向指标 (DMI)",
-      "成交量加权平均价 (VWAP)"
+      "相对强弱指数 (RSI)",
+      "市盈率 (PE)",
+      "布林带 (BOLL)"
     ],
     "answer": [
-      2
+      0,
+      1,
+      3
     ]
   },
   {
@@ -29,45 +31,19 @@
   },
   {
     "type": "single",
-    "question": "移动平均线 (MA) 的中文全称是什么？",
+    "question": "MA 的中文全称是什么？",
     "options": [
-      "累积/派发线 (A/D)",
-      "移动平均线 (MA)",
-      "震荡指标 (CCI)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": 1
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "累积/派发线 (A/D)",
-      "相对强弱指数 (RSI)",
-      "布林带 (BOLL)",
-      "移动平均线 (MA)"
-    ],
-    "answer": [
-      0,
-      2,
-      3
-    ]
-  },
-  {
-    "type": "single",
-    "question": "移动平均线 (MA) 的中文全称是什么？",
-    "options": [
-      "斐波那契回撤 (FIB)",
-      "移动平均线 (MA)",
-      "累积/派发线 (A/D)",
-      "震荡指标 (CCI)"
+      "累积/派发线",
+      "移动平均线",
+      "顺势指标",
+      "随机振荡指标"
     ],
     "answer": 1
   },
   {
     "type": "truefalse",
     "question": "中国金融期货交易所只交易股指期货。",
-    "answer": true
+    "answer": false
   },
   {
     "type": "truefalse",
@@ -75,107 +51,42 @@
     "answer": true
   },
   {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "HC"
-  },
-  {
     "type": "single",
-    "question": "随机振荡指标 (KD) 的中文全称是什么？",
+    "question": "KD 的中文全称是什么？",
     "options": [
-      "动向指标 (DMI)",
-      "累积/派发线 (A/D)",
-      "随机振荡指标 (KD)",
-      "成交量加权平均价 (VWAP)"
+      "动向指标",
+      "累积/派发线",
+      "随机振荡指标",
+      "成交量加权平均价"
     ],
     "answer": 2
   },
   {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "震荡指标 (CCI)",
-      "成交量加权平均价 (VWAP)",
-      "随机振荡指标 (KD)",
-      "动向指标 (DMI)"
-    ],
-    "answer": [
-      0,
-      3
-    ]
-  },
-  {
     "type": "single",
-    "question": "布林带 (BOLL) 的中文全称是什么？",
+    "question": "BOLL 的中文全称是什么？",
     "options": [
-      "移动平均线 (MA)",
-      "成交量加权平均价 (VWAP)",
-      "相对强弱指数 (RSI)",
-      "布林带 (BOLL)"
+      "移动平均线",
+      "成交量加权平均价",
+      "相对强弱指数",
+      "布林带"
     ],
     "answer": 3
   },
   {
     "type": "truefalse",
     "question": "上海期货交易所 (SHFE) 的最小变动价位称为 tick。",
-    "answer": false
+    "answer": true
   },
   {
     "type": "single",
-    "question": "动向指标 (DMI) 的中文全称是什么？",
+    "question": "DMI 的中文全称是什么？",
     "options": [
-      "动向指标 (DMI)",
-      "移动平均线 (MA)",
-      "斐波那契回撤 (FIB)",
-      "随机振荡指标 (KD)"
+      "动向指标",
+      "移动平均线",
+      "斐波那契回撤",
+      "随机振荡指标"
     ],
     "answer": 0
-  },
-  {
-    "type": "single",
-    "question": "移动平均线 (MA) 的中文全称是什么？",
-    "options": [
-      "成交量加权平均价 (VWAP)",
-      "累积/派发线 (A/D)",
-      "移动平均线 (MA)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": 2
-  },
-  {
-    "type": "single",
-    "question": "移动平均线 (MA) 的中文全称是什么？",
-    "options": [
-      "斐波那契回撤 (FIB)",
-      "相对强弱指数 (RSI)",
-      "移动平均线 (MA)",
-      "能量潮 (OBV)"
-    ],
-    "answer": 2
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "AG"
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "IF"
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "震荡指标 (CCI)",
-      "成交量加权平均价 (VWAP)",
-      "布林带 (BOLL)",
-      "斐波那契回撤 (FIB)"
-    ],
-    "answer": [
-      0,
-      3
-    ]
   },
   {
     "type": "truefalse",
@@ -204,33 +115,9 @@
     "answer": false
   },
   {
-    "type": "single",
-    "question": "随机振荡指标 (KD) 的中文全称是什么？",
-    "options": [
-      "动向指标 (DMI)",
-      "成交量加权平均价 (VWAP)",
-      "相对强弱指数 (RSI)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": 3
-  },
-  {
     "type": "truefalse",
     "question": "上海能源交易所 (SHEE) 交易的品种包括原油。",
-    "answer": false
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "累积/派发线 (A/D)",
-      "斐波那契回撤 (FIB)",
-      "相对强弱指数 (RSI)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      1
-    ]
+    "answer": true
   },
   {
     "type": "single",
@@ -244,29 +131,9 @@
     "answer": 0
   },
   {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "M"
-  },
-  {
     "type": "truefalse",
     "question": "中国金融期货交易所 (CFFEX) 只交易金融期货。",
     "answer": true
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "震荡指标 (CCI)",
-      "布林带 (BOLL)",
-      "累积/派发线 (A/D)",
-      "相对强弱指数 (RSI)"
-    ],
-    "answer": [
-      0,
-      2,
-      3
-    ]
   },
   {
     "type": "truefalse",
@@ -275,12 +142,12 @@
   },
   {
     "type": "single",
-    "question": "能量潮 (OBV) 的中文全称是什么？",
+    "question": "OBV 的中文全称是什么？",
     "options": [
-      "动向指标 (DMI)",
-      "布林带 (BOLL)",
-      "随机振荡指标 (KD)",
-      "能量潮 (OBV)"
+      "动向指标",
+      "布林带",
+      "随机振荡指标",
+      "能量潮"
     ],
     "answer": 3
   },
@@ -296,23 +163,12 @@
   },
   {
     "type": "single",
-    "question": "震荡指标 (CCI) 的中文全称是什么？",
+    "question": "CCI 的中文全称是什么？",
     "options": [
-      "成交量加权平均价 (VWAP)",
-      "能量潮 (OBV)",
-      "移动平均线 (MA)",
-      "震荡指标 (CCI)"
-    ],
-    "answer": 3
-  },
-  {
-    "type": "single",
-    "question": "布林带 (BOLL) 的中文全称是什么？",
-    "options": [
-      "相对强弱指数 (RSI)",
-      "累积/派发线 (A/D)",
-      "震荡指标 (CCI)",
-      "布林带 (BOLL)"
+      "成交量加权平均价",
+      "能量潮",
+      "移动平均线",
+      "顺势指标"
     ],
     "answer": 3
   },
@@ -323,61 +179,12 @@
   },
   {
     "type": "single",
-    "question": "能量潮 (OBV) 的中文全称是什么？",
+    "question": "RSI 的中文全称是什么？",
     "options": [
-      "累积/派发线 (A/D)",
-      "布林带 (BOLL)",
-      "能量潮 (OBV)",
-      "成交量加权平均价 (VWAP)"
-    ],
-    "answer": 2
-  },
-  {
-    "type": "single",
-    "question": "能量潮 (OBV) 的中文全称是什么？",
-    "options": [
-      "能量潮 (OBV)",
-      "成交量加权平均价 (VWAP)",
-      "移动平均线 (MA)",
-      "动向指标 (DMI)"
-    ],
-    "answer": 0
-  },
-  {
-    "type": "single",
-    "question": "移动平均线 (MA) 的中文全称是什么？",
-    "options": [
-      "能量潮 (OBV)",
-      "移动平均线 (MA)",
-      "成交量加权平均价 (VWAP)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": 1
-  },
-  {
-    "type": "single",
-    "question": "移动平均线 (MA) 的中文全称是什么？",
-    "options": [
-      "相对强弱指数 (RSI)",
-      "累积/派发线 (A/D)",
-      "随机振荡指标 (KD)",
-      "移动平均线 (MA)"
-    ],
-    "answer": 3
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "IC"
-  },
-  {
-    "type": "single",
-    "question": "相对强弱指数 (RSI) 的中文全称是什么？",
-    "options": [
-      "布林带 (BOLL)",
-      "累积/派发线 (A/D)",
-      "能量潮 (OBV)",
-      "相对强弱指数 (RSI)"
+      "布林带",
+      "累积/派发线",
+      "能量潮",
+      "相对强弱指数"
     ],
     "answer": 3
   },
@@ -393,25 +200,14 @@
   },
   {
     "type": "single",
-    "question": "斐波那契回撤 (FIB) 的中文全称是什么？",
+    "question": "FIB 的中文全称是什么？",
     "options": [
-      "震荡指标 (CCI)",
-      "随机振荡指标 (KD)",
-      "布林带 (BOLL)",
-      "斐波那契回撤 (FIB)"
+      "顺势指标",
+      "随机振荡指标",
+      "布林带",
+      "斐波那契回撤"
     ],
     "answer": 3
-  },
-  {
-    "type": "single",
-    "question": "相对强弱指数 (RSI) 的中文全称是什么？",
-    "options": [
-      "随机振荡指标 (KD)",
-      "累积/派发线 (A/D)",
-      "相对强弱指数 (RSI)",
-      "成交量加权平均价 (VWAP)"
-    ],
-    "answer": 2
   },
   {
     "type": "truefalse",
@@ -419,46 +215,9 @@
     "answer": false
   },
   {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "随机振荡指标 (KD)",
-      "成交量加权平均价 (VWAP)",
-      "能量潮 (OBV)",
-      "动向指标 (DMI)"
-    ],
-    "answer": [
-      3
-    ]
-  },
-  {
-    "type": "single",
-    "question": "随机振荡指标 (KD) 的中文全称是什么？",
-    "options": [
-      "随机振荡指标 (KD)",
-      "动向指标 (DMI)",
-      "震荡指标 (CCI)",
-      "能量潮 (OBV)"
-    ],
-    "answer": 0
-  },
-  {
     "type": "truefalse",
     "question": "上海期货交易所 (SHFE) 主要交易农产品期货。",
     "answer": false
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "斐波那契回撤 (FIB)",
-      "成交量加权平均价 (VWAP)",
-      "能量潮 (OBV)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      3
-    ]
   },
   {
     "type": "truefalse",
@@ -467,24 +226,19 @@
   },
   {
     "type": "single",
-    "question": "成交量加权平均价 (VWAP) 的中文全称是什么？",
+    "question": "VWAP 的中文全称是什么？",
     "options": [
-      "成交量加权平均价 (VWAP)",
-      "能量潮 (OBV)",
-      "随机振荡指标 (KD)",
-      "动向指标 (DMI)"
+      "成交量加权平均价",
+      "能量潮",
+      "随机振荡指标",
+      "动向指标"
     ],
     "answer": 0
   },
   {
     "type": "truefalse",
     "question": "期货交易采用T+0结算方式。",
-    "answer": false
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "JD"
+    "answer": true
   },
   {
     "type": "truefalse",
@@ -492,38 +246,9 @@
     "answer": true
   },
   {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "相对强弱指数 (RSI)",
-      "能量潮 (OBV)",
-      "震荡指标 (CCI)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": [
-      1
-    ]
-  },
-  {
-    "type": "single",
-    "question": "移动平均线 (MA) 的中文全称是什么？",
-    "options": [
-      "震荡指标 (CCI)",
-      "移动平均线 (MA)",
-      "成交量加权平均价 (VWAP)",
-      "能量潮 (OBV)"
-    ],
-    "answer": 1
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "JD"
-  },
-  {
     "type": "truefalse",
     "question": "中国金融期货交易所 (CFFEX) 的最小变动价位称为 tick。",
-    "answer": false
+    "answer": true
   },
   {
     "type": "truefalse",
@@ -546,91 +271,9 @@
     "answer": false
   },
   {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "能量潮 (OBV)",
-      "动向指标 (DMI)",
-      "随机振荡指标 (KD)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      0,
-      1,
-      3
-    ]
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "成交量加权平均价 (VWAP)",
-      "相对强弱指数 (RSI)",
-      "斐波那契回撤 (FIB)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      1,
-      2,
-      3
-    ]
-  },
-  {
-    "type": "single",
-    "question": "成交量加权平均价 (VWAP) 的中文全称是什么？",
-    "options": [
-      "成交量加权平均价 (VWAP)",
-      "累积/派发线 (A/D)",
-      "能量潮 (OBV)",
-      "动向指标 (DMI)"
-    ],
-    "answer": 0
-  },
-  {
-    "type": "single",
-    "question": "成交量加权平均价 (VWAP) 的中文全称是什么？",
-    "options": [
-      "移动平均线 (MA)",
-      "成交量加权平均价 (VWAP)",
-      "相对强弱指数 (RSI)",
-      "斐波那契回撤 (FIB)"
-    ],
-    "answer": 1
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "相对强弱指数 (RSI)",
-      "成交量加权平均价 (VWAP)",
-      "累积/派发线 (A/D)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      0,
-      1,
-      2
-    ]
-  },
-  {
     "type": "truefalse",
     "question": "上海期货交易所 (SHFE) 交易的品种包括原油。",
     "answer": false
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "震荡指标 (CCI)",
-      "动向指标 (DMI)",
-      "相对强弱指数 (RSI)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      0,
-      2,
-      3
-    ]
   },
   {
     "type": "truefalse",
@@ -638,153 +281,19 @@
     "answer": true
   },
   {
-    "type": "single",
-    "question": "相对强弱指数 (RSI) 的中文全称是什么？",
-    "options": [
-      "相对强弱指数 (RSI)",
-      "成交量加权平均价 (VWAP)",
-      "移动平均线 (MA)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": 0
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "随机振荡指标 (KD)",
-      "动向指标 (DMI)",
-      "斐波那契回撤 (FIB)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      2
-    ]
-  },
-  {
-    "type": "single",
-    "question": "斐波那契回撤 (FIB) 的中文全称是什么？",
-    "options": [
-      "移动平均线 (MA)",
-      "斐波那契回撤 (FIB)",
-      "震荡指标 (CCI)",
-      "相对强弱指数 (RSI)"
-    ],
-    "answer": 1
-  },
-  {
-    "type": "single",
-    "question": "相对强弱指数 (RSI) 的中文全称是什么？",
-    "options": [
-      "斐波那契回撤 (FIB)",
-      "移动平均线 (MA)",
-      "相对强弱指数 (RSI)",
-      "累积/派发线 (A/D)"
-    ],
-    "answer": 2
-  },
-  {
-    "type": "single",
-    "question": "能量潮 (OBV) 的中文全称是什么？",
-    "options": [
-      "累积/派发线 (A/D)",
-      "震荡指标 (CCI)",
-      "移动平均线 (MA)",
-      "能量潮 (OBV)"
-    ],
-    "answer": 3
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "成交量加权平均价 (VWAP)",
-      "随机振荡指标 (KD)",
-      "震荡指标 (CCI)",
-      "相对强弱指数 (RSI)"
-    ],
-    "answer": [
-      1
-    ]
-  },
-  {
-    "type": "single",
-    "question": "能量潮 (OBV) 的中文全称是什么？",
-    "options": [
-      "斐波那契回撤 (FIB)",
-      "震荡指标 (CCI)",
-      "移动平均线 (MA)",
-      "能量潮 (OBV)"
-    ],
-    "answer": 3
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "AU"
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "IF"
-  },
-  {
     "type": "truefalse",
     "question": "郑州商品交易所 (CZCE) 的最小变动价位称为 tick。",
-    "answer": false
+    "answer": true
   },
   {
     "type": "truefalse",
-    "question": "保证金比例越高，风险越低。",
-    "answer": false
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "斐波那契回撤 (FIB)",
-      "布林带 (BOLL)",
-      "累积/派发线 (A/D)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": [
-      1,
-      3
-    ]
+    "question": "保证金比例越高，杠杆越低。",
+    "answer": true
   },
   {
     "type": "truefalse",
     "question": "上海期货交易所主要交易金属期货。",
     "answer": true
-  },
-  {
-    "type": "single",
-    "question": "震荡指标 (CCI) 的中文全称是什么？",
-    "options": [
-      "随机振荡指标 (KD)",
-      "累积/派发线 (A/D)",
-      "能量潮 (OBV)",
-      "震荡指标 (CCI)"
-    ],
-    "answer": 3
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "IC"
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "随机振荡指标 (KD)",
-      "移动平均线 (MA)",
-      "动向指标 (DMI)",
-      "累积/派发线 (A/D)"
-    ],
-    "answer": [
-      2
-    ]
   },
   {
     "type": "multiple",
@@ -794,61 +303,31 @@
       "大连商品交易所 (DCE)",
       "郑州商品交易所 (CZCE)",
       "中国金融期货交易所 (CFFEX)",
-      "上海能源交易所 (SHEE)"
+      "广州期货交易所 (GFEX)"
     ],
     "answer": [
       0,
       1,
       2,
-      3
+      3,
+      4
     ]
   },
   {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "JM"
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "TA"
-  },
-  {
     "type": "single",
-    "question": "累积/派发线 (A/D) 的中文全称是什么？",
+    "question": "AD 的中文全称是什么？",
     "options": [
-      "震荡指标 (CCI)",
-      "累积/派发线 (A/D)",
-      "相对强弱指数 (RSI)",
-      "动向指标 (DMI)"
+      "顺势指标",
+      "累积/派发线",
+      "相对强弱指数",
+      "动向指标"
     ],
     "answer": 1
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "AU"
-  },
-  {
-    "type": "single",
-    "question": "布林带 (BOLL) 的中文全称是什么？",
-    "options": [
-      "随机振荡指标 (KD)",
-      "布林带 (BOLL)",
-      "动向指标 (DMI)",
-      "成交量加权平均价 (VWAP)"
-    ],
-    "answer": 1
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "CU"
   },
   {
     "type": "truefalse",
     "question": "上海能源交易所 (SHEE) 的最小变动价位称为 tick。",
-    "answer": false
+    "answer": true
   },
   {
     "type": "truefalse",
@@ -861,29 +340,9 @@
     "answer": false
   },
   {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "动向指标 (DMI)",
-      "移动平均线 (MA)",
-      "成交量加权平均价 (VWAP)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": [
-      0,
-      2,
-      3
-    ]
-  },
-  {
     "type": "truefalse",
     "question": "大连商品交易所 (DCE) 主要交易农产品期货。",
     "answer": true
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "FG"
   },
   {
     "type": "truefalse",
@@ -891,88 +350,9 @@
     "answer": false
   },
   {
-    "type": "single",
-    "question": "累积/派发线 (A/D) 的中文全称是什么？",
-    "options": [
-      "震荡指标 (CCI)",
-      "累积/派发线 (A/D)",
-      "能量潮 (OBV)",
-      "斐波那契回撤 (FIB)"
-    ],
-    "answer": 1
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "累积/派发线 (A/D)",
-      "布林带 (BOLL)",
-      "相对强弱指数 (RSI)",
-      "斐波那契回撤 (FIB)"
-    ],
-    "answer": [
-      0,
-      1,
-      2
-    ]
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "移动平均线 (MA)",
-      "震荡指标 (CCI)",
-      "布林带 (BOLL)",
-      "随机振荡指标 (KD)"
-    ],
-    "answer": [
-      0,
-      3
-    ]
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "IC"
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "FG"
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码，例如 RU、CU、FG）",
-    "answer": "RU"
-  },
-  {
-    "type": "single",
-    "question": "能量潮 (OBV) 的中文全称是什么？",
-    "options": [
-      "随机振荡指标 (KD)",
-      "能量潮 (OBV)",
-      "累积/派发线 (A/D)",
-      "动向指标 (DMI)"
-    ],
-    "answer": 1
-  },
-  {
     "type": "truefalse",
     "question": "上海期货交易所 (SHFE) 只交易金融期货。",
     "answer": false
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "成交量加权平均价 (VWAP)",
-      "能量潮 (OBV)",
-      "动向指标 (DMI)",
-      "相对强弱指数 (RSI)"
-    ],
-    "answer": [
-      1
-    ]
   },
   {
     "type": "truefalse",
@@ -980,87 +360,9 @@
     "answer": true
   },
   {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "M"
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "SR"
-  },
-  {
     "type": "truefalse",
     "question": "大连商品交易所 (DCE) 的最小变动价位称为 tick。",
-    "answer": false
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "移动平均线 (MA)",
-      "累积/派发线 (A/D)",
-      "成交量加权平均价 (VWAP)",
-      "布林带 (BOLL)"
-    ],
-    "answer": [
-      3
-    ]
-  },
-  {
-    "type": "prediction",
-    "question": "预测次日涨幅最大的一种期货品种（填写品种代码）",
-    "answer": "IF"
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "震荡指标 (CCI)",
-      "累积/派发线 (A/D)",
-      "成交量加权平均价 (VWAP)",
-      "动向指标 (DMI)"
-    ],
-    "answer": [
-      0
-    ]
-  },
-  {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "随机振荡指标 (KD)",
-      "累积/派发线 (A/D)",
-      "斐波那契回撤 (FIB)",
-      "震荡指标 (CCI)"
-    ],
-    "answer": [
-      0,
-      1,
-      2
-    ]
-  },
-  {
-    "type": "single",
-    "question": "相对强弱指数 (RSI) 的中文全称是什么？",
-    "options": [
-      "成交量加权平均价 (VWAP)",
-      "移动平均线 (MA)",
-      "相对强弱指数 (RSI)",
-      "斐波那契回撤 (FIB)"
-    ],
-    "answer": 2
-  },
-  {
-    "type": "single",
-    "question": "累积/派发线 (A/D) 的中文全称是什么？",
-    "options": [
-      "成交量加权平均价 (VWAP)",
-      "斐波那契回撤 (FIB)",
-      "累积/派发线 (A/D)",
-      "能量潮 (OBV)"
-    ],
-    "answer": 2
+    "answer": true
   },
   {
     "type": "truefalse",
@@ -1073,22 +375,8 @@
     "answer": false
   },
   {
-    "type": "multiple",
-    "question": "以下哪些指标属于技术指标？（可多选）",
-    "options": [
-      "移动平均线 (MA)",
-      "累积/派发线 (A/D)",
-      "能量潮 (OBV)",
-      "成交量加权平均价 (VWAP)"
-    ],
-    "answer": [
-      0,
-      2
-    ]
-  },
-  {
     "type": "truefalse",
     "question": "大连商品交易所 (DCE) 交易的品种包括原油。",
-    "answer": true
+    "answer": false
   }
 ]
