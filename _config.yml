@@ -175,4 +175,4 @@ nofollow:
 deploy:
   type: git
   repo: git@github.com:RubberTale/RubberTale.github.io.git
-  branch: main
+  branch: gh-pages
