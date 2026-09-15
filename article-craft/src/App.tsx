@@ -333,10 +333,12 @@ export const App: React.FC = () => {
     }
   };
 
-  // Run Generation
-  const handleGenerate = async () => {
-    if (!draft.trim()) {
-      showToast('草稿内容不能为空');
+  // Run Generation — 右上方按钮：纯顶层提示词从零撰写
+  // 输入只有 globalPrompt（另由「文种模板」决定体裁），
+  // 完全不读左侧草稿区内容，也不读批注。输出到分栏右侧成果区。
+  const handleGenerateFromPrompt = async () => {
+    if (!globalPrompt.trim()) {
+      showToast('顶层提示词不能为空');
       return;
     }
 
@@ -355,31 +357,41 @@ export const App: React.FC = () => {
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
+    // Scroll to right side on smaller screens
+    if (window.innerWidth < 1024) {
+      setTimeout(() => {
+        rightColumnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
     await streamOfficialDocument(
       {
         globalPrompt,
-        draft,
-        annotations,
+        draft: '',
+        annotations: [],
         round,
         docType: selectedPresetId,
-        preserveOriginal,
+        preserveOriginal: false,
+        mode: 'prompt-only',
         onChunk: (chunk) => {
           setRevisedText((prev) => prev + chunk);
         },
         onDone: () => {
           setIsGenerating(false);
-          showToast(`🎉 第 ${round} 轮${getDocTypeLabel()}精修完成！`);
+          showToast(`🎉 已按顶层提示词生成${getDocTypeLabel()}`);
         },
         onError: (err) => {
           setIsGenerating(false);
-          showToast('精修生成失败: ' + err.message);
+          showToast('生成失败: ' + err.message);
         }
       },
       controller.signal
     );
   };
 
-  // Dedicated Surgical Generation: strictly based on left draft + pinpoint annotations, strictly preserving un-annotated text
+  // Dedicated Surgical Generation — 下方按钮：只根据分栏左侧的草稿 + 批注精修
+  // 输入只有 draft 与 annotations（另由「文种模板」决定体裁），不读顶层提示词。
+  // 「严格保留未改原文 / 通篇重构改写」开关由这里生效。输出到分栏右侧成果区。
   const handleGenerateStrictSurgical = async () => {
     if (!draft.trim()) {
       showToast('草稿内容不能为空');
@@ -425,7 +437,8 @@ export const App: React.FC = () => {
         annotations,
         round,
         docType: selectedPresetId,
-        preserveOriginal: true,
+        preserveOriginal,
+        mode: 'draft',
         onChunk: (chunk) => {
           setRevisedText((prev) => prev + chunk);
         },
@@ -594,8 +607,8 @@ export const App: React.FC = () => {
                 }`}
                 title={
                   preserveOriginal
-                    ? '【当前：严格保留模式】草稿中未批注的部分100%一字不差保留，仅对批注点进行外科手术式精准替换'
-                    : '【当前：全篇重构模式】AI将根据顶层提示词对整篇草稿进行通篇重写润色'
+                    ? '【当前：严格保留模式】作用于左侧栏底部的「依据批注生文」按钮：草稿中未批注的部分100%一字不差保留，仅对批注点进行外科手术式精准替换'
+                    : '【当前：全篇重构模式】作用于左侧栏底部的「依据批注生文」按钮：按批注要求对整篇草稿进行通篇重写润色'
                 }
               >
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${preserveOriginal ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
@@ -624,9 +637,10 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* Primary Action Button */}
+            {/* Primary Action Button — 纯顶层提示词生成（不读左侧草稿与批注） */}
             <button
-              onClick={handleGenerate}
+              onClick={handleGenerateFromPrompt}
+              title="只根据上方顶层提示词从零撰写新文稿；完全不读取下方左侧的草稿区内容与批注。成文呈现在右侧。"
               className={`px-6 py-2.5 rounded-xl font-semibold text-xs md:text-sm transition flex items-center justify-center gap-2 shadow-xl whitespace-nowrap ${
                 isGenerating
                   ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-900/40'
@@ -641,11 +655,7 @@ export const App: React.FC = () => {
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  <span>
-                    {preserveOriginal
-                      ? '🎯 按照总提示词与精确批注一键精准生文 (严格保留未改处)'
-                      : `⚡ 按照总提示词与批注通篇重构${getDocTypeLabel()}`}
-                  </span>
+                  <span>{`✨ 按顶层提示词生成新${getDocTypeLabel()}`}</span>
                 </>
               )}
             </button>
@@ -742,16 +752,6 @@ export const App: React.FC = () => {
                 )}
               </div>
 
-              {/* Clear Draft Button */}
-              <button
-                onClick={handleClearDraft}
-                className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 font-medium transition"
-                title="清空当前草稿与所有批注"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-                <span>清空</span>
-              </button>
-
               {/* Mode Toggle Tabs */}
               <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
                 <button
@@ -791,6 +791,17 @@ export const App: React.FC = () => {
                   <span>批注对照</span>
                 </button>
               </div>
+
+              {/* Clear Draft Button — 一键清空左侧（草稿原文 + 全部批注） */}
+              <span className="w-px h-5 bg-slate-700/70 mx-0.5" aria-hidden="true" />
+              <button
+                onClick={handleClearDraft}
+                className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold shadow-lg shadow-rose-950/50 border border-rose-400/40 transition hover:scale-[1.03] active:scale-95"
+                title="一键清空左侧全部内容：草稿原文 + 所有精确批注（清空后可重新输入或导入新文稿）"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>一键清空</span>
+              </button>
             </div>
           </div>
 
@@ -1046,10 +1057,16 @@ export const App: React.FC = () => {
               <div className="flex flex-col gap-0.5">
                 <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>修改板块专属生文 · 保留未改原文</span>
+                  <span>
+                    {preserveOriginal
+                      ? '修改板块专属生文 · 保留未改原文'
+                      : '修改板块专属生文 · 通篇重构改写'}
+                  </span>
                 </div>
                 <div className="text-[11px] text-slate-400 leading-tight">
-                  完全根据左侧原文与批注提示词进行修改；未涉及部分 100% 严格保留，成文置于右侧。
+                  {preserveOriginal
+                    ? '只根据左侧原文与批注提示词修改；未涉及部分 100% 严格保留，成文置于右侧。'
+                    : '只根据左侧原文与批注提示词改写；未批注部分允许一并润色重构，成文置于右侧。'}
                 </div>
               </div>
 
@@ -1061,7 +1078,11 @@ export const App: React.FC = () => {
                     ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-900/40'
                     : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-emerald-950/60 hover:scale-[1.02]'
                 }`}
-                title="完全根据左侧草稿与批注提示词修改，未涉及部分一字不差全部保留，生成成文呈现在右侧"
+                title={
+                  preserveOriginal
+                    ? '只根据左侧草稿与批注提示词修改，未涉及部分一字不差全部保留，生成成文呈现在右侧；不读取顶部顶层提示词'
+                    : '只根据左侧草稿与批注提示词通篇重构改写，生成成文呈现在右侧；不读取顶部顶层提示词'
+                }
               >
                 {isGenerating ? (
                   <>
@@ -1071,7 +1092,11 @@ export const App: React.FC = () => {
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4 text-emerald-100" />
-                    <span>⚡ 依据批注精准生文 (严格保留未改处)</span>
+                    <span>
+                      {preserveOriginal
+                        ? '⚡ 依据批注精准生文 (严格保留未改处)'
+                        : '⚡ 依据批注通篇重构改写'}
+                    </span>
                   </>
                 )}
               </button>

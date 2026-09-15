@@ -18,6 +18,8 @@ export interface GenerateParams {
   round: number;
   docType?: string;
   preserveOriginal?: boolean;
+  /** 'prompt-only' 表示纯顶层提示词从零撰写，后端不再要求草稿非空。 */
+  mode?: 'draft' | 'prompt-only';
   onChunk: (text: string) => void;
   onDone: () => void;
   onError: (err: Error) => void;
@@ -32,7 +34,7 @@ export async function streamOfficialDocument(
   params: GenerateParams,
   abortSignal?: AbortSignal
 ): Promise<void> {
-  const { globalPrompt, draft, annotations, round, docType, preserveOriginal = true, onChunk, onDone, onError } = params;
+  const { globalPrompt, draft, annotations, round, docType, preserveOriginal = true, mode = 'draft', onChunk, onDone, onError } = params;
 
   try {
     const response = await fetch(`${API_BASE}/generate`, {
@@ -46,7 +48,8 @@ export async function streamOfficialDocument(
         annotations,
         round,
         docType,
-        preserveOriginal
+        preserveOriginal,
+        mode
       }),
       signal: abortSignal
     });
