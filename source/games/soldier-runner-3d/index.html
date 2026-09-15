@@ -749,11 +749,11 @@ function tick() {
   if (shake > 0) shake = Math.max(0, shake - dt * 2.2);
   const sh = shake * 0.22;
   camera.position.set(
-    state.x * 0.5 + (Math.random() - 0.5) * sh,
+    state.x * 0.82 + (Math.random() - 0.5) * sh,
     5.4 + (Math.random() - 0.5) * sh,
     state.z + 11
   );
-  camera.lookAt(state.x * 0.58, 0.5, state.z - 7);
+  camera.lookAt(state.x * 0.82, 0.5, state.z - 7);
 
   renderer.render(scene, camera);
 }
@@ -765,6 +765,14 @@ addEventListener('resize', () => {
 });
 
 /* ================= boot ================= */
+globalThis.__GAME_HOOK = {
+  tick, clock, renderer,
+  phase: () => state.phase,
+  state,
+  get pending() { return pending; },
+  applyOp
+};
+
 resetGame();
 $('ovBtn').onclick = startGame;
 tick();
