@@ -45,6 +45,7 @@ skip_render:
   - "games/1942/**"
   - "games/bomberman/**"
   - "games/warzone-fps/**"
+  - "games/soldier-runner-3d/**"
   - "tools/*/**"
   - "tools/pic-6varieties/**"
   - "tools/comic-avatar/**"
