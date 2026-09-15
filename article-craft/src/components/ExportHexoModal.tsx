@@ -128,7 +128,7 @@ ${cleanBody}`;
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium shadow-lg shadow-emerald-900/30 transition"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-fixed-white text-xs font-medium shadow-lg shadow-emerald-900/30 transition"
             >
               <Download className="w-4 h-4" />
               下载 .md 文件

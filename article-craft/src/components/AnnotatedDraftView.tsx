@@ -77,7 +77,7 @@ export const AnnotatedDraftView: React.FC<Props> = ({
           <button
             onMouseDown={(e) => e.preventDefault()} // prevent blur
             onClick={handleTriggerAdd}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold shadow-xl shadow-amber-950/60 border border-amber-300 transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-fixed-ink text-xs font-bold shadow-xl shadow-amber-950/60 border border-amber-300 transition cursor-pointer"
           >
             <BookmarkPlus className="w-3.5 h-3.5" />
             <span>对此选中文本添加修改意见</span>
@@ -167,7 +167,7 @@ export const AnnotatedDraftView: React.FC<Props> = ({
                     title={`修改意见：${ann.comment}`}
                   >
                     <span>{seg.text}</span>
-                    <span className="text-[10px] font-mono font-bold px-1 rounded bg-amber-500/30 text-amber-300 group-hover:bg-amber-500 group-hover:text-slate-950 transition select-none">
+                    <span className="text-[10px] font-mono font-bold px-1 rounded bg-amber-500/30 text-amber-300 group-hover:bg-amber-500 group-hover:text-fixed-ink transition select-none">
                       #{(seg.index || 0) + 1}
                     </span>
                   </mark>

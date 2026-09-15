@@ -166,7 +166,7 @@ export const PinpointModal: React.FC<Props> = ({
             <button
               type="submit"
               disabled={!comment.trim()}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-medium shadow-md shadow-blue-900/30 transition"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-fixed-white text-xs font-medium shadow-md shadow-blue-900/30 transition"
             >
               <Check className="w-3.5 h-3.5" />
               确定采纳

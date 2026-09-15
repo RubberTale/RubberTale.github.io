@@ -5,58 +5,624 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WriteBuddy · 公文智匠（精确顶点审校工作台） | 橡胶童话</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 20h9'/><path d='M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z'/></svg>" />
+    <script>
+      /* ===== 主题防闪烁引导：必须在样式与内容之前同步执行 ===== */
+      (function () {
+        var DARK_THEMES = ['dark', 'midnight', 'forest', 'oled'];
+        var ALL = ['dark', 'light', 'sepia', 'midnight', 'forest', 'oled'];
+        var t = 'dark';
+        try {
+          var saved = localStorage.getItem('wb-theme');
+          if (saved && ALL.indexOf(saved) >= 0) t = saved;
+        } catch (e) {}
+        var el = document.documentElement;
+        el.setAttribute('data-theme', t);
+        el.classList.toggle('dark', DARK_THEMES.indexOf(t) >= 0);
+      })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
         theme: {
           extend: {
-            colors: {
-              brand: {
-                50: '#eff6ff',
-                100: '#dbeafe',
-                200: '#bfdbfe',
-                300: '#93c5fd',
-                400: '#60a5fa',
-                500: '#3b82f6',
-                600: '#2563eb',
-                700: '#1d4ed8',
-                800: '#1e40af',
-                900: '#1e3a8a',
-                950: '#0f172a'
-              }
-            }
+            colors: (function () {
+              var NAMES = ['slate','gray','zinc','neutral','stone','red','orange','amber','yellow','lime','green','emerald','teal','cyan','sky','blue','indigo','violet','purple','fuchsia','pink','rose'];
+              var SHADES = [50,100,200,300,400,500,600,700,800,900,950];
+              var out = {
+                fixed: { white: '#ffffff', black: '#000000', ink: '#0f172a' },
+              };
+              NAMES.forEach(function (n) {
+                var scale = {};
+                SHADES.forEach(function (s) { scale[s] = 'rgb(var(--wb-' + n + '-' + s + ') / <alpha-value>)'; });
+                out[n] = scale;
+              });
+              out.white = 'rgb(var(--wb-white) / <alpha-value>)';
+              out.black = 'rgb(var(--wb-black) / <alpha-value>)';
+              out.brand = out.blue;
+              return out;
+            })(),
           }
         }
       }
     </script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+      /* ===================== WriteBuddy 多主题配色变量 =====================
+         :root 即「深空蓝」默认主题，取值与 Tailwind 官方调色板完全一致，
+         因此未切换主题时渲染结果与原版逐像素相同。
+         其余主题只需覆盖需要变化的变量，未覆盖的自动回退到 :root。
+         ==================================================================== */
+    :root {
+      color-scheme: dark;
+      --wb-slate-50: 248 250 252;
+      --wb-slate-100: 241 245 249;
+      --wb-slate-200: 226 232 240;
+      --wb-slate-300: 203 213 225;
+      --wb-slate-400: 148 163 184;
+      --wb-slate-500: 100 116 139;
+      --wb-slate-600: 71 85 105;
+      --wb-slate-700: 51 65 85;
+      --wb-slate-800: 30 41 59;
+      --wb-slate-900: 15 23 42;
+      --wb-slate-950: 2 6 23;
+      --wb-gray-50: 249 250 251;
+      --wb-gray-100: 243 244 246;
+      --wb-gray-200: 229 231 235;
+      --wb-gray-300: 209 213 219;
+      --wb-gray-400: 156 163 175;
+      --wb-gray-500: 107 114 128;
+      --wb-gray-600: 75 85 99;
+      --wb-gray-700: 55 65 81;
+      --wb-gray-800: 31 41 55;
+      --wb-gray-900: 17 24 39;
+      --wb-gray-950: 3 7 18;
+      --wb-zinc-50: 250 250 250;
+      --wb-zinc-100: 244 244 245;
+      --wb-zinc-200: 228 228 231;
+      --wb-zinc-300: 212 212 216;
+      --wb-zinc-400: 161 161 170;
+      --wb-zinc-500: 113 113 122;
+      --wb-zinc-600: 82 82 91;
+      --wb-zinc-700: 63 63 70;
+      --wb-zinc-800: 39 39 42;
+      --wb-zinc-900: 24 24 27;
+      --wb-zinc-950: 9 9 11;
+      --wb-neutral-50: 250 250 250;
+      --wb-neutral-100: 245 245 245;
+      --wb-neutral-200: 229 229 229;
+      --wb-neutral-300: 212 212 212;
+      --wb-neutral-400: 163 163 163;
+      --wb-neutral-500: 115 115 115;
+      --wb-neutral-600: 82 82 82;
+      --wb-neutral-700: 64 64 64;
+      --wb-neutral-800: 38 38 38;
+      --wb-neutral-900: 23 23 23;
+      --wb-neutral-950: 10 10 10;
+      --wb-stone-50: 250 250 249;
+      --wb-stone-100: 245 245 244;
+      --wb-stone-200: 231 229 228;
+      --wb-stone-300: 214 211 209;
+      --wb-stone-400: 168 162 158;
+      --wb-stone-500: 120 113 108;
+      --wb-stone-600: 87 83 78;
+      --wb-stone-700: 68 64 60;
+      --wb-stone-800: 41 37 36;
+      --wb-stone-900: 28 25 23;
+      --wb-stone-950: 12 10 9;
+      --wb-red-50: 254 242 242;
+      --wb-red-100: 254 226 226;
+      --wb-red-200: 254 202 202;
+      --wb-red-300: 252 165 165;
+      --wb-red-400: 248 113 113;
+      --wb-red-500: 239 68 68;
+      --wb-red-600: 220 38 38;
+      --wb-red-700: 185 28 28;
+      --wb-red-800: 153 27 27;
+      --wb-red-900: 127 29 29;
+      --wb-red-950: 69 10 10;
+      --wb-orange-50: 255 247 237;
+      --wb-orange-100: 255 237 213;
+      --wb-orange-200: 254 215 170;
+      --wb-orange-300: 253 186 116;
+      --wb-orange-400: 251 146 60;
+      --wb-orange-500: 249 115 22;
+      --wb-orange-600: 234 88 12;
+      --wb-orange-700: 194 65 12;
+      --wb-orange-800: 154 52 18;
+      --wb-orange-900: 124 45 18;
+      --wb-orange-950: 67 20 7;
+      --wb-amber-50: 255 251 235;
+      --wb-amber-100: 254 243 199;
+      --wb-amber-200: 253 230 138;
+      --wb-amber-300: 252 211 77;
+      --wb-amber-400: 251 191 36;
+      --wb-amber-500: 245 158 11;
+      --wb-amber-600: 217 119 6;
+      --wb-amber-700: 180 83 9;
+      --wb-amber-800: 146 64 14;
+      --wb-amber-900: 120 53 15;
+      --wb-amber-950: 69 26 3;
+      --wb-yellow-50: 254 252 232;
+      --wb-yellow-100: 254 249 195;
+      --wb-yellow-200: 254 240 138;
+      --wb-yellow-300: 253 224 71;
+      --wb-yellow-400: 250 204 21;
+      --wb-yellow-500: 234 179 8;
+      --wb-yellow-600: 202 138 4;
+      --wb-yellow-700: 161 98 7;
+      --wb-yellow-800: 133 77 14;
+      --wb-yellow-900: 113 63 18;
+      --wb-yellow-950: 66 32 6;
+      --wb-lime-50: 247 254 231;
+      --wb-lime-100: 236 252 203;
+      --wb-lime-200: 217 249 157;
+      --wb-lime-300: 190 242 100;
+      --wb-lime-400: 163 230 53;
+      --wb-lime-500: 132 204 22;
+      --wb-lime-600: 101 163 13;
+      --wb-lime-700: 77 124 15;
+      --wb-lime-800: 63 98 18;
+      --wb-lime-900: 54 83 20;
+      --wb-lime-950: 26 46 5;
+      --wb-green-50: 240 253 244;
+      --wb-green-100: 220 252 231;
+      --wb-green-200: 187 247 208;
+      --wb-green-300: 134 239 172;
+      --wb-green-400: 74 222 128;
+      --wb-green-500: 34 197 94;
+      --wb-green-600: 22 163 74;
+      --wb-green-700: 21 128 61;
+      --wb-green-800: 22 101 52;
+      --wb-green-900: 20 83 45;
+      --wb-green-950: 5 46 22;
+      --wb-emerald-50: 236 253 245;
+      --wb-emerald-100: 209 250 229;
+      --wb-emerald-200: 167 243 208;
+      --wb-emerald-300: 110 231 183;
+      --wb-emerald-400: 52 211 153;
+      --wb-emerald-500: 16 185 129;
+      --wb-emerald-600: 5 150 105;
+      --wb-emerald-700: 4 120 87;
+      --wb-emerald-800: 6 95 70;
+      --wb-emerald-900: 6 78 59;
+      --wb-emerald-950: 2 44 34;
+      --wb-teal-50: 240 253 250;
+      --wb-teal-100: 204 251 241;
+      --wb-teal-200: 153 246 228;
+      --wb-teal-300: 94 234 212;
+      --wb-teal-400: 45 212 191;
+      --wb-teal-500: 20 184 166;
+      --wb-teal-600: 13 148 136;
+      --wb-teal-700: 15 118 110;
+      --wb-teal-800: 17 94 89;
+      --wb-teal-900: 19 78 74;
+      --wb-teal-950: 4 47 46;
+      --wb-cyan-50: 236 254 255;
+      --wb-cyan-100: 207 250 254;
+      --wb-cyan-200: 165 243 252;
+      --wb-cyan-300: 103 232 249;
+      --wb-cyan-400: 34 211 238;
+      --wb-cyan-500: 6 182 212;
+      --wb-cyan-600: 8 145 178;
+      --wb-cyan-700: 14 116 144;
+      --wb-cyan-800: 21 94 117;
+      --wb-cyan-900: 22 78 99;
+      --wb-cyan-950: 8 51 68;
+      --wb-sky-50: 240 249 255;
+      --wb-sky-100: 224 242 254;
+      --wb-sky-200: 186 230 253;
+      --wb-sky-300: 125 211 252;
+      --wb-sky-400: 56 189 248;
+      --wb-sky-500: 14 165 233;
+      --wb-sky-600: 2 132 199;
+      --wb-sky-700: 3 105 161;
+      --wb-sky-800: 7 89 133;
+      --wb-sky-900: 12 74 110;
+      --wb-sky-950: 8 47 73;
+      --wb-blue-50: 239 246 255;
+      --wb-blue-100: 219 234 254;
+      --wb-blue-200: 191 219 254;
+      --wb-blue-300: 147 197 253;
+      --wb-blue-400: 96 165 250;
+      --wb-blue-500: 59 130 246;
+      --wb-blue-600: 37 99 235;
+      --wb-blue-700: 29 78 216;
+      --wb-blue-800: 30 64 175;
+      --wb-blue-900: 30 58 138;
+      --wb-blue-950: 23 37 84;
+      --wb-indigo-50: 238 242 255;
+      --wb-indigo-100: 224 231 255;
+      --wb-indigo-200: 199 210 254;
+      --wb-indigo-300: 165 180 252;
+      --wb-indigo-400: 129 140 248;
+      --wb-indigo-500: 99 102 241;
+      --wb-indigo-600: 79 70 229;
+      --wb-indigo-700: 67 56 202;
+      --wb-indigo-800: 55 48 163;
+      --wb-indigo-900: 49 46 129;
+      --wb-indigo-950: 30 27 75;
+      --wb-violet-50: 245 243 255;
+      --wb-violet-100: 237 233 254;
+      --wb-violet-200: 221 214 254;
+      --wb-violet-300: 196 181 253;
+      --wb-violet-400: 167 139 250;
+      --wb-violet-500: 139 92 246;
+      --wb-violet-600: 124 58 237;
+      --wb-violet-700: 109 40 217;
+      --wb-violet-800: 91 33 182;
+      --wb-violet-900: 76 29 149;
+      --wb-violet-950: 46 16 101;
+      --wb-purple-50: 250 245 255;
+      --wb-purple-100: 243 232 255;
+      --wb-purple-200: 233 213 255;
+      --wb-purple-300: 216 180 254;
+      --wb-purple-400: 192 132 252;
+      --wb-purple-500: 168 85 247;
+      --wb-purple-600: 147 51 234;
+      --wb-purple-700: 126 34 206;
+      --wb-purple-800: 107 33 168;
+      --wb-purple-900: 88 28 135;
+      --wb-purple-950: 59 7 100;
+      --wb-fuchsia-50: 253 244 255;
+      --wb-fuchsia-100: 250 232 255;
+      --wb-fuchsia-200: 245 208 254;
+      --wb-fuchsia-300: 240 171 252;
+      --wb-fuchsia-400: 232 121 249;
+      --wb-fuchsia-500: 217 70 239;
+      --wb-fuchsia-600: 192 38 211;
+      --wb-fuchsia-700: 162 28 175;
+      --wb-fuchsia-800: 134 25 143;
+      --wb-fuchsia-900: 112 26 117;
+      --wb-fuchsia-950: 74 4 78;
+      --wb-pink-50: 253 242 248;
+      --wb-pink-100: 252 231 243;
+      --wb-pink-200: 251 207 232;
+      --wb-pink-300: 249 168 212;
+      --wb-pink-400: 244 114 182;
+      --wb-pink-500: 236 72 153;
+      --wb-pink-600: 219 39 119;
+      --wb-pink-700: 190 24 93;
+      --wb-pink-800: 157 23 77;
+      --wb-pink-900: 131 24 67;
+      --wb-pink-950: 80 7 36;
+      --wb-rose-50: 255 241 242;
+      --wb-rose-100: 255 228 230;
+      --wb-rose-200: 254 205 211;
+      --wb-rose-300: 253 164 175;
+      --wb-rose-400: 251 113 133;
+      --wb-rose-500: 244 63 94;
+      --wb-rose-600: 225 29 72;
+      --wb-rose-700: 190 18 60;
+      --wb-rose-800: 159 18 57;
+      --wb-rose-900: 136 19 55;
+      --wb-rose-950: 76 5 25;
+      --wb-white: 255 255 255;
+      --wb-black: 0 0 0;
+      --wb-scroll-track: 15 23 42;
+      --wb-scroll-thumb: 100 116 139;
+    }
+
+    /* ===== light ===== */
+    html[data-theme="light"] {
+      color-scheme: light;
+      --wb-slate-100: 15 23 42;
+      --wb-slate-200: 30 41 59;
+      --wb-slate-300: 51 65 85;
+      --wb-slate-400: 71 85 105;
+      --wb-slate-50: 2 6 23;
+      --wb-slate-500: 100 116 139;
+      --wb-slate-600: 100 116 139;
+      --wb-slate-700: 203 213 225;
+      --wb-slate-800: 226 232 240;
+      --wb-slate-900: 255 255 255;
+      --wb-slate-950: 248 250 252;
+      --wb-white: 15 23 42;
+      --wb-amber-100: 146 64 14;
+      --wb-amber-200: 146 64 14;
+      --wb-amber-300: 180 83 9;
+      --wb-amber-400: 217 119 6;
+      --wb-amber-500: 245 158 11;
+      --wb-amber-600: 217 119 6;
+      --wb-amber-900: 253 230 138;
+      --wb-amber-950: 254 243 199;
+      --wb-blue-100: 30 58 138;
+      --wb-blue-200: 30 64 175;
+      --wb-blue-300: 29 78 216;
+      --wb-blue-400: 37 99 235;
+      --wb-blue-500: 59 130 246;
+      --wb-blue-600: 37 99 235;
+      --wb-blue-700: 29 78 216;
+      --wb-blue-900: 191 219 254;
+      --wb-blue-950: 219 234 254;
+      --wb-cyan-500: 8 145 178;
+      --wb-cyan-600: 8 145 178;
+      --wb-emerald-100: 6 95 70;
+      --wb-emerald-300: 4 120 87;
+      --wb-emerald-400: 5 150 105;
+      --wb-emerald-500: 16 185 129;
+      --wb-emerald-600: 5 150 105;
+      --wb-emerald-900: 167 243 208;
+      --wb-emerald-950: 209 250 229;
+      --wb-indigo-300: 67 56 202;
+      --wb-indigo-500: 99 102 241;
+      --wb-indigo-600: 79 70 229;
+      --wb-indigo-950: 224 231 255;
+      --wb-orange-300: 194 65 12;
+      --wb-orange-500: 234 88 12;
+      --wb-pink-300: 190 24 93;
+      --wb-pink-500: 219 39 119;
+      --wb-purple-300: 126 34 206;
+      --wb-purple-400: 147 51 234;
+      --wb-purple-500: 168 85 247;
+      --wb-purple-600: 147 51 234;
+      --wb-rose-300: 190 18 60;
+      --wb-rose-400: 190 18 60;
+      --wb-rose-500: 225 29 72;
+      --wb-rose-600: 225 29 72;
+      --wb-rose-900: 254 205 211;
+      --wb-rose-950: 255 228 230;
+      --wb-teal-500: 13 148 136;
+      --wb-teal-600: 13 148 136;
+      --wb-violet-300: 109 40 217;
+      --wb-violet-500: 139 92 246;
+      --wb-yellow-300: 161 98 7;
+      --wb-yellow-500: 202 138 4;
+      --wb-scroll-track: 226 232 240;
+      --wb-scroll-thumb: 148 163 184;
+    }
+
+    /* ===== sepia ===== */
+    html[data-theme="sepia"] {
+      color-scheme: light;
+      --wb-slate-100: 46 39 29;
+      --wb-slate-200: 58 50 38;
+      --wb-slate-300: 74 64 49;
+      --wb-slate-400: 97 85 66;
+      --wb-slate-50: 35 29 21;
+      --wb-slate-500: 124 111 88;
+      --wb-slate-600: 150 136 112;
+      --wb-slate-700: 214 202 178;
+      --wb-slate-800: 233 224 206;
+      --wb-slate-900: 255 253 248;
+      --wb-slate-950: 247 243 234;
+      --wb-white: 58 50 38;
+      --wb-amber-100: 120 53 15;
+      --wb-amber-200: 146 64 14;
+      --wb-amber-300: 161 98 7;
+      --wb-amber-400: 180 83 9;
+      --wb-amber-500: 217 119 6;
+      --wb-amber-600: 180 83 9;
+      --wb-amber-900: 240 224 180;
+      --wb-amber-950: 250 240 214;
+      --wb-blue-100: 30 58 138;
+      --wb-blue-200: 30 64 175;
+      --wb-blue-300: 29 78 216;
+      --wb-blue-400: 37 99 235;
+      --wb-blue-500: 59 130 246;
+      --wb-blue-600: 37 99 235;
+      --wb-blue-700: 29 78 216;
+      --wb-blue-900: 215 226 243;
+      --wb-blue-950: 228 236 248;
+      --wb-cyan-500: 14 116 144;
+      --wb-cyan-600: 14 116 144;
+      --wb-emerald-100: 6 78 59;
+      --wb-emerald-300: 4 120 87;
+      --wb-emerald-400: 5 120 87;
+      --wb-emerald-500: 5 150 105;
+      --wb-emerald-600: 4 120 87;
+      --wb-emerald-900: 180 220 200;
+      --wb-emerald-950: 219 238 226;
+      --wb-indigo-300: 67 56 202;
+      --wb-indigo-500: 99 102 241;
+      --wb-indigo-600: 79 70 229;
+      --wb-indigo-950: 228 228 250;
+      --wb-orange-300: 154 52 18;
+      --wb-orange-500: 194 65 12;
+      --wb-pink-300: 157 23 77;
+      --wb-pink-500: 190 24 93;
+      --wb-purple-300: 107 33 168;
+      --wb-purple-400: 126 34 206;
+      --wb-purple-500: 147 51 234;
+      --wb-purple-600: 126 34 206;
+      --wb-rose-300: 159 18 57;
+      --wb-rose-400: 190 18 60;
+      --wb-rose-500: 190 18 60;
+      --wb-rose-600: 190 18 60;
+      --wb-rose-900: 245 200 200;
+      --wb-rose-950: 250 226 226;
+      --wb-teal-500: 15 118 110;
+      --wb-teal-600: 15 118 110;
+      --wb-violet-300: 91 33 182;
+      --wb-violet-500: 124 58 237;
+      --wb-yellow-300: 133 77 14;
+      --wb-yellow-500: 161 98 7;
+      --wb-scroll-track: 233 224 206;
+      --wb-scroll-thumb: 150 136 112;
+    }
+
+    /* ===== midnight ===== */
+    html[data-theme="midnight"] {
+      color-scheme: dark;
+      --wb-slate-100: 235 232 248;
+      --wb-slate-200: 220 216 240;
+      --wb-slate-300: 199 194 226;
+      --wb-slate-400: 165 160 200;
+      --wb-slate-50: 245 243 255;
+      --wb-slate-500: 138 132 178;
+      --wb-slate-600: 110 104 148;
+      --wb-slate-700: 58 46 106;
+      --wb-slate-800: 42 33 80;
+      --wb-slate-900: 24 18 53;
+      --wb-slate-950: 13 10 32;
+      --wb-amber-900: 120 53 15;
+      --wb-amber-950: 69 26 3;
+      --wb-blue-100: 237 233 254;
+      --wb-blue-200: 221 214 254;
+      --wb-blue-300: 196 181 253;
+      --wb-blue-400: 167 139 250;
+      --wb-blue-500: 139 92 246;
+      --wb-blue-600: 124 58 237;
+      --wb-blue-700: 109 40 217;
+      --wb-blue-900: 76 29 149;
+      --wb-blue-950: 46 16 101;
+      --wb-cyan-500: 34 211 238;
+      --wb-cyan-600: 8 145 178;
+      --wb-emerald-900: 6 78 59;
+      --wb-emerald-950: 2 44 34;
+      --wb-indigo-300: 165 180 252;
+      --wb-indigo-500: 129 140 248;
+      --wb-indigo-600: 99 102 241;
+      --wb-indigo-950: 49 46 129;
+      --wb-orange-500: 251 146 60;
+      --wb-pink-500: 244 114 182;
+      --wb-purple-500: 192 132 252;
+      --wb-purple-600: 168 85 247;
+      --wb-rose-900: 136 19 55;
+      --wb-rose-950: 76 5 25;
+      --wb-teal-500: 20 184 166;
+      --wb-teal-600: 13 148 136;
+      --wb-violet-500: 167 139 250;
+      --wb-yellow-500: 250 204 21;
+      --wb-scroll-track: 24 18 53;
+      --wb-scroll-thumb: 110 104 148;
+    }
+
+    /* ===== forest ===== */
+    html[data-theme="forest"] {
+      color-scheme: dark;
+      --wb-slate-100: 230 242 238;
+      --wb-slate-200: 210 228 222;
+      --wb-slate-300: 180 205 198;
+      --wb-slate-400: 140 172 165;
+      --wb-slate-50: 242 250 247;
+      --wb-slate-500: 116 148 141;
+      --wb-slate-600: 90 122 115;
+      --wb-slate-700: 36 74 67;
+      --wb-slate-800: 24 54 49;
+      --wb-slate-900: 14 36 33;
+      --wb-slate-950: 8 24 22;
+      --wb-amber-900: 120 53 15;
+      --wb-amber-950: 69 26 3;
+      --wb-blue-100: 204 251 241;
+      --wb-blue-200: 153 246 228;
+      --wb-blue-300: 94 234 212;
+      --wb-blue-400: 45 212 191;
+      --wb-blue-500: 20 184 166;
+      --wb-blue-600: 13 148 136;
+      --wb-blue-700: 15 118 110;
+      --wb-blue-900: 19 78 74;
+      --wb-blue-950: 4 47 46;
+      --wb-cyan-500: 34 211 238;
+      --wb-cyan-600: 8 145 178;
+      --wb-emerald-900: 6 78 59;
+      --wb-emerald-950: 2 44 34;
+      --wb-indigo-300: 165 180 252;
+      --wb-indigo-500: 129 140 248;
+      --wb-indigo-600: 99 102 241;
+      --wb-indigo-950: 30 27 75;
+      --wb-orange-500: 251 146 60;
+      --wb-pink-500: 244 114 182;
+      --wb-purple-500: 192 132 252;
+      --wb-purple-600: 168 85 247;
+      --wb-rose-900: 136 19 55;
+      --wb-rose-950: 76 5 25;
+      --wb-teal-500: 20 184 166;
+      --wb-teal-600: 13 148 136;
+      --wb-violet-500: 167 139 250;
+      --wb-yellow-500: 250 204 21;
+      --wb-scroll-track: 14 36 33;
+      --wb-scroll-thumb: 116 148 141;
+    }
+
+    /* ===== oled ===== */
+    html[data-theme="oled"] {
+      color-scheme: dark;
+      --wb-slate-100: 240 241 245;
+      --wb-slate-200: 222 224 230;
+      --wb-slate-300: 196 199 208;
+      --wb-slate-400: 160 163 172;
+      --wb-slate-50: 250 250 252;
+      --wb-slate-500: 134 137 147;
+      --wb-slate-600: 104 107 117;
+      --wb-slate-700: 52 52 58;
+      --wb-slate-800: 32 32 36;
+      --wb-slate-900: 12 12 14;
+      --wb-slate-950: 0 0 0;
+      --wb-amber-900: 120 53 15;
+      --wb-amber-950: 40 16 2;
+      --wb-blue-100: 219 234 254;
+      --wb-blue-200: 191 219 254;
+      --wb-blue-300: 147 197 253;
+      --wb-blue-400: 96 165 250;
+      --wb-blue-500: 59 130 246;
+      --wb-blue-600: 37 99 235;
+      --wb-blue-700: 29 78 216;
+      --wb-blue-900: 23 37 84;
+      --wb-blue-950: 10 18 40;
+      --wb-cyan-500: 34 211 238;
+      --wb-cyan-600: 8 145 178;
+      --wb-emerald-900: 6 78 59;
+      --wb-emerald-950: 2 30 22;
+      --wb-indigo-300: 165 180 252;
+      --wb-indigo-500: 129 140 248;
+      --wb-indigo-600: 99 102 241;
+      --wb-indigo-950: 20 18 60;
+      --wb-orange-500: 251 146 60;
+      --wb-pink-500: 244 114 182;
+      --wb-purple-500: 192 132 252;
+      --wb-purple-600: 168 85 247;
+      --wb-rose-900: 136 19 55;
+      --wb-rose-950: 50 4 16;
+      --wb-teal-500: 20 184 166;
+      --wb-teal-600: 13 148 136;
+      --wb-violet-500: 167 139 250;
+      --wb-yellow-500: 250 204 21;
+      --wb-scroll-track: 12 12 14;
+      --wb-scroll-thumb: 104 107 117;
+    }
+
+      /* ---- 全局兜底（Tailwind CDN 加载前也不闪白） ---- */
+      html {
+        background-color: rgb(var(--wb-slate-950));
+      }
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+        background-color: rgb(var(--wb-slate-950));
+        color: rgb(var(--wb-slate-100));
       }
       .font-mono {
         font-family: 'JetBrains Mono', monospace;
       }
-      /* Custom Scrollbar */
+
+      /* ---- 自定义滚动条（跟随主题） ---- */
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: rgba(15, 23, 42, 0.6);
+        background: rgb(var(--wb-scroll-track) / 0.6);
       }
       ::-webkit-scrollbar-thumb {
-        background: rgba(100, 116, 139, 0.4);
+        background: rgb(var(--wb-scroll-thumb) / 0.4);
         border-radius: 3px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: rgba(148, 163, 184, 0.6);
+        background: rgb(var(--wb-scroll-thumb) / 0.6);
+      }
+
+      /* ---- 切换主题时的柔和过渡（仅在切换瞬间挂 250ms） ---- */
+      html.wb-theme-anim,
+      html.wb-theme-anim body,
+      html.wb-theme-anim body * {
+        transition: background-color 250ms ease, border-color 250ms ease,
+                    color 250ms ease, fill 250ms ease, stroke 250ms ease;
       }
     </style>
-    <script type="module" crossorigin src="/tools/article-craft/assets/index-CET0jS1b.js"></script>
+    <script type="module" crossorigin src="/tools/article-craft/assets/index-1Lxal-xo.js"></script>
   </head>
-  <body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-blue-600 selection:text-white">
+  <body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-blue-600 selection:text-fixed-white">
     <div id="root"></div>
   </body>
 </html>

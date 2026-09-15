@@ -37,6 +37,7 @@ import { DiffViewer } from './components/DiffViewer';
 import { ExportHexoModal } from './components/ExportHexoModal';
 import { PinpointModal } from './components/PinpointModal';
 import { AnnotatedDraftView } from './components/AnnotatedDraftView';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 
 export const App: React.FC = () => {
   // Global Prompt
@@ -497,8 +498,8 @@ export const App: React.FC = () => {
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-top-4 duration-200">
-          <div className="px-4 py-2 rounded-xl bg-blue-600/90 text-white text-xs md:text-sm font-medium shadow-2xl backdrop-blur-md border border-blue-400/40 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-blue-200" />
+          <div className="px-4 py-2 rounded-xl bg-blue-600/90 text-fixed-white text-xs md:text-sm font-medium shadow-2xl backdrop-blur-md border border-blue-400/40 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-fixed-white" />
             <span>{toastMessage}</span>
           </div>
         </div>
@@ -513,7 +514,7 @@ export const App: React.FC = () => {
           >
             ← 小工具箱
           </a>
-          <span className="text-slate-700">/</span>
+          <span className="text-slate-500">/</span>
           <div className="flex items-center gap-2">
             <span className="text-lg">
               {selectedPresetId === 'novel' ? '📖' : isPoetry ? '🖋️' : '📝'}
@@ -532,6 +533,8 @@ export const App: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
+          {/* 配色主题切换 */}
+          <ThemeSwitcher onToast={showToast} />
           <a
             href="https://rubbertale.github.io"
             target="_blank"
@@ -582,7 +585,7 @@ export const App: React.FC = () => {
                   onClick={() => handlePresetSelect(p)}
                   className={`px-2 py-0.5 rounded-lg text-xs transition whitespace-nowrap ${
                     selectedPresetId === p.id
-                      ? 'bg-blue-600 text-white font-medium shadow-sm'
+                      ? 'bg-blue-600 text-fixed-white font-medium shadow-sm'
                       : 'bg-slate-800/70 text-slate-300 hover:bg-slate-700 hover:text-white'
                   }`}
                   title={p.description}
@@ -643,8 +646,8 @@ export const App: React.FC = () => {
               title="只根据上方顶层提示词从零撰写新文稿；完全不读取下方左侧的草稿区内容与批注。成文呈现在右侧。"
               className={`px-6 py-2.5 rounded-xl font-semibold text-xs md:text-sm transition flex items-center justify-center gap-2 shadow-xl whitespace-nowrap ${
                 isGenerating
-                  ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-900/40'
-                  : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 text-white shadow-blue-900/40 hover:scale-[1.01]'
+                  ? 'bg-rose-600 hover:bg-rose-500 text-fixed-white shadow-rose-900/40'
+                  : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 text-fixed-white shadow-blue-900/40 hover:scale-[1.01]'
               }`}
             >
               {isGenerating ? (
@@ -758,7 +761,7 @@ export const App: React.FC = () => {
                   onClick={() => setDraftMode('edit')}
                   className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
                     draftMode === 'edit'
-                      ? 'bg-blue-600 text-white shadow-sm'
+                      ? 'bg-blue-600 text-fixed-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                   title="实时编辑模式：直接在左侧修改文字，修改后即视同最新原文"
@@ -770,7 +773,7 @@ export const App: React.FC = () => {
                   onClick={() => setDraftMode('preview')}
                   className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
                     draftMode === 'preview'
-                      ? 'bg-blue-600 text-white shadow-sm'
+                      ? 'bg-blue-600 text-fixed-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                   title="排版预览模式：优雅呈现 Markdown 标题、排版与段落效果"
@@ -782,7 +785,7 @@ export const App: React.FC = () => {
                   onClick={() => setDraftMode('annotated')}
                   className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
                     draftMode === 'annotated'
-                      ? 'bg-blue-600 text-white shadow-sm'
+                      ? 'bg-blue-600 text-fixed-white shadow-sm'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                   title="批注对照模式：直观查看已设批注的黄色高亮与序号标记"
@@ -796,7 +799,7 @@ export const App: React.FC = () => {
               <span className="w-px h-5 bg-slate-700/70 mx-0.5" aria-hidden="true" />
               <button
                 onClick={handleClearDraft}
-                className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold shadow-lg shadow-rose-950/50 border border-rose-400/40 transition hover:scale-[1.03] active:scale-95"
+                className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-fixed-white font-bold shadow-lg shadow-rose-950/50 border border-rose-400/40 transition hover:scale-[1.03] active:scale-95"
                 title="一键清空左侧全部内容：草稿原文 + 所有精确批注（清空后可重新输入或导入新文稿）"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -881,11 +884,11 @@ export const App: React.FC = () => {
                         handleAddAnnotationForQuote(selectedTextareaQuote);
                         setSelectedTextareaQuote(null);
                       }}
-                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold shadow-2xl shadow-amber-950/80 border border-amber-300 transition hover:scale-105 cursor-pointer"
+                      className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-fixed-ink text-xs font-bold shadow-2xl shadow-amber-950/80 border border-amber-300 transition hover:scale-105 cursor-pointer"
                     >
-                      <BookmarkPlus className="w-4 h-4 text-slate-950" />
+                      <BookmarkPlus className="w-4 h-4 text-fixed-ink" />
                       <span>对选中文本添加修改意见</span>
-                      <span className="text-[10px] bg-slate-950/20 px-1.5 py-0.5 rounded text-slate-900 truncate max-w-[130px]">
+                      <span className="text-[10px] bg-fixed-ink/20 px-1.5 py-0.5 rounded text-fixed-ink truncate max-w-[130px]">
                         「{selectedTextareaQuote}」
                       </span>
                     </button>
@@ -994,7 +997,7 @@ export const App: React.FC = () => {
                     className={`p-3 rounded-xl border transition flex flex-col gap-1.5 ${
                       ann.enabled
                         ? 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
-                        : 'bg-slate-950/30 border-slate-900 opacity-60'
+                        : 'bg-slate-950/30 border-slate-800 opacity-60'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
@@ -1075,8 +1078,8 @@ export const App: React.FC = () => {
                 onClick={handleGenerateStrictSurgical}
                 className={`px-4 py-2.5 rounded-xl font-semibold text-xs md:text-sm transition flex items-center justify-center gap-2 shadow-lg whitespace-nowrap shrink-0 ${
                   isGenerating
-                    ? 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-900/40'
-                    : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-emerald-950/60 hover:scale-[1.02]'
+                    ? 'bg-rose-600 hover:bg-rose-500 text-fixed-white shadow-rose-900/40'
+                    : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-teal-500 text-fixed-white shadow-emerald-950/60 hover:scale-[1.02]'
                 }`}
                 title={
                   preserveOriginal
@@ -1091,7 +1094,7 @@ export const App: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-4 h-4 text-emerald-100" />
+                    <Sparkles className="w-4 h-4 text-fixed-white" />
                     <span>
                       {preserveOriginal
                         ? '⚡ 依据批注精准生文 (严格保留未改处)'
@@ -1133,7 +1136,7 @@ export const App: React.FC = () => {
                   onClick={() => setViewMode('preview')}
                   className={`px-2 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
                     viewMode === 'preview'
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-blue-600 text-fixed-white'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
@@ -1144,7 +1147,7 @@ export const App: React.FC = () => {
                   onClick={() => setViewMode('diff')}
                   className={`px-2 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
                     viewMode === 'diff'
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-blue-600 text-fixed-white'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
@@ -1155,7 +1158,7 @@ export const App: React.FC = () => {
                   onClick={() => setViewMode('raw')}
                   className={`px-2 py-1 rounded-md text-[11px] font-medium transition flex items-center gap-1 ${
                     viewMode === 'raw'
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-blue-600 text-fixed-white'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
@@ -1202,7 +1205,7 @@ export const App: React.FC = () => {
               </div>
               <button
                 onClick={handleTransferBackToDraft}
-                className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-900/30 transition flex items-center gap-1.5 shrink-0 hover:scale-[1.02]"
+                className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-fixed-white text-xs font-semibold shadow-md shadow-blue-900/30 transition flex items-center gap-1.5 shrink-0 hover:scale-[1.02]"
               >
                 <span>🔄 回传至左侧 (升级草稿 V{round + 1})</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -1234,7 +1237,7 @@ export const App: React.FC = () => {
               </div>
             ) : !revisedText ? (
               <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-3 py-24 select-none">
-                <FileText className="w-10 h-10 text-slate-700" />
+                <FileText className="w-10 h-10 text-slate-500" />
                 <div className="text-xs text-slate-400">
                   {selectedPresetId === 'novel'
                     ? '右侧是小说故事精修成文展示区。'
