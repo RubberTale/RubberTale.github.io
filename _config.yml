@@ -147,6 +147,7 @@ hide_posts:
   filter: hidden
   allowlist_generators:
     - category
+    - tag
   blocklist_generators:
     - index
     - archive
