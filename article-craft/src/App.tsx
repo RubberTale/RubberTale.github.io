@@ -742,16 +742,6 @@ export const App: React.FC = () => {
                 )}
               </div>
 
-              {/* Clear Draft Button */}
-              <button
-                onClick={handleClearDraft}
-                className="flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 font-medium transition"
-                title="清空当前草稿与所有批注"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-                <span>清空</span>
-              </button>
-
               {/* Mode Toggle Tabs */}
               <div className="flex items-center bg-slate-950 rounded-lg p-0.5 border border-slate-800">
                 <button
@@ -791,6 +781,17 @@ export const App: React.FC = () => {
                   <span>批注对照</span>
                 </button>
               </div>
+
+              {/* Clear Draft Button — 一键清空左侧（草稿原文 + 全部批注） */}
+              <span className="w-px h-5 bg-slate-700/70 mx-0.5" aria-hidden="true" />
+              <button
+                onClick={handleClearDraft}
+                className="flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold shadow-lg shadow-rose-950/50 border border-rose-400/40 transition hover:scale-[1.03] active:scale-95"
+                title="一键清空左侧全部内容：草稿原文 + 所有精确批注（清空后可重新输入或导入新文稿）"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>一键清空</span>
+              </button>
             </div>
           </div>
 
