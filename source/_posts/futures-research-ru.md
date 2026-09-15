@@ -3,8 +3,7 @@ title: 天然橡胶 (RU) 1-9 价差季节性实时看板
 date: 2026-04-17 15:00:00
 permalink: futures-research-ru/
 categories:
-  - 期货研究
-  - 数据终端
+  - 投研工具
 tags:
   - 橡胶
   - 套利

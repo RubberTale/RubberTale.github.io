@@ -7,7 +7,7 @@ tags:
   - OpenClaw
   - Token
 categories:
-  - 推荐
+  - 商务合作
 ---
 
 ### **【告别Token焦虑】领了这只“免费龙虾”，没道理不给它管饱！**

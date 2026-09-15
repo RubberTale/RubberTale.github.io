@@ -7,7 +7,7 @@ tags:
   - Notion数据库
   - 学术分布
 categories:
-  - 数学随笔
+  - 随笔
 description: 基于Notion「名人人物库」中收录的65位菲尔兹奖得主及相关候选人的真实数据，从国籍、本科学校、就读院校/博士培养机构等多个维度进行的统计与分布分析。
 cover: false
 ---
