@@ -132,6 +132,15 @@ aside: false
         <div class="flink-item-desc">3D电影级第一人称射击游戏：特种兵夜袭破败战火城市，全息瞄准机瞄、小队协同压制、近距爆炸与低空武装直升机支援！</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="/games/soldier-runner-3d/" title="小兵冲冲冲 3D" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:swords.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="小兵冲冲冲 3D">
+        </div>
+        <div class="flink-item-name">小兵冲冲冲 3D</div>
+        <div class="flink-item-desc">Three.js 手搓的 3D 数字门跑酷：开局一个小兵，穿过加减乘除的门把兵力滚起来，再撞碎挡路的红色军团。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多游戏卡片 -->
   </div>
 </div>
