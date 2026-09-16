@@ -36,6 +36,7 @@ skip_render:
   - "Prompts/**"
   - "games/commodity-crisis/**"
   - "games/kline-duel/**"
+  - "games/futures-quiz/**"
   - "games/reverse-app/**"
   - "games/billiards/**"
   - "games/deepslop/**"
@@ -44,7 +45,18 @@ skip_render:
   - "games/1942/**"
   - "games/bomberman/**"
   - "games/warzone-fps/**"
+  - "games/soldier-runner-3d/**"
   - "tools/*/**"
+  - "tools/pic-6varieties/**"
+  - "tools/comic-avatar/**"
+  - "tools/resume/**"
+  - "tools/arbitrage-calc/**"
+  - "tools/delivery-brands/**"
+  - "tools/position-calculator/**"
+  - "tools/rubber-weather-calendar/**"
+  - "tools/report-data-diff/**"
+  - "tools/strategy-tracker/**"
+  - "tools/ru-main-kline/**"
   - "rubber/**"
   - "roman/**"
   - "world-history/**"
@@ -139,6 +151,19 @@ exclude:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 
+# Hide posts from homepage and archive while keeping them visible in categories
+hide_posts:
+  enable: true
+  filter: hidden
+  allowlist_generators:
+    - category
+    - tag
+    - sitemap
+  blocklist_generators:
+    - index
+    - archive
+  noindex: false
+
 # theme: landscape
 theme: butterfly
 
@@ -162,5 +187,5 @@ nofollow:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github-rubbertale:RubberTale/RubberTale.github.io.git
-  branch: master
+  repo: git@github.com:RubberTale/RubberTale.github.io.git
+  branch: gh-pages

@@ -1,0 +1,85 @@
+import { VarietyConfig, RubberVariety } from '../types';
+
+export const VARIETY_CONFIGS: Record<RubberVariety, VarietyConfig> = {
+  RU: {
+    id: 'RU',
+    name: '天然橡胶 (RU)',
+    fullName: '上海期货交易所 · 天然橡胶',
+    exchange: 'SHFE (上期所)',
+    multiplier: 10,
+    tickSize: 5,
+    defaultSpotName: '上海国产全乳胶 (SCR WF)',
+    defaultSpotPrice: 15300,
+    defaultNearContract: 'RU2501',
+    defaultNearPrice: 15750,
+    defaultFarContract: 'RU2505',
+    defaultFarPrice: 16180,
+    defaultStorageFee: 1.5, // 上期所天胶标准仓单 1.5 元/吨/天
+  },
+  NR: {
+    id: 'NR',
+    name: '20号胶 (NR)',
+    fullName: '上海国际能源交易中心 · 20号胶',
+    exchange: 'INE (能源中心)',
+    multiplier: 10,
+    tickSize: 5,
+    defaultSpotName: '青岛保税区 STR20 美金折合/泰混现货',
+    defaultSpotPrice: 13150,
+    defaultNearContract: 'NR2501',
+    defaultNearPrice: 13420,
+    defaultFarContract: 'NR2505',
+    defaultFarPrice: 13680,
+    defaultStorageFee: 1.3, // 能源中心 20号胶 1.3 元/吨/天
+  },
+  BR: {
+    id: 'BR',
+    name: '合成橡胶/顺丁 (BR)',
+    fullName: '上海期货交易所 · 丁二烯橡胶',
+    exchange: 'SHFE (上期所)',
+    multiplier: 5,
+    tickSize: 5,
+    defaultSpotName: '华东齐鲁顺丁橡胶 (BR9000)',
+    defaultSpotPrice: 14200,
+    defaultNearContract: 'BR2501',
+    defaultNearPrice: 14550,
+    defaultFarContract: 'BR2505',
+    defaultFarPrice: 14800,
+    defaultStorageFee: 1.5, // 顺丁橡胶 1.5 元/吨/天
+  },
+};
+
+export const PRESET_SCENARIOS = [
+  {
+    title: 'RU 01-05 经典正向升水套利',
+    variety: 'RU' as RubberVariety,
+    spotPrice: 15300,
+    nearContract: 'RU2501',
+    nearPrice: 15750,
+    farContract: 'RU2505',
+    farPrice: 16220,
+    daysDiff: 120,
+    desc: '远月大幅升水，价差超 450 元，测算买近抛远或买现抛远的正套机会。',
+  },
+  {
+    title: 'NR 现货深贴水期现交割套利',
+    variety: 'NR' as RubberVariety,
+    spotPrice: 12900,
+    nearContract: 'NR2501',
+    nearPrice: 13580,
+    farContract: 'NR2505',
+    farPrice: 13850,
+    daysDiff: 120,
+    desc: '保税区现货对期货贴水达 680 元，测算买入现货注册仓单卖出期货的无风险收益。',
+  },
+  {
+    title: 'BR 现货强期货弱反向结构',
+    variety: 'BR' as RubberVariety,
+    spotPrice: 14600,
+    nearContract: 'BR2501',
+    nearPrice: 14350,
+    farContract: 'BR2505',
+    farPrice: 14100,
+    daysDiff: 120,
+    desc: '现货紧俏升水，期货呈现反向贴水结构 (Backwardation)，适合正向基差头寸。',
+  },
+];

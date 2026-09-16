@@ -287,17 +287,107 @@
         .btn-mini:hover {
             background: #4b5563;
         }
+        .btn-mode {
+            background: #1e3a8a;
+            border-color: #60a5fa;
+            color: #93c5fd;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-mode:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-mode.frenzy {
+            background: #b91c1c;
+            border-color: #f87171;
+            color: #fef08a;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
+            animation: frenzyGlow 1s infinite alternate;
+        }
+        @keyframes frenzyGlow {
+            0% { box-shadow: 0 0 4px rgba(239, 68, 68, 0.4); }
+            100% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.9); }
+        }
+
+        /* Mode Selection on Title Screen */
+        .mode-selection-box {
+            display: flex;
+            gap: 12px;
+            margin: 12px 0 16px;
+            width: 100%;
+            max-width: 480px;
+            justify-content: center;
+        }
+        .mode-card-btn {
+            flex: 1;
+            background: #1e293b;
+            border: 2px solid #475569;
+            border-radius: 8px;
+            padding: 10px 8px;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .mode-card-btn:hover {
+            border-color: #94a3b8;
+            background: #334155;
+        }
+        .mode-card-btn.active {
+            border-color: #38bdf8;
+            background: #0f172a;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+        }
+        .mode-card-btn.active.frenzy {
+            border-color: #ef4444;
+            color: #fef08a;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
+        .mode-card-title {
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: bold;
+        }
+        .mode-card-desc {
+            font-size: 7px;
+            line-height: 1.5;
+            opacity: 0.85;
+            text-align: center;
+        }
 
         @media (max-width: 768px) {
             #touch-controls {
                 display: flex;
             }
             #hud {
-                padding: 0 8px;
-                font-size: 9px;
+                padding: 0 6px;
+                font-size: 8px;
+            }
+            .hud-group {
+                gap: 6px;
+            }
+            .btn-mini {
+                padding: 3px 5px;
+                font-size: 7px;
             }
             .hud-badge {
                 display: none;
+            }
+            .mode-selection-box {
+                flex-direction: column;
+                gap: 8px;
+                width: 90%;
             }
         }
     </style>
@@ -313,6 +403,7 @@
             <div class="hud-group">
                 <div class="hud-item">LEFT <span id="hud-lives">3</span></div>
                 <div class="hud-item">STAGE <span id="hud-stage">1</span></div>
+                <button id="btn-mode" class="btn-mini btn-mode" title="切换模式 (快捷键 M)">🛡️ 经典模式</button>
                 <button id="btn-sound" class="btn-mini" title="切换音效">🔊</button>
                 <button id="btn-pause" class="btn-mini" title="暂停游戏">⏸️</button>
             </div>
@@ -327,12 +418,26 @@
         <div id="screen-title" class="overlay-screen">
             <div class="game-title">BOMBERMAN</div>
             <div class="subtitle">红白机经典炸弹人 · 8-BIT 怀旧传奇</div>
+
+            <!-- Mode Selection Options -->
+            <div class="mode-selection-box">
+                <button id="card-mode-classic" class="mode-card-btn active" type="button">
+                    <div class="mode-card-title">🛡️ 经典模式</div>
+                    <div class="mode-card-desc">原版 1 颗炸弹<br>吃道具逐步成长</div>
+                </button>
+                <button id="card-mode-frenzy" class="mode-card-btn frenzy" type="button">
+                    <div class="mode-card-title">🚀 无限轰炸</div>
+                    <div class="mode-card-desc">任意连放炸弹<br>自带穿弹地毯轰炸</div>
+                </button>
+            </div>
+
             <button id="btn-start" class="start-prompt">START GAME</button>
             <div class="instructions">
                 <div>🎮 <span>操作指南</span>:</div>
                 <div>• 移动: <span>方向键 ↑ ↓ ← →</span> 或 <span>W A S D</span></div>
-                <div>• 放炸弹: <span>空格键 Space</span> 或 <span>J</span></div>
+                <div>• 放炸弹: <span>空格键 Space</span> 或 <span>J</span>（无限模式下可按住连放）</div>
                 <div>• 引爆炸弹 (遥控器): <span>B 键</span> 或 <span>K / X</span></div>
+                <div>• 切换模式: <span>M 键</span> 或点击顶部 <span>[模式]</span> 按钮</div>
                 <div>• 暂停: <span>P 键</span> 或 <span>Esc</span></div>
                 <div style="margin-top: 6px;">💡 <span>通关秘籍</span>: 消灭关卡中所有怪物，并在砖块中炸出隐藏的<span>传送门</span>进入下一关！小心不要用炸弹炸到传送门哦！</div>
             </div>
@@ -462,6 +567,11 @@
 
         sfxExplode() {
             if (!this.enabled) return;
+            const now = performance.now();
+            if (this.lastExplodeTime && (now - this.lastExplodeTime < 60)) {
+                return;
+            }
+            this.lastExplodeTime = now;
             this.playNoise(0.45, 0.35, 1200);
             this.playTone(90, 0.35, 'sawtooth', 0.25);
         }
@@ -611,6 +721,7 @@
     const ctx = canvas.getContext('2d');
 
     let gameState = 'title'; // 'title', 'stage_card', 'playing', 'gameover', 'victory', 'paused'
+    let gameMode = 'classic'; // 'classic' | 'frenzy'
     let currentStage = 1;
     let score = 0;
     let lives = 3;
@@ -723,6 +834,11 @@
                     }
                 }
             }
+
+            // Auto drop bomb while holding bomb key in frenzy mode
+            if (keys.bomb && gameMode === 'frenzy') {
+                placeBomb();
+            }
         }
 
         applyPowerup(type) {
@@ -814,7 +930,7 @@
                     if (tile === TILE_BRICK && !this.canPassWalls) return false;
 
                     // Bomb collision check
-                    if (!this.canPassBombs) {
+                    if (!this.canPassBombs && gameMode !== 'frenzy') {
                         for (const b of bombs) {
                             if (b.col === c && b.row === r) {
                                 // If bomb is solid (player has left its bounding area), block entry
@@ -1221,7 +1337,7 @@
                 }
 
                 // Check other bombs in range: trigger chain explosion!
-                for (const b of bombs) {
+                for (const b of [...bombs]) {
                     if (b.col === c && b.row === r) {
                         b.explode();
                     }
@@ -1280,7 +1396,11 @@
         });
     }
 
+    let lastDoorHitTime = 0;
     function spawnDoorEnemies(c, r) {
+        const now = performance.now();
+        if (now - lastDoorHitTime < 3000) return;
+        lastDoorHitTime = now;
         createFloatingText(c * TILE_SIZE + 16, r * TILE_SIZE, 'MONSTERS AWAKEN!', '#ef4444');
         audio.sfxHitEnemy();
         for (let k = 0; k < 3; k++) {
@@ -1515,7 +1635,7 @@
 
     function placeBomb() {
         if (gameState !== 'playing' || player.dead) return;
-        if (bombs.length >= player.maxBombs) return;
+        if (gameMode !== 'frenzy' && bombs.length >= player.maxBombs) return;
 
         const col = Math.floor((player.x + player.width / 2) / TILE_SIZE);
         const row = Math.floor((player.y + player.height / 2) / TILE_SIZE);
@@ -1535,6 +1655,49 @@
         // Detonate the oldest placed bomb
         const b = bombs[0];
         if (b) b.explode();
+    }
+
+    function toggleGameMode(targetMode) {
+        if (targetMode) {
+            gameMode = targetMode;
+        } else {
+            gameMode = (gameMode === 'classic') ? 'frenzy' : 'classic';
+        }
+        updateModeUI();
+
+        if (player && !player.dead && gameState === 'playing') {
+            if (gameMode === 'frenzy') {
+                createFloatingText(player.x + 12, player.y - 8, '🚀 无限轰炸!', '#f43f5e');
+                audio.sfxPowerup();
+            } else {
+                createFloatingText(player.x + 12, player.y - 8, '🛡️ 经典模式', '#38bdf8');
+                audio.sfxDropBomb();
+            }
+        }
+    }
+
+    function updateModeUI() {
+        const btnMode = document.getElementById('btn-mode');
+        const cardClassic = document.getElementById('card-mode-classic');
+        const cardFrenzy = document.getElementById('card-mode-frenzy');
+
+        if (gameMode === 'frenzy') {
+            if (btnMode) {
+                btnMode.innerHTML = '🚀 无限轰炸';
+                btnMode.classList.add('frenzy');
+                btnMode.title = '当前: 无限轰炸模式 (点击或按 M 切回经典)';
+            }
+            if (cardClassic) cardClassic.classList.remove('active');
+            if (cardFrenzy) cardFrenzy.classList.add('active');
+        } else {
+            if (btnMode) {
+                btnMode.innerHTML = '🛡️ 经典模式';
+                btnMode.classList.remove('frenzy');
+                btnMode.title = '当前: 经典模式 (点击或按 M 开启无限轰炸)';
+            }
+            if (cardClassic) cardClassic.classList.add('active');
+            if (cardFrenzy) cardFrenzy.classList.remove('active');
+        }
     }
 
     /* ==========================================================
@@ -1753,11 +1916,17 @@
         if (code === 'ArrowRight' || code === 'KeyD') { keys.right = true; e.preventDefault(); }
 
         if (code === 'Space' || code === 'KeyJ') {
+            keys.bomb = true;
             placeBomb();
             e.preventDefault();
         }
         if (code === 'KeyB' || code === 'KeyK' || code === 'KeyX') {
             triggerRemoteDetonate();
+            e.preventDefault();
+        }
+
+        if (code === 'KeyM') {
+            toggleGameMode();
             e.preventDefault();
         }
 
@@ -1779,6 +1948,7 @@
         if (code === 'ArrowDown' || code === 'KeyS') keys.down = false;
         if (code === 'ArrowLeft' || code === 'KeyA') keys.left = false;
         if (code === 'ArrowRight' || code === 'KeyD') keys.right = false;
+        if (code === 'Space' || code === 'KeyJ') keys.bomb = false;
     });
 
     // Touch / Mobile D-Pad Events
@@ -1804,8 +1974,8 @@
 
     // Touch Action Buttons
     const btnBomb = document.getElementById('touch-bomb');
-    btnBomb.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); placeBomb(); btnBomb.classList.add('pressed'); });
-    btnBomb.addEventListener('touchend', (e) => { e.preventDefault(); btnBomb.classList.remove('pressed'); });
+    btnBomb.addEventListener('touchstart', (e) => { e.preventDefault(); audio.init(); keys.bomb = true; placeBomb(); btnBomb.classList.add('pressed'); });
+    btnBomb.addEventListener('touchend', (e) => { e.preventDefault(); keys.bomb = false; btnBomb.classList.remove('pressed'); });
     btnBomb.addEventListener('click', () => { audio.init(); placeBomb(); });
 
     const btnDetonate = document.getElementById('touch-detonate');
@@ -1817,6 +1987,15 @@
     document.getElementById('btn-start').addEventListener('click', () => { audio.init(); startGame(); });
     document.getElementById('btn-restart').addEventListener('click', () => { audio.init(); showStageCard(1); });
     document.getElementById('btn-playagain').addEventListener('click', () => { audio.init(); showStageCard(1); });
+
+    const btnMode = document.getElementById('btn-mode');
+    if (btnMode) btnMode.addEventListener('click', () => { audio.init(); toggleGameMode(); });
+
+    const cardClassic = document.getElementById('card-mode-classic');
+    if (cardClassic) cardClassic.addEventListener('click', () => { audio.init(); toggleGameMode('classic'); });
+
+    const cardFrenzy = document.getElementById('card-mode-frenzy');
+    if (cardFrenzy) cardFrenzy.addEventListener('click', () => { audio.init(); toggleGameMode('frenzy'); });
 
     document.getElementById('btn-sound').addEventListener('click', () => {
         audio.enabled = !audio.enabled;
@@ -1841,6 +2020,7 @@
     // Initialize Stage 1 preview and start loop
     initStage(1);
     updateHUD();
+    updateModeUI();
     requestAnimationFrame(gameLoop);
     </script>
 </body>

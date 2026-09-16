@@ -1,5 +1,5 @@
 ---
-title: 期货实验室 (Games)
+title: 游戏
 date: 2026-08-26 15:28:00
 aside: false
 ---
@@ -29,10 +29,19 @@ aside: false
 }
 </style>
 
-欢迎来到期货实验室！这里收集了一些互动的期货交易小游戏，帮助你在娱乐中理解市场逻辑。
+欢迎来到游戏专区！这里收集了一些有趣的网页小游戏与模拟器，带你在娱乐中放松与体验乐趣。
 
 <div class="flink">
   <div class="flink-list">
+    <div class="flink-list-item">
+      <a href="/games/futures-quiz/" title="期货竞答游戏" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:circle-help.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货竞答游戏">
+        </div>
+        <div class="flink-item-name">期货竞答游戏</div>
+        <div class="flink-item-desc">交易所、技术指标与交易规则速测，选完即判分，选项顺序每局随机。</div>
+      </a>
+    </div>
     <div class="flink-list-item">
       <a href="/games/kline-duel/" title="K线盲盒 · 极速决斗" target="_blank">
         <div class="flink-item-icon">
@@ -52,12 +61,12 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
-      <a href="/games/billiards/" title="黑八台球 · Eight Ball" target="_blank">
+      <a href="/games/billiards/" title="黑八台球 · 线上联机对战版" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:circle-dot.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="黑八台球">
         </div>
-        <div class="flink-item-name">黑八台球</div>
-        <div class="flink-item-desc">经典美式八球对战，击球入袋，切磋球技。</div>
+        <div class="flink-item-name">黑八台球 · 线上联机版</div>
+        <div class="flink-item-desc">支持注册账号、好友开房口令邀约、全网天梯快速匹配实时互打！</div>
       </a>
     </div>
     <div class="flink-list-item">
@@ -121,6 +130,15 @@ aside: false
         </div>
         <div class="flink-item-name">战火前线 · 3D特种突击</div>
         <div class="flink-item-desc">3D电影级第一人称射击游戏：特种兵夜袭破败战火城市，全息瞄准机瞄、小队协同压制、近距爆炸与低空武装直升机支援！</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/games/soldier-runner-3d/" title="小兵冲冲冲 3D" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:swords.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="小兵冲冲冲 3D">
+        </div>
+        <div class="flink-item-name">小兵冲冲冲 3D</div>
+        <div class="flink-item-desc">Three.js 手搓的 3D 数字门跑酷：开局一个小兵，穿过加减乘除的门把兵力滚起来，再撞碎挡路的红色军团。</div>
       </a>
     </div>
     <!-- 可以在此处添加更多游戏卡片 -->

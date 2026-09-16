@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>期货知识竞答 · 交易所与指标闯关</title>
+<meta name="description" content="中国期货知识竞答：交易所、技术指标、交易规则判断题与选择题。" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'/><line x1='12' y1='17' x2='12.01' y2='17'/></svg>" />
+<!-- Baidu Analytics -->
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?301a591b476305494eb47a7821a42915";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<style>
+  :root {
+    --panel: rgba(20, 24, 38, 0.86);
+    --panel-2: rgba(30, 35, 54, 0.7);
+    --border: rgba(99, 102, 241, 0.26);
+    --border-strong: rgba(99, 102, 241, 0.6);
+    --accent: #6366f1;
+    --accent-2: #38bdf8;
+    --accent-glow: rgba(99, 102, 241, 0.45);
+    --ok: #10b981;
+    --ok-bg: rgba(16, 185, 129, 0.12);
+    --bad: #f43f5e;
+    --bad-bg: rgba(244, 63, 94, 0.12);
+    --text: #f8fafc;
+    --sub: #94a3b8;
+    --dim: #64748b;
+    --radius: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html, body { min-height: 100%; }
+
+  body {
+    background: radial-gradient(circle at 50% 0%, #171a2e 0%, #0b0d16 45%, #07080d 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 16px calc(28px + env(safe-area-inset-bottom));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- 顶栏 ---------- */
+  .hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .back-blog {
+    flex: none;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid var(--border);
+    color: var(--accent-2);
+    font-size: 13px;
+    padding: 7px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .back-blog:hover { border-color: var(--border-strong); background: rgba(99, 102, 241, 0.2); }
+
+  .brand {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-align: center;
+    background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .score-pill {
+    flex: none;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    color: var(--sub);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 7px 12px;
+  }
+  .score-pill b { color: var(--text); font-weight: 700; }
+
+  /* ---------- 进度条 ---------- */
+  .progress {
+    height: 6px;
+    border-radius: 99px;
+    background: rgba(148, 163, 184, 0.14);
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .progress > i {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #38bdf8, #6366f1, #c084fc);
+    box-shadow: 0 0 14px var(--accent-glow);
+    transition: width .35s ease;
+  }
+
+  /* ---------- 卡片 ---------- */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+    animation: rise .32s ease-out both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .qtype {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    margin-bottom: 14px;
+    border: 1px solid currentColor;
+    opacity: .9;
+  }
+  .qtype.t-single    { color: #38bdf8; }
+  .qtype.t-multiple  { color: #c084fc; }
+  .qtype.t-truefalse { color: #facc15; }
+
+  /* ---------- 行情上下文（走势小图 + 数值） ---------- */
+  .ctx {
+    background: rgba(15, 18, 30, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 0 0 18px;
+  }
+  .ctx-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    color: var(--dim);
+  }
+  .ctx-head b { color: var(--accent-2); font-weight: 700; }
+  .ctx-spark { display: block; width: 100%; height: 56px; }
+  .ctx-vals {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--sub);
+  }
+  .ctx-vals span:last-child { color: var(--text); font-weight: 700; }
+
+  .qtext {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.65;
+    margin-bottom: 20px;
+    word-break: break-word;
+  }
+
+  .hint { font-size: 13px; color: var(--dim); margin: -12px 0 16px; }
+
+  /* ---------- 选项 ---------- */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    font-size: 15.5px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color .18s, background .18s, transform .12s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--border-strong); transform: translateX(2px); }
+  .opt:disabled { cursor: default; }
+
+  .opt .mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    border: 1.5px solid rgba(148, 163, 184, 0.5);
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--sub);
+    transition: all .18s;
+  }
+  .opt.radio .mark { border-radius: 50%; }
+
+  .opt.on { border-color: var(--accent); background: rgba(99, 102, 241, 0.16); }
+  .opt.on .mark { border-color: var(--accent); background: var(--accent); color: #fff; }
+
+  .opt.right { border-color: var(--ok); background: var(--ok-bg); }
+  .opt.right .mark { border-color: var(--ok); background: var(--ok); color: #04231a; }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+  .opt.wrong .mark { border-color: var(--bad); background: var(--bad); color: #2b0410; }
+
+  /* 判断题两个大按钮 */
+  .tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tf-row .opt { justify-content: center; font-size: 17px; font-weight: 700; padding: 20px 16px; }
+
+  /* ---------- 反馈 ---------- */
+  .feedback {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 14.5px;
+    display: none;
+    animation: rise .25s ease-out both;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok  { background: var(--ok-bg);  border: 1px solid rgba(16, 185, 129, 0.45); color: #6ee7b7; }
+  .feedback.bad { background: var(--bad-bg); border: 1px solid rgba(244, 63, 94, 0.45); color: #fda4af; }
+  .feedback .verdict { font-weight: 800; font-size: 15.5px; display: block; margin-bottom: 6px; }
+  .feedback .answer { color: var(--text); }
+  .feedback .answer b { color: #facc15; }
+
+  /* ---------- 按钮 ---------- */
+  .actions { margin-top: 20px; display: flex; gap: 10px; }
+
+  .btn {
+    flex: 1;
+    font: inherit;
+    font-size: 15.5px;
+    font-weight: 700;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    box-shadow: 0 10px 26px rgba(99, 102, 241, 0.36);
+  }
+  .btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(99, 102, 241, 0.5); }
+  .btn-primary:disabled { opacity: .38; cursor: not-allowed; box-shadow: none; }
+  .btn-ghost {
+    background: var(--panel-2);
+    border-color: rgba(148, 163, 184, 0.22);
+    color: var(--sub);
+    text-decoration: none;
+    display: block;
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--border-strong); }
+
+  /* ---------- 开始 / 结算 ---------- */
+  .center { text-align: center; }
+  .big-num {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-variant-numeric: tabular-nums;
+  }
+  .sub { color: var(--sub); font-size: 14.5px; }
+  .desc { color: var(--sub); font-size: 15px; margin: 14px 0 22px; line-height: 1.8; }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+    gap: 10px;
+    margin: 22px 0 4px;
+  }
+  .meta-grid div {
+    background: var(--panel-2);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 12px;
+    padding: 12px 8px;
+  }
+  .meta-grid b { display: block; font-size: 20px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+  .meta-grid span { font-size: 12px; color: var(--dim); }
+
+  .load-err { color: var(--bad); font-size: 14.5px; }
+
+  footer.tip {
+    margin-top: auto;
+    padding-top: 22px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--dim);
+  }
+  footer.tip kbd {
+    background: var(--panel-2);
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 5px;
+    padding: 1px 6px;
+    font-family: inherit;
+    font-size: 12px;
+  }
+
+  @media (max-width: 560px) {
+    .app { padding: 12px 12px calc(22px + env(safe-area-inset-bottom)); }
+    .card { padding: 18px 16px; border-radius: 14px; }
+    .qtext { font-size: 17px; }
+    .opt { font-size: 15px; padding: 13px 14px; }
+    .brand { font-size: 15px; }
+    .back-blog, .score-pill { font-size: 12px; padding: 6px 10px; }
+    .big-num { font-size: 44px; }
+    .tf-row .opt { padding: 17px 12px; font-size: 16px; }
+    footer.tip { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="hud">
+    <a href="/games/" class="back-blog">← 返回</a>
+    <div class="brand">期货知识竞答</div>
+    <div class="score-pill">得分 <b id="score">0</b></div>
+  </header>
+
+  <div class="progress"><i id="bar"></i></div>
+
+  <main id="stage">
+    <div class="card center">
+      <div class="sub">正在加载题库…</div>
+    </div>
+  </main>
+
+  <footer class="tip">
+    键盘：<kbd>1</kbd>–<kbd>5</kbd> 选择 · <kbd>Enter</kbd> 提交 / 下一题
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var DATA_URL = './assets/questions.json';
+
+  var LETTERS = 'ABCDE';
+
+  var state = {
+    all: [],       // 题库
+    queue: [],     // 本局题目（已乱序，选项已乱序）
+    idx: 0,
+    score: 0,
+    picked: [],    // 当前题已选索引
+    locked: false  // 已提交，禁止再改
+  };
+
+  var stage = document.getElementById('stage');
+  var bar = document.getElementById('bar');
+  var scoreEl = document.getElementById('score');
+
+  /* ---------------- 工具 ---------------- */
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+
+  function statCell(value, label) {
+    var d = el('div');
+    d.appendChild(el('b', null, String(value)));
+    d.appendChild(el('span', null, label));
+    return d;
+  }
+
+  /* 把一串收盘价画成迷你走势图 */
+  function sparkline(values) {
+    var W = 300, H = 56, PAD = 6;
+    var min = Math.min.apply(null, values);
+    var max = Math.max.apply(null, values);
+    var span = (max - min) || 1;
+    var step = (W - PAD * 2) / Math.max(values.length - 1, 1);
+
+    var pts = values.map(function (v, i) {
+      var x = PAD + i * step;
+      var y = H - PAD - ((v - min) / span) * (H - PAD * 2);
+      return [x, y];
+    });
+    var line = pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+    var area = 'M' + pts[0][0].toFixed(1) + ',' + (H - PAD) + ' L' + line.replace(/ /g, ' L') +
+               ' L' + pts[pts.length - 1][0].toFixed(1) + ',' + (H - PAD) + ' Z';
+    var last = pts[pts.length - 1];
+
+    var up = values[values.length - 1] >= values[0];
+    var color = up ? '#10b981' : '#f43f5e';
+
+    var svg = '<svg class="ctx-spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' +
+      '<defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="' + color + '" stop-opacity="0.28"/>' +
+      '<stop offset="100%" stop-color="' + color + '" stop-opacity="0"/>' +
+      '</linearGradient></defs>' +
+      '<path d="' + area + '" fill="url(#sg)"/>' +
+      '<polyline points="' + line + '" fill="none" stroke="' + color + '" stroke-width="2" ' +
+      'stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>' +
+      '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="3.5" fill="' + color + '"/>' +
+      '</svg>';
+    return svg;
+  }
+
+  function contextBlock(ctx) {
+    var wrap = el('div', 'ctx');
+    var head = el('div', 'ctx-head');
+    head.appendChild(el('b', null, esc(ctx.label || '行情')));
+    head.appendChild(el('span', null, '近 ' + ctx.values.length + ' 个交易日'));
+    wrap.appendChild(head);
+    wrap.insertAdjacentHTML('beforeend', sparkline(ctx.values));
+    var vals = el('div', 'ctx-vals');
+    ctx.values.forEach(function (v) {
+      vals.appendChild(el('span', null, String(v)));
+    });
+    wrap.appendChild(vals);
+    return wrap;
+  }
+
+  /* 乱序选项，并把正确答案的下标一起重映射 */
+  function prepare(q) {
+    var out = {
+      type: q.type,
+      topic: q.topic || null,
+      context: q.context || null,
+      question: q.question,
+      options: null,
+      answer: q.answer
+    };
+    if (q.type === 'single' || q.type === 'multiple') {
+      var order = shuffle(q.options.map(function (_, i) { return i; }));
+      out.options = order.map(function (i) { return q.options[i]; });
+      if (q.type === 'single') {
+        out.answer = order.indexOf(q.answer);
+      } else {
+        out.answer = q.answer.map(function (a) { return order.indexOf(a); })
+                            .sort(function (x, y) { return x - y; });
+      }
+    }
+    return out;
+  }
+
+  function setProgress() {
+    var total = state.queue.length || 1;
+    var done = state.idx + (state.locked ? 1 : 0);
+    bar.style.width = Math.round(Math.min(done / total, 1) * 100) + '%';
+  }
+
+  function topicOf(q) {
+    if (q.topic) return q.topic;
+    return q.type === 'truefalse' ? '判断题' : q.type === 'multiple' ? '多选题' : '单选题';
+  }
+
+  function topicCounts(list) {
+    var m = {};
+    list.forEach(function (q) {
+      var t = topicOf(q);
+      m[t] = (m[t] || 0) + 1;
+    });
+    return Object.keys(m)
+      .map(function (k) { return [k, m[k]]; })
+      .sort(function (a, b) { return b[1] - a[1]; });
+  }
+
+  /* ---------------- 开始 / 结算 ---------------- */
+  function renderStart() {
+    bar.style.width = '0%';
+    scoreEl.textContent = '0';
+
+    var c = el('div', 'card center');
+    c.appendChild(el('div', 'big-num', String(state.all.length)));
+    c.appendChild(el('div', 'sub', '道题目待挑战'));
+
+    var grid = el('div', 'meta-grid');
+    topicCounts(state.all).forEach(function (p) {
+      grid.appendChild(statCell(p[1], p[0]));
+    });
+    c.appendChild(grid);
+
+    c.appendChild(el('div', 'desc',
+      '既有交易所、技术指标与交易规则的知识题，也有取自真实行情的实战题：' +
+      '给一段走势判断次日涨跌、认当日主力合约、比当日涨幅强弱。' +
+      '每题答完立即判分，选项顺序每局随机。'));
+
+    var act = el('div', 'actions');
+    var quick = el('button', 'btn btn-primary', '快速一局（15 题）');
+    quick.addEventListener('click', function () { startRound(15); });
+    var full = el('button', 'btn btn-ghost', '全部 ' + state.all.length + ' 题');
+    full.addEventListener('click', function () { startRound(state.all.length); });
+    act.appendChild(quick);
+    act.appendChild(full);
+    c.appendChild(act);
+
+    stage.innerHTML = '';
+    stage.appendChild(c);
+  }
+
+  function renderResult() {
+    bar.style.width = '100%';
+    var total = state.queue.length;
+    var pct = total ? Math.round(state.score / total * 100) : 0;
+    var comment = pct >= 90 ? '期货老手，稳。'
+                : pct >= 70 ? '基础扎实，细节再抠一下。'
+                : pct >= 50 ? '及格线附近，交易所那几道容易混。'
+                : '概念还得再捋一遍，建议重来一局。';
+
+    var c = el('div', 'card center');
+    c.appendChild(el('div', 'big-num', pct + '%'));
+    c.appendChild(el('div', 'sub', '本局正确率'));
+
+    var grid = el('div', 'meta-grid');
+    grid.appendChild(statCell(state.score, '答对'));
+    grid.appendChild(statCell(total - state.score, '答错'));
+    grid.appendChild(statCell(total, '总题数'));
+    c.appendChild(grid);
+
+    // 分类正确率
+    var byTopic = {};
+    state.queue.forEach(function (q) {
+      var t = topicOf(q);
+      byTopic[t] = byTopic[t] || [0, 0];
+      byTopic[t][1]++;
+      if (q._ok) byTopic[t][0]++;
+    });
+    var keys = Object.keys(byTopic).sort(function (a, b) { return byTopic[b][1] - byTopic[a][1]; });
+    if (keys.length > 1) {
+      var tgrid = el('div', 'meta-grid');
+      keys.forEach(function (k) {
+        var cell = statCell(byTopic[k][0] + '/' + byTopic[k][1], k);
+        if (byTopic[k][0] === byTopic[k][1]) cell.style.borderColor = 'rgba(16,185,129,0.5)';
+        tgrid.appendChild(cell);
+      });
+      c.appendChild(el('div', 'sub', '分类正确率'));
+      c.appendChild(tgrid);
+    }
+
+    c.appendChild(el('div', 'desc', comment));
+
+    var act = el('div', 'actions');
+    var again = el('button', 'btn btn-primary', '再来一局');
+    again.addEventListener('click', function () { startRound(Math.min(15, state.all.length)); });
+    var back = el('a', 'btn btn-ghost', '返回游戏区');
+    back.href = '/games/';
+    act.appendChild(again);
+    act.appendChild(back);
+    c.appendChild(act);
+
+    stage.innerHTML = '';
+    stage.appendChild(c);
+  }
+
+  /* ---------------- 答题 ---------------- */
+  function startRound(n) {
+    var size = Math.max(1, Math.min(n || state.all.length, state.all.length));
+    state.queue = shuffle(state.all).slice(0, size).map(prepare);
+    state.idx = 0;
+    state.score = 0;
+    scoreEl.textContent = '0';
+    renderQuestion();
+  }
+
+  function current() { return state.queue[state.idx]; }
+
+  function renderQuestion() {
+    state.picked = [];
+    state.locked = false;
+    setProgress();
+
+    var q = current();
+    var c = el('div', 'card');
+
+    c.appendChild(el('span', 'qtype t-' + q.type,
+      topicOf(q) + ' · ' + (state.idx + 1) + '/' + state.queue.length));
+    c.appendChild(el('div', 'qtext', esc(q.question)));
+
+    if (q.context && q.context.values && q.context.values.length > 1) {
+      c.appendChild(contextBlock(q.context));
+    }
+
+    if (q.type === 'multiple') {
+      c.appendChild(el('div', 'hint', '多选题：可勾选多个选项，全部选对才算正确。'));
+    }
+
+    var box = el('div', q.type === 'truefalse' ? 'options tf-row' : 'options');
+
+    if (q.type === 'truefalse') {
+      [['true', '对', '✓'], ['false', '错', '✕']].forEach(function (spec) {
+        var b = el('button', 'opt',
+          '<span class="mark">' + spec[2] + '</span><span>' + spec[1] + '</span>');
+        b.dataset.val = spec[0];
+        b.addEventListener('click', function () { toggle(b, Number(spec[0] === 'false')); });
+        box.appendChild(b);
+      });
+    } else {
+      q.options.forEach(function (text, i) {
+        var b = el('button', 'opt' + (q.type === 'single' ? ' radio' : ''),
+          '<span class="mark">' + LETTERS[i] + '</span><span>' + esc(text) + '</span>');
+        b.addEventListener('click', function () { toggle(b, i); });
+        box.appendChild(b);
+      });
+    }
+    c.appendChild(box);
+
+    var fb = el('div', 'feedback');
+    c.appendChild(fb);
+
+    var act = el('div', 'actions');
+    var submit = el('button', 'btn btn-primary', '提交答案');
+    submit.disabled = true;
+    submit.addEventListener('click', function () {
+      if (state.locked) { next(); } else { check(); }
+    });
+    act.appendChild(submit);
+    c.appendChild(act);
+
+    c._submit = submit;
+    c._fb = fb;
+    c._box = box;
+
+    stage.innerHTML = '';
+    stage.appendChild(c);
+  }
+
+  function toggle(btn, i) {
+    if (state.locked) return;
+    var q = current();
+
+    if (q.type === 'multiple') {
+      var at = state.picked.indexOf(i);
+      if (at === -1) { state.picked.push(i); } else { state.picked.splice(at, 1); }
+      btn.classList.toggle('on');
+    } else {
+      state.picked = [i];
+      Array.prototype.forEach.call(btn.parentNode.children, function (b) {
+        b.classList.remove('on');
+      });
+      btn.classList.add('on');
+    }
+    var submit = stage.querySelector('.btn-primary');
+    if (submit) submit.disabled = state.picked.length === 0;
+  }
+
+  function isCorrect() {
+    var q = current();
+    if (q.type === 'single') {
+      return state.picked.length === 1 && state.picked[0] === q.answer;
+    }
+    if (q.type === 'multiple') {
+      var a = state.picked.slice().sort(function (x, y) { return x - y; });
+      var b = q.answer.slice().sort(function (x, y) { return x - y; });
+      return a.length === b.length && a.every(function (v, i) { return v === b[i]; });
+    }
+    // 判断题：按钮顺序 [对, 错] -> 索引 0 代表 true，1 代表 false
+    return state.picked.length === 1 && (state.picked[0] === 0) === q.answer;
+  }
+
+  function answerText(q) {
+    if (q.type === 'truefalse') return q.answer ? '对' : '错';
+    if (q.type === 'single') return q.options[q.answer];
+    return q.answer.map(function (i) { return q.options[i]; }).join('、');
+  }
+
+  function check() {
+    var q = current();
+    var ok = isCorrect();
+    state.locked = true;
+    q._ok = ok;                     // 记录本题结果，供结算页按题型统计
+    if (ok) { state.score++; scoreEl.textContent = String(state.score); }
+    setProgress();
+
+    var card = stage.querySelector('.card');
+
+    Array.prototype.forEach.call(card._box.children, function (b, i) {
+      b.disabled = true;
+      var isAns = q.type === 'single' ? (i === q.answer)
+                : q.type === 'multiple' ? (q.answer.indexOf(i) !== -1)
+                : ((i === 0) === q.answer);
+      var chosen = state.picked.indexOf(i) !== -1;
+      b.classList.remove('on');
+      if (isAns) { b.classList.add('right'); }
+      else if (chosen) { b.classList.add('wrong'); }
+    });
+
+    var fb = card._fb;
+    fb.className = 'feedback show ' + (ok ? 'ok' : 'bad');
+    fb.innerHTML = '<span class="verdict">' + (ok ? '✅ 正确' : '❌ 答错了') + '</span>' +
+      (ok ? '' : '<span class="answer">正确答案：<b>' + esc(answerText(q)) + '</b></span>');
+
+    var submit = card._submit;
+    submit.textContent = (state.idx === state.queue.length - 1) ? '查看成绩' : '下一题';
+    submit.disabled = false;
+  }
+
+  function next() {
+    if (state.idx === state.queue.length - 1) { renderResult(); return; }
+    state.idx++;
+    renderQuestion();
+  }
+
+  /* ---------------- 键盘 ---------------- */
+  document.addEventListener('keydown', function (e) {
+    var card = stage.querySelector('.card');
+    if (!card || !card._box) return;
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (!card._submit.disabled) card._submit.click();
+      return;
+    }
+    if (state.locked) return;
+
+    var n = parseInt(e.key, 10);
+    if (!n) return;
+    var limit = current().type === 'truefalse' ? 2 : card._box.children.length;
+    if (n >= 1 && n <= limit) {
+      e.preventDefault();
+      card._box.children[n - 1].click();
+    }
+  });
+
+  /* ---------------- 启动 ---------------- */
+  fetch(DATA_URL, { cache: 'no-cache' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      state.all = (data || []).filter(function (q) {
+        if (!q || !q.question) return false;
+        if (q.type === 'truefalse') return typeof q.answer === 'boolean';
+        if (q.type === 'single') {
+          return Array.isArray(q.options) && q.options.length > 0 &&
+                 typeof q.answer === 'number' && q.answer >= 0 && q.answer < q.options.length;
+        }
+        if (q.type === 'multiple') {
+          return Array.isArray(q.options) && q.options.length > 0 &&
+                 Array.isArray(q.answer) && q.answer.length > 0 &&
+                 q.answer.every(function (a) { return typeof a === 'number' && a >= 0 && a < q.options.length; });
+        }
+        return false;
+      });
+      if (!state.all.length) throw new Error('题库为空');
+      renderStart();
+    })
+    .catch(function (err) {
+      stage.innerHTML = '';
+      var c = el('div', 'card center');
+      c.appendChild(el('div', 'load-err', '题库加载失败：' + esc(err.message)));
+      c.appendChild(el('div', 'desc', '请刷新重试，或稍后再来。'));
+      stage.appendChild(c);
+    });
+})();
+</script>
+</body>
+</html>

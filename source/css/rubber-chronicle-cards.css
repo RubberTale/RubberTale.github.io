@@ -1,0 +1,227 @@
+/* 橡胶大事记 —— 卡片视图
+ * 通过 _config.butterfly.yml inject 注入全站，仅在 .rc-cards 存在时生效
+ */
+
+.rc-cards {
+  --rc-bg: #ffffff;
+  --rc-bg-soft: #f7f8fa;
+  --rc-border: #e5e8ec;
+  --rc-border-hover: #cfd5dd;
+  --rc-text: #1b1f24;
+  --rc-text-2: #5b6470;
+  --rc-text-3: #8b949e;
+  --rc-accent: #14532d;
+  --rc-accent-soft: #e8f6ed;
+  --rc-appendix: #8a5a00;
+  --rc-appendix-soft: #fdf4e3;
+  --rc-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 2px 8px rgba(16, 24, 40, 0.05);
+  --rc-shadow-hover: 0 2px 4px rgba(16, 24, 40, 0.06), 0 12px 28px rgba(16, 24, 40, 0.12);
+}
+
+html[data-theme="dark"] .rc-cards {
+  --rc-bg: #161b22;
+  --rc-bg-soft: #1c222b;
+  --rc-border: #262d38;
+  --rc-border-hover: #3a4553;
+  --rc-text: #e6edf3;
+  --rc-text-2: #a7b1bd;
+  --rc-text-3: #7d8794;
+  --rc-accent: #7ee2a8;
+  --rc-accent-soft: #16301f;
+  --rc-appendix: #e5b567;
+  --rc-appendix-soft: #33260e;
+  --rc-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --rc-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- 容器 ---------- */
+.rc-wrap {
+  margin: 0.5rem 0 1.5rem;
+}
+
+.rc-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.rc-count {
+  font-size: 0.86rem;
+  color: var(--rc-text-2);
+  margin-right: auto;
+}
+.rc-count b {
+  color: var(--rc-accent);
+  font-weight: 600;
+}
+
+.rc-filter {
+  appearance: none;
+  border: 1px solid var(--rc-border);
+  background: var(--rc-bg);
+  color: var(--rc-text);
+  border-radius: 8px;
+  padding: 0.32rem 2rem 0.32rem 0.7rem;
+  font-size: 0.86rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  transition: border-color 0.16s;
+}
+.rc-filter:hover {
+  border-color: var(--rc-border-hover);
+}
+.rc-filter:focus {
+  outline: none;
+  border-color: var(--rc-accent);
+}
+
+/* ---------- 网格 ---------- */
+.rc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.75rem;
+}
+
+/* ---------- 卡片 ---------- */
+.rc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--rc-bg);
+  border: 1px solid var(--rc-border);
+  border-radius: 12px;
+  padding: 0.8rem 0.85rem 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--rc-shadow);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  overflow: hidden;
+  min-height: 150px;
+}
+.rc-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--rc-accent);
+  opacity: 0.55;
+  transition: opacity 0.16s;
+}
+.rc-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--rc-shadow-hover);
+  border-color: var(--rc-border-hover);
+}
+.rc-card:hover::before {
+  opacity: 1;
+}
+.rc-card.rc-appendix::before {
+  background: var(--rc-appendix);
+}
+
+/* 章节序号徽标 */
+.rc-badge {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+  background: var(--rc-accent-soft);
+  color: var(--rc-accent);
+  margin-bottom: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.rc-card.rc-appendix .rc-badge {
+  background: var(--rc-appendix-soft);
+  color: var(--rc-appendix);
+}
+
+/* 卡片标题 */
+.rc-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--rc-text);
+  margin: 0 0 0.4rem;
+}
+
+/* 摘要 */
+.rc-abstract {
+  font-size: 0.8rem;
+  line-height: 1.62;
+  color: var(--rc-text-2);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 章节归属（页脚） */
+.rc-foot {
+  margin-top: auto;
+  padding-top: 0.55rem;
+  font-size: 0.72rem;
+  color: var(--rc-text-3);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-top: 1px dashed var(--rc-border);
+}
+.rc-foot i {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+/* ---------- 加载 / 空态 ---------- */
+.rc-loading,
+.rc-empty {
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--rc-text-3);
+  font-size: 0.88rem;
+}
+
+/* 原列表在卡片模式下隐藏（class 由 JS 加在 #category 上） */
+#category.rc-hide-sort .article-sort {
+  display: none;
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .rc-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.6rem;
+  }
+  .rc-card {
+    min-height: 112px;
+    padding: 0.7rem 0.75rem;
+  }
+  .rc-title {
+    font-size: 0.88rem;
+  }
+  .rc-abstract {
+    -webkit-line-clamp: 2;
+    font-size: 0.76rem;
+  }
+  .rc-toolbar {
+    gap: 0.4rem;
+  }
+  .rc-count {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .rc-grid {
+    grid-template-columns: 1fr;
+  }
+}

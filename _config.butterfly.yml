@@ -11,7 +11,7 @@
 
 nav:
   # Navigation bar logo image
-  logo:
+  logo: /img/橡胶童话logo.png
   display_title: true
   display_post_title: true
   # Whether to fix navigation bar
@@ -22,19 +22,35 @@ menu:
   归档: /archives/ || fas fa-archive
   分类: /categories/ || fas fa-folder-open
   标签: /tags/ || fas fa-tags
+  期货导航: /futures-nav/ || fas fa-compass
   图表: /charts/ || fas fa-chart-bar
   橡胶主要数据图表: /powerbi/ || fas fa-chart-pie
-  地图 || fas fa-map:
-    罗马地图: /roman/ || fas fa-map-marked-alt
-    世界史地图: /world-history/ || fas fa-globe-asia
-    欧洲王室谱系: /royal-genealogy/ || fas fa-crown
+  赞赏支持: /sponsor/ || fas fa-coffee
   游戏: /games/ || fas fa-gamepad
-  小工具: /tools/ || fas fa-tools
-  降雨量 || fas fa-cloud-showers-heavy:
-    景洪: https://www.nmc.cn/publish/forecast/AYN/jinghong.html || fas fa-cloud-rain
-    勐腊: https://www.nmc.cn/publish/forecast/AYN/zuola.html || fas fa-cloud-rain
-    海南白沙: https://www.nmc.cn/publish/forecast/AHI/baisha.html || fas fa-cloud-rain
-    海南儋州: https://www.nmc.cn/publish/forecast/AHI/zuozhou.html || fas fa-cloud-rain
+  小工具 || fas fa-tools:
+    小工具箱: /tools/ || fas fa-toolbox
+    RU全历史K线: /tools/ru-main-kline/ || fas fa-wave-square
+    量化跟踪雷达: /tools/strategy-tracker/ || fas fa-crosshairs
+    期货投研导航: /futures-nav/ || fas fa-compass
+    基差价差套利: /tools/arbitrage-calc/ || fas fa-balance-scale
+    橡胶交割品牌: /tools/delivery-brands/ || fas fa-stamp
+    凯利仓位测算: /tools/position-calculator/ || fas fa-calculator
+    产区气象物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
+    卫星云图观察: /rubber/weather_forecast/ || fas fa-satellite
+    研报平衡表比对: /tools/report-data-diff/ || fas fa-file-invoice
+    罗马历史地图: /roman/ || fas fa-map-marked-alt
+    世界史对照地图: /world-history/ || fas fa-globe-asia
+    欧洲王室谱系: /royal-genealogy/ || fas fa-crown
+    景洪降雨预报: https://www.nmc.cn/publish/forecast/AYN/jinghong.html || fas fa-cloud-rain
+    勐腊降雨预报: https://www.nmc.cn/publish/forecast/AYN/zuola.html || fas fa-cloud-rain
+    海南白沙降雨: https://www.nmc.cn/publish/forecast/AHI/baisha.html || fas fa-cloud-rain
+    海南儋州降雨: https://www.nmc.cn/publish/forecast/AHI/zuozhou.html || fas fa-cloud-rain
+    智能简历工坊: /tools/resume/ || fas fa-file-alt
+    文本倒序转换: /tools/reverse-app/ || fas fa-repeat
+    AI写真工坊: /tools/pic-6varieties/ || fas fa-camera
+    语音智坊 (TTS): /tools/edge-tts/ || fas fa-microphone-alt
+    AI漫画头像: /tools/comic-avatar/ || fas fa-magic
+    奇货可查: https://qhkch.com/ || fas fa-chart-line
   # ...其他你不需要的可以在前面加 # 注释掉
 
 # --------------------------------------
@@ -224,15 +240,12 @@ post_copyright:
 
 # Sponsor/reward
 reward:
-  enable: false
-  text:
+  enable: true
+  text: 创作不易，长期维护更需心血。若本文对您有所启发，欢迎赞赏支持作者！☕
   QR_code:
-    # - img: /img/wechat.jpg
-    #   link:
-    #   text: wechat
-    # - img: /img/alipay.jpg
-    #   link:
-    #   text: alipay
+    - img: /img/wechat-reward.jpg
+      link:
+      text: 微信赞赏
 
 # Post edit
 # Easily browse and edit blog source code online.
@@ -310,7 +323,7 @@ aside:
       link: https://github.com/RubberTale
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: '欢迎来到橡胶童话！本站持续独立开发与投研中。若这里的文章与工具对您有所帮助，欢迎 <a href="/sponsor/" style="color:#3b82f6;font-weight:bold;"><i class="fas fa-coffee"></i>【赞助支持】</a> ☕'
   card_recent_post:
     enable: true
     # If set 0 will show all
@@ -971,6 +984,7 @@ abcjs:
 # https://github.com/mermaid-js/mermaid
 mermaid:
   enable: true
+  code_write: true
   # Write Mermaid diagrams using code blocks
   # built-in themes: default / forest / dark / neutral
   theme:
@@ -1088,7 +1102,11 @@ css_prefix: true
 
 inject:
   head:
+    - <link rel=stylesheet href=/css/blog-chat-widget.css>
+    - <link rel=stylesheet href=/css/rubber-chronicle-cards.css>
   bottom:
+    - <script src=/js/blog-chat-widget.js></script>
+    - <script src=/js/rubber-chronicle-cards.js></script>
    
 
 # CDN Settings

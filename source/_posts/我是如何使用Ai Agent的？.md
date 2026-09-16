@@ -2,7 +2,8 @@
 title: 我是如何使用Ai Agent的？
 date: 2026-04-20 10:00:00
 tags: [AI Agent, CLI, Obsidian]
-categories: AI
+categories:
+  - 科技与AI
 ---
 
 ## 从聊天窗口到 Agent 的转变

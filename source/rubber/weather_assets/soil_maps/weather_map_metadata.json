@@ -1,0 +1,25 @@
+{
+  "updated_at": {
+    "value": "2026-09-08T07:08:21+08:00"
+  },
+  "smops": {
+    "date": "2026-09-06",
+    "source": "NOAA/NESDIS/STAR SMOPS",
+    "url": "https://www.star.nesdis.noaa.gov/data/smcd1/SMOPS/global/Blended/2026/NOAA_SMOPS_Blended_SoilMoisture_20260906_GLB.gif",
+    "last_modified": "Mon, 07 Sep 2026 20:42:15 GMT"
+  },
+  "cpc_soil": {
+    "date": "2026-09-06",
+    "source": "NOAA CPC Current Land Surface Status",
+    "url": "https://www.cpc.ncep.noaa.gov/soilmst/glb_d/curr.w.a_gl.gif",
+    "last_modified": "Mon, 07 Sep 2026 17:53:19 GMT",
+    "label": "CPC current soil moisture anomaly"
+  },
+  "cpc_temp": {
+    "date": "2026-09-06",
+    "source": "NOAA CPC Current Land Surface Status",
+    "url": "https://www.cpc.ncep.noaa.gov/soilmst/glb_d/curr.t.a_gl.gif",
+    "last_modified": "Mon, 07 Sep 2026 17:53:19 GMT",
+    "label": "CPC current 2m temperature anomaly"
+  }
+}
