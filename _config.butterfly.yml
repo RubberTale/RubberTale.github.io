@@ -1102,7 +1102,9 @@ css_prefix: true
 
 inject:
   head:
+    - <link rel=stylesheet href=/css/blog-chat-widget.css>
   bottom:
+    - <script src=/js/blog-chat-widget.js></script>
    
 
 # CDN Settings
