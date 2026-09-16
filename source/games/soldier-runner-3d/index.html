@@ -80,7 +80,7 @@
     <div id="popup"></div>
     <div class="curse-tag" id="curseTag"></div>
     <div id="flash"></div>
-    <div class="hint" id="hint">左右拖动屏幕 / ← → 控制方向<br><span style="font-size:11px;opacity:.75">橙色门数字很大，但会留下代价</span></div>
+    <div class="hint" id="hint">左右拖动屏幕 / ← → 控制方向<br><span style="font-size:11px;opacity:.75">橙色门数字更肥，但会留下代价 —— 兵力多时才划算</span></div>
     <div class="audiobar" id="audiobar" style="display:none">
       <button class="audio-btn" id="musicToggle" title="音乐开关" aria-label="音乐开关">♪</button>
       <div class="vol-wrap">
@@ -92,7 +92,7 @@
       <div class="card">
         <h1 id="ovTitle">小兵冲冲冲 3D</h1>
         <div class="stat" id="ovStat" style="display:none">0</div>
-        <p id="ovText">穿过数字门把兵力变大<br>然后撞碎挡路的敌兵<br><br><span style="font-size:12px;opacity:.68">橙色门数字更肥，代价会在后面几关咬你</span></p>
+        <p id="ovText">穿过数字门把兵力变大<br>然后撞碎挡路的敌兵<br><br><span style="font-size:12px;opacity:.68">橙色门数字更肥，但会留下代价<br>兵力少时它反而亏 —— 看清楚再选</span></p>
         <button id="ovBtn">开始</button>
       </div>
     </div>
@@ -207,7 +207,10 @@ class Crowd {
     this.hordeGeo = hg;
   }
   /* 超出精模的部分用点云表示：数量越多铺得越深越宽，
-     让人一眼看出"这是人海"，而不是只有一小撮。 */
+     让人一眼看出"这是人海"，而不是只有一小撮。
+     ⚠️ 铺在"前方"而不是身后 —— 相机在玩家背后 11 米朝前看，
+     铺在身后等于塞在相机与玩家之间，只能看到脚边一堆点，
+     "我领着大军"的观感完全传不出来。 */
   updateHorde() {
     const extra = Math.max(0, this.count - this.units.length);
     if (!extra) { this.horde.visible = false; return; }
@@ -217,18 +220,24 @@ class Crowd {
       this.HORDE_MAX * Math.log10(1 + extra) / Math.log10(1 + 4000)));
     this.hordeN = n;
     const sp = this.spread;
-    // 从精模阵列的最后一排接着往后铺，间距和精模一致，
-    // 这样人海和前排是连成一片的，不会看起来像两拨人
+    // 从精模阵列的最后一排继续往前延伸，和前排连成一片（不另起一拨人）
     const tailZ = -Math.ceil(this.units.length / 22) * sp * 1.7 * this.dir;
+    // 22 列 × 0.38 ≈ 8.4 米，比路面（半宽 4.2）还宽 —— 必须收窄，
+    // 否则人海会糊到草地和护栏外面去。按路面宽度的 78% 来限制。
     const cols = 22;
+    const xLimit = 3.2;
+    const step = (xLimit * 2) / cols;
     for (let i = 0; i < n; i++) {
       const row = Math.floor(i / cols);
       const col = i % cols;
-      // 铺宽时也要留在路面内（路面半宽约 4.2），否则人海会糊到草地上
-      const widen = Math.min(1 + row * 0.04, 3.9 / (sp * cols / 2));
-      this.hordePos[i * 3] = (col - (cols - 1) / 2) * sp * widen;
-      this.hordePos[i * 3 + 1] = 0.34;
-      this.hordePos[i * 3 + 2] = tailZ + (-row - 1) * sp * 1.7 * this.dir;
+      // 加抖动：规整网格看起来像贴图，不像人群
+      const jx = (Math.random() - 0.5) * step * 0.9;
+      const jz = (Math.random() - 0.5) * sp * 1.1;
+      const rowW = Math.min(1, 0.72 + row * 0.02);
+      this.hordePos[i * 3] = (col - (cols - 1) / 2) * step * rowW + jx;
+      this.hordePos[i * 3 + 1] = 0.3 + Math.random() * 0.12;
+      // dir<0（玩家）时继续向 -z（前方）铺开
+      this.hordePos[i * 3 + 2] = tailZ + (row + 1) * sp * 1.7 * this.dir + jz;
     }
     this.hordeGeo.attributes.position.needsUpdate = true;
     this.hordeGeo.setDrawRange(0, n);
@@ -708,15 +717,37 @@ const CURSES = {
   }
 };
 
-// 交换门只在第 2 关之后出现，避免开局就吓到人
+// 交换门按"每关配额"出现，而不是掷骰子。
+// 早期版本用 Math.random() < 0.42，实测每局只撞到 4.3 个、首关仅 22% 的门面 ——
+// 玩家大部分时间看到的都是普通门，根本感觉不到"这游戏有取舍"。
+// 经验：概率型效果的出现率必须远高于 50% 才成立，否则改成确定性配额。
+//
+// ⚠️ 但配额不能等于"本关门数" —— 那样每个门都带代价，失去了参照物，
+// 而且代价叠加会让关卡变成数学上的必死。必须永远留至少一个纯正面门。
+// GATE_COUNTS = [2,2,3,3,3]，所以配额取"本关门数 - 1"。
+let curseLeft = 0;        // 本关还剩几个交换门配额没放
+let gatesLeftInRound = 0; // 本关还剩几个门没放（用来保证至少留一个正常门）
+
 function maybeCurseOp(base) {
-  if (roundNo < 2 || Math.random() > 0.42) return base;
+  gatesLeftInRound--;
+  // 只剩最后一个门时必须给正常门：代价要有"不选的选项"才成立
+  if (curseLeft <= 0 || gatesLeftInRound < 1) return base;
+  curseLeft--;
   const keys = ['cap', 'drift', 'swarm', 'tax'];
   const k = keys[Math.floor(Math.random() * keys.length)];
   // 有代价就必须给甜头：把基础效果显著加强
   if (k === 'tax') return { t: '×', v: Math.random() < 0.5 ? 3 : 4, curse: 'tax' };
   if (base.t === '×') return { t: '×', v: Math.min(6, base.v + 2), curse: k };
   return { t: '×', v: 3, curse: k };
+}
+
+// 每关开始时按"本关门数"发配额：一半左右的门带代价，
+// 剩下的一半是纯正面门，这样"选哪个"才是个真问题。
+function setRoundCurseQuota() {
+  const gi = Math.min(roundNo - 1, GATE_COUNTS.length - 1);
+  const n = GATE_COUNTS[gi];
+  gatesLeftInRound = n;
+  curseLeft = Math.max(1, Math.floor(n / 2));   // 2门→1个, 3门→1个
 }
 
 const curseText = (op) => (op && op.curse ? CURSES[op.curse].label : '');
@@ -744,7 +775,17 @@ function pickBad(E) {
 }
 function genPair(E) {
   let a = maybeCurseOp(pickGood(E));
-  let b = Math.random() < DBL_POS ? { t: '+', v: Math.max(3, Math.round(E * 0.3)) } : pickBad(E);
+  // 如果 a 是交换门（通常是 ×3~×6 的大倍数），另一侧必须是"量级相当"的
+  // 正常门，否则 ×3 vs +3 这种比较根本没有悬念 —— 玩家闭眼选橙色，
+  // "权衡"就不存在了。让正常门给到接近玩家的当前兵力，才有得比。
+  let b;
+  if (a.curse) {
+    b = Math.random() < 0.5
+      ? { t: '+', v: Math.max(6, Math.round(E * (0.9 + Math.random() * 0.6))) }
+      : { t: '×', v: 2 };
+  } else {
+    b = Math.random() < DBL_POS ? { t: '+', v: Math.max(3, Math.round(E * 0.3)) } : pickBad(E);
+  }
   // 排序必须用 resolveGate：par 和玩家走的是同一套结算（含上限与代价），
   // 否则 par 会一路虚高，后面的敌兵直接变成不可能完成的任务
   if (resolveGate(a, E) < resolveGate(b, E)) { const t = a; a = b; b = t; }
@@ -829,6 +870,8 @@ function spawnNext() {
     // 否则 par 只增不减 → 敌兵越滚越大 → 完美玩家也必死
     par = Math.max(1, par - ec);
     roundNo++;
+    // 进入新关卡：发本关配额。首关就发，让玩家开局 10 秒内撞上取舍。
+    setRoundCurseQuota();
     cursor -= ENEMY_GAP;
   } else {
     buildFinish(cursor);
@@ -906,6 +949,7 @@ function resetGame() {
   capMul = 1;
   steerLock = 0;
   swarmMul = 1;
+  setRoundCurseQuota();   // 首关就发配额，别把新机制藏到第 2 关之后
 
   playerCrowd = new Crowd({ body: 0x2f7fe0, body2: 0x1d5fb0, head: 0xffe0b8, dir: -1, spread: 0.38 });
   playerCrowd.base.set(0, 0, 0);
@@ -1069,12 +1113,14 @@ function doClash() {
   battle.enemyP = P;
 
   burst(state.x, 1.1, state.z - 2.0);
-  shake = 0.55;
 
   // 撞击的"肉感"三件套：顿帧 + 白闪 + 慢镜头
-  hitstop = 0.085;
-  flashScreen(win ? 0.55 : 0.75, win ? '#ffffff' : '#ff9b9b');
-  timeScale = 0.32;
+  // 顿帧 85ms 实测约 5 帧，人眼几乎无感 —— 调高到 170ms 才真正"卡"得住，
+  // 慢镜头再往后拖一拍，让撞击那一刻占据明显更长的主观时间。
+  hitstop = win ? 0.17 : 0.22;
+  flashScreen(win ? 0.8 : 0.95, win ? '#ffffff' : '#ff9b9b');
+  timeScale = 0.18;
+  shake = win ? 0.55 : 0.8;
 
   // 敌人被打散的数字碎片：顺手把减员量当作飞溅数值
   if (win) {
@@ -1173,7 +1219,7 @@ function tick() {
     hitstop -= dt;
     dt = 0;
   } else if (timeScale < 1) {
-    timeScale = Math.min(1, timeScale + dt * 3.4);
+    timeScale = Math.min(1, timeScale + dt * 2.6);
     dt *= timeScale;
   }
   elapsed += dt;
@@ -1242,6 +1288,10 @@ globalThis.__GAME_HOOK = {
   state,
   get pending() { return pending; },
   applyOp,
+  resetGame,
+  get playerCrowd() { return playerCrowd; },
+  // 打击感相关的实时量，供无头脚本量化"顿帧到底有没有发生"
+  get feel() { return { hitstop, timeScale, shake, capMul, swarmMul, steerLock, curseLeft, gatesLeftInRound }; },
   music: MUSIC
 };
 
