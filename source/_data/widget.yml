@@ -1,221 +1,147 @@
 top:
-  - class_name: card-edge-tts
-    id_name: card-edge-tts
-    icon: fas fa-microphone-lines
-    name: 语音智坊 (TTS) 快捷工具
-    html: |
-      <div class="edge-tts-widget" style="font-size: 0.84rem; line-height: 1.55;">
-        <div style="margin-bottom: 8px;">
-          <textarea id="widget-tts-text" style="width: 100%; height: 75px; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 6px; padding: 6px 8px; font-size: 0.8rem; outline: none; resize: none; color: inherit;" placeholder="填入文字，快速生成语音..."></textarea>
-        </div>
-        <div style="display: flex; gap: 8px; margin-bottom: 8px; align-items: center;">
-          <select id="widget-tts-voice" style="flex: 1; background: rgba(128, 128, 128, 0.08); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 4px; padding: 4px; font-size: 0.76rem; color: inherit; outline: none; cursor: pointer;">
-            <option value="zh-CN-XiaoxiaoNeural">晓晓 (标准女声)</option>
-            <option value="zh-CN-YunyangNeural" selected>云扬 (专业男声)</option>
-            <option value="zh-CN-YunxiNeural">云希 (阳光男声)</option>
-            <option value="zh-CN-XiaoyiNeural">晓伊 (俏皮女声)</option>
-          </select>
-          <button id="widget-tts-btn" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #fff; border: none; border-radius: 4px; padding: 4px 10px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s;" onclick="generateWidgetTTS()">合成</button>
-        </div>
-        <div id="widget-tts-audio-container" style="display: none; margin-top: 6px; border-top: 1px solid rgba(128, 128, 128, 0.15); padding-top: 6px;">
-          <audio id="widget-tts-audio" controls style="width: 100%; height: 30px; outline: none;" class="filter-invert"></audio>
-        </div>
-        <script>
-          async function generateWidgetTTS() {
-            const text = document.getElementById('widget-tts-text').value.trim();
-            const voice = document.getElementById('widget-tts-voice').value;
-            const btn = document.getElementById('widget-tts-btn');
-            
-            if (!text) {
-              alert('请输入要合成的文本');
-              return;
-            }
-            
-            btn.disabled = true;
-            btn.textContent = '合成中...';
-            btn.style.opacity = '0.7';
-            
-            try {
-              const response = await fetch('https://140.245.65.111.sslip.io/api/article-craft/api/tts', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, voice })
-              });
-              
-              if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.error || '合成错误');
-              }
-              
-              const blob = await response.blob();
-              const url = URL.createObjectURL(blob);
-              
-              const audio = document.getElementById('widget-tts-audio');
-              audio.src = url;
-              
-              document.getElementById('widget-tts-audio-container').style.display = 'block';
-              audio.play();
-            } catch (err) {
-              console.error(err);
-              alert('语音合成失败: ' + err.message);
-            } finally {
-              btn.disabled = false;
-              btn.textContent = '合成';
-              btn.style.opacity = '1';
-            }
-          }
-        </script>
-      </div>
-
-  - class_name: card-weather-summary
-    id_name: card-weather-summary
-    icon: fas fa-cloud-sun-rain
-    name: 主要产区气象概述与预测
-    html: |
-      <div class="weather-summary-widget" style="font-size: 0.84rem; line-height: 1.55;">
-        <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; border-radius: 4px; padding: 6px 8px; margin-bottom: 8px; font-size: 0.80rem; line-height: 1.45;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-            <strong style="color: #2563eb; font-size: 0.81rem;"><i class="fas fa-bullhorn" style="margin-right: 4px;"></i>产区气象物候综述</strong>
-            <span style="font-size: 0.70rem; color: #64748b; background: rgba(100, 116, 139, 0.1); padding: 1px 5px; border-radius: 3px;">9月中旬 · 旺产季</span>
-          </div>
-          当前全球处于产胶增产高峰。<strong>版纳</strong>晴好干燥利于割胶；<strong>泰南</strong>短时阵雨、早割窗口顺畅；<strong>海南/越南</strong>受季风与对流影响雨日偏多，局地需防范冲胶；<strong>西非</strong>水热适宜产能稳步释放。
-        </div>
-        <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
-          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
-              <span><strong>🇹🇭 泰南核心</strong> <small style="color: #64748b; font-size: 0.70rem;">(全球33%)</small></span>
-              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(245, 158, 11, 0.12); color: #d97706; font-weight: 600;">局地阵雨</span>
-            </div>
-            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
-              <span>7天累积: <b style="color: #2563eb;">45.9mm</b></span> · <span>扰动: <b>3天</b></span> · <span>24~33°C</span>
-            </div>
-            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
-              降水多在傍晚热对流，凌晨早割窗口通畅，增产顺畅。
-            </div>
-          </li>
-          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
-              <span><strong>🇨🇳 云南版纳</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内主力)</small></span>
-              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">晴好少雨</span>
-            </div>
-            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
-              <span>7天累积: <b style="color: #059669;">4.6mm</b></span> · <span>扰动: <b>0天</b></span> · <span>19~32°C</span>
-            </div>
-            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
-              干燥少雨且温差适宜，出胶干含双优，开割条件极佳。
-            </div>
-          </li>
-          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
-              <span><strong>🇨🇳 海南主产</strong> <small style="color: #64748b; font-size: 0.70rem;">(国内核心)</small></span>
-              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(59, 130, 246, 0.12); color: #2563eb; font-weight: 600;">对流偏强</span>
-            </div>
-            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
-              <span>7天累积: <b style="color: #2563eb;">117.9mm</b></span> · <span>扰动: <b>5天</b></span> · <span>22~31°C</span>
-            </div>
-            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
-              南海热带扰动频繁，中后期雷雨密，需重点防范雨冲胶。
-            </div>
-          </li>
-          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
-              <span><strong>🇻🇳 越南南部</strong> <small style="color: #64748b; font-size: 0.70rem;">(平福/同奈)</small></span>
-              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(139, 92, 246, 0.12); color: #7c3aed; font-weight: 600;">季风雨盛</span>
-            </div>
-            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
-              <span>7天累积: <b style="color: #7c3aed;">121.8mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~31°C</span>
-            </div>
-            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
-              季风雨量充沛，早间对流频繁，局部割胶进度阶段性受阻。
-            </div>
-          </li>
-          <li style="margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
-              <span><strong>🇮🇩 印尼苏岛</strong> <small style="color: #64748b; font-size: 0.70rem;">(棉兰/巨港)</small></span>
-              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(6, 182, 212, 0.12); color: #0891b2; font-weight: 600;">常态雷雨</span>
-            </div>
-            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
-              <span>7天累积: <b style="color: #0891b2;">135.4mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~32°C</span>
-            </div>
-            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
-              赤道对流常态活跃，多为午后雷雨，错峰收胶生产平稳。
-            </div>
-          </li>
-          <li style="margin-bottom: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1px;">
-              <span><strong>🇨🇮 西非科特</strong> <small style="color: #64748b; font-size: 0.70rem;">(阿比让)</small></span>
-              <span style="font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669; font-weight: 600;">水热均衡</span>
-            </div>
-            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 1px;">
-              <span>7天累积: <b style="color: #059669;">41.7mm</b></span> · <span>扰动: <b>3天</b></span> · <span>23~28°C</span>
-            </div>
-            <div style="font-size: 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;">
-              降雨温和绵密，新割胶林产能持续释放，供应增量稳定。
-            </div>
-          </li>
-        </ul>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px; padding-top: 5px; border-top: 1px solid rgba(128, 128, 128, 0.15); font-size: 0.76rem;">
-          <div style="display: flex; gap: 6px;">
-            <a href="/tools/rubber-weather-calendar/" style="color: #059669; text-decoration: none; font-weight: 500;" title="产区气象与割胶物候看板"><i class="fas fa-calendar-alt"></i> 物候看板</a>
-            <a href="/rubber/weather_forecast/" style="color: #3b82f6; text-decoration: none; font-weight: 500;" title="重点资源区域卫星云图观察"><i class="fas fa-satellite"></i> 卫星云图</a>
-          </div>
-          <a href="/2026/09/10/全球主要橡胶及大宗农产区天气概述与割胶物候预测（2026年9月中旬）/" style="color: #2563eb; font-weight: 600; text-decoration: none;">完整研报 →</a>
-        </div>
-      </div>
-
-  - class_name: card-hot-news
-    id_name: card-hot-news
-    icon: fas fa-globe-asia
-    name: 时政与大宗速览
-    html: |
-      <div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
-        <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
-          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ef4444;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="中东地缘冲突急剧升级，布伦特原油自 6 月 90 美元水平飙升，于 9 月 13 日突破 100 美元心理关口，精炼成品油供应压力剧增。">中东地缘冲突升级致原油突破百元关口</a>
-          </li>
-          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="联合国贸发会议报告指出，2026 年全球经济增速预计维持在 2.6% 低位，地缘政治压力正从贸易不确定性转向实质性供应中断。">联合国预警全球经济增长显著放缓风险</a>
-          </li>
-          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b82f6;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="战争恐慌蔓延，黄金作为人类恐惧的古老语言再度成为资金避风港，对冲地缘风险与法定货币信用受损的双重担忧。">全球避险情绪持续驱动黄金价格急涨</a>
-          </li>
-          <li style="margin-bottom: 4px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="全球贸易格局重塑，发展中经济体面临最大风险，政策选择加剧分裂，气候冲击与高债务水平构成额外脆弱性考验。">贸易分裂致全球供应链断裂风险加剧</a>
-          </li>
-        </ul>
-        <div style="text-align: right; margin-top: 4px;">
-          <a href="/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="font-size: 0.82rem; color: #3b82f6; font-weight: 500; text-decoration: none;">完整速览与推演 →</a>
-        </div>
-      </div>
-  - class_name: card-ai-news
-    id_name: card-ai-news
-    icon: fas fa-robot
-    name: AI 科技前沿大事
-    html: |
-      <div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
-        <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
-          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="DeepSeek 推出实验性多模态模型 DeepSeek-V4-Flash-Vision-Exp，支持图像分析与自主任务执行，直指 Anthropic 技术壁垒">DeepSeek V4 多模态模型发布</a>
-          </li>
-          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#06b6d4;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="NVIDIA 与 MathWorks 联合 pipeline 推动 HD 地图转化，OpenAI 首次失去 AI 营收领先地位，算力生态竞争白热化">OpenAI 收入皇冠易主</a>
-          </li>
-          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ec4899;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="钛媒体指出物理 AI 数据收集进入关键阶段，世界模型驱动机器人从生成式向控制导向演进">具身智能真机数采分水岭</a>
-          </li>
-          <li style="margin-bottom: 4px;">
-            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
-            <a href="/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="IDC 强调 2026 年具身智能将实现模型驱动、软件定义与硬件重构，商业范式迎来奇点跨越">IDC 发布机器人十大趋势</a>
-          </li>
-        </ul>
-        <div style="text-align: right; margin-top: 4px;">
-          <a href="/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/" style="font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration: none;">完整解读与趋势 →</a>
-        </div>
-      </div>
+- class_name: card-weather-summary
+  id_name: card-weather-summary
+  icon: fas fa-cloud-sun-rain
+  name: 主要产区气象概述与预测
+  html: "<div class=\"weather-summary-widget\" style=\"font-size: 0.84rem; line-height:\
+    \ 1.55;\">\n  <div style=\"background: rgba(59, 130, 246, 0.08); border-left:\
+    \ 3px solid #3b82f6; border-radius: 4px; padding: 6px 8px; margin-bottom: 8px;\
+    \ font-size: 0.80rem; line-height: 1.45;\">\n    <div style=\"display: flex; justify-content:\
+    \ space-between; align-items: center; margin-bottom: 2px;\">\n      <strong style=\"\
+    color: #2563eb; font-size: 0.81rem;\"><i class=\"fas fa-bullhorn\" style=\"margin-right:\
+    \ 4px;\"></i>产区气象物候综述</strong>\n      <span style=\"font-size: 0.70rem; color:\
+    \ #64748b; background: rgba(100, 116, 139, 0.1); padding: 1px 5px; border-radius:\
+    \ 3px;\">9月中旬 · 旺产季</span>\n    </div>\n    当前全球处于产胶增产高峰。<strong>版纳</strong>晴好干燥利于割胶；<strong>泰南</strong>短时阵雨、早割窗口顺畅；<strong>海南/越南</strong>受季风与对流影响雨日偏多，局地需防范冲胶；<strong>西非</strong>水热适宜产能稳步释放。\n\
+    \  </div>\n  <ul style=\"padding-left: 0; list-style: none; margin: 0 0 8px 0;\"\
+    >\n    <li style=\"margin-bottom: 6px; border-bottom: 1px dashed rgba(128, 128,\
+    \ 128, 0.2); padding-bottom: 5px;\">\n      <div style=\"display: flex; justify-content:\
+    \ space-between; align-items: center; margin-bottom: 1px;\">\n        <span><strong>\U0001F1F9\
+    \U0001F1ED 泰南核心</strong> <small style=\"color: #64748b; font-size: 0.70rem;\"\
+    >(全球33%)</small></span>\n        <span style=\"font-size: 0.68rem; padding: 1px\
+    \ 5px; border-radius: 999px; background: rgba(245, 158, 11, 0.12); color: #d97706;\
+    \ font-weight: 600;\">局地阵雨</span>\n      </div>\n      <div style=\"font-size:\
+    \ 0.74rem; color: #64748b; margin-bottom: 1px;\">\n        <span>7天累积: <b style=\"\
+    color: #2563eb;\">45.9mm</b></span> · <span>扰动: <b>3天</b></span> · <span>24~33°C</span>\n\
+    \      </div>\n      <div style=\"font-size: 0.77rem; color: inherit; opacity:\
+    \ 0.88; line-height: 1.35;\">\n        降水多在傍晚热对流，凌晨早割窗口通畅，增产顺畅。\n      </div>\n\
+    \    </li>\n    <li style=\"margin-bottom: 6px; border-bottom: 1px dashed rgba(128,\
+    \ 128, 128, 0.2); padding-bottom: 5px;\">\n      <div style=\"display: flex; justify-content:\
+    \ space-between; align-items: center; margin-bottom: 1px;\">\n        <span><strong>\U0001F1E8\
+    \U0001F1F3 云南版纳</strong> <small style=\"color: #64748b; font-size: 0.70rem;\"\
+    >(国内主力)</small></span>\n        <span style=\"font-size: 0.68rem; padding: 1px\
+    \ 5px; border-radius: 999px; background: rgba(16, 185, 129, 0.12); color: #059669;\
+    \ font-weight: 600;\">晴好少雨</span>\n      </div>\n      <div style=\"font-size:\
+    \ 0.74rem; color: #64748b; margin-bottom: 1px;\">\n        <span>7天累积: <b style=\"\
+    color: #059669;\">4.6mm</b></span> · <span>扰动: <b>0天</b></span> · <span>19~32°C</span>\n\
+    \      </div>\n      <div style=\"font-size: 0.77rem; color: inherit; opacity:\
+    \ 0.88; line-height: 1.35;\">\n        干燥少雨且温差适宜，出胶干含双优，开割条件极佳。\n      </div>\n\
+    \    </li>\n    <li style=\"margin-bottom: 6px; border-bottom: 1px dashed rgba(128,\
+    \ 128, 128, 0.2); padding-bottom: 5px;\">\n      <div style=\"display: flex; justify-content:\
+    \ space-between; align-items: center; margin-bottom: 1px;\">\n        <span><strong>\U0001F1E8\
+    \U0001F1F3 海南主产</strong> <small style=\"color: #64748b; font-size: 0.70rem;\"\
+    >(国内核心)</small></span>\n        <span style=\"font-size: 0.68rem; padding: 1px\
+    \ 5px; border-radius: 999px; background: rgba(59, 130, 246, 0.12); color: #2563eb;\
+    \ font-weight: 600;\">对流偏强</span>\n      </div>\n      <div style=\"font-size:\
+    \ 0.74rem; color: #64748b; margin-bottom: 1px;\">\n        <span>7天累积: <b style=\"\
+    color: #2563eb;\">117.9mm</b></span> · <span>扰动: <b>5天</b></span> · <span>22~31°C</span>\n\
+    \      </div>\n      <div style=\"font-size: 0.77rem; color: inherit; opacity:\
+    \ 0.88; line-height: 1.35;\">\n        南海热带扰动频繁，中后期雷雨密，需重点防范雨冲胶。\n      </div>\n\
+    \    </li>\n    <li style=\"margin-bottom: 6px; border-bottom: 1px dashed rgba(128,\
+    \ 128, 128, 0.2); padding-bottom: 5px;\">\n      <div style=\"display: flex; justify-content:\
+    \ space-between; align-items: center; margin-bottom: 1px;\">\n        <span><strong>\U0001F1FB\
+    \U0001F1F3 越南南部</strong> <small style=\"color: #64748b; font-size: 0.70rem;\"\
+    >(平福/同奈)</small></span>\n        <span style=\"font-size: 0.68rem; padding: 1px\
+    \ 5px; border-radius: 999px; background: rgba(139, 92, 246, 0.12); color: #7c3aed;\
+    \ font-weight: 600;\">季风雨盛</span>\n      </div>\n      <div style=\"font-size:\
+    \ 0.74rem; color: #64748b; margin-bottom: 1px;\">\n        <span>7天累积: <b style=\"\
+    color: #7c3aed;\">121.8mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~31°C</span>\n\
+    \      </div>\n      <div style=\"font-size: 0.77rem; color: inherit; opacity:\
+    \ 0.88; line-height: 1.35;\">\n        季风雨量充沛，早间对流频繁，局部割胶进度阶段性受阻。\n      </div>\n\
+    \    </li>\n    <li style=\"margin-bottom: 6px; border-bottom: 1px dashed rgba(128,\
+    \ 128, 128, 0.2); padding-bottom: 5px;\">\n      <div style=\"display: flex; justify-content:\
+    \ space-between; align-items: center; margin-bottom: 1px;\">\n        <span><strong>\U0001F1EE\
+    \U0001F1E9 印尼苏岛</strong> <small style=\"color: #64748b; font-size: 0.70rem;\"\
+    >(棉兰/巨港)</small></span>\n        <span style=\"font-size: 0.68rem; padding: 1px\
+    \ 5px; border-radius: 999px; background: rgba(6, 182, 212, 0.12); color: #0891b2;\
+    \ font-weight: 600;\">常态雷雨</span>\n      </div>\n      <div style=\"font-size:\
+    \ 0.74rem; color: #64748b; margin-bottom: 1px;\">\n        <span>7天累积: <b style=\"\
+    color: #0891b2;\">135.4mm</b></span> · <span>扰动: <b>6天</b></span> · <span>23~32°C</span>\n\
+    \      </div>\n      <div style=\"font-size: 0.77rem; color: inherit; opacity:\
+    \ 0.88; line-height: 1.35;\">\n        赤道对流常态活跃，多为午后雷雨，错峰收胶生产平稳。\n      </div>\n\
+    \    </li>\n    <li style=\"margin-bottom: 4px;\">\n      <div style=\"display:\
+    \ flex; justify-content: space-between; align-items: center; margin-bottom: 1px;\"\
+    >\n        <span><strong>\U0001F1E8\U0001F1EE 西非科特</strong> <small style=\"color:\
+    \ #64748b; font-size: 0.70rem;\">(阿比让)</small></span>\n        <span style=\"\
+    font-size: 0.68rem; padding: 1px 5px; border-radius: 999px; background: rgba(16,\
+    \ 185, 129, 0.12); color: #059669; font-weight: 600;\">水热均衡</span>\n      </div>\n\
+    \      <div style=\"font-size: 0.74rem; color: #64748b; margin-bottom: 1px;\"\
+    >\n        <span>7天累积: <b style=\"color: #059669;\">41.7mm</b></span> · <span>扰动:\
+    \ <b>3天</b></span> · <span>23~28°C</span>\n      </div>\n      <div style=\"font-size:\
+    \ 0.77rem; color: inherit; opacity: 0.88; line-height: 1.35;\">\n        降雨温和绵密，新割胶林产能持续释放，供应增量稳定。\n\
+    \      </div>\n    </li>\n  </ul>\n  <div style=\"display: flex; justify-content:\
+    \ space-between; align-items: center; margin-top: 6px; padding-top: 5px; border-top:\
+    \ 1px solid rgba(128, 128, 128, 0.15); font-size: 0.76rem;\">\n    <div style=\"\
+    display: flex; gap: 6px;\">\n      <a href=\"/tools/rubber-weather-calendar/\"\
+    \ style=\"color: #059669; text-decoration: none; font-weight: 500;\" title=\"\
+    产区气象与割胶物候看板\"><i class=\"fas fa-calendar-alt\"></i> 物候看板</a>\n      <a href=\"\
+    /rubber/weather_forecast/\" style=\"color: #3b82f6; text-decoration: none; font-weight:\
+    \ 500;\" title=\"重点资源区域卫星云图观察\"><i class=\"fas fa-satellite\"></i> 卫星云图</a>\n\
+    \    </div>\n    <a href=\"/2026/09/10/全球主要橡胶及大宗农产区天气概述与割胶物候预测（2026年9月中旬）/\" style=\"\
+    color: #2563eb; font-weight: 600; text-decoration: none;\">完整研报 →</a>\n  </div>\n\
+    </div>\n"
+- class_name: card-hot-news
+  id_name: card-hot-news
+  icon: fas fa-globe-asia
+  name: 时政与大宗速览
+  html: "<div class=\"news-list\" style=\"font-size: 0.88rem; line-height: 1.6;\"\
+    >\n  <ul style=\"padding-left: 0; list-style: none; margin: 0 0 8px 0;\">\n  \
+    \  <li style=\"margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128,\
+    \ 0.2); padding-bottom: 5px;\">\n      <span style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#ef4444;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"中东地缘冲突急剧升级，布伦特原油自 6\
+    \ 月 90 美元水平飙升，于 9 月 13 日突破 100 美元心理关口，精炼成品油供应压力剧增。\">中东地缘冲突升级致原油突破百元关口</a>\n \
+    \   </li>\n    <li style=\"margin-bottom: 7px; border-bottom: 1px dashed rgba(128,\
+    \ 128, 128, 0.2); padding-bottom: 5px;\">\n      <span style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"联合国贸发会议报告指出，2026 年全球经济增速预计维持在\
+    \ 2.6% 低位，地缘政治压力正从贸易不确定性转向实质性供应中断。\">联合国预警全球经济增长显著放缓风险</a>\n    </li>\n    <li\
+    \ style=\"margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2);\
+    \ padding-bottom: 5px;\">\n      <span style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b82f6;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"战争恐慌蔓延，黄金作为人类恐惧的古老语言再度成为资金避风港，对冲地缘风险与法定货币信用受损的双重担忧。\"\
+    >全球避险情绪持续驱动黄金价格急涨</a>\n    </li>\n    <li style=\"margin-bottom: 4px;\">\n   \
+    \   <span style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"全球贸易格局重塑，发展中经济体面临最大风险，政策选择加剧分裂，气候冲击与高债务水平构成额外脆弱性考验。\"\
+    >贸易分裂致全球供应链断裂风险加剧</a>\n    </li>\n  </ul>\n  <div style=\"text-align: right; margin-top:\
+    \ 4px;\">\n    <a href=\"/2026/09/16/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"font-size: 0.82rem; color: #3b82f6; font-weight: 500; text-decoration:\
+    \ none;\">完整速览与推演 →</a>\n  </div>\n</div>\n"
+- class_name: card-ai-news
+  id_name: card-ai-news
+  icon: fas fa-robot
+  name: AI 科技前沿大事
+  html: "<div class=\"news-list\" style=\"font-size: 0.88rem; line-height: 1.6;\"\
+    >\n  <ul style=\"padding-left: 0; list-style: none; margin: 0 0 8px 0;\">\n  \
+    \  <li style=\"margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128,\
+    \ 0.2); padding-bottom: 5px;\">\n      <span style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"DeepSeek 推出实验性多模态模型\
+    \ DeepSeek-V4-Flash-Vision-Exp，支持图像分析与自主任务执行，直指 Anthropic 技术壁垒\">DeepSeek V4 多模态模型发布</a>\n\
+    \    </li>\n    <li style=\"margin-bottom: 7px; border-bottom: 1px dashed rgba(128,\
+    \ 128, 128, 0.2); padding-bottom: 5px;\">\n      <span style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#06b6d4;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"NVIDIA 与 MathWorks\
+    \ 联合 pipeline 推动 HD 地图转化，OpenAI 首次失去 AI 营收领先地位，算力生态竞争白热化\">OpenAI 收入皇冠易主</a>\n\
+    \    </li>\n    <li style=\"margin-bottom: 7px; border-bottom: 1px dashed rgba(128,\
+    \ 128, 128, 0.2); padding-bottom: 5px;\">\n      <span style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#ec4899;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"钛媒体指出物理 AI 数据收集进入关键阶段，世界模型驱动机器人从生成式向控制导向演进\"\
+    >具身智能真机数采分水岭</a>\n    </li>\n    <li style=\"margin-bottom: 4px;\">\n      <span\
+    \ style=\"display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;\"\
+    ></span>\n      <a href=\"/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"color: inherit; text-decoration: none;\" title=\"IDC 强调 2026 年具身智能将实现模型驱动、软件定义与硬件重构，商业范式迎来奇点跨越\"\
+    >IDC 发布机器人十大趋势</a>\n    </li>\n  </ul>\n  <div style=\"text-align: right; margin-top:\
+    \ 4px;\">\n    <a href=\"/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
+    \ style=\"font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration:\
+    \ none;\">完整解读与趋势 →</a>\n  </div>\n</div>"
