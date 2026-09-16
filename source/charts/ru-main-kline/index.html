@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RU 橡胶主力 · 全历史日 K 线复盘</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#2c2c2a; --muted:#7a7a74; --faint:#a8a8a2;
+    --line:rgba(0,0,0,.10); --surface:#f6f6f4; --up:#d93b3a; --down:#12905f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#16161a; --fg:#e9e9e6; --muted:#9b9b95; --faint:#6a6a66;
+          --line:rgba(255,255,255,.12); --surface:#1f1f24; --up:#e35b5a; --down:#2aa87a;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 20px 72px}
+  h1{font-size:21px;font-weight:600;margin:0 0 6px;letter-spacing:.2px}
+  .sub{font-size:13px;color:var(--muted);margin:0}
+  .price{display:flex;align-items:baseline;gap:10px;margin:14px 0 20px}
+  .price b{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+  .price span{font-size:13px;color:var(--muted)}
+  .ranges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .ranges button{font:inherit;font-size:13px;padding:5px 15px;border-radius:999px;
+    border:.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;
+    transition:background .15s,color .15s,border-color .15s}
+  .ranges button:hover{border-color:var(--muted)}
+  .ranges button.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  #chart{width:100%;height:520px}
+  @media(max-width:720px){#chart{height:330px}.wrap{padding:20px 14px 56px}h1{font-size:18px}}
+  .hint{font-size:12px;color:var(--faint);margin:8px 0 0}
+  .tabs{display:flex;gap:6px;overflow-x:auto;padding:16px 0 6px;scrollbar-width:thin}
+  .tabs::-webkit-scrollbar{height:4px}
+  .tabs::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+  .tabs button{flex:0 0 auto;font:inherit;font-size:12.5px;padding:5px 12px;border-radius:999px;
+    border:.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;
+    white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+  .panel{margin-top:14px;background:var(--surface);border-radius:12px;padding:20px 22px}
+  .ph-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px}
+  .ph-head .dot{width:8px;height:8px;border-radius:2px;flex:0 0 auto}
+  .ph-head .idx{font-size:13px}
+  .ph-head h2{font-size:16px;font-weight:600;margin:0}
+  .ph-head .range{font-size:12.5px;color:var(--muted)}
+  .ph-head .chg{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+  .ph-head .px{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+  .ph-note{font-size:13.5px;line-height:1.75;margin:0;color:var(--fg)}
+  .ph-note.pending{color:var(--faint);font-style:normal}
+  .foot{margin-top:26px;font-size:12px;color:var(--faint);line-height:1.8}
+  .foot code{font-size:11.5px;background:var(--surface);padding:1px 5px;border-radius:4px}
+  .err{padding:70px 0;text-align:center;color:var(--faint);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>RU 橡胶主力 · 全历史日 K 线复盘</h1>
+  <p class="sub" id="sub">数据加载中…</p>
+  <div class="price" id="price" style="display:none"></div>
+  <div class="ranges" id="ranges"></div>
+  <div id="chart"></div>
+  <p class="hint">拖动底部滑块或滚轮缩放查看任意区间；点击图中色块查看该阶段行情分析。</p>
+  <div class="tabs" id="tabs"></div>
+  <div class="panel" id="panel"></div>
+  <p class="foot">
+    数据来源：RU 主力连续合约日线（<code>main_contract_daily</code>），每日自动同步。<br>
+    主力连续为不同月份合约拼接而成，换月处存在价格跳空，形态解读时请留意。
+  </p>
+</div>
+<script>
+var UP = '#d93b3a', DOWN = '#12905f';
+var CIRC = Array.from({length: 20}, function(_, i){ return String.fromCharCode(0x2460 + i); });
+var DATA = null, PHASES = null, chart = null, dates = [], kd = [], sel = 0;
+
+function ymd(s){ return '20' + s.slice(0, 2) + '-' + s.slice(2, 4) + '-' + s.slice(4, 6); }
+function rgba(hex, a){
+  var n = parseInt(hex.slice(1), 16);
+  return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+}
+function endOf(i){ return (i === PHASES.length - 1) ? dates[dates.length - 1] : PHASES[i].end; }
+function phaseAt(d){
+  for (var i = 0; i < PHASES.length; i++){
+    if (d >= PHASES[i].start && d <= endOf(i)) return i;
+  }
+  return -1;
+}
+function cssVar(name){
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+fetch('data.json')
+  .then(function(r){ if(!r.ok) throw new Error('data.json HTTP ' + r.status); return r.json(); })
+  .then(function(d){ DATA = d; return fetch('phases.json'); })
+  .then(function(r){ if(!r.ok) throw new Error('phases.json HTTP ' + r.status); return r.json(); })
+  .then(function(p){ PHASES = p; boot(); })
+  .catch(function(e){
+    document.getElementById('chart').innerHTML = '<p class="err">图表数据加载失败：' + e.message + '</p>';
+    document.getElementById('sub').textContent = '';
+  });
+
+function boot(){
+  dates = DATA.rows.map(function(r){ return ymd(r[0]); });
+  kd = DATA.rows.map(function(r){ return [r[1], r[4], r[3], r[2]]; });
+  var n = dates.length;
+  sel = PHASES.length - 1;
+
+  document.getElementById('sub').textContent =
+    dates[0] + ' ~ ' + dates[n - 1] + ' · 共 ' + n + ' 个交易日 · 数据更新于 ' + DATA.updated;
+
+  var last = DATA.last, prev = DATA.rows[n - 2];
+  var diff = last.close - prev[4];
+  var pct = (diff / prev[4] * 100);
+  var c = diff >= 0 ? UP : DOWN;
+  var pe = document.getElementById('price');
+  pe.style.display = 'flex';
+  pe.innerHTML = '<b style="color:' + c + '">' + last.close.toLocaleString() + '</b>' +
+    '<span style="color:' + c + '">' + (diff >= 0 ? '+' : '') + Math.round(diff) +
+    '　' + (diff >= 0 ? '+' : '') + pct.toFixed(2) + '%</span>' +
+    '<span>' + last.date + ' 收盘</span>';
+
+  chart = echarts.init(document.getElementById('chart'));
+  chart.setOption(option());
+  bindChartClick();
+  buildRanges();
+  buildTabs();
+  pick(sel, false);
+  window.addEventListener('resize', function(){ chart.resize(); reportHeight(); });
+  reportHeight();
+  setTimeout(reportHeight, 600);
+}
+
+var lastH = 0;
+function reportHeight(){
+  if (window.parent === window) return;
+  var h = document.documentElement.scrollHeight;
+  if (Math.abs(h - lastH) < 2) return;
+  lastH = h;
+  try {
+    window.parent.postMessage({ type: 'ru-kline-height', height: h }, '*');
+  } catch (e) {}
+}
+
+function markAreas(){
+  return PHASES.map(function(p, i){
+    var on = i === sel;
+    var c = p.dir === 'up' ? UP : DOWN;
+    return [
+      { xAxis: p.start, name: p.name,
+        itemStyle: { color: rgba(c, on ? 0.22 : 0.085) },
+        label: { show: true, position: 'insideTop', distance: 7, fontSize: 12,
+                 color: on ? c : cssVar('--faint'), formatter: CIRC[i] } },
+      { xAxis: endOf(i) }
+    ];
+  });
+}
+
+function option(){
+  var n = dates.length;
+  var def = Math.max(0, n - 500);
+  var ink = cssVar('--fg'), line = cssVar('--line'), muted = cssVar('--muted');
+  return {
+    animation: false,
+    textStyle: { fontFamily: 'inherit' },
+    grid: { left: 10, right: 58, top: 34, bottom: 62, containLabel: false },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'cross', label: { backgroundColor: '#7a7a74', fontSize: 11 } },
+      backgroundColor: cssVar('--bg'), borderColor: line, borderWidth: 0.5,
+      textStyle: { color: ink, fontSize: 12.5 },
+      extraCssText: 'box-shadow:0 4px 16px rgba(0,0,0,.10);border-radius:8px;',
+      formatter: function(ps){
+        var k = null;
+        for (var i = 0; i < ps.length; i++) if (ps[i].seriesType === 'candlestick') k = ps[i];
+        if (!k) return '';
+        var r = DATA.rows[k.dataIndex];
+        var pi = phaseAt(dates[k.dataIndex]);
+        var head = '<b>' + ymd(r[0]) + '</b>';
+        var body = '开 ' + r[1] + '　高 ' + r[2] + '<br/>低 ' + r[3] + '　收 ' + r[4];
+        var tail = pi >= 0 ? '<br/><span style="color:' + muted + '">' + CIRC[pi] + ' ' + PHASES[pi].name + '</span>' : '';
+        return head + '<br/>' + body + tail;
+      }
+    },
+    xAxis: {
+      type: 'category', data: dates, boundaryGap: true,
+      axisLine: { lineStyle: { color: line } },
+      axisTick: { show: false },
+      axisLabel: { color: muted, fontSize: 11, hideOverlap: true },
+      splitLine: { show: false }
+    },
+    yAxis: {
+      scale: true, position: 'right',
+      axisLine: { show: false }, axisTick: { show: false },
+      axisLabel: { color: muted, fontSize: 11,
+        formatter: function(v){ return (v / 1000).toFixed(1) + 'k'; } },
+      splitLine: { lineStyle: { color: line, type: 'dashed' } }
+    },
+    dataZoom: [
+      { type: 'inside', xAxisIndex: 0, startValue: def, endValue: n - 1, zoomOnMouseWheel: true },
+      { type: 'slider', xAxisIndex: 0, startValue: def, endValue: n - 1, height: 24, bottom: 16,
+        borderColor: 'transparent', backgroundColor: 'transparent',
+        fillerColor: rgba('#888888', 0.14), handleStyle: { color: '#b4b4ae' },
+        moveHandleSize: 0, dataBackground: { lineStyle: { color: '#c4c4be' }, areaStyle: { color: '#e4e4de' } },
+        selectedDataBackground: { lineStyle: { color: '#9a9a94' }, areaStyle: { color: rgba('#888888', 0.18) } },
+        textStyle: { color: muted, fontSize: 11 } }
+    ],
+    series: [{
+      type: 'candlestick',
+      data: kd,
+      itemStyle: { color: UP, color0: DOWN, borderColor: UP, borderColor0: DOWN },
+      markArea: { silent: true, data: markAreas() }
+    }]
+  };
+}
+
+function bindChartClick(){
+  chart.getZr().on('click', function(e){
+    var pt = [e.offsetX, e.offsetY];
+    if (!chart.containPixel('grid', pt)) return;
+    var idx = Math.round(chart.convertFromPixel({ xAxisIndex: 0 }, pt[0]));
+    if (idx < 0 || idx >= dates.length) return;
+    var i = phaseAt(dates[idx]);
+    if (i >= 0) pick(i, false);
+  });
+}
+
+function buildRanges(){
+  var n = dates.length;
+  var defs = [['近 1 年', 244], ['近 3 年', 732], ['近 5 年', 1220], ['全历史', n]];
+  var box = document.getElementById('ranges');
+  defs.forEach(function(d){
+    var b = document.createElement('button');
+    b.textContent = d[0];
+    if (d[1] >= n) b.classList.add('on');
+    b.onclick = function(){
+      Array.prototype.forEach.call(box.children, function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      zoomTo(Math.max(0, n - d[1]), n - 1);
+    };
+    box.appendChild(b);
+  });
+}
+
+function zoomTo(s, e){
+  chart.dispatchAction({ type: 'dataZoom', dataZoomIndex: 0, startValue: s, endValue: e });
+  chart.dispatchAction({ type: 'dataZoom', dataZoomIndex: 1, startValue: s, endValue: e });
+}
+
+function buildTabs(){
+  var box = document.getElementById('tabs');
+  PHASES.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.textContent = CIRC[i] + ' ' + p.name;
+    b.onclick = function(){
+      var s = dates.indexOf(p.start), e = dates.indexOf(endOf(i));
+      if (s >= 0 && e >= 0) zoomTo(s, e);
+      pick(i, true);
+    };
+    box.appendChild(b);
+  });
+}
+
+function pick(i, scroll){
+  sel = i;
+  chart.setOption({ series: [{ markArea: { data: markAreas() } }] });
+
+  var box = document.getElementById('tabs');
+  Array.prototype.forEach.call(box.children, function(b, j){
+    var p = PHASES[j], on = j === i;
+    var c = p.dir === 'up' ? UP : DOWN;
+    b.style.background = on ? rgba(c, 0.13) : 'transparent';
+    b.style.borderColor = on ? c : cssVar('--line');
+    b.style.color = on ? c : cssVar('--muted');
+    b.style.fontWeight = on ? 600 : 400;
+  });
+
+  var p = PHASES[i];
+  var c = p.dir === 'up' ? UP : DOWN;
+  var chg = (p.to - p.from) / p.from * 100;
+  var sign = chg >= 0 ? '+' : '';
+  var hasNote = p.note && p.note.trim().length > 0;
+  var noteCls = hasNote ? 'ph-note' : 'ph-note pending';
+  var noteTxt = hasNote ? p.note : '该阶段分析待补充 —— 在 phases.json 的 note 字段中填写即可，无需改动页面代码。';
+
+  document.getElementById('panel').innerHTML =
+    '<div class="ph-head">' +
+      '<span class="dot" style="background:' + c + '"></span>' +
+      '<span class="idx" style="color:' + c + '">' + CIRC[i] + '</span>' +
+      '<h2>' + (p.name || '未命名阶段') + '</h2>' +
+      '<span class="range">' + p.start + ' ~ ' + endOf(i) + '</span>' +
+      '<span class="chg" style="color:' + c + '">' + sign + chg.toFixed(1) + '%</span>' +
+      '<span class="px">' + p.from.toLocaleString() + ' → ' + p.to.toLocaleString() + '</span>' +
+    '</div>' +
+    '<p class="' + noteCls + '">' + noteTxt + '</p>';
+}
+</script>
+</body>
+</html>
