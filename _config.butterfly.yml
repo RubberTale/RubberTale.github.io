@@ -1103,8 +1103,10 @@ css_prefix: true
 inject:
   head:
     - <link rel=stylesheet href=/css/blog-chat-widget.css>
+    - <link rel=stylesheet href=/css/rubber-chronicle-cards.css>
   bottom:
     - <script src=/js/blog-chat-widget.js></script>
+    - <script src=/js/rubber-chronicle-cards.js></script>
    
 
 # CDN Settings
