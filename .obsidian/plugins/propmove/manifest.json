@@ -1,0 +1,11 @@
+{
+  "id": "propmove",
+  "name": "PropMove",
+  "version": "1.22.0",
+  "minAppVersion": "1.5.0",
+  "description": "Move notes based on a frontmatter property value.",
+  "author": "SHU-red",
+  "authorUrl": "https://github.com/SHU-red",
+  "fundingUrl": "https://buymeacoffee.com/yffbptmtaa",
+  "isDesktopOnly": false
+}

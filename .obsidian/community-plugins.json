@@ -4,5 +4,8 @@
   "obsidian-image-auto-upload-plugin",
   "obsidian-linter",
   "obsidian-shellcommands",
-  "templater-obsidian"
+  "templater-obsidian",
+  "hermes-agent",
+  "copilot",
+  "propmove"
 ]

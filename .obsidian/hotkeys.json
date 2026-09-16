@@ -34,5 +34,14 @@
       ],
       "key": "="
     }
+  ],
+  "propmove:process-folder": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "M"
+    }
   ]
 }

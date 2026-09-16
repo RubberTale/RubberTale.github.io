@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿根廷经济改革数据大屏</title>
+    <!-- 引入 Tailwind CSS 用于快速排版 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 ECharts 库用于数据可视化 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <style>
+        /* 必须为 ECharts 容器指定明确的高度，否则高度为0无法显示 */
+        .chart-container {
+            width: 100%;
+            height: 350px;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- 页面标题 -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">阿根廷“休克疗法”经济改革数据评估 (2023-2026)</h1>
+            <p class="text-gray-500 max-w-3xl mx-auto">宏观经济指标显著修复与民生实体经济代价高昂并存的二元格局</p>
+        </div>
+
+        <!-- 数据卡片概览 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-blue-500 hover:shadow-md transition-shadow">
+                <p class="text-sm text-gray-500 mb-1">初级财政盈余 (2024)</p>
+                <p class="text-xl md:text-2xl font-bold text-gray-800">123年来首次实现</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-emerald-500 hover:shadow-md transition-shadow">
+                <p class="text-sm text-gray-500 mb-1">部委裁撤率</p>
+                <p class="text-xl md:text-2xl font-bold text-gray-800">55% <span class="text-sm font-normal text-gray-500">(18减至8个)</span></p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-red-500 hover:shadow-md transition-shadow">
+                <p class="text-sm text-gray-500 mb-1">本土中小企业倒闭</p>
+                <p class="text-xl md:text-2xl font-bold text-gray-800">约 1.5 - 2.1万家</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-orange-500 hover:shadow-md transition-shadow">
+                <p class="text-sm text-gray-500 mb-1">零工经济劳动力占比</p>
+                <p class="text-xl md:text-2xl font-bold text-gray-800">超 40%</p>
+            </div>
+        </div>
+
+        <!-- 图表网格 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 图表1：通胀治理与金融修复 -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
+                    <span class="w-2 h-6 bg-blue-500 rounded mr-3"></span>
+                    恶性通胀遏制与国家风险降级
+                </h2>
+                <p class="text-xs text-gray-400 mb-4 ml-5">通胀率与风险指数大幅回落</p>
+                <div id="chartInflation" class="chart-container"></div>
+            </div>
+
+            <!-- 图表2：经济止跌反弹与外汇 -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
+                    <span class="w-2 h-6 bg-emerald-500 rounded mr-3"></span>
+                    GDP增速逆转与外汇储备重建
+                </h2>
+                <p class="text-xs text-gray-400 mb-4 ml-5">经历2024阵痛后的反弹预期与外汇重建</p>
+                <div id="chartGdp" class="chart-container"></div>
+            </div>
+
+            <!-- 图表3：民生激增成本 -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
+                    <span class="w-2 h-6 bg-orange-500 rounded mr-3"></span>
+                    取消补贴后的民生成本激增
+                </h2>
+                <p class="text-xs text-gray-400 mb-4 ml-5">各项生活成本涨幅与实际工资降幅对比</p>
+                <div id="chartCost" class="chart-container"></div>
+            </div>
+
+            <!-- 图表4：社会代价与政治风险 -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
+                    <span class="w-2 h-6 bg-purple-500 rounded mr-3"></span>
+                    贫困加剧与民意支持率折损
+                </h2>
+                <p class="text-xs text-gray-400 mb-4 ml-5">高昂社会代价对执政基础的影响</p>
+                <div id="chartSocial" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 等待DOM完全加载后初始化图表
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartInflation = echarts.init(document.getElementById('chartInflation'));
+            const chartGdp = echarts.init(document.getElementById('chartGdp'));
+            const chartCost = echarts.init(document.getElementById('chartCost'));
+            const chartSocial = echarts.init(document.getElementById('chartSocial'));
+
+            const optionInflation = {
+                tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+                legend: { data: ['2023年底 (危机时)', '2026年上半年 (修复后)'], bottom: 0 },
+                grid: { left: '3%', right: '4%', bottom: '10%', top: '5%', containLabel: true },
+                xAxis: { type: 'value' },
+                yAxis: {
+                    type: 'category',
+                    data: ['月度通胀率(%)', '年化通胀率(%)', '国家风险指数(点)'],
+                    axisLabel: { fontWeight: 'bold' }
+                },
+                series: [
+                    {
+                        name: '2023年底 (危机时)',
+                        type: 'bar',
+                        data: [25.5, 210, 2000],
+                        itemStyle: { color: '#ef4444', borderRadius: [0, 4, 4, 0] }, // 红色
+                        label: { show: true, position: 'right' }
+                    },
+                    {
+                        name: '2026年上半年 (修复后)',
+                        type: 'bar',
+                        data: [2.5, 32, 700], // 月度取中位数2.5%
+                        itemStyle: { color: '#3b82f6', borderRadius: [0, 4, 4, 0] }, // 蓝色
+                        label: { show: true, position: 'right' }
+                    }
+                ]
+            };
+
+            const optionGdp = {
+                tooltip: { trigger: 'axis' },
+                legend: { data: ['GDP增速(%)', '外汇储备(亿美元)'], bottom: 0 },
+                grid: { left: '3%', right: '4%', bottom: '10%', top: '15%', containLabel: true },
+                xAxis: { type: 'category', data: ['2024年', '2025年(预计)', '2026年5月'] },
+                yAxis: [
+                    { 
+                        type: 'value', 
+                        name: '增速(%)', 
+                        position: 'left', 
+                        axisLabel: { formatter: '{value}%' },
+                        splitLine: { lineStyle: { type: 'dashed', color: '#e5e7eb' } }
+                    },
+                    { 
+                        type: 'value', 
+                        name: '外储(亿美元)', 
+                        position: 'right',
+                        splitLine: { show: false } 
+                    }
+                ],
+                series: [
+                    {
+                        name: '外汇储备(亿美元)',
+                        type: 'bar',
+                        yAxisIndex: 1,
+                        data: [{value: -20, itemStyle: {color: '#9ca3af'}}, 200, 462.4], // 2024用负值模拟初期的枯竭
+                        itemStyle: { color: '#f59e0b', borderRadius: [4, 4, 0, 0] },
+                        label: { show: true, position: 'top' },
+                        barWidth: '40%'
+                    },
+                    {
+                        name: 'GDP增速(%)',
+                        type: 'line',
+                        yAxisIndex: 0,
+                        data: [-3.5, 5.2, 2.5], 
+                        itemStyle: { color: '#10b981' },
+                        lineStyle: { width: 4 },
+                        symbolSize: 10,
+                        label: { show: true, formatter: '{c}%', position: 'bottom' }
+                    }
+                ]
+            };
+
+            const optionCost = {
+                tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+                grid: { left: '3%', right: '10%', bottom: '5%', top: '5%', containLabel: true },
+                xAxis: { type: 'value', name: '涨跌幅(%)', axisLabel: { formatter: '{value}%' } },
+                yAxis: {
+                    type: 'category',
+                    data: ['实际工资', '基础食品价格', '水电燃气费', '公交票价'],
+                    axisLabel: { fontWeight: 'bold' }
+                },
+                series: [
+                    {
+                        type: 'bar',
+                        data: [
+                            { value: -38, itemStyle: { color: '#ef4444', borderRadius: [4, 0, 0, 4] } }, // 实际工资 -38%
+                            { value: 150, itemStyle: { color: '#f97316', borderRadius: [0, 4, 4, 0] } }, // 翻2.5倍 = 涨150%
+                            { value: 400, itemStyle: { color: '#ea580c', borderRadius: [0, 4, 4, 0] } }, // 300%-500% 取中400%
+                            { value: 600, itemStyle: { color: '#c2410c', borderRadius: [0, 4, 4, 0] } }  // 涨超6倍 = 600%
+                        ],
+                        label: { show: true, position: 'right', formatter: '{c}%' },
+                        barWidth: '50%'
+                    }
+                ]
+            };
+
+            const optionSocial = {
+                tooltip: { trigger: 'axis' },
+                legend: { data: ['贫困率(%)', '米莱支持率(%)'], bottom: 0 },
+                grid: { left: '3%', right: '4%', bottom: '10%', top: '10%', containLabel: true },
+                xAxis: { type: 'category', data: ['2023年底', '2024年峰值', '2026年现状'] },
+                yAxis: { type: 'value', min: 20, max: 60, axisLabel: { formatter: '{value} %' } },
+                series: [
+                    {
+                        name: '贫困率(%)',
+                        type: 'line',
+                        data: [41.7, 52.9, 42.5], 
+                        itemStyle: { color: '#8b5cf6' },
+                        areaStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: 'rgba(139, 92, 246, 0.3)' },
+                                { offset: 1, color: 'rgba(139, 92, 246, 0)' }
+                            ])
+                        },
+                        lineStyle: { width: 3, type: 'dashed' },
+                        symbolSize: 8,
+                        label: { show: true, formatter: '{c}%' }
+                    },
+                    {
+                        name: '米莱支持率(%)',
+                        type: 'line',
+                        data: [55, 45, 38], 
+                        itemStyle: { color: '#0ea5e9' },
+                        lineStyle: { width: 3 },
+                        symbolSize: 8,
+                        label: { show: true, formatter: '{c}%' }
+                    }
+                ]
+            };
+
+            // 执行渲染
+            chartInflation.setOption(optionInflation);
+            chartGdp.setOption(optionGdp);
+            chartCost.setOption(optionCost);
+            chartSocial.setOption(optionSocial);
+
+            // 监听窗口大小变化以实现图表自适应缩放
+            window.addEventListener('resize', () => {
+                chartInflation.resize();
+                chartGdp.resize();
+                chartCost.resize();
+                chartSocial.resize();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "baseUrl": "http://140.245.65.111:3005/v1",
+  "apiKey": "freellmapi-5970cc45963020cb59754a87d5fd0fd7d3b8f373c8c19bed",
+  "model": "auto",
+  "transport": "auto",
+  "reasoningEffort": "",
+  "includeNoteContent": true,
+  "requestTimeoutMs": 120000,
+  "maxTabs": 3,
+  "workingFolder": "",
+  "autoApproveTools": true,
+  "userName": "",
+  "hermesHome": "",
+  "graphMaxNotes": 150,
+  "graphMinEdgeWeight": 0.3,
+  "graphIncludeWikilinks": true,
+  "markdownFormattingPromptEnabled": true,
+  "customSystemPrompt": ""
+}

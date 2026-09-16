@@ -1,0 +1,1676 @@
+{
+  "userId": "2fe60c4c-b642-4546-9849-07ec6a21edce",
+  "isPaidUser": false,
+  "isPlusUser": false,
+  "entitlementToken": "",
+  "entitlementExpiresAt": 0,
+  "plusLicenseKey": "",
+  "openAIApiKey": "",
+  "openAIOrgId": "",
+  "huggingfaceApiKey": "",
+  "cohereApiKey": "",
+  "anthropicApiKey": "",
+  "googleApiKey": "",
+  "openRouterAiApiKey": "",
+  "xaiApiKey": "",
+  "mistralApiKey": "",
+  "deepseekApiKey": "",
+  "siliconflowApiKey": "",
+  "defaultChainType": "llm_chain",
+  "defaultModelKey": "191fdcfb-195f-4328-9d29-7d622c5983dc",
+  "contextTurns": 15,
+  "userSystemPrompt": "",
+  "openAIProxyBaseUrl": "",
+  "stream": true,
+  "copilotFolder": "copilot",
+  "copilotRootHistory": [
+    "copilot"
+  ],
+  "upgradedToV8FromLegacy": false,
+  "defaultSaveFolder": "copilot/copilot-conversations",
+  "defaultConversationTag": "copilot-conversation",
+  "autosaveChat": true,
+  "autoAddActiveContentToContext": true,
+  "defaultOpenArea": "view",
+  "defaultSendShortcut": "enter",
+  "customPromptsFolder": "copilot/copilot-custom-prompts",
+  "qaExclusions": "copilot",
+  "qaInclusions": "",
+  "chatNoteContextPath": "",
+  "chatNoteContextTags": [],
+  "debug": false,
+  "maxSourceChunks": 30,
+  "enableInlineCitations": true,
+  "groqApiKey": "",
+  "activeModels": [
+    {
+      "name": "copilot-plus-flash",
+      "provider": "copilot-plus",
+      "enabled": true,
+      "isBuiltIn": true,
+      "core": true,
+      "plusExclusive": true,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "google/gemini-2.5-flash",
+      "provider": "openrouterai",
+      "enabled": true,
+      "isBuiltIn": true,
+      "core": true,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gpt-5.5",
+      "provider": "openai",
+      "enabled": true,
+      "isBuiltIn": true,
+      "core": true,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gpt-5.4-mini",
+      "provider": "openai",
+      "enabled": true,
+      "isBuiltIn": true,
+      "core": true,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "google/gemini-3.5-flash",
+      "provider": "openrouterai",
+      "enabled": true,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision",
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "enabled": true,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision",
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gemini-3.5-flash",
+      "provider": "google",
+      "enabled": true,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision",
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gemini-3.1-flash-lite",
+      "provider": "google",
+      "enabled": true,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gemini-2.5-flash",
+      "provider": "google",
+      "enabled": true,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "google/gemini-3.1-pro-preview",
+      "provider": "openrouterai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision",
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "google/gemini-2.5-pro",
+      "provider": "openrouterai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "core": false,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "openai/gpt-5.5",
+      "provider": "openrouterai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "core": false,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "openai/gpt-5.4-mini",
+      "provider": "openrouterai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "core": false,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "grok-4.3",
+      "provider": "xai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "core": false,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "x-ai/grok-4.3",
+      "provider": "openrouterai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "core": false,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gpt-4.1",
+      "provider": "openai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "core": false,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gpt-4.1-mini",
+      "provider": "openai",
+      "enabled": false,
+      "isBuiltIn": true,
+      "core": false,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "claude-opus-4-7",
+      "provider": "anthropic",
+      "enabled": false,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision",
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "claude-haiku-4-5",
+      "provider": "anthropic",
+      "enabled": false,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision",
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gemini-3.1-pro-preview",
+      "provider": "google",
+      "enabled": false,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision",
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "gemini-2.5-pro",
+      "provider": "google",
+      "enabled": false,
+      "isBuiltIn": true,
+      "capabilities": [
+        "vision"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "deepseek-chat",
+      "provider": "deepseek",
+      "enabled": false,
+      "isBuiltIn": true,
+      "apiKey": ""
+    },
+    {
+      "name": "deepseek-reasoner",
+      "provider": "deepseek",
+      "enabled": false,
+      "isBuiltIn": true,
+      "capabilities": [
+        "reasoning"
+      ],
+      "apiKey": ""
+    },
+    {
+      "name": "deepseek-ai/DeepSeek-V3",
+      "provider": "siliconflow",
+      "enabled": false,
+      "isBuiltIn": false,
+      "baseUrl": "https://api.siliconflow.com/v1",
+      "apiKey": ""
+    },
+    {
+      "name": "deepseek-ai/DeepSeek-R1",
+      "provider": "siliconflow",
+      "enabled": false,
+      "isBuiltIn": false,
+      "baseUrl": "https://api.siliconflow.com/v1",
+      "capabilities": [
+        "reasoning"
+      ],
+      "apiKey": ""
+    }
+  ],
+  "lexicalSearchRamLimit": 100,
+  "promptUsageTimestamps": {},
+  "promptSortStrategy": "timestamp",
+  "chatHistorySortStrategy": "recent",
+  "projectsFolder": "copilot/projects",
+  "defaultConversationNoteName": "{$topic}@{$date}_{$time}",
+  "inlineEditCommands": [],
+  "projectList": [],
+  "lastDismissedVersion": null,
+  "lastShownStartupVersion": "4.0.9",
+  "passMarkdownImages": true,
+  "enableAutonomousAgent": true,
+  "enableCustomPromptTemplating": true,
+  "enableSelfHostMode": false,
+  "enableMiyo": false,
+  "enableMiyoSearchSkill": false,
+  "miyoSearchAll": false,
+  "relevantNotesLiveUpdate": true,
+  "miyoServerUrl": "",
+  "selfHostSearchProvider": "firecrawl",
+  "firecrawlApiKey": "",
+  "perplexityApiKey": "",
+  "parallelApiKey": "",
+  "exaApiKey": "",
+  "supadataApiKey": "",
+  "docProcessorBackend": "plus",
+  "enableLexicalBoosts": true,
+  "suggestedDefaultCommands": false,
+  "autonomousAgentEnabledToolIds": [
+    "localSearch",
+    "readNote",
+    "webSearch",
+    "pomodoro",
+    "youtubeTranscription",
+    "writeFile",
+    "editFile",
+    "updateMemory"
+  ],
+  "reasoningEffort": "low",
+  "verbosity": "medium",
+  "memoryFolderName": "copilot/memory",
+  "enableRecentConversations": true,
+  "maxRecentConversations": 30,
+  "enableSavedMemory": true,
+  "quickCommandIncludeNoteContext": true,
+  "autoIncludeTextSelection": false,
+  "autoAddSelectionToContext": false,
+  "autoAcceptEdits": false,
+  "diffViewMode": "split",
+  "userSystemPromptsFolder": "copilot/system-prompts",
+  "defaultSystemPromptTitle": "",
+  "autoCompactThreshold": 128000,
+  "convertedDocOutputFolder": "",
+  "agentMode": {
+    "byok": {},
+    "activeBackend": "opencode",
+    "backends": {
+      "opencode": {
+        "defaultMode": "auto"
+      }
+    },
+    "debugFullFrames": true,
+    "notificationSound": true,
+    "notificationSoundId": "piano",
+    "welcomeDismissed": false,
+    "skills": {
+      "folder": "copilot/skills"
+    },
+    "deviceProfiles": {
+      "e337737f-f3e4-419a-9cfa-0b0b66d4b87f": {
+        "opencode": {
+          "binaryPath": "C:\\Users\\tongc\\.obsidian-copilot\\opencode\\1.18.16\\bin\\opencode.exe",
+          "binaryVersion": "1.18.16",
+          "binarySource": "managed",
+          "probeSessionId": "ses_f58424355ffeH363U7cSpacsBp"
+        }
+      }
+    }
+  },
+  "providers": {
+    "8e47c6b9-debd-4370-92e0-fbe0f71ec087": {
+      "providerType": "openai-compatible",
+      "displayName": "FreeLLMAPI (3005)",
+      "baseUrl": "http://140.245.65.111:3005/v1",
+      "enableCors": true,
+      "requiresApiKey": true,
+      "origin": {
+        "kind": "byok"
+      },
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "addedAt": 1789519924862,
+      "apiKeyKeychainId": "copilot-v2cff7fd8-provider-8e47c6b9-debd-4370-92e0-fbe0f71ec087"
+    },
+    "9624704f-98d4-417c-bfc6-1932f539d631": {
+      "providerType": "openai-compatible",
+      "displayName": "opencode",
+      "origin": {
+        "kind": "agent",
+        "agentType": "opencode"
+      },
+      "requiresApiKey": false,
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "addedAt": 1789520624924,
+      "apiKeyKeychainId": null
+    }
+  },
+  "configuredModels": [
+    {
+      "configuredModelId": "191fdcfb-195f-4328-9d29-7d622c5983dc",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "auto",
+        "displayName": "Auto (router picks the best available model)",
+        "limits": {
+          "context": 2000000
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "d039c1d6-f631-4b18-81bb-0ab4950e41df",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "fusion",
+        "displayName": "Fusion (panel of models answer in parallel, a judge synthesizes one answer)",
+        "limits": {
+          "context": 2000000
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "a17d538b-e57a-4b92-85dd-8d3444f5213b",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "deepseek-v4-pro",
+        "displayName": "DeepSeek V4 Pro",
+        "limits": {
+          "context": 1048576
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "75a2266d-765c-4755-9cc9-e211286a5451",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "deepseek-v4-flash",
+        "displayName": "DeepSeek V4 Flash",
+        "limits": {
+          "context": 1048576
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "03070355-6bbb-498f-8d3c-4451d4d73a9c",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "glm-5.2",
+        "displayName": "GLM-5.2",
+        "limits": {
+          "context": 1048576
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "d8b9cec1-d7a7-4ec1-bc13-b828c3aaeddb",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "kimi-k3",
+        "displayName": "Kimi K3",
+        "limits": {
+          "context": 262144
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "ded10ae0-b174-4813-a697-43897f707fa0",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "kimi-k2.7-code",
+        "displayName": "Kimi K2.7 Code",
+        "limits": {
+          "context": 262144
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "82aa7934-74b4-4d9c-9e0e-4fff918868dd",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "qwen3-coder-480b",
+        "displayName": "Qwen3-Coder 480B",
+        "limits": {
+          "context": 262144
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "878662bc-9b07-40c7-966b-843bac13b638",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "claude-sonnet-4-5",
+        "displayName": "Sonnet slot (auto-routed to a free model)",
+        "limits": {
+          "context": 2000000
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "a97beb91-1eee-4d98-a300-67d36e7d4791",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "gpt-5.2",
+        "displayName": "GPT 5.2",
+        "limits": {
+          "context": 400000
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "bfa8b7f6-9edb-44b2-9f62-51542c8f0fed",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "deepseek-r1",
+        "displayName": "DeepSeek R1",
+        "limits": {
+          "context": 163840
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "configuredModelId": "9d1da878-f8b0-4c29-b5ec-1f672a3e1c35",
+      "providerId": "8e47c6b9-debd-4370-92e0-fbe0f71ec087",
+      "info": {
+        "id": "minimax-m3",
+        "displayName": "MiniMax M3",
+        "limits": {
+          "context": 1048576
+        }
+      },
+      "configuredAt": 1789519924862
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-fable-5",
+        "displayName": "Anthropic/Claude Fable 5",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-06-09",
+        "cost": {
+          "input": 10,
+          "output": 50,
+          "cacheRead": 1,
+          "cacheWrite": 12.5
+        }
+      },
+      "configuredModelId": "f7cc0086-a6a7-4ca6-ad91-0e3f42be3ce6",
+      "configuredAt": 1789520624930
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-fable-5-1",
+        "displayName": "Anthropic/Claude Fable 5.1",
+        "modalities": {
+          "input": [
+            "text",
+            "image"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-09-01",
+        "cost": {
+          "input": 10,
+          "output": 50,
+          "cacheRead": 0.25,
+          "cacheWrite": 12.5
+        }
+      },
+      "configuredModelId": "3d8de1cb-206c-4263-9975-99c82ac84e71",
+      "configuredAt": 1789520624933
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-haiku-4-5-20251001",
+        "displayName": "Anthropic/Claude Haiku 4.5",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 200000,
+          "output": 64000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2025-10-15",
+        "cost": {
+          "input": 1,
+          "output": 5,
+          "cacheRead": 0.1,
+          "cacheWrite": 1.25
+        }
+      },
+      "configuredModelId": "d0a6d5be-3e4c-45d3-86e3-ab161c33e55b",
+      "configuredAt": 1789520624936
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-haiku-4-5",
+        "displayName": "Anthropic/Claude Haiku 4.5 (latest)",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 200000,
+          "output": 64000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2025-10-15"
+      },
+      "configuredModelId": "e0b786c2-e7c6-47ef-bc15-8d7cf2110d57",
+      "configuredAt": 1789520624992
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-4-5-20251101",
+        "displayName": "Anthropic/Claude Opus 4.5",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 200000,
+          "output": 64000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2025-11-01",
+        "cost": {
+          "input": 5,
+          "output": 25,
+          "cacheRead": 0.5,
+          "cacheWrite": 6.25
+        }
+      },
+      "configuredModelId": "3189aa82-e5ac-4c4c-abeb-20c273ebdcf8",
+      "configuredAt": 1789520624992
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-4-5",
+        "displayName": "Anthropic/Claude Opus 4.5 (latest)",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 200000,
+          "output": 64000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2025-11-24",
+        "cost": {
+          "input": 5,
+          "output": 25,
+          "cacheRead": 0.5,
+          "cacheWrite": 6.25
+        }
+      },
+      "configuredModelId": "2dadebf9-a937-42a5-a8fa-24c0d30a7c18",
+      "configuredAt": 1789520624992
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-4-6",
+        "displayName": "Anthropic/Claude Opus 4.6",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-02-05"
+      },
+      "configuredModelId": "5a7f839c-a037-46cb-b0eb-17a06697a037",
+      "configuredAt": 1789520624993
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-4-7",
+        "displayName": "Anthropic/Claude Opus 4.7",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-04-16"
+      },
+      "configuredModelId": "59847fd1-c2dc-4fc4-9f4a-e028d934e2e6",
+      "configuredAt": 1789520624993
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-4-8",
+        "displayName": "Anthropic/Claude Opus 4.8",
+        "modalities": {
+          "input": [
+            "text",
+            "image"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-05-28",
+        "cost": {
+          "input": 5,
+          "output": 25,
+          "cacheRead": 0.5,
+          "cacheWrite": 6.25
+        }
+      },
+      "configuredModelId": "f7fcc4fd-5781-408d-825e-f6866f2341f3",
+      "configuredAt": 1789520624994
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-4-8-fast",
+        "displayName": "Anthropic/Claude Opus 4.8 Fast"
+      },
+      "configuredModelId": "9de6a493-4066-470d-b7ce-79ef84d59a3f",
+      "configuredAt": 1789520624994
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-5",
+        "displayName": "Anthropic/Claude Opus 5",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-07-24",
+        "cost": {
+          "input": 5,
+          "output": 25,
+          "cacheRead": 0.5,
+          "cacheWrite": 6.25
+        }
+      },
+      "configuredModelId": "1b33e170-b907-4a53-9d6f-1cfc4eee3491",
+      "configuredAt": 1789520624994
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-5-fast",
+        "displayName": "Anthropic/Claude Opus 5 Fast",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-07-24",
+        "cost": {
+          "input": 10,
+          "output": 50,
+          "cacheRead": 1,
+          "cacheWrite": 12.5
+        }
+      },
+      "configuredModelId": "31e12169-8e5c-4ff2-830e-60f2de1272a3",
+      "configuredAt": 1789520624994
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-sonnet-4-5-20250929",
+        "displayName": "Anthropic/Claude Sonnet 4.5",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 200000,
+          "output": 64000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2025-09-29",
+        "cost": {
+          "input": 3,
+          "output": 15,
+          "cacheRead": 0.3,
+          "cacheWrite": 3.75
+        }
+      },
+      "configuredModelId": "70f1bbbd-1317-491b-8bcd-0c8e0320e1d2",
+      "configuredAt": 1789520624995
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-sonnet-4-5",
+        "displayName": "Anthropic/Claude Sonnet 4.5 (latest)",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 200000,
+          "output": 64000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2025-09-29"
+      },
+      "configuredModelId": "578f9549-1f2a-4e1d-b94e-2b5ec5c7ab17",
+      "configuredAt": 1789520624996
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-sonnet-4-6",
+        "displayName": "Anthropic/Claude Sonnet 4.6",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 64000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-02-17"
+      },
+      "configuredModelId": "d84813d7-f193-413d-b5dc-74f3226a3914",
+      "configuredAt": 1789520624996
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-sonnet-5",
+        "displayName": "Anthropic/Claude Sonnet 5",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-06-30",
+        "cost": {
+          "input": 2,
+          "output": 10,
+          "cacheRead": 0.2,
+          "cacheWrite": 2.5
+        }
+      },
+      "configuredModelId": "2484d4c2-59dd-4e77-8545-7bc80b96fb76",
+      "configuredAt": 1789520624996
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "deepseek/deepseek-v4-flash",
+        "displayName": "DeepSeek/DeepSeek V4 Flash",
+        "modalities": {
+          "input": [
+            "text"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1048576,
+          "output": 1048576
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-04-24",
+        "cost": {
+          "input": 0.14,
+          "output": 0.28,
+          "cacheRead": 0.028,
+          "cacheWrite": 0
+        }
+      },
+      "configuredModelId": "83846e58-b4e3-40af-9842-738e12e00194",
+      "configuredAt": 1789520624997
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "deepseek/deepseek-v4-flash-vision-exp",
+        "displayName": "DeepSeek/DeepSeek V4 Flash Vision Exp",
+        "modalities": {
+          "input": [
+            "text",
+            "image"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 384000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-08-21",
+        "cost": {
+          "input": 0.27,
+          "output": 1.08,
+          "cacheRead": 0.0054,
+          "cacheWrite": 0.27
+        }
+      },
+      "configuredModelId": "77a93753-601e-4f32-aaba-03e7dd360014",
+      "configuredAt": 1789520624997
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "deepseek/deepseek-v4-pro",
+        "displayName": "DeepSeek/DeepSeek V4 Pro",
+        "modalities": {
+          "input": [
+            "text"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 384000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-04-24"
+      },
+      "configuredModelId": "e68837ac-cf56-42c7-824d-4df5386f3a42",
+      "configuredAt": 1789520624997
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "deepseek/deepseek-flash",
+        "displayName": "DeepSeek/DeepSeek V4.1 Flash"
+      },
+      "configuredModelId": "7c5155b1-cfa3-4e3c-bbc7-ded4157ea49e",
+      "configuredAt": 1789520624998
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/baidu/ERNIE-4.5-300B-A47B",
+        "displayName": "SiliconFlow/baidu/ERNIE-4.5-300B-A47B"
+      },
+      "configuredModelId": "bacdf850-1dcf-40dc-827b-a0f0aba7e213",
+      "configuredAt": 1789520624998
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/ByteDance-Seed/Seed-OSS-36B-Instruct",
+        "displayName": "SiliconFlow/ByteDance-Seed/Seed-OSS-36B-Instruct"
+      },
+      "configuredModelId": "a3138ef0-f1bc-4ab1-87ce-975d4f620f83",
+      "configuredAt": 1789520624998
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V3.2",
+        "displayName": "SiliconFlow/DeepSeek V3.2"
+      },
+      "configuredModelId": "ff0886dc-99a3-4de8-9739-3b5472cd691c",
+      "configuredAt": 1789520624999
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V4-Flash",
+        "displayName": "SiliconFlow/DeepSeek V4 Flash"
+      },
+      "configuredModelId": "5faa69fa-2513-4d2b-97b2-e88fa380053f",
+      "configuredAt": 1789520624999
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V4-Pro",
+        "displayName": "SiliconFlow/DeepSeek V4 Pro"
+      },
+      "configuredModelId": "373cebf4-f941-4d59-9c3e-5b209470e0f8",
+      "configuredAt": 1789520624999
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-R1",
+        "displayName": "SiliconFlow/deepseek-ai/DeepSeek-R1"
+      },
+      "configuredModelId": "42143ded-80b7-4dd2-b51c-7bca6691acaa",
+      "configuredAt": 1789520625000
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V3",
+        "displayName": "SiliconFlow/deepseek-ai/DeepSeek-V3"
+      },
+      "configuredModelId": "7c6de877-9722-4e8c-bd66-02c9d13562ed",
+      "configuredAt": 1789520625000
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V3.1",
+        "displayName": "SiliconFlow/deepseek-ai/DeepSeek-V3.1"
+      },
+      "configuredModelId": "09402b5e-1bca-439f-8b12-187dbb2e63ed",
+      "configuredAt": 1789520625001
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V3.1-Terminus",
+        "displayName": "SiliconFlow/deepseek-ai/DeepSeek-V3.1-Terminus"
+      },
+      "configuredModelId": "a535c38a-02f4-4819-9f33-2c92c86ce13b",
+      "configuredAt": 1789520625001
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V3.2-Exp",
+        "displayName": "SiliconFlow/deepseek-ai/DeepSeek-V3.2-Exp"
+      },
+      "configuredModelId": "2bc21a44-9183-4a61-93d3-9701e1537c2a",
+      "configuredAt": 1789520625001
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/google/gemma-4-26B-A4B-it",
+        "displayName": "SiliconFlow/Gemma 4 26B A4B IT"
+      },
+      "configuredModelId": "4a2aed69-e680-4b25-9f81-1bf496b6f4db",
+      "configuredAt": 1789520625002
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/google/gemma-4-31B-it",
+        "displayName": "SiliconFlow/Gemma 4 31B IT"
+      },
+      "configuredModelId": "31ed042c-6f1f-4a23-b76e-ef02151c7938",
+      "configuredAt": 1789520625002
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/zai-org/GLM-5.2",
+        "displayName": "SiliconFlow/GLM-5.2"
+      },
+      "configuredModelId": "ecbc2c51-0013-4dd7-9720-2de575ec181c",
+      "configuredAt": 1789520625002
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/tencent/Hy3-preview",
+        "displayName": "SiliconFlow/Hy3 preview"
+      },
+      "configuredModelId": "7222a0d2-118c-4d85-a859-18c9c27195d5",
+      "configuredAt": 1789520625003
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/inclusionAI/Ling-flash-2.0",
+        "displayName": "SiliconFlow/inclusionAI/Ling-flash-2.0"
+      },
+      "configuredModelId": "8e09ad1c-5519-4611-8fa9-7fadff966579",
+      "configuredAt": 1789520625003
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/MiniMaxAI/MiniMax-M2.5",
+        "displayName": "SiliconFlow/MiniMaxAI/MiniMax-M2.5"
+      },
+      "configuredModelId": "a5994281-a0b6-4155-b93e-a160feaf8dfa",
+      "configuredAt": 1789520625003
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/moonshotai/Kimi-K2.5",
+        "displayName": "SiliconFlow/moonshotai/Kimi-K2.5"
+      },
+      "configuredModelId": "120d859c-9688-42e5-aa52-780946e011db",
+      "configuredAt": 1789520625004
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/moonshotai/Kimi-K2.6",
+        "displayName": "SiliconFlow/moonshotai/Kimi-K2.6"
+      },
+      "configuredModelId": "67a64be7-8008-4862-902e-a0d446923e03",
+      "configuredAt": 1789520625004
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/openai/gpt-oss-120b",
+        "displayName": "SiliconFlow/openai/gpt-oss-120b"
+      },
+      "configuredModelId": "51648876-482e-4b58-bc46-3332ba037e08",
+      "configuredAt": 1789520625004
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/openai/gpt-oss-20b",
+        "displayName": "SiliconFlow/openai/gpt-oss-20b"
+      },
+      "configuredModelId": "d3da218d-11ec-4a25-bfdd-285e771f6878",
+      "configuredAt": 1789520625005
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen2.5-72B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen2.5-72B-Instruct"
+      },
+      "configuredModelId": "24a7106c-07e2-449a-b000-19dcdbdcac55",
+      "configuredAt": 1789520625005
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen2.5-7B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen2.5-7B-Instruct"
+      },
+      "configuredModelId": "4b5ef2a7-cb65-4f55-8d92-127746778b52",
+      "configuredAt": 1789520625005
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-14B",
+        "displayName": "SiliconFlow/Qwen/Qwen3-14B"
+      },
+      "configuredModelId": "29d30b3a-0fe0-427e-b863-09f2f88df0ca",
+      "configuredAt": 1789520625005
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-235B-A22B-Thinking-2507",
+        "displayName": "SiliconFlow/Qwen/Qwen3-235B-A22B-Thinking-2507"
+      },
+      "configuredModelId": "178e50fe-6b5d-4532-94d5-fa79f4cf3182",
+      "configuredAt": 1789520625006
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-30B-A3B-Instruct-2507",
+        "displayName": "SiliconFlow/Qwen/Qwen3-30B-A3B-Instruct-2507"
+      },
+      "configuredModelId": "e3a7a17b-78d3-4146-92b6-e6c883ee2bab",
+      "configuredAt": 1789520625006
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-32B",
+        "displayName": "SiliconFlow/Qwen/Qwen3-32B"
+      },
+      "configuredModelId": "689e6bae-4fb4-44f5-8d71-d69bb04e8c6c",
+      "configuredAt": 1789520625007
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-8B",
+        "displayName": "SiliconFlow/Qwen/Qwen3-8B"
+      },
+      "configuredModelId": "8cbb88c6-d03a-4a5d-9a8a-9cd7a3b9a201",
+      "configuredAt": 1789520625007
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen3-Coder-30B-A3B-Instruct"
+      },
+      "configuredModelId": "180c1a95-72c0-4144-902f-4deb6e8ff7b5",
+      "configuredAt": 1789520625007
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-Coder-480B-A35B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen3-Coder-480B-A35B-Instruct"
+      },
+      "configuredModelId": "466a6f8d-32ec-478b-853c-65afa27cc550",
+      "configuredAt": 1789520625007
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-VL-235B-A22B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen3-VL-235B-A22B-Instruct"
+      },
+      "configuredModelId": "b7300f72-f446-448a-83d4-0f83381fa5a0",
+      "configuredAt": 1789520625008
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-VL-235B-A22B-Thinking",
+        "displayName": "SiliconFlow/Qwen/Qwen3-VL-235B-A22B-Thinking"
+      },
+      "configuredModelId": "9865b8d1-f5fa-4402-b1e0-eee8b9a492b8",
+      "configuredAt": 1789520625008
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-VL-30B-A3B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen3-VL-30B-A3B-Instruct"
+      },
+      "configuredModelId": "9a0f94e9-e284-4887-8935-f7811f5d03b8",
+      "configuredAt": 1789520625009
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-VL-30B-A3B-Thinking",
+        "displayName": "SiliconFlow/Qwen/Qwen3-VL-30B-A3B-Thinking"
+      },
+      "configuredModelId": "45279a33-e3c3-41b4-8a92-3190627d735c",
+      "configuredAt": 1789520625009
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-VL-32B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen3-VL-32B-Instruct"
+      },
+      "configuredModelId": "cc444f90-4b82-42b2-90f0-bc7c5b816f14",
+      "configuredAt": 1789520625009
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-VL-32B-Thinking",
+        "displayName": "SiliconFlow/Qwen/Qwen3-VL-32B-Thinking"
+      },
+      "configuredModelId": "441e508e-aefc-40c1-a93d-ca7568f19391",
+      "configuredAt": 1789520625010
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3-VL-8B-Instruct",
+        "displayName": "SiliconFlow/Qwen/Qwen3-VL-8B-Instruct"
+      },
+      "configuredModelId": "8b292749-b11a-47e5-b00b-db29aef4a490",
+      "configuredAt": 1789520625010
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.5-9B",
+        "displayName": "SiliconFlow/Qwen/Qwen3.5-9B"
+      },
+      "configuredModelId": "fb832961-41cc-4fa0-aa67-c57381ba47ed",
+      "configuredAt": 1789520625010
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.5-122B-A10B",
+        "displayName": "SiliconFlow/Qwen3.5 122B-A10B"
+      },
+      "configuredModelId": "48374c83-6177-4da3-b3b0-6d807f577822",
+      "configuredAt": 1789520625011
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.5-27B",
+        "displayName": "SiliconFlow/Qwen3.5 27B"
+      },
+      "configuredModelId": "482255d8-c150-4917-9ffe-87217c9d89b6",
+      "configuredAt": 1789520625011
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.5-35B-A3B",
+        "displayName": "SiliconFlow/Qwen3.5 35B-A3B"
+      },
+      "configuredModelId": "ea8ee3fa-4f98-47fb-8296-8af69f005a34",
+      "configuredAt": 1789520625011
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.5-397B-A17B",
+        "displayName": "SiliconFlow/Qwen3.5 397B-A17B"
+      },
+      "configuredModelId": "76f3a91e-7df6-4b6d-a17c-9a93670e90e0",
+      "configuredAt": 1789520625012
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.6-27B",
+        "displayName": "SiliconFlow/Qwen3.6 27B"
+      },
+      "configuredModelId": "6f743c57-f630-47bc-9e89-22b4e5aca12e",
+      "configuredAt": 1789520625012
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.6-35B-A3B",
+        "displayName": "SiliconFlow/Qwen3.6 35B-A3B"
+      },
+      "configuredModelId": "14509d8c-805c-4994-b90b-c7247f6eec2a",
+      "configuredAt": 1789520625012
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/stepfun-ai/Step-3.5-Flash",
+        "displayName": "SiliconFlow/stepfun-ai/Step-3.5-Flash"
+      },
+      "configuredModelId": "0e78269d-4871-423e-a403-cdf20620bd1a",
+      "configuredAt": 1789520625013
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/tencent/Hunyuan-A13B-Instruct",
+        "displayName": "SiliconFlow/tencent/Hunyuan-A13B-Instruct"
+      },
+      "configuredModelId": "6b7e0204-978e-4e4b-9e00-c025d6dbb09b",
+      "configuredAt": 1789520625013
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/zai-org/GLM-4.5-Air",
+        "displayName": "SiliconFlow/zai-org/GLM-4.5-Air"
+      },
+      "configuredModelId": "ce59d594-41a3-4071-a9ae-ddca13ccc4d7",
+      "configuredAt": 1789520625013
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/zai-org/GLM-5",
+        "displayName": "SiliconFlow/zai-org/GLM-5"
+      },
+      "configuredModelId": "9138723f-792d-488e-b3ed-4cb787038b09",
+      "configuredAt": 1789520625014
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/zai-org/GLM-5.1",
+        "displayName": "SiliconFlow/zai-org/GLM-5.1"
+      },
+      "configuredModelId": "a2aea0cf-b123-48d9-8f93-7042db78c317",
+      "configuredAt": 1789520625014
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/zai-org/GLM-5V-Turbo",
+        "displayName": "SiliconFlow/zai-org/GLM-5V-Turbo"
+      },
+      "configuredModelId": "4dd2a95b-934a-4b14-ba90-915ae3336fd0",
+      "configuredAt": 1789520625014
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/big-pickle",
+        "displayName": "OpenCode Zen/Big Pickle"
+      },
+      "configuredModelId": "6dc63ef2-3ffd-4bae-900b-fb77b4d33b84",
+      "configuredAt": 1789520625014
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/ling-3.0-flash-fin-free",
+        "displayName": "OpenCode Zen/Ling 3.0 Flash Fin Free"
+      },
+      "configuredModelId": "e1a6edfe-41f6-4a1c-a55b-128daecfbfd9",
+      "configuredAt": 1789520625015
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/mimo-v2.5-free",
+        "displayName": "OpenCode Zen/MiMo V2.5 Free"
+      },
+      "configuredModelId": "d6ec56ae-0192-4b03-a807-7a334bf6eec9",
+      "configuredAt": 1789520625015
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/muse-spark-1.2-contributor-free",
+        "displayName": "OpenCode Zen/Muse Spark 1.2 Free"
+      },
+      "configuredModelId": "830ad0fb-d8c7-4b29-8276-1ff590d5215d",
+      "configuredAt": 1789520625015
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/muse-spark-1.3-contributor-free",
+        "displayName": "OpenCode Zen/Muse Spark 1.3 Free"
+      },
+      "configuredModelId": "ba1a2b15-c760-4333-a99e-4512e29f56dd",
+      "configuredAt": 1789520625016
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/nemotron-3-ultra-free",
+        "displayName": "OpenCode Zen/Nemotron 3 Ultra Free"
+      },
+      "configuredModelId": "9cdc127b-dea2-4b38-81af-def45df2d615",
+      "configuredAt": 1789520625016
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/nemotron-3.5-lightning-free",
+        "displayName": "OpenCode Zen/Nemotron 3.5 Lightning Free"
+      },
+      "configuredModelId": "b9546be0-e675-4979-9c7c-3b216cf53d70",
+      "configuredAt": 1789520625016
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "freellmapi/auto",
+        "displayName": "FreeLLMAPI/Auto Model"
+      },
+      "configuredModelId": "eb1b619a-e95c-440e-95d9-e10e04331e91",
+      "configuredAt": 1789520625016
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/union-alpha",
+        "displayName": "OpenCode Zen/Union Alpha Free"
+      },
+      "configuredModelId": "11cf0f30-3c65-4f94-ba92-9eb2f5670366",
+      "configuredAt": 1789595502832
+    }
+  ],
+  "backends": {
+    "chat": {
+      "enabledModels": [
+        "191fdcfb-195f-4328-9d29-7d622c5983dc",
+        "d039c1d6-f631-4b18-81bb-0ab4950e41df",
+        "a17d538b-e57a-4b92-85dd-8d3444f5213b",
+        "75a2266d-765c-4755-9cc9-e211286a5451",
+        "03070355-6bbb-498f-8d3c-4451d4d73a9c",
+        "d8b9cec1-d7a7-4ec1-bc13-b828c3aaeddb",
+        "ded10ae0-b174-4813-a697-43897f707fa0",
+        "82aa7934-74b4-4d9c-9e0e-4fff918868dd",
+        "878662bc-9b07-40c7-966b-843bac13b638",
+        "a97beb91-1eee-4d98-a300-67d36e7d4791",
+        "bfa8b7f6-9edb-44b2-9f62-51542c8f0fed",
+        "9d1da878-f8b0-4c29-b5ec-1f672a3e1c35"
+      ]
+    },
+    "opencode": {
+      "enabledModels": [
+        "191fdcfb-195f-4328-9d29-7d622c5983dc",
+        "d039c1d6-f631-4b18-81bb-0ab4950e41df",
+        "a17d538b-e57a-4b92-85dd-8d3444f5213b",
+        "75a2266d-765c-4755-9cc9-e211286a5451",
+        "03070355-6bbb-498f-8d3c-4451d4d73a9c",
+        "d8b9cec1-d7a7-4ec1-bc13-b828c3aaeddb",
+        "ded10ae0-b174-4813-a697-43897f707fa0",
+        "82aa7934-74b4-4d9c-9e0e-4fff918868dd",
+        "878662bc-9b07-40c7-966b-843bac13b638",
+        "a97beb91-1eee-4d98-a300-67d36e7d4791",
+        "bfa8b7f6-9edb-44b2-9f62-51542c8f0fed",
+        "9d1da878-f8b0-4c29-b5ec-1f672a3e1c35",
+        "f7cc0086-a6a7-4ca6-ad91-0e3f42be3ce6",
+        "3d8de1cb-206c-4263-9975-99c82ac84e71",
+        "d0a6d5be-3e4c-45d3-86e3-ab161c33e55b"
+      ]
+    }
+  },
+  "_keychainVaultId": "2cff7fd8",
+  "settingsVersion": 14
+}

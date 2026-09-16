@@ -50,7 +50,15 @@ skip_render:
   - "world-history/**"
   - "royal-genealogy/**"
   - "google*.html"
+  - "**/narration-video-suite/**"
+  - "**/旁白/**"
+  - "**/修改意见/**"
   # 其他单独的文件名如果也在模板文件夹里，就都不用写了，上面一行全包了
+ignore:
+  - '**/旁白/**'
+  - '**/修改意见/**'
+  - '**/narration-video-suite/**'
+  - 'source/_posts/模板/**'
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
@@ -123,8 +131,9 @@ pagination_dir: page
 ## include:/exclude: options only apply to the 'source/' folder
 include:
 exclude:
-ignore:
-  - '/source/_posts/模板/博客模板.md'  # 忽略 _posts/模板/ 目录下的所有文件和子目录
+  - '**/旁白/**'
+  - '**/修改意见/**'
+  - '**/narration-video-suite/**'
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
