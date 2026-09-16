@@ -58,6 +58,12 @@
     background:#4ade80;cursor:pointer}
   .vol-wrap input::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:#4ade80;cursor:pointer}
   .vol-wrap span{font-size:11px;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums;min-width:20px;text-align:right}
+  #flash{position:absolute;inset:0;pointer-events:none;opacity:0;background:#fff;
+    mix-blend-mode:screen;transition:opacity .09s linear}
+  .curse-tag{position:absolute;top:60px;left:0;right:0;text-align:center;pointer-events:none}
+  .curse-item{display:inline-block;background:rgba(217,119,6,.92);color:#fff;font-size:12px;font-weight:700;
+    padding:5px 13px;border-radius:999px;margin:0 3px 5px;animation:floatUp 1.7s ease-out forwards;
+    box-shadow:0 4px 14px rgba(0,0,0,.35)}
 </style>
 </head>
 <body>
@@ -72,7 +78,9 @@
       <div class="pill" id="progLabel">0%</div>
     </div>
     <div id="popup"></div>
-    <div class="hint" id="hint">左右拖动屏幕 / ← → 控制方向</div>
+    <div class="curse-tag" id="curseTag"></div>
+    <div id="flash"></div>
+    <div class="hint" id="hint">左右拖动屏幕 / ← → 控制方向<br><span style="font-size:11px;opacity:.75">橙色门数字很大，但会留下代价</span></div>
     <div class="audiobar" id="audiobar" style="display:none">
       <button class="audio-btn" id="musicToggle" title="音乐开关" aria-label="音乐开关">♪</button>
       <div class="vol-wrap">
@@ -84,7 +92,7 @@
       <div class="card">
         <h1 id="ovTitle">小兵冲冲冲 3D</h1>
         <div class="stat" id="ovStat" style="display:none">0</div>
-        <p id="ovText">穿过数字门把兵力变大<br>然后撞碎挡路的敌兵</p>
+        <p id="ovText">穿过数字门把兵力变大<br>然后撞碎挡路的敌兵<br><br><span style="font-size:12px;opacity:.68">橙色门数字更肥，代价会在后面几关咬你</span></p>
         <button id="ovBtn">开始</button>
       </div>
     </div>
@@ -180,6 +188,50 @@ class Crowd {
     this.dying = [];
     this.count = 0;
     this.base = new THREE.Vector3();
+
+    /* ---- 远军人海层 ----
+       MAX_VISUAL=64 是性能上限，但"我身后有 3000 个兵"这件事必须看得见。
+       做法：超出精模上限的部分，用一个廉价的点云在队伍后方铺开，
+       按数量级决定铺多远。纯几何、无序渲染、一个 draw call。 */
+    this.HORDE_MAX = 900;
+    this.hordePos = new Float32Array(this.HORDE_MAX * 3);
+    const hg = new THREE.BufferGeometry();
+    hg.setAttribute('position', new THREE.BufferAttribute(this.hordePos, 3));
+    this.hordeMat = new THREE.PointsMaterial({
+      color: opts.body, size: this.spread * 0.62, sizeAttenuation: true, fog: true
+    });
+    this.horde = new THREE.Points(hg, this.hordeMat);
+    this.horde.frustumCulled = false;
+    this.group.add(this.horde);
+    this.hordeN = 0;
+    this.hordeGeo = hg;
+  }
+  /* 超出精模的部分用点云表示：数量越多铺得越深越宽，
+     让人一眼看出"这是人海"，而不是只有一小撮。 */
+  updateHorde() {
+    const extra = Math.max(0, this.count - this.units.length);
+    if (!extra) { this.horde.visible = false; return; }
+    this.horde.visible = true;
+    // 用对数增长，避免 9999 人时铺出几公里
+    const n = Math.min(this.HORDE_MAX, Math.round(
+      this.HORDE_MAX * Math.log10(1 + extra) / Math.log10(1 + 4000)));
+    this.hordeN = n;
+    const sp = this.spread;
+    // 从精模阵列的最后一排接着往后铺，间距和精模一致，
+    // 这样人海和前排是连成一片的，不会看起来像两拨人
+    const tailZ = -Math.ceil(this.units.length / 22) * sp * 1.7 * this.dir;
+    const cols = 22;
+    for (let i = 0; i < n; i++) {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      // 铺宽时也要留在路面内（路面半宽约 4.2），否则人海会糊到草地上
+      const widen = Math.min(1 + row * 0.04, 3.9 / (sp * cols / 2));
+      this.hordePos[i * 3] = (col - (cols - 1) / 2) * sp * widen;
+      this.hordePos[i * 3 + 1] = 0.34;
+      this.hordePos[i * 3 + 2] = tailZ + (-row - 1) * sp * 1.7 * this.dir;
+    }
+    this.hordeGeo.attributes.position.needsUpdate = true;
+    this.hordeGeo.setDrawRange(0, n);
   }
   makeUnit() {
     const g = new THREE.Group();
@@ -199,6 +251,7 @@ class Crowd {
     while (this.units.length < v) this.units.push(this.makeUnit());
     while (this.units.length > v) this.dying.push({ obj: this.units.pop(), t: 0 });
     this.layout();
+    this.updateHorde();
   }
   layout() {
     const n = this.units.length;
@@ -219,6 +272,8 @@ class Crowd {
       u.rotation.y = this.dir < 0 ? 0 : Math.PI;
       if (u.scale.x < 1) u.scale.setScalar(Math.min(1, u.scale.x + dt * 7));
     }
+    // 远军人海跟着队伍走，只做整体平移，不动点数据
+    if (this.horde.visible) this.horde.position.set(b.x, 0, b.z);
     for (let i = this.dying.length - 1; i >= 0; i--) {
       const d = this.dying[i];
       d.t += dt;
@@ -235,21 +290,27 @@ class Crowd {
 const opLabel = (op) => op.t + op.v;
 const GATE_HALF = 4.1;
 
-function makePanelTexture(text, good) {
+function makePanelTexture(text, good, sub) {
   const c = document.createElement('canvas');
   c.width = 256; c.height = 168;
   const x = c.getContext('2d');
   x.clearRect(0, 0, 256, 168);
-  x.fillStyle = good ? 'rgba(22,163,74,.5)' : 'rgba(220,38,38,.5)';
+  // 交换门用琥珀色：一眼能看出"这扇门有代价"
+  x.fillStyle = good ? (sub ? 'rgba(217,119,6,.58)' : 'rgba(22,163,74,.5)') : 'rgba(220,38,38,.5)';
   x.fillRect(0, 0, 256, 168);
-  x.strokeStyle = good ? '#bbf7d0' : '#fecaca';
+  x.strokeStyle = good ? (sub ? '#fde68a' : '#bbf7d0') : '#fecaca';
   x.lineWidth = 11;
   x.strokeRect(6, 6, 244, 156);
   x.fillStyle = '#ffffff';
   x.font = '800 84px system-ui,-apple-system,sans-serif';
   x.textAlign = 'center';
   x.textBaseline = 'middle';
-  x.fillText(text, 128, 88);
+  x.fillText(text, 128, sub ? 76 : 88);
+  if (sub) {
+    x.font = '700 27px system-ui,-apple-system,sans-serif';
+    x.fillStyle = '#fff7ed';
+    x.fillText(sub, 128, 137);
+  }
   const t = new THREE.CanvasTexture(c);
   t.anisotropy = 4;
   return t;
@@ -266,13 +327,14 @@ function buildGate(z, left, right) {
   ];
   const panels = [];
   for (const s of sides) {
-    const mat = new THREE.MeshLambertMaterial({ color: s.good ? 0x22c55e : 0xef4444 });
+    const cursed = !!s.op.curse;
+    const mat = new THREE.MeshLambertMaterial({ color: cursed ? 0xf59e0b : s.good ? 0x22c55e : 0xef4444 });
     const p1 = new THREE.Mesh(postGeo, mat); p1.position.set(s.cx - GATE_HALF / 2, 1.7, 0);
     const p2 = new THREE.Mesh(postGeo, mat); p2.position.set(s.cx + GATE_HALF / 2, 1.7, 0);
     const lin = new THREE.Mesh(lintelGeo, mat); lin.position.set(s.cx, 3.3, 0);
     g.add(p1, p2, lin);
     const pmat = new THREE.MeshBasicMaterial({
-      map: makePanelTexture(opLabel(s.op), s.good),
+      map: makePanelTexture(opLabel(s.op), s.good, curseText(s.op)),
       transparent: true, side: THREE.DoubleSide, depthWrite: false
     });
     const panel = new THREE.Mesh(new THREE.PlaneGeometry(GATE_HALF - 0.18, 2.5), pmat);
@@ -598,6 +660,67 @@ function applyOp(op, n) {
   return Math.max(1, Math.floor(n / op.v));
 }
 
+/* 门结算的唯一入口：先算账面，再砍上限，最后处理"先扣三成"。
+   所有会影响兵力的路径都必须走这里，否则诅咒门的代价会被绕过。
+   注意上限只"挡增长"、不"没收存量"：n 已经超过上限时维持原状，
+   让玩家能在一扇坏门之后靠好门慢慢爬回来，而不是直接腰斩。 */
+function resolveGate(op, n) {
+  let v = applyOp(op, n);
+  const cap = softCap();
+  // 上限只挡"增长"：想涨到 cap 以上就停在 cap；
+  // 但如果原本就已经超过 cap（被后来的诅咒压低），
+  // 就用 max 保持原值，绝不让一扇门把存量腰斩
+  if (v > cap) v = Math.max(n, cap);
+  if (op.curse === 'tax') v = Math.max(1, Math.floor(v * 0.7));
+  return v;
+}
+
+/* ---------- 交换门：账面上很强，但附带代价 ----------
+   这是让"选门"从计算题变成权衡题的关键：
+   单看数字它永远是最优解，但代价会在后面几关反咬你一口。 */
+const CURSES = {
+  // 上限降到 70%（不是腰斩，避免叠加两次直接变 1/4 导致永久残废），
+  // 同时敌兵同步缩水 30% 作为对冲 —— 打的是小规模精兵局。
+  cap: {
+    label: '上限 70%',
+    apply: () => { capMul = Math.max(0.35, capMul * 0.7); swarmMul *= 0.75; },
+    risk: true
+  },
+  // 下关转向失灵：冲得快，但躲不掉
+  drift: {
+    label: '下关难控',
+    apply: () => { steerLock = 1; },
+    risk: true
+  },
+  // 后续敌兵增强：拿得多，打得也狠。
+  // 关键：swarm 必须同时抬高"玩家能拿到的量级"，否则它就是纯死刑 ——
+  // 因为敌兵是按 par 缩放的，单方面放大敌兵会让 mine > foe 永远不成立。
+  swarm: {
+    label: '敌兵增强',
+    apply: () => { swarmMul = Math.min(2.6, swarmMul * 1.45); capMul = Math.min(1, capMul * 1.5); },
+    risk: true
+  },
+  // 兵力税：立即扣掉一部分，换取更高的倍数
+  tax: {
+    label: '先扣三成',
+    apply: () => {},
+    risk: true
+  }
+};
+
+// 交换门只在第 2 关之后出现，避免开局就吓到人
+function maybeCurseOp(base) {
+  if (roundNo < 2 || Math.random() > 0.42) return base;
+  const keys = ['cap', 'drift', 'swarm', 'tax'];
+  const k = keys[Math.floor(Math.random() * keys.length)];
+  // 有代价就必须给甜头：把基础效果显著加强
+  if (k === 'tax') return { t: '×', v: Math.random() < 0.5 ? 3 : 4, curse: 'tax' };
+  if (base.t === '×') return { t: '×', v: Math.min(6, base.v + 2), curse: k };
+  return { t: '×', v: 3, curse: k };
+}
+
+const curseText = (op) => (op && op.curse ? CURSES[op.curse].label : '');
+
 function pickGood(E) {
   if (E < 4) return { t: '+', v: 8 + Math.floor(Math.random() * 7) };
   const pool = [
@@ -607,6 +730,7 @@ function pickGood(E) {
   if (Math.random() < 0.15) pool.push({ t: '×', v: 3 });
   return pool[Math.floor(Math.random() * pool.length)];
 }
+
 function pickBad(E) {
   if (E < 5) return Math.random() < 0.5
     ? { t: '+', v: 1 + Math.floor(Math.random() * 2) }
@@ -619,9 +743,11 @@ function pickBad(E) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 function genPair(E) {
-  let a = pickGood(E);
+  let a = maybeCurseOp(pickGood(E));
   let b = Math.random() < DBL_POS ? { t: '+', v: Math.max(3, Math.round(E * 0.3)) } : pickBad(E);
-  if (applyOp(a, E) < applyOp(b, E)) { const t = a; a = b; b = t; }
+  // 排序必须用 resolveGate：par 和玩家走的是同一套结算（含上限与代价），
+  // 否则 par 会一路虚高，后面的敌兵直接变成不可能完成的任务
+  if (resolveGate(a, E) < resolveGate(b, E)) { const t = a; a = b; b = t; }
   const flip = Math.random() < 0.5;
   return { left: flip ? a : b, right: flip ? b : a };
 }
@@ -644,15 +770,39 @@ let cursor = START_Z;
 let par = 1;
 let roundNo = 1;
 
+/* 交换门留下的"后遗症" */
+let capMul = 1;        // 兵力上限倍率（cap 诅咒会把天花板压下来）
+let steerLock = 0;     // >0 表示接下来一段时间转向迟钝（drift 诅咒）
+let swarmMul = 1;      // 敌兵强度倍率（swarm 诅咒累加）
+// 上限随 capMul 浮动。注意这是个"增长上限"，不是"当前兵力的上限"——
+// 已经拿到的兵不会被诅咒没收，诅咒只是让后面长得更慢。
+// 否则会出现"玩家 2500 人、上限却被压到 1250、下扇门立刻腰斩"的荒谬情况。
+const softCap = () => Math.max(12, Math.round(MAX_COUNT * capMul));
+// 计算敌兵时用的天花板：不能低于玩家此刻手上的兵力，
+// 否则会生成一个"按封顶值算、却比玩家上限还高"的必死敌人
+const battleCap = () => Math.max(softCap(), state.count);
+
+// 每过一关，上限的惩罚回血一点。
+// 没有这个"回血"，cap 诅咒就是单向死刑：上限一旦被压低，
+// par 和敌兵都会跟着缩水，玩家再也长不回原来的量级。
+function recoverCaps() {
+  if (capMul < 1) capMul = Math.min(1, capMul + 0.16);
+  if (swarmMul > 1) swarmMul = Math.max(1, swarmMul * 0.88);
+}
+
 const battle = { t: 0, clashed: false, enemy: null, startZ: 0, result: null };
 let shake = 0;
+let hitstop = 0;         // >0 时时间冻结，撞击的"顿帧"打击感
+let timeScale = 1;       // 慢镜头用
 
 function spawnNext() {
   if (planIdx >= PLAN.length) return;
   const type = PLAN[planIdx++];
   if (type === 'gate') {
     const p = genPair(par);
-    par = Math.max(applyOp(p.left, par), applyOp(p.right, par));
+    // par 表示"最优路径下的预期兵力"，必须经过同一套结算（含上限），
+    // 否则被 cap 诅咒压住时难度估算会虚高、后面直接卡死
+    par = Math.max(resolveGate(p.left, par), resolveGate(p.right, par));
     pending.push({
       type: 'gate', z: cursor, left: p.left, right: p.right, resolved: false,
       vis: buildGate(cursor, p.left, p.right)
@@ -660,11 +810,24 @@ function spawnNext() {
     cursor -= GATE_GAP;
   } else if (type === 'enemy') {
     const f = F0 + (roundNo - 1) * FSTEP + Math.random() * FSPAN;
-    const ec = Math.max(5, Math.round(par * f));
+    // 敌兵强度以"玩家实际能到的高度"为基准，而不是 par 这个理论值。
+    // 用 battleCap() 而不是 softCap()：后者可能低于玩家手上兵力，
+    // 会算出一个比玩家上限还高的必死敌人。
+    const reach = Math.min(par, battleCap());
+    let ec = Math.max(5, Math.round(reach * f * swarmMul));
+    // 不变量：敌兵永远不能超过"完美玩家抵达时手上的兵力"。
+    // 违反这条会让关卡在数学上无解 —— 这是靠调参永远堵不住的窟窿，
+    // 必须由规则本身保证。留 8% 余量，让完美玩家能赢但不轻松。
+    // 同时再夹一次 battleCap()：cap 诅咒压低上限后 par 仍可能是旧的大值，
+    // 只夹 par*0.92 会漏掉这种情况。
+    ec = Math.max(5, Math.min(ec, Math.round(par * 0.92), Math.round(battleCap() * 0.9)));
     pending.push({
-      type: 'enemy', z: cursor, count: ec, par, round: roundNo,
+      type: 'enemy', z: cursor, count: ec, par: reach, round: roundNo,
       triggered: false, crowd: null, sprite: null
     });
+    // par 是"预期兵力"，敌兵提前按这个数生成，所以这里必须同步扣减，
+    // 否则 par 只增不减 → 敌兵越滚越大 → 完美玩家也必死
+    par = Math.max(1, par - ec);
     roundNo++;
     cursor -= ENEMY_GAP;
   } else {
@@ -706,6 +869,23 @@ function showPopup(text, good) {
   setTimeout(() => el.remove(), 950);
 }
 
+/* 屏幕闪一下：撞击用白色、吃到诅咒用琥珀色 */
+function flashScreen(strength, color) {
+  const el = $('flash');
+  el.style.background = color || '#fff';
+  el.style.opacity = String(clamp(strength, 0, 1));
+  setTimeout(() => { el.style.opacity = '0'; }, 60);
+}
+
+/* 一直挂在屏幕上的"当前还背着哪些诅咒"提示条 */
+function renderCurseTags() {
+  const tags = [];
+  if (capMul < 1) tags.push('上限 ' + Math.round(capMul * 100) + '%');
+  if (swarmMul > 1) tags.push('敌兵 ×' + swarmMul.toFixed(2));
+  if (steerLock > 0) tags.push('转向失灵');
+  $('curseTag').innerHTML = tags.map((t) => '<span class="curse-item" style="animation:none">' + t + '</span>').join('');
+}
+
 function updateHUD() {
   $('roundLabel').textContent = '第 ' + Math.min(state.round, GATE_COUNTS.length) + ' 关';
   const p = clamp((0 - state.z) / TOTAL_DIST, 0, 1);
@@ -723,6 +903,9 @@ function resetGame() {
   cursor = START_Z;
   par = 1;
   roundNo = 1;
+  capMul = 1;
+  steerLock = 0;
+  swarmMul = 1;
 
   playerCrowd = new Crowd({ body: 0x2f7fe0, body2: 0x1d5fb0, head: 0xffe0b8, dir: -1, spread: 0.38 });
   playerCrowd.base.set(0, 0, 0);
@@ -738,9 +921,12 @@ function resetGame() {
 
   battle.t = 0; battle.clashed = false; battle.enemy = null; battle.result = null;
   shake = 0;
+  hitstop = 0;
+  timeScale = 1;
   particles.visible = false;
   pT = -1;
   $('popup').innerHTML = '';
+  renderCurseTags();
 
   updateDirector();
   updateHUD();
@@ -763,10 +949,15 @@ function endGame(win) {
   if (win) {
     $('ovStat').style.display = 'block';
     $('ovStat').textContent = state.count + ' 名小兵抵达终点';
-    $('ovText').innerHTML = '一路上的每个数字门都没白过';
+    // 结算里提一句"带着代价走完全程"，让交换门的取舍有回报感
+    const scarred = capMul < 1 || swarmMul !== 1;
+    $('ovText').innerHTML = scarred
+      ? '带着代价走完全程<br><span style="font-size:12px;opacity:.7">橙色的门没白挨</span>'
+      : '一路上的每个数字门都没白过';
   } else {
     $('ovStat').style.display = 'none';
-    $('ovText').innerHTML = '兵力被吃光了<br>下次记得挑数字大的那扇门';
+    $('ovText').innerHTML = '兵力被吃光了<br>下次记得挑数字大的那扇门<br>' +
+      '<span style="font-size:12px;opacity:.7">橙色门虽然大，但代价可能要命</span>';
   }
   $('ovBtn').textContent = '再来一局';
   $('overlay').classList.remove('hidden');
@@ -831,10 +1022,18 @@ addEventListener('pointercancel', () => { dragging = false; });
 function passGate(o) {
   const side = state.x < 0 ? o.left : o.right;
   const before = state.count;
-  const after = applyOp(side, before);
+  const after = resolveGate(side, before);
   setHudCount(after, true);
   if (playerCrowd) playerCrowd.setCount(state.count);
-  showPopup(opLabel(side), after >= before);
+
+  // 交换门的代价在这里落地
+  if (side.curse) {
+    CURSES[side.curse].apply();
+    showPopup(side.curse === 'tax' ? '先扣三成' : CURSES[side.curse].label, false);
+    flashScreen(0.34, '#f59e0b');
+  } else {
+    showPopup(opLabel(side), after >= before);
+  }
   par = Math.max(par, state.count);
 }
 
@@ -866,22 +1065,32 @@ function doClash() {
   const win = P > M;
   const survivors = Math.abs(P - M);
   battle.result = win;
+  battle.enemyM = M;
+  battle.enemyP = P;
 
   burst(state.x, 1.1, state.z - 2.0);
   shake = 0.55;
 
+  // 撞击的"肉感"三件套：顿帧 + 白闪 + 慢镜头
+  hitstop = 0.085;
+  flashScreen(win ? 0.55 : 0.75, win ? '#ffffff' : '#ff9b9b');
+  timeScale = 0.32;
+
+  // 敌人被打散的数字碎片：顺手把减员量当作飞溅数值
   if (win) {
     playerCrowd.setCount(survivors);
     battle.enemy.crowd.setCount(0);
     setHudCount(survivors, true);
     showPopup('-' + M, true);
-    par = Math.max(1, Math.max(par - M, state.count));
+    // par 已经在下发敌兵时扣过 M 了，这里只需跟着玩家的实际兵力走
+    par = Math.max(1, state.count);
   } else {
     playerCrowd.setCount(0);
     battle.enemy.crowd.setCount(Math.max(0, M - P));
     setHudCount(0, false);
     showPopup('-' + P, false);
   }
+  renderCurseTags();
 }
 
 function updateBattle(dt) {
@@ -905,6 +1114,9 @@ function updateBattle(dt) {
     if (battle.result) {
       state.phase = 'run';
       MUSIC.play('run');
+      // 打贏一场就回收一点诅咒惩罚，让玩家有机会爬回来
+      recoverCaps();
+      renderCurseTags();
       if (e.crowd) { e.crowd.dispose(); e.crowd = null; }
       if (e.sprite) { world.remove(e.sprite); e.sprite = null; }
       state.speed = Math.min(19, state.speed + 0.7);
@@ -954,14 +1166,30 @@ let elapsed = 0;
 
 function tick() {
   requestAnimationFrame(tick);
-  const dt = Math.min(0.05, clock.getDelta());
+  let dt = Math.min(0.05, clock.getDelta());
+
+  // 顿帧：撞击瞬间把时间完全冻住，然后缓慢恢复成慢镜头
+  if (hitstop > 0) {
+    hitstop -= dt;
+    dt = 0;
+  } else if (timeScale < 1) {
+    timeScale = Math.min(1, timeScale + dt * 3.4);
+    dt *= timeScale;
+  }
   elapsed += dt;
 
   if (state.phase === 'run' || state.phase === 'battle') {
-    if (keys['ArrowLeft'] || keys['KeyA']) state.targetX -= 9 * dt;
-    if (keys['ArrowRight'] || keys['KeyD']) state.targetX += 9 * dt;
+    // 交换门的"下关难控"诅咒：转向大幅变钝
+    const steer = steerLock > 0 ? 0.28 : 1;
+    if (keys['ArrowLeft'] || keys['KeyA']) state.targetX -= 9 * dt * steer;
+    if (keys['ArrowRight'] || keys['KeyD']) state.targetX += 9 * dt * steer;
     state.targetX = clamp(state.targetX, -3.35, 3.35);
-    state.x += (state.targetX - state.x) * Math.min(1, dt * 16);
+    // 迟钝时阻尼也变慢，手感上"拉不动"
+    state.x += (state.targetX - state.x) * Math.min(1, dt * (steerLock > 0 ? 4.5 : 16));
+    if (steerLock > 0) {
+      steerLock -= dt;
+      if (steerLock <= 0) { steerLock = 0; renderCurseTags(); }
+    }
   }
 
   if (state.phase === 'run') { updateRun(dt); updateHUD(); }
