@@ -149,6 +149,7 @@ hide_posts:
   allowlist_generators:
     - category
     - tag
+    - sitemap
   blocklist_generators:
     - index
     - archive
