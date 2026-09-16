@@ -107,7 +107,7 @@ function boot(){
   sel = PHASES.length - 1;
 
   document.getElementById('sub').textContent =
-    dates[0] + ' ~ ' + dates[n - 1] + ' · 共 ' + n + ' 个交易日 · 数据更新于 ' + DATA.updated;
+    dates[0] + ' ~ ' + dates[n - 1] + ' · 共 ' + n + ' 个交易日 · 每日自动同步';
 
   var last = DATA.last, prev = DATA.rows[n - 2];
   var diff = last.close - prev[4];
