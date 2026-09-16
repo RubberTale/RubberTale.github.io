@@ -22,27 +22,17 @@ tags:
 
 ## 全历史日 K 线
 
-<iframe src="/charts/ru-main-kline/" id="ruKlineFrame" style="width:100%;height:1180px;border:0;border-radius:12px;display:block;margin:28px 0;background:#fff" loading="lazy" title="RU 橡胶主力全历史日 K 线交互复盘"></iframe>
-<script>
-(function(){
-  window.addEventListener('message', function(e){
-    if (!e.data) return;
-    if (e.data.type !== 'ru-kline-height') return;
-    if (!e.data.height) return;
-    var f = document.getElementById('ruKlineFrame');
-    if (!f) return;
-    f.style.height = (e.data.height + 8) + 'px';
-  });
-})();
-</script>
+<iframe src="/charts/ru-main-kline/" style="width:100%;height:780px;border:0;border-radius:12px;display:block;margin:28px 0;background:#fff" loading="lazy" title="RU 橡胶主力全历史 K 线"></iframe>
+
+> 图里挤的话，可以[全屏打开](/charts/ru-main-kline/)。
 
 ## 怎么用
 
-**一、看任意区间。** 默认显示最近 500 个交易日。右上角的按钮可以一键切到近 1 年 / 近 3 年 / 近 5 年 / 全历史，也可以直接拖动底部滑块，或者把鼠标放到图上滚动滚轮缩放。
+**看区间**：滚轮缩放，拖动平移，底部滑块可以快速跳转。缩放到不同跨度时，K 线会自动在月线 / 周线 / 日线之间切换，所以拉远拉近都能看清形态。
 
-**二、点色块看复盘。** 图上的彩色区块就是划分好的行情阶段，红底为上行、绿底为下行。鼠标悬停能看到那天的开高低收和它属于哪一段；**点击色块**，下方的分析面板会切换到对应阶段。
+**看解读**：K 线上挂着十九个标签，每个对应一段行情。**点标签**，右侧会滑出那一段的解读。标签颜色跟着涨跌走——红色是上行段，绿色是下行段。
 
-**三、用标签快速定位。** 面板上方那排胶囊按钮，点一下会把图表直接缩放到该阶段，同时显示分析。
+**深链**：每个阶段都能单独分享，链接形如 `?open=5`；想固定看某段区间，用 `?from=2023-06-01&to=2026-09-15`。
 
 ## 十九段行情一览
 
