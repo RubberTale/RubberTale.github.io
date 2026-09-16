@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>问问这个博客 · 橡胶童话站内问答助手 | 橡胶童话</title>
+<meta name="description" content="针对橡胶童话博客站内内容的问答助手。只回答本站写过的橡胶投研、大宗商品、宏观地缘与 AI 科技观察，站外问题不予回复。" />
+<link rel="icon" type="image/png" href="/img/favicon.png" />
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --panel-2: #f2f4f7;
+    --border: #e3e6ea;
+    --border-strong: #cfd4da;
+    --text: #1b1f24;
+    --text-2: #5b6470;
+    --text-3: #8b949e;
+    --accent: #16a34a;
+    --accent-soft: #e8f6ed;
+    --accent-text: #14532d;
+    --danger: #b42318;
+    --danger-soft: #fdecea;
+    --radius: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 4px 14px rgba(16, 24, 40, 0.05);
+  }
+  html[data-theme="dark"] {
+    --bg: #0e1116;
+    --panel: #161b22;
+    --panel-2: #1c222b;
+    --border: #262d38;
+    --border-strong: #39424f;
+    --text: #e6edf3;
+    --text-2: #a7b1bd;
+    --text-3: #7d8794;
+    --accent: #3fb950;
+    --accent-soft: #12261a;
+    --accent-text: #7ee787;
+    --danger: #f85149;
+    --danger-soft: #2a1517;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.28);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app {
+    max-width: 860px;
+    margin: 0 auto;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+  }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 4px 14px;
+    flex: none;
+  }
+  .logo {
+    width: 36px; height: 36px; flex: none;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    display: grid; place-items: center;
+    font-size: 18px;
+  }
+  .titles { flex: 1; min-width: 0; }
+  .titles h1 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .titles p { margin: 1px 0 0; font-size: 12.5px; color: var(--text-3); }
+  .icon-btn {
+    flex: none;
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text-2);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    display: grid; place-items: center;
+    transition: border-color .15s, color .15s;
+  }
+  .icon-btn:hover { border-color: var(--border-strong); color: var(--text); }
+
+  /* ---------- messages ---------- */
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 4px 12px;
+    scroll-behavior: smooth;
+  }
+  main::-webkit-scrollbar { width: 8px; }
+  main::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+  .welcome { padding: 18px 0 8px; }
+  .welcome h2 { margin: 0 0 8px; font-size: 21px; font-weight: 600; letter-spacing: -0.02em; }
+  .welcome p { margin: 0 0 6px; color: var(--text-2); font-size: 14px; }
+  .scope {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    color: var(--text-2);
+  }
+  .scope b { color: var(--text); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .chip {
+    padding: 8px 13px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13.5px;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent-text); background: var(--accent-soft); }
+
+  .msg { margin: 18px 0; display: flex; flex-direction: column; }
+  .msg.user { align-items: flex-end; }
+  .bubble {
+    max-width: 88%;
+    padding: 11px 15px;
+    border-radius: var(--radius);
+    font-size: 14.5px;
+    word-break: break-word;
+  }
+  .msg.user .bubble {
+    background: var(--accent);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  html[data-theme="dark"] .msg.user .bubble { color: #06210f; }
+  .msg.bot .bubble {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+    box-shadow: var(--shadow);
+  }
+  .bubble p { margin: 0 0 8px; }
+  .bubble p:last-child { margin-bottom: 0; }
+  .bubble ul { margin: 6px 0 8px; padding-left: 20px; }
+  .bubble li { margin: 3px 0; }
+  .bubble strong { font-weight: 600; }
+  .bubble code {
+    background: var(--panel-2);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .bubble h3 { margin: 12px 0 6px; font-size: 15px; font-weight: 600; }
+  .bubble a { color: var(--accent-text); }
+
+  .cursor {
+    display: inline-block;
+    width: 7px; height: 15px;
+    background: var(--accent);
+    vertical-align: -2px;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .thinking { display: flex; gap: 4px; padding: 4px 0; }
+  .thinking i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--text-3);
+    animation: bounce 1.3s infinite;
+  }
+  .thinking i:nth-child(2) { animation-delay: .18s; }
+  .thinking i:nth-child(3) { animation-delay: .36s; }
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: .45; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  /* ---------- sources ---------- */
+  .sources { margin-top: 10px; max-width: 88%; }
+  .sources-label {
+    font-size: 12px; color: var(--text-3);
+    margin-bottom: 6px; letter-spacing: .02em;
+  }
+  .source {
+    display: block;
+    padding: 9px 12px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 6px;
+    transition: border-color .15s;
+  }
+  .source:hover { border-color: var(--accent); }
+  .source .t { font-size: 13.5px; font-weight: 500; line-height: 1.45; }
+  .source .m { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+
+  .err {
+    background: var(--danger-soft);
+    border-color: var(--danger) !important;
+  }
+  .err .t { color: var(--danger); }
+
+  /* ---------- composer ---------- */
+  footer { flex: none; padding: 10px 4px 16px; }
+  .composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 8px 8px 14px;
+    box-shadow: var(--shadow);
+    transition: border-color .15s;
+  }
+  .composer:focus-within { border-color: var(--accent); }
+  textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-height: 132px;
+    padding: 6px 0;
+  }
+  textarea::placeholder { color: var(--text-3); }
+  .send {
+    flex: none;
+    width: 38px; height: 38px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: opacity .15s;
+  }
+  html[data-theme="dark"] .send { color: #06210f; }
+  .send:disabled { opacity: .4; cursor: not-allowed; }
+  .hint {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-3);
+    margin-top: 8px;
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 14.5px; }
+    .app { padding: 0 10px; }
+    .bubble, .sources { max-width: 94%; }
+    .welcome h2 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo" aria-hidden="true">🌿</div>
+    <div class="titles">
+      <h1>问问这个博客</h1>
+      <p>只回答站内写过的东西 · 橡胶童话</p>
+    </div>
+    <button class="icon-btn" id="themeToggle" title="切换主题" aria-label="切换主题">◐</button>
+  </header>
+
+  <main id="messages">
+    <div class="welcome" id="welcome">
+      <h2>这个博客里都写了些什么？</h2>
+      <p>我是这个博客的站内问答助手。你问什么，我就去翻童长征写过的文章来回答。</p>
+      <div class="scope">
+        <b>先说清楚边界：</b>我只回答 <b>rubbertale.github.io 站内内容</b>——
+        橡胶与期货投研、大宗商品、宏观与地缘、AI 与科技观察、投研工具这些。
+        除此之外的问题（闲聊、写代码、翻译、推荐、时事八卦……）我一律不接，会直接告诉你问错了地方。
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip">青岛橡胶仓库着火那篇讲了什么？</button>
+        <button class="chip">零关税对非洲橡胶供应有什么影响？</button>
+        <button class="chip">RU 主力全历史 K 线复盘分了几个阶段？</button>
+        <button class="chip">博客里讲过合成橡胶的定价机制吗？</button>
+        <button class="chip">算力增长对电力需求的影响，怎么分析的？</button>
+        <button class="chip">菲尔兹奖的分布有什么特点？</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="问点站内的东西……（Enter 发送，Shift+Enter 换行）"></textarea>
+      <button class="send" id="send" title="发送" aria-label="发送">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="hint">回答由 AI 基于站内文章生成，重要结论请点开原文核对</div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // 博客托管在 GitHub Pages，与后端不同源，必须用绝对地址
+  var API_BASE = 'https://140.245.65.111.sslip.io/api/blog-chat';
+  var MAX_TURNS = 6;
+
+  var messagesEl = document.getElementById('messages');
+  var welcomeEl = document.getElementById('welcome');
+  var inputEl = document.getElementById('input');
+  var sendEl = document.getElementById('send');
+  var chipsEl = document.getElementById('chips');
+  var themeBtn = document.getElementById('themeToggle');
+
+  var history = [];
+  var busy = false;
+
+  /* ---------- theme ---------- */
+  var saved = null;
+  try { saved = localStorage.getItem('blogchat-theme'); } catch (e) {}
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(saved || (prefersDark ? 'dark' : 'light'));
+
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    try { localStorage.setItem('blogchat-theme', t); } catch (e) {}
+  }
+  themeBtn.addEventListener('click', function () {
+    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- 极简 markdown 渲染（先转义，再替换） ---------- */
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function md(src) {
+    var lines = esc(src).split('\n');
+    var out = [];
+    var inList = false;
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var li = /^\s*[-*•]\s+(.*)$/.exec(line);
+      if (li) {
+        if (!inList) { out.push('<ul>'); inList = true; }
+        out.push('<li>' + inline(li[1]) + '</li>');
+        continue;
+      }
+      if (inList) { out.push('</ul>'); inList = false; }
+
+      var h = /^(#{1,6})\s+(.*)$/.exec(line);
+      if (h) { out.push('<h3>' + inline(h[2]) + '</h3>'); continue; }
+
+      if (!line.trim()) continue;
+      out.push('<p>' + inline(line) + '</p>');
+    }
+    if (inList) out.push('</ul>');
+    return out.join('');
+  }
+  function inline(s) {
+    return s
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  /* ---------- 渲染 ---------- */
+  function addMsg(role) {
+    if (welcomeEl && welcomeEl.parentNode) welcomeEl.parentNode.removeChild(welcomeEl);
+    var wrap = document.createElement('div');
+    wrap.className = 'msg ' + role;
+    var bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    wrap.appendChild(bubble);
+    messagesEl.appendChild(wrap);
+    return { wrap: wrap, bubble: bubble };
+  }
+
+  function renderSources(afterEl, sources) {
+    if (!sources || !sources.length) return;
+    var box = document.createElement('div');
+    box.className = 'sources';
+    var html = '<div class="sources-label">依据这些站内文章</div>';
+    sources.forEach(function (s) {
+      var meta = [];
+      if (s.date) meta.push(s.date);
+      if (s.cats && s.cats.length) meta.push(s.cats.join(' / '));
+      html +=
+        '<a class="source" href="' + esc(s.url) + '" target="_blank" rel="noopener">' +
+        '<div class="t">' + esc(s.title) + '</div>' +
+        (meta.length ? '<div class="m">' + esc(meta.join(' · ')) + '</div>' : '') +
+        '</a>';
+    });
+    box.innerHTML = html;
+    afterEl.wrap.insertBefore(box, afterEl.wrap.firstChild.nextSibling);
+  }
+
+  function scrollDown() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  /* ---------- 发送 ---------- */
+  function autoGrow() {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 132) + 'px';
+  }
+  inputEl.addEventListener('input', autoGrow);
+  inputEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
+  });
+  sendEl.addEventListener('click', send);
+  chipsEl.addEventListener('click', function (e) {
+    var b = e.target.closest('.chip');
+    if (!b || busy) return;
+    inputEl.value = b.textContent.trim();
+    send();
+  });
+
+  async function send() {
+    var q = inputEl.value.trim();
+    if (!q || busy) return;
+
+    busy = true;
+    sendEl.disabled = true;
+    inputEl.value = '';
+    autoGrow();
+
+    addMsg('user').bubble.textContent = q;
+    history.push({ role: 'user', content: q });
+    scrollDown();
+
+    var bot = addMsg('bot');
+    bot.bubble.innerHTML = '<div class="thinking"><i></i><i></i><i></i></div>';
+
+    var text = '';
+    var sources = [];
+    var gotMeta = false;
+    var failed = null;
+
+    try {
+      var res = await fetch(API_BASE + '/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history.slice(-MAX_TURNS) })
+      });
+
+      if (!res.ok) throw new Error('服务返回 ' + res.status);
+
+      var reader = res.body.getReader();
+      var dec = new TextDecoder('utf-8');
+      var buf = '';
+
+      for (;;) {
+        var r = await reader.read();
+        if (r.done) break;
+        buf += dec.decode(r.value, { stream: true });
+        var lines = buf.split('\n');
+        buf = lines.pop() || '';
+
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i].trim();
+          if (line.indexOf('data:') !== 0) continue;
+          var payload = line.slice(5).trim();
+          if (!payload) continue;
+          var evt;
+          try { evt = JSON.parse(payload); } catch (e) { continue; }
+
+          if (evt.type === 'meta') {
+            sources = evt.sources || [];
+            if (!gotMeta) { gotMeta = true; renderSources(bot, sources); }
+          } else if (evt.type === 'delta') {
+            text += evt.text;
+            bot.bubble.innerHTML = md(text) + '<span class="cursor"></span>';
+            scrollDown();
+          } else if (evt.type === 'error') {
+            failed = evt.message;
+          }
+        }
+      }
+    } catch (err) {
+      failed = err.message;
+    }
+
+    if (text) {
+      bot.bubble.innerHTML = md(text);
+      history.push({ role: 'assistant', content: text });
+      if (!sources.length) renderSources(bot, []);
+    } else {
+      bot.bubble.innerHTML =
+        '<p>' + (failed ? '出错了：' + esc(failed) : '没有收到回复，稍后再试一次。') + '</p>';
+      bot.bubble.classList.add('err');
+    }
+
+    busy = false;
+    sendEl.disabled = false;
+    inputEl.focus();
+    scrollDown();
+  }
+
+  inputEl.focus();
+})();
+</script>
+</body>
+</html>

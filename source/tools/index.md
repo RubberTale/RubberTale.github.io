@@ -34,6 +34,15 @@ aside: false
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/tools/blog-chat/" title="问问这个博客 · 站内问答助手" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:message-circle-question.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="问问这个博客">
+        </div>
+        <div class="flink-item-name">问问这个博客</div>
+        <div class="flink-item-desc">直接向博客提问：它只翻童长征写过的文章来回答——橡胶投研、大宗商品、宏观地缘、AI 观察。站外的问题一律不接。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/futures-nav/" title="期货大宗商品投研导航" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:compass.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货大宗商品投研导航">
