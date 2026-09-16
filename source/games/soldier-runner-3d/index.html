@@ -43,6 +43,21 @@
   .card button{pointer-events:auto;border:0;border-radius:13px;padding:13px 42px;font-size:16px;
     font-weight:700;color:#06231a;background:#4ade80;cursor:pointer;font-family:inherit;transition:transform .1s}
   .card button:active{transform:scale(.96)}
+  .audiobar{position:absolute;left:0;right:0;bottom:44px;display:flex;justify-content:center;
+    gap:10px;align-items:center;pointer-events:none}
+  .audio-btn{pointer-events:auto;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);
+    background:rgba(15,23,42,.55);color:#fff;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;font-size:16px;line-height:1;font-family:inherit;transition:transform .1s,background .2s}
+  .audio-btn:active{transform:scale(.92)}
+  .audio-btn.muted{background:rgba(15,23,42,.35);color:rgba(255,255,255,.45)}
+  .vol-wrap{pointer-events:auto;display:flex;align-items:center;gap:8px;background:rgba(15,23,42,.55);
+    border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 14px}
+  .vol-wrap input{-webkit-appearance:none;appearance:none;width:74px;height:4px;border-radius:2px;
+    background:rgba(255,255,255,.3);outline:none;cursor:pointer}
+  .vol-wrap input::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+    background:#4ade80;cursor:pointer}
+  .vol-wrap input::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:#4ade80;cursor:pointer}
+  .vol-wrap span{font-size:11px;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums;min-width:20px;text-align:right}
 </style>
 </head>
 <body>
@@ -58,6 +73,13 @@
     </div>
     <div id="popup"></div>
     <div class="hint" id="hint">左右拖动屏幕 / ← → 控制方向</div>
+    <div class="audiobar" id="audiobar" style="display:none">
+      <button class="audio-btn" id="musicToggle" title="音乐开关" aria-label="音乐开关">♪</button>
+      <div class="vol-wrap">
+        <input type="range" id="musicVol" min="0" max="100" value="60" aria-label="音量">
+        <span id="volLabel">60</span>
+      </div>
+    </div>
     <div class="overlay" id="overlay">
       <div class="card">
         <h1 id="ovTitle">小兵冲冲冲 3D</h1>
@@ -336,6 +358,189 @@ function drawCountSprite(sp, n) {
   sp.userData.tex.needsUpdate = true;
 }
 
+/* ================= music =================
+   用 WebAudio 现场合成，不加载任何外部音频文件——单文件游戏零依赖，
+   也不牵扯他人作品的授权。想换成真实曲子的话，把下面 LOOPS 里对应的
+   音符数组换成你自己录/买断的音频文件即可（见文件末尾注释）。
+========================================== */
+const MUSIC = (() => {
+  const NOTE = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  const freq = (n) => 440 * Math.pow(2, (n - 69) / 12);
+  // 把 "C4" "F#3" 之类写成 MIDI 号
+  function n(name) {
+    const m = /^([A-G])(#?)(-?\d)$/.exec(name);
+    return NOTE[m[1]] + (m[2] ? 1 : 0) + (parseInt(m[3], 10) + 1) * 12;
+  }
+  const seq = (arr) => arr.map((x) => (typeof x === 'string' ? n(x) : x));
+
+  // 每条循环：和弦行进 + 旋律 + 低音，step 为八分音符
+  const LOOPS = {
+    // 主跑动：轻快、明亮，四个和弦来回
+    run: {
+      step: 0.125,
+      chords: [['C3', 'E3', 'G3'], ['A2', 'C3', 'E3'], ['F2', 'A2', 'C3'], ['G2', 'B2', 'D3']],
+      melody: seq(['C5','E5','G5','E5','C5','E5','A5','G5',
+                   'A4','C5','E5','C5','F5','E5','D5','C5',
+                   'F5','A5','C6','A5','G5','F5','E5','D5',
+                   'G5','B5','D6','B5','C6','G5','E5','C5']),
+      bars: 4
+    },
+    // 交战：下行动机 + 更密的鼓点
+    fight: {
+      step: 0.11,
+      chords: [['A2', 'C3', 'E3'], ['F2', 'A2', 'C3'], ['G2', 'B2', 'D3'], ['A2', 'C3', 'E3']],
+      melody: seq(['A4','A4','G4','E4','F4','F4','E4','C4',
+                   'G4','G4','F4','D4','E4','G4','A4','B4',
+                   'A4','C5','E5','D5','F5','E5','D5','C5',
+                   'G4','B4','D5','B4','A4','E5','C5','A4']),
+      bars: 4,
+      drive: true
+    },
+    // 通关：上行的明亮小段
+    win: {
+      step: 0.13,
+      chords: [['C3', 'E3', 'G3'], ['F2', 'A2', 'C3'], ['G2', 'B2', 'D3'], ['C3', 'E3', 'G3']],
+      melody: seq(['C5','E5','G5','C6','G5','E5','G5','C6',
+                   'F5','A5','C6','A5','G5','F5','E5','D5',
+                   'G5','B5','D6','B5','C6','G5','E5','C5',
+                   'E5','G5','C6','E6','C6','G5','E5','C5']),
+      bars: 4
+    },
+    // 失败：缓慢下行
+    over: {
+      step: 0.17,
+      chords: [['A2', 'C3', 'E3'], ['F2', 'A2', 'C3'], ['D2', 'F2', 'A2'], ['E2', 'G2', 'B2']],
+      melody: seq(['A4','G4','F4','E4','D4','E4','F4','E4',
+                   'D4','C4','B3','C4','B3','A3','G3','A3',
+                   'F4','E4','D4','C4','B3','C4','D4','E4',
+                   'E4','D4','C4','B3','A3','G3','A3','A3']),
+      bars: 4
+    }
+  };
+
+  let ctx = null, master = null, timer = null, step = 0, loopName = 'run';
+  let enabled = true, volume = 0.6, started = false;
+  const LOOKAHEAD = 0.12;   // 提前排程的秒数
+  const TICK_MS = 25;
+
+  function ensure() {
+    if (ctx) return true;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = 0;
+    master.connect(ctx.destination);
+    return true;
+  }
+
+  function voice(freqHz, at, dur, type, gain) {
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(freqHz, at);
+    // 简单包络，避免爆音
+    g.gain.setValueAtTime(0, at);
+    g.gain.linearRampToValueAtTime(gain, at + Math.min(0.02, dur * 0.25));
+    g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+    o.connect(g); g.connect(master);
+    o.start(at); o.stop(at + dur + 0.02);
+  }
+
+  function scheduleStep(i, at) {
+    const L = LOOPS[loopName];
+    const beat = L.step;
+    const bar = Math.floor(i / 8) % L.bars;
+    const sub = i % 8;
+    const chord = L.chords[bar];
+    const mel = L.melody[(bar * 8 + sub) % L.melody.length];
+
+    // 和弦铺底：每小节第一拍
+    if (sub === 0) {
+      chord.forEach((nm, k) => voice(freq(n(nm)), at, beat * 7, 'triangle', 0.055 - k * 0.008));
+    }
+    // 低音：每拍
+    if (sub % 2 === 0) voice(freq(n(chord[0]) - 12), at, beat * 1.6, 'sine', 0.10);
+    // 旋律
+    if (mel) voice(freq(mel), at, beat * 0.92, 'square', 0.042);
+    // 打击
+    if (L.drive) {
+      if (sub % 4 === 0) noise(at, 0.055, 0.16);
+      else if (sub % 2 === 0) noise(at, 0.022, 0.06);
+    } else if (sub === 0 || sub === 4) {
+      noise(at, 0.035, 0.08);
+    }
+  }
+
+  function noise(at, dur, gain) {
+    const len = Math.max(1, Math.floor(ctx.sampleRate * dur));
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    const s = ctx.createBufferSource();
+    s.buffer = buf;
+    const g = ctx.createGain();
+    g.gain.value = gain;
+    const f = ctx.createBiquadFilter();
+    f.type = 'highpass'; f.frequency.value = 1400;
+    s.connect(f); f.connect(g); g.connect(master);
+    s.start(at);
+  }
+
+  function pump() {
+    if (!ctx) return;
+    const L = LOOPS[loopName];
+    while (nextTime < ctx.currentTime + LOOKAHEAD) {
+      scheduleStep(step++, nextTime);
+      nextTime += L.step;
+    }
+  }
+  let nextTime = 0;
+
+  function startLoop() {
+    if (!ensure()) return;
+    if (ctx.state === 'suspended') ctx.resume();
+    nextTime = Math.max(nextTime, ctx.currentTime + 0.06);
+    if (!timer) timer = setInterval(pump, TICK_MS);
+    pump();
+  }
+
+  function stopLoop() {
+    if (timer) { clearInterval(timer); timer = null; }
+    if (master && ctx) {
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.25);
+    }
+  }
+
+  return {
+    get enabled() { return enabled; },
+    get volume() { return volume; },
+    play(name) {
+      if (!enabled) return;
+      if (name && LOOPS[name]) loopName = name;
+      if (!started) { started = true; }
+      startLoop();
+      if (master && ctx) {
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.linearRampToValueAtTime(volume, ctx.currentTime + 0.4);
+      }
+    },
+    pause() { stopLoop(); },
+    setEnabled(on) {
+      enabled = on;
+      if (!on) stopLoop();
+      else if (started) this.play();
+    },
+    setVolume(v) {
+      volume = clamp(v, 0, 1);
+      if (master && ctx && enabled) master.gain.setValueAtTime(volume, ctx.currentTime);
+    },
+    // 测试钩子用
+    _peek() { return { ctxState: ctx ? ctx.state : null, running: !!timer, step, loopName }; }
+  };
+})();
+
 /* ================= particles ================= */
 const P_COUNT = 90;
 const pPos = new Float32Array(P_COUNT * 3);
@@ -545,11 +750,15 @@ function startGame() {
   $('overlay').classList.add('hidden');
   $('hint').style.opacity = '0.85';
   state.phase = 'run';
+  $('audiobar').style.display = 'flex';
+  MUSIC.play('run');
   setTimeout(() => { $('hint').style.opacity = '0'; }, 3400);
 }
 
 function endGame(win) {
   state.phase = win ? 'win' : 'over';
+  MUSIC.play(win ? 'win' : 'over');
+  setTimeout(() => { if (state.phase === 'win' || state.phase === 'over') MUSIC.pause(); }, 4200);
   $('ovTitle').textContent = win ? '全线突破' : '全军覆没';
   if (win) {
     $('ovStat').style.display = 'block';
@@ -569,8 +778,40 @@ const keys = {};
 addEventListener('keydown', (e) => {
   keys[e.code] = true;
   if (['ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) e.preventDefault();
+  if (e.code === 'KeyM') toggleMusic();
 });
 addEventListener('keyup', (e) => { keys[e.code] = false; });
+
+/* 切到后台自动静音，回来接着放——网页游戏的基本礼貌 */
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) MUSIC.pause();
+  else if (MUSIC.enabled && (state.phase === 'run' || state.phase === 'battle')) {
+    MUSIC.play(state.phase === 'battle' ? 'fight' : 'run');
+  }
+});
+
+/* ---------- 音乐控制 ---------- */
+function setVolLabel(v) {
+  if (!v) return;
+  $('volLabel').textContent = String(Math.round(v));
+}
+function applyMusicUi() {
+  $('musicToggle').classList.toggle('muted', !MUSIC.enabled);
+  const v = Math.round(MUSIC.volume * 100);
+  $('musicVol').value = String(v);
+  setVolLabel(v);
+}
+function toggleMusic() {
+  MUSIC.setEnabled(!MUSIC.enabled);
+  applyMusicUi();
+}
+$('musicToggle').onclick = (e) => { e.preventDefault(); toggleMusic(); };
+$('musicVol').oninput = (e) => {
+  const v = Number(e.target.value) / 100;
+  MUSIC.setVolume(v);
+  setVolLabel(e.target.value);
+  if (v > 0 && !MUSIC.enabled) { MUSIC.setEnabled(true); applyMusicUi(); }
+};
 
 let dragging = false, dragStartX = 0, dragStartTarget = 0;
 const cv = renderer.domElement;
@@ -599,6 +840,7 @@ function passGate(o) {
 
 function startBattle(o) {
   state.phase = 'battle';
+  MUSIC.play('fight');
   battle.t = 0;
   battle.clashed = false;
   battle.enemy = o;
@@ -662,6 +904,7 @@ function updateBattle(dt) {
   if (battle.clashed && battle.t >= 1.7) {
     if (battle.result) {
       state.phase = 'run';
+      MUSIC.play('run');
       if (e.crowd) { e.crowd.dispose(); e.crowd = null; }
       if (e.sprite) { world.remove(e.sprite); e.sprite = null; }
       state.speed = Math.min(19, state.speed + 0.7);
@@ -770,9 +1013,11 @@ globalThis.__GAME_HOOK = {
   phase: () => state.phase,
   state,
   get pending() { return pending; },
-  applyOp
+  applyOp,
+  music: MUSIC
 };
 
+applyMusicUi();
 resetGame();
 $('ovBtn').onclick = startGame;
 tick();
