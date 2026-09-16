@@ -145,3 +145,61 @@ top:
     \ 4px;\">\n    <a href=\"/2026/09/16/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83%20AI%20%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%20%E5%B9%B4%2009%20%E6%9C%88%2016%20%E6%97%A5%EF%BC%89/\"\
     \ style=\"font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration:\
     \ none;\">完整解读与趋势 →</a>\n  </div>\n</div>"
+
+  - class_name: card-hot-news
+    id_name: card-hot-news
+    icon: fas fa-globe-asia
+    name: 时政与大宗速览
+    html: |
+      <div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
+        <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ef4444;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="美国对伊朗实施新一轮制裁并进行军事演练，导致中东原油供应担忧升温，WTI与Brent油价分别上涨5%与突破100美元/桶。">美伊紧张推高油价</a>
+          </li>
+          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="联合国贸发会议与新华网报道指出，地缘政治紧张与债务压力使全球经济增长乏力，贸易摩擦风险上升，对大宗商品需求形成下行压力。">联合国警示经济脆弱</a>
+          </li>
+          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#3b82f6;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="受避险情绪减弱及美元走强影响，金价本周累计下跌近12%，近期在$1,945/盎司附近企稳，市场关注美联储利率路径。">黄金跌幅显著</a>
+          </li>
+          <li style="margin-bottom: 4px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="东南亚主要橡胶产区因季风异常导致采割受阻，天然橡胶库存下降，价格在近期站上$2.30/kg，支撑相关化工企业利润。">橡胶供给紧张</a>
+          </li>
+        </ul>
+        <div style="text-align: right; margin-top: 4px;">
+          <a href="/2026/09/17/%E5%9C%B0%E7%BC%98%E7%83%BD%E7%81%AB%E4%B8%8E%E5%95%86%E5%93%81%E9%87%8D%E5%AE%9A%E4%BB%B7%EF%BC%9A%E5%85%A8%E7%90%83%E6%97%B6%E6%94%BF%E4%B8%8E%E5%A4%A7%E5%AE%97%E5%95%86%E5%93%81%E8%A6%81%E7%82%B9%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="font-size: 0.82rem; color: #3b82f6; font-weight: 500; text-decoration: none;">完整速览与推演 →</a>
+        </div>
+      </div>
+
+  - class_name: card-ai-news
+    id_name: card-ai-news
+    icon: fas fa-robot
+    name: AI 科技前沿大事
+    html: |
+      <div class="news-list" style="font-size: 0.88rem; line-height: 1.6;">
+        <ul style="padding-left: 0; list-style: none; margin: 0 0 8px 0;">
+          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8b5cf6;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="DeepSeek于4月24日发布V4‑Pro与V4‑Flash预览版，强调灵活推理算力和生产环境增益，标志其在Agentic AI领域的最新突破。">DeepSeek V4‑Pro正式发布，Agent升级</a>
+          </li>
+          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#06b6d4;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="DeepSeek V3.2(special)在2025年金牌IMO、CMO、IOI以及ICPC世界总决赛中夺冠，首次超前OpenAI和Google，展示其在学术与实用基准上的领先优势。">DeepSeek V3.2特版夺冠全球竞赛</a>
+          </li>
+          <li style="margin-bottom: 7px; border-bottom: 1px dashed rgba(128, 128, 128, 0.2); padding-bottom: 5px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#ec4899;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="DeepSeek R1在Artificial Analysis Intelligence Index中从60位升至68位，超越xAI、Meta、Anthropic，巩固其开放权重模型的领军地位。">DeepSeek R1指数跃升至全球第二</a>
+          </li>
+          <li style="margin-bottom: 4px;">
+            <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;margin-right:6px;vertical-align:middle;"></span>
+            <a href="/2026/09/17/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="color: inherit; text-decoration: none;" title="在DeepSeek系列发布的背景下，业界整体从突发式‘黑天鹅’式突破转向稳健的生产化部署，算力供应链（如NVIDIA H200）与多模态Agent生态加速布局。">行业从黑天鹅转向生产化与算力竞争</a>
+          </li>
+        </ul>
+        <div style="text-align: right; margin-top: 4px;">
+          <a href="/2026/09/17/%E6%99%BA%E8%83%BD%E4%BD%93%E7%88%86%E5%8F%91%E4%B8%8E%E7%AE%97%E5%8A%9B%E7%AB%9E%E9%80%90%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8817%E6%97%A5%EF%BC%89/" style="font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration: none;">完整解读与趋势 →</a>
+        </div>
+      </div>
