@@ -22,9 +22,9 @@ tags:
 
 ## 全历史日 K 线
 
-<iframe src="/charts/ru-main-kline/" style="width:100%;height:780px;border:0;border-radius:12px;display:block;margin:28px 0;background:#fff" loading="lazy" title="RU 橡胶主力全历史 K 线"></iframe>
+<iframe src="/tools/ru-main-kline/" style="width:100%;height:780px;border:0;border-radius:12px;display:block;margin:28px 0;background:#fff" loading="lazy" title="RU 橡胶主力全历史 K 线"></iframe>
 
-> 图里挤的话，可以[全屏打开](/charts/ru-main-kline/)。
+> 图里挤的话，可以[全屏打开](/tools/ru-main-kline/)。
 
 ## 怎么用
 

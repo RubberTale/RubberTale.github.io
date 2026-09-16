@@ -52,6 +52,15 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
+      <a href="/tools/ru-main-kline/" title="RU 橡胶主力全历史日 K 线复盘" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="RU 全历史 K 线">
+        </div>
+        <div class="flink-item-name">RU 全历史 K 线复盘</div>
+        <div class="flink-item-desc">2005 年至今五千多个交易日的橡胶主力日 K，自动划分十九段行情；点开就是整屏大图，点图上的标签即可展开该阶段的走势解读。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
