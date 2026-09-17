@@ -10,11 +10,13 @@
     --bg:#ffffff; --fg:#1f1f1d; --muted:#8a8a84; --line:rgba(0,0,0,.10);
     --up:#d93b3a; --down:#12905f; --chip:rgba(255,255,255,.94);
     --hl:rgba(217,59,58,.14);
+    --evdot:#c99a2e; --evring:rgba(201,154,46,.42);
   }
   @media (prefers-color-scheme: dark){
     :root{--bg:#131316; --fg:#e9e9e6; --muted:#7d7d78; --line:rgba(255,255,255,.13);
           --up:#e35b5a; --down:#2aa87a; --chip:rgba(23,23,27,.94);
-          --hl:rgba(227,91,90,.20);}
+          --hl:rgba(227,91,90,.20);
+          --evdot:#e0b345; --evring:rgba(224,179,69,.45);}
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);
@@ -38,6 +40,23 @@
   #hud span{font-size:11.5px;color:var(--muted)}
   #tip{position:absolute;right:18px;bottom:16px;pointer-events:none;
     font-size:11.5px;color:var(--muted)}
+  /* ── 事件标记 ── */
+  #evs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  #evs b{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
+    pointer-events:auto;cursor:pointer;
+    background:var(--evdot);border:.5px solid var(--bg);
+    box-shadow:0 0 0 .5px var(--evring);transition:transform .12s}
+  #evs b:hover,#evs b.active{transform:scale(1.55);z-index:6}
+  #evtip{position:absolute;z-index:8;max-width:270px;pointer-events:none;
+    background:var(--chip);border:.5px solid var(--line);border-radius:9px;
+    padding:9px 11px;box-shadow:0 4px 20px rgba(0,0,0,.14);opacity:0;
+    transition:opacity .13s;backdrop-filter:blur(8px)}
+  #evtip.on{opacity:1}
+  #evtip .d{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;
+    letter-spacing:.3px;margin-bottom:3px}
+  #evtip .t{font-size:12.5px;font-weight:600;color:var(--fg);line-height:1.45;
+    margin-bottom:4px}
+  #evtip .n{font-size:11.5px;line-height:1.65;color:var(--muted)}
   #mask{position:absolute;inset:0;background:rgba(0,0,0,.14);opacity:0;
     pointer-events:none;transition:opacity .22s;z-index:9}
   #mask.on{opacity:1;pointer-events:auto}
@@ -78,6 +97,8 @@
 <div id="stage">
   <div id="chart"></div>
   <div id="links"></div>
+  <div id="evs"></div>
+  <div id="evtip"></div>
   <div id="hud"></div>
   <div id="tip">滚轮缩放 · 拖动平移 · 点击标签看解读</div>
   <div id="mask"></div>
@@ -88,9 +109,10 @@ var UP = '#d93b3a', DOWN = '#12905f';
 var CIRC = [];
 for (var ci = 0; ci < 20; ci++) CIRC.push(String.fromCharCode(0x2460 + ci));
 
-var DATA = null, PHASES = null, chart = null;
+var DATA = null, PHASES = null, EVENTS = [], chart = null;
 var dates = [], kd = [], mode = '', cache = {};
 var gridRect = null;
+var EV_FLAT = [];   // 拍平的事件列表：[{date, title, note, phase, level}, ...]
 
 function ymd(s){ return '20' + s.slice(0,2) + '-' + s.slice(2,4) + '-' + s.slice(4,6); }
 function rgba(hex, a){
@@ -145,7 +167,15 @@ fetch('data.json')
   .then(function(r){ if (!r.ok) throw new Error('data.json HTTP ' + r.status); return r.json(); })
   .then(function(d){ DATA = d; return fetch('phases.json'); })
   .then(function(r){ if (!r.ok) throw new Error('phases.json HTTP ' + r.status); return r.json(); })
-  .then(function(p){ PHASES = p; boot(); })
+  .then(function(p){
+    PHASES = p;
+    // 事件标记是可选增强：拿不到就不显示，不影响主图
+    return fetch('events.json')
+      .then(function(r){ return r.ok ? r.json() : []; })
+      .then(function(e){ EVENTS = e; })
+      .catch(function(){ EVENTS = []; });
+  })
+  .then(boot)
   .catch(function(e){
     document.getElementById('chart').innerHTML =
       '<div style="padding:80px 20px;text-align:center;color:' + cssVar('--muted') + '">数据加载失败：' + e.message + '</div>';
@@ -165,13 +195,15 @@ function boot(){
 
   chart.setOption(option());
   buildLinks();
+  buildEvents();
 
   chart.on('dataZoom', onZoom);
-  chart.on('rendered', function(){ cacheGrid(); layoutLinks(); });
+  chart.on('rendered', function(){ cacheGrid(); layoutLinks(); layoutEvents(); });
   window.addEventListener('resize', function(){
     chart.resize();
     cacheGrid();
     layoutLinks();
+    layoutEvents();
   });
 
   document.getElementById('mask').addEventListener('click', closeCard);
@@ -179,6 +211,7 @@ function boot(){
 
   cacheGrid();
   layoutLinks();
+  layoutEvents();
 
   var om = location.search.match(/[?&]open=(\d+)/);
   if (om){
@@ -357,6 +390,125 @@ function hits(list, x, y, hw, hh){
   return false;
 }
 
+/* ─────────── 事件标记 ───────────
+   数据来自 events.json：[{phase, items:[{date, level, title, note}]}, ...]
+   渲染成 K 线上的小圆点，悬停出气泡。圆点直接钉在当日的 high（利空）
+   或 low（利多）上，靠 ECharts convertToPixel 跟随缩放重排。        */
+
+function buildEvents(){
+  EV_FLAT = [];
+  if (!EVENTS || !EVENTS.length) return;
+  EVENTS.forEach(function(g){
+    var pi = (g.phase || 0) - 1;
+    (g.items || []).forEach(function(e){
+      EV_FLAT.push({
+        date: e.date, title: e.title || '', note: e.note || '',
+        level: e.level === 'low' ? 'low' : 'high',
+        phase: pi
+      });
+    });
+  });
+}
+
+function layoutEvents(){
+  var box = document.getElementById('evs');
+  if (!box) return;
+  if (!chart || !gridRect || !EV_FLAT.length){ box.innerHTML = ''; return; }
+
+  var W = chart.getWidth(), H = chart.getHeight();
+  var gx = gridRect.x, gw = gridRect.width, gy = gridRect.y, gh = gridRect.height;
+  var keep = {};
+
+  EV_FLAT.forEach(function(e, i){
+    var d = snap(e.date, dates);
+    var idx = dates.indexOf(d);
+    if (idx < 0) return;
+    var px = null;
+    try {
+      // 找当日的真实 high / low 作为锚点，钉在影线端点上
+      var row = null;
+      for (var j = 0; j < kd.length; j++){
+        if (kd[j][0] === d){ row = kd[j]; break; }
+      }
+      var price = row ? (e.level === 'low' ? row[3] : row[2]) : null;
+      if (price !== null){
+        var pt = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, price]);
+        if (pt && isFinite(pt[0])) px = pt[0];
+      }
+      if (px === null){
+        var pt2 = chart.convertToPixel({ xAxisIndex: 0 }, d);
+        if (pt2 !== null && pt2 !== undefined && isFinite(pt2)) px = (typeof pt2 === 'object') ? pt2[0] : pt2;
+      }
+    } catch (err) { px = null; }
+
+    if (px === null || px < gx - 6 || px > gx + gw + 6) return;
+
+    var el = box.children[i];
+    if (!el){
+      el = document.createElement('b');
+      el.className = 'ev';
+      box.appendChild(el);
+    }
+    // 竖向位置：钉在影线端点，再按 level 往外挪 7px，避免压住 K 线实体
+    var py = null;
+    try {
+      var row2 = null;
+      for (var k = 0; k < kd.length; k++){ if (kd[k][0] === d){ row2 = kd[k]; break; } }
+      if (row2){
+        var price2 = e.level === 'low' ? row2[3] : row2[2];
+        var ptv = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, price2]);
+        if (ptv && isFinite(ptv[1])) py = ptv[1] + (e.level === 'low' ? 8 : -8);
+      }
+    } catch (err2) { py = null; }
+    if (py === null) py = gy + gh / 2;
+
+    keep[i] = 1;
+    el.style.left = px + 'px';
+    el.style.top = Math.max(gy - 2, Math.min(gy + gh + 2, py)) + 'px';
+    el.style.display = 'block';
+    if (!el._bound){
+      el._bound = 1;
+      el.addEventListener('mouseenter', function(){ showEvTip(i, px, py); });
+      el.addEventListener('mouseleave', hideEvTip);
+      el.addEventListener('click', function(){
+        if (e.phase >= 0 && e.phase < PHASES.length) openCard(e.phase);
+      });
+    }
+  });
+
+  // 隐藏本帧没通过可见性检查的点
+  Array.prototype.forEach.call(box.children, function(el, i){
+    if (!keep[i]) el.style.display = 'none';
+  });
+}
+
+function showEvTip(i, x, y){
+  var e = EV_FLAT[i];
+  if (!e) return;
+  var tip = document.getElementById('evtip');
+  var box = document.getElementById('evs');
+  tip.innerHTML =
+    '<div class="d">' + e.date + '</div>' +
+    '<div class="t">' + mdInline(e.title) + '</div>' +
+    '<div class="n">' + mdInline(e.note) + '</div>';
+  tip.classList.add('on');
+  // 先量尺寸再定位，保证不出界
+  var tw = tip.offsetWidth, th = tip.offsetHeight;
+  var W = chart.getWidth(), H = chart.getHeight();
+  var tx = x + 12, ty = y - th - 10;
+  if (tx + tw > W - 8) tx = x - tw - 12;
+  if (tx < 8) tx = 8;
+  if (ty < 8) ty = y + 14;
+  if (ty + th > H - 8) ty = H - th - 8;
+  tip.style.left = tx + 'px';
+  tip.style.top = ty + 'px';
+}
+
+function hideEvTip(){
+  var tip = document.getElementById('evtip');
+  if (tip) tip.classList.remove('on');
+}
+
 var switching = false;
 
 function onZoom(){
@@ -391,6 +543,7 @@ function switchMode(want, s, e){
   chart.dispatchAction({ type: 'dataZoom', start: ns / n * 100, end: ne / n * 100 });
   cacheGrid();
   layoutLinks();
+  layoutEvents();
   switching = false;
 }
 
@@ -438,6 +591,7 @@ function openCard(i){
 function closeCard(){
   document.getElementById('card').classList.remove('on');
   document.getElementById('mask').classList.remove('on');
+  hideEvTip();
   var box = document.getElementById('links');
   Array.prototype.forEach.call(box.children, function(a){ a.classList.remove('active'); });
 }
