@@ -410,73 +410,100 @@ function buildEvents(){
   });
 }
 
+// 缩放级别 -> 显示哪些 tier。
+// 全览 21 年时若把 30+ 个点全画出来会重叠成一团；
+// 所以跨度 > 4 年只留 tier 1（关键事件），放大后自动补出 tier 2。
+function evMaxTier(){
+  if (!dates.length) return 2;
+  var n = dates.length;
+  var dz = null;
+  try { dz = chart.getOption().dataZoom[0]; } catch (e) { dz = null; }
+  if (!dz) return 1;
+  var s = Math.round((dz.start || 0) / 100 * (n - 1));
+  var e = Math.round((dz.end === undefined ? 100 : dz.end) / 100 * (n - 1));
+  s = Math.max(0, Math.min(n - 1, s));
+  e = Math.max(0, Math.min(n - 1, e));
+  var days = (new Date(dates[e]) - new Date(dates[s])) / 86400000;
+  return days > 1460 ? 1 : 2;
+}
+
 function layoutEvents(){
   var box = document.getElementById('evs');
   if (!box) return;
   if (!chart || !gridRect || !EV_FLAT.length){ box.innerHTML = ''; return; }
 
+  var maxTier = evMaxTier();
   var W = chart.getWidth(), H = chart.getHeight();
   var gx = gridRect.x, gw = gridRect.width, gy = gridRect.y, gh = gridRect.height;
-  var keep = {};
 
+  // ── 第一遍：算出所有「可见且在本 tier 内」的点的像素位置 ──
+  var cands = [];
   EV_FLAT.forEach(function(e, i){
+    if (e.tier > maxTier) return;
     var d = snap(e.date, dates);
-    var idx = dates.indexOf(d);
-    if (idx < 0) return;
-    var px = null;
+    if (dates.indexOf(d) < 0) return;
+    var row = null;
+    for (var j = 0; j < kd.length; j++){ if (kd[j][0] === d){ row = kd[j]; break; } }
+    if (!row) return;
+    var px = null, py = null;
     try {
-      // 找当日的真实 high / low 作为锚点，钉在影线端点上
-      var row = null;
-      for (var j = 0; j < kd.length; j++){
-        if (kd[j][0] === d){ row = kd[j]; break; }
-      }
-      var price = row ? (e.level === 'low' ? row[3] : row[2]) : null;
-      if (price !== null){
-        var pt = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, price]);
-        if (pt && isFinite(pt[0])) px = pt[0];
-      }
-      if (px === null){
-        var pt2 = chart.convertToPixel({ xAxisIndex: 0 }, d);
-        if (pt2 !== null && pt2 !== undefined && isFinite(pt2)) px = (typeof pt2 === 'object') ? pt2[0] : pt2;
+      var price = e.level === 'low' ? row[3] : row[2];
+      var pt = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, price]);
+      if (pt && isFinite(pt[0]) && isFinite(pt[1])){
+        px = pt[0]; py = pt[1] + (e.level === 'low' ? 8 : -8);
       }
     } catch (err) { px = null; }
-
     if (px === null || px < gx - 6 || px > gx + gw + 6) return;
+    if (py === null) py = gy + gh / 2;
+    cands.push({ i: i, x: px, y: Math.max(gy - 2, Math.min(gy + gh + 2, py)), e: e });
+  });
 
-    var el = box.children[i];
+  // ── 第二遍：横向碰撞避让 ──
+  // 优先级：w 小的先占位（0=核心事件，一定保留）。w 相同时先到先得。
+  // 核心事件(0/1)之间如果也撞了，只给提示不强行隐藏——宁可挤也不丢关键点。
+  var wOf = function(c){ return (typeof c.e.w === 'number') ? c.e.w : 2; };
+  cands.sort(function(a, b){
+    if (wOf(a) !== wOf(b)) return wOf(a) - wOf(b);
+    return a.x - b.x;
+  });
+  var placed = [], MIN_GAP = 11;
+  cands.forEach(function(c){
+    var w = wOf(c);
+    for (var k = 0; k < placed.length; k++){
+      var pw = wOf(placed[k]);
+      // 核心/重要事件（w<=1）之间不再互相隐藏，允许相邻
+      if (w <= 1 && pw <= 1) continue;
+      if (Math.abs(placed[k].x - c.x) < MIN_GAP) { c.hide = 1; return; }
+    }
+    placed.push(c);
+  });
+  placed.sort(function(a, b){ return a.x - b.x; });
+
+  var keep = {};
+  placed.forEach(function(c){
+    var el = box.children[c.i];
     if (!el){
       el = document.createElement('b');
       el.className = 'ev';
       box.appendChild(el);
     }
-    // 竖向位置：钉在影线端点，再按 level 往外挪 7px，避免压住 K 线实体
-    var py = null;
-    try {
-      var row2 = null;
-      for (var k = 0; k < kd.length; k++){ if (kd[k][0] === d){ row2 = kd[k]; break; } }
-      if (row2){
-        var price2 = e.level === 'low' ? row2[3] : row2[2];
-        var ptv = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, price2]);
-        if (ptv && isFinite(ptv[1])) py = ptv[1] + (e.level === 'low' ? 8 : -8);
-      }
-    } catch (err2) { py = null; }
-    if (py === null) py = gy + gh / 2;
-
-    keep[i] = 1;
-    el.style.left = px + 'px';
-    el.style.top = Math.max(gy - 2, Math.min(gy + gh + 2, py)) + 'px';
+    keep[c.i] = 1;
+    el.style.left = c.x + 'px';
+    el.style.top = c.y + 'px';
     el.style.display = 'block';
     if (!el._bound){
-      el._bound = 1;
-      el.addEventListener('mouseenter', function(){ showEvTip(i, px, py); });
-      el.addEventListener('mouseleave', hideEvTip);
-      el.addEventListener('click', function(){
-        if (e.phase >= 0 && e.phase < PHASES.length) openCard(e.phase);
-      });
+      (function(ii, ex, ey){
+        el._bound = 1;
+        el.addEventListener('mouseenter', function(){ showEvTip(ii, ex, ey); });
+        el.addEventListener('mouseleave', hideEvTip);
+        el.addEventListener('click', function(){
+          var ev = EV_FLAT[ii];
+          if (ev.phase >= 0 && ev.phase < PHASES.length) openCard(ev.phase);
+        });
+      })(c.i, c.x, c.y);
     }
   });
 
-  // 隐藏本帧没通过可见性检查的点
   Array.prototype.forEach.call(box.children, function(el, i){
     if (!keep[i]) el.style.display = 'none';
   });
