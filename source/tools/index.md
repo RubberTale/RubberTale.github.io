@@ -196,7 +196,7 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
-      <a href="https://140.245.65.111.sslip.io/forum/" title="燕园叽喳 · 论坛" target="_blank">
+      <a href="https://pkuai.run.place/forum/" title="燕园叽喳 · 论坛" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:messages-square.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="燕园叽喳">
         </div>
