@@ -195,6 +195,15 @@ aside: false
         <div class="flink-item-desc">免费、无限量的微软高品质神经语音合成工具：支持多种音色（晓晓、云扬、云希、粤语、台湾话等），支持语速无级微调与超长文本一键一键转换高质MP3。</div>
       </a>
     </div>
+    <div class="flink-list-item">
+      <a href="https://140.245.65.111.sslip.io/forum/" title="燕园叽喳 · 论坛" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:messages-square.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="燕园叽喳">
+        </div>
+        <div class="flink-item-name">燕园叽喳</div>
+        <div class="flink-item-desc">大家一起聊天的地方。博客之外的自由讨论区：想说什么就开个帖，与文章互补的随口闲谈与读者交流都在这儿。</div>
+      </a>
+    </div>
     <!-- 可以在此处添加更多实用工具卡片 -->
   </div>
 </div>
