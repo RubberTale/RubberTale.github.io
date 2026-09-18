@@ -75,7 +75,16 @@ aside: false
           <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="跨品种套利跟踪器">
         </div>
         <div class="flink-item-name">跨品种套利跟踪器 BU/LU</div>
-        <div class="flink-item-desc">沥青−低硫燃料油价差的均值回复跟踪：T0 收盘给出触发价差，T+1 收盘价差越过即成交，同月配对真实合约逐笔盯市，5.7 年 25 笔全量流水公开。</div>
+        <div class="flink-item-desc">沥青−低硫燃料油价差的实时前向跟踪：策略先定死，T0 收盘给出触发价差，T+1 收盘价差越过才成交，同月配对真实合约逐日盯市。净值只从启动日起算，回测结果不混进来。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/tools/arb-backtest/" title="套利策略历史回测 BU/LU" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:history.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="套利策略历史回测">
+        </div>
+        <div class="flink-item-name">套利策略历史回测 BU/LU</div>
+        <div class="flink-item-desc">同参数在 2020–2026 历史行情上的复盘：同月配对真实合约 33 笔、胜率 82%、净 +2841 元/吨、成本仅占 5%。这是事后检验，与实时跟踪器分开看。</div>
       </a>
     </div>
     <div class="flink-list-item">

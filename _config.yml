@@ -57,6 +57,7 @@ skip_render:
   - "tools/report-data-diff/**"
   - "tools/strategy-tracker/**"
   - "tools/arb-tracker/**"
+  - "tools/arb-backtest/**"
   - "tools/ru-main-kline/**"
   - "rubber/**"
   - "roman/**"

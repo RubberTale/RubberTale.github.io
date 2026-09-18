@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>套利策略历史回测 · BU/LU 沥青−低硫价差 | 橡胶童话</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { darkbg: '#0a0e17', cardbg: '#111827', bordercol: '#1f293d' } } }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+           background-color: #0a0e17; color: #e2e8f0; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .card { background: rgba(17,24,39,.6); border: 1px solid #1f2937; border-radius: .85rem; }
+    .chip { font-size: 11px; padding: 2px 7px; border-radius: 9999px; font-weight: 500; }
+    table { border-collapse: collapse; }
+    .tcell { padding: 8px 10px; font-size: 12px; white-space: nowrap; }
+    .thead { position: sticky; top: 0; background: #0f172a; z-index: 1; }
+    .glow-emerald { box-shadow: 0 0 20px -5px rgba(16,185,129,.25); }
+    .glow-rose { box-shadow: 0 0 20px -5px rgba(244,63,94,.25); }
+    .glow-amber { box-shadow: 0 0 20px -5px rgba(245,158,11,.25); }
+    .num { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+    .pos { color: #34d399; } .neg { color: #fb7185; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+<header class="border-b border-gray-800/80 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <a href="/" title="返回橡胶童话首页" class="block shrink-0">
+        <img src="/img/橡胶童话logo.png" alt="橡胶童话 Logo" class="w-9 h-9 rounded-xl shadow-md hover:scale-105 transition-transform object-contain bg-white/5 p-0.5 border border-white/10">
+      </a>
+      <div>
+        <div class="flex items-center space-x-2 flex-wrap">
+          <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">套利策略历史回测</h1>
+          <span class="chip bg-amber-500/10 text-amber-400 border border-amber-500/20">Backtest · 非实时</span>
+        </div>
+        <p class="text-xs text-gray-400 hidden sm:block" id="hd-sub">沥青 BU − 低硫燃料油 LU · 收盘价差触发 · 同月配对 · 2020–2026 真实合约逐笔复算</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-3 text-xs">
+      <div class="hidden md:flex items-center space-x-2 text-gray-400 bg-gray-900/80 px-3 py-1.5 rounded-lg border border-gray-800">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>回测截止: <strong id="hd-date" class="text-gray-200 num">--</strong></span>
+      </div>
+      <a href="/tools/arb-tracker/" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/30 transition font-semibold">
+        <span>→ 实时前向跟踪器</span>
+      </a>
+      <a href="/tools/" class="text-gray-300 hover:text-white px-3 py-1.5 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 transition flex items-center space-x-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        <span>返回工具箱</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 w-full">
+
+  <!-- 这是回测，不是跟踪 -->
+  <div class="rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-950/40 via-gray-900 to-gray-900 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+    <div class="flex items-start space-x-3">
+      <div class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <div>
+        <h2 class="text-sm font-bold text-white">本页是历史回测，不是实时跟踪</h2>
+        <p class="text-xs text-gray-400 mt-1 leading-relaxed">
+          以下所有结果都是用 <strong class="text-gray-300">2020–2026 已发生的历史行情</strong> 复盘出来的，属于「事后检验」。
+          它只能说明这套规则在过去是否成立，<strong class="text-amber-300">不代表未来收益</strong>。
+          真正的实时验证请看 <a href="/tools/arb-tracker/" class="text-emerald-400 hover:text-emerald-300 underline decoration-dotted">前向跟踪器</a> —— 那里从启动日才开始记账，每天只等次日数据说话。
+        </p>
+      </div>
+    </div>
+    <a href="/tools/arb-tracker/" class="shrink-0 px-4 py-2 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs font-semibold transition">打开实时跟踪 →</a>
+  </div>
+
+  <!-- KPI -->
+  <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
+    <div class="col-span-2 sm:col-span-1 lg:col-span-2 card p-4 relative overflow-hidden">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">组合累计净值 (NAV)</span>
+        <span id="st-pill" class="chip bg-amber-500/10 text-amber-400 border border-amber-500/20">历史回测</span>
+      </div>
+      <div class="mt-2 flex items-baseline space-x-3">
+        <span id="k-nav" class="text-2xl sm:text-3xl font-extrabold text-white num">--</span>
+        <span id="k-ret" class="text-sm font-semibold num">--%</span>
+      </div>
+      <div class="mt-2 text-xs text-gray-400 flex items-center justify-between">
+        <span>权益: <span id="k-eq" class="num text-gray-300">--</span> 元</span>
+        <span id="k-units" class="text-gray-500">--</span>
+      </div>
+    </div>
+    <div class="card p-4">
+      <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">累计净盈亏</span>
+      <div class="mt-2"><span id="k-netton" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 num">--</span><span class="text-xs text-gray-500 ml-1">元/吨</span></div>
+      <div class="mt-2 text-xs text-gray-400">毛 <span id="k-gross" class="num text-gray-300">--</span> − 成本 <span id="k-cost" class="num text-gray-300">--</span></div>
+    </div>
+    <div class="card p-4">
+      <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">平仓胜率</span>
+      <div class="mt-2"><span id="k-win" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 num">--%</span></div>
+      <div class="mt-2 text-xs text-gray-400">基于 <span id="k-n" class="num text-gray-200">--</span> 笔真实合约成交</div>
+    </div>
+    <div class="card p-4">
+      <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">信号触发率</span>
+      <div class="mt-2"><span id="k-fill" class="text-2xl sm:text-3xl font-extrabold text-indigo-400 num">--%</span></div>
+      <div class="mt-2 text-xs text-gray-400"><span id="k-sig" class="num text-gray-200">--</span> 次信号 / 成交 <span id="k-filln" class="num text-gray-200">--</span></div>
+    </div>
+    <div class="card p-4">
+      <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">最大回撤</span>
+      <div class="mt-2"><span id="k-mdd" class="text-2xl sm:text-3xl font-extrabold text-rose-400 num">--%</span></div>
+      <div class="mt-2 text-xs text-gray-400">成本占毛利 <span id="k-cr" class="num text-gray-200">--</span>%</div>
+    </div>
+  </div>
+
+  <!-- 模块 1：次日触发雷达 -->
+  <div class="card p-5 sm:p-6 shadow-xl">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-800">
+      <div class="flex items-center space-x-2">
+        <span id="radar-dot" class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
+        <h2 class="text-lg font-bold text-white tracking-tight">次日触发雷达</h2>
+        <span class="text-xs text-gray-500">T0 收盘发信号 → T+1 收盘价差越过触发价则成交</span>
+      </div>
+      <div class="text-xs text-gray-400">半衰期 <span id="k-hl" class="num text-gray-200">--</span> 日 · 平均持有 <span id="k-hold" class="num text-gray-200">--</span> 日</div>
+    </div>
+
+    <div id="radar-wait" class="hidden mt-5">
+      <div class="rounded-xl border border-gray-800 bg-gray-900/50 p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-gray-500"></span>
+          <span class="text-sm font-semibold text-gray-300">当前无信号</span>
+          <span class="chip bg-gray-800 text-gray-400">空仓等待</span>
+        </div>
+        <p class="text-sm text-gray-400" id="wait-msg">价差处于常态区间，未触发 ±2σ 阈值。</p>
+        <!-- 通道位置条 -->
+        <div class="mt-5">
+          <div class="flex justify-between text-[11px] text-gray-500 mb-1">
+            <span>-2σ <span id="g-dn" class="num text-gray-400">--</span></span>
+            <span>均值 <span id="g-ma" class="num text-gray-400">--</span></span>
+            <span>+2σ <span id="g-up" class="num text-gray-400">--</span></span>
+          </div>
+          <div class="relative h-9 rounded-lg border border-gray-800 overflow-hidden"
+               style="background:linear-gradient(90deg,rgba(16,185,129,.18) 0%,rgba(100,116,139,.10) 33%,rgba(100,116,139,.10) 67%,rgba(244,63,94,.18) 100%)">
+            <div class="absolute top-0 bottom-0 w-px bg-gray-600" style="left:33.3%"></div>
+            <div class="absolute top-0 bottom-0 w-px bg-gray-600" style="left:66.6%"></div>
+            <div id="g-mark" class="absolute top-0 bottom-0 w-[3px] bg-amber-400 shadow-[0_0_10px_rgba(245,158,11,.8)]" style="left:50%"></div>
+          </div>
+          <div class="mt-2 text-xs text-gray-400">
+            当前价差 <span id="g-cur" class="num font-semibold text-amber-400">--</span>
+            · z = <span id="g-z" class="num">--</span>
+            · 近一年分位 <span id="g-pct" class="num">--</span>%
+            <span id="g-pair" class="text-gray-500 ml-1"></span>
+          </div>
+          <div class="mt-2 pt-2 border-t border-gray-800 text-[11px] text-gray-500">
+            信号序列（主力连续）由 <span id="g-main" class="num text-gray-300">--</span> 构成；
+            实际成交拟用同月对 <span id="g-exec" class="num text-gray-300">--</span>，该对当前价差
+            <span id="g-execs" class="num text-gray-300">--</span>。
+            <span class="text-gray-600">两者仅在换月日偏离（实测差异中位 0、标准差 78 元/吨）。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="radar-sig" class="hidden mt-5">
+      <div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 glow-amber">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span class="text-sm font-semibold text-amber-300">信号已发出</span>
+          <span id="sig-dir" class="chip bg-amber-500/15 text-amber-300 border border-amber-500/30">--</span>
+          <span class="chip bg-gray-800 text-gray-300" id="sig-pair">--</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div><div class="text-[11px] text-gray-400">T0 收盘价差</div><div id="sig-s" class="text-lg font-bold text-white num">--</div></div>
+          <div><div class="text-[11px] text-gray-400">60日均值 / σ</div><div id="sig-masd" class="text-lg font-bold text-white num">--</div></div>
+          <div><div class="text-[11px] text-gray-400">z 值</div><div id="sig-z" class="text-lg font-bold text-white num">--</div></div>
+          <div><div class="text-[11px] text-gray-400">触发价差（次日）</div><div id="sig-trg" class="text-lg font-bold text-amber-300 num">--</div></div>
+        </div>
+        <div class="mt-4 rounded-lg bg-gray-950/60 border border-gray-800 p-3">
+          <div class="text-[11px] text-gray-400 mb-1">执行指令</div>
+          <div id="sig-act" class="text-sm text-gray-200 font-mono">--</div>
+          <div class="text-[11px] text-gray-500 mt-2" id="sig-exec">--</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="radar-hold" class="hidden mt-5">
+      <div class="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 glow-emerald">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-sm font-semibold text-emerald-300">持仓中</span>
+          <span id="hold-dir" class="chip bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">--</span>
+          <span class="chip bg-gray-800 text-gray-300" id="hold-pair">--</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div><div class="text-[11px] text-gray-400">建仓价差</div><div id="hold-sin" class="text-lg font-bold text-white num">--</div></div>
+          <div><div class="text-[11px] text-gray-400">已持有</div><div id="hold-days" class="text-lg font-bold text-white num">--</div></div>
+          <div><div class="text-[11px] text-gray-400">当前价差</div><div id="hold-scur" class="text-lg font-bold text-white num">--</div></div>
+          <div><div class="text-[11px] text-gray-400">浮动盈亏</div><div id="hold-pnl" class="text-lg font-bold num">--</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块 2：价差通道 -->
+  <div class="card p-5 sm:p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-800">
+      <h2 class="text-lg font-bold text-white tracking-tight">价差通道（主力连续 · BU − LU，信号即基于此）</h2>
+      <span class="text-xs text-gray-500">成交用同月配对真实合约，开仓即锁定；两条序列仅换月日偏离</span>
+    </div>
+    <div id="chart-spread" style="height:400px;width:100%"></div>
+  </div>
+
+  <!-- 模块 3：净值 -->
+  <div class="card p-5 sm:p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-800">
+      <h2 class="text-lg font-bold text-white tracking-tight">组合净值走势（逐日盯市 · 已扣成本）</h2>
+      <span class="text-xs text-gray-500" id="nav-note">--</span>
+    </div>
+    <div id="chart-equity" style="height:300px;width:100%"></div>
+  </div>
+
+  <!-- 模块 4：成交明细 -->
+  <div class="card p-5 sm:p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-800">
+      <h2 class="text-lg font-bold text-white tracking-tight">历史成交明细（真实合约 · 同月配对）</h2>
+      <div class="flex gap-1" id="trade-filter">
+        <button data-f="all" class="chip bg-blue-500/20 text-blue-300 border border-blue-500/30">全部</button>
+        <button data-f="win" class="chip bg-gray-800 text-gray-400">盈利</button>
+        <button data-f="loss" class="chip bg-gray-800 text-gray-400">亏损</button>
+      </div>
+    </div>
+    <div class="overflow-x-auto custom-scrollbar max-h-[420px]">
+      <table class="w-full">
+        <thead class="thead"><tr class="text-left text-[11px] text-gray-400 uppercase tracking-wider">
+          <th class="tcell">建仓</th><th class="tcell">平仓</th><th class="tcell">合约对</th><th class="tcell">方向</th>
+          <th class="tcell">触发z</th><th class="tcell">建仓价差</th><th class="tcell">平仓价差</th>
+          <th class="tcell">持有</th><th class="tcell">毛盈亏</th><th class="tcell">净盈亏</th><th class="tcell">了结原因</th>
+        </tr></thead>
+        <tbody id="tb-trades" class="divide-y divide-gray-800/60"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 模块 5：触发记录 + 年度 -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="lg:col-span-2 card p-5 sm:p-6">
+      <h2 class="text-base font-bold text-white pb-4 border-b border-gray-800">信号触发记录（含未成交）</h2>
+      <div class="overflow-x-auto custom-scrollbar max-h-[300px]">
+        <table class="w-full">
+          <thead class="thead"><tr class="text-left text-[11px] text-gray-400 uppercase tracking-wider">
+            <th class="tcell">T0 信号日</th><th class="tcell">方向</th><th class="tcell">z</th>
+            <th class="tcell">触发价差</th><th class="tcell">T+1 收盘价差</th><th class="tcell">结果</th>
+          </tr></thead>
+          <tbody id="tb-sig" class="divide-y divide-gray-800/60"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card p-5 sm:p-6">
+      <h2 class="text-base font-bold text-white pb-4 border-b border-gray-800">按年度</h2>
+      <table class="w-full">
+        <thead class="thead"><tr class="text-left text-[11px] text-gray-400 uppercase tracking-wider">
+          <th class="tcell">年份</th><th class="tcell">笔数</th><th class="tcell">净盈亏</th><th class="tcell">胜率</th>
+        </tr></thead>
+        <tbody id="tb-year" class="divide-y divide-gray-800/60"></tbody>
+      </table>
+      <div class="mt-5 pt-4 border-t border-gray-800 space-y-2 text-[11px] text-gray-400 leading-relaxed">
+        <div class="flex justify-between"><span>信号阈值</span><span id="p-entry" class="num text-gray-200">--</span></div>
+        <div class="flex justify-between"><span>平仓阈值</span><span id="p-exit" class="num text-gray-200">--</span></div>
+        <div class="flex justify-between"><span>强平线（距交割）</span><span id="p-dte" class="num text-gray-200">--</span></div>
+        <div class="flex justify-between"><span>单腿最小成交</span><span id="p-vol" class="num text-gray-200">--</span></div>
+        <div class="flex justify-between"><span>往返成本</span><span id="p-cost" class="num text-gray-200">--</span></div>
+        <div class="flex justify-between"><span>组合规模</span><span id="p-units" class="num text-gray-200">--</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 模块 6：口径说明 -->
+  <div class="card p-5 sm:p-6">
+    <h2 class="text-base font-bold text-white pb-3 border-b border-gray-800">口径说明（这套东西为什么长这样）</h2>
+    <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-400 leading-relaxed">
+      <div class="rounded-lg border border-gray-800 bg-gray-900/40 p-4">
+        <div class="text-sm font-semibold text-gray-200 mb-2">① 为什么不用「日内触及」</div>
+        日线 high/low 拼出的价差区间是两腿日内振幅之和。实测 RU 滚动价差：合成区间中位数 <span class="num text-gray-200">540 点</span>，
+        而价差日间变动中位数只有 <span class="num text-gray-200">15 点</span>——<span class="text-amber-300">36 倍</span>。
+        用它判定触及，触发率恒为 <span class="num text-amber-300">99.7%</span>（k 取 0.5/1.0/1.5 都一样），完全失去分辨率。
+        所以本页一律用<span class="text-gray-200">收盘价差判定 + 收盘价差成交</span>。
+      </div>
+      <div class="rounded-lg border border-gray-800 bg-gray-900/40 p-4">
+        <div class="text-sm font-semibold text-gray-200 mb-2">② 成交强制同月，但信号不能同月</div>
+        BU 月间结构极陡：<span class="num text-gray-200">BU2610 5758 → BU2611 5383 → BU2612 4826 → BU2701 4370</span>，
+        三个月差 <span class="text-amber-300">1388 元/吨</span>，远超 BU−LU 跨品种价差自身的波动。
+        所以<span class="text-gray-200">成交必须同月配对</span>（否则两腿到期错开，一边强平一边裸奔）。
+        但反过来，把<span class="text-gray-200">信号</span>也建在同月序列上会失败：该序列 6 年被迫换月
+        <span class="num text-amber-300">62 次</span>，每次跳变 300 元/吨级，把 60 日滚动 σ 撑大、z 失真，
+        净收益从 <span class="num text-gray-200">+1843</span> 掉到 <span class="num text-rose-300">+575</span> 元/吨。
+        因此信号用主力连续、成交用同月真实合约，两者仅在换月日偏离。
+      </div>
+      <div class="rounded-lg border border-gray-800 bg-gray-900/40 p-4">
+        <div class="text-sm font-semibold text-gray-200 mb-2">③ 为什么距交割 60 天就平</div>
+        按距交割天数统计近腿成交量：<span class="num text-gray-200">120-180天 43万 / 90-120天 32万 / 60-90天 25万 / 45-60天 22万 / 30-45天 6.7万 / 0-30天 1.6万</span> 手。
+        崩塌点在<span class="text-rose-300">距交割 45 天</span>（掉 70%），所以强平线提前到 <span class="text-gray-200">60 天</span>，
+        比"交割月前一月上半月"更早。
+      </div>
+      <div class="rounded-lg border border-gray-800 bg-gray-900/40 p-4">
+        <div class="text-sm font-semibold text-gray-200 mb-2">④ 为什么不用主力连续直接回测</div>
+        连续合约换月时价格跳变，会被逐日累加当成收益，但真实持仓拿不到。
+        实测：卷螺差 HC−RB 主连夏普 0.67 → 真实合约复算胜率仅 54%、11 年 +440 元/吨，被成本吃光；
+        焦化利润 J−1.33JM 主连夏普 1.09 → 真实 +430 元/吨，同样被吃光。
+        <span class="text-gray-200">本页所有数字均为真实合约复算</span>。
+      </div>
+    </div>
+    <div class="mt-4 rounded-lg border border-amber-500/20 bg-amber-500/5 p-4 text-xs text-gray-400 leading-relaxed">
+      <span class="text-amber-300 font-semibold">已知弱点：</span>
+      本策略无硬止损。2021-08 ~ 2022-03 曾连续两笔亏损（−341、−415 元/吨），原因是价差单边移动时
+      60 日均值被拖着走，"回归"变成均值来找你，最终以亏损平仓收场。这是本页最大单段回撤（−11%）的来源。
+    </div>
+  </div>
+
+  <div class="text-[11px] text-gray-600 pb-4 leading-relaxed">
+    数据来源：交易所日线（individual_contracts_daily / main_contract）· 模拟盘口径，非实盘成交 ·
+    结果受成本、滑点、流动性与合约选择影响，历史表现不代表未来收益 · 仅供研究交流，不构成投资建议。
+  </div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const f = (v, d=1) => (v===null||v===undefined||isNaN(v)) ? '--' : Number(v).toFixed(d);
+const sgn = (v, d=1, unit='') => {
+  if (v===null||v===undefined||isNaN(v)) return '--';
+  const cls = v>0?'pos':(v<0?'neg':'');
+  return `<span class="num ${cls}">${v>0?'+':''}${Number(v).toFixed(d)}${unit}</span>`;
+};
+let D = null;
+
+fetch('./arb_data.json?t=' + Date.now())
+  .then(r => r.json())
+  .then(d => { D = d; render(); })
+  .catch(e => { document.body.insertAdjacentHTML('afterbegin',
+      '<div class="bg-rose-900/40 text-rose-200 p-4 text-sm">数据加载失败：'+e+'</div>'); });
+
+function render() {
+  const S = D.summary, C = D.current, P = D.params, L = D.live;
+  $('hd-date').textContent = D.updated_at;
+  $('hd-sub').textContent = `${D.pair.leg_a.name} ${D.pair.leg_a.code} − ${D.pair.leg_b.name} ${D.pair.leg_b.code} · 收盘价差触发 · 同月配对 · 真实合约逐笔跟踪`;
+
+  // KPI
+  $('k-nav').textContent = f(S.net_value, 4);
+  const ret = S.total_return_pct;
+  $('k-ret').textContent = (ret>0?'+':'') + ret.toFixed(2) + '%';
+  $('k-ret').className = 'text-sm font-semibold num ' + (ret>0?'pos':'neg');
+  $('k-eq').textContent = S.final_equity.toLocaleString();
+  $('k-units').textContent = `${P.units} 组 × 各 ${P.tons_per_unit} 吨/手`;
+  $('k-netton').textContent = (S.net_per_ton>0?'+':'') + f(S.net_per_ton, 0);
+  $('k-gross').textContent = '+' + f(S.gross_per_ton, 0);
+  $('k-cost').textContent = f(S.cost_per_ton, 0);
+  $('k-win').textContent = f(S.win_rate, 0) + '%';
+  $('k-n').textContent = S.total_trades;
+  $('k-fill').textContent = f(S.fill_rate, 0) + '%';
+  $('k-sig').textContent = S.signal_count;
+  $('k-filln').textContent = S.total_trades;
+  $('k-mdd').textContent = S.max_drawdown_pct.toFixed(2) + '%';
+  $('k-cr').textContent = f(S.cost_ratio_pct, 0);
+  $('k-hl').textContent = S.half_life_days ?? '--';
+  $('k-hold').textContent = f(S.avg_hold_days, 0);
+  $('nav-note').textContent = `初始 ${(P.initial_capital/10000).toFixed(0)} 万 · ${S.years} 年 · ${S.total_trades} 笔`;
+
+  // 雷达
+  const up = C.up, dn = C.dn, ma = C.ma, cur = C.spread;
+  $('g-dn').textContent = f(dn,0); $('g-ma').textContent = f(ma,0); $('g-up').textContent = f(up,0);
+  $('g-cur').textContent = f(cur,0); $('g-z').textContent = f(C.z,2); $('g-pct').textContent = f(C.pct_1y,0);
+  $('g-main').textContent = `${C.main_a} − ${C.main_b}`;
+  $('g-exec').textContent = `${C.exec_a} / ${C.exec_b}`;
+  $('g-execs').textContent = f(C.exec_spread, 0);
+  const span = (up - dn) || 1;
+  let pct = (cur - dn) / span * 100;
+  pct = Math.max(-2, Math.min(102, pct));
+  $('g-mark').style.left = pct + '%';
+
+  $('radar-wait').classList.add('hidden');
+  $('radar-sig').classList.add('hidden');
+  $('radar-hold').classList.add('hidden');
+  const dot = $('radar-dot');
+  if (L.status === 'holding') {
+    $('radar-hold').classList.remove('hidden');
+    dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping';
+    $('st-pill').textContent = '持仓中'; $('st-pill').className = 'chip bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+    $('hold-dir').textContent = L.direc === 1 ? '做多价差（多 BU 空 LU）' : '做空价差（空 BU 多 LU）';
+    $('hold-pair').textContent = `${L.leg_a} / ${L.leg_b}`;
+    $('hold-sin').textContent = f(L.spread_in, 0);
+    $('hold-days').textContent = L.hold_days + ' 日';
+    $('hold-scur').textContent = f(cur, 0);
+    const pnl = L.direc * (cur - L.spread_in);
+    $('hold-pnl').textContent = (pnl>0?'+':'') + f(pnl,0) + ' 元/吨';
+    $('hold-pnl').className = 'text-lg font-bold num ' + (pnl>0?'pos':'neg');
+  } else if (L.status === 'signal') {
+    $('radar-sig').classList.remove('hidden');
+    dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping';
+    $('st-pill').textContent = '信号待触发'; $('st-pill').className = 'chip bg-amber-500/10 text-amber-400 border border-amber-500/20';
+    $('sig-dir').textContent = L.direction;
+    $('sig-pair').textContent = `${L.leg_a||D.pair.leg_a.code} / ${L.leg_b||D.pair.leg_b.code}`;
+    $('sig-s').textContent = f(cur, 0);
+    $('sig-masd').textContent = `${f(ma,0)} / ${f(C.sd,0)}`;
+    $('sig-z').textContent = f(C.z, 2);
+    $('sig-trg').textContent = f(L.trigger, 0);
+    $('sig-act').textContent = L.action;
+    $('sig-exec').textContent = L.exec_spread === null || L.exec_spread === undefined
+      ? '' : `拟成交合约对 ${L.leg_a} / ${L.leg_b}，该对当前价差 ${f(L.exec_spread,0)}（与信号序列在换月日会有偏离）`;
+  } else {
+    $('radar-wait').classList.remove('hidden');
+    dot.className = 'w-2.5 h-2.5 rounded-full bg-gray-500';
+    $('st-pill').textContent = '空仓等待'; $('st-pill').className = 'chip bg-gray-800 text-gray-400';
+    $('wait-msg').textContent = L.action;
+  }
+
+  drawSpread(); drawEquity();
+  fillTrades('all'); fillSignals(); fillYear(); fillParams();
+}
+
+function drawSpread() {
+  const sc = D.spread_curve;
+  const x = sc.map(o => o.d);
+  const s = sc.map(o => o.s);
+  const up = sc.map(o => o.up), dn = sc.map(o => o.dn), ma = sc.map(o => o.ma);
+  const lo = dn.map((v,i) => v===null?null:(v - (up[i]-v)));
+  const hi = up.map(v => v===null?null:v);
+  const marks = D.trades.map(t => ({
+    name: t.direc===1?'做多':'做空',
+    coord: [t.in_date, t.spread_in],
+    value: t.direc===1?'多':'空',
+    itemStyle: { color: t.net>0 ? '#10b981' : '#f43f5e' },
+    symbol: t.direc===1 ? 'triangle' : 'triangleDown',
+    symbolSize: 9
+  }));
+  const ch = echarts.init($('chart-spread'), 'dark');
+  ch.setOption({
+    backgroundColor: 'transparent',
+    tooltip: { trigger: 'axis', backgroundColor:'rgba(15,23,42,.95)', borderColor:'#334155', textStyle:{color:'#e2e8f0',fontSize:12},
+      formatter: p => { const d=p[0].axisValue; const o=sc.find(v=>v.d===d)||{};
+        return `<b>${d}</b><br/>价差 <b>${f(o.s,0)}</b> 元/吨<br/>z ${f(o.z,2)}<br/>合约对 ${o.a||''} / ${o.b||''}`; } },
+    grid: { left: 58, right: 22, top: 30, bottom: 46 },
+    legend: { data:['价差','60日均值','+2σ','−2σ'], textStyle:{color:'#94a3b8',fontSize:11}, top:0 },
+    xAxis: { type:'category', data:x, axisLine:{lineStyle:{color:'#334155'}}, axisLabel:{color:'#64748b',fontSize:11} },
+    yAxis: { type:'value', name:'元/吨', nameTextStyle:{color:'#64748b',fontSize:11},
+      splitLine:{lineStyle:{color:'#1e293b'}}, axisLabel:{color:'#64748b',fontSize:11} },
+    dataZoom: [{type:'inside'},{type:'slider',height:16,bottom:8,borderColor:'#334155',fillerColor:'rgba(59,130,246,.15)',textStyle:{color:'#64748b',fontSize:10}}],
+    series: [
+      { name:'−2σ', type:'line', data:dn, lineStyle:{opacity:0}, stack:'b', symbol:'none', areaStyle:{color:'rgba(100,116,139,.10)'}, silent:true },
+      { name:'+2σ', type:'line', data:up.map((v,i)=> v!==null&&dn[i]!==null ? v-dn[i] : null), lineStyle:{opacity:0}, stack:'b', symbol:'none', areaStyle:{color:'rgba(100,116,139,.10)'}, silent:true },
+      { name:'60日均值', type:'line', data:ma, symbol:'none', lineStyle:{color:'#64748b',width:1,type:'dashed'} },
+      { name:'价差', type:'line', data:s, symbol:'none', lineStyle:{color:'#38bdf8',width:1.6},
+        markPoint: { data: marks, symbolRotate: 0, label:{formatter:p=>p.value, color:'#0f172a', fontSize:9, fontWeight:'bold'} } }
+    ]
+  });
+  window.addEventListener('resize', () => ch.resize());
+}
+
+function drawEquity() {
+  const ec = D.equity_curve;
+  const ch = echarts.init($('chart-equity'), 'dark');
+  ch.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'axis', backgroundColor:'rgba(15,23,42,.95)', borderColor:'#334155', textStyle:{color:'#e2e8f0',fontSize:12},
+      formatter:p=>`${p[0].axisValue}<br/>净值 <b>${f(p[0].value,4)}</b>`},
+    grid:{left:58,right:22,top:24,bottom:40},
+    xAxis:{type:'category',data:ec.map(o=>o.d),axisLine:{lineStyle:{color:'#334155'}},axisLabel:{color:'#64748b',fontSize:11}},
+    yAxis:{type:'value',scale:true,name:'净值',nameTextStyle:{color:'#64748b',fontSize:11},splitLine:{lineStyle:{color:'#1e293b'}},axisLabel:{color:'#64748b',fontSize:11}},
+    series:[{type:'line',data:ec.map(o=>o.nav),symbol:'none',lineStyle:{color:'#34d399',width:1.8},
+      areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(52,211,153,.28)'},{offset:1,color:'rgba(52,211,153,0)'}])},
+      markLine:{silent:true,symbol:'none',data:[{yAxis:1,lineStyle:{color:'#64748b',type:'dashed'},label:{formatter:'基准 1.0',color:'#64748b',fontSize:10}}]}}]
+  });
+  window.addEventListener('resize', () => ch.resize());
+}
+
+let allTrades = [];
+function fillTrades(mode) {
+  allTrades = D.trades.slice().reverse();
+  let list = allTrades;
+  if (mode==='win') list = allTrades.filter(t=>t.net>0);
+  if (mode==='loss') list = allTrades.filter(t=>t.net<=0);
+  $('tb-trades').innerHTML = list.map(t=>`
+    <tr class="hover:bg-gray-800/40">
+      <td class="tcell text-gray-300 num">${t.in_date}</td>
+      <td class="tcell text-gray-300 num">${t.out_date}</td>
+      <td class="tcell text-gray-200 num">${t.leg_a}<span class="text-gray-600">/</span>${t.leg_b}</td>
+      <td class="tcell"><span class="chip ${t.direc===1?'bg-emerald-500/10 text-emerald-400':'bg-rose-500/10 text-rose-400'}">${t.direc===1?'多价差':'空价差'}</span></td>
+      <td class="tcell num text-gray-400">${f(t.z_in,1)}</td>
+      <td class="tcell num text-gray-200">${f(t.spread_in,0)}</td>
+      <td class="tcell num text-gray-200">${f(t.spread_out,0)}</td>
+      <td class="tcell num text-gray-400">${t.hold_days}日</td>
+      <td class="tcell">${sgn(t.gross,0)}</td>
+      <td class="tcell font-semibold">${sgn(t.net,0)}</td>
+      <td class="tcell"><span class="chip ${t.exit_reason==='到期强平'?'bg-gray-800 text-gray-400':'bg-gray-800 text-gray-400'}">${t.exit_reason}</span></td>
+    </tr>`).join('');
+}
+document.querySelectorAll('#trade-filter button').forEach(b=>{
+  b.onclick = () => {
+    document.querySelectorAll('#trade-filter button').forEach(x=>{x.className='chip bg-gray-800 text-gray-400';});
+    b.className='chip bg-blue-500/20 text-blue-300 border border-blue-500/30';
+    fillTrades(b.dataset.f);
+  };
+});
+
+function fillSignals() {
+  const L = D.signal_log.slice().reverse();
+  $('tb-sig').innerHTML = L.map(o=>`
+    <tr class="hover:bg-gray-800/40">
+      <td class="tcell text-gray-300 num">${o.d0}</td>
+      <td class="tcell"><span class="chip ${o.direc===1?'bg-emerald-500/10 text-emerald-400':'bg-rose-500/10 text-rose-400'}">${o.direc===1?'多':'空'}</span></td>
+      <td class="tcell num text-gray-400">${f(o.z,2)}</td>
+      <td class="tcell num text-amber-300">${f(o.trigger,0)}</td>
+      <td class="tcell num ${o.spread_t1===null?'text-gray-600':'text-gray-200'}">${o.spread_t1===null?'--':f(o.spread_t1,0)}</td>
+      <td class="tcell">${o.filled
+        ? '<span class="chip bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">已成交</span>'
+        : `<span class="chip bg-gray-800 text-gray-500" title="${o.reason||''}">未触发</span>`}</td>
+    </tr>`).join('');
+}
+
+function fillYear() {
+  $('tb-year').innerHTML = D.yearly.map(y=>`
+    <tr class="hover:bg-gray-800/40">
+      <td class="tcell text-gray-300 num">${y.year}</td>
+      <td class="tcell num text-gray-400">${y.n}</td>
+      <td class="tcell font-semibold">${sgn(y.net,0)}</td>
+      <td class="tcell num ${y.win>=80?'text-emerald-400':'text-gray-400'}">${f(y.win,0)}%</td>
+    </tr>`).join('');
+}
+
+function fillParams() {
+  const P = D.params;
+  $('p-entry').textContent = '±' + P.entry_z + 'σ';
+  $('p-exit').textContent = '±' + P.exit_z + 'σ';
+  $('p-dte').textContent = P.min_dte + ' 天';
+  $('p-vol').textContent = P.min_vol.toLocaleString() + ' 手';
+  $('p-cost').textContent = P.cost_rt + ' 元/吨';
+  $('p-units').textContent = P.units + ' 组';
+}
+</script>
+</body>
+</html>
