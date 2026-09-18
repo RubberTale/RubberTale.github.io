@@ -1,3 +1,17 @@
+---
+title: "你的同事都在用的AI外挂！350 Credit限时福利，手慢无"
+author: 童长征
+date: 2026-09-14 15:26:00
+description: "WorkBuddy 新人邀请福利：通过邀请链接注册即可获得 350 Credit，可用于调用 AI 模型、生成内容等核心功能。本文整理了领取步骤与使用体验分享。"
+keywords: "WorkBuddy, AI工具, 效率工具, Credit, 邀请福利, AI外挂"
+categories:
+  - 科技与AI
+tags:
+  - AI工具
+  - 效率工具
+  - WorkBuddy
+---
+
 https://workbuddy.ai/invite?code=56PGFYK8
 
 最近身边有非常多的朋友开始使用workbuddy, 如果你现在还没有开始使用它，赶紧点击链接下载吧。通过这个链接，你可以获得350个credit。
