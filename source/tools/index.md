@@ -70,6 +70,15 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
+      <a href="/tools/al-main-kline/" title="AL 沪铝主力全历史日 K 线复盘" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:chart-no-axes-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AL 全历史 K 线">
+        </div>
+        <div class="flink-item-name">AL 全历史 K 线复盘</div>
+        <div class="flink-item-desc">2020 年至今沪铝主力日 K，自动划分十八段行情；从疫情深坑到能耗双控、俄乌冲高、关税冲击，点图上的标签即可展开该阶段的走势解读。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/arb-tracker/" title="跨品种套利跟踪器 BU/LU" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="跨品种套利跟踪器">
