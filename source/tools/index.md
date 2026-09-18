@@ -78,6 +78,16 @@ aside: false
         <div class="flink-item-desc">2005 年至今五千多个交易日的沪铝主力日 K，自动划分四十八段行情；从商品超级周期、金融危机到产能天花板与新能源需求，点图上的标签即可展开该阶段的走势解读。</div>
       </a>
     </div>
+
+    <div class="flink-list-item">
+      <a href="/tools/cu-main-kline/" title="CU 沪铜主力全历史日 K 线复盘" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:line-chart.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="CU 全历史 K 线">
+        </div>
+        <div class="flink-item-name">CU 全历史 K 线复盘</div>
+        <div class="flink-item-desc">2005 年至今五千多个交易日的沪铜主力日 K，自动划分四十一段行情；从国储逼空、金融危机的历史最低点，到十万元突破与「铜是 AI 金属」的新叙事，点图上的标签即可展开该阶段的走势解读。</div>
+      </a>
+    </div>
     <div class="flink-list-item">
       <a href="/tools/arb-tracker/" title="跨品种套利跟踪器 BU/LU" target="_blank">
         <div class="flink-item-icon">
