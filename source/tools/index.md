@@ -33,215 +33,214 @@ aside: false
 
 <div class="flink">
   <div class="flink-list">
-    <div class="flink-list-item">
-      <a href="/tools/blog-chat/" title="问问这个博客 · 站内问答助手" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:message-circle-question.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="问问这个博客">
-        </div>
-        <div class="flink-item-name">问问这个博客</div>
-        <div class="flink-item-desc">直接向博客提问：它只翻童长征写过的文章来回答——橡胶投研、大宗商品、宏观地缘、AI 观察。站外的问题一律不接。</div>
-      </a>
+<div class="flink-list-item">
+  <a href="/tools/blog-chat/" title="问问这个博客 · 站内问答助手" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:message-circle-question.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="问问这个博客">
     </div>
-    <div class="flink-list-item">
-      <a href="/futures-nav/" title="期货大宗商品投研导航" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:compass.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货大宗商品投研导航">
-        </div>
-        <div class="flink-item-name">期货大宗商品投研导航</div>
-        <div class="flink-item-desc">全网最全期货投研导航：六大交易所、高频现货报价、橡胶物候气象、CFTC持仓与量化看盘软件一站式检索。</div>
-      </a>
+    <div class="flink-item-name">问问这个博客</div>
+    <div class="flink-item-desc">直接向博客提问：它只翻童长征写过的文章来回答——橡胶投研、大宗商品、宏观地缘、AI 观察。站外的问题一律不接。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/futures-nav/" title="期货大宗商品投研导航" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:compass.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货大宗商品投研导航">
     </div>
-    <div class="flink-list-item">
-      <a href="https://qhkch.com/" title="奇货可查 · 期货大数据分析平台" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:chart-column-increasing.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="奇货可查">
-        </div>
-        <div class="flink-item-name">奇货可查</div>
-        <div class="flink-item-desc">专注于商品期货量化与持仓深度分析平台，提供主力合约席位多空持仓透视、席位四象图与资金沉淀监控。</div>
-      </a>
+    <div class="flink-item-name">期货大宗商品投研导航</div>
+    <div class="flink-item-desc">全网最全期货投研导航：六大交易所、高频现货报价、橡胶物候气象、CFTC持仓与量化看盘软件一站式检索。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="https://qhkch.com/" title="奇货可查 · 期货大数据分析平台" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:chart-column-increasing.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="奇货可查">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/ru-main-kline/" title="RU 橡胶主力全历史日 K 线复盘" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="RU 全历史 K 线">
-        </div>
-        <div class="flink-item-name">RU 全历史 K 线复盘</div>
-        <div class="flink-item-desc">2005 年至今五千多个交易日的橡胶主力日 K，自动划分十九段行情；点开就是整屏大图，点图上的标签即可展开该阶段的走势解读。</div>
-      </a>
+    <div class="flink-item-name">奇货可查</div>
+    <div class="flink-item-desc">专注于商品期货量化与持仓深度分析平台，提供主力合约席位多空持仓透视、席位四象图与资金沉淀监控。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/ru-main-kline/" title="RU 橡胶主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="RU 全历史 K 线">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/al-main-kline/" title="AL 沪铝主力全历史日 K 线复盘" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:chart-no-axes-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AL 全历史 K 线">
-        </div>
-        <div class="flink-item-name">AL 全历史 K 线复盘</div>
-        <div class="flink-item-desc">2005 年至今五千多个交易日的沪铝主力日 K，自动划分四十八段行情；从商品超级周期、金融危机到产能天花板与新能源需求，点图上的标签即可展开该阶段的走势解读。</div>
-      </a>
+    <div class="flink-item-name">RU 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2005 年至今五千多个交易日的橡胶主力日 K，自动划分十九段行情；点开就是整屏大图，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/al-main-kline/" title="AL 沪铝主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:chart-no-axes-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AL 全历史 K 线">
     </div>
-
-    <div class="flink-list-item">
-      <a href="/tools/cu-main-kline/" title="CU 沪铜主力全历史日 K 线复盘" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:line-chart.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="CU 全历史 K 线">
-        </div>
-        <div class="flink-item-name">CU 全历史 K 线复盘</div>
-        <div class="flink-item-desc">2005 年至今五千多个交易日的沪铜主力日 K，自动划分四十一段行情；从国储逼空、金融危机的历史最低点，到十万元突破与「铜是 AI 金属」的新叙事，点图上的标签即可展开该阶段的走势解读。</div>
-      </a>
+    <div class="flink-item-name">AL 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2005 年至今五千多个交易日的沪铝主力日 K，自动划分四十八段行情；从商品超级周期、金融危机到产能天花板与新能源需求，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/cu-main-kline/" title="CU 沪铜主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:line-chart.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="CU 全历史 K 线">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/arb-tracker/" title="跨品种套利跟踪器 BU/LU" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="跨品种套利跟踪器">
-        </div>
-        <div class="flink-item-name">跨品种套利跟踪器 BU/LU</div>
-        <div class="flink-item-desc">沥青−低硫燃料油价差的实时前向跟踪：策略先定死，T0 收盘给出触发价差，T+1 收盘价差越过才成交，同月配对真实合约逐日盯市。净值只从启动日起算，回测结果不混进来。</div>
-      </a>
+    <div class="flink-item-name">CU 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2005 年至今五千多个交易日的沪铜主力日 K，自动划分四十一段行情；从国储逼空、金融危机的历史最低点，到十万元突破与「铜是 AI 金属」的新叙事，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/arb-tracker/" title="跨品种套利跟踪器 BU/LU" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="跨品种套利跟踪器">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/arb-backtest/" title="套利策略历史回测 BU/LU" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:history.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="套利策略历史回测">
-        </div>
-        <div class="flink-item-name">套利策略历史回测 BU/LU</div>
-        <div class="flink-item-desc">同参数在 2020–2026 历史行情上的复盘：5.7 年 25 笔、胜率 76%、净 +1843 元/吨、成本占比 6.8%。这是事后检验，与实时跟踪器分开看。</div>
-      </a>
+    <div class="flink-item-name">跨品种套利跟踪器 BU/LU</div>
+    <div class="flink-item-desc">沥青−低硫燃料油价差的实时前向跟踪：策略先定死，T0 收盘给出触发价差，T+1 收盘价差越过才成交，同月配对真实合约逐日盯市。净值只从启动日起算，回测结果不混进来。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/arb-backtest/" title="套利策略历史回测 BU/LU" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:history.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="套利策略历史回测">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
-        </div>
-        <div class="flink-item-name">多品种次日触发量化跟踪器</div>
-        <div class="flink-item-desc">全市场43个活跃商品期货品种胜率多因子打分，次日ATR波动突破触发进场，逐日盯市净值与盈亏曲线自动跟踪。</div>
-      </a>
+    <div class="flink-item-name">套利策略历史回测 BU/LU</div>
+    <div class="flink-item-desc">同参数在 2020–2026 历史行情上的复盘：5.7 年 25 笔、胜率 76%、净 +1843 元/吨、成本占比 6.8%。这是事后检验，与实时跟踪器分开看。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/strategy-backtest-2026/" title="2026年度次日触发策略历史回测报告" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="2026年度次日触发策略历史回测报告">
-        </div>
-        <div class="flink-item-name">2026年度策略历史回测报告</div>
-        <div class="flink-item-desc">2026年1月至8月全市场43个商品期货严谨历史回测复盘：160个交易日114笔交易深度剖析、逐月收益、板块贡献与全量交易流水。</div>
-      </a>
+    <div class="flink-item-name">多品种次日触发量化跟踪器</div>
+    <div class="flink-item-desc">全市场43个活跃商品期货品种胜率多因子打分，次日ATR波动突破触发进场，逐日盯市净值与盈亏曲线自动跟踪。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/strategy-backtest-2026/" title="2026年度次日触发策略历史回测报告" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="2026年度次日触发策略历史回测报告">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/arbitrage-calc/" title="基差与价差套利测算器" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
-        </div>
-        <div class="flink-item-name">基差与价差套利测算器</div>
-        <div class="flink-item-desc">天然橡胶、20号胶与顺丁橡胶期现基差、月间价差及全持有成本交割套利在线测算（每日自动同步 MySQL 实盘行情）。</div>
-      </a>
+    <div class="flink-item-name">2026年度策略历史回测报告</div>
+    <div class="flink-item-desc">2026年1月至8月全市场43个商品期货严谨历史回测复盘：160个交易日114笔交易深度剖析、逐月收益、板块贡献与全量交易流水。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/arbitrage-calc/" title="基差与价差套利测算器" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="基差与价差套利测算器">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/delivery-brands/" title="橡胶期货交割注册品牌大全" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:stamp.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="橡胶期货交割注册品牌大全">
-        </div>
-        <div class="flink-item-name">橡胶交割注册品牌与标准大全</div>
-        <div class="flink-item-desc">全面收录上期所 RU（国产品牌全乳胶/进口烟胶片生产国检验制）、上期能源 NR（含非洲科特迪瓦美兰/STCNF等替代品）与 BR 顺丁橡胶官方注册交割品牌与升贴水速查手册。</div>
-      </a>
+    <div class="flink-item-name">基差与价差套利测算器</div>
+    <div class="flink-item-desc">天然橡胶、20号胶与顺丁橡胶期现基差、月间价差及全持有成本交割套利在线测算（每日自动同步 MySQL 实盘行情）。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/delivery-brands/" title="橡胶期货交割注册品牌大全" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:stamp.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="橡胶期货交割注册品牌大全">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/position-calculator/" title="持仓盈亏比与凯利仓位计算器" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:calculator.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="持仓盈亏比与凯利仓位计算器">
-        </div>
-        <div class="flink-item-name">持仓盈亏比与凯利仓位计算器</div>
-        <div class="flink-item-desc">期货量化资金管理利器，支持自动调取实盘主力收盘价，含多空盈亏比、全/半凯利公式与极端回撤测算。</div>
-      </a>
+    <div class="flink-item-name">橡胶交割注册品牌与标准大全</div>
+    <div class="flink-item-desc">全面收录上期所 RU（国产品牌全乳胶/进口烟胶片生产国检验制）、上期能源 NR（含非洲科特迪瓦美兰/STCNF等替代品）与 BR 顺丁橡胶官方注册交割品牌与升贴水速查手册。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/position-calculator/" title="持仓盈亏比与凯利仓位计算器" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:calculator.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="持仓盈亏比与凯利仓位计算器">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/rubber-weather-calendar/" title="橡胶产区气象与割胶物候看板" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:cloud-sun-rain.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="橡胶产区气象与割胶物候看板">
-        </div>
-        <div class="flink-item-name">橡胶产区气象与割胶物候看板</div>
-        <div class="flink-item-desc">西双版纳、海南、泰南、越南与印尼主产区全年割胶物候对比、未来7天降水预报与减产模拟。</div>
-      </a>
+    <div class="flink-item-name">持仓盈亏比与凯利仓位计算器</div>
+    <div class="flink-item-desc">期货量化资金管理利器，支持自动调取实盘主力收盘价，含多空盈亏比、全/半凯利公式与极端回撤测算。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/rubber-weather-calendar/" title="橡胶产区气象与割胶物候看板" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:cloud-sun-rain.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="橡胶产区气象与割胶物候看板">
     </div>
-    <div class="flink-list-item">
-      <a href="/rubber/weather_forecast/" title="重点资源区域卫星云图观察" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:satellite.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="重点资源区域卫星云图观察">
-        </div>
-        <div class="flink-item-name">重点资源区域卫星云图观察</div>
-        <div class="flink-item-desc">基于德国气象局 DWD ICON 13km 高精模型，逐 2 小时跟踪东南亚、中国、西非等六大关键产区降水云系演变与指标联动。</div>
-      </a>
+    <div class="flink-item-name">橡胶产区气象与割胶物候看板</div>
+    <div class="flink-item-desc">西双版纳、海南、泰南、越南与印尼主产区全年割胶物候对比、未来7天降水预报与减产模拟。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/rubber/weather_forecast/" title="重点资源区域卫星云图观察" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:satellite.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="重点资源区域卫星云图观察">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/report-data-diff/" title="研报数据与平衡表比对提取器" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:file-diff.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="研报数据与平衡表比对提取器">
-        </div>
-        <div class="flink-item-name">研报数据与平衡表比对提取器</div>
-        <div class="flink-item-desc">供需平衡表与高频库存数据多期变动自动对齐、环比差值高亮与投研异动速报一键生成。</div>
-      </a>
+    <div class="flink-item-name">重点资源区域卫星云图观察</div>
+    <div class="flink-item-desc">基于德国气象局 DWD ICON 13km 高精模型，逐 2 小时跟踪东南亚、中国、西非等六大关键产区降水云系演变与指标联动。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/report-data-diff/" title="研报数据与平衡表比对提取器" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:file-diff.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="研报数据与平衡表比对提取器">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/resume/" title="智能简历工坊" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:file-text.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="智能简历工坊">
-        </div>
-        <div class="flink-item-name">智能简历工坊</div>
-        <div class="flink-item-desc">专业在线简历制作工具，支持多款高颜值排版、一键单页适配、实时预览与高清 PDF/图片导出。</div>
-      </a>
+    <div class="flink-item-name">研报数据与平衡表比对提取器</div>
+    <div class="flink-item-desc">供需平衡表与高频库存数据多期变动自动对齐、环比差值高亮与投研异动速报一键生成。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/resume/" title="智能简历工坊" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:file-text.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="智能简历工坊">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/reverse-app/" title="文本倒序转换器" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:repeat.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="文本倒序转换器">
-        </div>
-        <div class="flink-item-name">文本倒序转换器</div>
-        <div class="flink-item-desc">一键将任意输入的文本或字符串进行反向排列倒序输出。</div>
-      </a>
+    <div class="flink-item-name">智能简历工坊</div>
+    <div class="flink-item-desc">专业在线简历制作工具，支持多款高颜值排版、一键单页适配、实时预览与高清 PDF/图片导出。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/reverse-app/" title="文本倒序转换器" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:repeat.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="文本倒序转换器">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/pic-6varieties/" title="AI 人像写真工坊" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:camera.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AI 人像写真工坊">
-        </div>
-        <div class="flink-item-name">AI 人像写真工坊</div>
-        <div class="flink-item-desc">上传一张个人肖像，一键生成职场、时尚、街拍、艺术等 6 种不同风格的高清摄影写真。</div>
-      </a>
+    <div class="flink-item-name">文本倒序转换器</div>
+    <div class="flink-item-desc">一键将任意输入的文本或字符串进行反向排列倒序输出。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/pic-6varieties/" title="AI 人像写真工坊" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:camera.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AI 人像写真工坊">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/comic-avatar/" title="AI 漫画头像工坊" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:sparkles.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AI 漫画头像工坊">
-        </div>
-        <div class="flink-item-name">AI 漫画头像工坊</div>
-        <div class="flink-item-desc">上传自拍或肖像，多模态大模型智能提取面容神态，FLUX.1 扩散引擎秒级定制 7 种风格漫画头像（自动 1GB 容量保护）。</div>
-      </a>
+    <div class="flink-item-name">AI 人像写真工坊</div>
+    <div class="flink-item-desc">上传一张个人肖像，一键生成职场、时尚、街拍、艺术等 6 种不同风格的高清摄影写真。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/comic-avatar/" title="AI 漫画头像工坊" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:sparkles.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AI 漫画头像工坊">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/article-craft/" title="WriteBuddy · 公文智匠（精确顶点审校工作台）" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:feather.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="WriteBuddy · 公文智匠">
-        </div>
-        <div class="flink-item-name">WriteBuddy · 写作智匠</div>
-        <div class="flink-item-desc">党政公文规范与小说文学创作工作台：顶部设定总指令，草稿划选实现精确顶点修改，AI智能审校建言，支持 Word/Markdown 导入与成文回传多轮迭代。</div>
-      </a>
+    <div class="flink-item-name">AI 漫画头像工坊</div>
+    <div class="flink-item-desc">上传自拍或肖像，多模态大模型智能提取面容神态，FLUX.1 扩散引擎秒级定制 7 种风格漫画头像（自动 1GB 容量保护）。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/article-craft/" title="WriteBuddy · 公文智匠（精确顶点审校工作台）" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:feather.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="WriteBuddy · 公文智匠">
     </div>
-    <div class="flink-list-item">
-      <a href="/tools/edge-tts/" title="语音智坊 · 神经语音合成工坊" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:mic.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="语音智坊">
-        </div>
-        <div class="flink-item-name">语音智坊 (Edge-TTS)</div>
-        <div class="flink-item-desc">免费、无限量的微软高品质神经语音合成工具：支持多种音色（晓晓、云扬、云希、粤语、台湾话等），支持语速无级微调与超长文本一键一键转换高质MP3。</div>
-      </a>
+    <div class="flink-item-name">WriteBuddy · 写作智匠</div>
+    <div class="flink-item-desc">党政公文规范与小说文学创作工作台：顶部设定总指令，草稿划选实现精确顶点修改，AI智能审校建言，支持 Word/Markdown 导入与成文回传多轮迭代。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/edge-tts/" title="语音智坊 · 神经语音合成工坊" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:mic.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="语音智坊">
     </div>
-    <div class="flink-list-item">
-      <a href="https://pkuai.run.place/forum/" title="燕园叽喳 · 论坛" target="_blank">
-        <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:messages-square.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="燕园叽喳">
-        </div>
-        <div class="flink-item-name">燕园叽喳</div>
-        <div class="flink-item-desc">大家一起聊天的地方。博客之外的自由讨论区：想说什么就开个帖，与文章互补的随口闲谈与读者交流都在这儿。</div>
-      </a>
+    <div class="flink-item-name">语音智坊 (Edge-TTS)</div>
+    <div class="flink-item-desc">免费、无限量的微软高品质神经语音合成工具：支持多种音色（晓晓、云扬、云希、粤语、台湾话等），支持语速无级微调与超长文本一键一键转换高质MP3。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="https://pkuai.run.place/forum/" title="燕园叽喳 · 论坛" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:messages-square.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="燕园叽喳">
     </div>
-    <!-- 可以在此处添加更多实用工具卡片 -->
+    <div class="flink-item-name">燕园叽喳</div>
+    <div class="flink-item-desc">大家一起聊天的地方。博客之外的自由讨论区：想说什么就开个帖，与文章互补的随口闲谈与读者交流都在这儿。</div>
+  </a>
+</div>
+<!-- 可以在此处添加更多实用工具卡片 -->
   </div>
 </div>
 
