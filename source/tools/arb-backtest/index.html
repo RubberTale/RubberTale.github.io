@@ -124,13 +124,13 @@
     </div>
   </div>
 
-  <!-- 模块 1：次日触发雷达 -->
+  <!-- 模块 1：回跑截止日快照 -->
   <div class="card p-5 sm:p-6 shadow-xl">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-800">
       <div class="flex items-center space-x-2">
         <span id="radar-dot" class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
-        <h2 class="text-lg font-bold text-white tracking-tight">次日触发雷达</h2>
-        <span class="text-xs text-gray-500">T0 收盘发信号 → T+1 收盘价差越过触发价则成交</span>
+        <h2 class="text-lg font-bold text-white tracking-tight">回跑截止日快照</h2>
+        <span class="text-xs text-gray-500">回测跑完那一刻的状态，非实时信号 · 实时请看 <a href="/tools/arb-tracker/" class="text-emerald-400 hover:underline">前向跟踪器</a></span>
       </div>
       <div class="text-xs text-gray-400">半衰期 <span id="k-hl" class="num text-gray-200">--</span> 日 · 平均持有 <span id="k-hold" class="num text-gray-200">--</span> 日</div>
     </div>
@@ -157,7 +157,7 @@
             <div id="g-mark" class="absolute top-0 bottom-0 w-[3px] bg-amber-400 shadow-[0_0_10px_rgba(245,158,11,.8)]" style="left:50%"></div>
           </div>
           <div class="mt-2 text-xs text-gray-400">
-            当前价差 <span id="g-cur" class="num font-semibold text-amber-400">--</span>
+            截止日价差 <span id="g-cur" class="num font-semibold text-amber-400">--</span>
             · z = <span id="g-z" class="num">--</span>
             · 近一年分位 <span id="g-pct" class="num">--</span>%
             <span id="g-pair" class="text-gray-500 ml-1"></span>
