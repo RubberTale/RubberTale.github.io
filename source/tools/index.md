@@ -70,6 +70,15 @@ aside: false
       </a>
     </div>
     <div class="flink-list-item">
+      <a href="/tools/arb-tracker/" title="跨品种套利跟踪器 BU/LU" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="跨品种套利跟踪器">
+        </div>
+        <div class="flink-item-name">跨品种套利跟踪器 BU/LU</div>
+        <div class="flink-item-desc">沥青−低硫燃料油价差的均值回复跟踪：T0 收盘给出触发价差，T+1 收盘价差越过即成交，同月配对真实合约逐笔盯市，5.7 年 25 笔全量流水公开。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
