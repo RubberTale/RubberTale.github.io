@@ -93,7 +93,7 @@ aside: false
           <img src="https://api.iconify.design/lucide:history.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="套利策略历史回测">
         </div>
         <div class="flink-item-name">套利策略历史回测 BU/LU</div>
-        <div class="flink-item-desc">同参数在 2020–2026 历史行情上的复盘：同月配对真实合约 33 笔、胜率 82%、净 +2841 元/吨、成本仅占 5%。这是事后检验，与实时跟踪器分开看。</div>
+        <div class="flink-item-desc">同参数在 2020–2026 历史行情上的复盘：5.7 年 25 笔、胜率 76%、净 +1843 元/吨、成本占比 6.8%。这是事后检验，与实时跟踪器分开看。</div>
       </a>
     </div>
     <div class="flink-list-item">
