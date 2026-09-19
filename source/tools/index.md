@@ -240,6 +240,15 @@ aside: false
     <div class="flink-item-desc">大家一起聊天的地方。博客之外的自由讨论区：想说什么就开个帖，与文章互补的随口闲谈与读者交流都在这儿。</div>
   </a>
 </div>
+<div class="flink-list-item">
+  <a href="/tools/fed-data-card/" title="美联储利率预期 · 数据口径卡" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:percent.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="美联储利率预期">
+    </div>
+    <div class="flink-item-name">美联储利率预期数据</div>
+    <div class="flink-item-desc">基于亚特兰大联储市场概率追踪器（SOFR 期权）的加息／不变／降息三分法历史序列：873 个交易日 × 27 个参考季度，附完整数据口径、字段说明与已知限制。</div>
+  </a>
+</div>
 <!-- 可以在此处添加更多实用工具卡片 -->
   </div>
 </div>

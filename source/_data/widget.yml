@@ -167,3 +167,60 @@ top:
           <a href="/2026/09/19/%E8%8B%B1%E4%BC%9F%E8%BE%BE%E5%8F%91%E5%B8%83%E5%8D%81%E4%B8%80%E9%A1%B9AI%E6%8C%87%E5%8D%97%EF%BC%9A%E5%85%A8%E7%90%83AI%E5%89%8D%E6%B2%BF%E5%A4%A7%E4%BA%8B%E9%80%9F%E8%A7%88%EF%BC%882026%E5%B9%B409%E6%9C%8819%E6%97%A5%EF%BC%89/" style="font-size: 0.82rem; color: #8b5cf6; font-weight: 500; text-decoration: none;">完整解读与趋势 →</a>
         </div>
       </div>
+  - class_name: card-fed-rate
+    id_name: card-fed-rate
+    icon: fas fa-percent
+    name: 美联储利率预期
+    html: |
+      <div style="font-size: 0.84rem; line-height: 1.5;">
+        <div style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid #ef4444; border-radius: 4px; padding: 6px 8px; margin-bottom: 9px; font-size: 0.79rem; line-height: 1.45;">
+          <strong style="color: #dc2626;">9/16 加息 25bp</strong> 至 375–400bps<br>
+          <span style="color: #64748b; font-size: 0.74rem;">2023 年 7 月以来首次 · 全票 12:0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.71rem; color: #94a3b8; margin-bottom: 5px;">
+          <span>参考季度 · 前瞻</span>
+          <span>加息 / 不变 / 降息</span>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; margin-bottom: 3px;">
+            <span><b>2026-12-16</b> <span style="color: #94a3b8; font-size: 0.72rem;">90天</span></span>
+            <span><b style="color: #dc2626;">93</b><span style="color: #cbd5e1;">/</span><b style="color: #64748b;">5</b><span style="color: #cbd5e1;">/</span><b style="color: #059669;">2</b><span style="color: #94a3b8; font-size: 0.72rem;">%</span></span>
+          </div>
+          <div style="display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: rgba(128, 128, 128, 0.12);">
+            <div style="width: 93.08%; background: #ef4444;"></div>
+            <div style="width: 5.29%; background: #94a3b8;"></div>
+            <div style="width: 1.63%; background: #10b981;"></div>
+          </div>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; margin-bottom: 3px;">
+            <span><b>2027-03-17</b> <span style="color: #94a3b8; font-size: 0.72rem;">181天</span></span>
+            <span><b style="color: #dc2626;">88</b><span style="color: #cbd5e1;">/</span><b style="color: #64748b;">7</b><span style="color: #cbd5e1;">/</span><b style="color: #059669;">6</b><span style="color: #94a3b8; font-size: 0.72rem;">%</span></span>
+          </div>
+          <div style="display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: rgba(128, 128, 128, 0.12);">
+            <div style="width: 87.77%; background: #ef4444;"></div>
+            <div style="width: 6.68%; background: #94a3b8;"></div>
+            <div style="width: 5.55%; background: #10b981;"></div>
+          </div>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; margin-bottom: 3px;">
+            <span><b>2027-06-16</b> <span style="color: #94a3b8; font-size: 0.72rem;">272天</span></span>
+            <span><b style="color: #dc2626;">84</b><span style="color: #cbd5e1;">/</span><b style="color: #64748b;">7</b><span style="color: #cbd5e1;">/</span><b style="color: #059669;">9</b><span style="color: #94a3b8; font-size: 0.72rem;">%</span></span>
+          </div>
+          <div style="display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: rgba(128, 128, 128, 0.12);">
+            <div style="width: 84.23%; background: #ef4444;"></div>
+            <div style="width: 6.85%; background: #94a3b8;"></div>
+            <div style="width: 8.92%; background: #10b981;"></div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; font-size: 0.70rem; color: #94a3b8; margin-top: 7px;">
+          <span><span style="display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: #ef4444; margin-right: 3px;"></span>加息</span>
+          <span><span style="display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: #94a3b8; margin-right: 3px;"></span>不变</span>
+          <span><span style="display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: #10b981; margin-right: 3px;"></span>降息</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 6px; border-top: 1px solid rgba(128, 128, 128, 0.15); font-size: 0.74rem;">
+          <span style="color: #94a3b8;">截至 2026-09-17</span>
+          <a href="/tools/fed-data-card/" style="color: #3b82f6; font-weight: 500; text-decoration: none;">完整说明与口径 →</a>
+        </div>
+      </div>
