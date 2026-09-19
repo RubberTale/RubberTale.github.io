@@ -30,7 +30,7 @@ menu:
   燕园叽喳: https://pkuai.run.place/forum/ || fas fa-comments
   小工具 || fas fa-tools:
     小工具箱: /tools/ || fas fa-toolbox
-    RU全历史K线: /tools/ru-main-kline/ || fas fa-wave-square
+    全品种 K 线复盘: /tools/kline-combo/ || fas fa-chart-candlestick
     量化跟踪雷达: /tools/strategy-tracker/ || fas fa-crosshairs
     期货投研导航: /futures-nav/ || fas fa-compass
     基差价差套利: /tools/arbitrage-calc/ || fas fa-balance-scale

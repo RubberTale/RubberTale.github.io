@@ -88,6 +88,15 @@ aside: false
   </a>
 </div>
 <div class="flink-list-item">
+  <a href="/tools/kline-combo/" title="全品种 K 线复盘 RU / AL / CU" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:layout-dashboard.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="全品种 K 线复盘">
+    </div>
+    <div class="flink-item-name">全品种 K 线复盘</div>
+    <div class="flink-item-desc">RU 橡胶 / AL 沪铝 / CU 沪铜三品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
   <a href="/tools/arb-tracker/" title="跨品种套利跟踪器 BU/LU" target="_blank">
     <div class="flink-item-icon">
       <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="跨品种套利跟踪器">

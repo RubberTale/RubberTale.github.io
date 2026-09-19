@@ -20,11 +20,11 @@ tags:
 
 所以做了这个页面：把 RU 主力从 2005 年上市至今的完整日 K 线铺开，按主要波段切成十九段，每一段都可以点开看复盘。
 
-## 全历史日 K 线
+## 全历史日 K 线（三品种合一）
 
-<iframe src="/tools/ru-main-kline/" style="width:100%;height:780px;border:0;border-radius:12px;display:block;margin:28px 0;background:#fff" loading="lazy" title="RU 橡胶主力全历史 K 线"></iframe>
+<iframe src="/tools/kline-combo/" style="width:100%;height:780px;border:0;border-radius:12px;display:block;margin:28px 0;background:#fff" loading="lazy" title="全品种 K 线复盘"></iframe>
 
-> 图里挤的话，可以[全屏打开](/tools/ru-main-kline/)。
+> 顶部标签可在 RU 橡胶 / AL 沪铝 / CU 沪铜 间切换。图里挤的话，可以[全屏打开](/tools/kline-combo/)。
 
 ## 怎么用
 
