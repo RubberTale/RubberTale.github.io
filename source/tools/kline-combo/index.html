@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>全品种 K 线复盘</title>
-<meta name="description" content="RU 橡胶 / AL 沪铝 / CU 沪铜 三品种全历史日 K 线复盘，在一个页面内切换对比">
+<meta name="description" content="RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜 四品种全历史日 K 线复盘，在一个页面内切换对比">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <style>
   :root{
@@ -55,6 +55,9 @@
   <button class="tab active" data-sym="ru" onclick="switchTab('ru')">
     <span class="sym">RU</span><span class="name">橡胶主力</span>
   </button>
+  <button class="tab" data-sym="nr" onclick="switchTab('nr')">
+    <span class="sym">NR</span><span class="name">20号胶主力</span>
+  </button>
   <button class="tab" data-sym="al" onclick="switchTab('al')">
     <span class="sym">AL</span><span class="name">沪铝主力</span>
   </button>
@@ -65,6 +68,9 @@
 
 <div class="tab-panel active" id="panel-ru">
   <iframe class="tab-frame" src="/tools/ru-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+<div class="tab-panel" id="panel-nr">
+  <iframe class="tab-frame" data-src="/tools/nr-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
 </div>
 <div class="tab-panel" id="panel-al">
   <iframe class="tab-frame" data-src="/tools/al-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
@@ -98,7 +104,7 @@ function switchTab(sym) {
 // Handle initial hash
 if (location.hash) {
   var h = location.hash.slice(1);
-  if (['ru','al','cu'].indexOf(h) >= 0) switchTab(h);
+  if (['ru','nr','al','cu'].indexOf(h) >= 0) switchTab(h);
 }
 </script>
 </body>

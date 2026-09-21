@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="20号胶（INE NR）主力合约 2019 年上市以来全历史日 K 线与 26 段行情复盘">
+<title>NR 20号胶主力 · 全历史 K 线</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1f1f1d; --muted:#8a8a84; --line:rgba(0,0,0,.10);
+    --up:#d93b3a; --down:#12905f; --chip:rgba(255,255,255,.94);
+    --hl:rgba(217,59,58,.14);
+    --evdot:#c99a2e; --evring:rgba(201,154,46,.42);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#131316; --fg:#e9e9e6; --muted:#7d7d78; --line:rgba(255,255,255,.13);
+          --up:#e35b5a; --down:#2aa87a; --chip:rgba(23,23,27,.94);
+          --hl:rgba(227,91,90,.20);
+          --evdot:#e0b345; --evring:rgba(224,179,69,.45);}
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);
+    font:13px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+  #stage{position:relative;width:100%;height:100%;overflow:hidden}
+  #chart{position:absolute;inset:0}
+  #links{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  #links a{position:absolute;pointer-events:auto;text-decoration:none;white-space:nowrap;
+    font-size:11.5px;line-height:1;padding:4px 9px;border-radius:999px;
+    background:var(--chip);border:.5px solid var(--line);color:var(--muted);
+    transform:translate(-50%,-50%);
+    transition:color .15s,border-color .15s,box-shadow .15s}
+  #links a.up{color:var(--up)}
+  #links a.down{color:var(--down)}
+  #links a:hover,#links a.active{border-color:currentColor;box-shadow:0 2px 12px rgba(0,0,0,.12);z-index:5}
+  #links a.active{font-weight:600}
+  #hud{position:absolute;left:18px;top:16px;pointer-events:none}
+  #hud b{display:block;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;
+    color:var(--fg);margin-bottom:3px;letter-spacing:-.2px}
+  #hud span{font-size:11.5px;color:var(--muted)}
+  #tip{position:absolute;right:18px;bottom:16px;pointer-events:none;
+    font-size:11.5px;color:var(--muted)}
+  /* ── 事件标记 ── */
+  #evs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  #evs b{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
+    pointer-events:auto;cursor:pointer;
+    background:var(--evdot);border:.5px solid var(--bg);
+    box-shadow:0 0 0 .5px var(--evring);transition:transform .12s}
+  #evs b:hover,#evs b.active{transform:scale(1.55);z-index:6}
+  #evtip{position:absolute;z-index:8;max-width:270px;pointer-events:none;
+    background:var(--chip);border:.5px solid var(--line);border-radius:9px;
+    padding:9px 11px;box-shadow:0 4px 20px rgba(0,0,0,.14);opacity:0;
+    transition:opacity .13s;backdrop-filter:blur(8px)}
+  #evtip.on{opacity:1}
+  #evtip .d{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;
+    letter-spacing:.3px;margin-bottom:3px}
+  #evtip .t{font-size:12.5px;font-weight:600;color:var(--fg);line-height:1.45;
+    margin-bottom:4px}
+  #evtip .n{font-size:11.5px;line-height:1.65;color:var(--muted)}
+  #mask{position:absolute;inset:0;background:rgba(0,0,0,.14);opacity:0;
+    pointer-events:none;transition:opacity .22s;z-index:9}
+  #mask.on{opacity:1;pointer-events:auto}
+  #card{position:absolute;top:0;right:0;height:100%;width:min(430px,94vw);z-index:10;
+    background:var(--bg);border-left:.5px solid var(--line);
+    transform:translateX(101%);transition:transform .26s cubic-bezier(.22,.61,.36,1);
+    overflow-y:auto;padding:32px 28px 56px}
+  #card.on{transform:none}
+  @media (prefers-reduced-motion:reduce){#card,#mask{transition:none}}
+  #card .close{position:absolute;top:20px;right:20px;width:30px;height:30px;border-radius:50%;
+    border:.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;
+    font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;
+    transition:color .15s,border-color .15s}
+  #card .close:hover{color:var(--fg);border-color:var(--muted)}
+  #card .idx{font-size:12px;color:var(--muted);margin-bottom:10px;letter-spacing:.5px}
+  #card h2{font-size:19px;font-weight:600;margin:0 0 8px;line-height:1.45;letter-spacing:-.2px}
+  #card .meta{font-size:12.5px;color:var(--muted);margin-bottom:20px;
+    font-variant-numeric:tabular-nums;line-height:1.7}
+  #card .meta em{font-style:normal;font-weight:600}
+  #card p{font-size:14px;line-height:1.9;margin:0 0 14px;color:var(--fg)}
+  #card p strong{font-weight:600;color:var(--fg);
+    background:linear-gradient(transparent 62%,var(--hl) 62%)}
+  #card p.pending{color:var(--muted);font-size:13px;line-height:1.8}
+  #card code{font-size:12px;background:var(--chip);padding:1px 5px;border-radius:4px;
+    border:.5px solid var(--line)}
+  #card hr{border:0;border-top:.5px solid var(--line);margin:22px 0}
+  @media (max-width:720px){
+    #links a{font-size:10px;padding:3px 7px}
+    #hud{left:12px;top:12px}
+    #hud b{font-size:15px}
+    #tip{display:none}
+    #card{padding:26px 20px 48px}
+    #card h2{font-size:17px}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="chart"></div>
+  <div id="links"></div>
+  <div id="evs"></div>
+  <div id="evtip"></div>
+  <div id="hud"></div>
+  <div id="tip">滚轮缩放 · 拖动平移 · 点击标签看解读</div>
+  <div id="mask"></div>
+  <aside id="card"></aside>
+</div>
+<script>
+var UP = '#d93b3a', DOWN = '#12905f';
+var CIRC = [];
+for (var ci = 0; ci < 20; ci++) CIRC.push(String.fromCharCode(0x2460 + ci));
+for (var ci = 0; ci < 15; ci++) CIRC.push(String.fromCharCode(0x3251 + ci));
+for (var ci = 0; ci < 15; ci++) CIRC.push(String.fromCharCode(0x32B1 + ci));
+
+var DATA = null, PHASES = null, EVENTS = [], chart = null;
+var dates = [], kd = [], mode = '', cache = {};
+var gridRect = null;
+var EV_FLAT = [];   // 拍平的事件列表：[{date, title, note, phase, level}, ...]
+
+function ymd(s){ return '20' + s.slice(0,2) + '-' + s.slice(2,4) + '-' + s.slice(4,6); }
+function rgba(hex, a){
+  var n = parseInt(hex.slice(1), 16);
+  return 'rgba(' + ((n>>16)&255) + ',' + ((n>>8)&255) + ',' + (n&255) + ',' + a + ')';
+}
+function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function endOf(i){ return (i === PHASES.length - 1) ? dates[dates.length - 1] : PHASES[i].end; }
+
+function weekKey(s){
+  var y = 2000 + (+s.slice(0,2)), m = (+s.slice(2,4)) - 1, d = +s.slice(4,6);
+  var dt = new Date(y, m, d);
+  var jan1 = new Date(y, 0, 1);
+  var wk = Math.floor(((dt - jan1) / 86400000 + jan1.getDay()) / 7);
+  return y + '_' + wk;
+}
+
+function aggregate(rows, m){
+  if (m === 'day') return rows;
+  var out = [], cur = null;
+  for (var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    var key = (m === 'week') ? weekKey(r[0]) : r[0].slice(0,2);
+    if (!cur || cur.key !== key){
+      cur = { key: key, r: [r[0], r[1], r[2], r[3], r[4]] };
+      out.push(cur);
+    } else {
+      if (r[2] > cur.r[2]) cur.r[2] = r[2];
+      if (r[3] < cur.r[3]) cur.r[3] = r[3];
+      cur.r[4] = r[4];
+      cur.r[0] = r[0];
+    }
+  }
+  return out.map(function(x){ return x.r; });
+}
+
+function snap(d, arr){
+  if (!arr.length) return d;
+  var lo = 0, hi = arr.length - 1;
+  while (lo < hi){
+    var mid = (lo + hi) >> 1;
+    if (arr[mid] < d) lo = mid + 1; else hi = mid;
+  }
+  if (lo > 0 && arr[lo] > d){
+    var a = arr[lo - 1], b = arr[lo];
+    if ((d.slice(0,7) === a.slice(0,7)) || (d.slice(0,7) === b.slice(0,7))) return a;
+  }
+  return arr[lo];
+}
+
+fetch('data.json')
+  .then(function(r){ if (!r.ok) throw new Error('data.json HTTP ' + r.status); return r.json(); })
+  .then(function(d){ DATA = d; return fetch('phases.json'); })
+  .then(function(r){ if (!r.ok) throw new Error('phases.json HTTP ' + r.status); return r.json(); })
+  .then(function(p){
+    PHASES = p;
+    // 事件标记是可选增强：拿不到就不显示，不影响主图
+    return fetch('events.json')
+      .then(function(r){ return r.ok ? r.json() : []; })
+      .then(function(e){ EVENTS = e; })
+      .catch(function(){ EVENTS = []; });
+  })
+  .then(boot)
+  .catch(function(e){
+    document.getElementById('chart').innerHTML =
+      '<div style="padding:80px 20px;text-align:center;color:' + cssVar('--muted') + '">数据加载失败：' + e.message + '</div>';
+  });
+
+function boot(){
+  chart = echarts.init(document.getElementById('chart'));
+  useMode('day');
+
+  var last = DATA.last, prev = DATA.rows[DATA.rows.length - 2];
+  var diff = last.close - prev[4], pct = diff / prev[4] * 100;
+  var c = diff >= 0 ? UP : DOWN;
+  document.getElementById('hud').innerHTML =
+    '<b style="color:' + c + '">' + last.close.toLocaleString() + '</b>' +
+    '<span>NR 20号胶主力 · ' + last.date + ' 收盘 ' +
+    (diff >= 0 ? '+' : '') + pct.toFixed(2) + '%</span>';
+
+  chart.setOption(option());
+  buildLinks();
+  buildEvents();
+
+  chart.on('dataZoom', onZoom);
+  chart.on('rendered', function(){ cacheGrid(); layoutLinks(); layoutEvents(); });
+  window.addEventListener('resize', function(){
+    chart.resize();
+    cacheGrid();
+    layoutLinks();
+    layoutEvents();
+  });
+
+  document.getElementById('mask').addEventListener('click', closeCard);
+  window.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeCard(); });
+
+  cacheGrid();
+  layoutLinks();
+  layoutEvents();
+
+  var om = location.search.match(/[?&]open=(\d+)/);
+  if (om){
+    var oi = parseInt(om[1], 10) - 1;
+    if (oi >= 0 && oi < PHASES.length) openCard(oi);
+  }
+
+  var fm = location.search.match(/[?&]from=(\d{4}-\d{2}-\d{2})/);
+  var tm = location.search.match(/[?&]to=(\d{4}-\d{2}-\d{2})/);
+  if (fm || tm){
+    var f = fm ? fm[1] : dates[0];
+    var t = tm ? tm[1] : dates[dates.length - 1];
+    var si = dates.indexOf(snap(f, dates));
+    var ei = dates.indexOf(snap(t, dates));
+    if (si >= 0 && ei > si){
+      var dn = Math.max(1, dates.length - 1);
+      chart.dispatchAction({ type: 'dataZoom', start: si / dn * 100, end: ei / dn * 100 });
+    }
+  }
+}
+
+function useMode(m){
+  mode = m;
+  if (!cache[m]) cache[m] = aggregate(DATA.rows, m);
+  var rows = cache[m];
+  dates = rows.map(function(r){ return ymd(r[0]); });
+  kd = rows.map(function(r){ return [r[1], r[4], r[3], r[2]]; });
+}
+
+function areaData(){
+  return PHASES.map(function(p, i){
+    var c = p.dir === 'up' ? UP : DOWN;
+    return [
+      { xAxis: snap(p.start, dates), itemStyle: { color: rgba(c, 0.055) } },
+      { xAxis: snap(endOf(i), dates) }
+    ];
+  });
+}
+
+function option(){
+  var ink = cssVar('--fg'), line = cssVar('--line'), muted = cssVar('--muted');
+  return {
+    animation: false,
+    textStyle: { fontFamily: 'inherit' },
+    grid: { left: 14, right: 62, top: 26, bottom: 72, containLabel: false },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'cross', label: { backgroundColor: '#8a8a84', fontSize: 11 } },
+      backgroundColor: cssVar('--bg'), borderColor: line, borderWidth: 0.5,
+      textStyle: { color: ink, fontSize: 12.5 },
+      extraCssText: 'box-shadow:0 4px 18px rgba(0,0,0,.12);border-radius:8px;padding:8px 10px;',
+      formatter: function(ps){
+        var k = null;
+        for (var i = 0; i < ps.length; i++) if (ps[i].seriesType === 'candlestick') k = ps[i];
+        if (!k) return '';
+        var r = cache[mode][k.dataIndex];
+        var d = ymd(r[0]);
+        var pi = phaseAt(d);
+        var out = '<b>' + d + '</b><br/>开 ' + r[1] + '　高 ' + r[2] + '<br/>低 ' + r[3] + '　收 ' + r[4];
+        if (pi >= 0) out += '<br/><span style="color:' + muted + '">' + CIRC[pi] + ' ' + PHASES[pi].name + '</span>';
+        return out;
+      }
+    },
+    xAxis: {
+      type: 'category', data: dates, boundaryGap: true,
+      axisLine: { lineStyle: { color: line } },
+      axisTick: { show: false },
+      axisLabel: {
+        color: muted, fontSize: 11, hideOverlap: true,
+        formatter: function(v){ return mode === 'day' ? v.slice(2) : v.slice(0, 7); }
+      },
+      splitLine: { show: false }
+    },
+    yAxis: {
+      scale: true, position: 'right',
+      axisLine: { show: false }, axisTick: { show: false },
+      axisLabel: { color: muted, fontSize: 11,
+        formatter: function(v){ return (v / 1000).toFixed(1) + 'k'; } },
+      splitLine: { lineStyle: { color: line, type: 'dashed' } }
+    },
+    dataZoom: [
+      { type: 'inside', xAxisIndex: 0, start: 0, end: 100, zoomOnMouseWheel: true },
+      { type: 'slider', xAxisIndex: 0, start: 0, end: 100, height: 22, bottom: 18,
+        borderColor: 'rgba(0,0,0,.06)', backgroundColor: 'rgba(0,0,0,.02)',
+        fillerColor: rgba('#888888', 0.16), handleStyle: { color: '#a8a8a2' },
+        moveHandleSize: 0,
+        dataBackground: { lineStyle: { color: '#cfcfc9' }, areaStyle: { color: '#eaeae4' } },
+        selectedDataBackground: { lineStyle: { color: '#a2a29c' }, areaStyle: { color: rgba('#888888', 0.20) } },
+        textStyle: { color: muted, fontSize: 10.5 } }
+    ],
+    series: [{
+      type: 'candlestick', data: kd,
+      itemStyle: { color: UP, color0: DOWN, borderColor: UP, borderColor0: DOWN },
+      markArea: { silent: true, data: areaData() }
+    }]
+  };
+}
+
+function phaseAt(d){
+  for (var i = 0; i < PHASES.length; i++){
+    if (d >= PHASES[i].start && d <= endOf(i)) return i;
+  }
+  return -1;
+}
+
+function cacheGrid(){
+  try {
+    gridRect = chart.getModel().getComponent('grid').coordinateSystem.getRect();
+  } catch (e) { gridRect = null; }
+}
+
+function buildLinks(){
+  var box = document.getElementById('links');
+  box.innerHTML = '';
+  PHASES.forEach(function(p, i){
+    var a = document.createElement('a');
+    a.href = 'javascript:void(0)';
+    a.textContent = p.name;
+    a.className = p.dir;
+    a.title = CIRC[i] + ' ' + p.name + '　' + p.start + ' ~ ' + endOf(i);
+    a.addEventListener('click', function(ev){ ev.preventDefault(); openCard(i); });
+    box.appendChild(a);
+  });
+}
+
+function layoutLinks(){
+  if (!chart || !gridRect || !PHASES) return;
+  var box = document.getElementById('links');
+  var W = chart.getWidth(), H = chart.getHeight();
+  var gx = gridRect.x, gw = gridRect.width;
+  var items = [];
+
+  PHASES.forEach(function(p, i){
+    var el = box.children[i];
+    if (!el) return;
+    var d = snap(p.start, dates);
+    var pt = null;
+    try { pt = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, p.from]); } catch (e) { pt = null; }
+    if (!pt || !isFinite(pt[0]) || !isFinite(pt[1]) || pt[0] < gx - 12 || pt[0] > gx + gw + 12){
+      el.style.visibility = 'hidden';
+      return;
+    }
+    el.style.visibility = 'visible';
+    items.push({ el: el, x: pt[0], y: pt[1], dir: (p.to > p.from) ? 1 : -1 });
+  });
+
+  items.sort(function(a, b){ return a.x - b.x; });
+
+  var placed = [], bottomLimit = H - 54;
+  items.forEach(function(it){
+    var w = it.el.offsetWidth || 62, h = it.el.offsetHeight || 20;
+    var hw = w / 2, hh = h / 2;
+    var x = Math.max(hw + 4, Math.min(W - hw - 4, it.x));
+    var y = null;
+    for (var k = 0; k < 12 && y === null; k++){
+      var step = 24 + k * (h + 4);
+      var cands = [it.y + it.dir * step, it.y - it.dir * step];
+      for (var c = 0; c < 2; c++){
+        var cy = cands[c];
+        if (cy - hh < 4 || cy + hh > bottomLimit) continue;
+        if (!hits(placed, x, cy, hw, hh)) { y = cy; break; }
+      }
+    }
+    if (y === null) y = Math.max(hh + 4, Math.min(bottomLimit - hh, it.y + it.dir * 24));
+    placed.push({ x: x, y: y, hw: hw, hh: hh });
+    it.el.style.left = x + 'px';
+    it.el.style.top = y + 'px';
+  });
+}
+
+function hits(list, x, y, hw, hh){
+  for (var i = 0; i < list.length; i++){
+    var q = list[i];
+    if (Math.abs(x - q.x) < (hw + q.hw + 3) && Math.abs(y - q.y) < (hh + q.hh + 3)) return true;
+  }
+  return false;
+}
+
+/* ─────────── 事件标记 ───────────
+   数据来自 events.json：[{phase, items:[{date, level, title, note}]}, ...]
+   渲染成 K 线上的小圆点，悬停出气泡。圆点直接钉在当日的 high（利空）
+   或 low（利多）上，靠 ECharts convertToPixel 跟随缩放重排。        */
+
+function buildEvents(){
+  EV_FLAT = [];
+  if (!EVENTS || !EVENTS.length) return;
+  EVENTS.forEach(function(g){
+    var pi = (g.phase || 0) - 1;
+    (g.items || []).forEach(function(e){
+      EV_FLAT.push({
+        date: e.date, title: e.title || '', note: e.note || '',
+        level: e.level === 'low' ? 'low' : 'high',
+        phase: pi
+      });
+    });
+  });
+}
+
+// 缩放级别 -> 显示哪些 tier。
+// 全览 21 年时若把 30+ 个点全画出来会重叠成一团；
+// 所以跨度 > 4 年只留 tier 1（关键事件），放大后自动补出 tier 2。
+function evMaxTier(){
+  if (!dates.length) return 2;
+  var n = dates.length;
+  var dz = null;
+  try { dz = chart.getOption().dataZoom[0]; } catch (e) { dz = null; }
+  if (!dz) return 1;
+  var s = Math.round((dz.start || 0) / 100 * (n - 1));
+  var e = Math.round((dz.end === undefined ? 100 : dz.end) / 100 * (n - 1));
+  s = Math.max(0, Math.min(n - 1, s));
+  e = Math.max(0, Math.min(n - 1, e));
+  var days = (new Date(dates[e]) - new Date(dates[s])) / 86400000;
+  return days > 1460 ? 1 : 2;
+}
+
+function layoutEvents(){
+  var box = document.getElementById('evs');
+  if (!box) return;
+  if (!chart || !gridRect || !EV_FLAT.length){ box.innerHTML = ''; return; }
+
+  var maxTier = evMaxTier();
+  var W = chart.getWidth(), H = chart.getHeight();
+  var gx = gridRect.x, gw = gridRect.width, gy = gridRect.y, gh = gridRect.height;
+
+  // ── 第一遍：算出所有「可见且在本 tier 内」的点的像素位置 ──
+  var cands = [];
+  EV_FLAT.forEach(function(e, i){
+    if (e.tier > maxTier) return;
+    var d = snap(e.date, dates);
+    if (dates.indexOf(d) < 0) return;
+    var row = null;
+    for (var j = 0; j < kd.length; j++){ if (kd[j][0] === d){ row = kd[j]; break; } }
+    if (!row) return;
+    var px = null, py = null;
+    try {
+      var price = e.level === 'low' ? row[3] : row[2];
+      var pt = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, price]);
+      if (pt && isFinite(pt[0]) && isFinite(pt[1])){
+        px = pt[0]; py = pt[1] + (e.level === 'low' ? 8 : -8);
+      }
+    } catch (err) { px = null; }
+    if (px === null || px < gx - 6 || px > gx + gw + 6) return;
+    if (py === null) py = gy + gh / 2;
+    cands.push({ i: i, x: px, y: Math.max(gy - 2, Math.min(gy + gh + 2, py)), e: e });
+  });
+
+  // ── 第二遍：横向碰撞避让 ──
+  // 优先级：w 小的先占位（0=核心事件，一定保留）。w 相同时先到先得。
+  // 核心事件(0/1)之间如果也撞了，只给提示不强行隐藏——宁可挤也不丢关键点。
+  var wOf = function(c){ return (typeof c.e.w === 'number') ? c.e.w : 2; };
+  cands.sort(function(a, b){
+    if (wOf(a) !== wOf(b)) return wOf(a) - wOf(b);
+    return a.x - b.x;
+  });
+  var placed = [], MIN_GAP = 11;
+  cands.forEach(function(c){
+    var w = wOf(c);
+    for (var k = 0; k < placed.length; k++){
+      var pw = wOf(placed[k]);
+      // 核心/重要事件（w<=1）之间不再互相隐藏，允许相邻
+      if (w <= 1 && pw <= 1) continue;
+      if (Math.abs(placed[k].x - c.x) < MIN_GAP) { c.hide = 1; return; }
+    }
+    placed.push(c);
+  });
+  placed.sort(function(a, b){ return a.x - b.x; });
+
+  var keep = {};
+  placed.forEach(function(c){
+    var el = box.children[c.i];
+    if (!el){
+      el = document.createElement('b');
+      el.className = 'ev';
+      box.appendChild(el);
+    }
+    keep[c.i] = 1;
+    el.style.left = c.x + 'px';
+    el.style.top = c.y + 'px';
+    el.style.display = 'block';
+    if (!el._bound){
+      (function(ii, ex, ey){
+        el._bound = 1;
+        el.addEventListener('mouseenter', function(){ showEvTip(ii, ex, ey); });
+        el.addEventListener('mouseleave', hideEvTip);
+        el.addEventListener('click', function(){
+          var ev = EV_FLAT[ii];
+          if (ev.phase >= 0 && ev.phase < PHASES.length) openCard(ev.phase);
+        });
+      })(c.i, c.x, c.y);
+    }
+  });
+
+  Array.prototype.forEach.call(box.children, function(el, i){
+    if (!keep[i]) el.style.display = 'none';
+  });
+}
+
+function showEvTip(i, x, y){
+  var e = EV_FLAT[i];
+  if (!e) return;
+  var tip = document.getElementById('evtip');
+  var box = document.getElementById('evs');
+  tip.innerHTML =
+    '<div class="d">' + e.date + '</div>' +
+    '<div class="t">' + mdInline(e.title) + '</div>' +
+    '<div class="n">' + mdInline(e.note) + '</div>';
+  tip.classList.add('on');
+  // 先量尺寸再定位，保证不出界
+  var tw = tip.offsetWidth, th = tip.offsetHeight;
+  var W = chart.getWidth(), H = chart.getHeight();
+  var tx = x + 12, ty = y - th - 10;
+  if (tx + tw > W - 8) tx = x - tw - 12;
+  if (tx < 8) tx = 8;
+  if (ty < 8) ty = y + 14;
+  if (ty + th > H - 8) ty = H - th - 8;
+  tip.style.left = tx + 'px';
+  tip.style.top = ty + 'px';
+}
+
+function hideEvTip(){
+  var tip = document.getElementById('evtip');
+  if (tip) tip.classList.remove('on');
+}
+
+var switching = false;
+
+function onZoom(){
+  if (switching) return;
+  var o = chart.getOption();
+  var dz = o.dataZoom && o.dataZoom[0];
+  if (!dz) return;
+  var n = dates.length;
+  if (n < 2) return;
+  var s = Math.round((dz.start || 0) / 100 * (n - 1));
+  var e = Math.round((dz.end === undefined ? 100 : dz.end) / 100 * (n - 1));
+  s = Math.max(0, Math.min(n - 1, s));
+  e = Math.max(0, Math.min(n - 1, e));
+  // 用真实日期跨度判断粒度：切换数据后索引含义会变，用索引判断会来回死循环
+  var days = (new Date(dates[e]) - new Date(dates[s])) / 86400000;
+  var want = days > 3650 ? 'month' : (days > 900 ? 'week' : 'day');
+  if (want !== mode) switchMode(want, s, e);
+}
+
+function switchMode(want, s, e){
+  switching = true;
+  var sd = dates[Math.max(0, s)], ed = dates[Math.min(dates.length - 1, e)];
+
+  useMode(want);
+  chart.setOption({
+    xAxis: { data: dates },
+    series: [{ data: kd, markArea: { data: areaData() } }]
+  });
+  var ns = dates.indexOf(snap(sd, dates));
+  var ne = dates.indexOf(snap(ed, dates));
+  var n = Math.max(1, dates.length - 1);
+  chart.dispatchAction({ type: 'dataZoom', start: ns / n * 100, end: ne / n * 100 });
+  cacheGrid();
+  layoutLinks();
+  layoutEvents();
+  switching = false;
+}
+
+// 轻量内联 Markdown：先转义 HTML，再处理 **加粗** 与 `代码`
+function mdInline(s){
+  s = s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+  return s;
+}
+
+function openCard(i){
+  var p = PHASES[i];
+  var c = p.dir === 'up' ? UP : DOWN;
+  var chg = (p.to - p.from) / p.from * 100;
+  var hasNote = p.note && p.note.trim().length > 0;
+  var body = hasNote
+    ? p.note.split(/\n{2,}/).map(function(t){
+        return '<p>' + mdInline(t.trim()).replace(/\n/g, '<br/>') + '</p>';
+      }).join('')
+    : '<p class="pending">这一段的解读还没写。</p>' +
+      '<p class="pending">在 <code>phases.json</code> 里找到 ' + CIRC[i] + ' ' + p.name +
+      '，往 <code>note</code> 字段填内容就行，页面会自动显示，不用改代码。</p>';
+
+  var card = document.getElementById('card');
+  card.innerHTML =
+    '<button class="close" aria-label="关闭">&times;</button>' +
+    '<div class="idx">' + CIRC[i] + '　第 ' + (i + 1) + ' / ' + PHASES.length + ' 段</div>' +
+    '<h2>' + p.name + '</h2>' +
+    '<div class="meta">' + p.start + ' ~ ' + endOf(i) + '<br/>' +
+      p.from.toLocaleString() + ' → ' + p.to.toLocaleString() + '　' +
+      '<em style="color:' + c + '">' + (chg >= 0 ? '+' : '') + chg.toFixed(1) + '%</em></div>' +
+    '<hr/>' + body;
+
+  card.querySelector('.close').addEventListener('click', closeCard);
+  card.classList.add('on');
+  document.getElementById('mask').classList.add('on');
+
+  var box = document.getElementById('links');
+  Array.prototype.forEach.call(box.children, function(a, j){
+    if (j === i) a.classList.add('active'); else a.classList.remove('active');
+  });
+}
+
+function closeCard(){
+  document.getElementById('card').classList.remove('on');
+  document.getElementById('mask').classList.remove('on');
+  hideEvTip();
+  var box = document.getElementById('links');
+  Array.prototype.forEach.call(box.children, function(a){ a.classList.remove('active'); });
+}
+</script>
+</body>
+</html>

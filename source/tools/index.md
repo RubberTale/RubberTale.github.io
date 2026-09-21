@@ -70,6 +70,15 @@ aside: false
   </a>
 </div>
 <div class="flink-list-item">
+  <a href="/tools/nr-main-kline/" title="NR 20号胶主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:candlestick-chart.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="NR 全历史 K 线">
+    </div>
+    <div class="flink-item-name">NR 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2019 年上市至今 1700 多个交易日的 20 号胶主力日 K，自动划分二十六段行情；从挂牌起步、疫情大底到 EUDR 风暴与十年产能天花板，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
   <a href="/tools/al-main-kline/" title="AL 沪铝主力全历史日 K 线复盘" target="_blank">
     <div class="flink-item-icon">
       <img src="https://api.iconify.design/lucide:chart-no-axes-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AL 全历史 K 线">
@@ -88,12 +97,12 @@ aside: false
   </a>
 </div>
 <div class="flink-list-item">
-  <a href="/tools/kline-combo/" title="全品种 K 线复盘 RU / AL / CU" target="_blank">
+  <a href="/tools/kline-combo/" title="全品种 K 线复盘 RU / NR / AL / CU" target="_blank">
     <div class="flink-item-icon">
       <img src="https://api.iconify.design/lucide:layout-dashboard.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="全品种 K 线复盘">
     </div>
     <div class="flink-item-name">全品种 K 线复盘</div>
-    <div class="flink-item-desc">RU 橡胶 / AL 沪铝 / CU 沪铜三品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
+    <div class="flink-item-desc">RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜四品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
   </a>
 </div>
 <div class="flink-list-item">
