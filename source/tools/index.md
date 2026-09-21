@@ -129,6 +129,34 @@ aside: false
       <img src="https://api.iconify.design/lucide:gem.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AG 全历史 K 线">
     </div>
     <div class="flink-item-name">AG 全历史 K 线复盘</div>
+<div class="flink-list-item">
+  <a href="/tools/i-main-kline/" title="I 铁矿石主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:pickaxe.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="I 全历史 K 线">
+    </div>
+    <div class="flink-item-name">I 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2013 年上市至今 3100 多个交易日的铁矿石主力日 K，自动划分三十五段行情；从 282 极寒底、供给侧暴利、淡水河谷溃坝、1358 历史超级天花板到地产减量博弈，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/ta-main-kline/" title="TA PTA主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:atom.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="TA 全历史 K 线">
+    </div>
+    <div class="flink-item-name">TA 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2006 年上市至今 4800 多个交易日的 PTA 主力日 K，自动划分三十五段行情；从次贷大熊、12400 棉花联动大牛市、18年原油逼空神话、疫情负油价到民营大炼化产能重构，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/m-main-kline/" title="M 豆粕主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:sprout.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="M 全历史 K 线">
+    </div>
+    <div class="flink-item-name">M 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2005 年上市至今近 5300 个交易日的豆粕主力日 K，自动划分三十八段行情；从南美旱灾超级大牛市、生猪非洲猪瘟危机、中美贸易摩擦、俄乌地缘海啸到南美丰产压制，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+
     <div class="flink-item-desc">2012 年上市至今近 3500 个交易日的沪银主力日 K，自动划分二十段行情；从三年长熊、散户逼空大战、光伏 N 型电池银浆革命到实物交割超级大逼空，点图上的标签即可展开该阶段的走势解读。</div>
   </a>
 </div>
@@ -138,7 +166,7 @@ aside: false
       <img src="https://api.iconify.design/lucide:layout-dashboard.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="全品种 K 线复盘">
     </div>
     <div class="flink-item-name">全品种 K 线复盘</div>
-    <div class="flink-item-desc">RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜 / RB 螺纹 / EB 苯乙烯 / AU 沪金 / AG 沪银 八品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
+    <div class="flink-item-desc">RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜 / RB 螺纹 / EB 苯乙烯 / AU 沪金 / AG 沪银 / I 铁矿 / TA PTA / M 豆粕 十一品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
   </a>
 </div>
 <div class="flink-list-item">

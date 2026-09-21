@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>RB 螺纹钢主力 · 全历史 K 线</title>
+<meta name="description" content="RB 螺纹钢主力全历史日 K 线复盘，分段解读与关键事件">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1f1f1d; --muted:#8a8a84; --line:rgba(0,0,0,.10);
+    --up:#d93b3a; --down:#12905f; --chip:rgba(255,255,255,.94);
+    --hl:rgba(217,59,58,.14);
+    --evdot:#c99a2e; --evring:rgba(201,154,46,.42);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#131316; --fg:#e9e9e6; --muted:#7d7d78; --line:rgba(255,255,255,.13);
+          --up:#e35b5a; --down:#2aa87a; --chip:rgba(23,23,27,.94);
+          --hl:rgba(227,91,90,.20);
+          --evdot:#e0b345; --evring:rgba(224,179,69,.45);}
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);
+    font:13px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+  #stage{position:relative;width:100%;height:100%;overflow:hidden}
+  #chart{position:absolute;inset:0}
+  #links{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  #links a{position:absolute;pointer-events:auto;text-decoration:none;white-space:nowrap;
+    font-size:11.5px;line-height:1;padding:4px 9px;border-radius:999px;
+    background:var(--chip);border:.5px solid var(--line);color:var(--muted);
+    transform:translate(-50%,-50%);
+    transition:color .15s,border-color .15s,box-shadow .15s}
+  #links a.up{color:var(--up)}
+  #links a.down{color:var(--down)}
+  #links a:hover,#links a.active{border-color:currentColor;box-shadow:0 2px 12px rgba(0,0,0,.12);z-index:5}
+  #links a.active{font-weight:600}
+  #hud{position:absolute;left:18px;top:16px;pointer-events:none}
+  #hud b{display:block;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;
+    color:var(--fg);margin-bottom:3px;letter-spacing:-.2px}
+  #hud span{font-size:11.5px;color:var(--muted)}
+  #tip{position:absolute;right:18px;bottom:16px;pointer-events:none;
+    font-size:11.5px;color:var(--muted)}
+  /* ── 事件标记 ── */
+  #evs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  #evs b{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
+    pointer-events:auto;cursor:pointer;
+    background:var(--evdot);border:.5px solid var(--bg);
+    box-shadow:0 0 0 .5px var(--evring);transition:transform .12s}
+  #evs b:hover,#evs b.active{transform:scale(1.55);z-index:6}
+  #evtip{position:absolute;z-index:8;max-width:270px;pointer-events:none;
+    background:var(--chip);border:.5px solid var(--line);border-radius:9px;
+    padding:9px 11px;box-shadow:0 4px 20px rgba(0,0,0,.14);opacity:0;
+    transition:opacity .13s;backdrop-filter:blur(8px)}
+  #evtip.on{opacity:1}
+  #evtip .d{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;
+    letter-spacing:.3px;margin-bottom:3px}
+  #evtip .t{font-size:12.5px;font-weight:600;color:var(--fg);line-height:1.45;
+    margin-bottom:4px}
+  #evtip .n{font-size:11.5px;line-height:1.65;color:var(--muted)}
+  #mask{position:absolute;inset:0;background:rgba(0,0,0,.14);opacity:0;
+    pointer-events:none;transition:opacity .22s;z-index:9}
+  #mask.on{opacity:1;pointer-events:auto}
+  #card{position:absolute;top:0;right:0;height:100%;width:min(430px,94vw);z-index:10;
+    background:var(--bg);border-left:.5px solid var(--line);
+    transform:translateX(101%);transition:transform .26s cubic-bezier(.22,.61,.36,1);
+    overflow-y:auto;padding:32px 28px 56px}
+  #card.on{transform:none}
+  @media (prefers-reduced-motion:reduce){#card,#mask{transition:none}}
+  #card .close{position:absolute;top:20px;right:20px;width:30px;height:30px;border-radius:50%;
+    border:.5px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;
+    font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center;
+    transition:color .15s,border-color .15s}
+  #card .close:hover{color:var(--fg);border-color:var(--muted)}
+  #card .idx{font-size:12px;color:var(--muted);margin-bottom:10px;letter-spacing:.5px}
+  #card h2{font-size:19px;font-weight:600;margin:0 0 8px;line-height:1.45;letter-spacing:-.2px}
+  #card .meta{font-size:12.5px;color:var(--muted);margin-bottom:20px;
+    font-variant-numeric:tabular-nums;line-height:1.7}
+  #card .meta em{font-style:normal;font-weight:600}
+  #card p{font-size:14px;line-height:1.9;margin:0 0 14px;color:var(--fg)}
+  #card p strong{font-weight:600;color:var(--fg);
+    background:linear-gradient(transparent 62%,var(--hl) 62%)}
+  #card p.pending{color:var(--muted);font-size:13px;line-height:1.8}
+  #card code{font-size:12px;background:var(--chip);padding:1px 5px;border-radius:4px;
+    border:.5px solid var(--line)}
+  #card hr{border:0;border-top:.5px solid var(--line);margin:22px 0}
+  @media (max-width:720px){
+    #links a{font-size:10px;padding:3px 7px}
+    #hud{left:12px;top:12px}
+    #hud b{font-size:15px}
+    #tip{display:none}
+    #card{padding:26px 20px 48px}
+    #card h2{font-size:17px}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="chart"></div>
+  <div id="links"></div>
+  <div id="evs"></div>
+  <div id="evtip"></div>
+  <div id="hud"></div>
+  <div id="tip">滚轮缩放 · 拖动平移 · 点击标签看解读</div>
+  <div id="mask"></div>
+  <aside id="card"></aside>
+</div>
+<script>
+var UP = '#d93b3a', DOWN = '#12905f';
+var CIRC = [];
+for (var ci = 0; ci < 20; ci++) CIRC.push(String.fromCharCode(0x2460 + ci));
+for (var ci = 0; ci < 15; ci++) CIRC.push(String.fromCharCode(0x3251 + ci));
+for (var ci = 0; ci < 15; ci++) CIRC.push(String.fromCharCode(0x32B1 + ci));
+
+var DATA = null, PHASES = null, EVENTS = [], chart = null;
+var dates = [], kd = [], mode = '', cache = {};
+var gridRect = null;
+var EV_FLAT = [];
+
+function ymd(s){ return '20' + s.slice(0,2) + '-' + s.slice(2,4) + '-' + s.slice(4,6); }
+function rgba(hex, a){
+  var n = parseInt(hex.slice(1), 16);
+  return 'rgba(' + ((n>>16)&255) + ',' + ((n>>8)&255) + ',' + (n&255) + ',' + a + ')';
+}
+function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function endOf(i){ return (i === PHASES.length - 1) ? dates[dates.length - 1] : PHASES[i].end; }
+
+function weekKey(s){
+  var y = 2000 + (+s.slice(0,2)), m = (+s.slice(2,4)) - 1, d = +s.slice(4,6);
+  var dt = new Date(y, m, d);
+  var jan1 = new Date(y, 0, 1);
+  var wk = Math.floor(((dt - jan1) / 86400000 + jan1.getDay()) / 7);
+  return y + '_' + wk;
+}
+
+function aggregate(rows, m){
+  if (m === 'day') return rows;
+  var out = [], cur = null;
+  for (var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    var key = (m === 'week') ? weekKey(r[0]) : r[0].slice(0,2);
+    if (!cur || cur.key !== key){
+      cur = { key: key, r: [r[0], r[1], r[2], r[3], r[4]] };
+      out.push(cur);
+    } else {
+      if (r[2] > cur.r[2]) cur.r[2] = r[2];
+      if (r[3] < cur.r[3]) cur.r[3] = r[3];
+      cur.r[4] = r[4];
+      cur.r[0] = r[0];
+    }
+  }
+  return out.map(function(x){ return x.r; });
+}
+
+function snap(d, arr){
+  if (!arr.length) return d;
+  var lo = 0, hi = arr.length - 1;
+  while (lo < hi){
+    var mid = (lo + hi) >> 1;
+    if (arr[mid] < d) lo = mid + 1; else hi = mid;
+  }
+  if (lo > 0 && arr[lo] > d){
+    var a = arr[lo - 1], b = arr[lo];
+    if ((d.slice(0,7) === a.slice(0,7)) || (d.slice(0,7) === b.slice(0,7))) return a;
+  }
+  return arr[lo];
+}
+
+fetch('data.json')
+  .then(function(r){ if (!r.ok) throw new Error('data.json HTTP ' + r.status); return r.json(); })
+  .then(function(d){ DATA = d; return fetch('phases.json'); })
+  .then(function(r){ if (!r.ok) throw new Error('phases.json HTTP ' + r.status); return r.json(); })
+  .then(function(p){
+    PHASES = p;
+    return fetch('events.json')
+      .then(function(r){ return r.ok ? r.json() : []; })
+      .then(function(e){ EVENTS = e; })
+      .catch(function(){ EVENTS = []; });
+  })
+  .then(boot)
+  .catch(function(e){
+    document.getElementById('chart').innerHTML =
+      '<div style="padding:80px 20px;text-align:center;color:' + cssVar('--muted') + '">数据加载失败：' + e.message + '</div>';
+  });
+
+function boot(){
+  chart = echarts.init(document.getElementById('chart'));
+  useMode('day');
+
+  var last = DATA.last, prev = DATA.rows[DATA.rows.length - 2];
+  var diff = last.close - prev[4], pct = diff / prev[4] * 100;
+  var c = diff >= 0 ? UP : DOWN;
+  var closeStr = (typeof last.close === 'number' && last.close % 1 !== 0) ? last.close.toFixed(2) : last.close.toLocaleString();
+  document.getElementById('hud').innerHTML =
+    '<b style="color:' + c + '">' + closeStr + '</b>' +
+    '<span>' + (DATA.symbol || 'RB') + ' ' + (DATA.name || '螺纹钢主力') + ' · ' + last.date + ' 收盘 ' +
+    (diff >= 0 ? '+' : '') + pct.toFixed(2) + '%</span>';
+
+  chart.setOption(option());
+  buildLinks();
+  buildEvents();
+
+  chart.on('dataZoom', onZoom);
+  chart.on('rendered', function(){ cacheGrid(); layoutLinks(); layoutEvents(); });
+  window.addEventListener('resize', function(){
+    chart.resize();
+    cacheGrid();
+    layoutLinks();
+    layoutEvents();
+  });
+
+  document.getElementById('mask').addEventListener('click', closeCard);
+  window.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeCard(); });
+
+  cacheGrid();
+  layoutLinks();
+  layoutEvents();
+
+  var om = location.search.match(/[?&]open=(\d+)/);
+  if (om){
+    var oi = parseInt(om[1], 10) - 1;
+    if (oi >= 0 && oi < PHASES.length) openCard(oi);
+  }
+
+  var fm = location.search.match(/[?&]from=(\d{4}-\d{2}-\d{2})/);
+  var tm = location.search.match(/[?&]to=(\d{4}-\d{2}-\d{2})/);
+  if (fm || tm){
+    var f = fm ? fm[1] : dates[0];
+    var t = tm ? tm[1] : dates[dates.length - 1];
+    var si = dates.indexOf(snap(f, dates));
+    var ei = dates.indexOf(snap(t, dates));
+    if (si >= 0 && ei > si){
+      var dn = Math.max(1, dates.length - 1);
+      chart.dispatchAction({ type: 'dataZoom', start: si / dn * 100, end: ei / dn * 100 });
+    }
+  }
+}
+
+function useMode(m){
+  mode = m;
+  if (!cache[m]) cache[m] = aggregate(DATA.rows, m);
+  var rows = cache[m];
+  dates = rows.map(function(r){ return ymd(r[0]); });
+  kd = rows.map(function(r){ return [r[1], r[4], r[3], r[2]]; });
+}
+
+function areaData(){
+  return PHASES.map(function(p, i){
+    var c = p.dir === 'up' ? UP : DOWN;
+    return [
+      { xAxis: snap(p.start, dates), itemStyle: { color: rgba(c, 0.055) } },
+      { xAxis: snap(endOf(i), dates) }
+    ];
+  });
+}
+
+function option(){
+  var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var muted = cssVar('--muted'), line = cssVar('--line');
+  return {
+    animation: false,
+    grid: { left: 16, right: 16, top: 56, bottom: 44, containLabel: true },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'cross', lineStyle: { color: muted, type: 'dashed', width: 0.5 } },
+      backgroundColor: cssVar('--chip'),
+      borderColor: line,
+      textStyle: { color: cssVar('--fg'), fontSize: 12 },
+      formatter: function(params){
+        var p = params[0];
+        if (!p || !p.data) return '';
+        var d = p.name, v = p.data;
+        var o = v[1], c = v[2], l = v[3], h = v[4];
+        var chg = (c - o) / o * 100;
+        var col = c >= o ? UP : DOWN;
+        var fmt = function(num){ return (typeof num === 'number' && num % 1 !== 0) ? num.toFixed(2) : num.toLocaleString(); };
+        return '<div style="font-weight:600;margin-bottom:4px">' + d + '</div>' +
+          '<div style="color:' + muted + ';font-variant-numeric:tabular-nums;line-height:1.6">' +
+          '开 ' + fmt(o) + '　高 ' + fmt(h) + '<br/>' +
+          '低 ' + fmt(l) + '　收 <b style="color:' + col + '">' + fmt(c) + ' (' + (chg>=0?'+':'') + chg.toFixed(2) + '%)</b></div>';
+      }
+    },
+    xAxis: {
+      type: 'category',
+      data: dates,
+      axisLine: { lineStyle: { color: line } },
+      axisTick: { show: false },
+      axisLabel: { color: muted, fontSize: 11 },
+      splitLine: { show: false }
+    },
+    yAxis: {
+      type: 'value',
+      scale: true,
+      position: 'right',
+      axisLine: { show: false },
+      axisTick: { show: false },
+      axisLabel: {
+        color: muted, fontSize: 11,
+        formatter: function(v){ return v.toLocaleString(); }
+      },
+      splitLine: { lineStyle: { color: line, type: 'dotted' } }
+    },
+    dataZoom: [
+      { type: 'inside', xAxisIndex: [0] },
+      {
+        type: 'slider',
+        xAxisIndex: [0],
+        height: 18,
+        bottom: 12,
+        borderColor: 'transparent',
+        backgroundColor: rgba(line, 0.4),
+        fillerColor: rgba(muted, 0.18),
+        showDetail: false,
+        brushSelect: false,
+        handleSize: '100%',
+        handleStyle: { color: muted, borderColor: 'transparent' }
+      }
+    ],
+    series: [
+      {
+        type: 'candlestick',
+        data: kd,
+        itemStyle: {
+          color: UP,
+          color0: DOWN,
+          borderColor: UP,
+          borderColor0: DOWN
+        },
+        markArea: { silent: true, data: areaData() }
+      }
+    ]
+  };
+}
+
+function cacheGrid(){
+  if (!chart) return;
+  var m = chart.getModel();
+  if (!m) return;
+  var c = m.getComponent('grid');
+  if (!c || !c.coordinateSystem) return;
+  gridRect = c.coordinateSystem.getRect();
+}
+
+function buildLinks(){
+  var box = document.getElementById('links');
+  box.innerHTML = '';
+  PHASES.forEach(function(p, i){
+    var a = document.createElement('a');
+    a.className = p.dir;
+    a.textContent = CIRC[i] + ' ' + p.name;
+    a.href = 'javascript:void(0)';
+    a.addEventListener('click', function(e){
+      e.stopPropagation();
+      openCard(i);
+    });
+    box.appendChild(a);
+  });
+}
+
+function layoutLinks(){
+  var box = document.getElementById('links');
+  if (!box || !chart || !gridRect || !PHASES.length) return;
+
+  var W = chart.getWidth(), H = chart.getHeight();
+  var gx = gridRect.x, gw = gridRect.width, gy = gridRect.y, gh = gridRect.height;
+  var topLimit = gy, bottomLimit = gy + gh;
+
+  var items = [];
+  for (var i = 0; i < PHASES.length; i++){
+    var p = PHASES[i];
+    var el = box.children[i];
+    if (!el) continue;
+
+    var s = snap(p.start, dates), e = snap(endOf(i), dates);
+    var si = dates.indexOf(s), ei = dates.indexOf(e);
+    if (si < 0 && ei < 0) continue;
+    if (si < 0) si = 0;
+    if (ei < 0) ei = dates.length - 1;
+    var mi = Math.floor((si + ei) / 2);
+    var md = dates[mi];
+
+    var pt = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [md, kd[mi] ? kd[mi][1] : p.to]);
+    if (!pt || !isFinite(pt[0]) || !isFinite(pt[1])) continue;
+
+    var x = pt[0], y = pt[1];
+    var inView = (x >= gx - 40 && x <= gx + gw + 40);
+    if (!inView){
+      el.style.display = 'none';
+      continue;
+    }
+    el.style.display = 'block';
+
+    var hw = el.offsetWidth / 2, hh = el.offsetHeight / 2;
+    var dir = (p.dir === 'up') ? -1 : 1;
+    items.push({
+      i: i, el: el, x: x, y: y, hw: hw, hh: hh, dir: dir
+    });
+  }
+
+  var placed = [];
+  items.forEach(function(it){
+    var x = Math.max(gx + it.hw + 4, Math.min(gx + gw - it.hw - 4, it.x));
+    var targetY = it.y + it.dir * 28;
+    var y = null;
+
+    var offsets = [0, 16, -16, 32, -32, 48, -48, 64, -64];
+    for (var o = 0; o < offsets.length; o++){
+      var cy = targetY + offsets[o] * it.dir;
+      if (cy - it.hh < topLimit || cy + it.hh > bottomLimit) continue;
+      if (!hits(placed, x, cy, it.hw, it.hh)){
+        y = cy;
+        break;
+      }
+    }
+    if (y === null) y = Math.max(hh + 4, Math.min(bottomLimit - hh, it.y + it.dir * 24));
+    placed.push({ x: x, y: y, hw: it.hw, hh: it.hh });
+    it.el.style.left = x + 'px';
+    it.el.style.top = y + 'px';
+  });
+}
+
+function hits(list, x, y, hw, hh){
+  for (var i = 0; i < list.length; i++){
+    var q = list[i];
+    if (Math.abs(x - q.x) < (hw + q.hw + 3) && Math.abs(y - q.y) < (hh + q.hh + 3)) return true;
+  }
+  return false;
+}
+
+/* ── 事件标记 ── */
+function buildEvents(){
+  EV_FLAT = [];
+  if (!EVENTS || !EVENTS.length) return;
+  EVENTS.forEach(function(item, idx){
+    if (item.items && Array.isArray(item.items)){
+      var pi = (typeof item.phase === 'number') ? (item.phase - 1) : idx;
+      item.items.forEach(function(e){
+        EV_FLAT.push({
+          date: e.date, title: e.title || '', note: e.note || '',
+          level: (e.level === 'low' || e.level === 'minor') ? 'low' : 'high',
+          tier: e.tier || 1, w: (typeof e.w === 'number') ? e.w : 1,
+          phase: pi
+        });
+      });
+    } else {
+      var pi = 0;
+      if (typeof item.phase === 'number') pi = item.phase - 1;
+      else if (typeof item.phase === 'string') {
+        for (var pidx = 0; pidx < PHASES.length; pidx++){
+          if (PHASES[pidx].name === item.phase || (item.date >= PHASES[pidx].start && item.date <= PHASES[pidx].end)){
+            pi = pidx; break;
+          }
+        }
+      }
+      EV_FLAT.push({
+        date: item.date, title: item.title || '', note: item.note || '',
+        level: (item.level === 'low' || item.level === 'minor') ? 'low' : 'high',
+        tier: item.tier || 1, w: (typeof item.w === 'number') ? item.w : 1,
+        phase: pi
+      });
+    }
+  });
+}
+
+function evMaxTier(){
+  if (!dates.length) return 2;
+  var n = dates.length;
+  var dz = null;
+  try { dz = chart.getOption().dataZoom[0]; } catch (e) { dz = null; }
+  if (!dz) return 1;
+  var s = Math.round((dz.start || 0) / 100 * (n - 1));
+  var e = Math.round((dz.end === undefined ? 100 : dz.end) / 100 * (n - 1));
+  s = Math.max(0, Math.min(n - 1, s));
+  e = Math.max(0, Math.min(n - 1, e));
+  var days = (new Date(dates[e]) - new Date(dates[s])) / 86400000;
+  return days > 1460 ? 1 : 2;
+}
+
+function layoutEvents(){
+  var box = document.getElementById('evs');
+  if (!box) return;
+  if (!chart || !gridRect || !EV_FLAT.length){ box.innerHTML = ''; return; }
+
+  var maxTier = evMaxTier();
+  var W = chart.getWidth(), H = chart.getHeight();
+  var gx = gridRect.x, gw = gridRect.width, gy = gridRect.y, gh = gridRect.height;
+
+  var cands = [];
+  EV_FLAT.forEach(function(e, i){
+    if (e.tier > maxTier) return;
+    var d = snap(e.date, dates);
+    if (dates.indexOf(d) < 0) return;
+    var row = null;
+    for (var j = 0; j < kd.length; j++){ if (dates[j] === d){ row = kd[j]; break; } }
+    if (!row) return;
+    var px = null, py = null;
+    try {
+      var price = e.level === 'low' ? row[2] : row[3];
+      var pt = chart.convertToPixel({ xAxisIndex: 0, yAxisIndex: 0 }, [d, price]);
+      if (pt && isFinite(pt[0]) && isFinite(pt[1])){
+        px = pt[0]; py = pt[1] + (e.level === 'low' ? 8 : -8);
+      }
+    } catch (err) { px = null; }
+    if (px === null || px < gx - 6 || px > gx + gw + 6) return;
+    if (py === null) py = gy + gh / 2;
+    cands.push({ i: i, x: px, y: Math.max(gy - 2, Math.min(gy + gh + 2, py)), e: e });
+  });
+
+  var wOf = function(c){ return (typeof c.e.w === 'number') ? c.e.w : 2; };
+  cands.sort(function(a, b){
+    if (wOf(a) !== wOf(b)) return wOf(a) - wOf(b);
+    return a.x - b.x;
+  });
+  var placed = [], MIN_GAP = 11;
+  cands.forEach(function(c){
+    var w = wOf(c);
+    for (var k = 0; k < placed.length; k++){
+      var pw = wOf(placed[k]);
+      if (w <= 1 && pw <= 1) continue;
+      if (Math.abs(placed[k].x - c.x) < MIN_GAP) { c.hide = 1; return; }
+    }
+    placed.push(c);
+  });
+  placed.sort(function(a, b){ return a.x - b.x; });
+
+  var keep = {};
+  placed.forEach(function(c){
+    var el = box.children[c.i];
+    if (!el){
+      el = document.createElement('b');
+      el.className = 'ev';
+      box.appendChild(el);
+    }
+    keep[c.i] = 1;
+    el.style.left = c.x + 'px';
+    el.style.top = c.y + 'px';
+    el.style.display = 'block';
+    if (!el._bound){
+      (function(ii, ex, ey){
+        el._bound = 1;
+        el.addEventListener('mouseenter', function(){ showEvTip(ii, ex, ey); });
+        el.addEventListener('mouseleave', hideEvTip);
+        el.addEventListener('click', function(){
+          var ev = EV_FLAT[ii];
+          if (ev.phase >= 0 && ev.phase < PHASES.length) openCard(ev.phase);
+        });
+      })(c.i, c.x, c.y);
+    }
+  });
+
+  Array.prototype.forEach.call(box.children, function(el, i){
+    if (!keep[i]) el.style.display = 'none';
+  });
+}
+
+function showEvTip(i, x, y){
+  var e = EV_FLAT[i];
+  if (!e) return;
+  var tip = document.getElementById('evtip');
+  tip.innerHTML =
+    '<div class="d">' + e.date + '</div>' +
+    '<div class="t">' + mdInline(e.title) + '</div>' +
+    '<div class="n">' + mdInline(e.note) + '</div>';
+  tip.classList.add('on');
+  var tw = tip.offsetWidth, th = tip.offsetHeight;
+  var W = chart.getWidth(), H = chart.getHeight();
+  var tx = x + 12, ty = y - th - 10;
+  if (tx + tw > W - 8) tx = x - tw - 12;
+  if (tx < 8) tx = 8;
+  if (ty < 8) ty = y + 14;
+  if (ty + th > H - 8) ty = H - th - 8;
+  tip.style.left = tx + 'px';
+  tip.style.top = ty + 'px';
+}
+
+function hideEvTip(){
+  var tip = document.getElementById('evtip');
+  if (tip) tip.classList.remove('on');
+}
+
+var switching = false;
+
+function onZoom(){
+  if (switching) return;
+  var o = chart.getOption();
+  var dz = o.dataZoom && o.dataZoom[0];
+  if (!dz) return;
+  var n = dates.length;
+  if (n < 2) return;
+  var s = Math.round((dz.start || 0) / 100 * (n - 1));
+  var e = Math.round((dz.end === undefined ? 100 : dz.end) / 100 * (n - 1));
+  s = Math.max(0, Math.min(n - 1, s));
+  e = Math.max(0, Math.min(n - 1, e));
+  var days = (new Date(dates[e]) - new Date(dates[s])) / 86400000;
+  var want = days > 3650 ? 'month' : (days > 900 ? 'week' : 'day');
+  if (want !== mode) switchMode(want, s, e);
+}
+
+function switchMode(want, s, e){
+  switching = true;
+  var sd = dates[Math.max(0, s)], ed = dates[Math.min(dates.length - 1, e)];
+
+  useMode(want);
+  chart.setOption({
+    xAxis: { data: dates },
+    series: [{ data: kd, markArea: { data: areaData() } }]
+  });
+  var ns = dates.indexOf(snap(sd, dates));
+  var ne = dates.indexOf(snap(ed, dates));
+  var n = Math.max(1, dates.length - 1);
+  chart.dispatchAction({ type: 'dataZoom', start: ns / n * 100, end: ne / n * 100 });
+  cacheGrid();
+  layoutLinks();
+  layoutEvents();
+  switching = false;
+}
+
+function mdInline(s){
+  s = s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+  return s;
+}
+
+function openCard(i){
+  var p = PHASES[i];
+  var c = p.dir === 'up' ? UP : DOWN;
+  var chg = (p.to - p.from) / p.from * 100;
+  var hasNote = p.note && p.note.trim().length > 0;
+  var body = hasNote
+    ? p.note.split(/\n{2,}/).map(function(t){
+        return '<p>' + mdInline(t.trim()).replace(/\n/g, '<br/>') + '</p>';
+      }).join('')
+    : '<p class="pending">这一段的解读还没写。</p>';
+
+  var fromStr = (typeof p.from === 'number' && p.from % 1 !== 0) ? p.from.toFixed(2) : p.from.toLocaleString();
+  var toStr = (typeof p.to === 'number' && p.to % 1 !== 0) ? p.to.toFixed(2) : p.to.toLocaleString();
+
+  var card = document.getElementById('card');
+  card.innerHTML =
+    '<button class="close" aria-label="关闭">&times;</button>' +
+    '<div class="idx">' + CIRC[i] + '　第 ' + (i + 1) + ' / ' + PHASES.length + ' 段</div>' +
+    '<h2>' + p.name + '</h2>' +
+    '<div class="meta">' + p.start + ' ~ ' + endOf(i) + '<br/>' +
+      fromStr + ' → ' + toStr + '　' +
+      '<em style="color:' + c + '">' + (chg >= 0 ? '+' : '') + chg.toFixed(1) + '%</em></div>' +
+    '<hr/>' + body;
+
+  card.querySelector('.close').addEventListener('click', closeCard);
+  card.classList.add('on');
+  document.getElementById('mask').classList.add('on');
+
+  var box = document.getElementById('links');
+  Array.prototype.forEach.call(box.children, function(a, j){
+    if (j === i) a.classList.add('active'); else a.classList.remove('active');
+  });
+}
+
+function closeCard(){
+  document.getElementById('card').classList.remove('on');
+  document.getElementById('mask').classList.remove('on');
+  hideEvTip();
+  var box = document.getElementById('links');
+  Array.prototype.forEach.call(box.children, function(a){ a.classList.remove('active'); });
+}
+</script>
+</body>
+</html>

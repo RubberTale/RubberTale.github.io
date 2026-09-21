@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>全品种 K 线复盘</title>
-<meta name="description" content="RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜 四品种全历史日 K 线复盘，在一个页面内切换对比">
+<meta name="description" content="RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜 / RB 螺纹钢 / EB 苯乙烯 / AU 沪金 / AG 沪银 / I 铁矿石 / TA PTA / M 豆粕 全历史日 K 线复盘，在一个页面内切换对比">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <style>
   :root{
@@ -22,11 +22,12 @@
   #tabbar{
     position:relative;z-index:10;height:48px;display:flex;align-items:center;
     background:var(--tab-bg);border-bottom:.5px solid var(--line);
-    padding:0 12px;gap:4px;flex-shrink:0;
+    padding:0 12px;gap:4px;flex-shrink:0;overflow-x:auto;scrollbar-width:none;
   }
+  #tabbar::-webkit-scrollbar{display:none}
   .tab{
-    display:flex;align-items:center;gap:6px;
-    padding:6px 16px;border-radius:8px 8px 0 0;
+    flex-shrink:0;display:flex;align-items:center;gap:6px;
+    padding:6px 14px;border-radius:8px 8px 0 0;
     text-decoration:none;color:var(--muted);font-size:13px;font-weight:500;
     cursor:pointer;transition:background .15s,color .15s;
     border:none;background:transparent;outline:none;
@@ -64,6 +65,27 @@
   <button class="tab" data-sym="cu" onclick="switchTab('cu')">
     <span class="sym">CU</span><span class="name">沪铜主力</span>
   </button>
+  <button class="tab" data-sym="rb" onclick="switchTab('rb')">
+    <span class="sym">RB</span><span class="name">螺纹钢主力</span>
+  </button>
+  <button class="tab" data-sym="eb" onclick="switchTab('eb')">
+    <span class="sym">EB</span><span class="name">苯乙烯主力</span>
+  </button>
+  <button class="tab" data-sym="au" onclick="switchTab('au')">
+    <span class="sym">AU</span><span class="name">沪金主力</span>
+  </button>
+  <button class="tab" data-sym="ag" onclick="switchTab('ag')">
+    <span class="sym">AG</span><span class="name">沪银主力</span>
+  </button>
+  <button class="tab" data-sym="i" onclick="switchTab('i')">
+    <span class="sym">I</span><span class="name">铁矿石主力</span>
+  </button>
+  <button class="tab" data-sym="ta" onclick="switchTab('ta')">
+    <span class="sym">TA</span><span class="name">PTA主力</span>
+  </button>
+  <button class="tab" data-sym="m" onclick="switchTab('m')">
+    <span class="sym">M</span><span class="name">豆粕主力</span>
+  </button>
 </div>
 
 <div class="tab-panel active" id="panel-ru">
@@ -78,6 +100,28 @@
 <div class="tab-panel" id="panel-cu">
   <iframe class="tab-frame" data-src="/tools/cu-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
 </div>
+<div class="tab-panel" id="panel-rb">
+  <iframe class="tab-frame" data-src="/tools/rb-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+<div class="tab-panel" id="panel-eb">
+  <iframe class="tab-frame" data-src="/tools/eb-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+<div class="tab-panel" id="panel-au">
+  <iframe class="tab-frame" data-src="/tools/au-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+<div class="tab-panel" id="panel-ag">
+  <iframe class="tab-frame" data-src="/tools/ag-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+<div class="tab-panel" id="panel-i">
+  <iframe class="tab-frame" data-src="/tools/i-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+<div class="tab-panel" id="panel-ta">
+  <iframe class="tab-frame" data-src="/tools/ta-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+<div class="tab-panel" id="panel-m">
+  <iframe class="tab-frame" data-src="/tools/m-main-kline/index.html" frameborder="0" loading="lazy"></iframe>
+</div>
+
 
 <script>
 function switchTab(sym) {
@@ -104,7 +148,7 @@ function switchTab(sym) {
 // Handle initial hash
 if (location.hash) {
   var h = location.hash.slice(1);
-  if (['ru','nr','al','cu'].indexOf(h) >= 0) switchTab(h);
+  if (['ru','nr','al','cu','rb','eb','au','ag','i','ta','m'].indexOf(h) >= 0) switchTab(h);
 }
 </script>
 </body>
