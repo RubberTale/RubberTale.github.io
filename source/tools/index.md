@@ -97,21 +97,57 @@ aside: false
   </a>
 </div>
 <div class="flink-list-item">
-  <a href="/tools/kline-combo/" title="全品种 K 线复盘 RU / NR / AL / CU" target="_blank">
+  <a href="/tools/rb-main-kline/" title="RB 螺纹钢主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:anvil.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="RB 全历史 K 线">
+    </div>
+    <div class="flink-item-name">RB 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2009 年上市至今 4200 多个交易日的螺纹钢主力日 K，自动划分三十一段行情；从四万亿基建狂澜、1618 白菜价长夜、地条钢出清暴利、双碳 6208 历史天花板到地产出清再平衡，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/eb-main-kline/" title="EB 苯乙烯主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:flask-conical.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="EB 全历史 K 线">
+    </div>
+    <div class="flink-item-name">EB 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2019 年上市至今 1600 多个交易日的苯乙烯主力日 K，自动划分十九段行情；从挂牌起步、疫情深坑、德州极寒、纯苯调油逼空到大炼化产能出清，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/au-main-kline/" title="AU 沪金主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:coins.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AU 全历史 K 线">
+    </div>
+    <div class="flink-item-name">AU 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2008 年上市至今 4500 多个交易日的沪金主力日 K，自动划分二十五段行情；从次贷流动性海啸、十年大牛市、大妈抢金崩盘到去美元化与千元历史神话，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/ag-main-kline/" title="AG 沪银主力全历史日 K 线复盘" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:gem.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AG 全历史 K 线">
+    </div>
+    <div class="flink-item-name">AG 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2012 年上市至今近 3500 个交易日的沪银主力日 K，自动划分二十段行情；从三年长熊、散户逼空大战、光伏 N 型电池银浆革命到实物交割超级大逼空，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/kline-combo/" title="全品种 K 线复盘" target="_blank">
     <div class="flink-item-icon">
       <img src="https://api.iconify.design/lucide:layout-dashboard.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="全品种 K 线复盘">
     </div>
     <div class="flink-item-name">全品种 K 线复盘</div>
-    <div class="flink-item-desc">RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜四品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
+    <div class="flink-item-desc">RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜 / RB 螺纹 / EB 苯乙烯 / AU 沪金 / AG 沪银 八品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
   </a>
 </div>
 <div class="flink-list-item">
-  <a href="/tools/arb-tracker/" title="跨品种套利跟踪器 BU/LU" target="_blank">
+  <a href="/tools/arb-tracker/" title="商品套利策略综合看板" target="_blank">
     <div class="flink-item-icon">
-      <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="跨品种套利跟踪器">
+      <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="商品套利策略综合看板">
     </div>
-    <div class="flink-item-name">跨品种套利跟踪器 BU/LU</div>
-    <div class="flink-item-desc">沥青−低硫燃料油价差的实时前向跟踪：策略先定死，T0 收盘给出触发价差，T+1 收盘价差越过才成交，同月配对真实合约逐日盯市。净值只从启动日起算，回测结果不混进来。</div>
+    <div class="flink-item-name">商品套利策略综合看板</div>
+    <div class="flink-item-desc">产业链配对套利矩阵（6组主流配对）与全市场期限结构展期对冲（Carry Trade）综合前向跟踪平台。市场中性对冲，逐日盯市记账，实盘绝不改写历史。</div>
   </a>
 </div>
 <div class="flink-list-item">

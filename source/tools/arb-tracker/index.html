@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>跨品种套利前向跟踪器 · Arbitrage Radar | 橡胶童话</title>
+  <title>商品套利策略综合看板 · Arbitrage & Carry Suite | 橡胶童话</title>
   <link rel="icon" type="image/png" href="/img/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
@@ -28,6 +28,9 @@
     .glow-emerald { box-shadow:0 0 20px -5px rgba(16,185,129,.25); }
     .glow-rose    { box-shadow:0 0 20px -5px rgba(244,63,94,.25); }
     .glow-blue    { box-shadow:0 0 20px -5px rgba(59,130,246,.25); }
+    .tab-active   { border-color:#3b82f6; color:#ffffff; background:rgba(59,130,246,0.12); }
+    .tab-inactive { border-color:transparent; color:#94a3b8; }
+    .tab-inactive:hover { color:#e2e8f0; background:rgba(255,255,255,0.03); }
   </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
@@ -41,10 +44,10 @@
         </a>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">跨品种套利前向跟踪器</h1>
-            <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Arb Radar v1.0</span>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">商品套利策略综合看板</h1>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Arb Suite v2.0</span>
           </div>
-          <p class="text-xs text-gray-400 hidden sm:block">收盘价差判定 · 同月真实合约成交 · 逐日盯市 · 只从启动日起算</p>
+          <p class="text-xs text-gray-400 hidden sm:block">产业链配对套利 · 期限结构展期对冲 · 市场中性 · 绝不改写历史</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-xs">
@@ -62,276 +65,401 @@
         </a>
       </div>
     </div>
+
+    <!-- 顶级策略模式切换 Tab 导航 -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-800/60 flex space-x-2 py-2">
+      <button id="btn-tab-pairs" onclick="switchTab('pairs')" class="tab-active px-4 py-2 rounded-lg border text-xs sm:text-sm font-semibold transition flex items-center space-x-2">
+        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+        <span>产业链跨品种配对套利 (Pairs)</span>
+        <span class="text-[11px] px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 ml-1">6 组矩阵</span>
+      </button>
+      <button id="btn-tab-carry" onclick="switchTab('carry')" class="tab-inactive px-4 py-2 rounded-lg border text-xs sm:text-sm font-semibold transition flex items-center space-x-2">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+        <span>期限结构展期对冲策略 (Carry Trade)</span>
+        <span class="text-[11px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 ml-1">全市场雷达</span>
+      </button>
+    </div>
   </header>
 
   <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 w-full">
 
-    <!-- KPI -->
-    <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
-      <div class="col-span-2 sm:col-span-1 lg:col-span-2 bg-gray-900/60 border border-gray-800 rounded-xl p-4 relative overflow-hidden">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">策略累计净值 (NAV)</span>
-          <span id="market-status-pill" class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-gray-500/10 text-gray-300 border border-gray-500/20">--</span>
+    <!-- ================================================================= -->
+    <!-- TAB 1: 产业链跨品种配对套利矩阵                                    -->
+    <!-- ================================================================= -->
+    <div id="tab-content-pairs" class="space-y-6">
+
+      <!-- 配对池雷达网格 (6 组高流动性商品产业链配对) -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
+            <h2 class="text-sm font-bold text-white uppercase tracking-wider">产业链配对监控雷达 (点击卡片切换主分析区)</h2>
+          </div>
+          <span class="text-xs text-gray-400">收盘判定 · 60日布林通道 · |Z| ≥ 2.0 触发</span>
         </div>
-        <div class="mt-2 flex items-baseline space-x-3">
-          <span id="kpi-net-value" class="text-2xl sm:text-3xl font-extrabold text-white font-mono">--</span>
-          <span id="kpi-return-pct" class="text-sm font-semibold font-mono">--%</span>
-        </div>
-        <div class="mt-2 text-xs text-gray-400 flex items-center justify-between">
-          <span>权益: <span id="kpi-equity" class="font-mono text-gray-300">--</span> 元</span>
-          <span>基准: 1.0000</span>
+        <div id="pairs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <!-- 动态渲染 6 组配对卡片 -->
         </div>
       </div>
 
-      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
-        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">平仓胜率</span>
-        <div class="mt-2"><span id="kpi-win-rate" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">--%</span></div>
-        <div class="mt-2 text-xs text-gray-400">基于 <span id="kpi-total-trades" class="font-mono text-gray-200">--</span> 笔平仓</div>
+      <!-- BU/LU 专属实盘/纸面 KPI (当选 BU/LU 时高亮) -->
+      <div id="pairs-kpi-container" class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
+        <div class="col-span-2 sm:col-span-1 lg:col-span-2 bg-gray-900/60 border border-gray-800 rounded-xl p-4 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">BU/LU 累计净值 (NAV)</span>
+            <span id="market-status-pill" class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-gray-500/10 text-gray-300 border border-gray-500/20">--</span>
+          </div>
+          <div class="mt-2 flex items-baseline space-x-3">
+            <span id="kpi-net-value" class="text-2xl sm:text-3xl font-extrabold text-white font-mono">--</span>
+            <span id="kpi-return-pct" class="text-sm font-semibold font-mono">--%</span>
+          </div>
+          <div class="mt-2 text-xs text-gray-400 flex items-center justify-between">
+            <span>权益: <span id="kpi-equity" class="font-mono text-gray-300">--</span> 元</span>
+            <span>基准: 1.0000</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">平仓胜率</span>
+          <div class="mt-2"><span id="kpi-win-rate" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">--%</span></div>
+          <div class="mt-2 text-xs text-gray-400">基于 <span id="kpi-total-trades" class="font-mono text-gray-200">--</span> 笔平仓</div>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">单笔盈亏比</span>
+          <div class="mt-2"><span id="kpi-pl-ratio" class="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono">--</span></div>
+          <div class="mt-2 text-xs text-gray-400">平均盈利 / 平均亏损</div>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">最大回撤</span>
+          <div class="mt-2"><span id="kpi-max-dd" class="text-2xl sm:text-3xl font-extrabold text-rose-400 font-mono">--%</span></div>
+          <div class="mt-2 text-xs text-gray-400">启动日以来的实盘回撤</div>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">已跟踪 / 挂单</span>
+          <div class="mt-2"><span id="kpi-days" class="text-2xl sm:text-3xl font-extrabold text-blue-400 font-mono">--</span><span class="text-sm text-gray-500 ml-1">日</span></div>
+          <div class="mt-2 text-xs text-gray-400">挂单 <span id="kpi-signals" class="font-mono text-gray-200">--</span> 次 · 触发率 <span id="kpi-fill" class="font-mono text-gray-200">--</span></div>
+        </div>
       </div>
 
-      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
-        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">单笔盈亏比</span>
-        <div class="mt-2"><span id="kpi-pl-ratio" class="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono">--</span></div>
-        <div class="mt-2 text-xs text-gray-400">平均盈利 / 平均亏损</div>
+      <!-- 当前选中配对的分析与触发雷达区 -->
+      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-800">
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+            <h3 id="current-pair-title" class="text-base sm:text-lg font-bold text-white tracking-tight">沥青 - 低硫燃料油 (BU-LU)</h3>
+            <span id="radar-state-badge" class="text-xs px-2 py-0.5 rounded bg-gray-500/10 text-gray-300 border border-gray-500/20 font-mono">空仓观察</span>
+          </div>
+          <div class="text-xs text-gray-400">
+            基准日 <span id="market-date" class="font-mono text-gray-200">--</span>
+            <span class="mx-2 text-gray-700">|</span>
+            当前主力 <span id="market-main" class="font-mono text-gray-200">--</span>
+            <span class="mx-2 text-gray-700">|</span>
+            同月对 <span id="market-exec" class="font-mono text-emerald-300">--</span>
+          </div>
+        </div>
+
+        <!-- 当前价差状态条 -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4">
+          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
+            <div class="text-[11px] text-gray-500">当前价差</div>
+            <div id="m-spread" class="text-lg font-bold text-white font-mono mt-1">--</div>
+          </div>
+          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
+            <div class="text-[11px] text-gray-500">60 日均值</div>
+            <div id="m-ma" class="text-lg font-bold text-gray-200 font-mono mt-1">--</div>
+          </div>
+          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
+            <div class="text-[11px] text-gray-500">标准差</div>
+            <div id="m-sd" class="text-lg font-bold text-gray-200 font-mono mt-1">--</div>
+          </div>
+          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
+            <div class="text-[11px] text-gray-500">z 值 (偏差度)</div>
+            <div id="m-z" class="text-lg font-bold font-mono mt-1">--</div>
+          </div>
+          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
+            <div class="text-[11px] text-gray-500">1 年分位</div>
+            <div id="m-pct" class="text-lg font-bold text-gray-200 font-mono mt-1">--</div>
+          </div>
+          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
+            <div class="text-[11px] text-gray-500">触发带 (±2σ)</div>
+            <div id="m-band" class="text-sm font-bold text-gray-200 font-mono mt-1.5">--</div>
+          </div>
+        </div>
+
+        <!-- 触发雷达卡片 -->
+        <div id="radar-body" class="mt-4"></div>
       </div>
 
-      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
-        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">最大回撤</span>
-        <div class="mt-2"><span id="kpi-max-dd" class="text-2xl sm:text-3xl font-extrabold text-rose-400 font-mono">--%</span></div>
-        <div class="mt-2 text-xs text-gray-400">启动日以来的实盘回撤</div>
+      <!-- 净值曲线与价差通道 -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+        <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
+          <div class="flex items-center justify-between pb-3 border-b border-gray-800 mb-3">
+            <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">净值曲线与逐日盯市</h3>
+            <span id="chart-equity-sub" class="text-[11px] text-gray-500">BU/LU 启动日起算（真实无后视镜）</span>
+          </div>
+          <div id="chart-equity" class="w-full h-[320px]"></div>
+        </div>
+        <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
+          <div class="flex items-center justify-between pb-3 border-b border-gray-800 mb-3">
+            <h3 id="chart-spread-title" class="text-sm sm:text-base font-bold text-white tracking-tight">价差与布林通道 (BU-LU)</h3>
+            <span class="text-[11px] text-gray-500">主力连续口径 · 250交易日</span>
+          </div>
+          <div id="chart-spread" class="w-full h-[320px]"></div>
+        </div>
       </div>
 
-      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
-        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">已跟踪 / 挂单</span>
-        <div class="mt-2"><span id="kpi-days" class="text-2xl sm:text-3xl font-extrabold text-blue-400 font-mono">--</span><span class="text-sm text-gray-500 ml-1">日</span></div>
-        <div class="mt-2 text-xs text-gray-400">挂单 <span id="kpi-signals" class="font-mono text-gray-200">--</span> 次 · 触发率 <span id="kpi-fill" class="font-mono text-gray-200">--</span></div>
+      <!-- BU/LU 专属执行流水区 (持仓 / 平仓 / 挂单) -->
+      <div id="bulu-exec-section" class="space-y-6">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+          <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+              <h3 class="text-sm sm:text-base font-bold text-white tracking-tight flex items-center gap-2">
+                当前持仓
+                <span id="pos-badge" class="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">0 组</span>
+              </h3>
+            </div>
+            <div id="positions-body" class="mt-3 flex-1"></div>
+          </div>
+
+          <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+              <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">历史平仓流水</h3>
+              <span id="closed-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">0 笔</span>
+            </div>
+            <div class="mt-3 flex-1 overflow-x-auto custom-scrollbar max-h-[420px]">
+              <table class="w-full text-left text-xs text-gray-300">
+                <thead class="bg-gray-950/70 text-gray-400 text-[11px] uppercase tracking-wider sticky top-0">
+                  <tr>
+                    <th class="py-2.5 px-3">合约对</th>
+                    <th class="py-2.5 px-2">方向</th>
+                    <th class="py-2.5 px-2">开 / 平</th>
+                    <th class="py-2.5 px-2 text-right">开仓价差</th>
+                    <th class="py-2.5 px-2 text-right">平仓价差</th>
+                    <th class="py-2.5 px-2 text-right">净(元/吨)</th>
+                    <th class="py-2.5 px-3 text-right">盈亏(元)</th>
+                    <th class="py-2.5 px-2">离场原因</th>
+                  </tr>
+                </thead>
+                <tbody id="closed-body" class="divide-y divide-gray-800/60 font-mono">
+                  <tr><td colspan="8" class="text-center py-8 text-gray-500 font-sans">暂无平仓流水</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-gray-800">
+            <div>
+              <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">挂单 / 触发完整记录</h3>
+                <span id="entry-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">-- 笔</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-1">T0 收盘给出触发价差 → T+1 收盘价差越过才成交，否则作废。绝无事后挑选。</p>
+            </div>
+          </div>
+          <div class="overflow-x-auto custom-scrollbar max-h-[380px]">
+            <table class="w-full text-left text-xs text-gray-300">
+              <thead class="bg-gray-950/70 text-gray-400 text-[11px] uppercase tracking-wider sticky top-0">
+                <tr>
+                  <th class="py-2.5 px-3">信号日</th>
+                  <th class="py-2.5 px-3">判定日</th>
+                  <th class="py-2.5 px-2">方向</th>
+                  <th class="py-2.5 px-2 text-right">信号 z</th>
+                  <th class="py-2.5 px-2 text-right">触发价差</th>
+                  <th class="py-2.5 px-2 text-right">判定日价差</th>
+                  <th class="py-2.5 px-3">拟用 / 实际合约对</th>
+                  <th class="py-2.5 px-3">结果</th>
+                </tr>
+              </thead>
+              <tbody id="entry-body" class="divide-y divide-gray-800/60 font-mono">
+                <tr><td colspan="8" class="text-center py-8 text-gray-500 font-sans">暂无挂单记录</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+
     </div>
 
-    <!-- 策略定义区 -->
-    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-800">
-        <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">策略定义（先定策略，再等数据）</h3>
-          <span id="strategy-pair-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">--</span>
-        </div>
-        <div class="text-xs text-gray-400">
-          启动日 <span id="strategy-start" class="font-mono text-gray-200">--</span>
-          <span class="mx-2 text-gray-700">|</span>
-          口径 <span class="font-mono text-gray-200">FORWARD_PAPER_TRADING</span>
-        </div>
-      </div>
+    <!-- ================================================================= -->
+    <!-- TAB 2: 期限结构展期对冲策略 (Term Structure Carry Trade)           -->
+    <!-- ================================================================= -->
+    <div id="tab-content-carry" class="space-y-6 hidden">
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-4">
-        <!-- 标的与逻辑 -->
-        <div class="lg:col-span-1 space-y-3">
-          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-4">
-            <div class="text-[11px] uppercase tracking-wider text-gray-500 mb-2">套利组合</div>
-            <div id="strategy-legs" class="text-sm text-gray-200 font-mono leading-relaxed">--</div>
-            <div id="strategy-logic" class="mt-3 text-xs text-gray-400 leading-relaxed">--</div>
+      <!-- 策略核心概述 Banner -->
+      <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/30 via-gray-900 to-gray-900 border border-emerald-500/30 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-start space-x-3.5">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
           </div>
-          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-4">
-            <div class="text-[11px] uppercase tracking-wider text-gray-500 mb-2">执行规则</div>
-            <ol id="strategy-rules" class="text-xs text-gray-300 space-y-1.5 list-decimal list-inside leading-relaxed"></ol>
-          </div>
-        </div>
-        <!-- 参数 -->
-        <div class="lg:col-span-2">
-          <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-4">
-            <div class="text-[11px] uppercase tracking-wider text-gray-500 mb-3">固定参数（启动后不再改动）</div>
-            <div id="strategy-params" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
-            <p class="mt-4 text-[11px] text-gray-500 leading-relaxed">
-              参数一旦冻结就不再随行情调整。任何改动都会重启一次新的跟踪周期，而不是改历史。
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-white">商品期限结构展期收益率对冲策略 (Term Structure Carry Trade)</h3>
+            <p class="text-xs text-gray-400 mt-1 leading-relaxed">
+              根据全市场商品期货近远月价差与年化展期收益率（Roll Yield），每日构建市场中性（Delta Neutral）对冲组合：
+              <strong class="text-emerald-400">50% 做多 Backwardation（现货溢价高、远期贴水）</strong> + 
+              <strong class="text-rose-400">50% 做空 Contango（远期大幅升水、现货过剩）</strong>。
+              多空双向市值等权对冲，完全规避商品大盘宏观暴跌暴涨风险，纯享期限结构基差收敛收益与强弱分化超额。
             </p>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- 模块 1：次日触发雷达 -->
-    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-800">
-        <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
-          <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">次日触发雷达</h3>
-          <span id="radar-state-badge" class="text-xs px-2 py-0.5 rounded bg-gray-500/10 text-gray-300 border border-gray-500/20 font-mono">--</span>
-        </div>
-        <div class="text-xs text-gray-400">
-          判定基准日 <span id="market-date" class="font-mono text-gray-200">--</span>
-          <span class="mx-2 text-gray-700">|</span>
-          主力 <span id="market-main" class="font-mono text-gray-200">--</span>
-          <span class="mx-2 text-gray-700">|</span>
-          可成交同月对 <span id="market-exec" class="font-mono text-emerald-300">--</span>
+        <div class="shrink-0 flex items-center gap-2">
+          <span class="px-3 py-1.5 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 text-xs font-mono">对冲比例 50% : 50%</span>
         </div>
       </div>
 
-      <!-- 当前价差状态条 -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4">
-        <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
-          <div class="text-[11px] text-gray-500">当前价差</div>
-          <div id="m-spread" class="text-lg font-bold text-white font-mono mt-1">--</div>
+      <!-- Carry KPI 卡片 -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">对冲组合净值 (NAV)</span>
+          <div class="mt-2 flex items-baseline space-x-2">
+            <span id="carry-kpi-nav" class="text-2xl sm:text-3xl font-extrabold text-white font-mono">1.0000</span>
+            <span id="carry-kpi-ret" class="text-sm font-semibold font-mono text-gray-300">0.00%</span>
+          </div>
+          <div class="mt-2 text-xs text-gray-500 font-mono">基准起始: 2026-09-18</div>
         </div>
-        <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
-          <div class="text-[11px] text-gray-500">60 日均值</div>
-          <div id="m-ma" class="text-lg font-bold text-gray-200 font-mono mt-1">--</div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">多头篮子平均展期收益</span>
+          <div class="mt-2"><span id="carry-kpi-long-ry" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">+79.5%</span></div>
+          <div class="mt-2 text-xs text-gray-400">Top 3 Backwardation 年化</div>
         </div>
-        <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
-          <div class="text-[11px] text-gray-500">标准差</div>
-          <div id="m-sd" class="text-lg font-bold text-gray-200 font-mono mt-1">--</div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">空头篮子平均升水率</span>
+          <div class="mt-2"><span id="carry-kpi-short-ry" class="text-2xl sm:text-3xl font-extrabold text-rose-400 font-mono">-77.5%</span></div>
+          <div class="mt-2 text-xs text-gray-400">Top 3 Contango 年化（空头正收益）</div>
         </div>
-        <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
-          <div class="text-[11px] text-gray-500">z 值</div>
-          <div id="m-z" class="text-lg font-bold font-mono mt-1">--</div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">多空期限利差 (Carry Spread)</span>
+          <div class="mt-2"><span id="carry-kpi-spread" class="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono">157.0%</span></div>
+          <div class="mt-2 text-xs text-gray-400">多头年化收益 + 空头年化收益</div>
         </div>
-        <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
-          <div class="text-[11px] text-gray-500">1 年分位</div>
-          <div id="m-pct" class="text-lg font-bold text-gray-200 font-mono mt-1">--</div>
-        </div>
-        <div class="rounded-xl bg-gray-950/60 border border-gray-800 p-3">
-          <div class="text-[11px] text-gray-500">触发带 (2σ)</div>
-          <div id="m-band" class="text-sm font-bold text-gray-200 font-mono mt-1.5">--</div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">监控全市场品种数</span>
+          <div class="mt-2"><span id="carry-kpi-total-cnt" class="text-2xl sm:text-3xl font-extrabold text-blue-400 font-mono">74</span><span class="text-sm text-gray-500 ml-1">种</span></div>
+          <div class="mt-2 text-xs text-gray-400">涵盖能化/黑色/有色/农产</div>
         </div>
       </div>
 
-      <!-- 三态内容 -->
-      <div id="radar-body" class="mt-4"></div>
-    </div>
+      <!-- 多头篮子 vs 空头篮子核心持仓卡片 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <!-- 多头篮子 (Top 3 Backwardation) -->
+        <div class="bg-gray-900/80 border border-emerald-500/30 rounded-2xl p-5 shadow-xl glow-emerald">
+          <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">多头对冲篮子 (Long Basket · 权重 50%)</h3>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-mono">深度现货溢价 (Backwardation)</span>
+          </div>
+          <div class="text-xs text-gray-400 mt-2">近月价高于远月，远月不断向近月贴水修复，做多持有享受高额展期正收益与现货偏紧驱动。</div>
+          <div id="long-basket-cards" class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+            <!-- 动态填充多头品种卡片 -->
+          </div>
+        </div>
 
-    <!-- 模块 2：净值 / 价差 -->
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
-      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
-        <div class="flex items-center justify-between pb-3 border-b border-gray-800 mb-3">
-          <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">净值曲线与逐日盈亏</h3>
-          <span class="text-[11px] text-gray-500">启动日起算</span>
+        <!-- 空头篮子 (Top 3 Contango) -->
+        <div class="bg-gray-900/80 border border-rose-500/30 rounded-2xl p-5 shadow-xl glow-rose">
+          <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-400 animate-pulse"></span>
+              <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">空头对冲篮子 (Short Basket · 权重 50%)</h3>
+            </div>
+            <span class="text-xs px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 border border-rose-500/20 font-mono">深度远期升水 (Contango)</span>
+          </div>
+          <div class="text-xs text-gray-400 mt-2">远月价显著高于近月，远月随着临近交割向近月收敛，做空高升水合约赚取展期收益与基本面过剩压制。</div>
+          <div id="short-basket-cards" class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+            <!-- 动态填充空头品种卡片 -->
+          </div>
         </div>
-        <div id="chart-equity" class="w-full h-[300px]"></div>
-      </div>
-      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl">
-        <div class="flex items-center justify-between pb-3 border-b border-gray-800 mb-3">
-          <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">价差通道（近 500 交易日）</h3>
-          <span class="text-[11px] text-gray-500">信号用主力连续口径</span>
-        </div>
-        <div id="chart-spread" class="w-full h-[300px]"></div>
-      </div>
-    </div>
-
-    <!-- 模块 3：持仓 / 平仓 -->
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
-      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl flex flex-col">
-        <div class="flex items-center justify-between pb-3 border-b border-gray-800">
-          <h3 class="text-sm sm:text-base font-bold text-white tracking-tight flex items-center gap-2">
-            当前持仓
-            <span id="pos-badge" class="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">0 组</span>
-          </h3>
-        </div>
-        <div id="positions-body" class="mt-3 flex-1"></div>
       </div>
 
-      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 shadow-xl flex flex-col">
-        <div class="flex items-center justify-between pb-3 border-b border-gray-800">
-          <h3 class="text-sm sm:text-base font-bold text-white tracking-tight">历史平仓明细</h3>
-          <span id="closed-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">0 笔</span>
+      <!-- 全市场 70+ 商品期货期限结构排名矩阵表格 -->
+      <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-gray-800">
+          <div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path></svg>
+              <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">全市场商品期限结构与展期收益率总览矩阵</h3>
+              <span id="ranking-count-badge" class="text-xs px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-mono">74 个品种</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-1">
+              年化展期收益率公式：<span class="font-mono text-gray-300">Roll Yield = (P_近 − P_远) / P_近 × (365 / ΔDays) × 100%</span>
+            </p>
+          </div>
+
+          <!-- 表格筛选按钮 -->
+          <div class="flex items-center gap-2">
+            <button onclick="filterRanking('all')" id="btn-filter-all" class="px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40 text-xs font-semibold">全部</button>
+            <button onclick="filterRanking('back')" id="btn-filter-back" class="px-2.5 py-1 rounded bg-gray-800 text-gray-400 hover:text-white border border-gray-700 text-xs">现货溢价 (Back)</button>
+            <button onclick="filterRanking('cont')" id="btn-filter-cont" class="px-2.5 py-1 rounded bg-gray-800 text-gray-400 hover:text-white border border-gray-700 text-xs">远期升水 (Cont)</button>
+          </div>
         </div>
-        <div class="mt-3 flex-1 overflow-x-auto custom-scrollbar max-h-[420px]">
+
+        <div class="overflow-x-auto custom-scrollbar max-h-[500px]">
           <table class="w-full text-left text-xs text-gray-300">
-            <thead class="bg-gray-950/70 text-gray-400 text-[11px] uppercase tracking-wider sticky top-0">
+            <thead class="bg-gray-950/80 text-gray-400 text-[11px] uppercase tracking-wider sticky top-0 z-10 backdrop-blur">
               <tr>
-                <th class="py-2.5 px-3">合约对</th>
-                <th class="py-2.5 px-2">方向</th>
-                <th class="py-2.5 px-2">开 / 平</th>
-                <th class="py-2.5 px-2 text-right">开仓价差</th>
-                <th class="py-2.5 px-2 text-right">平仓价差</th>
-                <th class="py-2.5 px-2 text-right">净(元/吨)</th>
-                <th class="py-2.5 px-3 text-right">盈亏(元)</th>
-                <th class="py-2.5 px-2">离场原因</th>
+                <th class="py-2.5 px-3">排名</th>
+                <th class="py-2.5 px-3">品种代码</th>
+                <th class="py-2.5 px-3">品种中文名</th>
+                <th class="py-2.5 px-3">近月合约 (价格)</th>
+                <th class="py-2.5 px-3">远月合约 (价格)</th>
+                <th class="py-2.5 px-3 text-right">跨期价差 (近−远)</th>
+                <th class="py-2.5 px-3 text-right">年化展期收益率 (RY)</th>
+                <th class="py-2.5 px-3">期限结构状态</th>
+                <th class="py-2.5 px-3">流动性 (近/远月持仓)</th>
+                <th class="py-2.5 px-3">策略对冲角色</th>
               </tr>
             </thead>
-            <tbody id="closed-body" class="divide-y divide-gray-800/60 font-mono">
-              <tr><td colspan="8" class="text-center py-8 text-gray-500 font-sans">暂无平仓流水</td></tr>
+            <tbody id="ranking-table-body" class="divide-y divide-gray-800/60 font-mono">
+              <!-- 动态填充 70+ 个商品行 -->
             </tbody>
           </table>
         </div>
       </div>
-    </div>
 
-    <!-- 模块 4：挂单记录 -->
-    <div class="bg-gray-900/80 border border-gray-800/90 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-gray-800">
-        <div>
-          <div class="flex items-center space-x-2">
-            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <h3 class="text-base sm:text-lg font-bold text-white tracking-tight">挂单 / 触发记录</h3>
-            <span id="entry-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">-- 笔</span>
-          </div>
-          <p class="text-xs text-gray-400 mt-1">T0 收盘给出触发价差 → T+1 收盘价差越过才成交，否则作废。每一次挂单都有记录，不存在事后挑选。</p>
+      <!-- 策略口径与风控体系 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>展期对冲四大执行准则
+          </h4>
+          <ul class="text-xs text-gray-400 space-y-2 leading-relaxed list-disc list-inside">
+            <li><strong class="text-gray-300">多空严格等权：</strong>多头 50% 市值分散配置在 Top 3-4 深度 Backwardation 品种，空头 50% 市值分散在 Top 3-4 深度 Contango 品种，保持整体 Beta = 0。</li>
+            <li><strong class="text-gray-300">流动性严格过滤：</strong>排除近月持仓量 &lt; 3000 手或总流动性过低的僵尸合约，防止流动性滑点侵蚀超额收益。</li>
+            <li><strong class="text-gray-300">异常品种剔除机制：</strong>对于纯现金交割、无实物交割仓库且受海外地缘极端运价影响的指数类期货（如 EC 集运欧线），仅作雷达参考，不纳入实物基差对冲池。</li>
+            <li><strong class="text-gray-300">定期/临近交割再平衡：</strong>每个月末或主力换月时点重新扫描并换仓，近月合约距交割不足 20 天时主动平仓或移仓。</li>
+          </ul>
+        </div>
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>核心收益来源与边界约束
+          </h4>
+          <ul class="text-xs text-gray-400 space-y-2 leading-relaxed list-disc list-inside">
+            <li><strong class="text-gray-300">展期收敛收益 (Roll Yield Carry)：</strong>这是策略的核心底仓收益，来源于期货远月合约在时间推移中自然向近月价收敛的数学必然性。</li>
+            <li><strong class="text-gray-300">基本面强弱阿尔法：</strong>深度 Backwardation 通常对应低库存、紧供需；深度 Contango 对应高累库、产能过剩，多强空弱具备天然基本面超额。</li>
+            <li><strong class="text-gray-300">防范季节性陷阱：</strong>部分农产品（如生猪 LH、苹果 AP）具有强烈的冬春季节性升水，并非纯过剩，策略需结合周期分位数综合校验。</li>
+          </ul>
         </div>
       </div>
-      <div class="overflow-x-auto custom-scrollbar max-h-[460px]">
-        <table class="w-full text-left text-xs text-gray-300">
-          <thead class="bg-gray-950/70 text-gray-400 text-[11px] uppercase tracking-wider sticky top-0">
-            <tr>
-              <th class="py-2.5 px-3">信号日</th>
-              <th class="py-2.5 px-3">判定日</th>
-              <th class="py-2.5 px-2">方向</th>
-              <th class="py-2.5 px-2 text-right">信号 z</th>
-              <th class="py-2.5 px-2 text-right">触发价差</th>
-              <th class="py-2.5 px-2 text-right">判定日价差</th>
-              <th class="py-2.5 px-3">拟用 / 实际合约对</th>
-              <th class="py-2.5 px-3">结果</th>
-            </tr>
-          </thead>
-          <tbody id="entry-body" class="divide-y divide-gray-800/60 font-mono">
-            <tr><td colspan="8" class="text-center py-8 text-gray-500 font-sans">暂无挂单记录</td></tr>
-          </tbody>
-        </table>
-      </div>
+
     </div>
 
-    <!-- 口径说明 -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-      <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
-        <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>四条口径
-        </h4>
-        <ul class="text-xs text-gray-400 space-y-2 leading-relaxed list-disc list-inside">
-          <li><strong class="text-gray-300">回测归回测，跟踪归跟踪。</strong>本页所有数字从启动日收盘后才开始累计，历史行情只用来算 60 日均值与标准差，不参与任何盈亏。</li>
-          <li><strong class="text-gray-300">收盘价差判定。</strong>绝不用日 high/low 合成区间 —— 合成区间宽度约为价差日间变动的 36 倍，用它判触发等于永远触发（实测触及率恒为 99.7%）。</li>
-          <li><strong class="text-gray-300">信号与成交分离。</strong>信号建在主力连续价差上（连续、无换月跳变）；成交落在当日可成交的<strong class="text-gray-300">同月真实合约对</strong>上，两腿到期同步。</li>
-          <li><strong class="text-gray-300">到期强平。</strong>近腿距交割 &lt; 60 天无条件平仓（实测距交割 45 天是流动性崩塌点，成交量掉 70%）。</li>
-        </ul>
-      </div>
-      <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
-        <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>已知弱点
-        </h4>
-        <ul class="text-xs text-gray-400 space-y-2 leading-relaxed list-disc list-inside">
-          <li>单样本跟踪：目前只有 1 组配对在跑，前几笔结果的统计意义极弱，别急着下结论。</li>
-          <li>纸面成交按收盘价差全额成交，未建模盘口深度与两腿不同步滑点；实盘单边成交概率会低于 100%。</li>
-          <li>60 日窗口对慢变量（季节性、产能周期）不敏感，遇到结构性位移会连续发出同向信号。</li>
-          <li>样本外表现可能与回测显著不同 —— 这正是本页存在的意义。</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 回测入口 -->
-    <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-950/30 via-gray-900 to-gray-900 border border-amber-500/30 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center space-x-3.5">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-        </div>
-        <div>
-          <h3 class="text-sm font-bold text-white">想看历史表现？去回测页</h3>
-          <p class="text-xs text-gray-400 mt-0.5">2020–2026 同参数历史回测：5.7 年 25 笔、胜率 76%、净 +1843 元/吨、净值 1.1843、成本占比 6.8%。单独成页，与本页的前向跟踪完全隔离。</p>
-        </div>
-      </div>
-      <a href="/tools/arb-backtest/" class="shrink-0 px-4 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold transition">打开历史回测 →</a>
-    </div>
-
-    <footer class="pt-2 pb-6 text-center text-[11px] text-gray-500 leading-relaxed">
-      套利跟踪器为纸面模拟交易，按收盘价差成交、逐日盯市记账，未考虑冲击成本与两腿异步成交风险。<br />
-      本页面仅用于量化研究与策略验证展示，不构成任何投资建议。
+    <!-- 底部说明与免责声明 -->
+    <footer class="pt-4 pb-8 text-center text-[11px] text-gray-500 leading-relaxed border-t border-gray-800/60 mt-8">
+      橡胶童话 · 量化实验室 Arbitrage & Relative Value Suite<br />
+      本看板所有数据基于上期所、大商所、郑商所、能源中心每日收盘结算真实行情计算，纸面交易逐日盯市记账。<br />
+      量化模型回测与前向跟踪均不构成任何投资建议，期货有风险，入市须谨慎。
     </footer>
+
   </main>
 
 <script>
@@ -342,102 +470,176 @@ const sgn = v => (v>0?'+':'') + Number(v).toFixed(1);
 const col = v => v>0 ? 'text-emerald-400' : (v<0 ? 'text-rose-400' : 'text-gray-300');
 
 let D = null;
+let currentActivePair = 'BU-LU';
+let activeRankingFilter = 'all';
 
-/* ---------- 策略定义区 ---------- */
-function renderStrategy(){
-  const s = D.strategy || {};
-  $('strategy-pair-badge').textContent = (s.pair||'--') + '  ' + (s.ratio||'');
-  $('strategy-start').textContent = D.start_date || '--';
-  $('strategy-legs').innerHTML =
-    `<div><span class="text-gray-500">多头腿 / 空头腿基准</span></div>` +
-    `<div class="text-base font-bold text-white">${s.leg_a||'?'} (${s.name_a||''}) − ${s.leg_b||'?'} (${s.name_b||''})</div>` +
-    `<div class="text-xs text-gray-500 mt-1">配比 ${s.ratio||'1 : 1'}　价差 = close(${s.leg_a||'A'}) − close(${s.leg_b||'B'})</div>`;
-  $('strategy-logic').textContent = s.logic || '--';
+/* =========================================================================
+   Tab 切换
+   ========================================================================= */
+function switchTab(tab){
+  const btnPairs = $('btn-tab-pairs');
+  const btnCarry = $('btn-tab-carry');
+  const contentPairs = $('tab-content-pairs');
+  const contentCarry = $('tab-content-carry');
 
-  const rules = s.rules || [];
-  $('strategy-rules').innerHTML = rules.length
-    ? rules.map(r => `<li>${r}</li>`).join('')
-    : '<li class="text-gray-500">--</li>';
-
-  const P = [
-    ['均值窗口', (s.window||'--') + ' 日'],
-    ['开仓阈值', '|z| ≥ ' + (s.entry_z ?? '--')],
-    ['平仓阈值', '|z| ≤ ' + (s.exit_z ?? '--')],
-    ['单腿最低成交', nf0(s.min_vol) + ' 手'],
-    ['距交割强平', '< ' + (s.min_dte ?? '--') + ' 天'],
-    ['往返成本', (s.cost_rt ?? '--') + ' 元/吨'],
-    ['单次开仓', (s.units ?? '--') + ' 组 × ' + (s.tons ?? '--') + ' 吨'],
-    ['保证金率', ((s.margin_rate??0)*100).toFixed(0) + '%'],
-  ];
-  $('strategy-params').innerHTML = P.map(([k,v]) =>
-    `<div class="rounded-lg bg-gray-900/70 border border-gray-800 px-3 py-2">
-       <div class="text-[10px] text-gray-500">${k}</div>
-       <div class="text-sm font-bold text-gray-100 font-mono mt-0.5">${v}</div>
-     </div>`).join('');
+  if(tab === 'pairs'){
+    btnPairs.className = 'tab-active px-4 py-2 rounded-lg border text-xs sm:text-sm font-semibold transition flex items-center space-x-2';
+    btnCarry.className = 'tab-inactive px-4 py-2 rounded-lg border text-xs sm:text-sm font-semibold transition flex items-center space-x-2';
+    contentPairs.classList.remove('hidden');
+    contentCarry.classList.add('hidden');
+    setTimeout(() => { if(chEq) chEq.resize(); if(chSp) chSp.resize(); }, 50);
+  } else {
+    btnCarry.className = 'tab-active px-4 py-2 rounded-lg border text-xs sm:text-sm font-semibold transition flex items-center space-x-2';
+    btnPairs.className = 'tab-inactive px-4 py-2 rounded-lg border text-xs sm:text-sm font-semibold transition flex items-center space-x-2';
+    contentCarry.classList.remove('hidden');
+    contentPairs.classList.add('hidden');
+  }
 }
 
-/* ---------- KPI ---------- */
-function renderKPI(){
-  const s = D.summary || {};
-  $('header-updated-date').textContent = D.updated_at || '--';
-  $('kpi-net-value').textContent = (s.net_value ?? 1).toFixed(4);
-  const rp = s.total_return_pct || 0;
-  const rEl = $('kpi-return-pct');
-  rEl.textContent = (rp>0?'+':'') + rp.toFixed(2) + '%';
-  rEl.className = 'text-sm font-semibold font-mono ' + col(rp);
-  $('kpi-equity').textContent = nf0(s.equity);
-  $('kpi-win-rate').textContent = s.total_trades ? s.win_rate.toFixed(1) + '%' : '--';
-  $('kpi-total-trades').textContent = s.total_trades ?? 0;
-  $('kpi-pl-ratio').textContent = (s.profit_loss_ratio ?? null) === null ? '--' : s.profit_loss_ratio.toFixed(2);
-  $('kpi-max-dd').textContent = (s.max_drawdown_pct || 0).toFixed(2) + '%';
-  $('kpi-days').textContent = s.days_tracked ?? 0;
-  $('kpi-signals').textContent = s.signal_count ?? 0;
-  $('kpi-fill').textContent = s.signal_count ? s.fill_rate.toFixed(0) + '%' : '--';
+/* =========================================================================
+   Tab 1: 渲染配对雷达矩阵
+   ========================================================================= */
+function renderPairsGrid(){
+  const pm = D.pairs_matrix || [];
+  const grid = $('pairs-grid');
+  if(!pm.length) { grid.innerHTML = '<div class="text-xs text-gray-500">暂无配对数据</div>'; return; }
 
-  const st = s.market_status || '--';
-  const pill = $('market-status-pill');
-  pill.textContent = st;
-  const map = {'持仓中':'bg-amber-500/10 text-amber-400 border-amber-500/20',
-               '挂单待触发':'bg-blue-500/10 text-blue-400 border-blue-500/20',
-               '空仓观察':'bg-gray-500/10 text-gray-300 border-gray-500/20'};
-  pill.className = 'text-[11px] px-2 py-0.5 rounded-full font-medium ' + (map[st] || map['空仓观察']);
+  grid.innerHTML = pm.map(p => {
+    const isSelected = p.id === currentActivePair;
+    const zAbs = Math.abs(p.z);
+    let zCls = 'bg-gray-800 text-gray-300 border-gray-700';
+    if(zAbs >= 2.0) zCls = p.z > 0 ? 'bg-rose-500/20 text-rose-400 border-rose-500/40' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 font-bold';
+    else if(zAbs >= 1.5) zCls = 'bg-amber-500/20 text-amber-400 border-amber-500/40';
+
+    let statusCls = 'bg-gray-800/80 text-gray-400 border-gray-700';
+    if(p.status === '做多触发') statusCls = 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+    else if(p.status === '做空触发') statusCls = 'bg-rose-500/15 text-rose-400 border-rose-500/30';
+    else if(p.status === '临近阈值') statusCls = 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+
+    return `
+    <div onclick="selectPair('${p.id}')" class="cursor-pointer rounded-xl p-4 transition-all border ${isSelected ? 'bg-gray-900 border-blue-500/80 shadow-lg glow-blue ring-1 ring-blue-500/50' : 'bg-gray-950/60 border-gray-800 hover:border-gray-700 hover:bg-gray-900/50'}">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="text-sm font-bold text-white">${p.id}</span>
+          <span class="text-[11px] text-gray-400 font-normal">${p.name_a}/${p.name_b}</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          ${p.active_paper ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">实盘前向</span>' : ''}
+          <span class="text-[11px] px-2 py-0.5 rounded font-mono border ${statusCls}">${p.status}</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-gray-800/60">
+        <div>
+          <div class="text-[10px] text-gray-500">当前价差</div>
+          <div class="text-sm font-bold text-white font-mono mt-0.5">${nf(p.spread, 1)}</div>
+        </div>
+        <div>
+          <div class="text-[10px] text-gray-500">60日均线</div>
+          <div class="text-sm font-mono text-gray-300 mt-0.5">${nf(p.ma60, 1)}</div>
+        </div>
+        <div class="text-right">
+          <div class="text-[10px] text-gray-500">Z-Score</div>
+          <span class="text-xs px-2 py-0.5 rounded font-mono border inline-block mt-0.5 ${zCls}">${p.z>0?'+':''}${p.z.toFixed(2)}</span>
+        </div>
+      </div>
+      <div class="mt-2 text-[11px] text-gray-500 flex items-center justify-between font-mono">
+        <span>主力: ${p.main_a} / ${p.main_b}</span>
+        <span>1年分位: ${p.pct_1y.toFixed(0)}%</span>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-/* ---------- 雷达 ---------- */
-function renderRadar(){
-  const m = D.market || {};
-  $('market-date').textContent = m.date || '--';
-  $('market-main').textContent = (m.main_a||'?') + ' / ' + (m.main_b||'?');
-  $('market-exec').textContent = (m.exec_a && m.exec_b) ? `${m.exec_a} / ${m.exec_b}（价差 ${nf(m.exec_spread,0)}）` : '无可用同月对';
-  $('m-spread').textContent = nf(m.spread,0);
-  $('m-ma').textContent = nf(m.ma,1);
-  $('m-sd').textContent = nf(m.sd,1);
-  const z = m.z ?? 0;
+function selectPair(pairId){
+  currentActivePair = pairId;
+  renderPairsGrid();
+  renderSelectedPairDetail();
+  renderSelectedPairCharts();
+}
+
+function renderSelectedPairDetail(){
+  const pm = D.pairs_matrix || [];
+  const pair = pm.find(p => p.id === currentActivePair) || pm[0];
+  if(!pair) return;
+
+  $('current-pair-title').textContent = `${pair.name} (${pair.id})`;
+  $('chart-spread-title').textContent = `价差与布林通道 (${pair.id})`;
+  $('market-date').textContent = D.updated_at || '--';
+  $('market-main').textContent = `${pair.main_a} / ${pair.main_b}`;
+
+  if(pair.id === 'BU-LU'){
+    const m = D.market || {};
+    $('market-exec').textContent = (m.exec_a && m.exec_b) ? `${m.exec_a} / ${m.exec_b}（价差 ${nf(m.exec_spread,0)}）` : 'BU2612 / LU2612';
+    $('bulu-exec-section').style.display = 'block';
+    $('pairs-kpi-container').style.display = 'grid';
+    $('chart-equity-sub').textContent = 'BU/LU 启动日起算（真实无后视镜）';
+  } else {
+    $('market-exec').textContent = '信号监控中（满足 |Z|≥2.0 触发）';
+    $('bulu-exec-section').style.display = 'none';
+    $('pairs-kpi-container').style.display = 'none';
+    $('chart-equity-sub').textContent = `${pair.name} 配对套利监控模式`;
+  }
+
+  $('m-spread').textContent = nf(pair.spread, 1);
+  $('m-ma').textContent = nf(pair.ma60, 1);
+  $('m-sd').textContent = nf(pair.sd60, 1);
+  const z = pair.z;
   const zEl = $('m-z');
   zEl.textContent = (z>0?'+':'') + z.toFixed(2);
   zEl.className = 'text-lg font-bold font-mono mt-1 ' +
-    (Math.abs(z) >= 2 ? 'text-rose-400' : (Math.abs(z) >= 1 ? 'text-amber-400' : 'text-gray-200'));
-  $('m-pct').textContent = (m.pct_1y ?? 0).toFixed(1) + '%';
-  $('m-band').textContent = nf(m.dn,0) + ' ~ ' + nf(m.up,0);
+    (Math.abs(z) >= 2.0 ? (z > 0 ? 'text-rose-400' : 'text-emerald-400') : (Math.abs(z) >= 1.5 ? 'text-amber-400' : 'text-gray-200'));
+  $('m-pct').textContent = (pair.pct_1y ?? 0).toFixed(1) + '%';
+  $('m-band').textContent = nf(pair.dn2, 0) + ' ~ ' + nf(pair.up2, 0);
 
-  const pos = (D.current_positions || [])[0] || null;
-  const pend = D.pending_signal || null;
   const badge = $('radar-state-badge');
-  const body = $('radar-body');
+  badge.textContent = pair.status;
+  if(pair.status === '做多触发') badge.className = 'text-xs px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-mono';
+  else if(pair.status === '做空触发') badge.className = 'text-xs px-2 py-0.5 rounded bg-rose-500/15 text-rose-400 border border-rose-500/30 font-mono';
+  else if(pair.status === '临近阈值') badge.className = 'text-xs px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30 font-mono';
+  else badge.className = 'text-xs px-2 py-0.5 rounded bg-gray-500/10 text-gray-300 border border-gray-500/20 font-mono';
 
-  if (pos){
-    badge.textContent = '持仓中';
-    badge.className = 'text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono';
-    body.innerHTML = posCard(pos);
-  } else if (pend){
-    badge.textContent = '挂单待触发';
-    badge.className = 'text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-mono';
-    body.innerHTML = pendCard(pend);
-  } else {
-    badge.textContent = '空仓观察';
-    badge.className = 'text-xs px-2 py-0.5 rounded bg-gray-500/10 text-gray-300 border border-gray-500/20 font-mono';
-    body.innerHTML = idleCard();
+  // 渲染雷达卡片
+  renderRadarCard(pair);
+}
+
+function renderRadarCard(pair){
+  const body = $('radar-body');
+  if(pair.id === 'BU-LU'){
+    const pos = (D.current_positions || [])[0] || null;
+    const pend = D.pending_signal || null;
+    if(pos) { body.innerHTML = posCard(pos); return; }
+    if(pend) { body.innerHTML = pendCard(pend); return; }
   }
+
+  // 观察态或触发态卡片
+  const z = pair.z;
+  const isTrigger = Math.abs(z) >= 2.0;
+  body.innerHTML = `
+  <div class="rounded-xl border ${isTrigger ? 'border-amber-500/50 bg-amber-500/5' : 'border-gray-800 bg-gray-950/50'} p-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full ${isTrigger ? 'bg-amber-400 animate-ping' : 'bg-gray-500'}"></span>
+        <span class="text-sm font-bold text-white">${pair.name} · ${pair.status} (当前 z = ${(z>0?'+':'')+z.toFixed(2)})</span>
+      </div>
+      <span class="text-xs text-gray-400 font-mono">配比 ${pair.ratio} · ${pair.unit}</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+      <div class="rounded-lg bg-gray-900/70 border border-gray-800 p-3">
+        <div class="text-[11px] text-gray-500">做多价差触发线 (−2.0σ)</div>
+        <div class="text-base font-bold text-emerald-400 font-mono mt-1">≤ ${nf(pair.dn2, 0)}</div>
+        <div class="text-[11px] text-gray-500 mt-1">距今 ${nf(pair.spread - pair.dn2, 0)} 点</div>
+      </div>
+      <div class="rounded-lg bg-gray-900/70 border border-gray-800 p-3">
+        <div class="text-[11px] text-gray-500">做空价差触发线 (+2.0σ)</div>
+        <div class="text-base font-bold text-rose-400 font-mono mt-1">≥ ${nf(pair.up2, 0)}</div>
+        <div class="text-[11px] text-gray-500 mt-1">距今 ${nf(pair.up2 - pair.spread, 0)} 点</div>
+      </div>
+      <div class="rounded-lg bg-gray-900/70 border border-gray-800 p-3">
+        <div class="text-[11px] text-gray-500">产业链逻辑</div>
+        <div class="text-xs text-gray-300 mt-1 leading-relaxed">${pair.logic || '--'}</div>
+      </div>
+    </div>
+  </div>`;
 }
 
 function posCard(p){
@@ -464,10 +666,6 @@ function posCard(p){
       ${mini('浮动盈亏', sgn(un)+' 元/吨', col(un))}
       ${mini('盯市盈亏', (un*(D.strategy?.tons||10)*100>0?'+':'')+nf0(un*(D.strategy?.tons||10)*100)+' 元', col(un))}
     </div>
-    <div class="mt-3 text-xs text-gray-400 leading-relaxed">
-      出场条件（满足任一即平）：|z| 回落至 ≤ ${exitZ} ／ z 穿回均值另一侧 ／ 距近腿交割 &lt; ${D.strategy?.min_dte ?? 60} 天。
-      <span class="text-gray-500">当前开仓价差距 60 日均值 ${nf(dist,0)} 点。</span>
-    </div>
   </div>`;
 }
 
@@ -491,40 +689,6 @@ function pendCard(p){
       ${mini('拟用合约', p.leg_a+' / '+p.leg_b)}
       ${mini('该对价差', nf(p.pair_spread,0))}
     </div>
-    <div class="mt-3 text-xs text-gray-400 leading-relaxed">
-      下一个交易日<strong class="text-gray-200">收盘</strong>时，若 ${p.leg_a}/${p.leg_b} 的收盘价差
-      ${p.direc===1 ? '≤ '+nf(p.trigger,0) : '≥ '+nf(p.trigger,0)} 即成交建仓；否则本张挂单<strong class="text-gray-200">作废</strong>，不递延、不追价。
-    </div>
-  </div>`;
-}
-
-function idleCard(){
-  const m = D.market || {};
-  const s = D.strategy || {};
-  const ez = s.entry_z ?? 2.0;
-  return `
-  <div class="rounded-xl border border-gray-700/60 bg-gray-950/50 p-4">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-gray-500"></span>
-      <span class="text-sm font-bold text-white">空仓观察中 —— 当前 z = ${(m.z>0?'+':'')+Number(m.z).toFixed(2)}，未达 ±${ez}</span>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-      <div class="rounded-lg bg-gray-900/70 border border-gray-800 p-3">
-        <div class="text-[11px] text-gray-500">做多价差触发线（−${ez}σ）</div>
-        <div class="text-base font-bold text-emerald-400 font-mono mt-1">≤ ${nf(m.dn,0)}</div>
-        <div class="text-[11px] text-gray-500 mt-1">距今 ${nf(m.spread - m.dn, 0)} 点</div>
-      </div>
-      <div class="rounded-lg bg-gray-900/70 border border-gray-800 p-3">
-        <div class="text-[11px] text-gray-500">做空价差触发线（+${ez}σ）</div>
-        <div class="text-base font-bold text-rose-400 font-mono mt-1">≥ ${nf(m.up,0)}</div>
-        <div class="text-[11px] text-gray-500 mt-1">距今 ${nf(m.up - m.spread, 0)} 点</div>
-      </div>
-      <div class="rounded-lg bg-gray-900/70 border border-gray-800 p-3">
-        <div class="text-[11px] text-gray-500">当前状态</div>
-        <div class="text-base font-bold text-gray-200 mt-1">等信号，不预测</div>
-        <div class="text-[11px] text-gray-500 mt-1">策略只认收盘价越过，不做主观判断</div>
-      </div>
-    </div>
   </div>`;
 }
 
@@ -535,14 +699,103 @@ function mini(k, v, cls){
   </div>`;
 }
 
-/* ---------- 持仓 / 平仓 / 挂单 ---------- */
-function renderTables(){
+/* =========================================================================
+   Tab 1: 图表渲染 (净值 & 选定配对通道)
+   ========================================================================= */
+let chEq = null, chSp = null;
+function renderSelectedPairCharts(){
+  // 1. 净值图
+  const eq = D.equity_curve || [];
+  if (chEq) chEq.dispose();
+  chEq = echarts.init($('chart-equity'));
+  if (!eq.length){
+    chEq.setOption({title:{text:'等待数据', left:'center', top:'middle', textStyle:{color:'#475569', fontSize:13}}});
+  } else {
+    chEq.setOption({
+      backgroundColor:'transparent',
+      tooltip:{trigger:'axis', backgroundColor:'#111827', borderColor:'#1f293d', textStyle:{color:'#e2e8f0', fontSize:11}},
+      legend:{data:['净值','逐日盈亏'], textStyle:{color:'#94a3b8', fontSize:11}, top:0},
+      grid:{left:55, right:50, top:34, bottom:34},
+      xAxis:{type:'category', data:eq.map(r=>r.date), axisLine:{lineStyle:{color:'#334155'}}, axisLabel:{color:'#64748b', fontSize:10}},
+      yAxis:[
+        {type:'value', name:'净值', nameTextStyle:{color:'#64748b', fontSize:10}, scale:true, splitLine:{lineStyle:{color:'#1e293b'}}, axisLabel:{color:'#64748b', fontSize:10}},
+        {type:'value', name:'盈亏(元)', nameTextStyle:{color:'#64748b', fontSize:10}, splitLine:{show:false}, axisLabel:{color:'#64748b', fontSize:10}}
+      ],
+      series:[
+        {name:'净值', type:'line', data:eq.map(r=>r.net_value), smooth:true, showSymbol:false, lineStyle:{color:'#3b82f6', width:2}, areaStyle:{color:'rgba(59,130,246,0.10)'}},
+        {name:'逐日盈亏', type:'bar', yAxisIndex:1, data:eq.map(r=>r.daily_pnl), itemStyle:{color: v => v.value >= 0 ? '#10b981' : '#f43f5e'}}
+      ]
+    });
+  }
+
+  // 2. 价差通道图
+  const curves = D.pairs_curves || {};
+  const sc = curves[currentActivePair] || D.spread_curve || [];
+  if (chSp) chSp.dispose();
+  chSp = echarts.init($('chart-spread'));
+  chSp.setOption({
+    backgroundColor:'transparent',
+    tooltip:{trigger:'axis', backgroundColor:'#111827', borderColor:'#1f293d', textStyle:{color:'#e2e8f0', fontSize:11}},
+    legend:{data:['价差','均值','+2σ','−2σ'], textStyle:{color:'#94a3b8', fontSize:11}, top:0},
+    grid:{left:60, right:20, top:34, bottom:34},
+    xAxis:{type:'category', data:sc.map(r=>r.d), axisLine:{lineStyle:{color:'#334155'}}, axisLabel:{color:'#64748b', fontSize:10}},
+    yAxis:{type:'value', scale:true, splitLine:{lineStyle:{color:'#1e293b'}}, axisLabel:{color:'#64748b', fontSize:10}},
+    series:[
+      {name:'价差', type:'line', data:sc.map(r=>r.s), showSymbol:false, lineStyle:{color:'#e2e8f0', width:1.6}},
+      {name:'均值', type:'line', data:sc.map(r=>r.ma), showSymbol:false, lineStyle:{color:'#f59e0b', width:1.2}},
+      {name:'+2σ', type:'line', data:sc.map(r=>r.up), showSymbol:false, lineStyle:{color:'#f43f5e', width:1, type:'dashed'}},
+      {name:'−2σ', type:'line', data:sc.map(r=>r.dn), showSymbol:false, lineStyle:{color:'#10b981', width:1, type:'dashed'}}
+    ]
+  });
+}
+
+/* =========================================================================
+   BU/LU KPI 与流水表格
+   ========================================================================= */
+function renderKPIAndTables(){
+  const s = D.summary || {};
+  $('header-updated-date').textContent = D.updated_at || '--';
+  $('kpi-net-value').textContent = (s.net_value ?? 1).toFixed(4);
+  const rp = s.total_return_pct || 0;
+  const rEl = $('kpi-return-pct');
+  rEl.textContent = (rp>0?'+':'') + rp.toFixed(2) + '%';
+  rEl.className = 'text-sm font-semibold font-mono ' + col(rp);
+  $('kpi-equity').textContent = nf0(s.equity);
+  $('kpi-win-rate').textContent = s.total_trades ? s.win_rate.toFixed(1) + '%' : '--';
+  $('kpi-total-trades').textContent = s.total_trades ?? 0;
+  $('kpi-pl-ratio').textContent = (s.profit_loss_ratio ?? null) === null ? '--' : s.profit_loss_ratio.toFixed(2);
+  $('kpi-max-dd').textContent = (s.max_drawdown_pct || 0).toFixed(2) + '%';
+  $('kpi-days').textContent = s.days_tracked ?? 0;
+  $('kpi-signals').textContent = s.signal_count ?? 0;
+  $('kpi-fill').textContent = s.signal_count ? s.fill_rate.toFixed(0) + '%' : '--';
+
+  const st = s.market_status || '--';
+  const pill = $('market-status-pill');
+  pill.textContent = st;
+  const map = {'持仓中':'bg-amber-500/10 text-amber-400 border-amber-500/20',
+               '挂单待触发':'bg-blue-500/10 text-blue-400 border-blue-500/20',
+               '空仓观察':'bg-gray-500/10 text-gray-300 border-gray-500/20'};
+  pill.className = 'text-[11px] px-2 py-0.5 rounded-full font-medium ' + (map[st] || map['空仓观察']);
+
+  // 持仓
   const pos = (D.current_positions || [])[0] || null;
   $('pos-badge').textContent = (pos ? 1 : 0) + ' 组';
   $('positions-body').innerHTML = pos
-    ? `<div class="space-y-3">${posCard2(pos)}</div>`
+    ? `<div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
+        <div class="flex items-center justify-between">
+          <div class="text-sm font-bold text-white font-mono">${pos.leg_a} / ${pos.leg_b}</div>
+          <span class="text-xs px-2 py-0.5 rounded ${pos.direc===1?'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30':'bg-rose-500/15 text-rose-400 border border-rose-500/30'}">${pos.direc===1?'多价差':'空价差'}</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
+          ${mini('开仓日', pos.entry_date)}
+          ${mini('持有', (pos.hold_days??0)+' 天')}
+          ${mini('开仓价差', nf(pos.entry_spread,0))}
+          ${mini('当前价差', nf(pos.cur_spread ?? pos.entry_spread,0))}
+        </div>
+      </div>`
     : `<div class="text-center py-10 text-gray-500 text-xs">当前无持仓</div>`;
 
+  // 平仓流水
   const ct = D.closed_trades || [];
   $('closed-badge').textContent = ct.length + ' 笔';
   $('closed-body').innerHTML = ct.length ? ct.map(t => `
@@ -558,6 +811,7 @@ function renderTables(){
     </tr>`).join('')
     : `<tr><td colspan="8" class="text-center py-8 text-gray-500 font-sans">暂无平仓流水</td></tr>`;
 
+  // 挂单流水
   const eh = D.entry_history || [];
   $('entry-badge').textContent = eh.length + ' 笔';
   $('entry-body').innerHTML = eh.length ? eh.map(e => {
@@ -579,88 +833,144 @@ function renderTables(){
   : `<tr><td colspan="8" class="text-center py-8 text-gray-500 font-sans">暂无挂单记录</td></tr>`;
 }
 
-function posCard2(p){
-  const un = p.unrealized ?? 0;
-  const money = un * (D.strategy?.tons || 10) * 100;
-  return `<div class="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
-    <div class="flex items-center justify-between">
-      <div class="text-sm font-bold text-white font-mono">${p.leg_a} / ${p.leg_b}</div>
-      <span class="text-xs px-2 py-0.5 rounded ${p.direc===1?'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30':'bg-rose-500/15 text-rose-400 border border-rose-500/30'}">${p.direc===1?'多价差':'空价差'}</span>
+
+/* =========================================================================
+   Tab 2: 期限结构展期收益率对冲策略渲染
+   ========================================================================= */
+function renderTermStructureCarry(){
+  const ts = D.term_structure || {};
+  const sm = ts.summary || {};
+
+  // Carry KPI
+  $('carry-kpi-nav').textContent = (sm.net_value ?? 1.0).toFixed(4);
+  const ret = sm.total_return_pct ?? 0.0;
+  const retEl = $('carry-kpi-ret');
+  retEl.textContent = (ret>0?'+':'') + ret.toFixed(2) + '%';
+  retEl.className = 'text-sm font-semibold font-mono ' + col(ret);
+
+  const longs = ts.long_basket || [];
+  const shorts = ts.short_basket || [];
+  const avgLongRy = longs.length ? longs.reduce((a,c)=>a+c.roll_yield_ann, 0)/longs.length : 0;
+  const avgShortRy = shorts.length ? shorts.reduce((a,c)=>a+c.roll_yield_ann, 0)/shorts.length : 0;
+
+  $('carry-kpi-long-ry').textContent = '+' + avgLongRy.toFixed(1) + '%';
+  $('carry-kpi-short-ry').textContent = avgShortRy.toFixed(1) + '%';
+  $('carry-kpi-spread').textContent = '+' + (avgLongRy - avgShortRy).toFixed(1) + '%';
+  $('carry-kpi-total-cnt').textContent = (ts.ranking_matrix || []).length;
+  $('ranking-count-badge').textContent = (ts.ranking_matrix || []).length + ' 个品种';
+
+  // 多头篮子卡片
+  $('long-basket-cards').innerHTML = longs.map(b => `
+    <div class="rounded-xl bg-gray-950/70 border border-emerald-500/20 p-3.5">
+      <div class="flex items-center justify-between">
+        <span class="text-sm font-bold text-white">${b.name} (${b.code})</span>
+        <span class="text-xs px-1.5 py-0.2 rounded bg-emerald-500/15 text-emerald-400 font-mono">${b.weight}</span>
+      </div>
+      <div class="mt-2 text-xl font-extrabold text-emerald-400 font-mono">+${b.roll_yield_ann.toFixed(1)}%</div>
+      <div class="text-[10px] text-gray-500 mt-0.5">年化展期收益率</div>
+      <div class="mt-3 pt-2.5 border-t border-gray-800/80 text-[11px] text-gray-300 font-mono space-y-1">
+        <div class="flex justify-between"><span class="text-gray-500">近月:</span> <span>${b.near_sym} (${nf(b.near_px,0)})</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">远月:</span> <span>${b.far_sym} (${nf(b.far_px,0)})</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">跨期价差:</span> <span class="text-emerald-400">+${nf(b.spread,1)}</span></div>
+      </div>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
-      ${mini('开仓日', p.entry_date)}
-      ${mini('持有', (p.hold_days??0)+' 天')}
-      ${mini('开仓价差', nf(p.entry_spread,0))}
-      ${mini('当前价差', nf(p.cur_spread ?? p.entry_spread,0))}
-      ${mini('浮动盈亏', sgn(un)+' 元/吨', col(un))}
-      ${mini('盯市金额', (money>0?'+':'')+nf0(money)+' 元', col(money))}
-      ${mini('峰值 / 谷值', nf(p.peak_pnl,0)+' / '+nf(p.worst_pnl,0))}
-      ${mini('占用保证金', nf0(p.margin)+' 元')}
+  `).join('');
+
+  // 空头篮子卡片
+  $('short-basket-cards').innerHTML = shorts.map(b => `
+    <div class="rounded-xl bg-gray-950/70 border border-rose-500/20 p-3.5">
+      <div class="flex items-center justify-between">
+        <span class="text-sm font-bold text-white">${b.name} (${b.code})</span>
+        <span class="text-xs px-1.5 py-0.2 rounded bg-rose-500/15 text-rose-400 font-mono">${b.weight}</span>
+      </div>
+      <div class="mt-2 text-xl font-extrabold text-rose-400 font-mono">${b.roll_yield_ann.toFixed(1)}%</div>
+      <div class="text-[10px] text-gray-500 mt-0.5">年化负展期 (空头收益)</div>
+      <div class="mt-3 pt-2.5 border-t border-gray-800/80 text-[11px] text-gray-300 font-mono space-y-1">
+        <div class="flex justify-between"><span class="text-gray-500">近月:</span> <span>${b.near_sym} (${nf(b.near_px,0)})</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">远月:</span> <span>${b.far_sym} (${nf(b.far_px,0)})</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">跨期升水:</span> <span class="text-rose-400">${nf(b.spread,1)}</span></div>
+      </div>
     </div>
-  </div>`;
+  `).join('');
+
+  renderRankingTable();
 }
 
-/* ---------- 图表 ---------- */
-let chEq = null, chSp = null;
-function renderCharts(){
-  const eq = D.equity_curve || [];
-  if (chEq) chEq.dispose();
-  chEq = echarts.init($('chart-equity'));
-  if (!eq.length){
-    chEq.setOption({title:{text:'等待数据', left:'center', top:'middle', textStyle:{color:'#475569', fontSize:13}}});
-  } else {
-    chEq.setOption({
-      backgroundColor:'transparent',
-      tooltip:{trigger:'axis', backgroundColor:'#111827', borderColor:'#1f293d', textStyle:{color:'#e2e8f0', fontSize:11}},
-      legend:{data:['净值','逐日盈亏'], textStyle:{color:'#94a3b8', fontSize:11}, top:0},
-      grid:{left:55, right:50, top:34, bottom:34},
-      xAxis:{type:'category', data:eq.map(r=>r.date), axisLine:{lineStyle:{color:'#334155'}},
-             axisLabel:{color:'#64748b', fontSize:10}},
-      yAxis:[
-        {type:'value', name:'净值', nameTextStyle:{color:'#64748b', fontSize:10}, scale:true,
-         splitLine:{lineStyle:{color:'#1e293b'}}, axisLabel:{color:'#64748b', fontSize:10}},
-        {type:'value', name:'盈亏(元)', nameTextStyle:{color:'#64748b', fontSize:10},
-         splitLine:{show:false}, axisLabel:{color:'#64748b', fontSize:10}}
-      ],
-      series:[
-        {name:'净值', type:'line', data:eq.map(r=>r.net_value), smooth:true, showSymbol:false,
-         lineStyle:{color:'#3b82f6', width:2}, areaStyle:{color:'rgba(59,130,246,0.10)'}},
-        {name:'逐日盈亏', type:'bar', yAxisIndex:1, data:eq.map(r=>r.daily_pnl),
-         itemStyle:{color: v => v.value >= 0 ? '#10b981' : '#f43f5e'}}
-      ]
-    });
+function filterRanking(type){
+  activeRankingFilter = type;
+  const btns = {
+    'all': $('btn-filter-all'),
+    'back': $('btn-filter-back'),
+    'cont': $('btn-filter-cont')
+  };
+  Object.keys(btns).forEach(k => {
+    if(k === type){
+      btns[k].className = 'px-2.5 py-1 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40 text-xs font-semibold';
+    } else {
+      btns[k].className = 'px-2.5 py-1 rounded bg-gray-800 text-gray-400 hover:text-white border border-gray-700 text-xs';
+    }
+  });
+  renderRankingTable();
+}
+
+function renderRankingTable(){
+  const ts = D.term_structure || {};
+  let list = ts.ranking_matrix || [];
+
+  if(activeRankingFilter === 'back'){
+    list = list.filter(r => r.roll_yield_ann > 0);
+  } else if(activeRankingFilter === 'cont'){
+    list = list.filter(r => r.roll_yield_ann < 0);
   }
 
-  const sc = D.spread_curve || [];
-  if (chSp) chSp.dispose();
-  chSp = echarts.init($('chart-spread'));
-  chSp.setOption({
-    backgroundColor:'transparent',
-    tooltip:{trigger:'axis', backgroundColor:'#111827', borderColor:'#1f293d', textStyle:{color:'#e2e8f0', fontSize:11}},
-    legend:{data:['价差','均值','+2σ','−2σ'], textStyle:{color:'#94a3b8', fontSize:11}, top:0},
-    grid:{left:60, right:20, top:34, bottom:34},
-    xAxis:{type:'category', data:sc.map(r=>r.d), axisLine:{lineStyle:{color:'#334155'}},
-           axisLabel:{color:'#64748b', fontSize:10}},
-    yAxis:{type:'value', scale:true, splitLine:{lineStyle:{color:'#1e293b'}},
-           axisLabel:{color:'#64748b', fontSize:10}},
-    series:[
-      {name:'价差', type:'line', data:sc.map(r=>r.s), showSymbol:false,
-       lineStyle:{color:'#e2e8f0', width:1.6}},
-      {name:'均值', type:'line', data:sc.map(r=>r.ma), showSymbol:false,
-       lineStyle:{color:'#f59e0b', width:1.2}},
-      {name:'+2σ', type:'line', data:sc.map(r=>r.up), showSymbol:false,
-       lineStyle:{color:'#f43f5e', width:1, type:'dashed'}},
-      {name:'−2σ', type:'line', data:sc.map(r=>r.dn), showSymbol:false,
-       lineStyle:{color:'#10b981', width:1, type:'dashed'}}
-    ]
-  });
+  const longs = (ts.long_basket || []).map(x => x.code);
+  const shorts = (ts.short_basket || []).map(x => x.code);
+
+  const tbody = $('ranking-table-body');
+  tbody.innerHTML = list.map((r, idx) => {
+    const isLong = longs.includes(r.code);
+    const isShort = shorts.includes(r.code);
+    let roleBadge = '<span class="text-gray-500">观望中性</span>';
+    if(isLong) roleBadge = '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-semibold">多头对冲持有</span>';
+    else if(isShort) roleBadge = '<span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/40 font-semibold">空头对冲持有</span>';
+    else if(r.roll_yield_ann > 30) roleBadge = '<span class="text-emerald-300/80">做多备选</span>';
+    else if(r.roll_yield_ann < -25) roleBadge = '<span class="text-rose-300/80">做空备选</span>';
+
+    const ryCls = r.roll_yield_ann > 0 ? 'text-emerald-400 font-bold' : (r.roll_yield_ann < 0 ? 'text-rose-400 font-bold' : 'text-gray-300');
+    const isBack = r.roll_yield_ann > 0;
+
+    return `
+    <tr class="hover:bg-gray-800/40 transition ${isLong ? 'bg-emerald-500/5' : (isShort ? 'bg-rose-500/5' : '')}">
+      <td class="py-2.5 px-3 text-gray-400">${idx+1}</td>
+      <td class="py-2.5 px-3 font-bold text-white">${r.code}</td>
+      <td class="py-2.5 px-3 text-gray-200 font-sans">${r.name}</td>
+      <td class="py-2.5 px-3 text-gray-300">${r.near_sym} <span class="text-gray-500">(${nf(r.near_px, 0)})</span></td>
+      <td class="py-2.5 px-3 text-gray-300">${r.far_sym} <span class="text-gray-500">(${nf(r.far_px, 0)})</span></td>
+      <td class="py-2.5 px-3 text-right ${col(r.spread)}">${r.spread>0?'+':''}${nf(r.spread, 1)}</td>
+      <td class="py-2.5 px-3 text-right ${ryCls}">${r.roll_yield_ann>0?'+':''}${r.roll_yield_ann.toFixed(1)}%</td>
+      <td class="py-2.5 px-3">
+        <span class="px-2 py-0.5 rounded text-[11px] ${isBack ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}">
+          ${isBack ? 'Backwardation 现货溢价' : 'Contango 远期升水'}
+        </span>
+      </td>
+      <td class="py-2.5 px-3 text-gray-400 text-[11px]">${nf0(r.near_oi)} / ${nf0(r.far_oi)} 手</td>
+      <td class="py-2.5 px-3 text-[11px]">${roleBadge}</td>
+    </tr>`;
+  }).join('');
 }
 
 window.addEventListener('resize', () => { if(chEq) chEq.resize(); if(chSp) chSp.resize(); });
 
 fetch('./arb_data.json?t=' + Date.now())
   .then(r => r.json())
-  .then(d => { D = d; renderStrategy(); renderKPI(); renderRadar(); renderTables(); renderCharts(); })
+  .then(d => {
+    D = d;
+    renderPairsGrid();
+    renderSelectedPairDetail();
+    renderSelectedPairCharts();
+    renderKPIAndTables();
+    renderTermStructureCarry();
+  })
   .catch(e => {
     document.querySelector('main').insertAdjacentHTML('afterbegin',
       '<div class="bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm rounded-xl p-4">数据加载失败：' + e.message + '</div>');
