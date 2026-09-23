@@ -34,6 +34,42 @@ aside: false
 <div class="flink">
   <div class="flink-list">
 <div class="flink-list-item">
+  <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
+    </div>
+    <div class="flink-item-name">多品种次日触发量化跟踪器</div>
+    <div class="flink-item-desc">全市场43个活跃商品期货品种胜率多因子打分，次日ATR波动突破触发进场，逐日盯市净值与盈亏曲线自动跟踪。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/arb-tracker/" title="商品套利策略综合看板" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="商品套利策略综合看板">
+    </div>
+    <div class="flink-item-name">商品套利策略综合看板</div>
+    <div class="flink-item-desc">产业链配对套利矩阵（6组主流配对）与全市场期限结构展期对冲（Carry Trade）综合前向跟踪平台。市场中性对冲，逐日盯市记账，实盘绝不改写历史。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/strategy-backtest-2026/" title="2026年度次日触发策略历史回测报告" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="2026年度次日触发策略历史回测报告">
+    </div>
+    <div class="flink-item-name">2026年度策略历史回测报告</div>
+    <div class="flink-item-desc">2026年1月至8月全市场43个商品期货严谨历史回测复盘：160个交易日114笔交易深度剖析、逐月收益、板块贡献与全量交易流水。</div>
+  </a>
+</div>
+<div class="flink-list-item">
+  <a href="/tools/arb-backtest/" title="套利策略历史回测 BU/LU" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:history.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="套利策略历史回测">
+    </div>
+    <div class="flink-item-name">套利策略历史回测 BU/LU</div>
+    <div class="flink-item-desc">同参数在 2020–2026 历史行情上的复盘：5.7 年 25 笔、胜率 76%、净 +1843 元/吨、成本占比 6.8%。这是事后检验，与实时跟踪器分开看。</div>
+  </a>
+</div>
+<div class="flink-list-item">
   <a href="/tools/blog-chat/" title="问问这个博客 · 站内问答助手" target="_blank">
     <div class="flink-item-icon">
       <img src="https://api.iconify.design/lucide:message-circle-question.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="问问这个博客">
@@ -129,6 +165,9 @@ aside: false
       <img src="https://api.iconify.design/lucide:gem.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="AG 全历史 K 线">
     </div>
     <div class="flink-item-name">AG 全历史 K 线复盘</div>
+    <div class="flink-item-desc">2012 年上市至今近 3500 个交易日的沪银主力日 K，自动划分二十段行情；从三年长熊、散户逼空大战、光伏 N 型电池银浆革命到实物交割超级大逼空，点图上的标签即可展开该阶段的走势解读。</div>
+  </a>
+</div>
 <div class="flink-list-item">
   <a href="/tools/i-main-kline/" title="I 铁矿石主力全历史日 K 线复盘" target="_blank">
     <div class="flink-item-icon">
@@ -156,10 +195,6 @@ aside: false
     <div class="flink-item-desc">2005 年上市至今近 5300 个交易日的豆粕主力日 K，自动划分三十八段行情；从南美旱灾超级大牛市、生猪非洲猪瘟危机、中美贸易摩擦、俄乌地缘海啸到南美丰产压制，点图上的标签即可展开该阶段的走势解读。</div>
   </a>
 </div>
-
-    <div class="flink-item-desc">2012 年上市至今近 3500 个交易日的沪银主力日 K，自动划分二十段行情；从三年长熊、散户逼空大战、光伏 N 型电池银浆革命到实物交割超级大逼空，点图上的标签即可展开该阶段的走势解读。</div>
-  </a>
-</div>
 <div class="flink-list-item">
   <a href="/tools/kline-combo/" title="全品种 K 线复盘" target="_blank">
     <div class="flink-item-icon">
@@ -167,42 +202,6 @@ aside: false
     </div>
     <div class="flink-item-name">全品种 K 线复盘</div>
     <div class="flink-item-desc">RU 橡胶 / NR 20号胶 / AL 沪铝 / CU 沪铜 / RB 螺纹 / EB 苯乙烯 / AU 沪金 / AG 沪银 / I 铁矿 / TA PTA / M 豆粕 十一品种全历史日 K 线复盘，在一个页面内切换对比。点图上的标签即可展开该阶段的走势解读。</div>
-  </a>
-</div>
-<div class="flink-list-item">
-  <a href="/tools/arb-tracker/" title="商品套利策略综合看板" target="_blank">
-    <div class="flink-item-icon">
-      <img src="https://api.iconify.design/lucide:git-compare-arrows.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="商品套利策略综合看板">
-    </div>
-    <div class="flink-item-name">商品套利策略综合看板</div>
-    <div class="flink-item-desc">产业链配对套利矩阵（6组主流配对）与全市场期限结构展期对冲（Carry Trade）综合前向跟踪平台。市场中性对冲，逐日盯市记账，实盘绝不改写历史。</div>
-  </a>
-</div>
-<div class="flink-list-item">
-  <a href="/tools/arb-backtest/" title="套利策略历史回测 BU/LU" target="_blank">
-    <div class="flink-item-icon">
-      <img src="https://api.iconify.design/lucide:history.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="套利策略历史回测">
-    </div>
-    <div class="flink-item-name">套利策略历史回测 BU/LU</div>
-    <div class="flink-item-desc">同参数在 2020–2026 历史行情上的复盘：5.7 年 25 笔、胜率 76%、净 +1843 元/吨、成本占比 6.8%。这是事后检验，与实时跟踪器分开看。</div>
-  </a>
-</div>
-<div class="flink-list-item">
-  <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
-    <div class="flink-item-icon">
-      <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
-    </div>
-    <div class="flink-item-name">多品种次日触发量化跟踪器</div>
-    <div class="flink-item-desc">全市场43个活跃商品期货品种胜率多因子打分，次日ATR波动突破触发进场，逐日盯市净值与盈亏曲线自动跟踪。</div>
-  </a>
-</div>
-<div class="flink-list-item">
-  <a href="/tools/strategy-backtest-2026/" title="2026年度次日触发策略历史回测报告" target="_blank">
-    <div class="flink-item-icon">
-      <img src="https://api.iconify.design/lucide:chart-candlestick.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="2026年度次日触发策略历史回测报告">
-    </div>
-    <div class="flink-item-name">2026年度策略历史回测报告</div>
-    <div class="flink-item-desc">2026年1月至8月全市场43个商品期货严谨历史回测复盘：160个交易日114笔交易深度剖析、逐月收益、板块贡献与全量交易流水。</div>
   </a>
 </div>
 <div class="flink-list-item">
