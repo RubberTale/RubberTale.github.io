@@ -223,6 +223,15 @@ aside: false
   </a>
 </div>
 <div class="flink-list-item">
+  <a href="/tools/rubber-traders/" title="全球与中国主流橡胶贸易商名录" target="_blank">
+    <div class="flink-item-icon">
+      <img src="https://api.iconify.design/lucide:handshake.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="全球与中国主流橡胶贸易商名录">
+    </div>
+    <div class="flink-item-name">橡胶贸易商名录大全</div>
+    <div class="flink-item-desc">全面收录全球与中国主流橡胶贸易商、跨国种植商、期货风险管理期现商、综合商社及石化巨头，支持多维网格陈列、品类检索与业务模式透视。</div>
+  </a>
+</div>
+<div class="flink-list-item">
   <a href="/tools/position-calculator/" title="持仓盈亏比与凯利仓位计算器" target="_blank">
     <div class="flink-item-icon">
       <img src="https://api.iconify.design/lucide:calculator.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="持仓盈亏比与凯利仓位计算器">

@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>全球与中国橡胶主流贸易商名录大全 · 现货贸易 / 期现对冲 / 供应链 / 商社 | 橡胶童话</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'></path><circle cx='9' cy='7' r='4'></circle><path d='M22 21v-2a4 4 0 0 0-3-3.87'></path><path d='M16 3.13a4 4 0 0 1 0 7.75'></path></svg>" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white">
+
+  <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Top Navigation Breadcrumb -->
+    <header class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div class="flex items-center space-x-3 text-sm">
+        <a href="/tools/" class="inline-flex items-center text-slate-400 hover:text-emerald-400 transition-colors">
+          <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          返回小工具箱
+        </a>
+        <span class="text-slate-600">/</span>
+        <a href="/" class="text-slate-400 hover:text-emerald-400 transition-colors">博客首页</a>
+        <span class="text-slate-600">/</span>
+        <span class="text-emerald-400 font-medium">橡胶贸易商名录</span>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button @click="exportCSV" class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          <svg class="w-3.5 h-3.5 mr-1 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          导出当前名单 (CSV)
+        </button>
+        <span class="text-xs text-slate-400 font-mono bg-slate-900 px-2.5 py-1 rounded border border-slate-800">
+          已收录 {{ traders.length }} 家代表性贸易商
+        </span>
+      </div>
+    </header>
+
+    <!-- Page Header & Banner -->
+    <div class="mt-8 mb-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-3">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+            </svg>
+            <span>全球大宗商品产业地图 · 橡胶现货流通与期现服务商全景</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight flex items-center gap-3">
+            <span>全球与中国主流橡胶贸易商名录</span>
+          </h1>
+          <p class="mt-2.5 text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
+            全面汇集中国央企与大型国有供应链巨头、跨国种植与分销集团、顶级期货风险管理子公司（期现商）、保税区骨干民营现货商、国际综合商社及石化合成橡胶统销巨头。支持多维筛选、网格陈列、经营品种与商业模式透视。
+          </p>
+        </div>
+
+        <!-- Quick Summary Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-center shrink-0">
+          <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-2.5">
+            <div class="text-[11px] text-slate-400">总收录贸易商</div>
+            <div class="text-lg font-bold text-white font-mono">{{ traders.length }}</div>
+            <div class="text-[10px] text-emerald-400">涵盖全产业链</div>
+          </div>
+          <div class="bg-slate-900/80 border border-emerald-500/30 bg-emerald-500/5 rounded-xl p-2.5">
+            <div class="text-[11px] text-emerald-300">央国企供应链</div>
+            <div class="text-lg font-bold text-emerald-400 font-mono">{{ countByCategory('SOE') }}</div>
+            <div class="text-[10px] text-slate-400">百亿/千亿级体量</div>
+          </div>
+          <div class="bg-slate-900/80 border border-sky-500/30 bg-sky-500/5 rounded-xl p-2.5">
+            <div class="text-[11px] text-sky-300">国际跨国巨头</div>
+            <div class="text-lg font-bold text-sky-400 font-mono">{{ countByCategory('GLOBAL') }}</div>
+            <div class="text-[10px] text-slate-400">泰马印非全覆盖</div>
+          </div>
+          <div class="bg-slate-900/80 border border-purple-500/30 bg-purple-500/5 rounded-xl p-2.5">
+            <div class="text-[11px] text-purple-300">期货期现/风管商</div>
+            <div class="text-lg font-bold text-purple-400 font-mono">{{ countByCategory('FUTURES_RM') }}</div>
+            <div class="text-[10px] text-slate-400">基差与做市核心</div>
+          </div>
+          <div class="bg-slate-900/80 border border-amber-500/30 bg-amber-500/5 rounded-xl p-2.5">
+            <div class="text-[11px] text-amber-300">保税民营现货商</div>
+            <div class="text-lg font-bold text-amber-400 font-mono">{{ countByCategory('PRIVATE') }}</div>
+            <div class="text-[10px] text-slate-400">青岛/华东骨干</div>
+          </div>
+          <div class="bg-slate-900/80 border border-rose-500/30 bg-rose-500/5 rounded-xl p-2.5">
+            <div class="text-[11px] text-rose-300">商社与石化统销</div>
+            <div class="text-lg font-bold text-rose-400 font-mono">{{ countByCategory('TRADING_HOUSE') + countByCategory('SYNTHETIC') }}</div>
+            <div class="text-[10px] text-slate-400">日韩商社/合成胶</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Tabs Navigation -->
+    <div class="flex flex-wrap items-center gap-2 pb-4 pt-2">
+      <button 
+        @click="activeCategory = 'ALL'"
+        :class="activeCategory === 'ALL' ? 'bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+        <span>全部贸易商</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeCategory === 'ALL' ? 'bg-emerald-700 text-white' : 'bg-slate-800 text-slate-400'">{{ traders.length }}</span>
+      </button>
+
+      <button 
+        @click="activeCategory = 'SOE'"
+        :class="activeCategory === 'SOE' ? 'bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+        <span>🇨🇳 央企与国企巨头</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeCategory === 'SOE' ? 'bg-emerald-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByCategory('SOE') }}</span>
+      </button>
+
+      <button 
+        @click="activeCategory = 'GLOBAL'"
+        :class="activeCategory === 'GLOBAL' ? 'bg-sky-600 text-white font-semibold shadow-lg shadow-sky-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+        <span>🌍 国际跨国种植贸易巨头</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeCategory === 'GLOBAL' ? 'bg-sky-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByCategory('GLOBAL') }}</span>
+      </button>
+
+      <button 
+        @click="activeCategory = 'FUTURES_RM'"
+        :class="activeCategory === 'FUTURES_RM' ? 'bg-purple-600 text-white font-semibold shadow-lg shadow-purple-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+        <span>📈 期货期现/风险管理商</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeCategory === 'FUTURES_RM' ? 'bg-purple-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByCategory('FUTURES_RM') }}</span>
+      </button>
+
+      <button 
+        @click="activeCategory = 'PRIVATE'"
+        :class="activeCategory === 'PRIVATE' ? 'bg-amber-600 text-white font-semibold shadow-lg shadow-amber-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+        <span>🏪 民营骨干现货商</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeCategory === 'PRIVATE' ? 'bg-amber-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByCategory('PRIVATE') }}</span>
+      </button>
+
+      <button 
+        @click="activeCategory = 'TRADING_HOUSE'"
+        :class="activeCategory === 'TRADING_HOUSE' ? 'bg-indigo-600 text-white font-semibold shadow-lg shadow-indigo-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+        <span>🌐 国际综合商社 / 百年名行</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeCategory === 'TRADING_HOUSE' ? 'bg-indigo-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByCategory('TRADING_HOUSE') }}</span>
+      </button>
+
+      <button 
+        @click="activeCategory = 'SYNTHETIC'"
+        :class="activeCategory === 'SYNTHETIC' ? 'bg-rose-600 text-white font-semibold shadow-lg shadow-rose-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
+        class="px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2">
+        <span>🧪 合成橡胶与石化巨头</span>
+        <span class="text-xs px-2 py-0.5 rounded-full" :class="activeCategory === 'SYNTHETIC' ? 'bg-rose-700 text-white' : 'bg-slate-800 text-slate-400'">{{ countByCategory('SYNTHETIC') }}</span>
+      </button>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 mb-6 shadow-xl backdrop-blur-sm">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+        
+        <!-- Search Input -->
+        <div class="md:col-span-5 relative">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input 
+            type="text" 
+            v-model="searchQuery" 
+            placeholder="搜索贸易商名称、英文名、所属地、品种 (如 海南橡胶, Halcyon, 青岛, 永安, STR20, 顺丁)..."
+            class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm text-slate-100 placeholder-slate-400 transition" />
+          <button v-if="searchQuery" @click="searchQuery = ''" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <!-- Region / Country Filter -->
+        <div class="md:col-span-3">
+          <select v-model="selectedCountry" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+            <option value="ALL">全部地区 / 国别</option>
+            <option value="中国">🇨🇳 中国 (China)</option>
+            <option value="新加坡">🇸🇬 新加坡 (Singapore)</option>
+            <option value="泰国">🇹🇭 泰国 (Thailand)</option>
+            <option value="日本">🇯🇵 日本 (Japan)</option>
+            <option value="欧洲">🇪🇺 欧洲 (Europe / 德/英/法/荷)</option>
+            <option value="西非">🌍 西非 (Côte d'Ivoire / Gabon)</option>
+            <option value="韩国">🇰🇷 韩国 (Korea)</option>
+          </select>
+        </div>
+
+        <!-- Variety Filter -->
+        <div class="md:col-span-2">
+          <select v-model="selectedVariety" class="w-full py-2 px-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-200 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+            <option value="ALL">全部经营品种</option>
+            <option value="RU">全乳胶 / 国产胶 (RU)</option>
+            <option value="NR">20号标胶 / TSR (NR)</option>
+            <option value="RSS">烟胶片 (RSS)</option>
+            <option value="LATEX">浓缩胶乳 (Latex)</option>
+            <option value="BR">顺丁橡胶 (BR)</option>
+            <option value="SBR">丁苯橡胶 (SBR)</option>
+            <option value="SPECIAL">特种弹性体/丁基</option>
+          </select>
+        </div>
+
+        <!-- View Switcher (Grid vs Table) -->
+        <div class="md:col-span-2 flex justify-end space-x-1">
+          <button 
+            @click="viewMode = 'grid'" 
+            :class="viewMode === 'grid' ? 'bg-slate-800 text-emerald-400 border-emerald-500/40' : 'bg-slate-950 text-slate-400 hover:text-slate-200 border-slate-800'"
+            class="p-2 rounded-lg border text-sm transition" title="网格卡片视图">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+            </svg>
+          </button>
+          <button 
+            @click="viewMode = 'table'" 
+            :class="viewMode === 'table' ? 'bg-slate-800 text-emerald-400 border-emerald-500/40' : 'bg-slate-950 text-slate-400 hover:text-slate-200 border-slate-800'"
+            class="p-2 rounded-lg border text-sm transition" title="紧凑明细表格">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Active Filters Tag Bar -->
+      <div v-if="searchQuery || selectedCountry !== 'ALL' || selectedVariety !== 'ALL' || activeCategory !== 'ALL'" class="flex flex-wrap items-center gap-2 mt-3 pt-3 border-t border-slate-800 text-xs text-slate-400">
+        <span>当前筛选：</span>
+        <span v-if="activeCategory !== 'ALL'" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          类别: {{ getCategoryName(activeCategory) }}
+          <button @click="activeCategory = 'ALL'" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <span v-if="selectedCountry !== 'ALL'" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          地区: {{ selectedCountry }}
+          <button @click="selectedCountry = 'ALL'" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <span v-if="selectedVariety !== 'ALL'" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          品种: {{ selectedVariety }}
+          <button @click="selectedVariety = 'ALL'" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <span v-if="searchQuery" class="inline-flex items-center px-2 py-0.5 rounded bg-slate-800 text-slate-200 border border-slate-700">
+          关键词: "{{ searchQuery }}"
+          <button @click="searchQuery = ''" class="ml-1.5 hover:text-red-400">&times;</button>
+        </span>
+        <button @click="resetFilters" class="text-emerald-400 hover:underline ml-auto">重置全部筛选</button>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div v-if="filteredTraders.length === 0" class="text-center py-16 bg-slate-900/40 rounded-2xl border border-slate-800 my-8">
+      <div class="inline-flex p-3 rounded-full bg-slate-800 text-slate-400 mb-3">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <p class="text-base text-slate-300 font-medium">未找到匹配的橡胶贸易商</p>
+      <p class="text-xs text-slate-400 mt-1">请尝试放宽搜索条件或清除筛选标签</p>
+      <button @click="resetFilters" class="mt-4 px-4 py-2 rounded-xl text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition">
+        重置筛选条件
+      </button>
+    </div>
+
+    <!-- VIEW 1: Grid Cards View (网格陈列) -->
+    <div v-if="viewMode === 'grid' && filteredTraders.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+      <div 
+        v-for="item in filteredTraders" 
+        :key="item.id"
+        @click="openModal(item)"
+        class="bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-lg hover:shadow-xl relative overflow-hidden">
+        
+        <!-- Top Accent Border Indicator -->
+        <div class="absolute top-0 left-0 right-0 h-1" 
+             :class="{
+               'bg-emerald-500': item.categoryKey === 'SOE',
+               'bg-sky-500': item.categoryKey === 'GLOBAL',
+               'bg-purple-500': item.categoryKey === 'FUTURES_RM',
+               'bg-amber-500': item.categoryKey === 'PRIVATE',
+               'bg-indigo-500': item.categoryKey === 'TRADING_HOUSE',
+               'bg-rose-500': item.categoryKey === 'SYNTHETIC'
+             }"></div>
+
+        <div>
+          <!-- Header Badges -->
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 rounded-md text-[11px] font-bold font-mono tracking-tight"
+                    :class="getCategoryBadgeClass(item.categoryKey)">
+                {{ item.category }}
+              </span>
+              <span class="text-xs text-slate-400 flex items-center gap-1 font-medium">
+                <span>{{ item.countryFlag }}</span>
+                <span>{{ item.country }}</span>
+              </span>
+            </div>
+
+            <!-- Ticker or Short Tag -->
+            <span v-if="item.ticker" class="text-[11px] px-2 py-0.5 rounded font-mono font-medium bg-slate-800 text-slate-300 border border-slate-700/60">
+              {{ item.ticker }}
+            </span>
+          </div>
+
+          <!-- Company Name -->
+          <div class="mb-3">
+            <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+              <span>{{ item.name }}</span>
+            </h3>
+            <p class="text-xs text-slate-400 font-mono line-clamp-1 mt-0.5" :title="item.nameEn">{{ item.nameEn }}</p>
+          </div>
+
+          <!-- Slogan / Core Highlight -->
+          <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-2.5 mb-3 text-xs text-slate-300 leading-relaxed">
+            <span class="text-emerald-400 font-semibold mr-1">✦</span>
+            <span>{{ item.highlight }}</span>
+          </div>
+
+          <!-- Key Details Grid -->
+          <div class="space-y-2 text-xs">
+            <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
+              <span class="shrink-0 text-slate-400">经营规模</span>
+              <span class="font-medium text-slate-200 text-right ml-2">{{ item.scale }}</span>
+            </div>
+            <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
+              <span class="shrink-0 text-slate-400">贸易集散地</span>
+              <span class="text-slate-300 text-right ml-2 truncate max-w-[200px]" :title="item.hub">{{ item.hub }}</span>
+            </div>
+            <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
+              <span class="shrink-0 text-slate-400">主要模式</span>
+              <span class="text-emerald-400/90 text-right ml-2 font-medium">{{ item.tradeModel }}</span>
+            </div>
+          </div>
+
+          <!-- Traded Varieties Pills -->
+          <div class="mt-3.5 pt-3 border-t border-slate-800/80">
+            <div class="text-[11px] text-slate-400 mb-1.5 flex items-center justify-between">
+              <span>核心经营品种</span>
+              <span class="text-[10px] text-slate-400 font-mono">{{ item.varieties.length }} 个品类</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <span v-for="v in item.varieties" :key="v" class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800/90 text-slate-300 border border-slate-700/50">
+                {{ v }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+          <div class="flex flex-wrap gap-1">
+            <span v-for="tag in item.tags.slice(0, 2)" :key="tag" class="text-[10px] text-slate-400 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">
+              #{{ tag }}
+            </span>
+          </div>
+          <span class="inline-flex items-center text-emerald-400 font-medium group-hover:translate-x-0.5 transition-transform text-xs">
+            查看详情
+            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VIEW 2: Table View (紧凑明细表格) -->
+    <div v-if="viewMode === 'table' && filteredTraders.length > 0" class="overflow-x-auto bg-slate-900/80 border border-slate-800 rounded-2xl mb-12 shadow-xl">
+      <table class="w-full text-left text-xs text-slate-300">
+        <thead class="bg-slate-950/80 text-slate-400 font-medium border-b border-slate-800 uppercase tracking-wider text-[11px]">
+          <tr>
+            <th class="py-3 px-4">贸易商名称</th>
+            <th class="py-3 px-3">所属类别</th>
+            <th class="py-3 px-3">地区 / 国别</th>
+            <th class="py-3 px-4">核心经营品种</th>
+            <th class="py-3 px-4">贸易集散地</th>
+            <th class="py-3 px-4">主要贸易模式</th>
+            <th class="py-3 px-4">行业地位 / 规模</th>
+            <th class="py-3 px-3 text-right">操作</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/60 font-normal">
+          <tr v-for="item in filteredTraders" :key="item.id" @click="openModal(item)" class="hover:bg-slate-800/40 cursor-pointer transition">
+            <td class="py-3 px-4">
+              <div class="font-bold text-white text-sm flex items-center gap-1.5">
+                <span>{{ item.name }}</span>
+                <span v-if="item.ticker" class="text-[10px] font-mono px-1.5 py-0.2 bg-slate-800 text-slate-300 rounded">{{ item.ticker }}</span>
+              </div>
+              <div class="text-[11px] text-slate-400 font-mono">{{ item.nameEn }}</div>
+            </td>
+            <td class="py-3 px-3">
+              <span class="px-2 py-0.5 rounded text-[11px] font-medium" :class="getCategoryBadgeClass(item.categoryKey)">
+                {{ item.category }}
+              </span>
+            </td>
+            <td class="py-3 px-3">
+              <span class="flex items-center gap-1">
+                <span>{{ item.countryFlag }}</span>
+                <span>{{ item.country }}</span>
+              </span>
+            </td>
+            <td class="py-3 px-4 max-w-[220px]">
+              <div class="flex flex-wrap gap-1">
+                <span v-for="v in item.varieties.slice(0, 3)" :key="v" class="px-1.5 py-0.2 rounded text-[10px] bg-slate-800 text-slate-300">
+                  {{ v }}
+                </span>
+                <span v-if="item.varieties.length > 3" class="text-[10px] text-slate-400">+{{ item.varieties.length - 3 }}</span>
+              </div>
+            </td>
+            <td class="py-3 px-4 max-w-[180px] truncate" :title="item.hub">{{ item.hub }}</td>
+            <td class="py-3 px-4 text-emerald-400 font-medium">{{ item.tradeModel }}</td>
+            <td class="py-3 px-4 text-slate-300">{{ item.scale }}</td>
+            <td class="py-3 px-3 text-right">
+              <button @click.stop="openModal(item)" class="px-2.5 py-1 bg-slate-800 hover:bg-emerald-600 hover:text-white rounded text-xs text-slate-300 transition">
+                详情
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Detailed Modal Drawer -->
+    <div v-if="modalItem" class="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" @click.self="closeModal" @keydown.esc="closeModal">
+      <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-3xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        
+        <!-- Modal Close Button -->
+        <button @click="closeModal" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Modal Header -->
+        <div class="border-b border-slate-800 pb-5 mb-5">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-md text-xs font-bold font-mono" :class="getCategoryBadgeClass(modalItem.categoryKey)">
+              {{ modalItem.category }}
+            </span>
+            <span class="text-xs text-slate-300 flex items-center gap-1 font-medium bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/50">
+              <span>{{ modalItem.countryFlag }}</span>
+              <span>{{ modalItem.country }}</span>
+            </span>
+            <span v-if="modalItem.ticker" class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              股票/代码: {{ modalItem.ticker }}
+            </span>
+          </div>
+
+          <h2 class="text-2xl font-bold text-white">{{ modalItem.name }}</h2>
+          <p class="text-sm text-slate-400 font-mono mt-1">{{ modalItem.nameEn }}</p>
+        </div>
+
+        <!-- Highlight Banner -->
+        <div class="bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border border-emerald-500/30 rounded-xl p-3.5 mb-6 text-sm text-emerald-200 flex items-start gap-2.5">
+          <span class="text-emerald-400 text-lg">💡</span>
+          <div>
+            <div class="font-semibold text-white">核心优势与定位</div>
+            <div class="mt-0.5 text-slate-300 leading-relaxed">{{ modalItem.highlight }}</div>
+          </div>
+        </div>
+
+        <!-- Core Attributes Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div class="text-xs text-slate-400 mb-1 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+              <span>贸易体量 / 行业地位</span>
+            </div>
+            <div class="text-sm font-semibold text-white">{{ modalItem.scale }}</div>
+          </div>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div class="text-xs text-slate-400 mb-1 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+              <span>核心贸易集散地 / 口岸</span>
+            </div>
+            <div class="text-sm font-semibold text-white">{{ modalItem.hub }}</div>
+          </div>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div class="text-xs text-slate-400 mb-1 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+              <span>主要交易与定价模式</span>
+            </div>
+            <div class="text-sm font-semibold text-emerald-400">{{ modalItem.tradeModel }}</div>
+          </div>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div class="text-xs text-slate-400 mb-1 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+              <span>企业归属 / 母公司 / 注册地</span>
+            </div>
+            <div class="text-sm font-semibold text-white">{{ modalItem.parentGroup || modalItem.country }}</div>
+          </div>
+        </div>
+
+        <!-- Detailed Description -->
+        <div class="mb-6">
+          <h4 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <span>🏢 企业背景与贸易业务透视</span>
+          </h4>
+          <p class="text-sm text-slate-300 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800 whitespace-pre-line">
+            {{ modalItem.description }}
+          </p>
+        </div>
+
+        <!-- Traded Varieties & Product Range -->
+        <div class="mb-6">
+          <h4 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <span>📦 主营橡胶品种与主要规格</span>
+          </h4>
+          <div class="flex flex-wrap gap-2">
+            <span v-for="v in modalItem.varieties" :key="v" class="px-3 py-1 rounded-lg text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
+              {{ v }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="mb-6">
+          <h4 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <span>🏷️ 业务标签与行业属性</span>
+          </h4>
+          <div class="flex flex-wrap gap-1.5">
+            <span v-for="t in modalItem.tags" :key="t" class="px-2.5 py-1 rounded-md text-xs bg-slate-800 text-slate-300 border border-slate-700">
+              # {{ t }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center space-x-2">
+            <button @click="copyTraderInfo(modalItem)" class="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+              复制档案简述
+            </button>
+            <a v-if="modalItem.website" :href="modalItem.website" target="_blank" class="px-3.5 py-2 rounded-xl text-xs font-medium bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/40 transition flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              访问官方网站
+            </a>
+          </div>
+          <button @click="closeModal" class="px-4 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+            关闭窗口
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Educational Footer Card: 橡胶主流贸易流通模式解读 -->
+    <div class="mt-8 bg-slate-900/60 border border-slate-800 rounded-2xl p-6 text-xs text-slate-400 space-y-4">
+      <div class="flex items-center gap-2 text-sm font-bold text-white">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span>橡胶现货流通与期现贸易四大核心机制指引</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80">
+          <div class="font-semibold text-slate-200 mb-1">1. 青岛保税区美金胶与混合胶</div>
+          <p class="leading-relaxed">海外胶园加工后集装箱直运青岛保税港区，以美元信用证结算；混合胶（含少量合成胶以享受零关税）长年作为一般贸易直通国内下游轮胎厂。</p>
+        </div>
+        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80">
+          <div class="font-semibold text-slate-200 mb-1">2. 期现基差贸易与点价模式</div>
+          <p class="leading-relaxed">大型期现商以期货主力合约（RU/NR）为基准报出升贴水（基差），买方可在约定周期内自主选择盘面点位进行点价锁定最终货款，大幅降低单边单向风险。</p>
+        </div>
+        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80">
+          <div class="font-semibold text-slate-200 mb-1">3. 仓单交割与做市流转</div>
+          <p class="leading-relaxed">上期所（RU/BR）与上海国际能源交易中心（NR）指定交割仓库的标准仓单，是期现商与风管子公司进行质押融资、跨期月间套利及实物交割的核心载体。</p>
+        </div>
+        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800/80">
+          <div class="font-semibold text-slate-200 mb-1">4. EUDR 欧盟零毁林法案冲击</div>
+          <p class="leading-relaxed">欧盟EUDR法案要求进入欧盟的橡胶必须具备GPS地理多边形坐标及无毁林合规证明，推动国际头部贸易商（合盛、诗董、伊藤忠等）全面构建可持续溯源供应链。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Footer -->
+    <footer class="mt-12 text-center text-xs text-slate-400 pb-8">
+      <p>橡胶童话 (RubberTale) 投研工具箱 · 橡胶贸易商产业名录大全</p>
+      <p class="mt-1">数据来源：上期所、上期能源、中国橡胶工业协会、海关总署及各企业公开披露年报整理。</p>
+    </footer>
+
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const activeCategory = ref('ALL');
+        const selectedCountry = ref('ALL');
+        const selectedVariety = ref('ALL');
+        const searchQuery = ref('');
+        const viewMode = ref('grid');
+        const modalItem = ref(null);
+
+        // 43家代表性橡胶贸易商全量数据集
+        const traders = ref([
+          // ===== 类别 1: 央企与国企巨头 (SOE) =====
+          {
+            id: 'hainan-rubber',
+            name: '海南橡胶 (海胶集团)',
+            nameEn: 'China Hainan Rubber Industry Group Co., Ltd.',
+            ticker: '601118.SH',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (海南/上海/新加坡)',
+            countryFlag: '🇨🇳',
+            parentGroup: '海南省农垦投资控股集团',
+            scale: '全球天然橡胶全产业链龙头，年加工贸易量逾150万吨',
+            hub: '海口、上海、青岛保税区、新加坡、科特迪瓦、曼谷',
+            tradeModel: '全球种植加工+跨国分销+保税美金+人民币内贸+长协直供',
+            highlight: '全球最大的天然橡胶全产业链集团，全资控股新加坡合盛农业，掌控全球10%-12%供给份额。',
+            description: '海南橡胶是中国最大的天然橡胶生产基地与全球领先的综合贸易商。2023年完成对新加坡上市公司合盛农业（Halcyon Agri）的控股收购，拥有覆盖中国、泰国、印尼、马来西亚及西非科特迪瓦的全球数十万公顷种植园与数十家加工厂。产品涵盖上期所交割品牌“宝岛”全乳胶、INE20号标胶、浓缩乳胶及航空专用特种胶，深度供应全球前十大轮胎巨头。',
+            varieties: ['RU 全乳胶', 'NR 20号标胶', '浓缩胶乳', '特种胶', '航空轮胎胶'],
+            tags: ['世界一流胶企', '上期所交割品牌', '控股合盛农业', 'EUDR合规', '全球直供'],
+            website: 'http://www.hirubber.com/'
+          },
+          {
+            id: 'sinochem-intl',
+            name: '中化国际 (Sinochem International)',
+            nameEn: 'Sinochem International Corporation',
+            ticker: '600500.SH',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (上海/新加坡)',
+            countryFlag: '🇨🇳',
+            parentGroup: '中国中化控股有限责任公司 (Sinochem)',
+            scale: '央企中化核心成员，全球化橡胶贸易与产业先驱，年贸易规模数十万吨',
+            hub: '上海、新加坡、青岛、欧洲、西非',
+            tradeModel: '国际转口贸易、保税美金、产业供应链协同、长协采购',
+            highlight: '央企中国中化旗下大宗商品与精细化工骨干，拥有新加坡全球采销中心与遍布欧美的分销网络。',
+            description: '中化国际长期深耕天然橡胶与合成橡胶国际贸易，是国内最早涉足全球橡胶资源开拓的企业之一。其在新加坡设立的新诺橡胶（Sinochem Rubber）曾统筹全球采购、加工与航运调度，具备雄厚的国际现货与衍生品风险对冲运作经验，常年服务国内外顶级轮胎客户与高分子工业客户。',
+            varieties: ['NR 20号标胶', 'RU 天然胶', 'RSS 烟胶片', '合成橡胶 BR/SBR'],
+            tags: ['世界500强中化', '国际大宗贸易', '新加坡全球采销', '供应链协同'],
+            website: 'https://www.sinochemintl.com/'
+          },
+          {
+            id: 'guangken-rubber',
+            name: '广垦橡胶集团 (Guangken Rubber)',
+            nameEn: 'Guangdong Guangken Rubber Group Co., Ltd.',
+            ticker: '国有独资',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (广州/曼谷)',
+            countryFlag: '🇨🇳',
+            parentGroup: '广东省农垦集团公司',
+            scale: '年综合加工能力超150万吨，海外拥有泰国泰华树胶等数十家现代化加工厂',
+            hub: '广州、青岛保税区、泰国曼谷、合艾、新加坡',
+            tradeModel: '海外工厂直收压制+国内清关直销+保税转口+轮胎厂长协直供',
+            highlight: '成功跨国并购泰国前三大胶企泰华树胶（Thai Hua Rubber），构建东南亚全方位加工贸易网络。',
+            description: '广垦橡胶是广东省属大型国有现代农业企业，拥有国家级农业产业化重点龙头称号。在泰国、马来西亚、印度尼西亚、柬埔寨等主产国拥有广阔胶园与60余座工厂。其生产的“广垦”、“红峰”全乳胶为上期所注册品牌，泰华树胶STR20为上期能源注册品牌，年实物橡胶贸易与流转规模国内名列前茅。',
+            varieties: ['STR20 泰标', 'SMR20 马标', '广垦全乳胶', '浓缩胶乳', '复合胶'],
+            tags: ['掌控泰华树胶', '农业产业化龙头', '上期所交割品牌', '东南亚全域布局'],
+            website: 'http://www.gkrubber.com/'
+          },
+          {
+            id: 'xiamen-itg',
+            name: '厦门国贸集团 (ITG / 国贸股份)',
+            nameEn: 'Xiamen ITG Group Corp., Ltd.',
+            ticker: '600755.SH',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (厦门/青岛/上海)',
+            countryFlag: '🇨🇳',
+            parentGroup: '厦门国贸控股集团有限公司 (世界500强)',
+            scale: '国内橡胶供应链贸易超一线巨头，年橡胶能化供应链周转量数百万吨',
+            hub: '青岛保税区、上海、厦门、新加坡、泰国',
+            tradeModel: '一体化供应链服务、保税美金胶流转、基差贸易做市、产业链套利',
+            highlight: '青岛保税区现货美金胶与国内人民币基差贸易执牛耳者，资金实力雄厚，期现结合体系极其成熟。',
+            description: '厦门国贸是国内供应链管理领域的领跑者，橡胶业务板块深耕青岛口岸与山东轮胎制造产业带十数年。公司深度参与全球橡胶采销，拥有海外直采渠道与国内庞大的保税及完税仓储网络，依托强大的期现结合与基差报价体系，为轮胎厂提供全天候保供与成本锁定服务。',
+            varieties: ['NR 20号标胶 (泰/印/马/非)', 'RU 全乳胶', '顺丁橡胶 BR', '丁苯橡胶 SBR', '混合胶'],
+            tags: ['世界500强', '青岛保税区大户', '基差做市商', '轮胎厂核心原料商'],
+            website: 'https://www.itg.com.cn/'
+          },
+          {
+            id: 'xiamen-cd',
+            name: '建发股份 (C&D Inc. / 建发大宗)',
+            nameEn: 'Xiamen C&D Inc.',
+            ticker: '600153.SH',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (厦门/上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '厦门建发集团有限公司 (世界500强)',
+            scale: '大宗商品供应链领军企业，橡胶及能化年流通量数百万吨级',
+            hub: '厦门、青岛保税区、上海、新加坡',
+            tradeModel: '“LIFT”供应链综合服务、全球代采代销、跨境美金流转、仓单质押',
+            highlight: '依托建发全球供应链“物流、信息、金融、商务”四位一体平台，为轮胎产业链提供综合赋能。',
+            description: '建发股份在橡胶供应链领域拥有强大的全球资源整合能力，通过与东南亚、非洲各大胶厂及国际贸易商建立长期战略协议，打通保税美金进口、通关清关、仓单质押到国内现货配送的端到端通道，资金与风控实力备受产业链上下游赞誉。',
+            varieties: ['进口标胶 NR', '全乳胶 RU', '混合橡胶', '合成橡胶', '轮胎辅料'],
+            tags: ['世界500强', 'LIFT综合服务', '全球供应链采购', '资金物流一体化'],
+            website: 'https://www.chinacnd.com/'
+          },
+          {
+            id: 'xiamen-xiangyu',
+            name: '厦门象屿 (Xiamen Xiangyu)',
+            nameEn: 'Xiamen Xiangyu Co., Ltd.',
+            ticker: '600057.SH',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (厦门/青岛/上海)',
+            countryFlag: '🇨🇳',
+            parentGroup: '厦门象屿集团有限公司 (世界500强)',
+            scale: '现代物流与大宗供应链龙头，在青岛董家口与保税港建有核心仓储枢纽',
+            hub: '青岛前湾港/董家口、厦门、上海、新加坡',
+            tradeModel: '全链条物流+供应链金融+现货分销+炭黑助剂橡胶一体化',
+            highlight: '依托自身在青岛自贸片区的自有保税仓储与物流网络，实现胶料高效通关、质押分拨一体化。',
+            description: '厦门象屿以“全产业链服务”见长，不仅在天然标胶、混合胶上拥有庞大进口规模，更协同经营合成橡胶、炭黑及橡胶助剂等轮胎制造全品类原料，为山东及江浙轮胎厂提供一站式原料配供方案与仓单流转服务。',
+            varieties: ['进口20号标胶', '合成橡胶', '混合胶', '炭黑助剂配套'],
+            tags: ['世界500强', '青岛仓储物流中心', '仓单金融', '轮胎全品类配套'],
+            website: 'https://www.xiangyu.cn/'
+          },
+          {
+            id: 'wuchan-chemical',
+            name: '物产中大化工 (Wuchan Zhongda Chemical)',
+            nameEn: 'Wuchan Zhongda Chemical Group Co., Ltd.',
+            ticker: '600704.SH (母公司)',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (杭州/宁波/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '物产中大集团股份有限公司 (世界500强)',
+            scale: '华东能化与橡胶分销巨擘，年橡胶与化工供应链营业额达数百亿元',
+            hub: '杭州、宁波、上海、青岛保税区',
+            tradeModel: '产业分销、基差定价、轮胎厂配供、期现保值流转',
+            highlight: '浙江省属国企标杆，在华东合成橡胶与天然橡胶现货流通圈深耕多年，渠道下沉极其扎实。',
+            description: '物产中大化工是浙江省属世界500强物产中大旗下骨干企业。公司在顺丁橡胶、丁苯橡胶、天然橡胶及各类合成树脂上具备极高的市场份额，与中石化、中石油及东南亚头部胶厂保持紧密分销合作，期现风控体系严密。',
+            varieties: ['天然橡胶 RU/NR', '顺丁橡胶 BR9000', '丁苯橡胶 SBR', '热塑性弹性体'],
+            tags: ['世界500强核心', '华东分销霸主', '期现基差配套', '轮胎厂核心供应商'],
+            website: 'http://www.wzchem.com/'
+          },
+          {
+            id: 'grand-resource',
+            name: '热联集团 (Grand Resource / 杭州热联)',
+            nameEn: 'Hangzhou Grand Resource Co., Ltd.',
+            ticker: '国有控股',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (杭州/上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '杭州汽轮动力集团',
+            scale: '大宗商品衍生品与期现对冲标杆机构，年大宗商品流通量数千万吨',
+            hub: '杭州、上海、青岛、新加坡',
+            tradeModel: '高水平期现结合、基差做市、含权贸易、场外期权结构化对冲',
+            highlight: '国内公认的衍生品期现结合“黄埔军校”，在橡胶基差贸易、跨品种套利和场外对冲上极具市场号召力。',
+            description: '热联集团以投研驱动与衍生品风控为核心竞争力，深度参与天然橡胶RU、20号胶NR及顺丁橡胶BR的现货与期货做市业务。其通过灵活的基差定价、含权贸易订单与产能预售模式，帮助下游橡胶加工厂平滑原材料采购价格波动。',
+            varieties: ['RU 天然橡胶', 'NR 20号胶', 'BR 顺丁橡胶', '全产业链配对套利'],
+            tags: ['期现结合标杆', '基差做市天花板', '场外衍生品', '投研一体化'],
+            website: 'http://www.grand-resource.com/'
+          },
+          {
+            id: 'cofco-trading',
+            name: '中粮贸易 / 中粮期货资本 (COFCO)',
+            nameEn: 'COFCO Trading / COFCO Capital',
+            ticker: '央企',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (北京/上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '中粮集团有限公司 (世界500强)',
+            scale: '央企中粮旗下大宗农产品与热带作物进出口供应链平台',
+            hub: '北京、上海、青岛口岸',
+            tradeModel: '农产品大宗供应链协同、保税进口、期现基差与风险管理',
+            highlight: '拥有强大的国际大宗热带经济作物采销协同网络与稳健央企风控体系。',
+            description: '中粮集团在国际大宗农产品供应链上积淀雄厚，通过中粮贸易及旗下期货风险管理子公司，积极开展天然橡胶的跨国采购、口岸分销及期现基差套利业务，发挥大宗商品保供稳价功能。',
+            varieties: ['天然橡胶 NR/RU', '热带经济作物衍生大宗'],
+            tags: ['央企中粮', '国际大宗农产品巨头', '稳健风控', '期现协同'],
+            website: 'https://www.cofco.com/'
+          },
+          {
+            id: 'citic-global',
+            name: '中信寰球商贸 / 中信期货 (CITIC)',
+            nameEn: 'CITIC Futures Commercial Trading / CITIC Securities',
+            ticker: '600030.SH (中信证券)',
+            category: '央企与国企巨头',
+            categoryKey: 'SOE',
+            country: '中国 (上海/深圳/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '中国中信集团有限公司 (中信证券一级子公司)',
+            scale: '国内顶尖期货风险管理机构，上期所及INE主要交割做市商之一',
+            hub: '上海、深圳、青岛、香港',
+            tradeModel: '交易所做市商制度、仓单做市服务、基差贸易、期转现与场外期权',
+            highlight: '中信证券体系旗下核心期现与做市平台，资本金雄厚，做市与流动性提供能力国内首屈一指。',
+            description: '中信寰球商贸依托中信期货与中信证券的综合金融牌照优势，深度参与上期所RU、BR及上期能源NR的做市商业务与大宗现货仓单买卖。通过场外衍生品、含权基差及定制化风险对冲工具，为大型轮胎制造企业提供一站式价格管理方案。',
+            varieties: ['RU 全乳胶', 'NR 20号胶', 'BR 顺丁橡胶', '标准仓单与期权'],
+            tags: ['央企中信', '上期所核心做市商', '场外衍生品龙头', '仓单质押服务'],
+            website: 'http://www.citicsf.com/'
+          },
+
+          // ===== 类别 2: 国际跨国巨头 (GLOBAL) =====
+          {
+            id: 'halcyon-agri',
+            name: '合盛农业 (Halcyon Agri / CMC)',
+            nameEn: 'Halcyon Agri Corporation Limited',
+            ticker: 'SGX: 5VJ',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '新加坡 🇸🇬',
+            countryFlag: '🇸🇬',
+            parentGroup: '海南橡胶控股 (China Hainan Rubber)',
+            scale: '掌控全球约12%的天然橡胶供应链，全球拥有38座加工厂，年产销量逾140万吨',
+            hub: '新加坡(总部)、雅加达、曼谷、伦敦、汉堡、纽约、上海',
+            tradeModel: '全球种植加工+HeveaConnect数字交易平台+欧美百年商社网络+全球长协直供',
+            highlight: '旗下拥有始于1780年的英国Corrie MacColl与德国Centrotrade，运营全球天然橡胶数字化交易平台HeveaConnect。',
+            description: '合盛农业是全球橡胶产业链的无冕航母，在印度尼西亚（SIR20主力生产商）、泰国、马来西亚和西非喀麦隆拥有庞大的种植与加工资产。公司直接供应全球前十大轮胎制造商，并主导推动符合欧盟EUDR标准的零毁林橡胶供应链建设。',
+            varieties: ['印尼 SIR20', '泰标 STR20', '马标 SMR20', '西非颗粒胶', '特种工业橡胶'],
+            tags: ['新加坡上市', '全球第一梯队', '拥有CMC/Centrotrade', 'EUDR合规标杆', 'HeveaConnect'],
+            website: 'https://www.halcyonagri.com/'
+          },
+          {
+            id: 'sri-trang',
+            name: '诗董橡胶集团 (Sri Trang Agro-Industry)',
+            nameEn: 'Sri Trang Agro-Industry Public Company Limited',
+            ticker: 'SET: STA / SGX: NC2',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '泰国 🇹🇭',
+            countryFlag: '🇹🇭',
+            parentGroup: 'Sri Trang Group',
+            scale: '全球最大天然橡胶综合企业之一，年产能逾300万吨，全球市场份额达8%-10%',
+            hub: '泰国合艾(总部)、曼谷、新加坡、上海、青岛',
+            tradeModel: '一体化产地压制+新加坡国际物流中转+中国现货清关直销+手套下游产业链',
+            highlight: '泰国上市巨擘，在泰国与印尼拥有数十家加工厂，旗下拥有上海诗董贸易与全球手套制造巨头Sri Trang Gloves。',
+            description: '诗董橡胶成立于1987年，是全球天然橡胶全产业链巨擘。其生产的STR20为上海国际能源交易中心（INE）交割品牌，RSS3烟胶片与离心浓缩胶乳更是全球行业标杆。其通过上海诗董贸易在青岛和华东常设大规模库存，对国内轮胎厂与发泡乳胶厂实现现货直配。',
+            varieties: ['STR20 泰标', 'STR 5L', 'RSS3 烟胶片', '离心浓缩胶乳', '丁腈乳胶'],
+            tags: ['泰国第一大胶企', '全球手套产业链', 'INE交割注册品牌', '全球长协核心'],
+            website: 'https://www.sritranggroup.com/'
+          },
+          {
+            id: 'thai-hua',
+            name: '泰华树胶 (Thai Hua Rubber PCL)',
+            nameEn: 'Thai Hua Rubber Public Company Limited',
+            ticker: '泰华/广垦控股',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '泰国 🇹🇭',
+            countryFlag: '🇹🇭',
+            parentGroup: '广东广垦橡胶集团战略控股',
+            scale: '泰国前三大橡胶加工与国际出口巨头，年加工出口能力逾80万吨',
+            hub: '曼谷(总部)、合艾、罗勇、青岛保税区、上海',
+            tradeModel: '泰国各大产区直收原料+大宗集装箱直发+中国各港口保税现货分销',
+            highlight: '在泰国各大核心主产区建有16座现代化加工厂，其生产的“泰华”牌STR20为INE指定交割注册商品。',
+            description: '泰华树胶由泰国资深橡胶实业家创立，后与广东广垦橡胶集团达成战略重组整合。依托中泰双边产业互补优势，泰华树胶在泰标STR20、烟胶片及复合胶出口上极具竞争力，产品大量出口中国、日本、欧洲及北美各大主流轮胎企业。',
+            varieties: ['STR20 (INE交割品)', 'STR10', 'RSS 烟胶片', '复合橡胶'],
+            tags: ['泰国老牌三强', 'INE交割品牌', '16座加工厂', '中泰产业整合'],
+            website: 'http://www.thaihua.com/'
+          },
+          {
+            id: 'southland-rubber',
+            name: '联益橡胶 (Southland Rubber)',
+            nameEn: 'Southland Rubber Co., Ltd.',
+            ticker: '泰国知名私营',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '泰国 🇹🇭',
+            countryFlag: '🇹🇭',
+            parentGroup: 'Southland Group',
+            scale: '泰国领先的私营橡胶综合生产与出口商，年加工量达数十万吨',
+            hub: '泰国合艾、曼谷、新加坡',
+            tradeModel: '国际高端轮胎厂认证直供、长期技术合作协议、严格原产地批次溯源',
+            highlight: '普利司通、米其林、固特异等顶级外资轮胎巨头的核心金牌原料供应商，以苛刻品控著称。',
+            description: '联益橡胶深耕泰国南部核心橡胶主产区数十年，在品质一致性、灰分与门尼粘度控制上拥有极高行业声誉。公司主要以长期技术协议（LTA）方式与全球轮胎巨头配套，并积极参与全球橡胶可持续采购联合会倡议。',
+            varieties: ['STR20 标胶', 'STR 10', '高品质浓缩乳胶', '特级烟胶片'],
+            tags: ['外资轮胎金牌供应商', '极致品控', '泰南老牌加工商', '国际长协直供'],
+            website: 'http://www.southlandrubber.com/'
+          },
+          {
+            id: 'von-bundit',
+            name: '宏曼历橡胶 / 冯氏橡胶 (Von Bundit)',
+            nameEn: 'Von Bundit Co., Ltd.',
+            ticker: '泰国知名私营',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '泰国 🇹🇭',
+            countryFlag: '🇹🇭',
+            parentGroup: '冯氏家族企业',
+            scale: '泰国历史最悠久的私营天然橡胶生产出口巨头之一，年产能超80万吨',
+            hub: '泰国普吉(总部)、素叻他尼、曼谷、青岛',
+            tradeModel: '全球轮胎巨头直通车、国际招标采购、集装箱班轮海运直运',
+            highlight: '普吉发源的华人橡胶翘楚，其生产的“宏曼历”STR20为上海国际能源交易中心INE注册品牌。',
+            description: '宏曼历橡胶（Von Bundit）创办于普吉岛，历经数代人发展，现已成为泰国天然橡胶加工领域的旗舰企业。公司拥有6座超级现代化加工园区，产品技术指标卓越，常年直供全球乘用车与重卡高端轮胎流水线。',
+            varieties: ['STR20 (INE交割品牌)', 'STR 5L', 'RSS3 烟胶片', '脱蛋白特种胶'],
+            tags: ['普吉百年侨企', 'INE注册交割品牌', '高端轮胎指定用胶', '出口创汇先锋'],
+            website: 'http://www.vonbundit.com/'
+          },
+          {
+            id: 'siph-saph',
+            name: '美兰橡胶 (SIPH / SAPH 科特迪瓦)',
+            nameEn: "Société Internationale de Plantations d'Hévéas (SIPH)",
+            ticker: '巴黎泛欧交易所上市',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '西非科特迪瓦 / 法国 🇨🇮',
+            countryFlag: '🇨🇮',
+            parentGroup: '法国 SIFCA 集团控股',
+            scale: '西非最大的天然橡胶种植加工与出口企业，年产能突破40万吨且高速扩建',
+            hub: '阿比让 (科特迪瓦)、巴黎、安特卫普、青岛保税区',
+            tradeModel: '西非源头自有胶园直采直发+欧美亚海运集装箱直发+INE替代交割品供货',
+            highlight: '非洲天然橡胶工业基石，旗下科特迪瓦SAPH生产的“美兰”标胶为上期能源INE注册替代交割品（贴水110元/吨）。',
+            description: 'SIPH在西非科特迪瓦、加纳、尼日利亚和利比里亚拥有超过6万公顷成熟胶园与十数座现代化加工厂。随着西非成为全球橡胶产能增长新引擎，SIPH生产的非洲胶以极具竞争力的成本优势大量进入中国青岛口岸与国内轮胎企业，改写了全球橡胶贸易流向。',
+            varieties: ['TSR10 / TSR20 非洲标胶', 'SAPH 美兰标胶 (INE替代交割品)', '颗粒胶'],
+            tags: ['西非第一大胶企', 'INE注册替代交割品', '低成本产能扩张', '全球供应新引擎'],
+            website: 'https://www.siph.com/'
+          },
+          {
+            id: 'lee-rubber',
+            name: '裕利集团 (Lee Rubber Group)',
+            nameEn: 'Lee Rubber Company Pte Ltd',
+            ticker: '百年家族私人企业',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '新加坡 / 马来西亚 🇸🇬',
+            countryFlag: '🇸🇬',
+            parentGroup: '李光前家族基金会',
+            scale: '曾长期垄断东南亚橡胶种植与出口贸易的百年商业帝国',
+            hub: '新加坡、吉隆坡、槟城、伦敦',
+            tradeModel: '稳健老牌庄园种植模式、高端特种胶定制加工、长期信誉供货',
+            highlight: '由著名华人爱国华侨领袖李光前先生（陈嘉庚女婿）创办，奠定了近现代东南亚橡胶商业分销秩序。',
+            description: '裕利集团（Lee Rubber）不仅是橡胶企业，更是华人现代商业史的一座丰碑。在马来西亚和新加坡拥有大片优质种植园与橡胶精炼厂，其生产的SMR 20标胶和SMR CV恒粘特种胶在欧洲和北美工业界享有极高美誉。',
+            varieties: ['马标 SMR20', 'SMR CV 恒粘胶', '高纯度离心胶乳'],
+            tags: ['百年商业传奇', '李光前创办', '恒粘特种胶名门', '庄园稳健贸易'],
+            website: 'http://www.leerubber.com/'
+          },
+          {
+            id: 'olam-agri',
+            name: '翱兰国际 (Olam Agri / Olam Group)',
+            nameEn: 'Olam Group Limited',
+            ticker: 'SGX: VC2',
+            category: '国际跨国巨头',
+            categoryKey: 'GLOBAL',
+            country: '新加坡 🇸🇬',
+            countryFlag: '🇸🇬',
+            parentGroup: '新加坡淡马锡控股主要参股',
+            scale: '全球农产品大宗多元化跨国巨头，在加蓬拥有5万公顷可持续橡胶园与加工厂',
+            hub: '新加坡(总部)、加蓬利伯维尔、伦敦、日内瓦、青岛',
+            tradeModel: '热带可持续农业一体化、绿色FSC零毁林认证直供、全球大宗多式联运',
+            highlight: '新加坡淡马锡投资的全球农业旗舰，在非洲加蓬成功打造全球最大的合资天然橡胶可持续种植园区。',
+            description: '翱兰国际将现代企业管理与可持续发展标准融入热带橡胶种植。其在加蓬经济特区建设的橡胶加工厂年产数万吨绿色认证天然橡胶，直通欧洲与亚洲高端汽车供应链，是应对欧盟EUDR零毁林法案的先行标杆。',
+            varieties: ['非洲可持续标胶 (FSC认证)', '东南亚进口橡胶', 'TSR 各品级'],
+            tags: ['淡马锡参股', '加蓬国家战略合作', 'EUDR零毁林先行者', '绿色可持续'],
+            website: 'https://www.olamagri.com/'
+          },
+
+          // ===== 类别 3: 期货期现/风管商 (FUTURES_RM) =====
+          {
+            id: 'yongan-capital',
+            name: '浙江永安资本 (Yongan Capital)',
+            nameEn: 'Zhejiang Yongan Capital Management Co., Ltd.',
+            ticker: '600927.SH (永安期货全资)',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (杭州/上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '永安期货股份有限公司',
+            scale: '国内衍生品风险管理子公司领头羊，年橡胶现货与基差贸易规模超数十万吨',
+            hub: '杭州、上海、青岛保税区、宁波',
+            tradeModel: '基差贸易、仓单买卖与回购、期现套利、场外期权做市、含权贸易',
+            highlight: '中国商品期货风险管理业务的风向标，在天然橡胶RU、20号胶NR及合成橡胶BR基差定价上话语权极高。',
+            description: '永安资本深耕橡胶产业十余年，在青岛常年派驻专业现货与投研团队。公司开创了“基差一口价转换”、“月间价差无风险套利”及“橡胶田间期权保护”等经典模式，是上期所和上期能源的优秀做市商与核心流动性提供者。',
+            varieties: ['RU 全乳胶', 'NR 20号胶', 'BR 顺丁橡胶', '天胶合成套利组合'],
+            tags: ['期现基差天花板', '做市商龙头', '场外含权贸易', '青岛前线团队'],
+            website: 'http://www.yonganpetro.com/'
+          },
+          {
+            id: 'zheqi-industrial',
+            name: '浙期实业 (Zheqi Industrial / 浙商实业)',
+            nameEn: 'Zheqi Industrial Co., Ltd.',
+            ticker: '601878.SH (浙商证券/浙商期货)',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (杭州/青岛/上海)',
+            countryFlag: '🇨🇳',
+            parentGroup: '浙商期货有限公司',
+            scale: '国内头部期货风险管理子公司，年大宗商品购销规模超千亿元',
+            hub: '杭州、青岛保税区、上海',
+            tradeModel: '基差定价、实物仓单交割、现货配送、流动性做市',
+            highlight: '深度扎根山东轮胎产业腹地，在青岛拥有常驻现货交易中心，现货交割与周转能力极强。',
+            description: '浙期实业依托浙商期货的产业研究深度，在橡胶现货贸易中主打“期现无缝衔接”。公司常年参与上期所全乳胶与顺丁橡胶的标准仓单注册、交割与流转，为各类轮胎制品厂提供弹性点价与保税美金提货方案。',
+            varieties: ['RU 全乳胶', 'NR 20号标胶', 'BR 顺丁', '保税混合胶'],
+            tags: ['浙商期货旗下', '实物交割骨干', '青岛常驻基地', '基差采购配供'],
+            website: 'http://www.zheqishangye.com/'
+          },
+          {
+            id: 'nanhua-capital',
+            name: '南华资本 (Nanhua Capital)',
+            nameEn: 'Nanhua Capital Management Co., Ltd.',
+            ticker: '603093.SH (南华期货全资)',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (杭州/上海/新加坡)',
+            countryFlag: '🇨🇳',
+            parentGroup: '南华期货股份有限公司',
+            scale: '首批国际化布局的风险管理公司，上期所与INE主力做市商',
+            hub: '杭州、上海、青岛、新加坡',
+            tradeModel: '上期所/INE双平台做市、跨境美金与人民币跨市套利、场外衍生品结构设计',
+            highlight: '拥有新加坡横华国际跨境平台，具备境内外橡胶跨市（INE NR vs SICOM TSR20）联动套利独特优势。',
+            description: '南华资本是国内最早在新加坡设立离岸交易网点的期货风险管理子公司之一。其在天然橡胶品种上能够实现境内人民币与境外美元的双向对冲，为跨境橡胶贸易商提供离岸交割与汇率、价差锁定的综合避险服务。',
+            varieties: ['RU 天然橡胶', 'NR 20号胶', 'BR 顺丁橡胶', 'SICOM 跨市套利标的'],
+            tags: ['跨境期现专家', '双平台做市商', 'SICOM联动', '新加坡离岸优势'],
+            website: 'http://www.nawaa.com/'
+          },
+          {
+            id: 'galaxy-derui',
+            name: '银河德睿资本 (Galaxy Derui Capital)',
+            nameEn: 'Galaxy Derui Capital Management Co., Ltd.',
+            ticker: '601881.SH (中国银河)',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (上海/青岛/北京)',
+            countryFlag: '🇨🇳',
+            parentGroup: '银河期货有限公司',
+            scale: '行业公认的量化期现对冲与做市先锋，期现实物现货吞吐量巨大',
+            hub: '上海、青岛、北京',
+            tradeModel: '高频量化做市、产业基差贸易、仓单买断与质押、基差互换',
+            highlight: '量化模型与基本面深研紧密结合，在RU/NR/BR做市及基差流转上规模常年位居前列。',
+            description: '银河德睿依托中国银河证券强大的资金背景，将国际先进的量化做市算法引入大宗橡胶现货流通。公司在青岛和上海保税区设有庞大的现货仓单库容，以极高周转率和极小价差为产业客户提供充足现货流动性。',
+            varieties: ['RU 全乳胶', 'NR 标胶', 'BR9000 顺丁', 'SBR 丁苯橡胶'],
+            tags: ['银河期货旗下', '量化期现龙头', '高频做市商', '充足现货流动性'],
+            website: 'http://www.galaxyderui.com/'
+          },
+          {
+            id: 'zhongtai-huirong',
+            name: '鲁证经贸 / 中泰汇融 (Zhongtai Huirong)',
+            nameEn: 'Zhongtai Huirong Investment & Trading Co., Ltd.',
+            ticker: '00681.HK (鲁证期货/中泰期货)',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (济南/青岛/东营)',
+            countryFlag: '🇨🇳',
+            parentGroup: '中泰期货股份有限公司',
+            scale: '山东本土实力最雄厚的期现风险管理平台，贴身服务山东轮胎地炼集群',
+            hub: '青岛前湾港、东营广饶、威海、济南',
+            tradeModel: '深耕轮胎集群门到门直配、基差一口价转换、仓单交割提货、代采套保',
+            highlight: '背靠中国最大的轮胎制造大省山东，与广饶、青岛、烟威近百家轮胎整车配件企业建立深度直供关系。',
+            description: '中泰汇融（原鲁证经贸）占据得天独厚的山东地利，针对广饶等民营轮胎制造重镇的原料采购痛点，推出“送货到厂、现货点价、仓单转让”一攬子服务，是连接上期所交割体系与终端轮胎生产线的关键纽带。',
+            varieties: ['NR 20号标胶', 'RU 全乳胶', 'BR 顺丁橡胶', 'SBR 丁苯橡胶'],
+            tags: ['深耕山东轮胎腹地', '广饶专线直配', '中泰期货旗下', '实体工厂保供'],
+            website: 'http://www.luzhengjm.com/'
+          },
+          {
+            id: 'xinhu-ruifeng',
+            name: '新湖瑞丰 (Xinhu Ruifeng)',
+            nameEn: 'Xinhu Ruifeng Financial Services Co., Ltd.',
+            ticker: '新湖期货全资',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (上海/昆明/海口)',
+            countryFlag: '🇨🇳',
+            parentGroup: '新湖期货股份有限公司',
+            scale: '橡胶“保险+期货”业务领航者，年惠及云南西双版纳与海南胶农数十万人',
+            hub: '上海、西双版纳、海口、青岛',
+            tradeModel: '“保险+期货”胶农兜底保障、田间胶水直收对冲、闭环基差购销',
+            highlight: '国内农产品乡村振兴与“保险+期货”的标杆践行者，长期扎根云南版纳和海南产胶第一线。',
+            description: '新湖瑞丰将现代场外金融期权工具有效嫁接到橡胶原产地种植端。在西双版纳勐腊、景洪等地设立一线工作站，协同当地胶厂为胶农提供价格托底保险，并将现货收购加工后注册为交割仓单或基差现货销售，形成产销融闭环。',
+            varieties: ['RU 全乳胶', '田间天然胶水', '云南SCR5标胶', '浓缩胶乳'],
+            tags: ['保险+期货先锋', '版纳一线驻点', '胶农托底金融', '绿色产区生态'],
+            website: 'http://www.xinhuruifeng.com/'
+          },
+          {
+            id: 'gtja-risk',
+            name: '国泰君安风险管理 (GTJA Risk Management)',
+            nameEn: 'Guotai Junan Risk Management Co., Ltd.',
+            ticker: '601211.SH (国泰君安全资)',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '国泰君安期货有限公司',
+            scale: '资本实力顶尖的综合金融衍生品服务商，长期位列上期所做市第一梯队',
+            hub: '上海、青岛、大连',
+            tradeModel: '标准仓单做市、场外期权做市、大宗商品基差贸易、含权订单定制',
+            highlight: '头部券商系期货风管公司，资金储备极其雄厚，擅长处理超大规模仓单交割与流动性承接。',
+            description: '国泰君安风险管理在RU与BR顺丁橡胶上市初期即成为核心做市商，通过严密的量化算法和充足的净资本，在期现货市场上为大中型产业链企业提供连续稳定的买卖双向报价，是平抑市场异常波动的关键市场力量。',
+            varieties: ['RU 天然橡胶', 'NR 20号胶', 'BR 顺丁橡胶', '仓单质押服务'],
+            tags: ['头部券商旗下', '顶级做市商', '巨额资金保障', '场外期权专家'],
+            website: 'http://www.gtjaqh.com/'
+          },
+          {
+            id: 'huatai-capital',
+            name: '华泰长城资本 (Huatai Great Wall Capital)',
+            nameEn: 'Huatai Great Wall Capital Management Co., Ltd.',
+            ticker: '601688.SH (华泰证券旗下)',
+            category: '期货期现/风管商',
+            categoryKey: 'FUTURES_RM',
+            country: '中国 (深圳/上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '华泰期货有限公司',
+            scale: '金融科技驱动的大宗商品衍生品与期现贸易商，年现货成交活跃',
+            hub: '深圳、上海、青岛、广州',
+            tradeModel: '算法基差点价、自动化执行对冲、结构化期权产品、现货仓单转让',
+            highlight: '以金融科技与算法执行见长，为橡胶制造企业提供自动化点价系统与个性化保值方案。',
+            description: '华泰长城资本结合华泰证券先进的IT底层架构，在大宗商品现货基差管理中广泛采用算法撮合系统。为橡胶贸易客户提供实时精准的基差报价与智能点价工具，大幅减少了轮胎制造企业的盯盘与执行摩擦成本。',
+            varieties: ['RU 天然橡胶', 'NR 20号标胶', 'BR 顺丁橡胶'],
+            tags: ['金融科技驱动', '智能点价系统', '华泰期货旗下', '期现基差创新'],
+            website: 'http://www.htfc.com/'
+          },
+
+          // ===== 类别 4: 民营骨干现货商 (PRIVATE) =====
+          {
+            id: 'qingdao-quansheng',
+            name: '青岛全圣 (Qingdao Quansheng)',
+            nameEn: 'Qingdao Quansheng International Trading Co., Ltd.',
+            ticker: '民营骨干',
+            category: '民营骨干现货商',
+            categoryKey: 'PRIVATE',
+            country: '中国 (青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '青岛全圣集团',
+            scale: '青岛保税区最具代表性的民营橡胶进口分销巨头，年现货周转量数十万吨',
+            hub: '青岛保税港区、青岛自贸片区',
+            tradeModel: '美金船货采购、保税库现货批发、车板自提、人民币完税现货',
+            highlight: '青岛保税区橡胶流通圈的“风向标”，在山东轮胎现货流通市场具备广泛号召力与极高周转率。',
+            description: '青岛全圣立足青岛保税港区数十年，专业从事泰标STR20、印尼标SIR20、马标SMR20、复合橡胶及烟胶片的进口分销。其仓库常备海量现货，针对山东轮胎厂实行随订随提、车板交货的高效模式，是实体轮胎厂日常现货调剂的重要依托。',
+            varieties: ['STR20 泰标', 'SIR20 印尼标', 'SMR20 马标', '复合橡胶', '烟胶片'],
+            tags: ['青岛保税区现货王', '山东轮胎主渠道', '现款现货周转', '车板自提模式'],
+            website: 'https://www.rubberqs.com/'
+          },
+          {
+            id: 'shanghai-shengmao',
+            name: '上海生茂 (Shanghai Shengmao)',
+            nameEn: 'Shanghai Shengmao International Trade Co., Ltd.',
+            ticker: '民营老牌',
+            category: '民营骨干现货商',
+            categoryKey: 'PRIVATE',
+            country: '中国 (上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '上海生茂实业',
+            scale: '华东地区历史悠久的老牌天然橡胶贸易商，与各胶厂轮胎厂合作三十余年',
+            hub: '上海、青岛、杭州、无锡',
+            tradeModel: '进口分销、人民币现货、长协供货、仓单质押流转',
+            highlight: '华东橡胶贸易圈常青树，信誉卓著，掌握长三角及山东广泛的橡胶终端制品买家网络。',
+            description: '上海生茂自20世纪90年代起即涉足天然橡胶进出口业务，经历了国内橡胶期货从起步到成熟的全过程。公司长期经营海南、云南国营全乳胶及东南亚进口标胶，在江浙沪胶鞋、输送带、橡胶胶管等非轮胎工业橡胶领域拥有扎实客群。',
+            varieties: ['国产全乳胶 RU', '进口 TSR 标胶', 'RSS 烟胶片', '特种工业橡胶'],
+            tags: ['华东老牌胶商', '长三角制品渠道', '信誉稳健', '长期库存现货'],
+            website: 'http://www.shengmaorubber.com/'
+          },
+          {
+            id: 'qingdao-rongde',
+            name: '青岛荣德橡胶 (Qingdao Rongde)',
+            nameEn: 'Qingdao Rongde International Logistics & Trade Co., Ltd.',
+            ticker: '民营骨干',
+            category: '民营骨干现货商',
+            categoryKey: 'PRIVATE',
+            country: '中国 (青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '青岛荣德物流贸易',
+            scale: '集橡胶进出口、国际海运订舱、保税仓储与物流清关为一体的骨干商贸',
+            hub: '青岛前湾港、保税物流园区',
+            tradeModel: '口岸通关一体化、保税美金转口、山东省内门到门保税物流直配',
+            highlight: '“仓储+报关+贸易”一体化运营，能够极大地压缩船货到港后的清关提货周期。',
+            description: '青岛荣德橡胶深耕青岛港口岸，针对进口橡胶批次多、报关检验要求高的特点，打造了专业化的橡胶报关与保税仓储团队。为国内外橡胶贸易商与终端工厂提供从东南亚装船、海运、到港清关、仓储监管到现货销售的全链条服务。',
+            varieties: ['进口20号标胶', '复合胶', '混合橡胶', '烟胶片'],
+            tags: ['青岛口岸一体化', '通关仓储专家', '门到门直配', '提单美金流转'],
+            website: 'http://www.rongderubber.com/'
+          },
+          {
+            id: 'shanghai-hongyuan',
+            name: '上海鸿元 (Shanghai Hongyuan)',
+            nameEn: 'Shanghai Hongyuan Industrial Co., Ltd.',
+            ticker: '民营骨干',
+            category: '民营骨干现货商',
+            categoryKey: 'PRIVATE',
+            country: '中国 (上海/宁波)',
+            countryFlag: '🇨🇳',
+            parentGroup: '鸿元实业集团',
+            scale: '华东能化与橡胶骨干流通企业，天然橡胶与合成橡胶协同营销',
+            hub: '上海、宁波、青岛',
+            tradeModel: '现货库存销售、期现套保、基差发货、橡塑综合配给',
+            highlight: '兼顾天然橡胶与合成橡胶（顺丁/丁苯/丁基），具备橡塑原材料一站式配套供应能力。',
+            description: '上海鸿元在华东化工橡胶圈深耕多年，与中石化、中石油下属炼厂及国内外胶企有稳固长约配额。在华东建有自备物流中转仓，能够根据下游客户的开工节奏，提供灵活小批量、多批次的现货极速配送服务。',
+            varieties: ['全乳胶 RU', 'TSR20 标胶', '顺丁 BR9000', '丁苯 SBR1502/1712'],
+            tags: ['华东骨干商贸', '橡塑一体化', '顺丁丁苯现货', '快速仓储分销'],
+            website: 'http://www.hongyuanchem.com/'
+          },
+          {
+            id: 'shanghai-juhe',
+            name: '上海巨和 (Shanghai Juhe)',
+            nameEn: 'Shanghai Juhe Investment & Management Co., Ltd.',
+            ticker: '知名期现商',
+            category: '民营骨干现货商',
+            categoryKey: 'PRIVATE',
+            country: '中国 (上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '巨和投资',
+            scale: '国内知名的敏捷型期现投资机构，专注于橡胶全产业链高频基差与跨品种套利',
+            hub: '上海、青岛',
+            tradeModel: '投研驱动、跨品种套利（RU vs NR / RU vs BR）、仓单质押流转、基差交易',
+            highlight: '投研团队具备深厚基本面数据底蕴，对供需平衡表与盘面基差异动极具敏锐捕捉力。',
+            description: '上海巨和以大宗商品专业投研为支柱，深度参与天然橡胶及顺丁橡胶的期现套利。其通过精准监控海内外现货库存、轮胎厂开工率与船期动态，开展严谨的价差交易与仓单流转，在行业圈内树立了敏锐稳健的专业形象。',
+            varieties: ['RU 全乳胶', 'NR 20号标胶', 'BR 顺丁', '期现标准仓单'],
+            tags: ['投研驱动标杆', '价差套利专家', '敏捷型期现商', '平衡表深研'],
+            website: 'http://www.juheinvest.com/'
+          },
+          {
+            id: 'qingdao-hainuo',
+            name: '青岛海诺橡胶 (Qingdao Hainuo)',
+            nameEn: 'Qingdao Hainuo Rubber Co., Ltd.',
+            ticker: '民营骨干',
+            category: '民营骨干现货商',
+            categoryKey: 'PRIVATE',
+            country: '中国 (青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '海诺实业',
+            scale: '青岛保税区活跃的天然橡胶现货商，年分销越南胶与东南亚胶数万吨',
+            hub: '青岛保税港区、东营广饶',
+            tradeModel: '美金提单转让、口岸现货分销、小批量定制配送',
+            highlight: '在越南标胶（SVR 3L / SVR 10）与特种浅色胶进口分销上具备特色优势。',
+            description: '青岛海诺紧盯越南及柬埔寨新兴产区，积极引进高性价比浅色胶与标胶。面向对胶料色泽和弹性有特殊要求的高端运动鞋底厂、胶带制品厂及中小型轮胎企业，提供灵活多样的结款与现货提拔服务。',
+            varieties: ['越南标胶 SVR 3L/10', '东南亚 TSR20', '混合橡胶'],
+            tags: ['越南胶特色渠道', '浅色胶分销', '中小制品厂保供', '灵活结算'],
+            website: 'http://www.hainuorubber.com/'
+          },
+
+          // ===== 类别 5: 国际综合商社 / 百年名行 (TRADING_HOUSE) =====
+          {
+            id: 'itochu-corp',
+            name: '伊藤忠商事 (ITOCHU Corporation)',
+            nameEn: 'ITOCHU Corporation',
+            ticker: 'TYO: 8001',
+            category: '国际综合商社',
+            categoryKey: 'TRADING_HOUSE',
+            country: '日本 🇯🇵',
+            countryFlag: '🇯🇵',
+            parentGroup: '日本伊藤忠集团',
+            scale: '日本五大综合商社之一，全球大宗商品供应链创新引领者',
+            hub: '东京(总部)、新加坡、雅加达、曼谷、上海',
+            tradeModel: '“Project TREE”区块链溯源、全球轮胎厂统购长协、合资控股产地加工厂',
+            highlight: '主导研发并推行“Project TREE”天然橡胶区块链追溯系统，全面契合欧盟EUDR环保零毁林合规标准。',
+            description: '伊藤忠商事在印尼拥有大型合资天然橡胶加工厂PT Aneka Bumi Pratama（ABP），并在泰国拥有完备采购渠道。其通过智能手机App与区块链系统记录小农割胶地理数据，开创了全球绿色可持续橡胶供应链的新标准，长期为普利司通、住友橡胶等跨国巨头直供。',
+            varieties: ['印尼 SIR20', '泰标 STR20', '脱蛋白环保天然胶', 'EUDR可持续溯源胶'],
+            tags: ['日本顶尖商社', 'Project TREE区块链', 'EUDR合规标杆', '全球车企配套'],
+            website: 'https://www.itochu.co.jp/'
+          },
+          {
+            id: 'mitsui-corp',
+            name: '三井物产 (Mitsui & Co., Ltd.)',
+            nameEn: 'Mitsui & Co., Ltd.',
+            ticker: 'TYO: 8031',
+            category: '国际综合商社',
+            categoryKey: 'TRADING_HOUSE',
+            country: '日本 🇯🇵',
+            countryFlag: '🇯🇵',
+            parentGroup: '三井集团',
+            scale: '日本综合商社巨头，贯通从丁二烯/异戊二烯单体到天然/合成橡胶全产业链',
+            hub: '东京、新加坡、休斯敦、上海',
+            tradeModel: '跨国石化产业协同、全球长协、上游原料与下游汽车零部件制造一体化',
+            highlight: '全球最具深度的一体化化学与移动出行大宗贸易网络，覆盖合成橡胶与天然橡胶两翼。',
+            description: '三井物产在合成橡胶核心原料丁二烯贸易上全球领先，并深度参与高端轮胎用溶聚丁苯（SSBR）、顺丁橡胶及东南亚天然橡胶的全球调配。为跨国车企与轮胎制造商提供全球原料采购避险与多式联运保障。',
+            varieties: ['合成橡胶 (BR/SBR/EPDM)', '天然标胶 TSR', '特种热塑性弹性体'],
+            tags: ['日本顶级商社', '化工原料一体化', '汽车移动出行链', '全球长协直销'],
+            website: 'https://www.mitsui.com/'
+          },
+          {
+            id: 'mitsubishi-corp',
+            name: '三菱商事 (Mitsubishi Corporation)',
+            nameEn: 'Mitsubishi Corporation',
+            ticker: 'TYO: 8058',
+            category: '国际综合商社',
+            categoryKey: 'TRADING_HOUSE',
+            country: '日本 🇯🇵',
+            countryFlag: '🇯🇵',
+            parentGroup: '三菱集团',
+            scale: '日本综合商社旗舰，全球移动出行与大宗原材料供应链枢纽',
+            hub: '东京、新加坡、曼谷、上海',
+            tradeModel: '全球资源网络统配、大规模海运班轮物流、轮胎制造巨头战略协作',
+            highlight: '三菱集团工业生态圈强大赋能，天然橡胶与合成橡胶全球分销网络遍布各大洲。',
+            description: '三菱商事依托在东南亚建立的悠久业务根基，统筹泰国、印尼等国天然橡胶的出口集运，并协同旗下化工部门开展合成橡胶及轮胎帘子线、炭黑等全套轮胎原料的全球打包集成配供。',
+            varieties: ['TSR 标胶各品级', '顺丁橡胶', '丁苯橡胶', '环保再生橡胶'],
+            tags: ['日本顶级商社', '三菱集团生态', '大宗物流集运', '全球轮胎配套'],
+            website: 'https://www.mitsubishicorp.com/'
+          },
+          {
+            id: 'sumitomo-corp',
+            name: '住友商事 (Sumitomo Corporation)',
+            nameEn: 'Sumitomo Corporation',
+            ticker: 'TYO: 8053',
+            category: '国际综合商社',
+            categoryKey: 'TRADING_HOUSE',
+            country: '日本 🇯🇵',
+            countryFlag: '🇯🇵',
+            parentGroup: '住友集团',
+            scale: '日本大型综合商社，在基础化学品、合成橡胶与天然橡胶领域底蕴深厚',
+            hub: '东京、新加坡、上海、杜塞尔多夫',
+            tradeModel: '全球贸易网络、汽车零部件与轮胎橡胶一体化供应链',
+            highlight: '在汽车工业供应链上浸润极深，擅长为高端工业橡胶制品提供定制化供应链托管。',
+            description: '住友商事积极布局全球天然橡胶种植与分销，同时开展各类合成橡胶的高端应用研发。公司在欧洲、美洲及亚洲设有专业橡胶营业部，长期为住友橡胶（邓禄普轮胎）及全球主流汽车密封件厂直供高标准原料。',
+            varieties: ['天然橡胶 TSR/RSS', '合成橡胶', '炭黑助剂', '特种高分子'],
+            tags: ['日本知名商社', '汽车工业深度融入', '定制供应链托管', '全球现货贸易'],
+            website: 'https://www.sumitomocorp.com/'
+          },
+          {
+            id: 'kato-sansho',
+            name: '加藤事务所 (Kato Sansho)',
+            nameEn: 'Kato Sansho Co., Ltd.',
+            ticker: '百年专业商社',
+            category: '国际综合商社',
+            categoryKey: 'TRADING_HOUSE',
+            country: '日本 🇯🇵',
+            countryFlag: '🇯🇵',
+            parentGroup: '加藤家族企业',
+            scale: '始于1920年代的日本百年橡胶与弹性体专业商社，专精工业橡胶材料',
+            hub: '东京(总部)、曼谷、上海、广州',
+            tradeModel: '特种橡胶技术直销、汽车减震与密封胶管原料方案解决、全球精细化分销',
+            highlight: '日本最具声望的橡胶与弹性体专业贸易技术商社，在汽车减震耐油密封特种橡胶上独占鳌头。',
+            description: '加藤事务所（Kato Sansho）已逾百年历史，与通用商社不同，其聚焦于高技术附加值的橡胶材料流通。包括高端天然脱蛋白胶、氟橡胶、氢化丁腈（HNBR）、特种三元乙丙等，常年为丰田、本田等日系汽车核心减震橡胶供应链提供技术贸易服务。',
+            varieties: ['脱蛋白天然胶', '氟橡胶 FKM', '硅橡胶', '氢化丁腈 HNBR', '特种 EPDM'],
+            tags: ['百年专业商社', '特种弹性体专家', '汽车精密橡胶', '技术贸易直销'],
+            website: 'https://www.katosansho.co.jp/'
+          },
+          {
+            id: 'weber-schaer',
+            name: '韦伯与舍尔 (Weber & Schaer)',
+            nameEn: 'Weber & Schaer GmbH & Co. KG',
+            ticker: '始于1844百年老号',
+            category: '国际综合商社',
+            categoryKey: 'TRADING_HOUSE',
+            country: '德国 🇩🇪',
+            countryFlag: '🇩🇪',
+            parentGroup: 'Weber & Schaer 家族合伙',
+            scale: '创办于1844年德国汉堡的欧洲最著名独立橡胶与天然乳胶进口贸易行',
+            hub: '德国汉堡(总部)、鹿特丹、安特卫普',
+            tradeModel: '欧洲港口现货恒温仓储、EUDR原产地溯源全流程认证、欧洲工业客户定制长协',
+            highlight: '拥有近200年历史的欧洲橡胶名门，欧洲大陆天然乳胶与环保认证天然橡胶的主要进口分销商。',
+            description: '韦伯与舍尔（Weber & Schaer）自19世纪中叶起便从事橡胶与天然原料的国际海运进口。公司在汉堡港和鹿特丹拥有现代化大型橡胶专业恒温仓库，凭借对欧盟法规的超前响应，率先建立完备的EUDR合规体系，为欧洲汽车、医疗手套及工业胶管巨头提供零碳与零毁林认证橡胶。',
+            varieties: ['天然橡胶 TSR', 'RSS 烟胶片', '离心浓缩胶乳 (Latex)', '合成特种乳胶'],
+            tags: ['德国汉堡始于1844', '欧洲乳胶名门', 'EUDR合规先驱', '近200年历史'],
+            website: 'https://www.weber-schaer.com/'
+          },
+          {
+            id: 'corrie-maccoll',
+            name: 'Corrie MacColl (CMC)',
+            nameEn: 'Corrie MacColl Limited',
+            ticker: '始于1780年 (合盛旗下)',
+            category: '国际综合商社',
+            categoryKey: 'TRADING_HOUSE',
+            country: '英国 / 新加坡 🇬🇧',
+            countryFlag: '🇬🇧',
+            parentGroup: '合盛农业 / 海南橡胶',
+            scale: '全球橡胶贸易史上最著名的品牌之一，现为合盛旗下欧美高端市场分销核心',
+            hub: '伦敦、法兰克福、新加坡、北卡罗来纳',
+            tradeModel: '全球高端工业客户直配、HEVEAPRO专业认证定制、可持续橡胶直销',
+            highlight: '始创于1780年英国伦敦，代表了国际天然橡胶现货贸易的百年规范与最高专业水准。',
+            description: 'Corrie MacColl在国际橡胶贸易史中占据传奇地位，现作为海南橡胶与合盛农业旗下的全球专业分销载体，专注于服务欧美高要求工业制品客户。其运营的HEVEAPRO工业标准定义了现代化橡胶工厂的环境、安全与质量规范。',
+            varieties: ['TSR 标胶各品级', 'HEVEAPRO 认证胶', '医用特纯橡胶', '工业级胶乳'],
+            tags: ['始于1780年', '橡胶贸易鼻祖', '欧美高端分销', 'HEVEAPRO认证'],
+            website: 'https://www.corrie-maccoll.com/'
+          },
+
+          // ===== 类别 6: 合成橡胶与石化巨头 (SYNTHETIC) =====
+          {
+            id: 'sinopec-chem',
+            name: '中石化化工销售 (Sinopec Chemical)',
+            nameEn: 'Sinopec Chemical Commercial Holding Company Limited',
+            ticker: '600028.SH (中石化全资)',
+            category: '合成胶石化巨头',
+            categoryKey: 'SYNTHETIC',
+            country: '中国 (北京/上海/青岛)',
+            countryFlag: '🇨🇳',
+            parentGroup: '中国石油化工集团有限公司 (Sinopec)',
+            scale: '中国最大、全球领先的合成橡胶统销商，年合成胶销量突破120万吨',
+            hub: '北京(总部)、上海、广州、青岛、新加坡',
+            tradeModel: '大型炼化装置全统销、年度长约直供、上期所交割厂库交收、保税出口',
+            highlight: '掌控中国石化旗下燕山、齐鲁、高桥、茂名、巴陵等世界级合成胶装置，是上期所BR顺丁期货的最大基准交割品牌生产与统销商。',
+            description: '中石化化工销售是中国石化全资专业化销售公司，统一负责顺丁橡胶BR9000、丁苯橡胶SBR、丁基橡胶IIR、SBS/SIS热塑性弹性体等全部合成胶的国内分销与国际贸易。公司在青岛和华东建有完备仓储，主导国内顺丁与丁苯橡胶的现货定价标杆。',
+            varieties: ['顺丁橡胶 BR9000 (SHFE交割品)', '丁苯橡胶 SBR1502/1712', '丁基橡胶 IIR', '热塑性弹性体 SBS'],
+            tags: ['央企中石化', '上期所顺丁核心品牌', '国内最大合成胶统销商', '国家战略供应链'],
+            website: 'http://chemical.sinopec.com/'
+          },
+          {
+            id: 'petrochina-chem',
+            name: '中石油化工销售 (PetroChina Chemical)',
+            nameEn: 'PetroChina Chemical Marketing Company',
+            ticker: '601857.SH (中石油全资)',
+            category: '合成胶石化巨头',
+            categoryKey: 'SYNTHETIC',
+            country: '中国 (北京/上海/沈阳)',
+            countryFlag: '🇨🇳',
+            parentGroup: '中国石油天然气股份有限公司 (PetroChina)',
+            scale: '央企中石油专业石化统销龙头，掌控独山子、锦州、吉林、大庆等特大型合成胶装置',
+            hub: '北京(总部)、沈阳、上海、广州',
+            tradeModel: '央企集中统配统销、大区销售中心网格化分拨、期货交割厂库直发',
+            highlight: '其生产的“昆仑”牌顺丁橡胶（独山子/锦州/大庆/四川）为上期所顺丁橡胶期货官方注册交割品牌。',
+            description: '中石油化工销售统一调度中国石油在东北、西北和西南的多套万吨级合成橡胶装置，涵盖高顺式顺丁橡胶、乳聚丁苯橡胶及特种丁腈橡胶（NBR）。为全国骨干轮胎厂、鞋材厂提供稳定充沛的原料保障，并积极参与期货交割。',
+            varieties: ['顺丁橡胶 BR9000 (昆仑牌)', '丁苯橡胶 SBR', '丁腈橡胶 NBR', 'SBS 弹性体'],
+            tags: ['央企中石油', '上期所交割品牌(昆仑)', '西北东北重镇', '石化统销龙头'],
+            website: 'http://chemical.petrochina.com.cn/'
+          },
+          {
+            id: 'kumho-petro',
+            name: '锦湖石化贸易 (Kumho Petrochemical)',
+            nameEn: 'Kumho Petrochemical Co., Ltd.',
+            ticker: 'KRX: 011780',
+            category: '合成胶石化巨头',
+            categoryKey: 'SYNTHETIC',
+            country: '韩国 🇰🇷',
+            countryFlag: '🇰🇷',
+            parentGroup: '韩国锦湖石化集团',
+            scale: '全球最大的合成橡胶生产商之一，合成橡胶产能世界第一梯队',
+            hub: '韩国首尔(总部)、中国上海、青岛',
+            tradeModel: '跨国海运集装箱直发、中国保税库分销配售、全球前十大轮胎厂核心采购',
+            highlight: '在轮胎用溶聚丁苯橡胶（SSBR）与丁腈手套原料胶乳（NB Latex）产能规模位居全球顶峰。',
+            description: '锦湖石化在合成橡胶工业界地位举足轻重。随着全球汽车工业对低滚阻节能绿色轮胎（新能源汽车专用胎）需求爆发，锦湖石化高阶SSBR与顺丁橡胶被米其林、韩泰、锦湖轮胎及中策橡胶等海内外巨头争相采纳，在青岛保税区常备大量现货以响应国内轮胎厂采购。',
+            varieties: ['丁苯橡胶 SBR / SSBR', '高顺式顺丁橡胶 BR', '丁腈橡胶 NBR', '丁腈胶乳 (手套用)'],
+            tags: ['韩国合成胶霸主', '全球SSBR龙头', '新能源汽车胎首选', '中国现货保税分销'],
+            website: 'https://www.kkpc.com/'
+          },
+          {
+            id: 'arlanxeo',
+            name: '阿朗新科 (ARLANXEO / 沙特阿美)',
+            nameEn: 'ARLANXEO (Aramco Group)',
+            ticker: '沙特阿美全资子公司',
+            category: '合成胶石化巨头',
+            categoryKey: 'SYNTHETIC',
+            country: '荷兰 / 沙特 🇳🇱',
+            countryFlag: '🇳🇱',
+            parentGroup: '沙特阿美 (Saudi Aramco)',
+            scale: '全球特种合成橡胶领军者，继承德国拜耳与朗盛近百年合成橡胶技术基因',
+            hub: '荷兰马斯特里赫特(全球总部)、中国常州、上海、新加坡',
+            tradeModel: '高端特种橡胶全球调配、轮胎气密层专用卤化丁基橡胶全球直销、技术定制',
+            highlight: '沙特阿美全资所有的全球高端弹性体旗舰，全球无内胎轮胎气密层卤化丁基橡胶绝对垄断力量。',
+            description: '阿朗新科（ARLANXEO）前身为德国拜耳（Bayer）与朗盛（Lanxess）的橡胶事业部，后由全球能源巨头沙特阿美全资收购。公司在常州拥有先进的三元乙丙橡胶（EPDM）装置，在新加坡和欧洲建有卤化丁基橡胶与钕系顺丁橡胶超级工厂，是全球轮胎与汽车工业不可替代的高端原料提供商。',
+            varieties: ['卤化丁基橡胶 (X_Butyl)', '钕系高顺式顺丁 (Nd-BR)', '三元乙丙橡胶 (Keltan EPDM)', '特种氯丁/氢化丁腈'],
+            tags: ['沙特阿美全资', '拜耳/朗盛血统', '气密层丁基胶霸主', '高端钕系顺丁'],
+            website: 'https://www.arlanxeo.com/'
+          }
+        ]);
+
+        const getCategoryName = (key) => {
+          const map = {
+            'SOE': '央企与国企巨头',
+            'GLOBAL': '国际跨国种植贸易巨头',
+            'FUTURES_RM': '期货期现/风险管理商',
+            'PRIVATE': '民营骨干现货商',
+            'TRADING_HOUSE': '国际综合商社 / 百年名行',
+            'SYNTHETIC': '合成橡胶与石化巨头'
+          };
+          return map[key] || key;
+        };
+
+        const getCategoryBadgeClass = (key) => {
+          switch (key) {
+            case 'SOE': return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30';
+            case 'GLOBAL': return 'bg-sky-500/10 text-sky-400 border border-sky-500/30';
+            case 'FUTURES_RM': return 'bg-purple-500/10 text-purple-400 border border-purple-500/30';
+            case 'PRIVATE': return 'bg-amber-500/10 text-amber-300 border border-amber-500/30';
+            case 'TRADING_HOUSE': return 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30';
+            case 'SYNTHETIC': return 'bg-rose-500/10 text-rose-400 border border-rose-500/30';
+            default: return 'bg-slate-800 text-slate-300';
+          }
+        };
+
+        const countByCategory = (key) => {
+          return traders.value.filter(t => t.categoryKey === key).length;
+        };
+
+        const filteredTraders = computed(() => {
+          return traders.value.filter(item => {
+            // Category filter
+            if (activeCategory.value !== 'ALL' && item.categoryKey !== activeCategory.value) {
+              return false;
+            }
+
+            // Country filter
+            if (selectedCountry.value !== 'ALL') {
+              if (selectedCountry.value === '中国' && !item.country.includes('中国')) return false;
+              if (selectedCountry.value === '新加坡' && !item.country.includes('新加坡')) return false;
+              if (selectedCountry.value === '泰国' && !item.country.includes('泰国')) return false;
+              if (selectedCountry.value === '日本' && !item.country.includes('日本')) return false;
+              if (selectedCountry.value === '欧洲' && !['德国', '英国', '法国', '荷兰', '欧洲'].some(e => item.country.includes(e))) return false;
+              if (selectedCountry.value === '西非' && !['科特迪瓦', '西非', '加蓬', '加纳'].some(e => item.country.includes(e))) return false;
+              if (selectedCountry.value === '韩国' && !item.country.includes('韩国')) return false;
+            }
+
+            // Variety filter
+            if (selectedVariety.value !== 'ALL') {
+              const v = selectedVariety.value;
+              const hasVariety = item.varieties.some(itemVar => {
+                if (v === 'RU') return itemVar.includes('RU') || itemVar.includes('全乳');
+                if (v === 'NR') return itemVar.includes('NR') || itemVar.includes('标胶') || itemVar.includes('TSR') || itemVar.includes('STR') || itemVar.includes('SIR') || itemVar.includes('SMR');
+                if (v === 'RSS') return itemVar.includes('烟胶') || itemVar.includes('RSS');
+                if (v === 'LATEX') return itemVar.includes('胶乳') || itemVar.includes('乳胶');
+                if (v === 'BR') return itemVar.includes('顺丁') || itemVar.includes('BR');
+                if (v === 'SBR') return itemVar.includes('丁苯') || itemVar.includes('SBR');
+                if (v === 'SPECIAL') return itemVar.includes('丁基') || itemVar.includes('特种') || itemVar.includes('弹性体') || itemVar.includes('EPDM');
+                return itemVar.includes(v);
+              });
+              if (!hasVariety) return false;
+            }
+
+            // Search query filter
+            if (searchQuery.value.trim() !== '') {
+              const q = searchQuery.value.trim().toLowerCase();
+              const matchName = item.name.toLowerCase().includes(q);
+              const matchEn = (item.nameEn || '').toLowerCase().includes(q);
+              const matchTicker = (item.ticker || '').toLowerCase().includes(q);
+              const matchHighlight = item.highlight.toLowerCase().includes(q);
+              const matchDesc = item.description.toLowerCase().includes(q);
+              const matchHub = item.hub.toLowerCase().includes(q);
+              const matchParent = (item.parentGroup || '').toLowerCase().includes(q);
+              const matchVarieties = item.varieties.some(v => v.toLowerCase().includes(q));
+              const matchTags = item.tags.some(t => t.toLowerCase().includes(q));
+
+              if (!matchName && !matchEn && !matchTicker && !matchHighlight && !matchDesc && !matchHub && !matchParent && !matchVarieties && !matchTags) {
+                return false;
+              }
+            }
+
+            return true;
+          });
+        });
+
+        const resetFilters = () => {
+          activeCategory.value = 'ALL';
+          selectedCountry.value = 'ALL';
+          selectedVariety.value = 'ALL';
+          searchQuery.value = '';
+        };
+
+        const openModal = (item) => {
+          modalItem.value = item;
+          document.body.style.overflow = 'hidden';
+        };
+
+        const closeModal = () => {
+          modalItem.value = null;
+          document.body.style.overflow = 'auto';
+        };
+
+        const copyTraderInfo = (item) => {
+          const text = `【橡胶贸易商】${item.name} (${item.nameEn || ''})\n分类: ${item.category} | 地区: ${item.country}\n核心定位: ${item.highlight}\n经营规模: ${item.scale}\n贸易集散地: ${item.hub}\n主营品种: ${item.varieties.join('、')}\n主要模式: ${item.tradeModel}`;
+          navigator.clipboard.writeText(text).then(() => {
+            alert(`已复制【${item.name}】的档案概要到剪贴板！`);
+          }).catch(() => {
+            alert('复制失败，请手动选择复制。');
+          });
+        };
+
+        const exportCSV = () => {
+          const headers = ['企业名称', '英文名称', '证券/企业代码', '所属分类', '国别/地区', '母公司/归属', '经营规模', '贸易集散地/口岸', '核心贸易模式', '核心优势与定位', '主营品种', '业务标签'];
+          const rows = filteredTraders.value.map(t => [
+            `"${t.name.replace(/"/g, '""')}"`,
+            `"${(t.nameEn || '').replace(/"/g, '""')}"`,
+            `"${(t.ticker || '').replace(/"/g, '""')}"`,
+            `"${t.category}"`,
+            `"${t.country}"`,
+            `"${(t.parentGroup || '').replace(/"/g, '""')}"`,
+            `"${t.scale.replace(/"/g, '""')}"`,
+            `"${t.hub.replace(/"/g, '""')}"`,
+            `"${t.tradeModel.replace(/"/g, '""')}"`,
+            `"${t.highlight.replace(/"/g, '""')}"`,
+            `"${t.varieties.join('; ')}"`,
+            `"${t.tags.join('; ')}"`
+          ]);
+          const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.setAttribute('href', url);
+          link.setAttribute('download', `全球与中国主流橡胶贸易商名录_${new Date().toISOString().slice(0,10)}.csv`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        };
+
+        return {
+          activeCategory,
+          selectedCountry,
+          selectedVariety,
+          searchQuery,
+          viewMode,
+          modalItem,
+          traders,
+          filteredTraders,
+          getCategoryName,
+          getCategoryBadgeClass,
+          countByCategory,
+          resetFilters,
+          openModal,
+          closeModal,
+          copyTraderInfo,
+          exportCSV
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

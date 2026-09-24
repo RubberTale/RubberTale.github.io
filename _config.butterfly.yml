@@ -36,6 +36,7 @@ menu:
     期货投研导航: /futures-nav/ || fas fa-compass
     基差价差套利: /tools/arbitrage-calc/ || fas fa-calculator
     橡胶交割品牌: /tools/delivery-brands/ || fas fa-stamp
+    橡胶贸易商: /tools/rubber-traders/ || fas fa-handshake
     凯利仓位测算: /tools/position-calculator/ || fas fa-calculator
     产区气象物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
     卫星云图观察: /rubber/weather_forecast/ || fas fa-satellite

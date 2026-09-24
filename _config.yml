@@ -52,6 +52,7 @@ skip_render:
   - "tools/resume/**"
   - "tools/arbitrage-calc/**"
   - "tools/delivery-brands/**"
+  - "tools/rubber-traders/**"
   - "tools/position-calculator/**"
   - "tools/rubber-weather-calendar/**"
   - "tools/report-data-diff/**"
