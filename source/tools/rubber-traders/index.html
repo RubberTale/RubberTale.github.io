@@ -96,38 +96,38 @@
             <span>全球与中国主流橡胶贸易商名录</span>
           </h1>
           <p class="mt-2.5 text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
-            全面汇集中国央企与大型国有供应链巨头、跨国种植与分销集团、顶级期货风险管理子公司（期现商）、保税区骨干民营现货商、国际综合商社及石化合成橡胶统销巨头。支持多维筛选、网格陈列、经营品种与商业模式透视。
+            全面汇集中国央企与大型国有供应链巨头、跨国种植与分销集团、顶级期货风险管理子公司（期现商）、保税区骨干民营现货商、国际综合商社及石化合成橡胶统销巨头。支持分类汇总、分组折叠、多维筛选与商业模式透视。
           </p>
         </div>
 
         <!-- Quick Summary Stats -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-center shrink-0">
-          <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-2.5">
+          <div @click="activeCategory = 'ALL'" class="bg-slate-900/80 hover:bg-slate-800/80 border border-slate-800 rounded-xl p-2.5 cursor-pointer transition">
             <div class="text-[11px] text-slate-400">总收录贸易商</div>
             <div class="text-lg font-bold text-white font-mono">{{ traders.length }}</div>
             <div class="text-[10px] text-emerald-400">涵盖全产业链</div>
           </div>
-          <div class="bg-slate-900/80 border border-emerald-500/30 bg-emerald-500/5 rounded-xl p-2.5">
+          <div @click="activeCategory = 'SOE'; scrollToCategory('SOE')" class="bg-slate-900/80 hover:bg-emerald-950/30 border border-emerald-500/30 bg-emerald-500/5 rounded-xl p-2.5 cursor-pointer transition">
             <div class="text-[11px] text-emerald-300">央国企供应链</div>
             <div class="text-lg font-bold text-emerald-400 font-mono">{{ countByCategory('SOE') }}</div>
             <div class="text-[10px] text-slate-400">百亿/千亿级体量</div>
           </div>
-          <div class="bg-slate-900/80 border border-sky-500/30 bg-sky-500/5 rounded-xl p-2.5">
+          <div @click="activeCategory = 'GLOBAL'; scrollToCategory('GLOBAL')" class="bg-slate-900/80 hover:bg-sky-950/30 border border-sky-500/30 bg-sky-500/5 rounded-xl p-2.5 cursor-pointer transition">
             <div class="text-[11px] text-sky-300">国际跨国巨头</div>
             <div class="text-lg font-bold text-sky-400 font-mono">{{ countByCategory('GLOBAL') }}</div>
             <div class="text-[10px] text-slate-400">泰马印非全覆盖</div>
           </div>
-          <div class="bg-slate-900/80 border border-purple-500/30 bg-purple-500/5 rounded-xl p-2.5">
+          <div @click="activeCategory = 'FUTURES_RM'; scrollToCategory('FUTURES_RM')" class="bg-slate-900/80 hover:bg-purple-950/30 border border-purple-500/30 bg-purple-500/5 rounded-xl p-2.5 cursor-pointer transition">
             <div class="text-[11px] text-purple-300">期货期现/风管商</div>
             <div class="text-lg font-bold text-purple-400 font-mono">{{ countByCategory('FUTURES_RM') }}</div>
             <div class="text-[10px] text-slate-400">基差与做市核心</div>
           </div>
-          <div class="bg-slate-900/80 border border-amber-500/30 bg-amber-500/5 rounded-xl p-2.5">
+          <div @click="activeCategory = 'PRIVATE'; scrollToCategory('PRIVATE')" class="bg-slate-900/80 hover:bg-amber-950/30 border border-amber-500/30 bg-amber-500/5 rounded-xl p-2.5 cursor-pointer transition">
             <div class="text-[11px] text-amber-300">保税民营现货商</div>
             <div class="text-lg font-bold text-amber-400 font-mono">{{ countByCategory('PRIVATE') }}</div>
             <div class="text-[10px] text-slate-400">青岛/华东骨干</div>
           </div>
-          <div class="bg-slate-900/80 border border-rose-500/30 bg-rose-500/5 rounded-xl p-2.5">
+          <div @click="activeCategory = 'SYNTHETIC'; scrollToCategory('SYNTHETIC')" class="bg-slate-900/80 hover:bg-rose-950/30 border border-rose-500/30 bg-rose-500/5 rounded-xl p-2.5 cursor-pointer transition">
             <div class="text-[11px] text-rose-300">商社与石化统销</div>
             <div class="text-lg font-bold text-rose-400 font-mono">{{ countByCategory('TRADING_HOUSE') + countByCategory('SYNTHETIC') }}</div>
             <div class="text-[10px] text-slate-400">日韩商社/合成胶</div>
@@ -136,8 +136,64 @@
       </div>
     </div>
 
+    <!-- Executive Industry Category Matrix (六大核心阵营分类汇总与定位看板) -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 mb-6 shadow-xl backdrop-blur-sm">
+      <div class="flex items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-2">
+          <span class="text-base text-emerald-400 font-bold">📑</span>
+          <h2 class="text-sm sm:text-base font-bold text-white tracking-tight">大宗橡胶流通市场 · 六大阵营分类汇总与产业定位</h2>
+        </div>
+        <div class="flex items-center space-x-2 text-xs">
+          <button @click="expandAll" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+            全部展开
+          </button>
+          <button @click="collapseAll" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+            全部收起
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <div 
+          v-for="cat in categoriesConfig" 
+          :key="cat.key"
+          @click="scrollToCategory(cat.key)"
+          class="bg-slate-950/70 hover:bg-slate-950 border border-slate-800/80 hover:border-slate-700 rounded-xl p-3.5 cursor-pointer transition-all duration-200 group flex flex-col justify-between relative overflow-hidden"
+          :class="activeCategory === cat.key ? 'ring-1 ring-emerald-500/50' : ''">
+          
+          <div class="absolute top-0 left-0 right-0 h-0.5" :class="cat.barClass"></div>
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">{{ cat.icon }}</span>
+                <span class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">{{ cat.name }}</span>
+              </div>
+              <span class="text-xs px-2 py-0.5 rounded-full font-mono font-bold" :class="cat.badgeClass">
+                {{ countByCategory(cat.key) }} 家
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed mb-3">{{ cat.summary }}</p>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px]">
+            <div class="flex flex-wrap gap-1">
+              <span v-for="t in cat.coreTraits.slice(0, 2)" :key="t" class="px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">
+                {{ t }}
+              </span>
+            </div>
+            <span class="text-emerald-400 font-medium group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5">
+              直达板块
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- Category Tabs Navigation -->
-    <div class="flex flex-wrap items-center gap-2 pb-4 pt-2">
+    <div class="flex flex-wrap items-center gap-2 pb-4 pt-1">
       <button 
         @click="activeCategory = 'ALL'"
         :class="activeCategory === 'ALL' ? 'bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-900/40' : 'bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-slate-200 border border-slate-800'"
@@ -244,14 +300,14 @@
           </select>
         </div>
 
-        <!-- View Switcher (Grid vs Table) -->
+        <!-- View Switcher (Grid vs Table & Grouped vs Flat) -->
         <div class="md:col-span-2 flex justify-end space-x-1">
           <button 
             @click="viewMode = 'grid'" 
             :class="viewMode === 'grid' ? 'bg-slate-800 text-emerald-400 border-emerald-500/40' : 'bg-slate-950 text-slate-400 hover:text-slate-200 border-slate-800'"
-            class="p-2 rounded-lg border text-sm transition" title="网格卡片视图">
+            class="p-2 rounded-lg border text-sm transition" title="卡片网格模式">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
             </svg>
           </button>
           <button 
@@ -289,6 +345,27 @@
       </div>
     </div>
 
+    <!-- Quick Section Anchor Jump Bar (when in Grid View) -->
+    <div v-if="viewMode === 'grid' && activeGroups.length > 1" class="flex flex-wrap items-center justify-between gap-3 mb-6 px-1">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs text-slate-400 font-medium">快速直达分类板块：</span>
+        <button 
+          v-for="grp in activeGroups" 
+          :key="grp.key"
+          @click="scrollToCategory(grp.key)"
+          class="px-2.5 py-1 rounded-lg text-xs bg-slate-900/90 hover:bg-slate-800 text-slate-300 border border-slate-800 transition flex items-center gap-1.5">
+          <span>{{ grp.icon }}</span>
+          <span>{{ grp.shortName }}</span>
+          <span class="text-[10px] px-1.5 py-0.2 rounded-full font-mono" :class="grp.badgeClass">{{ grp.count }}</span>
+        </button>
+      </div>
+      <div class="flex items-center space-x-2 text-xs">
+        <button @click="expandAll" class="text-slate-400 hover:text-slate-200 transition">全部展开</button>
+        <span class="text-slate-700">|</span>
+        <button @click="collapseAll" class="text-slate-400 hover:text-slate-200 transition">全部收起</button>
+      </div>
+    </div>
+
     <!-- Empty State -->
     <div v-if="filteredTraders.length === 0" class="text-center py-16 bg-slate-900/40 rounded-2xl border border-slate-800 my-8">
       <div class="inline-flex p-3 rounded-full bg-slate-800 text-slate-400 mb-3">
@@ -303,109 +380,148 @@
       </button>
     </div>
 
-    <!-- VIEW 1: Grid Cards View (网格陈列) -->
-    <div v-if="viewMode === 'grid' && filteredTraders.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+    <!-- VIEW 1: Categorized Grouped Grid View (分类汇总板块网格陈列) -->
+    <div v-if="viewMode === 'grid' && activeGroups.length > 0" class="space-y-10 mb-12">
+      
       <div 
-        v-for="item in filteredTraders" 
-        :key="item.id"
-        @click="openModal(item)"
-        class="bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-lg hover:shadow-xl relative overflow-hidden">
+        v-for="group in activeGroups" 
+        :key="group.key" 
+        :id="'sec-' + group.key"
+        class="scroll-mt-6">
         
-        <!-- Top Accent Border Indicator -->
-        <div class="absolute top-0 left-0 right-0 h-1" 
-             :class="{
-               'bg-emerald-500': item.categoryKey === 'SOE',
-               'bg-sky-500': item.categoryKey === 'GLOBAL',
-               'bg-purple-500': item.categoryKey === 'FUTURES_RM',
-               'bg-amber-500': item.categoryKey === 'PRIVATE',
-               'bg-indigo-500': item.categoryKey === 'TRADING_HOUSE',
-               'bg-rose-500': item.categoryKey === 'SYNTHETIC'
-             }"></div>
-
-        <div>
-          <!-- Header Badges -->
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 rounded-md text-[11px] font-bold font-mono tracking-tight"
-                    :class="getCategoryBadgeClass(item.categoryKey)">
-                {{ item.category }}
-              </span>
-              <span class="text-xs text-slate-400 flex items-center gap-1 font-medium">
-                <span>{{ item.countryFlag }}</span>
-                <span>{{ item.country }}</span>
-              </span>
-            </div>
-
-            <!-- Ticker or Short Tag -->
-            <span v-if="item.ticker" class="text-[11px] px-2 py-0.5 rounded font-mono font-medium bg-slate-800 text-slate-300 border border-slate-700/60">
-              {{ item.ticker }}
-            </span>
-          </div>
-
-          <!-- Company Name -->
-          <div class="mb-3">
-            <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-2">
-              <span>{{ item.name }}</span>
-            </h3>
-            <p class="text-xs text-slate-400 font-mono line-clamp-1 mt-0.5" :title="item.nameEn">{{ item.nameEn }}</p>
-          </div>
-
-          <!-- Slogan / Core Highlight -->
-          <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-2.5 mb-3 text-xs text-slate-300 leading-relaxed">
-            <span class="text-emerald-400 font-semibold mr-1">✦</span>
-            <span>{{ item.highlight }}</span>
-          </div>
-
-          <!-- Key Details Grid -->
-          <div class="space-y-2 text-xs">
-            <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
-              <span class="shrink-0 text-slate-400">经营规模</span>
-              <span class="font-medium text-slate-200 text-right ml-2">{{ item.scale }}</span>
-            </div>
-            <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
-              <span class="shrink-0 text-slate-400">贸易集散地</span>
-              <span class="text-slate-300 text-right ml-2 truncate max-w-[200px]" :title="item.hub">{{ item.hub }}</span>
-            </div>
-            <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
-              <span class="shrink-0 text-slate-400">主要模式</span>
-              <span class="text-emerald-400/90 text-right ml-2 font-medium">{{ item.tradeModel }}</span>
+        <!-- Category Section Header Banner -->
+        <div class="bg-gradient-to-r rounded-2xl p-4 sm:p-5 border mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-lg backdrop-blur-sm"
+             :class="group.headerBg">
+          
+          <div class="flex items-start sm:items-center space-x-3.5">
+            <span class="text-2xl sm:text-3xl p-2 rounded-xl bg-slate-950/70 border border-slate-800/80 shrink-0">{{ group.icon }}</span>
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight">{{ group.name }}</h2>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold" :class="group.badgeClass">
+                  已收录 {{ group.count }} 家
+                </span>
+                <span v-if="searchQuery || selectedCountry !== 'ALL' || selectedVariety !== 'ALL'" class="text-[11px] text-slate-400 font-mono">
+                  (总库 {{ group.totalCount }} 家)
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-3xl leading-relaxed">{{ group.summary }}</p>
             </div>
           </div>
 
-          <!-- Traded Varieties Pills -->
-          <div class="mt-3.5 pt-3 border-t border-slate-800/80">
-            <div class="text-[11px] text-slate-400 mb-1.5 flex items-center justify-between">
-              <span>核心经营品种</span>
-              <span class="text-[10px] text-slate-400 font-mono">{{ item.varieties.length }} 个品类</span>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <span v-for="v in item.varieties" :key="v" class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800/90 text-slate-300 border border-slate-700/50">
-                {{ v }}
-              </span>
-            </div>
+          <!-- Section Controls -->
+          <div class="flex items-center space-x-2 shrink-0 self-end md:self-center">
+            <button 
+              @click="toggleCollapse(group.key)" 
+              class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 transition flex items-center gap-1.5">
+              <span>{{ isCollapsed(group.key) ? '展开本组 (' + group.count + ')' : '收起本组' }}</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="isCollapsed(group.key) ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
           </div>
+
         </div>
 
-        <!-- Card Footer -->
-        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-          <div class="flex flex-wrap gap-1">
-            <span v-for="tag in item.tags.slice(0, 2)" :key="tag" class="text-[10px] text-slate-400 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">
-              #{{ tag }}
-            </span>
+        <!-- Cards Grid in Current Category -->
+        <div v-show="!isCollapsed(group.key)" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div 
+            v-for="item in group.list" 
+            :key="item.id"
+            @click="openModal(item)"
+            class="bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 transition-all duration-200 cursor-pointer flex flex-col justify-between group shadow-lg hover:shadow-xl relative overflow-hidden">
+            
+            <!-- Top Accent Border Indicator -->
+            <div class="absolute top-0 left-0 right-0 h-1" :class="group.barClass"></div>
+
+            <div>
+              <!-- Header Badges -->
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="px-2 py-0.5 rounded-md text-[11px] font-bold font-mono tracking-tight"
+                        :class="getCategoryBadgeClass(item.categoryKey)">
+                    {{ item.category }}
+                  </span>
+                  <span class="text-xs text-slate-400 flex items-center gap-1 font-medium">
+                    <span>{{ item.countryFlag }}</span>
+                    <span>{{ item.country }}</span>
+                  </span>
+                </div>
+
+                <!-- Ticker or Short Tag -->
+                <span v-if="item.ticker" class="text-[11px] px-2 py-0.5 rounded font-mono font-medium bg-slate-800 text-slate-300 border border-slate-700/60">
+                  {{ item.ticker }}
+                </span>
+              </div>
+
+              <!-- Company Name -->
+              <div class="mb-3">
+                <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+                  <span>{{ item.name }}</span>
+                </h3>
+                <p class="text-xs text-slate-400 font-mono line-clamp-1 mt-0.5" :title="item.nameEn">{{ item.nameEn }}</p>
+              </div>
+
+              <!-- Slogan / Core Highlight -->
+              <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-2.5 mb-3 text-xs text-slate-300 leading-relaxed">
+                <span class="text-emerald-400 font-semibold mr-1">✦</span>
+                <span>{{ item.highlight }}</span>
+              </div>
+
+              <!-- Key Details Grid -->
+              <div class="space-y-2 text-xs">
+                <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
+                  <span class="shrink-0 text-slate-400">经营规模</span>
+                  <span class="font-medium text-slate-200 text-right ml-2">{{ item.scale }}</span>
+                </div>
+                <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
+                  <span class="shrink-0 text-slate-400">贸易集散地</span>
+                  <span class="text-slate-300 text-right ml-2 truncate max-w-[200px]" :title="item.hub">{{ item.hub }}</span>
+                </div>
+                <div class="flex items-start justify-between text-slate-400 py-1 border-t border-slate-800/60">
+                  <span class="shrink-0 text-slate-400">主要模式</span>
+                  <span class="text-emerald-400/90 text-right ml-2 font-medium">{{ item.tradeModel }}</span>
+                </div>
+              </div>
+
+              <!-- Traded Varieties Pills -->
+              <div class="mt-3.5 pt-3 border-t border-slate-800/80">
+                <div class="text-[11px] text-slate-400 mb-1.5 flex items-center justify-between">
+                  <span>核心经营品种</span>
+                  <span class="text-[10px] text-slate-400 font-mono">{{ item.varieties.length }} 个品类</span>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <span v-for="v in item.varieties" :key="v" class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800/90 text-slate-300 border border-slate-700/50">
+                    {{ v }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+              <div class="flex flex-wrap gap-1">
+                <span v-for="tag in item.tags.slice(0, 2)" :key="tag" class="text-[10px] text-slate-400 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">
+                  #{{ tag }}
+                </span>
+              </div>
+              <span class="inline-flex items-center text-emerald-400 font-medium group-hover:translate-x-0.5 transition-transform text-xs">
+                查看详情
+                <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </span>
+            </div>
+
           </div>
-          <span class="inline-flex items-center text-emerald-400 font-medium group-hover:translate-x-0.5 transition-transform text-xs">
-            查看详情
-            <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-          </span>
         </div>
 
       </div>
+
     </div>
 
-    <!-- VIEW 2: Table View (紧凑明细表格) -->
-    <div v-if="viewMode === 'table' && filteredTraders.length > 0" class="overflow-x-auto bg-slate-900/80 border border-slate-800 rounded-2xl mb-12 shadow-xl">
+    <!-- VIEW 2: Categorized Table View (紧凑明细表格) -->
+    <div v-if="viewMode === 'table' && activeGroups.length > 0" class="overflow-x-auto bg-slate-900/80 border border-slate-800 rounded-2xl mb-12 shadow-xl">
       <table class="w-full text-left text-xs text-slate-300">
-        <thead class="bg-slate-950/80 text-slate-400 font-medium border-b border-slate-800 uppercase tracking-wider text-[11px]">
+        <thead class="bg-slate-950/90 text-slate-400 font-medium border-b border-slate-800 uppercase tracking-wider text-[11px] sticky top-0 z-10 backdrop-blur-md">
           <tr>
             <th class="py-3 px-4">贸易商名称</th>
             <th class="py-3 px-3">所属类别</th>
@@ -418,42 +534,59 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-slate-800/60 font-normal">
-          <tr v-for="item in filteredTraders" :key="item.id" @click="openModal(item)" class="hover:bg-slate-800/40 cursor-pointer transition">
-            <td class="py-3 px-4">
-              <div class="font-bold text-white text-sm flex items-center gap-1.5">
-                <span>{{ item.name }}</span>
-                <span v-if="item.ticker" class="text-[10px] font-mono px-1.5 py-0.2 bg-slate-800 text-slate-300 rounded">{{ item.ticker }}</span>
-              </div>
-              <div class="text-[11px] text-slate-400 font-mono">{{ item.nameEn }}</div>
-            </td>
-            <td class="py-3 px-3">
-              <span class="px-2 py-0.5 rounded text-[11px] font-medium" :class="getCategoryBadgeClass(item.categoryKey)">
-                {{ item.category }}
-              </span>
-            </td>
-            <td class="py-3 px-3">
-              <span class="flex items-center gap-1">
-                <span>{{ item.countryFlag }}</span>
-                <span>{{ item.country }}</span>
-              </span>
-            </td>
-            <td class="py-3 px-4 max-w-[220px]">
-              <div class="flex flex-wrap gap-1">
-                <span v-for="v in item.varieties.slice(0, 3)" :key="v" class="px-1.5 py-0.2 rounded text-[10px] bg-slate-800 text-slate-300">
-                  {{ v }}
+          <template v-for="grp in activeGroups" :key="grp.key">
+            <!-- Group Header Row in Table -->
+            <tr class="bg-slate-950/90 border-t-2 border-slate-800 font-bold text-slate-200">
+              <td colspan="8" class="py-2.5 px-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-2">
+                    <span>{{ grp.icon }}</span>
+                    <span>{{ grp.name }}</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full font-mono font-normal" :class="grp.badgeClass">{{ grp.count }} 家</span>
+                  </div>
+                  <span class="text-xs text-slate-400 font-normal hidden sm:inline">{{ grp.summary }}</span>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Group Item Rows -->
+            <tr v-for="item in grp.list" :key="item.id" @click="openModal(item)" class="hover:bg-slate-800/40 cursor-pointer transition">
+              <td class="py-3 px-4">
+                <div class="font-bold text-white text-sm flex items-center gap-1.5">
+                  <span>{{ item.name }}</span>
+                  <span v-if="item.ticker" class="text-[10px] font-mono px-1.5 py-0.2 bg-slate-800 text-slate-300 rounded">{{ item.ticker }}</span>
+                </div>
+                <div class="text-[11px] text-slate-400 font-mono">{{ item.nameEn }}</div>
+              </td>
+              <td class="py-3 px-3">
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium" :class="getCategoryBadgeClass(item.categoryKey)">
+                  {{ item.category }}
                 </span>
-                <span v-if="item.varieties.length > 3" class="text-[10px] text-slate-400">+{{ item.varieties.length - 3 }}</span>
-              </div>
-            </td>
-            <td class="py-3 px-4 max-w-[180px] truncate" :title="item.hub">{{ item.hub }}</td>
-            <td class="py-3 px-4 text-emerald-400 font-medium">{{ item.tradeModel }}</td>
-            <td class="py-3 px-4 text-slate-300">{{ item.scale }}</td>
-            <td class="py-3 px-3 text-right">
-              <button @click.stop="openModal(item)" class="px-2.5 py-1 bg-slate-800 hover:bg-emerald-600 hover:text-white rounded text-xs text-slate-300 transition">
-                详情
-              </button>
-            </td>
-          </tr>
+              </td>
+              <td class="py-3 px-3">
+                <span class="flex items-center gap-1">
+                  <span>{{ item.countryFlag }}</span>
+                  <span>{{ item.country }}</span>
+                </span>
+              </td>
+              <td class="py-3 px-4 max-w-[220px]">
+                <div class="flex flex-wrap gap-1">
+                  <span v-for="v in item.varieties.slice(0, 3)" :key="v" class="px-1.5 py-0.2 rounded text-[10px] bg-slate-800 text-slate-300">
+                    {{ v }}
+                  </span>
+                  <span v-if="item.varieties.length > 3" class="text-[10px] text-slate-400">+{{ item.varieties.length - 3 }}</span>
+                </div>
+              </td>
+              <td class="py-3 px-4 max-w-[180px] truncate" :title="item.hub">{{ item.hub }}</td>
+              <td class="py-3 px-4 text-emerald-400 font-medium">{{ item.tradeModel }}</td>
+              <td class="py-3 px-4 text-slate-300">{{ item.scale }}</td>
+              <td class="py-3 px-3 text-right">
+                <button @click.stop="openModal(item)" class="px-2.5 py-1 bg-slate-800 hover:bg-emerald-600 hover:text-white rounded text-xs text-slate-300 transition">
+                  详情
+                </button>
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -629,6 +762,82 @@
         const searchQuery = ref('');
         const viewMode = ref('grid');
         const modalItem = ref(null);
+        const collapsedMap = ref({});
+
+        const categoriesConfig = [
+          {
+            key: 'SOE',
+            name: '央企与大型国有供应链巨头',
+            shortName: '央国企供应链',
+            icon: '🇨🇳',
+            accentColor: 'emerald',
+            badgeClass: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30',
+            barClass: 'bg-emerald-500',
+            headerBg: 'from-emerald-950/60 via-slate-900 to-slate-900 border-emerald-500/30',
+            summary: '资金资信实力雄厚、信用额度充沛，主导青岛保税区美金胶与国内大宗供应链分销，上期所交割厂库与仓单配供主力。',
+            coreTraits: ['万吨级现货吞吐', '保税美金转口', '上期所交割厂库', '央企大宗资信']
+          },
+          {
+            key: 'GLOBAL',
+            name: '国际跨国种植贸易巨头',
+            shortName: '国际跨国巨头',
+            icon: '🌍',
+            accentColor: 'sky',
+            badgeClass: 'bg-sky-500/10 text-sky-400 border border-sky-500/30',
+            barClass: 'bg-sky-500',
+            headerBg: 'from-sky-950/60 via-slate-900 to-slate-900 border-sky-500/30',
+            summary: '掌控东南亚及西非源头数万公顷胶园与现代化加工厂，全球轮胎十强长协一级直供商，主导欧盟EUDR绿色零毁林合规标准。',
+            coreTraits: ['东南亚/西非源头胶园', '全球轮胎厂长协直供', 'EUDR零毁林溯源', '数字交易平台']
+          },
+          {
+            key: 'FUTURES_RM',
+            name: '期货期现商 / 风险管理子公司',
+            shortName: '期货期现风管',
+            icon: '📈',
+            accentColor: 'purple',
+            badgeClass: 'bg-purple-500/10 text-purple-400 border border-purple-500/30',
+            barClass: 'bg-purple-500',
+            headerBg: 'from-purple-950/60 via-slate-900 to-slate-900 border-purple-500/30',
+            summary: '金融衍生品对冲与基差定价引领者，交易所核心做市商，开创基差一口价转换、月间价差套利、仓单回购与“保险+期货”。',
+            coreTraits: ['主力合约双边做市', '期现基差连续报价', '场外期权与含权贸易', '仓单质押与交割']
+          },
+          {
+            key: 'PRIVATE',
+            name: '保税区与华东民营骨干现货商',
+            shortName: '保税民营现货',
+            icon: '🏪',
+            accentColor: 'amber',
+            badgeClass: 'bg-amber-500/10 text-amber-300 border border-amber-500/30',
+            barClass: 'bg-amber-500',
+            headerBg: 'from-amber-950/60 via-slate-900 to-slate-900 border-amber-500/30',
+            summary: '深耕青岛保税港区与山东东营广饶轮胎腹地数十年，机制灵活高效，主打车板自提、现款现货调剂与口岸清关直配。',
+            coreTraits: ['青岛保税区现货王', '广饶专线门到门直配', '现款现货极速流转', '口岸报关通关']
+          },
+          {
+            key: 'TRADING_HOUSE',
+            name: '国际综合商社 / 百年名行',
+            shortName: '国际商社名行',
+            icon: '🌐',
+            accentColor: 'indigo',
+            badgeClass: 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30',
+            barClass: 'bg-indigo-500',
+            headerBg: 'from-indigo-950/60 via-slate-900 to-slate-900 border-indigo-500/30',
+            summary: '日欧百年商社底蕴，汽车工业及移动出行产业链深度协同，专精特种高性能弹性体、区块链溯源与欧洲恒温保税仓配。',
+            coreTraits: ['日韩欧美百年商社', '汽车移动出行链协同', '特种高性能弹性体', '欧洲恒温保税库']
+          },
+          {
+            key: 'SYNTHETIC',
+            name: '合成橡胶与石化统销巨头',
+            shortName: '合成胶石化巨头',
+            icon: '🧪',
+            accentColor: 'rose',
+            badgeClass: 'bg-rose-500/10 text-rose-400 border border-rose-500/30',
+            barClass: 'bg-rose-500',
+            headerBg: 'from-rose-950/60 via-slate-900 to-slate-900 border-rose-500/30',
+            summary: '掌控国内外顺丁（BR9000）、丁苯（SBR/SSBR）及轮胎气密层卤化丁基橡胶统销统配、保税分销与期货交割厂库。',
+            coreTraits: ['世界级合成胶装置统销', '顺丁BR期货注册品牌', '低滚阻绿色轮胎SSBR', '气密层卤化丁基']
+          }
+        ];
 
         // 43家代表性橡胶贸易商全量数据集
         const traders = ref([
@@ -1463,31 +1672,43 @@
         ]);
 
         const getCategoryName = (key) => {
-          const map = {
-            'SOE': '央企与国企巨头',
-            'GLOBAL': '国际跨国种植贸易巨头',
-            'FUTURES_RM': '期货期现/风险管理商',
-            'PRIVATE': '民营骨干现货商',
-            'TRADING_HOUSE': '国际综合商社 / 百年名行',
-            'SYNTHETIC': '合成橡胶与石化巨头'
-          };
-          return map[key] || key;
+          const cat = categoriesConfig.find(c => c.key === key);
+          return cat ? cat.name : key;
         };
 
         const getCategoryBadgeClass = (key) => {
-          switch (key) {
-            case 'SOE': return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30';
-            case 'GLOBAL': return 'bg-sky-500/10 text-sky-400 border border-sky-500/30';
-            case 'FUTURES_RM': return 'bg-purple-500/10 text-purple-400 border border-purple-500/30';
-            case 'PRIVATE': return 'bg-amber-500/10 text-amber-300 border border-amber-500/30';
-            case 'TRADING_HOUSE': return 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30';
-            case 'SYNTHETIC': return 'bg-rose-500/10 text-rose-400 border border-rose-500/30';
-            default: return 'bg-slate-800 text-slate-300';
-          }
+          const cat = categoriesConfig.find(c => c.key === key);
+          return cat ? cat.badgeClass : 'bg-slate-800 text-slate-300';
         };
 
         const countByCategory = (key) => {
           return traders.value.filter(t => t.categoryKey === key).length;
+        };
+
+        const isCollapsed = (key) => {
+          return !!collapsedMap.value[key];
+        };
+
+        const toggleCollapse = (key) => {
+          collapsedMap.value[key] = !collapsedMap.value[key];
+        };
+
+        const expandAll = () => {
+          collapsedMap.value = {};
+        };
+
+        const collapseAll = () => {
+          categoriesConfig.forEach(c => {
+            collapsedMap.value[c.key] = true;
+          });
+        };
+
+        const scrollToCategory = (key) => {
+          collapsedMap.value[key] = false;
+          const el = document.getElementById('sec-' + key);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         };
 
         const filteredTraders = computed(() => {
@@ -1544,6 +1765,22 @@
 
             return true;
           });
+        });
+
+        // Grouped traders computed for section rendering
+        const activeGroups = computed(() => {
+          return categoriesConfig.map(cat => {
+            let list = filteredTraders.value.filter(t => t.categoryKey === cat.key);
+            if (activeCategory.value !== 'ALL' && activeCategory.value !== cat.key) {
+              list = [];
+            }
+            return {
+              ...cat,
+              list,
+              count: list.length,
+              totalCount: traders.value.filter(t => t.categoryKey === cat.key).length
+            };
+          }).filter(g => g.count > 0);
         });
 
         const resetFilters = () => {
@@ -1606,11 +1843,18 @@
           searchQuery,
           viewMode,
           modalItem,
+          categoriesConfig,
           traders,
           filteredTraders,
+          activeGroups,
           getCategoryName,
           getCategoryBadgeClass,
           countByCategory,
+          isCollapsed,
+          toggleCollapse,
+          expandAll,
+          collapseAll,
+          scrollToCategory,
           resetFilters,
           openModal,
           closeModal,
