@@ -19,42 +19,43 @@ nav:
 
 menu:
   首页: / || fas fa-home
-  归档: /archives/ || fas fa-archive
-  分类: /categories/ || fas fa-folder-open
-  标签: /tags/ || fas fa-tags
-  期货导航: /futures-nav/ || fas fa-compass
-  图表: /charts/ || fas fa-chart-bar
-  橡胶主要数据图表: /powerbi/ || fas fa-chart-pie
-  赞赏支持: /sponsor/ || fas fa-coffee
-  游戏: /games/ || fas fa-gamepad
-  燕园叽喳: https://pkuai.run.place/forum/ || fas fa-comments
-  小工具 || fas fa-tools:
-    多品种次日触发量化跟踪器: /tools/strategy-tracker/ || fas fa-crosshairs
-    商品套利策略综合看板: /tools/arb-tracker/ || fas fa-balance-scale
-    小工具箱: /tools/ || fas fa-toolbox
-    全品种 K 线复盘: /tools/kline-combo/ || fas fa-chart-candlestick
+  文章文库 || fas fa-book-open:
+    文章归档: /archives/ || fas fa-archive
+    分类索引: /categories/ || fas fa-folder-open
+    标签墙: /tags/ || fas fa-tags
+    精选图表: /charts/ || fas fa-chart-bar
+  投研看板 || fas fa-chart-line:
     期货投研导航: /futures-nav/ || fas fa-compass
+    多品种量化跟踪: /tools/strategy-tracker/ || fas fa-crosshairs
+    商品套利策略看板: /tools/arb-tracker/ || fas fa-balance-scale
+    全品种 K 线复盘: /tools/kline-combo/ || fas fa-chart-candlestick
     基差价差套利: /tools/arbitrage-calc/ || fas fa-calculator
-    橡胶交割品牌: /tools/delivery-brands/ || fas fa-stamp
-    橡胶贸易商: /tools/rubber-traders/ || fas fa-handshake
     凯利仓位测算: /tools/position-calculator/ || fas fa-calculator
-    产区气象物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
-    卫星云图观察: /rubber/weather_forecast/ || fas fa-satellite
     研报平衡表比对: /tools/report-data-diff/ || fas fa-file-invoice
+    美联储利率预期: /tools/fed-data-card/ || fas fa-percent
+    奇货可查: https://qhkch.com/ || fas fa-external-link-alt
+  橡胶产业 || fas fa-tree:
+    橡胶贸易商名录: /tools/rubber-traders/ || fas fa-handshake
+    橡胶交割品牌: /tools/delivery-brands/ || fas fa-stamp
+    橡胶主要数据图表: /powerbi/ || fas fa-chart-pie
+    产区气象与物候: /tools/rubber-weather-calendar/ || fas fa-cloud-sun-rain
+    重点产区卫星云图: /rubber/weather_forecast/ || fas fa-satellite
+  实用工坊 || fas fa-toolbox:
+    小工具箱总览: /tools/ || fas fa-th-large
+    问问这个博客: /tools/blog-chat/ || fas fa-comment-dots
+    WriteBuddy 写作智匠: /tools/article-craft/ || fas fa-feather
+    智能简历工坊: /tools/resume/ || fas fa-file-alt
+    语音智坊 (TTS): /tools/edge-tts/ || fas fa-microphone-alt
+    AI写真工坊: /tools/pic-6varieties/ || fas fa-camera
+    AI漫画头像: /tools/comic-avatar/ || fas fa-magic
+    文本倒序转换: /tools/reverse-app/ || fas fa-repeat
+  探索与更多 || fas fa-compass:
     罗马历史地图: /roman/ || fas fa-map-marked-alt
     世界史对照地图: /world-history/ || fas fa-globe-asia
     欧洲王室谱系: /royal-genealogy/ || fas fa-crown
-    景洪降雨预报: https://www.nmc.cn/publish/forecast/AYN/jinghong.html || fas fa-cloud-rain
-    勐腊降雨预报: https://www.nmc.cn/publish/forecast/AYN/zuola.html || fas fa-cloud-rain
-    海南白沙降雨: https://www.nmc.cn/publish/forecast/AHI/baisha.html || fas fa-cloud-rain
-    海南儋州降雨: https://www.nmc.cn/publish/forecast/AHI/zuozhou.html || fas fa-cloud-rain
-    智能简历工坊: /tools/resume/ || fas fa-file-alt
-    文本倒序转换: /tools/reverse-app/ || fas fa-repeat
-    AI写真工坊: /tools/pic-6varieties/ || fas fa-camera
-    语音智坊 (TTS): /tools/edge-tts/ || fas fa-microphone-alt
-    AI漫画头像: /tools/comic-avatar/ || fas fa-magic
-    奇货可查: https://qhkch.com/ || fas fa-chart-line
-  # ...其他你不需要的可以在前面加 # 注释掉
+    休闲小游戏: /games/ || fas fa-gamepad
+    燕园叽喳论坛: https://pkuai.run.place/forum/ || fas fa-comments
+    赞赏支持: /sponsor/ || fas fa-coffee
 
 # --------------------------------------
 # Code Blocks Settings
