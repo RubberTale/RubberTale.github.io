@@ -15,6 +15,13 @@ aside: false
   width: 100% !important;
   padding: 15px 0 !important;
 }
+html {
+  scroll-behavior: smooth;
+}
+#article-container h2[id],
+#article-container h3[id] {
+  scroll-margin-top: 80px;
+}
 .tools-quick-nav {
   display: flex;
   flex-wrap: wrap;
@@ -37,6 +44,7 @@ aside: false
   font-weight: 500;
   text-decoration: none !important;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 .quick-nav-pill:hover {
   transform: translateY(-2px);
@@ -66,14 +74,45 @@ aside: false
 欢迎来到「橡胶童话」实用小工具箱！这里集成了期货量化投研模型、天然橡胶全产业数据、产区物候与高精气象预报、前沿 AI 生产力应用及历史人文交互图谱。
 
 <div class="tools-quick-nav">
-  <a href="#期货量化与投研分析" class="quick-nav-pill">📈 期货量化投研</a>
-  <a href="#全品种全历史日-k-线深研" class="quick-nav-pill">📊 11品种日K复盘</a>
-  <a href="#橡胶产业与现货数据" class="quick-nav-pill">🌲 橡胶产业数据</a>
-  <a href="#产区物候、气象与卫星遥感" class="quick-nav-pill">🌦️ 产区物候气象</a>
-  <a href="#ai-智能与创意工坊" class="quick-nav-pill">🤖 AI与创意工坊</a>
-  <a href="#历史地理与时空图谱" class="quick-nav-pill">🗺️ 历史地理图谱</a>
-  <a href="#休闲互动与社区交流" class="quick-nav-pill">🎮 休闲与社区</a>
+  <a href="#📈-期货量化与投研分析" class="quick-nav-pill">📈 期货量化投研</a>
+  <a href="#📊-全品种全历史日-K-线深研" class="quick-nav-pill">📊 11品种日K复盘</a>
+  <a href="#🌲-橡胶产业与现货数据" class="quick-nav-pill">🌲 橡胶产业数据</a>
+  <a href="#🌦️-产区物候、气象与卫星遥感" class="quick-nav-pill">🌦️ 产区物候气象</a>
+  <a href="#🤖-AI-智能与创意工坊" class="quick-nav-pill">🤖 AI与创意工坊</a>
+  <a href="#🗺️-历史地理与时空图谱" class="quick-nav-pill">🗺️ 历史地理图谱</a>
+  <a href="#🎮-休闲互动与社区交流" class="quick-nav-pill">🎮 休闲与社区</a>
 </div>
+
+<script>
+(function() {
+  function initQuickNav() {
+    document.querySelectorAll('.tools-quick-nav .quick-nav-pill').forEach(function(pill) {
+      if (pill.dataset.navBound) return;
+      pill.dataset.navBound = 'true';
+      pill.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          var targetId = decodeURIComponent(href.slice(1));
+          var targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+            if (history.pushState) {
+              history.pushState(null, '', href);
+            }
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initQuickNav);
+  } else {
+    initQuickNav();
+  }
+  document.addEventListener('pjax:complete', initQuickNav);
+})();
+</script>
 
 ## 📈 期货量化与投研分析
 <p class="category-intro">全市场活跃商品期货量化策略盯市跟踪、多因子胜率打分、产业链配对套利、资金仓位管理及权威投研资讯导航。</p>
