@@ -42,6 +42,7 @@ menu:
     重点产区卫星云图: /rubber/weather_forecast/ || fas fa-satellite
   实用工坊 || fas fa-toolbox:
     小工具箱总览: /tools/ || fas fa-th-large
+    多规格比价神器: /tools/price-calc/ || fas fa-balance-scale
     问问这个博客: /tools/blog-chat/ || fas fa-comment-dots
     WriteBuddy 写作智匠: /tools/article-craft/ || fas fa-feather
     智能简历工坊: /tools/resume/ || fas fa-file-alt

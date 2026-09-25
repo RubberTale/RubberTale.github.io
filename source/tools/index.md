@@ -535,7 +535,7 @@ html {
 </div>
 
 ## 🤖 AI 智能与创意工坊
-<p class="category-intro">基于前沿多模态大语言模型与扩散生成技术的站内知识库、精准公文创作、专业简历设计与音视频多媒体工具。</p>
+<p class="category-intro">基于前沿 AI 生产力模型、专业简历设计、音视频多媒体及日常生活精明比价等实用创意工具。</p>
 
 <div class="flink">
   <div class="flink-list">
@@ -591,6 +591,15 @@ html {
         </div>
         <div class="flink-item-name">AI 漫画头像工坊</div>
         <div class="flink-item-desc">上传自拍或肖像，多模态大模型智能提取面容神态，FLUX.1 扩散引擎秒级定制 7 种风格漫画头像。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
+      <a href="/tools/price-calc/" title="多规格比价神器 · 精明买手计算器" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:scale.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多规格比价神器">
+        </div>
+        <div class="flink-item-name">多规格比价神器</div>
+        <div class="flink-item-desc">网购与超市多规格、多包装智能换算，拆解大瓶/袋装套路，自动折算每100ml/斤真实单价并比出性价比之王。</div>
       </a>
     </div>
     <div class="flink-list-item">

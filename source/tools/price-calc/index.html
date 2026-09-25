@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>多规格比价神器 · 精明买手计算器 | 橡胶童话</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b'
+            },
+            accent: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309'
+            },
+            dark: {
+              bg: '#0b1120',
+              card: '#151f32',
+              input: '#1e293b',
+              border: '#2a3b53'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* 自定义滚动条与过渡 */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.4);
+    }
+    .badge-crown {
+      animation: bounce 2s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white pb-16">
+
+  <!-- 顶部沉浸式导航栏 -->
+  <header class="border-b border-slate-800/80 bg-slate-900/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="/" title="返回橡胶童话首页" class="block shrink-0">
+          <img src="/img/橡胶童话logo.png" alt="橡胶童话 Logo" class="w-9 h-9 rounded-xl shadow-md hover:scale-105 transition-transform object-contain bg-white/5 p-0.5 border border-white/10" onerror="this.src='/img/favicon.png'">
+        </a>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <span>多规格比价神器</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold font-mono">Unit Price Pro</span>
+            </h1>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">网购超市多规格折算 · 包装障眼法拆解 · 真实单价折合 · 满减凑单分摊</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 sm:space-x-3 text-xs">
+        <a href="/tools/" class="inline-flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+          <span class="hidden sm:inline">工具箱</span>总览
+        </a>
+        <button id="btn-copy-summary" onclick="copyComparisonSummary()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-sm transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+          <span>复制比价小结</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体工作区 -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 w-full flex-1">
+
+    <!-- 功能模式选项卡 -->
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+      <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-sm">
+        <button id="tab-btn-compare" onclick="switchMainTab('compare')" class="px-4 py-1.5 rounded-lg font-medium transition bg-emerald-600 text-white shadow-sm flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 18h12l3-18H3z"></path></svg>
+          <span>多方案横向PK</span>
+        </button>
+        <button id="tab-btn-split" onclick="switchMainTab('split')" class="px-4 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          <span>满减凑单分摊器</span>
+        </button>
+        <button id="tab-btn-guide" onclick="switchMainTab('guide')" class="px-4 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white hidden sm:flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>商家套路防坑手册</span>
+        </button>
+      </div>
+
+      <!-- 快速清空 / 重置 -->
+      <div class="flex items-center gap-2">
+        <button onclick="resetToTemplate('clean')" class="text-xs text-slate-400 hover:text-rose-400 flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:border-rose-900/50 bg-slate-900/50 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+          <span>一键清空</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 模式一：多方案横向PK -->
+    <div id="panel-compare" class="space-y-6">
+
+      <!-- 预设生活场景快捷胶囊栏 -->
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-3 sm:p-4 backdrop-blur">
+        <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
+          <div class="flex items-center gap-1.5 text-slate-400 font-medium">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            <span>一键导入生活真实比价案例：</span>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <button onclick="applyPreset('shampoo')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/60 transition">
+              🧴 洗发水 (大瓶vs袋装补充装)
+            </button>
+            <button onclick="applyPreset('tissue')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/60 transition">
+              🧻 抽纸 (大包vs小包/不同抽数)
+            </button>
+            <button onclick="applyPreset('milk')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/60 transition">
+              🥛 纯牛奶 (250ml整箱vs200ml提装)
+            </button>
+            <button onclick="applyPreset('nuts')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/60 transition">
+              🥩 坚果生鲜 (500g散装vs1.2kg桶装)
+            </button>
+            <button onclick="applyPreset('coffee')" class="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-emerald-300 border border-slate-700/60 transition">
+              ☕ 挂耳咖啡 (独立包数与单价)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 👑 智能决策看板 (实时计算出的最优推荐与省钱明细) -->
+      <div id="decision-hero" class="bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 border-2 border-emerald-500/40 rounded-2xl p-4 sm:p-6 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <span class="badge-crown">👑</span> 最佳性价比推荐
+              </span>
+              <span id="hero-tag" class="text-xs text-slate-400 font-mono">共比对 3 个方案</span>
+            </div>
+            <div class="text-xl sm:text-2xl font-bold text-white flex items-baseline gap-2">
+              <span id="hero-winner-name" class="text-emerald-400">方案 A</span>
+              <span class="text-xs font-normal text-slate-400">是当前最省钱的选择！</span>
+            </div>
+            <p id="hero-winner-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              折合单价仅需 <strong id="hero-winner-unit-price" class="text-emerald-400 font-mono text-base font-bold">￥0.00</strong>，
+              相比最贵的方案直接省下 <strong id="hero-save-percent" class="text-amber-400 font-mono font-bold">0%</strong>！
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-6 bg-slate-950/70 p-3 sm:p-4 rounded-xl border border-slate-800/80 shrink-0">
+            <div class="text-center sm:text-right">
+              <div class="text-[11px] text-slate-400 mb-0.5">最优折合基准价</div>
+              <div id="hero-badge-price" class="text-lg sm:text-2xl font-mono font-bold text-emerald-400">--</div>
+            </div>
+            <div class="h-8 w-[1px] bg-slate-800"></div>
+            <div class="text-center sm:text-right">
+              <div class="text-[11px] text-slate-400 mb-0.5">同规格最高立省</div>
+              <div id="hero-badge-diff" class="text-lg sm:text-2xl font-mono font-bold text-amber-400">--</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 方案单价条形对比图 -->
+        <div class="mt-5 pt-4 border-t border-slate-800/80">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+            <span class="font-medium">各方案真实折合单价对比 (条越短越便宜)：</span>
+            <span id="chart-base-unit-label" class="font-mono text-slate-500">基准：元 / 100ml</span>
+          </div>
+          <div id="bars-container" class="space-y-2">
+            <!-- 动态生成单价条形图 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 方案卡片编辑区 -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <span>待对比方案列表</span>
+              <span id="schemes-count-badge" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">3个方案</span>
+            </h2>
+            <span class="text-xs text-slate-500 hidden sm:inline">（输入即算，实时更新结果）</span>
+          </div>
+
+          <button onclick="addScheme()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 hover:border-emerald-500/50 text-xs sm:text-sm font-semibold transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <span>+ 添加比价方案</span>
+          </button>
+        </div>
+
+        <!-- 方案卡片网格 -->
+        <div id="schemes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- 动态渲染卡片 -->
+        </div>
+      </div>
+
+      <!-- 详细比对数据表格 -->
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl overflow-hidden">
+        <div class="px-4 py-3 border-b border-slate-800 bg-slate-900/80 flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-slate-200 flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <span>比价数据全景总览表</span>
+          </h3>
+          <span class="text-xs text-slate-500 font-mono">按性价比从高到低自动排序</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-slate-950/60 text-slate-400 font-medium border-b border-slate-800">
+              <tr>
+                <th class="py-3 px-4">排名与方案</th>
+                <th class="py-3 px-4">实付总价</th>
+                <th class="py-3 px-4">折算总规格</th>
+                <th class="py-3 px-4">折合基准单价</th>
+                <th class="py-3 px-4">相对最优溢价率</th>
+                <th class="py-3 px-4 text-right">买同规格差价</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-table-body" class="divide-y divide-slate-800/60 font-mono">
+              <!-- 动态插入表格行 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 模式二：满减/凑单真实到手价分摊器 -->
+    <div id="panel-split" class="hidden space-y-6">
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 sm:p-6">
+        <div class="max-w-2xl space-y-2 mb-6">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>满减凑单 · 真实实付到手价分摊器</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">精确到分</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            参与“跨店满300减50”、“88VIP大额券”或“多件打折”时，不同标价商品享受的优惠并不相同。在此输入各商品原价及最终支付金额，即可按比例算出每件商品的真实到手价与实际折扣！
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- 左侧：总实付与优惠设定 -->
+          <div class="space-y-4 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <h3 class="text-sm font-semibold text-slate-200">1. 订单总体结算信息</h3>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">优惠方式：</label>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <button type="button" id="split-mode-final" onclick="setSplitInputMode('final')" class="py-1.5 px-3 rounded-lg bg-emerald-600 text-white font-medium text-center">直接填最终实付</button>
+                <button type="button" id="split-mode-discount" onclick="setSplitInputMode('discount')" class="py-1.5 px-3 rounded-lg bg-slate-800 text-slate-400 hover:text-white font-medium text-center">填总优惠金额</button>
+              </div>
+            </div>
+
+            <div id="split-input-final-wrap">
+              <label class="block text-xs text-slate-400 mb-1">整单最终实付金额 (￥)：</label>
+              <input type="number" id="split-final-paid" value="250" step="0.01" min="0" oninput="calculateSplit()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-base font-bold focus:border-emerald-500 focus:outline-none">
+            </div>
+
+            <div id="split-input-discount-wrap" class="hidden">
+              <label class="block text-xs text-slate-400 mb-1">整单总计立减/优惠券 (￥)：</label>
+              <input type="number" id="split-total-discount" value="50" step="0.01" min="0" oninput="calculateSplit()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-base font-bold focus:border-emerald-500 focus:outline-none">
+            </div>
+
+            <div class="pt-3 border-t border-slate-800 space-y-1.5 text-xs text-slate-400 font-mono">
+              <div class="flex justify-between">
+                <span>商品标价总额：</span>
+                <span id="split-sum-original" class="text-white font-bold">￥0.00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>综合综合折扣率：</span>
+                <span id="split-overall-discount-rate" class="text-emerald-400 font-bold">-- 折</span>
+              </div>
+              <div class="flex justify-between">
+                <span>共节省金额：</span>
+                <span id="split-sum-saved" class="text-amber-400 font-bold">￥0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：商品列表明细输入 -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-semibold text-slate-200">2. 凑单商品明细列表</h3>
+              <button onclick="addSplitItem()" class="text-xs px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 transition">
+                + 添加商品
+              </button>
+            </div>
+
+            <div id="split-items-list" class="space-y-2.5">
+              <!-- 动态分摊输入项 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模式三：商家套路防坑手册 -->
+    <div id="panel-guide" class="hidden space-y-4">
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 sm:p-6 space-y-6">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>日常网购与超市防坑套路透视</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">精明消费</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">商家为了模糊真实价格，经常通过以下手段降低消费者对价格的敏感度：</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+          <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold">
+              <span>🧻 1. 纸巾的“抽数与层数”减配</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              很多打出“9.9包邮一整箱”的抽纸，外包装看起来很大，但实际只有 <strong>80抽 或 100抽/包</strong>，而常规家用多为 <strong>120~140抽</strong>，并且每抽只有 2 层而非 3/4 层。折合到每 100 抽的真实单价往往比正规大牌还要贵！
+            </p>
+          </div>
+
+          <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold">
+              <span>🧴 2. “大瓶装不一定比小瓶划算”</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              许多日化品牌（如洗发水、洗衣液）利用“买大瓶肯定实惠”的心理定式，反向给 1000ml 大桶定价偏高，而将 500ml 促销装或袋装补充包做低价促销。务必看折合每 100ml 单价再下单。
+            </p>
+          </div>
+
+          <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold">
+              <span>🥩 3. 散装/袋装食品“含皮含罐”与干燥剂</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              坚果、果干类零食常标“净重500g”，但部分商家采用厚重玻璃罐或超大包干燥剂充当重量（甚至干燥剂占了 30g~50g）。尽量关注配料表下方的<strong>实际可食用净含量</strong>。
+            </p>
+          </div>
+
+          <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold">
+              <span>🥛 4. 牛奶饮品的“200ml vs 250ml”盒装差异</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed">
+              同样是一箱 12 盒的纯牛奶，特价款常是 200ml 迷你装（整箱 2400ml），常规款则是 250ml（整箱 3000ml）。整箱差 600ml（相当于 3 小盒容量），必须看<strong>每 100ml</strong> 换算单价。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 吐司通知弹窗 -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-slate-900 border border-emerald-500/50 text-white text-xs sm:text-sm shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <span id="toast-msg">已复制！</span>
+  </div>
+
+  <!-- 核心逻辑脚本 -->
+  <script>
+    // 单位换算关系字典 (全部归一化为核心基准)
+    // weight: 基准为 g
+    // volume: 基准为 ml
+    // count: 基准为 piece / 抽 / 片
+    const UNIT_DEFINITIONS = {
+      // 容积类 (基准: ml)
+      'ml': { category: 'volume', factor: 1, label: '毫升 (ml)', baseUnit: '100ml', baseFactor: 100 },
+      'L':  { category: 'volume', factor: 1000, label: '升 (L)', baseUnit: '100ml', baseFactor: 100 },
+      // 重量类 (基准: g)
+      'g':    { category: 'weight', factor: 1, label: '克 (g)', baseUnit: '500g (斤)', baseFactor: 500 },
+      'kg':   { category: 'weight', factor: 1000, label: '千克/公斤 (kg)', baseUnit: '500g (斤)', baseFactor: 500 },
+      'jin':  { category: 'weight', factor: 500, label: '市斤 (500g)', baseUnit: '500g (斤)', baseFactor: 500 },
+      'liang':{ category: 'weight', factor: 50, label: '市两 (50g)', baseUnit: '500g (斤)', baseFactor: 500 },
+      // 计件/抽数类 (基准: 1)
+      'chou': { category: 'count_tissue', factor: 1, label: '抽 (抽纸)', baseUnit: '100抽', baseFactor: 100 },
+      'pian': { category: 'count_piece', factor: 1, label: '片/枚 (尿布/面膜)', baseUnit: '片', baseFactor: 1 },
+      'juan': { category: 'count_roll', factor: 1, label: '卷 (卷纸)', baseUnit: '卷', baseFactor: 1 },
+      'li':   { category: 'count_pill', factor: 1, label: '粒/颗 (药片/胶囊)', baseUnit: '粒', baseFactor: 1 },
+      'bao':  { category: 'count_bag', factor: 1, label: '小袋/包 (挂耳/零食)', baseUnit: '袋', baseFactor: 1 },
+      'ge':   { category: 'count_general', factor: 1, label: '个/件 (通用个件)', baseUnit: '个', baseFactor: 1 }
+    };
+
+    // 默认对比方案状态
+    let schemes = [
+      {
+        id: 's1',
+        name: '方案 A (常规装)',
+        price: 39.9,
+        quantity: 1,
+        specValue: 500,
+        unit: 'ml',
+        discount: 0,
+        hasGift: false,
+        giftSpec: 0
+      },
+      {
+        id: 's2',
+        name: '方案 B (家庭实惠装)',
+        price: 68.0,
+        quantity: 1,
+        specValue: 1000,
+        unit: 'ml',
+        discount: 5,
+        hasGift: false,
+        giftSpec: 0
+      },
+      {
+        id: 's3',
+        name: '方案 C (买2送1/小包组合)',
+        price: 79.9,
+        quantity: 2,
+        specValue: 450,
+        unit: 'ml',
+        discount: 10,
+        hasGift: true,
+        giftSpec: 200
+      }
+    ];
+
+    // 经典生活场景预设
+    const PRESETS = {
+      shampoo: [
+        { id: 'p1', name: '官方旗舰店 750ml大瓶', price: 69.9, quantity: 1, specValue: 750, unit: 'ml', discount: 10, hasGift: false, giftSpec: 0 },
+        { id: 'p2', name: '京东自营 500ml两瓶套装', price: 79.0, quantity: 2, specValue: 500, unit: 'ml', discount: 0, hasGift: false, giftSpec: 0 },
+        { id: 'p3', name: '百亿补贴 450ml袋装补充包*3', price: 62.5, quantity: 3, specValue: 450, unit: 'ml', discount: 5, hasGift: false, giftSpec: 0 }
+      ],
+      tissue: [
+        { id: 't1', name: '大牌整箱 140抽*24包', price: 49.9, quantity: 24, specValue: 140, unit: 'chou', discount: 5, hasGift: false, giftSpec: 0 },
+        { id: 't2', name: '特价款 100抽*30包', price: 36.8, quantity: 30, specValue: 100, unit: 'chou', discount: 0, hasGift: false, giftSpec: 0 },
+        { id: 't3', name: '临期促销 80抽*20包', price: 21.9, quantity: 20, specValue: 80, unit: 'chou', discount: 2, hasGift: false, giftSpec: 0 }
+      ],
+      milk: [
+        { id: 'm1', name: '纯牛奶 250ml*24盒整箱', price: 62.9, quantity: 24, specValue: 250, unit: 'ml', discount: 8, hasGift: false, giftSpec: 0 },
+        { id: 'm2', name: '纯牛奶 200ml*12盒提装*2箱', price: 56.0, quantity: 24, specValue: 200, unit: 'ml', discount: 0, hasGift: false, giftSpec: 0 },
+        { id: 'm3', name: '家庭装 1L*6瓶纸盒装', price: 58.5, quantity: 6, specValue: 1, unit: 'L', discount: 3, hasGift: false, giftSpec: 0 }
+      ],
+      nuts: [
+        { id: 'n1', name: '原味坚果 500g 散装袋', price: 29.8, quantity: 1, specValue: 500, unit: 'g', discount: 0, hasGift: false, giftSpec: 0 },
+        { id: 'n2', name: '大桶分享装 1.2kg 罐装', price: 69.9, quantity: 1, specValue: 1.2, unit: 'kg', discount: 5, hasGift: false, giftSpec: 0 },
+        { id: 'n3', name: '买2斤立减 特惠装', price: 52.0, quantity: 2, specValue: 1, unit: 'jin', discount: 4, hasGift: false, giftSpec: 0 }
+      ],
+      coffee: [
+        { id: 'c1', name: '挂耳咖啡 10包体验装', price: 29.9, quantity: 10, specValue: 1, unit: 'bao', discount: 0, hasGift: false, giftSpec: 0 },
+        { id: 'c2', name: '30包整盒家庭装', price: 68.0, quantity: 30, specValue: 1, unit: 'bao', discount: 10, hasGift: false, giftSpec: 0 },
+        { id: 'c3', name: '50包量贩大桶装', price: 99.0, quantity: 50, specValue: 1, unit: 'bao', discount: 15, hasGift: true, giftSpec: 5 }
+      ]
+    };
+
+    // 满减凑单分摊商品列表
+    let splitItems = [
+      { id: 'sp1', name: '商品A (如洗发水)', originalPrice: 89.0 },
+      { id: 'sp2', name: '商品B (如面霜)', originalPrice: 158.0 },
+      { id: 'sp3', name: '商品C (凑单小零食)', originalPrice: 53.0 }
+    ];
+    let splitMode = 'final'; // 'final' 或 'discount'
+
+    // 初始化运行
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFromStorage();
+      renderSchemes();
+      updateCalculations();
+      renderSplitItems();
+      calculateSplit();
+    });
+
+    // 存储管理
+    function saveToStorage() {
+      try {
+        localStorage.setItem('rt_price_calc_schemes', JSON.stringify(schemes));
+      } catch (e) {}
+    }
+
+    function loadFromStorage() {
+      try {
+        const saved = localStorage.getItem('rt_price_calc_schemes');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length >= 2) {
+            schemes = parsed;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 切换主选项卡
+    function switchMainTab(tab) {
+      const tabs = ['compare', 'split', 'guide'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const panel = document.getElementById(`panel-${t}`);
+        if (t === tab) {
+          btn.className = 'px-4 py-1.5 rounded-lg font-medium transition bg-emerald-600 text-white shadow-sm flex items-center gap-1.5';
+          panel.classList.remove('hidden');
+        } else {
+          btn.className = 'px-4 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white flex items-center gap-1.5';
+          panel.classList.add('hidden');
+        }
+      });
+    }
+
+    // 渲染对比方案卡片
+    function renderSchemes() {
+      const grid = document.getElementById('schemes-grid');
+      grid.innerHTML = '';
+      document.getElementById('schemes-count-badge').textContent = `${schemes.length}个方案`;
+
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+      schemes.forEach((item, index) => {
+        const letter = alphabet[index] || (index + 1);
+        const card = document.createElement('div');
+        card.id = `card-${item.id}`;
+        card.className = 'bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-200 hover:border-slate-700 relative';
+
+        // 卡片内容
+        card.innerHTML = `
+          <div>
+            <!-- 卡片头部标签与删除 -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2 flex-1">
+                <span id="badge-letter-${item.id}" class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold font-mono text-xs shrink-0">
+                  ${letter}
+                </span>
+                <input type="text" value="${escapeHtml(item.name)}" onchange="updateSchemeField('${item.id}', 'name', this.value)" class="bg-transparent text-white font-semibold text-sm w-full border-b border-transparent hover:border-slate-700 focus:border-emerald-500 focus:outline-none transition py-0.5" placeholder="方案名称/平台备注">
+              </div>
+              <div class="flex items-center gap-1">
+                <span id="rank-badge-${item.id}" class="text-[11px] px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-400">
+                  --
+                </span>
+                ${schemes.length > 2 ? `
+                  <button onclick="removeScheme('${item.id}')" title="删除此方案" class="text-slate-500 hover:text-rose-400 p-1 rounded hover:bg-slate-800 transition">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- 输入项：价格与数量 -->
+            <div class="grid grid-cols-2 gap-2.5 mb-3">
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">到手标价 (￥)：</label>
+                <div class="relative">
+                  <span class="absolute left-2.5 top-2 text-slate-500 text-xs font-mono">￥</span>
+                  <input type="number" step="0.01" min="0" value="${item.price}" oninput="updateSchemeField('${item.id}', 'price', parseFloat(this.value) || 0)" class="w-full bg-slate-950 border border-slate-700/80 rounded-lg pl-6 pr-2.5 py-1.5 text-white font-mono text-sm font-bold focus:border-emerald-500 focus:outline-none">
+                </div>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 mb-1">包装件数：</label>
+                <input type="number" min="1" step="1" value="${item.quantity}" oninput="updateSchemeField('${item.id}', 'quantity', parseInt(this.value) || 1)" class="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-white font-mono text-sm focus:border-emerald-500 focus:outline-none">
+              </div>
+            </div>
+
+            <!-- 输入项：单件规格与单位 -->
+            <div class="grid grid-cols-5 gap-2 mb-3">
+              <div class="col-span-3">
+                <label class="block text-[11px] text-slate-400 mb-1">单件净含量/规格：</label>
+                <input type="number" step="any" min="0.01" value="${item.specValue}" oninput="updateSchemeField('${item.id}', 'specValue', parseFloat(this.value) || 0)" class="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-white font-mono text-sm focus:border-emerald-500 focus:outline-none" placeholder="如 500">
+              </div>
+              <div class="col-span-2">
+                <label class="block text-[11px] text-slate-400 mb-1">计量单位：</label>
+                <select onchange="updateSchemeField('${item.id}', 'unit', this.value)" class="w-full bg-slate-950 border border-slate-700/80 rounded-lg px-2 py-1.5 text-white text-xs focus:border-emerald-500 focus:outline-none">
+                  ${renderUnitOptions(item.unit)}
+                </select>
+              </div>
+            </div>
+
+            <!-- 折扣与赠品 (展开折叠) -->
+            <div class="pt-2 border-t border-slate-800/80 mb-3">
+              <div class="flex items-center justify-between text-[11px] text-slate-400">
+                <label class="cursor-pointer flex items-center gap-1.5 hover:text-slate-200">
+                  <input type="checkbox" ${item.discount > 0 || item.hasGift ? 'checked' : ''} onchange="togglePromoOptions('${item.id}', this.checked)" class="rounded border-slate-700 text-emerald-500 focus:ring-0">
+                  <span>额外立减券或赠品容量</span>
+                </label>
+              </div>
+
+              <div id="promo-wrap-${item.id}" class="${item.discount > 0 || item.hasGift ? '' : 'hidden'} mt-2 p-2.5 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-2 text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="text-slate-400 text-[11px] shrink-0">立减/券：</span>
+                  <div class="relative flex-1">
+                    <span class="absolute left-2 top-1.5 text-slate-500 text-[10px] font-mono">￥-</span>
+                    <input type="number" step="0.01" min="0" value="${item.discount || ''}" oninput="updateSchemeField('${item.id}', 'discount', parseFloat(this.value) || 0)" placeholder="0.00" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-7 pr-2 py-1 text-white font-mono text-xs focus:border-emerald-500 focus:outline-none">
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <label class="text-slate-400 text-[11px] flex items-center gap-1 shrink-0 cursor-pointer">
+                    <input type="checkbox" ${item.hasGift ? 'checked' : ''} onchange="updateSchemeField('${item.id}', 'hasGift', this.checked)" class="rounded text-emerald-500">
+                    <span>赠品：</span>
+                  </label>
+                  <input type="number" step="any" min="0" value="${item.hasGift ? item.giftSpec : ''}" oninput="updateSchemeField('${item.id}', 'giftSpec', parseFloat(this.value) || 0)" placeholder="赠送规格数值" ${item.hasGift ? '' : 'disabled'} class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white font-mono text-xs focus:border-emerald-500 focus:outline-none disabled:opacity-40">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 卡片底部计算结论区 -->
+          <div class="bg-slate-950/80 -mx-4 -mb-4 sm:-mx-5 sm:-mb-5 p-3 sm:p-4 rounded-b-2xl border-t border-slate-800 space-y-1">
+            <div class="flex items-center justify-between text-xs text-slate-400">
+              <span>折合总规格量：</span>
+              <span id="card-total-spec-${item.id}" class="font-mono text-slate-200 font-semibold">--</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="text-xs text-slate-400">折合基准单价：</span>
+              <div class="text-right">
+                <span id="card-unit-price-${item.id}" class="text-base sm:text-lg font-mono font-bold text-white">--</span>
+              </div>
+            </div>
+            <div id="card-diff-tag-${item.id}" class="text-[11px] font-mono text-right text-slate-500 pt-0.5">
+              --
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // 渲染单位选项
+    function renderUnitOptions(selectedUnit) {
+      let html = '';
+      const groups = {
+        '容积液体 (ml/L)': ['ml', 'L'],
+        '重量质量 (g/kg/斤)': ['g', 'kg', 'jin', 'liang'],
+        '日常计件 (抽/片/卷/袋/粒)': ['chou', 'pian', 'juan', 'li', 'bao', 'ge']
+      };
+
+      for (const [groupName, keys] of Object.entries(groups)) {
+        html += `<optgroup label="${groupName}">`;
+        keys.forEach(k => {
+          const u = UNIT_DEFINITIONS[k];
+          html += `<option value="${k}" ${k === selectedUnit ? 'selected' : ''}>${u.label}</option>`;
+        });
+        html += `</optgroup>`;
+      }
+      return html;
+    }
+
+    // 更新某个方案的字段
+    function updateSchemeField(id, field, value) {
+      const target = schemes.find(s => s.id === id);
+      if (target) {
+        target[field] = value;
+        saveToStorage();
+        updateCalculations();
+      }
+    }
+
+    function togglePromoOptions(id, isChecked) {
+      const wrap = document.getElementById(`promo-wrap-${id}`);
+      if (wrap) {
+        if (isChecked) {
+          wrap.classList.remove('hidden');
+        } else {
+          wrap.classList.add('hidden');
+          updateSchemeField(id, 'discount', 0);
+          updateSchemeField(id, 'hasGift', false);
+          updateSchemeField(id, 'giftSpec', 0);
+        }
+      }
+    }
+
+    // 添加新方案
+    function addScheme() {
+      if (schemes.length >= 8) {
+        showToast('最多支持同时对比 8 个方案');
+        return;
+      }
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const letter = alphabet[schemes.length] || (schemes.length + 1);
+      const baseUnit = schemes[0]?.unit || 'ml';
+
+      const newScheme = {
+        id: 's_' + Date.now(),
+        name: `方案 ${letter}`,
+        price: 49.9,
+        quantity: 1,
+        specValue: 500,
+        unit: baseUnit,
+        discount: 0,
+        hasGift: false,
+        giftSpec: 0
+      };
+      schemes.push(newScheme);
+      saveToStorage();
+      renderSchemes();
+      updateCalculations();
+    }
+
+    // 删除方案
+    function removeScheme(id) {
+      if (schemes.length <= 2) {
+        showToast('至少保留 2 个方案用于对比');
+        return;
+      }
+      schemes = schemes.filter(s => s.id !== id);
+      saveToStorage();
+      renderSchemes();
+      updateCalculations();
+    }
+
+    // 核心比价计算引擎
+    function updateCalculations() {
+      if (!schemes || schemes.length === 0) return;
+
+      // 1. 确定对比基准（以方案1的单位为主导）
+      const primaryUnitKey = schemes[0].unit || 'ml';
+      const primaryDef = UNIT_DEFINITIONS[primaryUnitKey] || UNIT_DEFINITIONS['ml'];
+      const baseCategory = primaryDef.category;
+      const baseDisplayUnit = primaryDef.baseUnit;
+      const baseFactor = primaryDef.baseFactor;
+
+      document.getElementById('chart-base-unit-label').textContent = `折算基准：元 / ${baseDisplayUnit}`;
+
+      // 2. 依次计算每个方案的净实付与归一化基准单价
+      const results = schemes.map(s => {
+        const u = UNIT_DEFINITIONS[s.unit] || UNIT_DEFINITIONS['ml'];
+        const actualPrice = Math.max(0.01, (s.price || 0) - (s.discount || 0));
+        const singleFactor = u.factor; // 转为基础物理量 (如 g 或 ml 或 1)
+
+        let totalStandardQty = (s.quantity || 1) * (s.specValue || 0) * singleFactor;
+        if (s.hasGift && s.giftSpec > 0) {
+          totalStandardQty += s.giftSpec * singleFactor;
+        }
+
+        // 避免除以 0
+        totalStandardQty = Math.max(0.001, totalStandardQty);
+
+        // 每 1 个物理基础单位的价格
+        const rawUnitPrice = actualPrice / totalStandardQty;
+        // 折合到基准显示单位 (如每 100ml, 或每 500g) 的单价
+        const normalizedUnitPrice = rawUnitPrice * baseFactor;
+
+        return {
+          ...s,
+          actualPrice,
+          totalStandardQty,
+          normalizedUnitPrice,
+          unitLabel: u.label
+        };
+      });
+
+      // 3. 排序找最便宜与最贵
+      const sorted = [...results].sort((a, b) => a.normalizedUnitPrice - b.normalizedUnitPrice);
+      const best = sorted[0];
+      const worst = sorted[sorted.length - 1];
+
+      // 4. 更新卡片内的展示内容
+      results.forEach(r => {
+        const cardEl = document.getElementById(`card-${r.id}`);
+        const rankIdx = sorted.findIndex(s => s.id === r.id);
+        const isBest = (rankIdx === 0);
+        const isWorst = (rankIdx === sorted.length - 1 && sorted.length > 1);
+
+        // 卡片边框与勋章
+        if (cardEl) {
+          cardEl.classList.remove('border-emerald-500/80', 'border-rose-500/40', 'bg-emerald-950/20');
+          if (isBest) {
+            cardEl.classList.add('border-emerald-500/80', 'bg-emerald-950/20');
+          } else if (isWorst) {
+            cardEl.classList.add('border-rose-500/40');
+          }
+        }
+
+        const rankBadge = document.getElementById(`rank-badge-${r.id}`);
+        if (rankBadge) {
+          if (isBest) {
+            rankBadge.className = 'text-[11px] px-2 py-0.5 rounded font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+            rankBadge.innerHTML = '👑 性价比之王';
+          } else if (rankIdx === 1) {
+            rankBadge.className = 'text-[11px] px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-300';
+            rankBadge.textContent = '🥈 排名第 2';
+          } else if (rankIdx === 2) {
+            rankBadge.className = 'text-[11px] px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-400';
+            rankBadge.textContent = '🥉 排名第 3';
+          } else {
+            rankBadge.className = 'text-[11px] px-2 py-0.5 rounded font-mono text-slate-500';
+            rankBadge.textContent = `第 ${rankIdx + 1} 名`;
+          }
+        }
+
+        // 显示总规格与单价
+        const totalSpecEl = document.getElementById(`card-total-spec-${r.id}`);
+        if (totalSpecEl) {
+          totalSpecEl.textContent = formatQuantity(r.totalStandardQty, primaryDef.category);
+        }
+
+        const unitPriceEl = document.getElementById(`card-unit-price-${r.id}`);
+        if (unitPriceEl) {
+          unitPriceEl.innerHTML = `￥<span class="${isBest ? 'text-emerald-400 text-xl font-bold' : 'text-slate-200'}">${r.normalizedUnitPrice.toFixed(2)}</span> <span class="text-xs text-slate-400 font-normal">/ ${baseDisplayUnit}</span>`;
+        }
+
+        const diffTag = document.getElementById(`card-diff-tag-${r.id}`);
+        if (diffTag) {
+          if (isBest) {
+            const saveRate = worst.normalizedUnitPrice > 0 
+              ? (((worst.normalizedUnitPrice - best.normalizedUnitPrice) / worst.normalizedUnitPrice) * 100).toFixed(1)
+              : 0;
+            diffTag.className = 'text-[11px] font-mono text-right text-emerald-400 font-semibold';
+            diffTag.textContent = `比最贵省 ${saveRate}%`;
+          } else {
+            const premiumRate = best.normalizedUnitPrice > 0
+              ? (((r.normalizedUnitPrice - best.normalizedUnitPrice) / best.normalizedUnitPrice) * 100).toFixed(1)
+              : 0;
+            diffTag.className = 'text-[11px] font-mono text-right text-rose-400';
+            diffTag.textContent = `比最优款贵了 +${premiumRate}%`;
+          }
+        }
+      });
+
+      // 5. 更新顶部 Hero 决策卡片
+      document.getElementById('hero-tag').textContent = `共比对 ${schemes.length} 个方案`;
+      document.getElementById('hero-winner-name').textContent = best.name || '方案 A';
+      document.getElementById('hero-winner-unit-price').textContent = `￥${best.normalizedUnitPrice.toFixed(2)} / ${baseDisplayUnit}`;
+
+      const totalSaveRate = worst.normalizedUnitPrice > 0 
+        ? (((worst.normalizedUnitPrice - best.normalizedUnitPrice) / worst.normalizedUnitPrice) * 100).toFixed(1)
+        : 0;
+      document.getElementById('hero-save-percent').textContent = `${totalSaveRate}%`;
+
+      document.getElementById('hero-badge-price').textContent = `￥${best.normalizedUnitPrice.toFixed(2)}`;
+
+      // 计算买同等总容量能省多少钱
+      // 以最差款的总规格为基准计算差价
+      const sampleQty = worst.totalStandardQty;
+      const costBest = (best.normalizedUnitPrice / baseFactor) * sampleQty;
+      const costWorst = (worst.normalizedUnitPrice / baseFactor) * sampleQty;
+      const moneySaved = Math.max(0, costWorst - costBest);
+      document.getElementById('hero-badge-diff').textContent = `立省 ￥${moneySaved.toFixed(1)}`;
+
+      document.getElementById('hero-winner-desc').innerHTML = `
+        折合单价仅需 <strong class="text-emerald-400 font-mono text-base font-bold">￥${best.normalizedUnitPrice.toFixed(2)} / ${baseDisplayUnit}</strong>！
+        相比高价方案每购买 ${formatQuantity(sampleQty, primaryDef.category)}，能直接为您立省 <strong class="text-amber-400 font-mono font-bold">￥${moneySaved.toFixed(2)} 元</strong>（便宜了 ${totalSaveRate}%）。
+      `;
+
+      // 6. 渲染条形比对图
+      renderBarChart(results, sorted, baseDisplayUnit);
+
+      // 7. 渲染全景表格
+      renderComparisonTable(sorted, baseDisplayUnit, baseFactor);
+    }
+
+    // 渲染条形图
+    function renderBarChart(results, sorted, baseDisplayUnit) {
+      const container = document.getElementById('bars-container');
+      container.innerHTML = '';
+
+      const maxPrice = Math.max(...results.map(r => r.normalizedUnitPrice), 0.01);
+      const best = sorted[0];
+
+      results.forEach(r => {
+        const isBest = (r.id === best.id);
+        const percent = Math.min(100, Math.max(12, (r.normalizedUnitPrice / maxPrice) * 100));
+
+        const barRow = document.createElement('div');
+        barRow.className = 'flex items-center gap-3 text-xs';
+
+        barRow.innerHTML = `
+          <div class="w-28 sm:w-36 truncate text-slate-300 font-medium shrink-0 flex items-center gap-1.5">
+            ${isBest ? '<span class="text-amber-400 text-xs">👑</span>' : '<span class="text-slate-600">•</span>'}
+            <span title="${escapeHtml(r.name)}">${escapeHtml(r.name)}</span>
+          </div>
+          <div class="flex-1 bg-slate-950 rounded-full h-5 overflow-hidden p-0.5 border border-slate-800">
+            <div class="h-full rounded-full transition-all duration-500 flex items-center justify-end pr-2 text-[10px] font-mono font-bold ${
+              isBest 
+                ? 'bg-gradient-to-r from-emerald-600 to-emerald-400 text-white' 
+                : 'bg-gradient-to-r from-slate-700 to-slate-600 text-slate-200'
+            }" style="width: ${percent}%;">
+              ￥${r.normalizedUnitPrice.toFixed(2)}
+            </div>
+          </div>
+          <div class="w-16 sm:w-20 text-right font-mono text-[11px] shrink-0 ${isBest ? 'text-emerald-400 font-bold' : 'text-slate-400'}">
+            ${isBest ? '最低价' : `+${(((r.normalizedUnitPrice - best.normalizedUnitPrice) / (best.normalizedUnitPrice || 1)) * 100).toFixed(0)}%`}
+          </div>
+        `;
+        container.appendChild(barRow);
+      });
+    }
+
+    // 渲染详细表格
+    function renderComparisonTable(sorted, baseDisplayUnit, baseFactor) {
+      const tbody = document.getElementById('comparison-table-body');
+      tbody.innerHTML = '';
+      const best = sorted[0];
+
+      sorted.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        const isBest = (index === 0);
+        tr.className = isBest ? 'bg-emerald-950/20 text-slate-200 font-semibold' : 'hover:bg-slate-900/40 text-slate-300';
+
+        const premiumRate = best.normalizedUnitPrice > 0
+          ? (((item.normalizedUnitPrice - best.normalizedUnitPrice) / best.normalizedUnitPrice) * 100).toFixed(1)
+          : '0.0';
+
+        // 假定买 1 个基准单位所产生的差价
+        const diffPerUnit = item.normalizedUnitPrice - best.normalizedUnitPrice;
+
+        tr.innerHTML = `
+          <td class="py-3 px-4 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full ${isBest ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-300'} flex items-center justify-center font-bold text-xs shrink-0">
+              ${index + 1}
+            </span>
+            <span class="font-sans font-medium text-white">${escapeHtml(item.name)}</span>
+          </td>
+          <td class="py-3 px-4">￥${item.actualPrice.toFixed(2)}</td>
+          <td class="py-3 px-4 text-slate-400">${formatQuantity(item.totalStandardQty, UNIT_DEFINITIONS[item.unit]?.category)}</td>
+          <td class="py-3 px-4">
+            <span class="${isBest ? 'text-emerald-400 font-bold' : ''}">￥${item.normalizedUnitPrice.toFixed(2)}</span>
+            <span class="text-xs text-slate-500 font-sans">/${baseDisplayUnit}</span>
+          </td>
+          <td class="py-3 px-4 font-mono">
+            ${isBest ? '<span class="text-emerald-400">基准最优 (0%)</span>' : `<span class="text-rose-400">+${premiumRate}%</span>`}
+          </td>
+          <td class="py-3 px-4 text-right font-mono">
+            ${isBest ? '<span class="text-emerald-400">--</span>' : `<span class="text-rose-400">+￥${diffPerUnit.toFixed(2)}</span>`}
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 格式化输出容量
+    function formatQuantity(qty, category) {
+      if (category === 'volume') {
+        if (qty >= 1000) return `${(qty / 1000).toFixed(2).replace(/\.00$/, '')} 升 (L)`;
+        return `${qty.toFixed(0)} 毫升 (ml)`;
+      } else if (category === 'weight') {
+        if (qty >= 1000) return `${(qty / 1000).toFixed(2).replace(/\.00$/, '')} 千克 (kg)`;
+        return `${qty.toFixed(0)} 克 (g)`;
+      } else if (category === 'count_tissue') {
+        return `${qty.toFixed(0)} 抽`;
+      } else if (category === 'count_roll') {
+        return `${qty.toFixed(0)} 卷`;
+      } else if (category === 'count_pill') {
+        return `${qty.toFixed(0)} 粒`;
+      } else if (category === 'count_bag') {
+        return `${qty.toFixed(0)} 袋`;
+      }
+      return `${qty.toFixed(0)} 件/个`;
+    }
+
+    // 快捷应用场景预设
+    function applyPreset(key) {
+      if (PRESETS[key]) {
+        schemes = JSON.parse(JSON.stringify(PRESETS[key]));
+        saveToStorage();
+        renderSchemes();
+        updateCalculations();
+        showToast('已载入比价案例！');
+      }
+    }
+
+    // 一键重置清空
+    function resetToTemplate(type) {
+      if (confirm('确定要清空当前所有比价方案吗？')) {
+        schemes = [
+          { id: 's1', name: '方案 A', price: 0, quantity: 1, specValue: 100, unit: 'ml', discount: 0, hasGift: false, giftSpec: 0 },
+          { id: 's2', name: '方案 B', price: 0, quantity: 1, specValue: 100, unit: 'ml', discount: 0, hasGift: false, giftSpec: 0 }
+        ];
+        saveToStorage();
+        renderSchemes();
+        updateCalculations();
+        showToast('已重置清空');
+      }
+    }
+
+    // 复制比价总结报告
+    function copyComparisonSummary() {
+      const primaryDef = UNIT_DEFINITIONS[schemes[0].unit || 'ml'];
+      const baseDisplayUnit = primaryDef.baseUnit;
+
+      const sorted = schemes.map(s => {
+        const u = UNIT_DEFINITIONS[s.unit] || UNIT_DEFINITIONS['ml'];
+        const actualPrice = Math.max(0.01, (s.price || 0) - (s.discount || 0));
+        let total = (s.quantity || 1) * (s.specValue || 0) * u.factor;
+        if (s.hasGift && s.giftSpec > 0) total += s.giftSpec * u.factor;
+        const normalizedUnitPrice = (actualPrice / Math.max(0.001, total)) * primaryDef.baseFactor;
+        return { name: s.name, actualPrice, normalizedUnitPrice };
+      }).sort((a, b) => a.normalizedUnitPrice - b.normalizedUnitPrice);
+
+      const best = sorted[0];
+      const worst = sorted[sorted.length - 1];
+      const diffPercent = (((worst.normalizedUnitPrice - best.normalizedUnitPrice) / worst.normalizedUnitPrice) * 100).toFixed(1);
+
+      let text = `🛒【多规格比价报告】\n`;
+      text += `🏆 推荐购买：${best.name}\n`;
+      text += `💰 折合单价：￥${best.normalizedUnitPrice.toFixed(2)} / ${baseDisplayUnit}\n`;
+      text += `💡 相比最贵方案立省：${diffPercent}%\n\n`;
+      text += `📊 全方案详细对比：\n`;
+
+      sorted.forEach((item, index) => {
+        const isBest = (index === 0);
+        const tag = isBest ? '👑 性价比之王' : `贵了 +${(((item.normalizedUnitPrice - best.normalizedUnitPrice) / best.normalizedUnitPrice) * 100).toFixed(1)}%`;
+        text += `${index + 1}. ${item.name}：￥${item.normalizedUnitPrice.toFixed(2)}/${baseDisplayUnit}（${tag}）\n`;
+      });
+
+      text += `\n🔗 橡胶童话 · 多规格比价神器 (https://rt.run.place/tools/price-calc/)`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('比价小结已复制到剪贴板，可直接发送微信！');
+      }).catch(() => {
+        showToast('复制失败，请手动截图或复制');
+      });
+    }
+
+    // ------------------------------------------------------
+    // 满减凑单分摊器逻辑
+    // ------------------------------------------------------
+    function setSplitInputMode(mode) {
+      splitMode = mode;
+      const btnFinal = document.getElementById('split-mode-final');
+      const btnDiscount = document.getElementById('split-mode-discount');
+      const wrapFinal = document.getElementById('split-input-final-wrap');
+      const wrapDiscount = document.getElementById('split-input-discount-wrap');
+
+      if (mode === 'final') {
+        btnFinal.className = 'py-1.5 px-3 rounded-lg bg-emerald-600 text-white font-medium text-center';
+        btnDiscount.className = 'py-1.5 px-3 rounded-lg bg-slate-800 text-slate-400 hover:text-white font-medium text-center';
+        wrapFinal.classList.remove('hidden');
+        wrapDiscount.classList.add('hidden');
+      } else {
+        btnDiscount.className = 'py-1.5 px-3 rounded-lg bg-emerald-600 text-white font-medium text-center';
+        btnFinal.className = 'py-1.5 px-3 rounded-lg bg-slate-800 text-slate-400 hover:text-white font-medium text-center';
+        wrapDiscount.classList.remove('hidden');
+        wrapFinal.classList.add('hidden');
+      }
+      calculateSplit();
+    }
+
+    function renderSplitItems() {
+      const container = document.getElementById('split-items-list');
+      container.innerHTML = '';
+
+      splitItems.forEach((item, index) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2 bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-xs';
+
+        row.innerHTML = `
+          <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 font-mono flex items-center justify-center font-bold shrink-0">
+            ${index + 1}
+          </span>
+          <input type="text" value="${escapeHtml(item.name)}" oninput="updateSplitItem('${item.id}', 'name', this.value)" placeholder="商品名称" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-white flex-1 focus:border-emerald-500 focus:outline-none">
+          <div class="relative w-28 sm:w-36 shrink-0">
+            <span class="absolute left-2 top-1.5 text-slate-500 font-mono text-xs">￥</span>
+            <input type="number" step="0.01" min="0" value="${item.originalPrice}" oninput="updateSplitItem('${item.id}', 'originalPrice', parseFloat(this.value) || 0)" placeholder="标价原价" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-6 pr-2 py-1 text-white font-mono text-xs font-semibold focus:border-emerald-500 focus:outline-none">
+          </div>
+          <div class="text-right shrink-0 w-24">
+            <div class="text-[10px] text-slate-400">实付到手：</div>
+            <div id="split-res-price-${item.id}" class="text-emerald-400 font-mono font-bold text-sm">￥0.00</div>
+          </div>
+          <button onclick="removeSplitItem('${item.id}')" title="删除" class="text-slate-500 hover:text-rose-400 p-1 shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        `;
+
+        container.appendChild(row);
+      });
+    }
+
+    function addSplitItem() {
+      splitItems.push({
+        id: 'sp_' + Date.now(),
+        name: `凑单商品 ${splitItems.length + 1}`,
+        originalPrice: 50.0
+      });
+      renderSplitItems();
+      calculateSplit();
+    }
+
+    function removeSplitItem(id) {
+      if (splitItems.length <= 1) {
+        showToast('至少保留 1 件商品');
+        return;
+      }
+      splitItems = splitItems.filter(i => i.id !== id);
+      renderSplitItems();
+      calculateSplit();
+    }
+
+    function updateSplitItem(id, field, value) {
+      const item = splitItems.find(i => i.id === id);
+      if (item) {
+        item[field] = value;
+        calculateSplit();
+      }
+    }
+
+    function calculateSplit() {
+      const totalOriginal = splitItems.reduce((sum, item) => sum + (item.originalPrice || 0), 0);
+      document.getElementById('split-sum-original').textContent = `￥${totalOriginal.toFixed(2)}`;
+
+      if (totalOriginal <= 0) return;
+
+      let actualTotalPaid = 0;
+      let totalDiscount = 0;
+
+      if (splitMode === 'final') {
+        actualTotalPaid = parseFloat(document.getElementById('split-final-paid').value) || 0;
+        totalDiscount = Math.max(0, totalOriginal - actualTotalPaid);
+      } else {
+        totalDiscount = parseFloat(document.getElementById('split-total-discount').value) || 0;
+        actualTotalPaid = Math.max(0, totalOriginal - totalDiscount);
+      }
+
+      document.getElementById('split-sum-saved').textContent = `￥${totalDiscount.toFixed(2)}`;
+      const overallRate = totalOriginal > 0 ? (actualTotalPaid / totalOriginal) * 10 : 10;
+      document.getElementById('split-overall-discount-rate').textContent = `${overallRate.toFixed(2)} 折`;
+
+      // 按原价比例分摊
+      splitItems.forEach(item => {
+        const ratio = (item.originalPrice || 0) / totalOriginal;
+        const itemActual = actualTotalPaid * ratio;
+        const resEl = document.getElementById(`split-res-price-${item.id}`);
+        if (resEl) {
+          resEl.textContent = `￥${itemActual.toFixed(2)}`;
+        }
+      });
+    }
+
+    // 辅助工具函数
+    function escapeHtml(str) {
+      return (str || '').replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2200);
+    }
+  </script>
+</body>
+</html>
