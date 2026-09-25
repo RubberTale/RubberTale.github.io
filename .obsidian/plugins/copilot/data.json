@@ -318,7 +318,7 @@
   "inlineEditCommands": [],
   "projectList": [],
   "lastDismissedVersion": null,
-  "lastShownStartupVersion": "4.0.9",
+  "lastShownStartupVersion": "4.0.11",
   "passMarkdownImages": true,
   "enableAutonomousAgent": true,
   "enableCustomPromptTemplating": true,
@@ -1020,67 +1020,6 @@
     {
       "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
       "info": {
-        "id": "deepseek/deepseek-v4-flash",
-        "displayName": "DeepSeek/DeepSeek V4 Flash",
-        "modalities": {
-          "input": [
-            "text"
-          ],
-          "output": [
-            "text"
-          ]
-        },
-        "limits": {
-          "context": 1048576,
-          "output": 1048576
-        },
-        "reasoning": true,
-        "toolCall": true,
-        "releaseDate": "2026-04-24",
-        "cost": {
-          "input": 0.14,
-          "output": 0.28,
-          "cacheRead": 0.028,
-          "cacheWrite": 0
-        }
-      },
-      "configuredModelId": "83846e58-b4e3-40af-9842-738e12e00194",
-      "configuredAt": 1789520624997
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
-        "id": "deepseek/deepseek-v4-flash-vision-exp",
-        "displayName": "DeepSeek/DeepSeek V4 Flash Vision Exp",
-        "modalities": {
-          "input": [
-            "text",
-            "image"
-          ],
-          "output": [
-            "text"
-          ]
-        },
-        "limits": {
-          "context": 1000000,
-          "output": 384000
-        },
-        "reasoning": true,
-        "toolCall": true,
-        "releaseDate": "2026-08-21",
-        "cost": {
-          "input": 0.27,
-          "output": 1.08,
-          "cacheRead": 0.0054,
-          "cacheWrite": 0.27
-        }
-      },
-      "configuredModelId": "77a93753-601e-4f32-aaba-03e7dd360014",
-      "configuredAt": 1789520624997
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
         "id": "deepseek/deepseek-v4-pro",
         "displayName": "DeepSeek/DeepSeek V4 Pro",
         "modalities": {
@@ -1109,15 +1048,6 @@
         "displayName": "DeepSeek/DeepSeek V4.1 Flash"
       },
       "configuredModelId": "7c5155b1-cfa3-4e3c-bbc7-ded4157ea49e",
-      "configuredAt": 1789520624998
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
-        "id": "siliconflow/baidu/ERNIE-4.5-300B-A47B",
-        "displayName": "SiliconFlow/baidu/ERNIE-4.5-300B-A47B"
-      },
-      "configuredModelId": "bacdf850-1dcf-40dc-827b-a0f0aba7e213",
       "configuredAt": 1789520624998
     },
     {
@@ -1231,15 +1161,6 @@
     {
       "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
       "info": {
-        "id": "siliconflow/tencent/Hy3-preview",
-        "displayName": "SiliconFlow/Hy3 preview"
-      },
-      "configuredModelId": "7222a0d2-118c-4d85-a859-18c9c27195d5",
-      "configuredAt": 1789520625003
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
         "id": "siliconflow/inclusionAI/Ling-flash-2.0",
         "displayName": "SiliconFlow/inclusionAI/Ling-flash-2.0"
       },
@@ -1321,15 +1242,6 @@
     {
       "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
       "info": {
-        "id": "siliconflow/Qwen/Qwen3-235B-A22B-Thinking-2507",
-        "displayName": "SiliconFlow/Qwen/Qwen3-235B-A22B-Thinking-2507"
-      },
-      "configuredModelId": "178e50fe-6b5d-4532-94d5-fa79f4cf3182",
-      "configuredAt": 1789520625006
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
         "id": "siliconflow/Qwen/Qwen3-30B-A3B-Instruct-2507",
         "displayName": "SiliconFlow/Qwen/Qwen3-30B-A3B-Instruct-2507"
       },
@@ -1371,24 +1283,6 @@
       },
       "configuredModelId": "466a6f8d-32ec-478b-853c-65afa27cc550",
       "configuredAt": 1789520625007
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
-        "id": "siliconflow/Qwen/Qwen3-VL-235B-A22B-Instruct",
-        "displayName": "SiliconFlow/Qwen/Qwen3-VL-235B-A22B-Instruct"
-      },
-      "configuredModelId": "b7300f72-f446-448a-83d4-0f83381fa5a0",
-      "configuredAt": 1789520625008
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
-        "id": "siliconflow/Qwen/Qwen3-VL-235B-A22B-Thinking",
-        "displayName": "SiliconFlow/Qwen/Qwen3-VL-235B-A22B-Thinking"
-      },
-      "configuredModelId": "9865b8d1-f5fa-4402-b1e0-eee8b9a492b8",
-      "configuredAt": 1789520625008
     },
     {
       "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
@@ -1573,15 +1467,6 @@
     {
       "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
       "info": {
-        "id": "opencode/mimo-v2.5-free",
-        "displayName": "OpenCode Zen/MiMo V2.5 Free"
-      },
-      "configuredModelId": "d6ec56ae-0192-4b03-a807-7a334bf6eec9",
-      "configuredAt": 1789520625015
-    },
-    {
-      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
-      "info": {
         "id": "opencode/muse-spark-1.2-contributor-free",
         "displayName": "OpenCode Zen/Muse Spark 1.2 Free"
       },
@@ -1627,11 +1512,178 @@
     {
       "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
       "info": {
-        "id": "opencode/union-alpha",
-        "displayName": "OpenCode Zen/Union Alpha Free"
+        "id": "anthropic/claude-opus-5-5",
+        "displayName": "Anthropic/Claude Opus 5.5",
+        "modalities": {
+          "input": [
+            "text",
+            "image",
+            "pdf"
+          ],
+          "output": [
+            "text"
+          ]
+        },
+        "limits": {
+          "context": 1000000,
+          "output": 128000
+        },
+        "reasoning": true,
+        "toolCall": true,
+        "releaseDate": "2026-09-22",
+        "cost": {
+          "input": 4,
+          "output": 20,
+          "cacheRead": 0.2,
+          "cacheWrite": 5
+        }
       },
-      "configuredModelId": "11cf0f30-3c65-4f94-ba92-9eb2f5670366",
-      "configuredAt": 1789595502832
+      "configuredModelId": "bb3dc9c1-b4ae-4cbb-9053-98aa624cf0e6",
+      "configuredAt": 1790130520352
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "anthropic/claude-opus-5-5-fast",
+        "displayName": "Anthropic/Claude Opus 5.5 Fast"
+      },
+      "configuredModelId": "57e8efef-c65c-4371-8b67-e737f69c2c45",
+      "configuredAt": 1790130520354
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V4-Flash-0731",
+        "displayName": "SiliconFlow/DeepSeek V4 Flash 0731"
+      },
+      "configuredModelId": "b07558b1-9a83-46f0-bc7a-0351b43a318c",
+      "configuredAt": 1790130520354
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
+        "displayName": "SiliconFlow/DeepSeek V4 Flash Vision Exp"
+      },
+      "configuredModelId": "b4b92ce3-f5af-40c2-89e5-b667fb8acec7",
+      "configuredAt": 1790130520355
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/deepseek-ai/DeepSeek-V4-Pro-0813",
+        "displayName": "SiliconFlow/DeepSeek V4 Pro 0813"
+      },
+      "configuredModelId": "9cf8c52d-bde0-43e1-a744-a47a2ce70630",
+      "configuredAt": 1790130520355
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/google/gemma-4-12B-it",
+        "displayName": "SiliconFlow/Gemma 4 12B IT"
+      },
+      "configuredModelId": "c8224162-48d6-4ae1-b181-b8c1349e87d0",
+      "configuredAt": 1790130520355
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/zai-org/GLM-5.3",
+        "displayName": "SiliconFlow/GLM-5.3"
+      },
+      "configuredModelId": "51359f46-1e3d-48e4-bad8-fd5f0b761b98",
+      "configuredAt": 1790130520356
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/zai-org/GLM-5.3-Flash",
+        "displayName": "SiliconFlow/GLM-5.3-Flash"
+      },
+      "configuredModelId": "9ba1eddf-82bd-4bcd-90ac-eaa4b1348798",
+      "configuredAt": 1790130520356
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/tencent/Hy3",
+        "displayName": "SiliconFlow/Hy3"
+      },
+      "configuredModelId": "0b5cfcef-94ea-459e-83d9-662fae47f41d",
+      "configuredAt": 1790130520356
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/moonshotai/Kimi-K2.7-Code",
+        "displayName": "SiliconFlow/Kimi K2.7 Code"
+      },
+      "configuredModelId": "b45aa130-42e4-49d8-ac00-429ad21e793b",
+      "configuredAt": 1790130520356
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/moonshotai/Kimi-K3",
+        "displayName": "SiliconFlow/Kimi K3"
+      },
+      "configuredModelId": "cec1b929-a9d2-4d29-a43d-ac97c17b0e78",
+      "configuredAt": 1790130520357
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/meituan-longcat/LongCat-2.0",
+        "displayName": "SiliconFlow/LongCat-2.0"
+      },
+      "configuredModelId": "0df42175-8906-4235-82c4-5043db3e1dd1",
+      "configuredAt": 1790130520357
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/MiniMaxAI/MiniMax-M3",
+        "displayName": "SiliconFlow/MiniMax-M3"
+      },
+      "configuredModelId": "a6d55b03-11c9-4c5e-9a94-2a1f6fff6b16",
+      "configuredAt": 1790130520357
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/nex-agi/Nex-N2-Pro",
+        "displayName": "SiliconFlow/Nex-N2-Pro"
+      },
+      "configuredModelId": "e28f9d31-fe62-4e00-baa4-fc443a75699c",
+      "configuredAt": 1790130520357
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "siliconflow/Qwen/Qwen3.8-2.4T-A95B",
+        "displayName": "SiliconFlow/Qwen3.8 2.4T A95B"
+      },
+      "configuredModelId": "b6b6d951-b16c-473f-beb5-78b835d9f133",
+      "configuredAt": 1790130520357
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/mimo-v2.6-flash-free",
+        "displayName": "OpenCode Zen/MiMo-V2.6-Flash Free"
+      },
+      "configuredModelId": "34afb0b6-7bcf-4264-8e59-cca11e405476",
+      "configuredAt": 1790130520358
+    },
+    {
+      "providerId": "9624704f-98d4-417c-bfc6-1932f539d631",
+      "info": {
+        "id": "opencode/space-bunny-free",
+        "displayName": "OpenCode Zen/Space Bunny Free"
+      },
+      "configuredModelId": "887566c8-49c2-46e3-bfdb-6607494df955",
+      "configuredAt": 1790322184597
     }
   ],
   "backends": {
