@@ -20,36 +20,80 @@ html {
 }
 #article-container h2[id],
 #article-container h3[id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 130px;
 }
 .tools-quick-nav {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 15px;
+  z-index: 90;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 15px 0 30px 0;
-  padding: 12px 16px;
-  background: rgba(125, 125, 125, 0.06);
-  border: 1px solid rgba(125, 125, 125, 0.15);
-  border-radius: 12px;
+  align-items: center;
+  gap: 8px;
+  margin: 15px 0 25px 0;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(125, 125, 125, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  transition: top 0.25s ease-in-out, background 0.3s, box-shadow 0.3s;
+}
+.tools-quick-nav::-webkit-scrollbar {
+  display: none;
+}
+#page-header.nav-visible ~ #content-inner .tools-quick-nav,
+#page-header.fixed ~ #content-inner .tools-quick-nav {
+  top: 68px;
+}
+[data-theme='dark'] .tools-quick-nav {
+  background: rgba(20, 24, 33, 0.88);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 .quick-nav-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 6px 13px;
   border-radius: 20px;
   background: var(--btn-bg, #49b1f5);
   color: #fff !important;
   font-size: 13px;
   font-weight: 500;
   text-decoration: none !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+  opacity: 0.88;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
 .quick-nav-pill:hover {
+  opacity: 1;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(73, 177, 245, 0.35);
+  box-shadow: 0 4px 14px rgba(73, 177, 245, 0.4);
   filter: brightness(1.08);
+}
+.quick-nav-pill.active {
+  opacity: 1;
+  background: #1d4ed8 !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.3), 0 4px 14px rgba(29, 78, 216, 0.45);
+  transform: translateY(-1px);
+}
+.quick-nav-pill.quick-nav-top {
+  background: rgba(125, 125, 125, 0.15);
+  color: var(--font-color, #444) !important;
+  margin-left: auto;
+}
+.quick-nav-pill.quick-nav-top:hover {
+  background: var(--btn-bg, #49b1f5);
+  color: #fff !important;
 }
 .category-intro {
   color: #888;
@@ -81,12 +125,17 @@ html {
   <a href="#🤖-AI-智能与创意工坊" class="quick-nav-pill">🤖 AI与创意工坊</a>
   <a href="#🗺️-历史地理与时空图谱" class="quick-nav-pill">🗺️ 历史地理图谱</a>
   <a href="#🎮-休闲互动与社区交流" class="quick-nav-pill">🎮 休闲与社区</a>
+  <a href="#content-inner" class="quick-nav-pill quick-nav-top" title="回到顶部">🔝 顶部</a>
 </div>
 
 <script>
 (function() {
   function initQuickNav() {
-    document.querySelectorAll('.tools-quick-nav .quick-nav-pill').forEach(function(pill) {
+    var nav = document.querySelector('.tools-quick-nav');
+    if (!nav) return;
+    var pills = nav.querySelectorAll('.quick-nav-pill');
+
+    pills.forEach(function(pill) {
       if (pill.dataset.navBound) return;
       pill.dataset.navBound = 'true';
       pill.addEventListener('click', function(e) {
@@ -104,7 +153,67 @@ html {
         }
       });
     });
+
+    var headingIds = [
+      '📈-期货量化与投研分析',
+      '📊-全品种全历史日-K-线深研',
+      '🌲-橡胶产业与现货数据',
+      '🌦️-产区物候、气象与卫星遥感',
+      '🤖-AI-智能与创意工坊',
+      '🗺️-历史地理与时空图谱',
+      '🎮-休闲互动与社区交流'
+    ];
+
+    var headings = headingIds.map(function(id) {
+      return document.getElementById(id);
+    }).filter(Boolean);
+
+    function updateActivePill() {
+      var scrollPos = window.scrollY || window.pageYOffset;
+      var activeId = '';
+      for (var i = 0; i < headings.length; i++) {
+        var top = headings[i].getBoundingClientRect().top + scrollPos;
+        if (scrollPos >= top - 150) {
+          activeId = headings[i].id;
+        }
+      }
+      pills.forEach(function(pill) {
+        var href = pill.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        var id = decodeURIComponent(href.slice(1));
+        if (id && id === activeId) {
+          if (!pill.classList.contains('active')) {
+            pill.classList.add('active');
+            if (nav.scrollWidth > nav.clientWidth) {
+              var pillLeft = pill.offsetLeft;
+              var pillWidth = pill.offsetWidth;
+              var navWidth = nav.clientWidth;
+              nav.scrollTo({
+                left: pillLeft - (navWidth / 2) + (pillWidth / 2),
+                behavior: 'smooth'
+              });
+            }
+          }
+        } else if (!pill.classList.contains('quick-nav-top')) {
+          pill.classList.remove('active');
+        }
+      });
+    }
+
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateActivePill();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateActivePill();
   }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initQuickNav);
   } else {
