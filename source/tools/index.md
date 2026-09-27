@@ -229,6 +229,15 @@ html {
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/futures-strategy/" title="期货公司策略建议 · 实战执行手册" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:shield-alert.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货公司策略建议">
+        </div>
+        <div class="flink-item-name">期货公司策略建议</div>
+        <div class="flink-item-desc">国联期货大宗商品热点研讨实录落地版：棉花高空、化工正套、尿素反套、橡胶战略多头、贵金属领口期权保护与十一长假提保风控。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/strategy-tracker/" title="多品种次日触发量化跟踪器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:activity.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="多品种次日触发量化跟踪器">
