@@ -32,7 +32,7 @@ def run_daily_tracking(current_date: str, market_quotes: Dict[str, Dict[str, flo
     market_quotes 格式:
     {
       "CF701": {"high": 16180.0, "low": 15990.0, "close": 16050.0},
-      "RU701": {"high": 17250.0, "low": 17020.0, "close": 17110.0},
+      "RU701": {"high": 18850.0, "low": 18420.0, "close": 18650.0},
       "MA-SPREAD": {"high": 25.0, "low": 18.0, "close": 19.0},
       "EB-SPREAD": {"high": 70.0, "low": 58.0, "close": 62.0},
       "UR-SPREAD": {"high": -8.0, "low": -16.0, "close": -12.0},

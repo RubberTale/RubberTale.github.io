@@ -657,11 +657,11 @@ top_img: false
             <td><strong>天然橡胶 (RU2701)</strong></td>
             <td><span class="fs-cell-badge fs-badge-long">战略多头</span></td>
             <td><strong>逢低吸筹</strong></td>
-            <td>16800 - 17200 回踩试多</td>
-            <td>16500 支撑关口</td>
-            <td>第一目标 18000 / 轮储预期 19200</td>
+            <td>18350 - 18500 回踩试多</td>
+            <td>18000 支撑关口</td>
+            <td>第一目标 19500 / 轮储预期 20200-20500</td>
             <td>20% - 25%</td>
-            <td>4.0 : 1</td>
+            <td>3.9 : 1</td>
             <td>1 - 3 个月</td>
           </tr>
           <tr>
@@ -897,28 +897,28 @@ top_img: false
           <div class="fs-spec-list">
             <div class="fs-spec-row">
               <span class="fs-spec-k"><i class="fas fa-bullseye"></i> 标的合约</span>
-              <span class="fs-spec-v">上期所 RU2701 / 配套 NR2701 对冲</span>
+              <span class="fs-spec-v">上期所 RU2701 (最新收盘 18670) / 配套 NR2701 (现价约15880)</span>
             </div>
             <div class="fs-spec-row">
               <span class="fs-spec-k"><i class="fas fa-arrow-circle-up"></i> 建议建仓区间</span>
-              <span class="fs-spec-v" style="color: #059669;">16800 - 17200 点回踩分批吸筹</span>
+              <span class="fs-spec-v" style="color: #059669;">18350 - 18500 点回踩分批吸筹 (触及 18450 触发)</span>
             </div>
             <div class="fs-spec-row">
               <span class="fs-spec-k"><i class="fas fa-shield-alt"></i> 严格防守止损位</span>
-              <span class="fs-spec-v">16500 (跌破关键日线平台离场)</span>
+              <span class="fs-spec-v">18000 (跌破关键整数日线支撑平台离场)</span>
             </div>
             <div class="fs-spec-row">
               <span class="fs-spec-k"><i class="fas fa-flag-checkered"></i> 目标止盈区间</span>
-              <span class="fs-spec-v" style="color: #059669;">第一目标 18000 / 轮储落地预期 19000-19500</span>
+              <span class="fs-spec-v" style="color: #059669;">第一目标 19500 / 轮储落地预期 20200 - 20500</span>
             </div>
             <div class="fs-spec-row">
               <span class="fs-spec-k"><i class="fas fa-coins"></i> 期权增强战术</span>
-              <span class="fs-spec-v" style="color: #7c3aed;">买入平值/微虚值 RU 看涨期权 (低隐波优势)</span>
+              <span class="fs-spec-v" style="color: #7c3aed;">买入平值/微虚值 RU2701 行权价 19000 或 19500 看涨期权</span>
             </div>
           </div>
         </div>
         <div class="fs-checkpoint-box">
-          <strong>高频监控红线：</strong>1. 青岛保税区区内外总库存去化斜率；2. 泰国南部产区 10-11 月台风与雨水情况对原料胶水收购价的影响；3. 国家物资储备局轮储公告及传闻。
+          <strong>高频监控红线：</strong>1. 青岛保税区区内外总库存去化斜率；2. 泰国南部产区 10-11 月降雨天气对原料胶水收购价的影响；3. 国家物资储备局轮储公告及传闻；4. RU 与 NR 升贴水价差（当前升水维持在 2600-2800 元/吨合理区间）。
         </div>
       </div>
 
@@ -1033,7 +1033,7 @@ top_img: false
         </p>
         <div class="fs-checkpoint-box" style="border-left-color: #059669; margin-top: 10px;">
           <strong>交易台推荐战术：</strong>
-          1. 采用小资金（总仓位 2%-3%）买入 <strong>RU2701 行权价 17500 或 18000 看涨期权</strong>；<br>
+          1. 采用小资金（总仓位 2%-3%）买入 <strong>RU2701 行权价 19000 或 19500 看涨期权</strong>；<br>
           2. 若节后橡胶因供需库容危机或政策催化向上爆发，期权将享受 <strong>Delta + Gamma + Vega（隐波暴涨）三击</strong>，盈亏比极度诱人。
         </div>
       </div>
