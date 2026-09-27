@@ -472,49 +472,6 @@ top_img: false
   font-weight: 800;
   font-family: monospace;
 }
-
-/* 原始纪要对照与图片展板 */
-.fs-source-preview {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-.fs-source-img-wrap {
-  flex: 0 0 280px;
-  max-width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--fs-border-card);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  cursor: zoom-in;
-}
-.fs-source-img-wrap img {
-  width: 100%;
-  display: block;
-  transition: transform 0.3s ease;
-}
-.fs-source-img-wrap:hover img {
-  transform: scale(1.03);
-}
-.fs-source-text {
-  flex: 1;
-  min-width: 280px;
-  font-size: 13.5px;
-  line-height: 1.8;
-  color: var(--fs-text-sub);
-}
-
-/* 免责声明 */
-.fs-disclaimer {
-  background: rgba(100, 116, 139, 0.08);
-  border: 1px solid rgba(100, 116, 139, 0.2);
-  border-radius: 12px;
-  padding: 16px 20px;
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--fs-text-sub);
-}
 </style>
 
 <div class="fs-wrapper">
@@ -578,7 +535,6 @@ top_img: false
 <a href="#fs-sec-options" class="fs-nav-btn"><i class="fas fa-percentage"></i> 期权战术与隐波专题</a>
 <a href="#fs-sec-risk" class="fs-nav-btn"><i class="fas fa-exclamation-triangle"></i> 长假资金与风控准则</a>
 <a href="#fs-sec-calcs" class="fs-nav-btn"><i class="fas fa-calculator"></i> 交互测算工具</a>
-<a href="#fs-sec-source" class="fs-nav-btn"><i class="fas fa-file-contract"></i> 原始纪要与合规说明</a>
 </div>
 
 <!-- 第一板块：全景策略执行总览矩阵 -->
@@ -1184,33 +1140,6 @@ top_img: false
 </div>
 </div>
 
-</div>
-</div>
-
-<!-- 第七板块：原始研讨纪要与合规声明 -->
-<div class="fs-card" id="fs-sec-source">
-<div class="fs-card-header">
-<h2 class="fs-card-title"><i class="fas fa-file-contract" style="color: var(--fs-accent-blue);"></i> 研报原始记录稿对照与免责声明</h2>
-<span class="fs-tag"><i class="fas fa-stamp"></i> 来源可溯 · 实证对照</span>
-</div>
-
-<div class="fs-source-preview">
-<div class="fs-source-img-wrap" title="点击查看原始会议记录稿高清原图" onclick="window.open('/img/2026-09-27-futures-strategy-meeting.jpg', '_blank')">
-<img src="/img/2026-09-27-futures-strategy-meeting.jpg" alt="国联期货20260927会议摘要记录稿">
-</div>
-<div class="fs-source-text">
-<h4 style="margin: 0 0 8px 0; color: var(--fs-text-main); font-size: 15px;">《会议摘要记录稿 20260927》原始档案备忘</h4>
-<ul style="padding-left: 20px; margin: 0 0 14px 0;">
-<li><strong>会议主题：</strong>大宗商品热点策略会</li>
-<li><strong>主讲人：</strong>徐亚光、王军龙、徐智龙、黎伟</li>
-<li><strong>主办机构：</strong>国联期货股份有限公司（Guolian Futures）</li>
-<li><strong>核心研讨范围：</strong>宏观中美/美伊地缘局势、棉花、化工品强弱排序（甲醇/苯乙烯/尿素/聚烯烃）、天然橡胶去库与国储轮储、沥青排产与基差、商品期权及长假贵金属/股指风控提示。</li>
-</ul>
-<div class="fs-disclaimer">
-<strong>免责声明与版权提示：</strong><br>
-本页面内容由国联期货公开研讨会纪要转化整理，仅供学习、交流与量化投研参考，并不构成对所述期货/期权合约的绝对买卖要约。本报告所载观点、数据及预测反映报告日期的专业判断，市场有风险，投资需谨慎。投资者应根据自身的风险偏好、资金体量与风险承受能力独立决策并自负盈亏。
-</div>
-</div>
 </div>
 </div>
 
