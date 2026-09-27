@@ -229,12 +229,12 @@ html {
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
-      <a href="/futures-strategy/" title="期货公司策略建议 · 实战执行手册" target="_blank">
+      <a href="/tools/futures-strategy/" title="期货公司策略建议 · 触发雷达与逐日盯市跟踪器" target="_blank">
         <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:shield-alert.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货公司策略建议">
+          <img src="https://api.iconify.design/lucide:crosshair.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货公司策略建议">
         </div>
         <div class="flink-item-name">期货公司策略建议</div>
-        <div class="flink-item-desc">国联期货大宗商品热点研讨实录落地版：棉花高空、化工正套、尿素反套、橡胶战略多头、贵金属领口期权保护与十一长假提保风控。</div>
+        <div class="flink-item-desc">国联期货研讨会落地转化：下周入场触发雷达、止盈止损监控、逐日盯市盈亏核算与标准期货记账流水。</div>
       </a>
     </div>
     <div class="flink-list-item">

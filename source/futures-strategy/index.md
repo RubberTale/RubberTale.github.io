@@ -553,6 +553,23 @@ top_img: false
     </div>
   </div>
 
+  <!-- 实时前向盯市跟踪入口横幅 -->
+  <div style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(99, 102, 241, 0.15)); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: 16px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.08);">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div style="width: 44px; height: 44px; border-radius: 12px; background: #2563eb; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; flex-shrink: 0;">
+        <i class="fas fa-crosshairs"></i>
+      </div>
+      <div>
+        <div style="font-weight: 800; font-size: 15.5px; color: var(--fs-text-main);">下周入场触发雷达与逐日盯市跟踪看板已上线！</div>
+        <div style="font-size: 13px; color: var(--fs-text-sub); margin-top: 2px;">实时监控棉花/橡胶/甲醇/苯乙烯/尿素/黄金领口入场点位，每日收盘自动核算盈亏与标准记账流水。</div>
+      </div>
+    </div>
+    <a href="/tools/futures-strategy/" target="_blank" style="padding: 9px 18px; border-radius: 10px; background: #2563eb; color: #fff !important; font-weight: 700; font-size: 13.5px; text-decoration: none !important; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35); transition: transform 0.2s;">
+      <span>打开前向盯市跟踪器</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+
   <!-- 粘性快捷导航 -->
   <div class="fs-nav-sticky">
     <a href="#fs-sec-matrix" class="fs-nav-btn active"><i class="fas fa-table"></i> 策略执行总览矩阵</a>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器 | 橡胶童话</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            },
+            darkbg: '#0a0e17',
+            cardbg: '#111827',
+            bordercol: '#1f293d'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background-color: #0a0e17;
+      color: #e2e8f0;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .glow-emerald {
+      box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.25);
+    }
+    .glow-rose {
+      box-shadow: 0 0 20px -5px rgba(244, 63, 94, 0.25);
+    }
+    .glow-blue {
+      box-shadow: 0 0 20px -5px rgba(59, 130, 246, 0.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- 顶部导航栏 -->
+  <header class="border-b border-gray-800/80 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="/" title="返回橡胶童话首页" class="block shrink-0">
+          <img src="/img/橡胶童话logo.png" alt="橡胶童话 Logo" class="w-9 h-9 rounded-xl shadow-md hover:scale-105 transition-transform object-contain bg-white/5 p-0.5 border border-white/10">
+        </a>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">期货公司策略建议 · 触发雷达与逐日盯市</h1>
+            <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">前向实盘跟踪版</span>
+          </div>
+          <p class="text-xs text-gray-400 hidden sm:block">国联期货 2026-09-27 研讨会转化 · 入场触发监控 · 逐日盯市盈亏明细</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3 text-xs">
+        <div class="hidden md:flex items-center space-x-2 text-gray-400 bg-gray-900/80 px-3 py-1.5 rounded-lg border border-gray-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>最新交易日: <strong id="header-updated-date" class="text-gray-200 font-mono">2026-09-27</strong></span>
+        </div>
+        <a href="/futures-strategy/" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-blue-500/15 text-blue-400 hover:bg-blue-500/25 border border-blue-500/30 transition font-semibold">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <span>策略深度研报</span>
+        </a>
+        <a href="/tools/" class="text-gray-300 hover:text-white px-3 py-1.5 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 transition flex items-center space-x-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          <span>实用小工具箱</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体容器 -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 w-full">
+
+    <!-- 顶部状态横幅与核心 KPI 卡片 -->
+    <div class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4">
+      
+      <!-- 累计净值 -->
+      <div class="col-span-2 sm:col-span-1 lg:col-span-2 bg-gray-900/60 border border-gray-800 rounded-xl p-4 relative overflow-hidden">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">跟踪账户累计净值 (NAV)</span>
+          <span id="market-status-pill" class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">雷达就绪</span>
+        </div>
+        <div class="mt-2 flex items-baseline space-x-3">
+          <span id="kpi-net-value" class="text-2xl sm:text-3xl font-extrabold text-white font-mono">1.0000</span>
+          <span id="kpi-return-pct" class="text-sm font-semibold font-mono text-gray-400">+0.00%</span>
+        </div>
+        <div class="mt-2 text-xs text-gray-400 flex items-center justify-between">
+          <span>总资产: <span id="kpi-equity" class="font-mono text-gray-200">1,000,000</span> 元</span>
+          <span>初始: 1,000,000 元</span>
+        </div>
+      </div>
+
+      <!-- 待触发雷达数 -->
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">下周触发雷达</span>
+        <div class="mt-2">
+          <span id="kpi-radar-count" class="text-2xl sm:text-3xl font-extrabold text-blue-400 font-mono">6 个标的</span>
+        </div>
+        <div class="mt-2 text-xs text-gray-400">
+          全涵盖棉/胶/能化/贵金属
+        </div>
+      </div>
+
+      <!-- 当前在持仓位数 -->
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">实际在持头寸</span>
+        <div class="mt-2">
+          <span id="kpi-open-positions" class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono">0 手</span>
+        </div>
+        <div class="mt-2 text-xs text-gray-400">
+          等待开盘突破/回踩触发
+        </div>
+      </div>
+
+      <!-- 保证金占用率 -->
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">保证金风险率</span>
+          <span id="kpi-risk-badge" class="text-[10px] px-1.5 py-0.5 rounded font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">安全</span>
+        </div>
+        <div class="mt-2">
+          <span id="kpi-margin-ratio" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">0.00%</span>
+        </div>
+        <div class="mt-2 text-xs text-gray-400">
+          占用: <span id="kpi-margin-used" class="font-mono text-gray-300">0</span> 元 (上限40%)
+        </div>
+      </div>
+
+      <!-- 可用资金 -->
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">可用现金储备</span>
+        <div class="mt-2">
+          <span id="kpi-cash-avail" class="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono">1,000,000</span>
+        </div>
+        <div class="mt-2 text-xs text-gray-400">
+          现金比例 100.0%
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 标签页控制栏 (Sticky Filter Bar) -->
+    <div class="flex items-center space-x-2 border-b border-gray-800 pb-2 overflow-x-auto text-sm">
+      <button onclick="switchTab('radar')" id="tab-btn-radar" class="tab-btn px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white flex items-center space-x-1.5 shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        <span>🎯 下周入场触发雷达 (<span id="tab-radar-count">6</span>)</span>
+      </button>
+      <button onclick="switchTab('positions')" id="tab-btn-positions" class="tab-btn px-4 py-2 rounded-lg font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition flex items-center space-x-1.5 shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+        <span>💼 实时在持仓位 (<span id="tab-pos-count">0</span>)</span>
+      </button>
+      <button onclick="switchTab('equity')" id="tab-btn-equity" class="tab-btn px-4 py-2 rounded-lg font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition flex items-center space-x-1.5 shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+        <span>📈 净值与权益曲线</span>
+      </button>
+      <button onclick="switchTab('settlement')" id="tab-btn-settlement" class="tab-btn px-4 py-2 rounded-lg font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition flex items-center space-x-1.5 shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+        <span>📜 逐日盯市结算日志</span>
+      </button>
+      <button onclick="switchTab('ledger')" id="tab-btn-ledger" class="tab-btn px-4 py-2 rounded-lg font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition flex items-center space-x-1.5 shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span>📑 逐笔记账流水</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: 下周入场触发雷达 -->
+    <div id="tab-content-radar" class="tab-content space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="text-sm text-gray-300 font-medium">
+          下周重点盯盘标的触发雷达（开盘后若盘中价格触及设定条件，系统自动标记触发并纳入盯市）
+        </div>
+        <div class="flex items-center space-x-2 text-xs">
+          <span class="px-2 py-1 rounded bg-gray-900 border border-gray-800 text-gray-400 font-mono">基准资金: 1,000,000 元</span>
+          <span class="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">风控限额: 40%</span>
+        </div>
+      </div>
+
+      <div id="radar-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- 动态生成雷达卡片 -->
+      </div>
+    </div>
+
+    <!-- TAB 2: 实时在持仓位 -->
+    <div id="tab-content-positions" class="tab-content hidden space-y-4">
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            当前在持仓位逐日盯市盈亏
+          </h3>
+          <span class="text-xs text-gray-400">每日 15:00 收盘后核算结算价与浮动盈亏</span>
+        </div>
+        <div id="active-positions-table-wrap" class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead>
+              <tr class="border-b border-gray-800 text-gray-400 bg-gray-950/40">
+                <th class="py-2.5 px-3">合约品种</th>
+                <th class="py-2.5 px-2">交易方向</th>
+                <th class="py-2.5 px-2">持仓手数</th>
+                <th class="py-2.5 px-2">入场日期</th>
+                <th class="py-2.5 px-2 text-right">开仓均价</th>
+                <th class="py-2.5 px-2 text-right">最新市价</th>
+                <th class="py-2.5 px-3 text-right">浮动盈亏</th>
+                <th class="py-2.5 px-2 text-right">收益率</th>
+                <th class="py-2.5 px-2 text-right">占用保证金</th>
+                <th class="py-2.5 px-2">防守止损</th>
+                <th class="py-2.5 px-2">目标止盈</th>
+              </tr>
+            </thead>
+            <tbody id="active-positions-tbody" class="divide-y divide-gray-800/60">
+              <!-- 动态载入 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: 净值与权益曲线 -->
+    <div id="tab-content-equity" class="tab-content hidden space-y-4">
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="font-bold text-white text-sm">策略净值曲线 (NAV Progression)</h3>
+            <p class="text-xs text-gray-400 mt-0.5">从 2026-09-27 研讨会方案发布起的前向盯市轨迹</p>
+          </div>
+          <div class="flex items-center space-x-3 text-xs font-mono">
+            <span class="text-blue-400">● 策略净值</span>
+            <span class="text-gray-500">┄ 基准 1.0000</span>
+          </div>
+        </div>
+        <div id="nav-chart" style="width: 100%; height: 380px;"></div>
+      </div>
+    </div>
+
+    <!-- TAB 4: 逐日盯市结算日志 -->
+    <div id="tab-content-settlement" class="tab-content hidden space-y-4">
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <h3 class="font-bold text-white text-sm mb-3">每日收盘盯市备忘录 (Daily Settlement Notes)</h3>
+        <div id="daily-log-container" class="space-y-3">
+          <!-- 动态日志 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: 逐笔记账流水 -->
+    <div id="tab-content-ledger" class="tab-content hidden space-y-4">
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-bold text-white text-sm">标准化期货交易记账流水 (Accounting Ledger)</h3>
+          <span class="text-xs text-gray-400">精确核算每笔手续费、占用保证金与结余现金</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead>
+              <tr class="border-b border-gray-800 text-gray-400 bg-gray-950/40">
+                <th class="py-2.5 px-3">序号</th>
+                <th class="py-2.5 px-2">交易日期</th>
+                <th class="py-2.5 px-2">动作类型</th>
+                <th class="py-2.5 px-2">标的合约</th>
+                <th class="py-2.5 px-2">方向</th>
+                <th class="py-2.5 px-2 text-right">成交价</th>
+                <th class="py-2.5 px-2 text-right">数量</th>
+                <th class="py-2.5 px-2 text-right">发生金额</th>
+                <th class="py-2.5 px-2 text-right">已实现盈亏</th>
+                <th class="py-2.5 px-3 text-right">可用余额</th>
+                <th class="py-2.5 px-3">备注说明</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-tbody" class="divide-y divide-gray-800/60">
+              <!-- 动态记账流水 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 底部状态与版权 -->
+  <footer class="border-t border-gray-800/80 bg-gray-950 py-6 text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <span>© 2026 橡胶童话 · 期货公司策略建议前向盯市跟踪系统</span>
+        <span>·</span>
+        <a href="/futures-strategy/" class="text-blue-400 hover:underline">研报策略原文</a>
+      </div>
+      <div>
+        <span>数据源：国联期货研讨会纪要量化模型 · 每日15:30自动更新</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 交互逻辑 JS -->
+  <script>
+    let globalData = null;
+    let navChartInstance = null;
+
+    // 切换标签
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('text-gray-400', 'hover:text-white', 'hover:bg-gray-800');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-blue-600', 'text-white');
+        activeBtn.classList.remove('text-gray-400', 'hover:text-white', 'hover:bg-gray-800');
+      }
+
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+      const activeContent = document.getElementById(`tab-content-${tabId}`);
+      if (activeContent) {
+        activeContent.classList.remove('hidden');
+      }
+
+      if (tabId === 'equity' && navChartInstance) {
+        setTimeout(() => navChartInstance.resize(), 100);
+      }
+    }
+
+    // 格式化数字
+    function formatMoney(num) {
+      return Number(num).toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+
+    // 初始化渲染页面
+    async function initTracker() {
+      try {
+        const res = await fetch('./strategy_data.json?t=' + Date.now());
+        globalData = await res.json();
+      } catch (e) {
+        console.error('加载 strategy_data.json 失败:', e);
+        return;
+      }
+
+      const s = globalData.summary;
+
+      // 顶部指标
+      document.getElementById('header-updated-date').textContent = globalData.updated_at || '--';
+      document.getElementById('kpi-net-value').textContent = Number(s.net_value).toFixed(4);
+      const retEl = document.getElementById('kpi-return-pct');
+      retEl.textContent = (s.total_return_pct >= 0 ? '+' : '') + s.total_return_pct.toFixed(2) + '%';
+      retEl.className = 'text-sm font-semibold font-mono ' + (s.total_return_pct >= 0 ? 'text-emerald-400' : 'text-rose-400');
+
+      document.getElementById('kpi-equity').textContent = formatMoney(s.final_equity);
+      document.getElementById('kpi-radar-count').textContent = globalData.radar_signals.length + ' 个标的';
+      document.getElementById('tab-radar-count').textContent = globalData.radar_signals.length;
+
+      document.getElementById('kpi-open-positions').textContent = (globalData.current_positions.length || 0) + ' 个持仓';
+      document.getElementById('tab-pos-count').textContent = globalData.current_positions.length || 0;
+
+      document.getElementById('kpi-margin-ratio').textContent = (s.margin_ratio_pct || 0).toFixed(2) + '%';
+      document.getElementById('kpi-margin-used').textContent = formatMoney(s.total_margin || 0);
+      document.getElementById('kpi-cash-avail').textContent = formatMoney(s.available_cash || 0);
+
+      // 1. 渲染雷达卡片
+      renderRadar(globalData.radar_signals);
+
+      // 2. 渲染持仓表格
+      renderPositions(globalData.current_positions);
+
+      // 3. 渲染净值曲线
+      renderChart(globalData.equity_curve);
+
+      // 4. 渲染盯市日志
+      renderSettlementLogs(globalData.daily_settlement_log);
+
+      // 5. 渲染记账流水
+      renderLedger(globalData.accounting_ledger);
+    }
+
+    // 渲染雷达卡片
+    function renderRadar(signals) {
+      const container = document.getElementById('radar-cards-container');
+      if (!signals || signals.length === 0) {
+        container.innerHTML = '<div class="col-span-3 text-center text-gray-500 py-12">暂无雷达监控标的</div>';
+        return;
+      }
+
+      container.innerHTML = signals.map(sig => {
+        const isLong = sig.direction === '做多' || sig.direction === '跨期正套';
+        const isSpread = sig.direction.includes('套利') || sig.direction.includes('正套') || sig.direction.includes('反套');
+        const badgeColor = isLong ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+        
+        const isTriggered = sig.status === 'TRIGGERED';
+        const statusBadge = isTriggered 
+          ? '<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">已触发进场</span>'
+          : '<span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/40">🟢 待触发监控</span>';
+
+        return `
+          <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4 flex flex-col justify-between hover:border-gray-700 transition">
+            <div>
+              <div class="flex items-start justify-between">
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-base font-bold text-white">${sig.name}</span>
+                    <span class="text-xs font-mono text-gray-400">${sig.contract}</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-800 text-gray-400">${sig.sector}</span>
+                  </div>
+                  <div class="text-xs text-gray-400 mt-1">
+                    当前参考: <span class="font-mono text-gray-200">${sig.last_close}</span>
+                    ${isSpread ? '元/吨价差' : (sig.symbol === 'AU' ? '元/克' : '元/吨')}
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs px-2 py-0.5 rounded font-bold border ${badgeColor}">
+                    ${sig.direction}
+                  </span>
+                  <div class="mt-1">${statusBadge}</div>
+                </div>
+              </div>
+
+              <!-- 触发条件核心盒子 -->
+              <div class="mt-3 bg-gray-950/80 rounded-lg p-3 border border-gray-800/80 space-y-1.5 font-mono text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-400 font-sans flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    入场触发线:
+                  </span>
+                  <strong class="text-sm font-bold ${isLong ? 'text-emerald-400' : 'text-rose-400'}">${sig.trigger_price}</strong>
+                </div>
+                <div class="flex items-center justify-between text-[11px]">
+                  <span class="text-gray-400 font-sans">🛡️ 防守止损线:</span>
+                  <span class="text-rose-400 font-semibold">${sig.stop_price}</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px]">
+                  <span class="text-gray-400 font-sans">🎯 目标止盈区:</span>
+                  <span class="text-emerald-400 font-semibold">${sig.tp_price_1} / ${sig.tp_price_2}</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] pt-1 border-t border-gray-800/60">
+                  <span class="text-gray-400 font-sans">计划建仓手数:</span>
+                  <span class="text-gray-200">${sig.planned_lots} 手 (约占 ${(sig.estimated_margin/10000).toFixed(1)}万)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 pt-2.5 border-t border-gray-800/60 text-[11px] text-gray-400 leading-relaxed">
+              <span class="text-gray-500 font-semibold">触发条件:</span> ${sig.trigger_condition}<br>
+              <span class="text-gray-500 font-semibold">核心逻辑:</span> ${sig.logic}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 渲染在持仓位表格
+    function renderPositions(positions) {
+      const tbody = document.getElementById('active-positions-tbody');
+      if (!positions || positions.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="11" class="text-center py-10 text-gray-500 font-sans">
+              当前暂无触发在持头寸，下周雷达就绪等待盘中触发 (100% 现金可用)
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = positions.map(p => {
+        const isProfit = p.unrealized_pnl >= 0;
+        const pnlCol = isProfit ? 'text-emerald-400' : 'text-rose-400';
+        return `
+          <tr class="hover:bg-gray-800/30 transition">
+            <td class="py-2.5 px-3 text-white font-bold">${p.name} <span class="text-gray-400 font-normal">(${p.contract})</span></td>
+            <td class="py-2.5 px-2 font-semibold ${p.direction === '做多' ? 'text-emerald-400' : 'text-rose-400'}">${p.direction}</td>
+            <td class="py-2.5 px-2 text-gray-200">${p.lots} 手</td>
+            <td class="py-2.5 px-2 text-gray-400">${p.entry_date}</td>
+            <td class="py-2.5 px-2 text-right text-gray-300">${p.entry_price}</td>
+            <td class="py-2.5 px-2 text-right text-white font-bold">${p.current_price}</td>
+            <td class="py-2.5 px-3 text-right font-bold ${pnlCol}">${isProfit ? '+' : ''}${formatMoney(p.unrealized_pnl)}</td>
+            <td class="py-2.5 px-2 text-right ${pnlCol}">${isProfit ? '+' : ''}${p.return_pct}%</td>
+            <td class="py-2.5 px-2 text-right text-gray-300">${formatMoney(p.position_margin)}</td>
+            <td class="py-2.5 px-2 text-rose-400">${p.stop_price}</td>
+            <td class="py-2.5 px-2 text-emerald-400">${p.tp_price_1}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 渲染 ECharts 净值曲线
+    function renderChart(curve) {
+      const dom = document.getElementById('nav-chart');
+      if (!dom) return;
+      if (!navChartInstance) {
+        navChartInstance = echarts.init(dom, 'dark');
+      }
+
+      const dates = curve.map(c => c.date);
+      const navs = curve.map(c => c.net_value);
+
+      const option = {
+        backgroundColor: 'transparent',
+        tooltip: {
+          trigger: 'axis',
+          formatter: function(params) {
+            const idx = params[0].dataIndex;
+            const item = curve[idx];
+            return `
+              <div class="text-xs font-mono">
+                <div class="font-bold text-white mb-1">${item.date}</div>
+                <div>累计净值: <span class="text-blue-400 font-bold">${item.net_value.toFixed(4)}</span></div>
+                <div>动态权益: ${formatMoney(item.equity)} 元</div>
+                <div>当日盯市盈亏: ${item.daily_pnl >= 0 ? '+' : ''}${formatMoney(item.daily_pnl)} 元</div>
+                <div>在持仓位数: ${item.open_positions} 个</div>
+                <div class="text-gray-400 mt-1">${item.remark || ''}</div>
+              </div>
+            `;
+          }
+        },
+        grid: {
+          left: '3%',
+          right: '3%',
+          bottom: '8%',
+          top: '8%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          data: dates,
+          axisLine: { lineStyle: { color: '#334155' } },
+          axisLabel: { color: '#94a3b8' }
+        },
+        yAxis: {
+          type: 'value',
+          min: function(val) { return Math.min(0.98, val.min * 0.995); },
+          max: function(val) { return Math.max(1.02, val.max * 1.005); },
+          axisLine: { lineStyle: { color: '#334155' } },
+          splitLine: { lineStyle: { color: '#1e293b' } },
+          axisLabel: {
+            color: '#94a3b8',
+            formatter: '{value}'
+          }
+        },
+        series: [
+          {
+            name: '策略净值',
+            type: 'line',
+            data: navs,
+            smooth: true,
+            showSymbol: true,
+            symbolSize: 6,
+            itemStyle: { color: '#3b82f6' },
+            lineStyle: { width: 3, color: '#3b82f6' },
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: 'rgba(59, 130, 246, 0.35)' },
+                { offset: 1, color: 'rgba(59, 130, 246, 0.0)' }
+              ])
+            },
+            markLine: {
+              symbol: 'none',
+              data: [
+                { yAxis: 1.0, lineStyle: { color: '#64748b', type: 'dashed' }, label: { show: true, formatter: '1.0000 基准' } }
+              ]
+            }
+          }
+        ]
+      };
+
+      navChartInstance.setOption(option);
+      window.addEventListener('resize', () => navChartInstance.resize());
+    }
+
+    // 渲染每日盯市结算日志
+    function renderSettlementLogs(logs) {
+      const container = document.getElementById('daily-log-container');
+      if (!logs || logs.length === 0) {
+        container.innerHTML = '<div class="text-gray-500 py-6 text-center text-xs">暂无结算日志</div>';
+        return;
+      }
+
+      container.innerHTML = logs.map(l => {
+        return `
+          <div class="p-3.5 bg-gray-950/70 border border-gray-800 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="font-mono text-blue-400 font-bold">${l.date}</span>
+                <span class="text-white font-bold">${l.title}</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${l.risk_status}</span>
+              </div>
+              <p class="text-gray-400 leading-relaxed">${l.content}</p>
+            </div>
+            <div class="flex items-center space-x-4 shrink-0 font-mono text-[11px] md:text-right border-t md:border-t-0 pt-2 md:pt-0 border-gray-800">
+              <div>
+                <span class="text-gray-500">当日盈亏:</span>
+                <span class="font-bold ${l.daily_mtm_pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}">
+                  ${l.daily_mtm_pnl >= 0 ? '+' : ''}${formatMoney(l.daily_mtm_pnl)}
+                </span>
+              </div>
+              <div>
+                <span class="text-gray-500">累计权益:</span>
+                <span class="text-white font-bold">${formatMoney(l.cumulative_equity)}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 渲染记账流水
+    function renderLedger(ledger) {
+      const tbody = document.getElementById('ledger-tbody');
+      if (!ledger || ledger.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="11" class="text-center py-6 text-gray-500">暂无记账数据</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = ledger.map(item => {
+        return `
+          <tr class="hover:bg-gray-800/30 transition">
+            <td class="py-2 px-3 text-gray-400">${item.index}</td>
+            <td class="py-2 px-2 text-gray-300">${item.date}</td>
+            <td class="py-2 px-2 font-bold ${item.action === 'OPEN_POSITION' ? 'text-blue-400' : (item.action === 'CLOSE_POSITION' ? 'text-amber-400' : 'text-gray-300')}">${item.action}</td>
+            <td class="py-2 px-2 text-white">${item.symbol} <span class="text-gray-500">(${item.contract})</span></td>
+            <td class="py-2 px-2 ${item.direction === '做多' ? 'text-emerald-400' : (item.direction === '做空' ? 'text-rose-400' : 'text-gray-400')}">${item.direction}</td>
+            <td class="py-2 px-2 text-right text-gray-200">${item.price}</td>
+            <td class="py-2 px-2 text-right text-gray-200">${item.lots}</td>
+            <td class="py-2 px-2 text-right text-gray-300">${formatMoney(item.amount)}</td>
+            <td class="py-2 px-2 text-right ${item.realized_pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${item.realized_pnl ? formatMoney(item.realized_pnl) : '--'}</td>
+            <td class="py-2 px-3 text-right text-emerald-400 font-bold">${formatMoney(item.balance)}</td>
+            <td class="py-2 px-3 text-gray-400 font-sans text-[11px]">${item.note}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // 页面启动
+    window.addEventListener('DOMContentLoaded', initTracker);
+  </script>
+</body>
+</html>
