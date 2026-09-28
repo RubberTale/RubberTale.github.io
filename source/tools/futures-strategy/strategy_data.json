@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-09-27",
-  "generated_time": "2026-09-27 23:10:00",
+  "updated_at": "2026-09-28",
+  "generated_time": "2026-09-28 07:15:04",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "国联期货 2026-09-27 大宗商品热点策略会",
@@ -12,19 +12,19 @@
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 1000000.0,
-    "net_value": 1.0000,
+    "net_value": 1.0,
     "total_return_pct": 0.0,
     "max_drawdown_pct": 0.0,
     "win_rate": 0.0,
     "profit_loss_ratio": 0.0,
     "total_trades": 0,
-    "open_positions_count": 0,
-    "available_slots": 6,
-    "total_margin": 0.0,
-    "margin_ratio_pct": 0.0,
-    "risk_ratio_pct": 0.0,
-    "available_cash": 1000000.0,
-    "market_status": "雷达待命 (等待下周盘中突破/回踩触发)"
+    "open_positions_count": 1,
+    "available_slots": 5,
+    "total_margin": 93600.0,
+    "margin_ratio_pct": 9.36,
+    "risk_ratio_pct": 9.36,
+    "available_cash": 906400.0,
+    "market_status": "正在持仓 (1个品种在持，总保证金占用 93600.0元)"
   },
   "radar_signals": [
     {
@@ -162,12 +162,35 @@
       "margin_rate": 12.0,
       "estimated_margin": 93600.0,
       "risk_reward_ratio": 1.35,
-      "status": "WAITING",
-      "status_text": "待执行 (节前对冲锁定)",
+      "status": "TRIGGERED",
+      "status_text": "已触发进场 (2026-09-28)",
+      "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。",
+      "trigger_date": "2026-09-28"
+    }
+  ],
+  "current_positions": [
+    {
+      "id": "POS-AU701_Collar-2026-09-28",
+      "symbol": "AU",
+      "name": "黄金期权领口保护",
+      "contract": "AU701 Collar",
+      "direction": "领口对冲",
+      "lots": 1,
+      "entry_date": "2026-09-28",
+      "entry_price": 904.66,
+      "current_price": 904.66,
+      "stop_price": 755.0,
+      "tp_price_1": 815.0,
+      "tp_price_2": 820.0,
+      "multiplier": 1000,
+      "margin_rate": 12.0,
+      "position_margin": 93600.0,
+      "hold_days": 2,
+      "unrealized_pnl": 0.0,
+      "return_pct": 0.0,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
     }
   ],
-  "current_positions": [],
   "closed_trades": [],
   "equity_curve": [
     {
@@ -180,6 +203,17 @@
       "margin_used": 0.0,
       "risk_ratio": 0.0,
       "remark": "策略发布日，初始资金1,000,000元，下周触发雷达建立完成"
+    },
+    {
+      "date": "2026-09-28",
+      "net_value": 1.0,
+      "equity": 1000000.0,
+      "daily_pnl": 0.0,
+      "drawdown": 0.0,
+      "open_positions": 1,
+      "margin_used": 93600.0,
+      "risk_ratio": 9.36,
+      "remark": "收盘盯市：新触发开仓 1 笔，平仓 0 笔"
     }
   ],
   "daily_settlement_log": [
@@ -193,6 +227,17 @@
       "daily_mtm_pnl": 0.0,
       "cumulative_equity": 1000000.0,
       "risk_status": "安全 (100% 现金可用)"
+    },
+    {
+      "date": "2026-09-28",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-09-28 盘后逐日盯市结算",
+      "content": "当日新触发开仓 1 笔，触碰平仓 0 笔。在持仓位 1 个，浮动盈亏 0.0 元，账户最新净值 1.0。",
+      "triggered_entries": 1,
+      "triggered_exits": 0,
+      "daily_mtm_pnl": 0.0,
+      "cumulative_equity": 1000000.0,
+      "risk_status": "安全"
     }
   ],
   "accounting_ledger": [
@@ -210,6 +255,21 @@
       "realized_pnl": 0.0,
       "balance": 1000000.0,
       "note": "初始前向跟踪账户建账"
+    },
+    {
+      "index": 2,
+      "date": "2026-09-28",
+      "action": "OPEN_POSITION",
+      "symbol": "AU",
+      "contract": "AU701 Collar",
+      "direction": "领口对冲",
+      "price": 904.66,
+      "lots": 1,
+      "amount": 93600.0,
+      "commission": 30.0,
+      "realized_pnl": 0.0,
+      "balance": 906400.0,
+      "note": "触发开仓条件：节前9月28-30日盘中建立领口对冲组合"
     }
   ]
 }
