@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-09-28",
-  "generated_time": "2026-09-28 07:15:04",
+  "updated_at": "2026-09-29",
+  "generated_time": "2026-09-29 07:15:04",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "国联期货 2026-09-27 大宗商品热点策略会",
@@ -11,19 +11,19 @@
   },
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 1000000.0,
-    "net_value": 1.0,
-    "total_return_pct": 0.0,
-    "max_drawdown_pct": 0.0,
+    "final_equity": 994120.0,
+    "net_value": 0.9941,
+    "total_return_pct": -0.59,
+    "max_drawdown_pct": 0.59,
     "win_rate": 0.0,
     "profit_loss_ratio": 0.0,
     "total_trades": 0,
     "open_positions_count": 1,
     "available_slots": 5,
     "total_margin": 93600.0,
-    "margin_ratio_pct": 9.36,
-    "risk_ratio_pct": 9.36,
-    "available_cash": 906400.0,
+    "margin_ratio_pct": 9.42,
+    "risk_ratio_pct": 9.42,
+    "available_cash": 900520.0,
     "market_status": "正在持仓 (1个品种在持，总保证金占用 93600.0元)"
   },
   "radar_signals": [
@@ -178,16 +178,16 @@
       "lots": 1,
       "entry_date": "2026-09-28",
       "entry_price": 904.66,
-      "current_price": 904.66,
+      "current_price": 898.78,
       "stop_price": 755.0,
       "tp_price_1": 815.0,
       "tp_price_2": 820.0,
       "multiplier": 1000,
       "margin_rate": 12.0,
       "position_margin": 93600.0,
-      "hold_days": 2,
-      "unrealized_pnl": 0.0,
-      "return_pct": 0.0,
+      "hold_days": 3,
+      "unrealized_pnl": -5880.0,
+      "return_pct": -6.28,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
     }
   ],
@@ -214,6 +214,17 @@
       "margin_used": 93600.0,
       "risk_ratio": 9.36,
       "remark": "收盘盯市：新触发开仓 1 笔，平仓 0 笔"
+    },
+    {
+      "date": "2026-09-29",
+      "net_value": 0.9941,
+      "equity": 994120.0,
+      "daily_pnl": -5880.0,
+      "drawdown": 0.59,
+      "open_positions": 1,
+      "margin_used": 93600.0,
+      "risk_ratio": 9.42,
+      "remark": "收盘盯市：新触发开仓 0 笔，平仓 0 笔"
     }
   ],
   "daily_settlement_log": [
@@ -237,6 +248,17 @@
       "triggered_exits": 0,
       "daily_mtm_pnl": 0.0,
       "cumulative_equity": 1000000.0,
+      "risk_status": "安全"
+    },
+    {
+      "date": "2026-09-29",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-09-29 盘后逐日盯市结算",
+      "content": "当日新触发开仓 0 笔，触碰平仓 0 笔。在持仓位 1 个，浮动盈亏 -5880.0 元，账户最新净值 0.9941。",
+      "triggered_entries": 0,
+      "triggered_exits": 0,
+      "daily_mtm_pnl": -5880.0,
+      "cumulative_equity": 994120.0,
       "risk_status": "安全"
     }
   ],
