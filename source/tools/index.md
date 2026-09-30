@@ -234,7 +234,7 @@ html {
           <img src="https://api.iconify.design/lucide:crosshair.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货公司策略建议">
         </div>
         <div class="flink-item-name">期货公司策略建议</div>
-        <div class="flink-item-desc">国联期货研讨会落地转化：下周入场触发雷达、止盈止损监控、逐日盯市盈亏核算与标准期货记账流水。</div>
+        <div class="flink-item-desc">机构策略研讨会落地转化：下周入场触发雷达、止盈止损监控、逐日盯市盈亏核算与标准期货记账流水。</div>
       </a>
     </div>
     <div class="flink-list-item">

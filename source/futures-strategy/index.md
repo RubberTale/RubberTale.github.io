@@ -483,16 +483,16 @@ top_img: false
 <span class="fs-tag green"><i class="fas fa-check-circle"></i> 研讨实录落地转化版</span>
 <span class="fs-tag"><i class="fas fa-calendar-alt"></i> 2026-09-27 研判</span>
 <span class="fs-tag amber"><i class="fas fa-shield-alt"></i> 国庆长假专项风控</span>
-<span class="fs-tag"><i class="fas fa-university"></i> 国联期货投资咨询与策略研发组</span>
+<span class="fs-tag"><i class="fas fa-university"></i> 机构投资咨询与策略研发组</span>
 </div>
 <h1 class="fs-hero-title">期货公司策略建议 · 实操落地执行方案</h1>
 <p class="fs-hero-desc">
-本执行方案由 <strong>国联期货 2026-09-27 大宗商品热点研讨会</strong> 原始记录稿深度萃取转化。将宏观地缘局势（中美缓和300亿对等降税、美伊冲突溢价挤出）、棉花、化工品（甲醇/苯乙烯/尿素/聚烯烃）、橡胶与沥青等基本面研判，全面量化转化为 <strong>标的合约、入场阈值、止损止盈、资金仓位、期权保护与长假风控</strong> 的标准化执行手册。
+本执行方案由 <strong>大宗商品热点研讨会（2026-09-27）</strong> 原始记录稿深度萃取转化。将宏观地缘局势（中美缓和300亿对等降税、美伊冲突溢价挤出）、棉花、化工品（甲醇/苯乙烯/尿素/聚烯烃）、橡胶与沥青等基本面研判，全面量化转化为 <strong>标的合约、入场阈值、止损止盈、资金仓位、期权保护与长假风控</strong> 的标准化执行手册。
 </p>
 <div class="fs-hero-meta">
 <div class="fs-meta-item">
-<span class="fs-meta-label">会议主讲导师团</span>
-<span class="fs-meta-val">徐亚光 · 王军龙 · 徐智龙 · 黎伟</span>
+<span class="fs-meta-label">研讨主讲与投研团队</span>
+<span class="fs-meta-val">资深产业研究员团队（已脱敏）</span>
 </div>
 <div class="fs-meta-item">
 <span class="fs-meta-label">策略主线定位</span>
