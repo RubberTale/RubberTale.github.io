@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
   "updated_at": "2026-09-30",
-  "generated_time": "2026-09-30 11:40:05",
+  "generated_time": "2026-10-01 11:40:05",
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 961115.0,
@@ -21,24 +21,8 @@
   },
   "latest_signals": [
     {
-      "symbol": "PP",
-      "name": "聚丙烯",
-      "contract": "PP2701",
-      "direction": "做空",
-      "score": 4.3,
-      "win_rate_est": 62.8,
-      "trigger_price": 8526.0,
-      "stop_price": 9154.0,
-      "tp_price": 7654.0,
-      "close": 8631.0,
-      "atr": 348.93,
-      "percentile": 67.1,
-      "sector": "化工品",
-      "logic": "跌破MA20均线(-1.0%)，空头增量，估值分位67%处于高估破位区间"
-    },
-    {
       "symbol": "V",
-      "name": "聚氯乙烯",
+      "name": "PVC",
       "contract": "V2701",
       "direction": "做多",
       "score": 2.8,
