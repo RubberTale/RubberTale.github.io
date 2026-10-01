@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-09-30 08:30:03",
+  "updated_at": "2026-10-01 08:30:03",
   "trade_date": "2026-09-30",
   "source": "Local MySQL (futures_stock & rubber)",
   "varieties": {
     "RU": {
       "name": "天然橡胶 (RU)",
       "spotName": "上海国产全乳胶 (SCR WF)",
-      "spotPrice": 18550.0,
+      "spotPrice": 19600.0,
       "nearContract": "RU2701",
       "nearPrice": 20095.0,
       "nearSettle": 19710.0,
@@ -14,13 +14,13 @@
       "farPrice": 20120.0,
       "daysDiff": 120,
       "openInterest": 150478,
-      "basis": -1545.0,
+      "basis": -495.0,
       "spread": 25.0
     },
     "NR": {
       "name": "20号胶 (NR)",
       "spotName": "青岛保税区 泰混现货",
-      "spotPrice": 18350.0,
+      "spotPrice": 19220.0,
       "nearContract": "NR2612",
       "nearPrice": 17390.0,
       "nearSettle": 17000.0,
@@ -28,7 +28,7 @@
       "farPrice": 17250.0,
       "daysDiff": 60,
       "openInterest": 80028,
-      "basis": 960.0,
+      "basis": 1830.0,
       "spread": -140.0
     },
     "BR": {
