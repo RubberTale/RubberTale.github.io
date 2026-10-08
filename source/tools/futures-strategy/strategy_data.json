@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-09-30",
-  "generated_time": "2026-09-30 07:15:04",
+  "updated_at": "2026-10-08",
+  "generated_time": "2026-10-08 07:15:03",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "机构大宗商品热点策略研讨会（2026-09-27）",
@@ -11,19 +11,19 @@
   },
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 1005920.0,
-    "net_value": 1.0059,
-    "total_return_pct": 0.59,
-    "max_drawdown_pct": 0.59,
+    "final_equity": 986960.0,
+    "net_value": 0.987,
+    "total_return_pct": -1.3,
+    "max_drawdown_pct": 1.88,
     "win_rate": 0.0,
     "profit_loss_ratio": 0.0,
-    "total_trades": 0,
+    "total_trades": 1,
     "open_positions_count": 1,
     "available_slots": 5,
     "total_margin": 93600.0,
-    "margin_ratio_pct": 9.3,
-    "risk_ratio_pct": 9.3,
-    "available_cash": 912320.0,
+    "margin_ratio_pct": 9.48,
+    "risk_ratio_pct": 9.48,
+    "available_cash": 893360.0,
     "market_status": "正在持仓 (1个品种在持，总保证金占用 93600.0元)"
   },
   "radar_signals": [
@@ -116,9 +116,10 @@
       "margin_rate": 11.0,
       "estimated_margin": 48000.0,
       "risk_reward_ratio": 3.0,
-      "status": "WAITING",
-      "status_text": "待触发 (等待回调)",
-      "logic": "极低社会库存与纯苯成本端坚挺双重支撑，近端抗跌性极强，远端承接下游疲软负反馈。"
+      "status": "TRIGGERED",
+      "status_text": "已触发进场 (2026-10-08)",
+      "logic": "极低社会库存与纯苯成本端坚挺双重支撑，近端抗跌性极强，远端承接下游疲软负反馈。",
+      "trigger_date": "2026-10-08"
     },
     {
       "id": "SIG-UR-SPREAD",
@@ -178,20 +179,36 @@
       "lots": 1,
       "entry_date": "2026-09-28",
       "entry_price": 904.66,
-      "current_price": 910.58,
+      "current_price": 893.12,
       "stop_price": 755.0,
       "tp_price_1": 815.0,
       "tp_price_2": 820.0,
       "multiplier": 1000,
       "margin_rate": 12.0,
       "position_margin": 93600.0,
-      "hold_days": 4,
-      "unrealized_pnl": 5920.0,
-      "return_pct": 6.32,
+      "hold_days": 5,
+      "unrealized_pnl": -11540.0,
+      "return_pct": -12.33,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
     }
   ],
-  "closed_trades": [],
+  "closed_trades": [
+    {
+      "id": "POS-EB701-EB705-2026-10-08",
+      "symbol": "EB",
+      "name": "苯乙烯跨期套利",
+      "contract": "EB701-EB705",
+      "direction": "跨期正套",
+      "lots": 5,
+      "entry_date": "2026-10-08",
+      "exit_date": "2026-10-08",
+      "entry_price": 60.0,
+      "exit_price": 0.0,
+      "pnl": -1500.0,
+      "reason": "触碰止损线",
+      "hold_days": 2
+    }
+  ],
   "equity_curve": [
     {
       "date": "2026-09-27",
@@ -236,6 +253,17 @@
       "margin_used": 93600.0,
       "risk_ratio": 9.3,
       "remark": "收盘盯市：新触发开仓 0 笔，平仓 0 笔"
+    },
+    {
+      "date": "2026-10-08",
+      "net_value": 0.987,
+      "equity": 986960.0,
+      "daily_pnl": -13040.0,
+      "drawdown": 1.88,
+      "open_positions": 1,
+      "margin_used": 93600.0,
+      "risk_ratio": 9.48,
+      "remark": "收盘盯市：新触发开仓 1 笔，平仓 1 笔"
     }
   ],
   "daily_settlement_log": [
@@ -282,6 +310,17 @@
       "daily_mtm_pnl": 5920.0,
       "cumulative_equity": 1005920.0,
       "risk_status": "安全"
+    },
+    {
+      "date": "2026-10-08",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-10-08 盘后逐日盯市结算",
+      "content": "当日新触发开仓 1 笔，触碰平仓 1 笔。在持仓位 1 个，浮动盈亏 -11540.0 元，账户最新净值 0.987。",
+      "triggered_entries": 1,
+      "triggered_exits": 1,
+      "daily_mtm_pnl": -13040.0,
+      "cumulative_equity": 986960.0,
+      "risk_status": "安全"
     }
   ],
   "accounting_ledger": [
@@ -314,6 +353,36 @@
       "realized_pnl": 0.0,
       "balance": 906400.0,
       "note": "触发开仓条件：节前9月28-30日盘中建立领口对冲组合"
+    },
+    {
+      "index": 3,
+      "date": "2026-10-08",
+      "action": "OPEN_POSITION",
+      "symbol": "EB",
+      "contract": "EB701-EB705",
+      "direction": "跨期正套",
+      "price": 60.0,
+      "lots": 5,
+      "amount": 48000.0,
+      "commission": 30.0,
+      "realized_pnl": 0.0,
+      "balance": 864320.0,
+      "note": "触发开仓条件：EB01-EB05 价差 ≤ 60.0 元/吨"
+    },
+    {
+      "index": 4,
+      "date": "2026-10-08",
+      "action": "CLOSE_POSITION",
+      "symbol": "EB",
+      "contract": "EB701-EB705",
+      "direction": "跨期正套",
+      "price": 0.0,
+      "lots": 5,
+      "amount": 48000.0,
+      "commission": 30.0,
+      "realized_pnl": -1500.0,
+      "balance": 958820.0,
+      "note": "平仓：触碰止损线"
     }
   ]
 }
