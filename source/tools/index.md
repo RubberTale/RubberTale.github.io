@@ -492,7 +492,7 @@ html {
           <img src="https://api.iconify.design/lucide:flame.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="超强厄尔尼诺2026媒体报道频次监测">
         </div>
         <div class="flink-item-name">超强厄尔尼诺媒体频次监测</div>
-        <div class="flink-item-desc">2026年全网中文媒体关于“超强/超级厄尔尼诺”报道频次动态跟踪看板，含信源结构、研判概率演进、官方节点与 FreeLLMAPI 定时更新。</div>
+        <div class="flink-item-desc">2026年全网中文媒体关于“超强/超级厄尔尼诺”报道频次动态监测看板，含信源分类结构、机构研判概率演进、官方定调节点及样本明细检索。</div>
       </a>
     </div>
     <div class="flink-list-item">

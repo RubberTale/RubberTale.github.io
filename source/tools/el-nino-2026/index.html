@@ -59,26 +59,6 @@ body {
   background: #edf3fb;
   border-color: #b9d2f2;
 }
-.engine-status-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #eef7f2;
-  color: #0b7a4b;
-  border: 1px solid #c2e7d3;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-.engine-status-tag i {
-  width: 7px;
-  height: 7px;
-  background: #0f9960;
-  border-radius: 50%;
-  display: inline-block;
-  box-shadow: 0 0 0 2px rgba(15,153,96,0.25);
-}
 header.top {
   background: linear-gradient(125deg, #10213b 0%, #1e3a61 50%, #2b4f7d 100%);
   color: #fff;
@@ -108,11 +88,6 @@ header.top p {
   margin-right: 8px;
   margin-bottom: 4px;
   color: #e9f0fb;
-}
-.tagline.engine {
-  background: rgba(15, 153, 96, 0.25);
-  border-color: rgba(15, 153, 96, 0.4);
-  color: #8ce4b7;
 }
 .cards {
   display: grid;
@@ -364,36 +339,6 @@ ol.concl li, ul.concl li {
 .btn-primary:hover {
   background: #175bb0;
 }
-
-/* 自动化机制卡片 */
-.pipeline-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 12px;
-  margin-top: 14px;
-}
-.pipe-card {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 13px 15px;
-  background: #fcfcfd;
-}
-.pipe-card .num {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--acc);
-  margin-bottom: 4px;
-}
-.pipe-card h4 {
-  margin: 0 0 6px;
-  font-size: 13.5px;
-}
-.pipe-card p {
-  margin: 0;
-  font-size: 12px;
-  color: var(--sub);
-  line-height: 1.55;
-}
 </style>
 </head>
 <body>
@@ -403,20 +348,16 @@ ol.concl li, ul.concl li {
     <a href="/tools/#🌦️-产区物候、气象与卫星遥感">
       ← 返回橡胶童话工具箱 (Tools & Dashboards)
     </a>
-    <div class="engine-status-tag">
-      <i></i> FreeLLMAPI 定时监测引擎 · 运行中
-    </div>
   </div>
 
   <header class="top">
     <h1>「超强厄尔尼诺」2026年中文媒体报道频次监测</h1>
     <p>
-      <span class="tagline">监测区间 <span id="hdr-range">2026-03-11 ~ 2026-10-09</span></span>
+      <span class="tagline">监测区间 <span id="hdr-range">2026-01-01 ~ 2026-10-09</span></span>
       <span class="tagline">样本总量 N = <span id="hdr-total">60</span> 条</span>
       <span class="tagline">口径 标题或正文明确使用“超强 / 超级厄尔尼诺”</span>
-      <span class="tagline engine">🤖 FreeLLMAPI 智能驱动 · 每日自动更新</span>
     </p>
-    <p>方法：多角度检索公开中文信源（央媒、气象系统、财经媒体、国际机构中文稿）→ 经 FreeLLMAPI 语义判别去重归集 → 自动化多维指标统计</p>
+    <p>方法：多角度检索公开中文信源（央媒、气象系统、财经媒体、国际机构中文稿）→ 按发布日期去重归集 → 月度频次统计</p>
   </header>
 
   <div class="cards">
@@ -557,44 +498,6 @@ ol.concl li, ul.concl li {
     </div>
   </section>
 
-  <section>
-    <h2><span class="no">7</span>🤖 定时自动化与 FreeLLMAPI 监测机制</h2>
-    <div class="desc">本页面依托 FreeLLMAPI 智能语义归集引擎与 GitHub Actions / 定时任务构建，保障媒体报道频次数据全自动流式同步。</div>
-    <div class="pipeline-grid">
-      <div class="pipe-card">
-        <div class="num">01 / 调度</div>
-        <h4>定时触发机制</h4>
-        <p>通过 GitHub Actions 每天定时唤醒（或服务器 Crontab 自动调度），流式拉取全网气象与财经主流信源。</p>
-      </div>
-      <div class="pipe-card">
-        <div class="num">02 / 抓取</div>
-        <h4>多维信源检索</h4>
-        <p>检索央媒、中国气象局、国家气候中心、NOAA/WMO以及大宗商品财经终端最新公开稿件。</p>
-      </div>
-      <div class="pipe-card">
-        <div class="num">03 / 研判</div>
-        <h4>FreeLLMAPI 语义判别</h4>
-        <p>调用 FreeLLMAPI 接口依据 GB/T 33666-2017 口径严格剔除普通厄尔尼诺，精准判定“超强”并提取六大信源分类。</p>
-      </div>
-      <div class="pipe-card">
-        <div class="num">04 / 核算</div>
-        <h4>指标自动重算</h4>
-        <p>更新语料库后自动全量重算月度频次、累计走势、按日密度分布、峰值日及下半年占比指标。</p>
-      </div>
-      <div class="pipe-card">
-        <div class="num">05 / 部署</div>
-        <h4>闭环发布上线</h4>
-        <p>更新 <code>data.json</code> 后自动触发 Git 提交并推送 GitHub，联动流水线秒级更新博客静态看板。</p>
-      </div>
-    </div>
-    <div class="note">
-      <b>运行环境参数：</b><br>
-      • 监测接口：<code>FreeLLMAPI (3005)</code> (模型：<code>auto / deepseek-v3</code>)<br>
-      • 数据更新脚本：<code>source/tools/el-nino-2026/update_el_nino.py</code><br>
-      • 引擎最后同步时间：<code id="engine-last-updated">2026-10-10 09:08:18</code>
-    </div>
-  </section>
-
 </div>
 
 <script>
@@ -642,7 +545,6 @@ function renderAll() {
   if (P.peak_month) document.getElementById('card-peak-month').innerText = P.peak_month;
   if (P.peak && P.peak.date) document.getElementById('card-peak-day').innerText = P.peak.date;
   if (P.h2_ratio) document.getElementById('card-h2').innerText = P.h2_ratio;
-  if (P.last_updated) document.getElementById('engine-last-updated').innerText = P.last_updated;
 
   // 1. 月度频次
   reg('c1', {
