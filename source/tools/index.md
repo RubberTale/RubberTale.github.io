@@ -487,6 +487,15 @@ html {
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/tools/el-nino-2026/" title="「超强厄尔尼诺」2026年中文媒体报道频次监测" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:flame.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="超强厄尔尼诺2026媒体报道频次监测">
+        </div>
+        <div class="flink-item-name">超强厄尔尼诺媒体频次监测</div>
+        <div class="flink-item-desc">2026年全网中文媒体关于“超强/超级厄尔尼诺”报道频次动态跟踪看板，含信源结构、研判概率演进、官方节点与 FreeLLMAPI 定时更新。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/rubber-weather-calendar/" title="橡胶产区气象与割胶物候看板" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:cloud-sun-rain.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="橡胶产区气象与割胶物候看板">

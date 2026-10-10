@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>「超强厄尔尼诺」2026年中文媒体报道频次监测 · 橡胶童话智库</title>
+<!-- 引入高性能 CDN ECharts -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --line: #e6e8ec;
+  --txt: #1b1f27;
+  --sub: #6b7280;
+  --acc: #1f6fd0;
+  --red: #c0392b;
+  --org: #e07b1a;
+  --grn: #0f9960;
+  --pur: #7c4dd1;
+  --chip: #f1f4f9;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--txt);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 20px 20px 80px;
+}
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+.top-nav a {
+  color: var(--acc);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  transition: all 0.2s;
+}
+.top-nav a:hover {
+  background: #edf3fb;
+  border-color: #b9d2f2;
+}
+.engine-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eef7f2;
+  color: #0b7a4b;
+  border: 1px solid #c2e7d3;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.engine-status-tag i {
+  width: 7px;
+  height: 7px;
+  background: #0f9960;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(15,153,96,0.25);
+}
+header.top {
+  background: linear-gradient(125deg, #10213b 0%, #1e3a61 50%, #2b4f7d 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 26px 32px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(16, 33, 59, 0.12);
+}
+header.top h1 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+header.top p {
+  margin: 6px 0;
+  color: #c6d5ea;
+  font-size: 13px;
+}
+.tagline {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 20px;
+  padding: 2px 12px;
+  font-size: 12px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  color: #e9f0fb;
+}
+.tagline.engine {
+  background: rgba(15, 153, 96, 0.25);
+  border-color: rgba(15, 153, 96, 0.4);
+  color: #8ce4b7;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 15px 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+.card .k {
+  color: var(--sub);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.card .v {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.card .s {
+  color: var(--sub);
+  font-size: 11.5px;
+  margin-top: 4px;
+}
+.card.b .v { color: var(--acc); }
+.card.g .v { color: var(--grn); }
+.card.r .v { color: var(--red); }
+.card.o .v { color: var(--org); }
+.card.p .v { color: var(--pur); }
+
+section {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+section h2 {
+  font-size: 16.5px;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+}
+section h2 .no {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #eef2fa;
+  color: #2b4f7d;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+section .desc {
+  color: var(--sub);
+  font-size: 12.5px;
+  margin: 2px 0 14px;
+}
+.chart {
+  width: 100%;
+  height: 420px;
+}
+.chart.sm {
+  height: 350px;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+}
+@media (max-width: 960px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12.5px;
+}
+th, td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: #f8f9fb;
+  color: var(--sub);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+tbody tr:hover {
+  background: #fafbfd;
+}
+td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.tblbox {
+  max-height: 560px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.b1 { background: #fdecea; color: #a93226; }
+.b2 { background: #e8f1fd; color: #1a5fa8; }
+.b3 { background: #fef3e2; color: #a8600f; }
+.b4 { background: #eee9fb; color: #5b34ad; }
+.b5 { background: #e7f6ef; color: #0b7a4b; }
+.b6 { background: #eef0f4; color: #4b5563; }
+
+.stage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.st {
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 13px 15px;
+  background: #fcfcfd;
+}
+.st h4 {
+  margin: 0 0 4px;
+  font-size: 13.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.st .mo {
+  font-size: 11px;
+  color: var(--sub);
+  font-weight: 400;
+}
+.st p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+.st .bar {
+  height: 5px;
+  border-radius: 3px;
+  margin: 9px 0 8px;
+  background: #eef0f4;
+  overflow: hidden;
+}
+.st .bar i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+
+ol.concl li, ul.concl li {
+  margin-bottom: 10px;
+  line-height: 1.7;
+}
+.hl {
+  font-weight: 600;
+  color: #12233d;
+}
+.note {
+  background: #f8f9fb;
+  border-left: 3px solid #98a7bd;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  color: #4b5563;
+  margin-top: 14px;
+  line-height: 1.7;
+}
+.note.warn {
+  border-left-color: #e0a24a;
+  background: #fffaf1;
+}
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  color: var(--sub);
+}
+.search-inp {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 7px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  min-width: 220px;
+  outline: none;
+  color: var(--txt);
+}
+.search-inp:focus {
+  border-color: var(--acc);
+  box-shadow: 0 0 0 2px rgba(31, 111, 208, 0.15);
+}
+.cat-sel {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  outline: none;
+  color: var(--txt);
+}
+.btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 7px;
+  padding: 6px 13px;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: var(--txt);
+  transition: background 0.15s;
+}
+.btn:hover {
+  background: #f2f5fa;
+}
+.btn-primary {
+  background: var(--acc);
+  color: #fff;
+  border-color: var(--acc);
+}
+.btn-primary:hover {
+  background: #175bb0;
+}
+
+/* 自动化机制卡片 */
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.pipe-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 13px 15px;
+  background: #fcfcfd;
+}
+.pipe-card .num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--acc);
+  margin-bottom: 4px;
+}
+.pipe-card h4 {
+  margin: 0 0 6px;
+  font-size: 13.5px;
+}
+.pipe-card p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--sub);
+  line-height: 1.55;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top-nav">
+    <a href="/tools/#🌦️-产区物候、气象与卫星遥感">
+      ← 返回橡胶童话工具箱 (Tools & Dashboards)
+    </a>
+    <div class="engine-status-tag">
+      <i></i> FreeLLMAPI 定时监测引擎 · 运行中
+    </div>
+  </div>
+
+  <header class="top">
+    <h1>「超强厄尔尼诺」2026年中文媒体报道频次监测</h1>
+    <p>
+      <span class="tagline">监测区间 <span id="hdr-range">2026-03-11 ~ 2026-10-09</span></span>
+      <span class="tagline">样本总量 N = <span id="hdr-total">60</span> 条</span>
+      <span class="tagline">口径 标题或正文明确使用“超强 / 超级厄尔尼诺”</span>
+      <span class="tagline engine">🤖 FreeLLMAPI 智能驱动 · 每日自动更新</span>
+    </p>
+    <p>方法：多角度检索公开中文信源（央媒、气象系统、财经媒体、国际机构中文稿）→ 经 FreeLLMAPI 语义判别去重归集 → 自动化多维指标统计</p>
+  </header>
+
+  <div class="cards">
+    <div class="card b">
+      <div class="k">监测样本总量</div>
+      <div class="v" id="card-total">60 条</div>
+      <div class="s">去重后可核实稿件，为下限估计</div>
+    </div>
+    <div class="card g">
+      <div class="k">首次出现</div>
+      <div class="v">3月中旬</div>
+      <div class="s">由社交热搜引发，主流媒体以“降温”回应</div>
+    </div>
+    <div class="card r">
+      <div class="k">峰值月</div>
+      <div class="v" id="card-peak-month">9月 (17条)</div>
+      <div class="s">占全样本约 28%，呈现断层式陡增</div>
+    </div>
+    <div class="card o">
+      <div class="k">单日峰值</div>
+      <div class="v" id="card-peak-day">2026-09-29</div>
+      <div class="s">当日 7 条同题报道（气象局发布会定调）</div>
+    </div>
+    <div class="card p">
+      <div class="k">下半年占比</div>
+      <div class="v" id="card-h2">68%</div>
+      <div class="s">7月之后爆发，前空后爆极端右偏</div>
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="no">1</span>月度报道频次</h2>
+    <div class="desc">柱状为当月样本条数，折线为累计条数（右轴）。1—2 月为零提及期，9 月出现陡增。</div>
+    <div id="c1" class="chart"></div>
+
+    <div class="stage">
+      <div class="st">
+        <h4>阶段一 · 沉默期<span class="mo">1—2月</span></h4>
+        <div class="bar"><i style="width:0%;background:#c8cdd6"></i></div>
+        <p>赤道中东太平洋维持弱拉尼娜并于2月结束，机构对“超强”的概率估计不足10%，中文媒体几乎无相关报道。</p>
+      </div>
+      <div class="st">
+        <h4>阶段二 · 热搜驱动期<span class="mo">3—4月</span></h4>
+        <div class="bar"><i style="width:21%;background:#7aa7d9"></i></div>
+        <p>“地球或将迎超级厄尔尼诺”冲上热搜，新华社、央视网、气象局接连发文降温，强调“现在断定还为时过早”。</p>
+      </div>
+      <div class="st">
+        <h4>阶段三 · 财经接棒期<span class="mo">5—7月</span></h4>
+        <div class="bar"><i style="width:36%;background:#e8b44a"></i></div>
+        <p>5月正式进入厄尔尼诺状态后，期货日报、财联社、券商研报开始把“超强厄尔尼诺”当作大宗商品交易主线。</p>
+      </div>
+      <div class="st">
+        <h4>阶段四 · 官方定调与爆发<span class="mo">8—10月</span></h4>
+        <div class="bar"><i style="width:100%;background:#c0392b"></i></div>
+        <p>8月气象局改口“强到超强”，9月29日发布会定调“史上最强”，10月9日正式确认超强事件已形成。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">2</span>信源结构与报道节奏</h2>
+    <div class="desc">左：信源类型占比；右：按日聚合的报道量（气泡越高表示当日同题报道越密集）。</div>
+    <div class="grid2">
+      <div id="c2" class="chart sm"></div>
+      <div id="c3" class="chart sm"></div>
+    </div>
+    <div class="note">
+      央媒与气象官方系统合计占样本 50% 左右。这意味着“超强厄尔尼诺”在中文舆论场并非自媒体炒作，而是由官方监测结论驱动、央媒放大的一次结构化传播；财经/行业媒体（约 10 条）则把它转译为可交易的商品与通胀叙事。
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">3</span>机构研判口径的时间演进</h2>
+    <div class="desc">公开资料汇总的各月“超强厄尔尼诺”发生概率估计（%）。6—7 月无统一口径，以断点表示。</div>
+    <div id="c4" class="chart sm"></div>
+    <table style="margin-top:14px">
+      <thead>
+        <tr><th style="width:96px">月份</th><th style="width:120px">概率估计</th><th>依据 / 备注</th></tr>
+      </thead>
+      <tbody id="probTb"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="no">4</span>官方关键节点</h2>
+    <div class="desc">媒体报道量的每一次跳升，都对应一次官方口径的调整。</div>
+    <table>
+      <thead>
+        <tr><th style="width:110px">日期</th><th style="width:220px">节点</th><th>内容</th></tr>
+      </thead>
+      <tbody id="evTb"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="no">5</span>样本明细</h2>
+    <div class="toolbar">
+      <input type="text" id="search-input" class="search-inp" placeholder="🔍 搜索标题、媒体或关键词...">
+      <select id="cat-select" class="cat-sel">
+        <option value="">全部信源分类</option>
+        <option value="央媒 / 党媒">央媒 / 党媒</option>
+        <option value="气象官方系统">气象官方系统</option>
+        <option value="财经 / 行业媒体">财经 / 行业媒体</option>
+        <option value="都市 / 门户媒体">都市 / 门户媒体</option>
+        <option value="国际机构 / 外媒">国际机构 / 外媒</option>
+        <option value="科普 / 自媒体">科普 / 自媒体</option>
+      </select>
+      <button class="btn" id="csv">导出 CSV</button>
+      <span id="cnt"></span>
+    </div>
+    <div class="tblbox">
+      <table>
+        <thead>
+          <tr><th style="width:100px">日期</th><th style="width:190px">媒体</th><th>标题</th><th style="width:130px">信源类型</th></tr>
+        </thead>
+        <tbody id="tb"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">6</span>结论与方法论</h2>
+    <ol class="concl">
+      <li><span class="hl">频次呈极端右偏的“前空后爆”形态。</span>2026年1—2月为零提及；3月因社交热搜出现第一波（7 条）；4—5月回落至低位（4、2 条）；6月起财经媒体接棒爬升；8月 12 条、9月 17 条，10月仅前9天已有 6 条。全年样本高度集中在9—10月。</li>
+      <li><span class="hl">报道量不是气候曲线的函数，而是“官方口径的函数”。</span>4月海温尚未达标时已有多国机构喊出“140年来最强”，但中文媒体量在4—5月反而是低谷——因为国家气候中心当时的口径仍为“中等及以上”。直到7月30日气象局改口“强到超强”、9月29日定调“史上最强”，报道量才出现台阶式跳升。</li>
+      <li><span class="hl">传播结构以官方信源为核心。</span>央媒/党媒与气象官方系统合计占 50%；财经与行业媒体紧随其后，把气象事件转译为棕榈油、橡胶、白糖、电解铝等品种的“天气溢价”叙事。</li>
+      <li><span class="hl">“超强”一词在3月是被辟谣的对象，在10月是官方结论。</span>3月16日中国气象局“今日辟谣”专门澄清“眼下即断定超强厄尔尼诺或致最热年还为时过早”；10月9日新华社发布《超强厄尔尼诺已经形成》。同一词汇在7个月内完成了从“传言”到“事实”的身份转换。</li>
+      <li><span class="hl">用词提醒：官方与国际机构口径并不完全一致。</span>中国国家标准（GB/T 33666-2017）按峰值将事件分为弱、中等、强、超强四级，“超强”即 very strong；而“超级厄尔尼诺（Super El Niño）”是媒体与投研界的习惯用语，WMO 多次声明该词不属其业务分类，其官方类别仅有 weak / moderate / strong / very strong。</li>
+    </ol>
+
+    <div class="note warn">
+      <b>方法论与局限</b><br>
+      ① <b>样本性质</b>：本监测基于公开检索构建可核实样本，而非全网普查，因此绝对条数为<b>下限估计</b>；月度分布形态与拐点判断具有参考价值，具体数字不宜直接视为媒体总量。<br>
+      ② <b>计数规则</b>：同一稿件在不同平台的转载分别计数（如新华社原稿与人民网、中国网转载）；若按“原创稿件”计，则总数约减少三分之一。<br>
+      ③ <b>检索口径</b>：纳入标题或正文明确出现“超强厄尔尼诺 / 超级厄尔尼诺 / Super El Niño”的稿件；仅使用“厄尔尼诺”“强厄尔尼诺”的稿件未纳入，故本监测是该议题高热度的<b>保守刻画</b>。<br>
+      ④ <b>不可得数据</b>：受限于公开检索能力，未接入百度指数、微博热搜榜等平台级量级数据，因此未能给出“阅读/互动量”维度的频次；若需该维度，建议另行采购舆情数据服务。<br>
+      ⑤ 部分条目日期为依据发布内容回推的最佳估计（如4月16日“多国机构研判”类综合报道），已在明细中标注来源。
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="no">7</span>🤖 定时自动化与 FreeLLMAPI 监测机制</h2>
+    <div class="desc">本页面依托 FreeLLMAPI 智能语义归集引擎与 GitHub Actions / 定时任务构建，保障媒体报道频次数据全自动流式同步。</div>
+    <div class="pipeline-grid">
+      <div class="pipe-card">
+        <div class="num">01 / 调度</div>
+        <h4>定时触发机制</h4>
+        <p>通过 GitHub Actions 每天定时唤醒（或服务器 Crontab 自动调度），流式拉取全网气象与财经主流信源。</p>
+      </div>
+      <div class="pipe-card">
+        <div class="num">02 / 抓取</div>
+        <h4>多维信源检索</h4>
+        <p>检索央媒、中国气象局、国家气候中心、NOAA/WMO以及大宗商品财经终端最新公开稿件。</p>
+      </div>
+      <div class="pipe-card">
+        <div class="num">03 / 研判</div>
+        <h4>FreeLLMAPI 语义判别</h4>
+        <p>调用 FreeLLMAPI 接口依据 GB/T 33666-2017 口径严格剔除普通厄尔尼诺，精准判定“超强”并提取六大信源分类。</p>
+      </div>
+      <div class="pipe-card">
+        <div class="num">04 / 核算</div>
+        <h4>指标自动重算</h4>
+        <p>更新语料库后自动全量重算月度频次、累计走势、按日密度分布、峰值日及下半年占比指标。</p>
+      </div>
+      <div class="pipe-card">
+        <div class="num">05 / 部署</div>
+        <h4>闭环发布上线</h4>
+        <p>更新 <code>data.json</code> 后自动触发 Git 提交并推送 GitHub，联动流水线秒级更新博客静态看板。</p>
+      </div>
+    </div>
+    <div class="note">
+      <b>运行环境参数：</b><br>
+      • 监测接口：<code>FreeLLMAPI (3005)</code> (模型：<code>auto / deepseek-v3</code>)<br>
+      • 数据更新脚本：<code>source/tools/el-nino-2026/update_el_nino.py</code><br>
+      • 引擎最后同步时间：<code id="engine-last-updated">2026-10-10 09:08:18</code>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// 默认初始数据（兜底 fallback）
+var INITIAL_DATA = {"months": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "byMonth": [0, 0, 7, 4, 2, 6, 6, 12, 17, 6], "cum": [0, 0, 7, 11, 13, 19, 25, 37, 54, 60], "cat": [{"name": "央媒 / 党媒", "value": 21}, {"name": "气象官方系统", "value": 9}, {"name": "财经 / 行业媒体", "value": 10}, {"name": "都市 / 门户媒体", "value": 10}, {"name": "国际机构 / 外媒", "value": 7}, {"name": "科普 / 自媒体", "value": 3}], "dayLabels": ["2026-01-01", "2026-01-02", "2026-01-03", "2026-01-04", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-24", "2026-01-25", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-01-31", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-02-28", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-08", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-21", "2026-03-22", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-25", "2026-04-26", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02", "2026-05-03", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-09", "2026-05-10", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-16", "2026-05-17", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07", "2026-09-08", "2026-09-09", "2026-09-10", "2026-09-11", "2026-09-12", "2026-09-13", "2026-09-14", "2026-09-15", "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20", "2026-09-21", "2026-09-22", "2026-09-23", "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-27", "2026-09-28", "2026-09-29", "2026-09-30", "2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07", "2026-10-08", "2026-10-09"], "daily": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 3, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 4, 0, 0, 0, 0, 0, 0, 0, 1, 5], "events": [{"date": "2026-02-15", "title": "拉尼娜状态结束", "desc": "弱拉尼娜于2月明显减弱并结束"}, {"date": "2026-03-16", "title": "“超级厄尔尼诺”冲上热搜", "desc": "国家气候中心回应：现在断定还为时过早"}, {"date": "2026-04-30", "title": "官方首次给出季节判断", "desc": "预计5月进入厄尔尼诺状态，夏秋季中等及以上"}, {"date": "2026-05-29", "title": "正式进入厄尔尼诺状态", "desc": "5月 Niño3.4 指数升破阈值，进入发展期"}, {"date": "2026-07-30", "title": "气象局8月发布会", "desc": "改口为“强到超强厄尔尼诺事件”"}, {"date": "2026-08-19", "title": "预计成“历史之最”", "desc": "国家气候中心：发生超强事件概率增大"}, {"date": "2026-09-29", "title": "气象局10月发布会", "desc": "预计峰值3.2—3.5℃，有监测记录以来最强"}, {"date": "2026-10-09", "title": "正式确认超强事件已形成", "desc": "7—9月滑动平均2.54℃≥2.5℃，9月形成"}], "probX": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"], "probV": [3, 8, 13, 25, 35, null, null, 69, 95, 100], "probNote": ["＜5%（研报汇总：几乎无模型支持）", "5%~10%", "10%~15%", "20%~30%", "30%~40%", "无统一口径（NOAA：5—7月形成概率82%）", "无统一口径（多机构：至少中等，或达强）", "NOAA：69%概率超1950年以来最强", "NOAA：10—12月超强概率95%", "WMO：持续至2027年2月概率接近100%"], "corpus": [{"d": "2026-03-11", "m": "微信公众号（自媒体）", "t": "地球正在“发烧”？2026年或迎超级厄尔尼诺，你准备好了吗？", "y": "科普 / 自媒体", "u": ""}, {"d": "2026-03-16", "m": "新华社", "t": "“厄尔尼诺”将来，今年是否会“超级热”？", "y": "央媒 / 党媒", "u": "https://health.people.com.cn/n1/2026/0317/c14739-40683370.html"}, {"d": "2026-03-16", "m": "中国气象局微信公众号（今日辟谣）", "t": "“超强厄尔尼诺将致最热年”冲上热搜，专家回应", "y": "气象官方系统", "u": "http://www.paxm.gov.cn/mtxg/mtzl/qwpy/202603/t20260316_2985742.htm"}, {"d": "2026-03-17", "m": "人民网（转载新华社）", "t": "“厄尔尼诺”将来，今年是否会“超级热”？", "y": "央媒 / 党媒", "u": "https://health.people.com.cn/n1/2026/0317/c14739-40683370.html"}, {"d": "2026-03-17", "m": "中国网（转载新华社）", "t": "“厄尔尼诺”将来，今年是否会“超级热”？", "y": "央媒 / 党媒", "u": "https://big5.china.com.cn/gate/big5/news.china.com.cn/2026-03/17/content_118386281.shtml"}, {"d": "2026-03-18", "m": "央视网", "t": "今年会出现“超强厄尔尼诺”吗？对我国影响几何？一文了解", "y": "央媒 / 党媒", "u": "https://news.cctv.cn/2026/03/18/ARTIjzvb31Qr2wTOE2l1auF4260318.shtml"}, {"d": "2026-03-18", "m": "今日头条·中国气象传播者", "t": "超级厄尔尼诺要来了？权威回应：今年或进入厄尔尼诺状态？", "y": "科普 / 自媒体", "u": "https://www.toutiao.com/article/7618501668490543616"}, {"d": "2026-04-16", "m": "多家媒体综合（含百度百科收录）", "t": "多国气象机构研判：一场可能达140年来最强级别的厄尔尼诺正在酝酿", "y": "都市 / 门户媒体", "u": ""}, {"d": "2026-04-18", "m": "国家气候中心（媒体转引）", "t": "回应“超级厄尔尼诺”：预计5月进入厄尔尼诺状态，夏秋季中等及以上强度", "y": "气象官方系统", "u": ""}, {"d": "2026-04-24", "m": "世界气象组织（WMO）", "t": "ENSO neutral conditions expected as La Niña fades, but El Niño chances rise", "y": "国际机构 / 外媒", "u": "https://wmo.int/news/media-centre/enso-neutral-conditions-expected-la-nina-fades-el-nino-chances-rise"}, {"d": "2026-04-30", "m": "中国天气网 / 国家气候中心", "t": "国家气候中心：厄尔尼诺将快速发展 有利于长江以南地区降水增强", "y": "气象官方系统", "u": "http://nm.cma.gov.cn/xwzx/mtjj/202604/t20260430_7765814.html"}, {"d": "2026-05-27", "m": "世界气象组织 / ReliefWeb", "t": "WMO El Niño/La Niña Update (May 2026)：不使用“超级厄尔尼诺”表述", "y": "国际机构 / 外媒", "u": "https://reliefweb.int/report/world/wmo-el-ninola-nina-update-may-2026"}, {"d": "2026-05-29", "m": "中国气象局", "t": "赤道中东太平洋进入厄尔尼诺状态 强厄尔尼诺事件正在发展并可能持续至明年春天", "y": "气象官方系统", "u": "https://www.cma.gov.cn/2011xwzx/2011xqxxw/2011xqxyw/202605/t20260529_7824262.html"}, {"d": "2026-06-02", "m": "世界气象组织（经中文媒体转引）", "t": "厄尔尼诺正在形成：6—8月发生概率80%，持续至11月概率约90%", "y": "国际机构 / 外媒", "u": ""}, {"d": "2026-06-02", "m": "东兴证券", "t": "农林牧渔行业：厄尔尼诺来袭 关注农产品“天气溢价”", "y": "财经 / 行业媒体", "u": "https://stock.finance.sina.com.cn/stock/go.php/vReport_Show/kind/search/rptid/833707955758/index.phtml"}, {"d": "2026-06-02", "m": "券商研报（腾讯自选股）", "t": "厄尔尼诺事件对农产品价格影响的区域分化特征", "y": "财经 / 行业媒体", "u": ""}, {"d": "2026-06-04", "m": "华夏时报", "t": "厄尔尼诺扰动全球油料！菜油暴涨背后藏变量，豆油、棕榈油后市解析", "y": "财经 / 行业媒体", "u": "https://m.chinatimes.net.cn/article/153273.html"}, {"d": "2026-06-09", "m": "期货日报（新浪财经转载）", "t": "强厄尔尼诺预期升温，大宗商品定价逻辑有变？", "y": "财经 / 行业媒体", "u": "https://finance.sina.com.cn/money/future/fmnews/2026-06-09/doc-iniauefa3402494.shtml"}, {"d": "2026-06-15", "m": "中国科普网", "t": "半年之隔，冷暖逆转：太平洋气候“变脸”会有什么影响？", "y": "科普 / 自媒体", "u": "https://www.zgkpw.org.cn/news/content_586725.html"}, {"d": "2026-07-09", "m": "环球时报（光明网转载）", "t": "欧洲气候专家：今年厄尔尼诺现象强度或创纪录", "y": "央媒 / 党媒", "u": "https://m.gmw.cn/2026-07/09/content_1304525865.htm"}, {"d": "2026-07-11", "m": "新华社", "t": "新闻分析丨强厄尔尼诺事件对全球有何影响", "y": "央媒 / 党媒", "u": "https://app.xinhuanet.com/news/article.html?articleId=20260711672450c0a75844649bc8f2e3bd92a738"}, {"d": "2026-07-20", "m": "澎湃新闻", "t": "厄尔尼诺的全球冲击链条：高温、洪涝、干旱，复合型灾害风险加剧", "y": "都市 / 门户媒体", "u": "https://www.163.com/dy/article/L29QRILN0514R9P4.html"}, {"d": "2026-07-21", "m": "新华社《瞭望》", "t": "科学应对强厄尔尼诺", "y": "央媒 / 党媒", "u": "https://lw.news.cn/20260721/aaea9ac06468450594b8fdae2b7b2462/c.html"}, {"d": "2026-07-21", "m": "巴克莱银行（外媒报道）", "t": "巴克莱：超强厄尔尼诺或引发大宗商品30%—60%价格波动", "y": "国际机构 / 外媒", "u": "https://www.edgen.tech/zh/news/post/barclays-sees-30-to-60-commodity-price-swings-from-super-el-nio"}, {"d": "2026-07-30", "m": "中国气象局（8月新闻发布会）", "t": "夏秋季将形成一次东部型强到超强厄尔尼诺事件，超强概率增大", "y": "气象官方系统", "u": "https://epaper.oeeee.com/epaper/A/html/2026-08/05/content_6732.htm"}, {"d": "2026-08-03", "m": "世界气象组织（WMO）", "t": "El Niño is forecast to intensify：媒体常用“超级厄尔尼诺”，不属WMO业务分类", "y": "国际机构 / 外媒", "u": "https://wmo.int/zh-hans/news/media-centre/eerninuoxianxiangyujijiajujiduantianqikenengxingjiada"}, {"d": "2026-08-04", "m": "上游新闻 / 中国天气", "t": "四轮高温贯穿8月 2~3个台风登陆或明显影响我国，厄尔尼诺发威了？", "y": "都市 / 门户媒体", "u": "https://www.toutiao.com/article/7670056412030059008/"}, {"d": "2026-08-05", "m": "南方都市报", "t": "本月我国暴雨高温台风将偏多：强到超强厄尔尼诺事件将在夏秋季形成", "y": "都市 / 门户媒体", "u": "https://epaper.oeeee.com/epaper/A/html/2026-08/05/content_6732.htm"}, {"d": "2026-08-07", "m": "腾讯新闻", "t": "一粒米的“多米诺”：150年来最强厄尔尼诺如何撬动全球粮食安全", "y": "都市 / 门户媒体", "u": "https://news.qq.com/rain/a/20260807A0A47V00"}, {"d": "2026-08-13", "m": "NOAA（经媒体转引）", "t": "10—12月厄尔尼诺有69%概率超过1950年以来任何一次事件强度", "y": "国际机构 / 外媒", "u": ""}, {"d": "2026-08-18", "m": "人民日报客户端", "t": "“历史最强”厄尔尼诺，正在形成！预计今冬达峰值", "y": "央媒 / 党媒", "u": "https://www.peopleapp.com/column/30052956315-500007655390"}, {"d": "2026-08-19", "m": "央视网 / 央广网", "t": "本次超强厄尔尼诺预计将成历史之最 将对我国气候有何影响？", "y": "央媒 / 党媒", "u": "https://news.cnr.cn/kuaixun/20260819/t20260819_527782193.shtml"}, {"d": "2026-08-24", "m": "广州新闻网", "t": "6天4个台风 像流水线赶工", "y": "都市 / 门户媒体", "u": "https://www.gznews.com/2026/08/24/6167.html"}, {"d": "2026-08-25", "m": "参考消息（腾讯转载）", "t": "Super El Nino / 超强厄尔尼诺", "y": "央媒 / 党媒", "u": "https://news.qq.com/rain/a/20260825A07LD400"}, {"d": "2026-08-28", "m": "中国气象局", "t": "数据新闻丨上演“帽子戏法”！三台风接连登陆浙江玉环", "y": "气象官方系统", "u": "https://www.cma.gov.cn/2011xzt/20160518/202608/t20260828_8011860.html"}, {"d": "2026-08-30", "m": "生意社", "t": "超强厄尔尼诺来袭，从农产品到工业金属全线受扰动", "y": "财经 / 行业媒体", "u": "https://www.100ppi.com/ent/headline_detail-1950.html"}, {"d": "2026-08-31", "m": "澎湃新闻", "t": "从法国农田到巴拿马运河：超级厄尔尼诺冲击全球粮食与民生", "y": "都市 / 门户媒体", "u": "https://www.toutiao.com/w/1875008598404227"}, {"d": "2026-09-08", "m": "财联社", "t": "资金涌入，粮食ETF霸榜！超强厄尔尼诺之下，气候主题成新共识？", "y": "财经 / 行业媒体", "u": "https://m.cls.cn/detail/2477452"}, {"d": "2026-09-09", "m": "新浪财经", "t": "超强厄尔尼诺概率超90% 农产品涨价主线全面扩散", "y": "财经 / 行业媒体", "u": "https://finance.sina.cn/2026-09-09/detail-iniresya5650937.d.html"}, {"d": "2026-09-10", "m": "国信证券", "t": "原油高位与厄尔尼诺开启农产品大周期", "y": "财经 / 行业媒体", "u": "https://fxbaogao.com/detail/5692216"}, {"d": "2026-09-10", "m": "人民日报客户端", "t": "厄尔尼诺即将达“超强”级别 如何应对？专家解读", "y": "央媒 / 党媒", "u": "https://www.peopleapp.com/column/30053091420-500007684001"}, {"d": "2026-09-11", "m": "财联社 / 新浪财经", "t": "粮价涨，债市也受牵连？高盛：农产品价格上行风险恐被低估", "y": "财经 / 行业媒体", "u": "https://finance.sina.com.cn/roll/2026-09-11/doc-inirkiyt2400798.shtml.md"}, {"d": "2026-09-11", "m": "新华财经 / 中国金融信息网", "t": "厄尔尼诺扰动下 农业产业链以创新筑牢稳产根基", "y": "财经 / 行业媒体", "u": "https://www.cnfin.com/yw-lb/detail/20260911/4468376_1.html"}, {"d": "2026-09-29", "m": "中国气象局", "t": "有监测记录以来最强的超强厄尔尼诺事件将形成", "y": "气象官方系统", "u": "https://www.cma.gov.cn/2011xwzx/2011xqxxw/2011xqxyw/202609/t20260929_8074119.html"}, {"d": "2026-09-29", "m": "新华社", "t": "最强的超强厄尔尼诺事件趋近 持续影响我国", "y": "央媒 / 党媒", "u": "https://www.cma.gov.cn/2011xwzx/2011xmtjj/202609/t20260930_8076164.html"}, {"d": "2026-09-29", "m": "中国新闻网（简体）", "t": "中国气象局：11月前后将形成超强厄尔尼诺事件", "y": "央媒 / 党媒", "u": "https://m.chinanews.com/wap/detail/chs/zwsp/10705559.shtml"}, {"d": "2026-09-29", "m": "中国新闻网（繁体）", "t": "超强厄尔尼诺事件将形成，对我国有何影响？国家气候中心回应", "y": "央媒 / 党媒", "u": "https://m.chinanews.com/wap/detail/cht/zw/10705674.shtml"}, {"d": "2026-09-29", "m": "科技日报", "t": "11月前后将形成有监测记录以来最强的超强厄尔尼诺事件", "y": "央媒 / 党媒", "u": "https://www.stdaily.com/web/gdxw/2026-09/29/content_589959.html"}, {"d": "2026-09-29", "m": "CGTN（英文外宣）", "t": "Super El Nino set to become strongest on record", "y": "央媒 / 党媒", "u": "https://news.cgtn.com/news/2026-09-29/Super-El-Nino-set-to-become-strongest-on-record-1QPLUYAxZII/index.html"}, {"d": "2026-09-29", "m": "今日头条·科技日报", "t": "今冬将形成有监测记录以来最强的超强厄尔尼诺事件", "y": "央媒 / 党媒", "u": "https://www.toutiao.com/article/7690907395933667880/"}, {"d": "2026-09-30", "m": "人民网", "t": "海温指数波动走高 超强厄尔尼诺事件正在成型？", "y": "央媒 / 党媒", "u": "https://finance.people.com.cn/BIG5/n1/2026/0930/c1004-40808327.html"}, {"d": "2026-09-30", "m": "光明网", "t": "海温指数波动走高 超强厄尔尼诺事件正在成型？", "y": "央媒 / 党媒", "u": "https://m.gmw.cn/2026-09/30/content_1304570305.htm"}, {"d": "2026-09-30", "m": "澎湃新闻", "t": "厄尔尼诺“超长待机”！关注滞后影响和风险多领域传导", "y": "都市 / 门户媒体", "u": "https://m.thepaper.cn/newsDetail_forward_34177695"}, {"d": "2026-09-30", "m": "内蒙古自治区气象局（转载中国天气网）", "t": "中国气象局：厄尔尼诺快速发展 或成有监测记录来最强厄尔尼诺事件", "y": "气象官方系统", "u": "http://nm.cma.gov.cn/xwzx/mtjj/202609/t20260930_8075006.html"}, {"d": "2026-10-08", "m": "世界气象组织（WMO）", "t": "《全球季节性气候最新通报》：10—12月海温将升至创纪录水平", "y": "国际机构 / 外媒", "u": ""}, {"d": "2026-10-09", "m": "新华社 / 人民网", "t": "超强厄尔尼诺已经形成", "y": "央媒 / 党媒", "u": "https://society.people.com.cn/n1/2026/1009/c1008-40811417.html"}, {"d": "2026-10-09", "m": "中国青年报", "t": "国家气候中心：超强厄尔尼诺已形成，或为史上最强", "y": "央媒 / 党媒", "u": "https://www.toutiao.com/article/7694546246199034395"}, {"d": "2026-10-09", "m": "腾讯新闻", "t": "超强厄尔尼诺事件已形成；专家：今年暖冬基本确定，明年夏天可能更热", "y": "都市 / 门户媒体", "u": "https://news.qq.com/rain/a/20261009A08ZWO00"}, {"d": "2026-10-09", "m": "南京广播电视台", "t": "国家气候中心：超强厄尔尼诺已形成，将成为有系统性监测以来最强的一次", "y": "都市 / 门户媒体", "u": "https://www.toutiao.com/article/7694544250528186930"}, {"d": "2026-10-09", "m": "中国气象局（官方新媒体）", "t": "世界气象组织发布《全球季节性气候最新通报》", "y": "气象官方系统", "u": ""}], "peak": {"date": "2026-09-29", "count": 7}, "last_updated": "2026-10-10 09:08:18", "data_range": "2026-03-11 ~ 2026-10-09", "h2_ratio": "68%", "peak_month": "9月 (17条)"};
+
+var P = INITIAL_DATA;
+var C = {blue:'#1f6fd0', red:'#c0392b', org:'#e07b1a', grn:'#0f9960', pur:'#7c4dd1', grey:'#8a95a8'};
+var charts = [];
+
+function reg(id, opt) {
+  var el = document.getElementById(id);
+  if (!el) return null;
+  var c = echarts.init(el);
+  c.setOption(opt);
+  charts.push(c);
+  return c;
+}
+
+window.addEventListener('resize', function() {
+  charts.forEach(function(c) { if (c) c.resize(); });
+});
+
+function tip() {
+  return {
+    trigger: 'axis',
+    axisPointer: { type: 'shadow' },
+    backgroundColor: 'rgba(255,255,255,.97)',
+    borderColor: '#dfe3ea',
+    textStyle: { color: '#1b1f27', fontSize: 12 },
+    extraCssText: 'box-shadow:0 6px 22px rgba(20,30,50,.13);border-radius:9px;'
+  };
+}
+
+function renderAll() {
+  charts.forEach(function(c) { if (c) c.dispose(); });
+  charts = [];
+
+  // 更新指标卡片
+  if (P.data_range) document.getElementById('hdr-range').innerText = P.data_range;
+  if (P.corpus) {
+    document.getElementById('hdr-total').innerText = P.corpus.length;
+    document.getElementById('card-total').innerText = P.corpus.length + ' 条';
+  }
+  if (P.peak_month) document.getElementById('card-peak-month').innerText = P.peak_month;
+  if (P.peak && P.peak.date) document.getElementById('card-peak-day').innerText = P.peak.date;
+  if (P.h2_ratio) document.getElementById('card-h2').innerText = P.h2_ratio;
+  if (P.last_updated) document.getElementById('engine-last-updated').innerText = P.last_updated;
+
+  // 1. 月度频次
+  reg('c1', {
+    animationDuration: 700,
+    tooltip: tip(),
+    legend: { top: 0, right: 8, itemWidth: 16, itemHeight: 8, textStyle: { color: '#4b5563', fontSize: 12 } },
+    grid: { left: 56, right: 60, top: 38, bottom: 36 },
+    xAxis: {
+      type: 'category',
+      data: P.months,
+      axisLabel: { color: '#6b7280', fontSize: 11, formatter: function(v) { return v.slice(5) + '月'; } },
+      axisLine: { lineStyle: { color: '#c7ccd6' } },
+      axisTick: { show: false }
+    },
+    yAxis: [
+      {
+        type: 'value',
+        name: '当月条数',
+        nameTextStyle: { color: '#6b7280', fontSize: 11 },
+        axisLabel: { color: '#6b7280', fontSize: 11 },
+        splitLine: { lineStyle: { color: '#eef0f4' } },
+        axisLine: { show: false }
+      },
+      {
+        type: 'value',
+        name: '累计条数',
+        nameTextStyle: { color: '#6b7280', fontSize: 11 },
+        axisLabel: { color: '#6b7280', fontSize: 11 },
+        splitLine: { show: false },
+        axisLine: { show: false }
+      }
+    ],
+    series: [
+      {
+        name: '当月报道条数',
+        type: 'bar',
+        barWidth: '46%',
+        data: P.byMonth,
+        itemStyle: {
+          color: function(p) {
+            var colors = [C.grey, '#9db8d6', '#7aa7d9', '#5f95d6', '#6ba3d0', '#d8a63c', '#e8b44a', '#e59a2a', '#c0392b', '#8e2f24', '#661912'];
+            return colors[p.dataIndex] || C.red;
+          },
+          borderRadius: [4, 4, 0, 0]
+        },
+        label: { show: true, position: 'top', color: '#4b5563', fontSize: 12, fontWeight: 600 }
+      },
+      {
+        name: '累计报道条数',
+        type: 'line',
+        yAxisIndex: 1,
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 6,
+        data: P.cum,
+        lineStyle: { width: 2, color: C.pur },
+        itemStyle: { color: C.pur }
+      }
+    ]
+  });
+
+  // 2. 信源结构
+  reg('c2', {
+    animationDuration: 700,
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: 'rgba(255,255,255,.97)',
+      borderColor: '#dfe3ea',
+      textStyle: { color: '#1b1f27', fontSize: 12 },
+      formatter: function(p) { return p.name + '<br>' + p.value + ' 条（' + p.percent + '%）'; }
+    },
+    legend: { bottom: 0, left: 'center', itemWidth: 12, itemHeight: 8, textStyle: { color: '#4b5563', fontSize: 11.5 } },
+    title: {
+      text: '信源类型分布',
+      left: 'center',
+      top: 4,
+      textStyle: { fontSize: 13, color: '#1b1f27', fontWeight: 600 },
+      subtext: '共 ' + P.corpus.length + ' 条',
+      subtextStyle: { fontSize: 11, color: '#6b7280' }
+    },
+    color: [C.red, C.blue, C.org, '#4b8fbe', C.grn, C.pur],
+    series: [{
+      type: 'pie',
+      radius: ['42%', '68%'],
+      center: ['50%', '54%'],
+      avoidLabelOverlap: true,
+      itemStyle: { borderColor: '#fff', borderWidth: 2 },
+      label: { color: '#4b5563', fontSize: 11.5, formatter: '{b}\n{d}%' },
+      labelLine: { lineStyle: { color: '#c7ccd6' } },
+      data: P.cat
+    }]
+  });
+
+  // 3. 按日节奏
+  reg('c3', {
+    animationDuration: 700,
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' },
+      backgroundColor: 'rgba(255,255,255,.97)',
+      borderColor: '#dfe3ea',
+      textStyle: { color: '#1b1f27', fontSize: 12 },
+      formatter: function(ps) { var p = ps[0]; return p.axisValue + '<br>当日报道：' + p.value + ' 条'; }
+    },
+    grid: { left: 46, right: 16, top: 34, bottom: 52 },
+    title: {
+      text: '按日报道密度',
+      left: 'center',
+      top: 4,
+      textStyle: { fontSize: 13, color: '#1b1f27', fontWeight: 600 },
+      subtext: '空白区 = 无相关报道',
+      subtextStyle: { fontSize: 11, color: '#6b7280' }
+    },
+    xAxis: {
+      type: 'category',
+      data: P.dayLabels,
+      silent: true,
+      axisLabel: {
+        color: '#6b7280',
+        fontSize: 10,
+        interval: Math.max(1, Math.floor(P.dayLabels.length / 7)),
+        formatter: function(v) { return v.slice(5); }
+      },
+      axisLine: { lineStyle: { color: '#c7ccd6' } },
+      axisTick: { show: false }
+    },
+    yAxis: {
+      type: 'value',
+      name: '条',
+      nameTextStyle: { color: '#6b7280', fontSize: 11 },
+      axisLabel: { color: '#6b7280', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#eef0f4' } },
+      axisLine: { show: false }
+    },
+    dataZoom: [{ type: 'inside', start: 0, end: 100 }],
+    series: [{
+      type: 'bar',
+      data: P.daily,
+      barWidth: 3,
+      itemStyle: {
+        color: function(p) {
+          return p.value >= 4 ? C.red : (p.value > 0 ? '#e2954f' : 'rgba(0,0,0,0)');
+        },
+        borderRadius: [3, 3, 0, 0]
+      }
+    }]
+  });
+
+  // 4. 概率演进
+  reg('c4', {
+    animationDuration: 700,
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'rgba(255,255,255,.97)',
+      borderColor: '#dfe3ea',
+      textStyle: { color: '#1b1f27', fontSize: 12 },
+      formatter: function(ps) {
+        var i = ps[0].dataIndex;
+        return P.probX[i] + '<br>概率：' + (P.probV[i] === null ? '该月无统一口径' : P.probV[i] + '%') + '<br><span style="color:#6b7280">' + (P.probNote[i] || '') + '</span>';
+      }
+    },
+    grid: { left: 56, right: 24, top: 34, bottom: 36 },
+    title: {
+      text: '机构对“超强厄尔尼诺”的概率估计',
+      left: 'center',
+      top: 4,
+      textStyle: { fontSize: 13, color: '#1b1f27', fontWeight: 600 },
+      subtext: '6—7 月无统一口径（断点）',
+      subtextStyle: { fontSize: 11, color: '#6b7280' }
+    },
+    xAxis: {
+      type: 'category',
+      data: P.probX.map(function(v) { return v.slice(5) + '月'; }),
+      boundaryGap: false,
+      axisLabel: { color: '#6b7280', fontSize: 11 },
+      axisLine: { lineStyle: { color: '#c7ccd6' } },
+      axisTick: { show: false }
+    },
+    yAxis: {
+      type: 'value',
+      name: '概率 %',
+      max: 100,
+      nameTextStyle: { color: '#6b7280', fontSize: 11 },
+      axisLabel: { color: '#6b7280', fontSize: 11, formatter: '{value}%' },
+      splitLine: { lineStyle: { color: '#eef0f4' } },
+      axisLine: { show: false }
+    },
+    series: [{
+      type: 'line',
+      data: P.probV,
+      connectNulls: false,
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 8,
+      lineStyle: { width: 2.4, color: C.org },
+      itemStyle: { color: C.org },
+      areaStyle: { color: 'rgba(224,123,26,.12)' },
+      label: {
+        show: true,
+        position: 'top',
+        color: '#a8600f',
+        fontSize: 11.5,
+        formatter: function(p) { return p.value === null ? '' : p.value + '%'; }
+      },
+      markLine: {
+        silent: true,
+        symbol: 'none',
+        lineStyle: { color: '#c0392b', type: 'dashed', width: 1 },
+        label: { formatter: '超强判定门槛', color: '#c0392b', fontSize: 11, position: 'insideEndTop' },
+        data: [{ yAxis: 50 }]
+      }
+    }]
+  });
+
+  // 表格与明细渲染
+  renderTables();
+}
+
+function renderTables() {
+  var cls = {
+    '央媒 / 党媒': 'b1',
+    '气象官方系统': 'b2',
+    '财经 / 行业媒体': 'b3',
+    '都市 / 门户媒体': 'b4',
+    '国际机构 / 外媒': 'b5',
+    '科普 / 自媒体': 'b6'
+  };
+
+  var filterKw = (document.getElementById('search-input').value || '').trim().toLowerCase();
+  var filterCat = (document.getElementById('cat-select').value || '').trim();
+
+  var filtered = P.corpus.slice().filter(function(c) {
+    if (filterCat && c.y !== filterCat) return false;
+    if (filterKw) {
+      var fullTxt = (c.d + ' ' + c.m + ' ' + c.t + ' ' + c.y).toLowerCase();
+      if (fullTxt.indexOf(filterKw) === -1) return false;
+    }
+    return true;
+  });
+
+  var h = '';
+  filtered.sort(function(a, b) { return a.d < b.d ? 1 : -1; }).forEach(function(c) {
+    h += '<tr><td class="num">' + c.d + '</td><td>' + c.m + '</td><td>' + c.t +
+         (c.u ? ' <a href="' + c.u + '" target="_blank" style="color:#1f6fd0;font-size:11px;text-decoration:none">[原文]</a>' : '') +
+         '</td><td><span class="badge ' + (cls[c.y] || 'b6') + '">' + c.y + '</span></td></tr>';
+  });
+  document.getElementById('tb').innerHTML = h || '<tr><td colspan="4" style="text-align:center;color:#8a95a8;padding:24px;">暂无匹配的报道样本</td></tr>';
+  document.getElementById('cnt').innerText = '当前筛选 ' + filtered.length + ' 条（总库 ' + P.corpus.length + ' 条）';
+
+  // 概率表格
+  var ph = '';
+  for (var i = 0; i < P.probX.length; i++) {
+    ph += '<tr><td class="num">' + P.probX[i] + '</td><td class="num">' + (P.probV[i] === null ? '—' : P.probV[i] + '%') + '</td><td>' + (P.probNote[i] || '') + '</td></tr>';
+  }
+  document.getElementById('probTb').innerHTML = ph;
+
+  // 事件表格
+  var eh = '';
+  (P.events || []).forEach(function(e) {
+    eh += '<tr><td>' + e.date + '</td><td><b>' + e.title + '</b></td><td>' + e.desc + '</td></tr>';
+  });
+  document.getElementById('evTb').innerHTML = eh;
+}
+
+// 绑定搜索与分类筛选
+document.getElementById('search-input').addEventListener('input', renderTables);
+document.getElementById('cat-select').addEventListener('change', renderTables);
+
+// 绑定 CSV 导出
+document.getElementById('csv').onclick = function() {
+  var L = ['日期,媒体,标题,信源分类,链接'];
+  P.corpus.slice().sort(function(a, b) { return a.d > b.d ? 1 : -1; }).forEach(function(c) {
+    L.push([c.d, c.m, '"' + String(c.t).replace(/"/g, '""') + '"', c.y, c.u].join(','));
+  });
+  var blob = new Blob(['\ufeff' + L.join('\n')], { type: 'text/csv;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '超强厄尔尼诺_2026_中文媒体报道监测样本.csv';
+  a.click();
+};
+
+// 异步尝试拉取最新的 data.json
+fetch('./data.json?v=' + Date.now())
+  .then(function(res) {
+    if (!res.ok) throw new Error('网络响应异常');
+    return res.json();
+  })
+  .then(function(remoteData) {
+    if (remoteData && remoteData.corpus && remoteData.corpus.length > 0) {
+      P = remoteData;
+      console.log('成功载入远程动态 data.json 数据，样本数:', P.corpus.length);
+    }
+    renderAll();
+  })
+  .catch(function(err) {
+    console.warn('读取动态 data.json 失败，使用内嵌初始数据集渲染:', err);
+    renderAll();
+  });
+</script>
+</body>
+</html>

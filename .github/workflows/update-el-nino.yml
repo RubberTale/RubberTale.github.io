@@ -1,0 +1,45 @@
+name: Update El Nino 2026 Media Tracker
+
+on:
+  schedule:
+    # 每天北京时间上午 10:00 (UTC 02:00) 定时执行更新
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-tracker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 仓库代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 配置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 运行 FreeLLMAPI 智能监测更新引擎
+        env:
+          FREELLM_BASE_URL: "http://140.245.65.111:3005/v1"
+          FREELLM_API_KEY: "freellmapi-5970cc45963020cb59754a87d5fd0fd7d3b8f373c8c19bed"
+          FREELLM_MODEL: "auto"
+        run: |
+          python source/tools/el-nino-2026/update_el_nino.py
+
+      - name: 检查数据变更并提交推送
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain source/tools/el-nino-2026/)" ]; then
+            echo "检测到数据更新，正在自动提交..."
+            git add source/tools/el-nino-2026/data.json source/tools/el-nino-2026/index.html
+            git commit -m "chore(el-nino): 自动同步 2026 超强厄尔尼诺媒体报道最新监测数据 [via FreeLLMAPI]"
+            git push origin main
+          else
+            echo "今日暂无新增报道样本，数据保持最新状态。"
+          fi
