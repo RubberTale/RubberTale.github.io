@@ -1,0 +1,1243 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "周朝天子世系与宗法王统全景谱系",
+    "subtitle": "八百年礼乐宗法 · 西周镐京至东周洛邑三十二代三十七王通览",
+    "output": "zhou-genealogy.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "周邦先祖与辅国宗亲",
+          "visible": true
+        },
+        "frontend": {
+          "label": "立国元勋与中兴天子",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "宗亲旁支入继与分封公族",
+          "visible": true
+        },
+        "security": {
+          "label": "篡立夺位与特殊时期政权",
+          "visible": true
+        },
+        "external": {
+          "label": "西周/东周终结之君与绝祀",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "houji",
+      "type": "cloud",
+      "label": "后稷 (姬弃)",
+      "sublabel": "尧舜农师 · 始封于邰 · 周人始祖",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "先周始祖"
+    },
+    {
+      "id": "gugong",
+      "type": "cloud",
+      "label": "古公亶父",
+      "sublabel": "率民迁岐下周原 · 始筑城郭",
+      "pos": [
+        40,
+        175
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "追尊周太王"
+    },
+    {
+      "id": "taibo",
+      "type": "database",
+      "label": "吴泰伯 · 仲雍",
+      "sublabel": "三让天下 · 避狄奔吴断发文身",
+      "pos": [
+        40,
+        290
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "吴国始祖"
+    },
+    {
+      "id": "jili",
+      "type": "cloud",
+      "label": "公季 (季历)",
+      "sublabel": "太王少子 · 开拓西陲封西伯",
+      "pos": [
+        40,
+        405
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "追尊周王季"
+    },
+    {
+      "id": "wenwang",
+      "type": "frontend",
+      "label": "周文王 (姬昌)",
+      "sublabel": "西伯昌 · 演周易 · 垂范受命",
+      "pos": [
+        40,
+        520
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "受命称王"
+    },
+    {
+      "id": "zhougong",
+      "type": "cloud",
+      "label": "周公旦",
+      "sublabel": "文王四子 · 摄政制礼作乐 · 鲁始祖",
+      "pos": [
+        40,
+        645
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "元圣辅国"
+    },
+    {
+      "id": "zhaogong",
+      "type": "cloud",
+      "label": "召公奭",
+      "sublabel": "文王庶子 · 分陕而治 · 甘棠遗爱",
+      "pos": [
+        40,
+        765
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "tag": "燕国始祖"
+    },
+    {
+      "id": "wuwang",
+      "type": "frontend",
+      "label": "1. 周武王 (姬发)",
+      "sublabel": "文王次子 · 牧野灭商建立周朝",
+      "pos": [
+        300,
+        60
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前1046-前1043"
+    },
+    {
+      "id": "chengwang",
+      "type": "frontend",
+      "label": "2. 周成王 (姬诵)",
+      "sublabel": "武王之子 · 周公摄政 · 成康之治",
+      "pos": [
+        300,
+        175
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前1042-前1021"
+    },
+    {
+      "id": "kangwang",
+      "type": "frontend",
+      "label": "3. 周康王 (姬钊)",
+      "sublabel": "成王之子 · 刑错四十余年不用",
+      "pos": [
+        300,
+        290
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前1020-前996"
+    },
+    {
+      "id": "zhaowang",
+      "type": "backend",
+      "label": "4. 周昭王 (姬瑕)",
+      "sublabel": "康王之子 · 亲征楚蛮 · 丧于汉水",
+      "pos": [
+        300,
+        405
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前995-前977"
+    },
+    {
+      "id": "muwang",
+      "type": "backend",
+      "label": "5. 周穆王 (姬满)",
+      "sublabel": "昭王之子 · 八骏西巡谒见西王母",
+      "pos": [
+        300,
+        520
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前976-前922"
+    },
+    {
+      "id": "gongwang",
+      "type": "backend",
+      "label": "6. 周共王 (姬繄扈)",
+      "sublabel": "穆王之子 · 灭密须国 · 守土无失",
+      "pos": [
+        300,
+        635
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前922-前900"
+    },
+    {
+      "id": "yiwang1",
+      "type": "backend",
+      "label": "7. 周懿王 (姬囏)",
+      "sublabel": "共王之子 · 迁都槐里 · 宗周始衰",
+      "pos": [
+        300,
+        750
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前899-前892"
+    },
+    {
+      "id": "xiaowang",
+      "type": "database",
+      "label": "8. 周孝王 (姬辟方)",
+      "sublabel": "共王弟/懿王叔 · 代立封秦非子",
+      "pos": [
+        300,
+        865
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前891-前886"
+    },
+    {
+      "id": "yiwang2",
+      "type": "backend",
+      "label": "9. 周夷王 (姬燮)",
+      "sublabel": "懿王之子/孝王侄 · 诸侯复立之",
+      "pos": [
+        300,
+        980
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前885-前878"
+    },
+    {
+      "id": "liwang",
+      "type": "security",
+      "label": "10. 周厉王 (姬胡)",
+      "sublabel": "夷王之子 · 专利暴民 · 奔彘客死",
+      "pos": [
+        300,
+        1095
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前877-前841"
+    },
+    {
+      "id": "gonghe",
+      "type": "database",
+      "label": "共和行政 (纪年始)",
+      "sublabel": "国人暴动 · 周召二公执政十四载",
+      "pos": [
+        300,
+        1210
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前841-前828"
+    },
+    {
+      "id": "xuanwang",
+      "type": "frontend",
+      "label": "11. 周宣王 (姬静)",
+      "sublabel": "厉王太子 · 宣王中兴 · 伐猃狁",
+      "pos": [
+        300,
+        1325
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前827-前782"
+    },
+    {
+      "id": "youwang",
+      "type": "external",
+      "label": "12. 周幽王 (姬宫湦)",
+      "sublabel": "宣王之子 · 宠褒姒戏诸侯 · 犬戎弑之",
+      "pos": [
+        300,
+        1440
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前781-前771"
+    },
+    {
+      "id": "xiewang",
+      "type": "security",
+      "label": "周携王 (姬望)",
+      "sublabel": "虢公翰拥立于携 · 后为晋文侯杀",
+      "pos": [
+        300,
+        1555
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前770-前750"
+    },
+    {
+      "id": "pingwang",
+      "type": "frontend",
+      "label": "13. 周平王 (姬宜臼)",
+      "sublabel": "幽王太子 · 东迁洛邑 · 东周始立",
+      "pos": [
+        570,
+        60
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前770-前720"
+    },
+    {
+      "id": "xiefu",
+      "type": "database",
+      "label": "太子泄父",
+      "sublabel": "平王太子 · 早卒未及立为天子",
+      "pos": [
+        570,
+        175
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "早卒太子"
+    },
+    {
+      "id": "huanwang",
+      "type": "backend",
+      "label": "14. 周桓王 (姬林)",
+      "sublabel": "泄父之子/平王孙 · 繻葛之战被射肩",
+      "pos": [
+        570,
+        290
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前719-前697"
+    },
+    {
+      "id": "zhuangwang",
+      "type": "backend",
+      "label": "15. 周庄王 (姬佗)",
+      "sublabel": "桓王长子 · 平定周公黑肩弑君之乱",
+      "pos": [
+        570,
+        405
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前696-前682"
+    },
+    {
+      "id": "xiwang",
+      "type": "backend",
+      "label": "16. 周僖王 (姬胡齐)",
+      "sublabel": "庄王长子 · 齐桓公首成春秋霸业",
+      "pos": [
+        570,
+        520
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前681-前677"
+    },
+    {
+      "id": "huiwang",
+      "type": "backend",
+      "label": "17. 周惠王 (姬阆)",
+      "sublabel": "僖王之子 · 王子颓之乱获郑虢平定",
+      "pos": [
+        570,
+        635
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前676-前652"
+    },
+    {
+      "id": "xiangwang",
+      "type": "backend",
+      "label": "18. 周襄王 (姬郑)",
+      "sublabel": "惠王长子 · 叔带作乱 · 晋文公勤王",
+      "pos": [
+        570,
+        750
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前651-前619"
+    },
+    {
+      "id": "qingwang",
+      "type": "backend",
+      "label": "19. 周顷王 (姬壬臣)",
+      "sublabel": "襄王之子 · 王室贫困求赙于诸侯",
+      "pos": [
+        570,
+        865
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前618-前613"
+    },
+    {
+      "id": "kuangwang",
+      "type": "backend",
+      "label": "20. 周匡王 (姬班)",
+      "sublabel": "顷王长子 · 晋楚争霸 · 在位六年崩",
+      "pos": [
+        570,
+        980
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前612-前607"
+    },
+    {
+      "id": "dingwang1",
+      "type": "backend",
+      "label": "21. 周定王 (姬瑜)",
+      "sublabel": "顷王次子/匡王弟 · 楚庄王问鼎轻重",
+      "pos": [
+        570,
+        1095
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前606-前586"
+    },
+    {
+      "id": "jianwang",
+      "type": "backend",
+      "label": "22. 周简王 (姬夷)",
+      "sublabel": "定王之子 · 晋楚弭兵 · 王权日削",
+      "pos": [
+        570,
+        1210
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前585-前572"
+    },
+    {
+      "id": "lingwang",
+      "type": "backend",
+      "label": "23. 周灵王 (姬泄心)",
+      "sublabel": "简王之子 · 谷洛水溢 · 孔子诞鲁国",
+      "pos": [
+        570,
+        1325
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前571-前545"
+    },
+    {
+      "id": "jingwang1",
+      "type": "backend",
+      "label": "24. 周景王 (姬贵)",
+      "sublabel": "灵王之子 · 铸大钱造无射大钟",
+      "pos": [
+        570,
+        1440
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前544-前520"
+    },
+    {
+      "id": "daowang",
+      "type": "security",
+      "label": "25. 周悼王 (姬猛)",
+      "sublabel": "景王嫡子 · 在位半载为王子朝杀",
+      "pos": [
+        570,
+        1555
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前520 (数月)"
+    },
+    {
+      "id": "wangzichao",
+      "type": "security",
+      "label": "王子朝之乱",
+      "sublabel": "景王庶长子 · 篡夺王位奉周典奔楚",
+      "pos": [
+        570,
+        1670
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前520-前516"
+    },
+    {
+      "id": "jingwang2",
+      "type": "frontend",
+      "label": "26. 周敬王 (姬匄)",
+      "sublabel": "景王少子/悼王弟 · 晋立之迁都东周",
+      "pos": [
+        570,
+        1785
+      ],
+      "size": [
+        185,
+        64
+      ],
+      "tag": "前519-前477"
+    },
+    {
+      "id": "yuanwang",
+      "type": "backend",
+      "label": "27. 周元王 (姬仁)",
+      "sublabel": "敬王之子 · 越王勾践北上称霸",
+      "pos": [
+        840,
+        60
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前476-前469"
+    },
+    {
+      "id": "zhendingwang",
+      "type": "backend",
+      "label": "28. 周贞定王 (姬介)",
+      "sublabel": "元王之子 · 三家分晋序幕初开",
+      "pos": [
+        840,
+        175
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前468-前441"
+    },
+    {
+      "id": "aiwang",
+      "type": "security",
+      "label": "29. 周哀王 (姬去疾)",
+      "sublabel": "贞定王长子 · 在位三月为弟叔弑杀",
+      "pos": [
+        840,
+        290
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前441 (三月)"
+    },
+    {
+      "id": "siwang",
+      "type": "security",
+      "label": "30. 周思王 (姬叔)",
+      "sublabel": "贞定王次子 · 弑兄自立 · 五月为弟嵬弑",
+      "pos": [
+        840,
+        405
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前441 (五月)"
+    },
+    {
+      "id": "kaowang",
+      "type": "database",
+      "label": "31. 周考王 (姬嵬)",
+      "sublabel": "弑思王自立 · 封弟于河南为西周公",
+      "pos": [
+        840,
+        520
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前440-前426"
+    },
+    {
+      "id": "xizhougong",
+      "type": "database",
+      "label": "西周桓公 (姬揭)",
+      "sublabel": "考王封弟于河南 · 王畿分裂为西周国",
+      "pos": [
+        840,
+        635
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "西周国君"
+    },
+    {
+      "id": "weiliewang",
+      "type": "frontend",
+      "label": "32. 周威烈王 (姬午)",
+      "sublabel": "考王之子 · 命韩赵魏为诸侯 (战国始)",
+      "pos": [
+        840,
+        750
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前425-前402"
+    },
+    {
+      "id": "anwang",
+      "type": "backend",
+      "label": "33. 周安王 (姬骄)",
+      "sublabel": "威烈王之子 · 册封田和为齐侯 (田氏代齐)",
+      "pos": [
+        840,
+        865
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前401-前376"
+    },
+    {
+      "id": "liewang",
+      "type": "backend",
+      "label": "34. 周烈王 (姬喜)",
+      "sublabel": "安王长子 · 见孟子 · 秦献公称霸西戎",
+      "pos": [
+        840,
+        980
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前375-前369"
+    },
+    {
+      "id": "xianwang",
+      "type": "backend",
+      "label": "35. 周显王 (姬扁)",
+      "sublabel": "安王少子/烈王弟 · 商鞅变法诸侯相王",
+      "pos": [
+        840,
+        1095
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前368-前321"
+    },
+    {
+      "id": "dongzhougong",
+      "type": "database",
+      "label": "东周惠公 (巩邑)",
+      "sublabel": "西周威公分封少子 · 东西二周并立内讧",
+      "pos": [
+        840,
+        1210
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "东周国君"
+    },
+    {
+      "id": "shenjingwang",
+      "type": "backend",
+      "label": "36. 周慎靓王 (姬定)",
+      "sublabel": "显王之子 · 战国纵横合纵连横",
+      "pos": [
+        840,
+        1325
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前320-前315"
+    },
+    {
+      "id": "nanwang",
+      "type": "external",
+      "label": "37. 周赧王 (姬延)",
+      "sublabel": "在位五十九年 · 居西周国 · 筑避债台",
+      "pos": [
+        840,
+        1440
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "前314-前256"
+    },
+    {
+      "id": "zhoudingmie",
+      "type": "external",
+      "label": "周室绝祀 · 九鼎入秦",
+      "sublabel": "前256赧王降秦同年崩 · 前249东周国灭亡",
+      "pos": [
+        840,
+        1555
+      ],
+      "size": [
+        190,
+        64
+      ],
+      "tag": "享国近八百年"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "周邦开基 · 始祖开国与圣贤辅弼",
+      "wraps": [
+        "houji",
+        "gugong",
+        "taibo",
+        "jili",
+        "wenwang",
+        "zhougong",
+        "zhaogong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "西周正统 · 宗周镐京与共和行政 (前1046 - 前771年)",
+      "wraps": [
+        "wuwang",
+        "chengwang",
+        "kangwang",
+        "zhaowang",
+        "muwang",
+        "gongwang",
+        "yiwang1",
+        "xiaowang",
+        "yiwang2",
+        "liwang",
+        "gonghe",
+        "xuanwang",
+        "youwang",
+        "xiewang"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "东周春秋 · 洛邑东迁与诸侯霸业 (前770 - 前477年)",
+      "wraps": [
+        "pingwang",
+        "xiefu",
+        "huanwang",
+        "zhuangwang",
+        "xiwang",
+        "huiwang",
+        "xiangwang",
+        "qingwang",
+        "kuangwang",
+        "dingwang1",
+        "jianwang",
+        "lingwang",
+        "jingwang1",
+        "daowang",
+        "wangzichao",
+        "jingwang2"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "东周战国 · 王畿瓦解与九鼎沉寂 (前476 - 前256年)",
+      "wraps": [
+        "yuanwang",
+        "zhendingwang",
+        "aiwang",
+        "siwang",
+        "kaowang",
+        "xizhougong",
+        "weiliewang",
+        "anwang",
+        "liewang",
+        "xianwang",
+        "dongzhougong",
+        "shenjingwang",
+        "nanwang",
+        "zhoudingmie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-houji-gugong",
+      "from": "houji",
+      "to": "gugong",
+      "label": "世代相承"
+    },
+    {
+      "id": "c-gugong-taibo",
+      "from": "gugong",
+      "to": "taibo",
+      "label": "长子让邑",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-gugong-jili",
+      "from": "gugong",
+      "to": "jili",
+      "label": "季子传继"
+    },
+    {
+      "id": "c-jili-wenwang",
+      "from": "jili",
+      "to": "wenwang",
+      "label": "嫡嗣受命"
+    },
+    {
+      "id": "c-wenwang-zhougong",
+      "from": "wenwang",
+      "to": "zhougong",
+      "label": "四子立鲁",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-wenwang-zhaogong",
+      "from": "wenwang",
+      "to": "zhaogong",
+      "label": "庶子立燕",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "left"
+    },
+    {
+      "id": "c-wenwang-wuwang",
+      "from": "wenwang",
+      "to": "wuwang",
+      "label": "次子克商建周",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wuwang-chengwang",
+      "from": "wuwang",
+      "to": "chengwang",
+      "label": "嫡长即位"
+    },
+    {
+      "id": "c-zhougong-chengwang",
+      "from": "zhougong",
+      "to": "chengwang",
+      "label": "周公摄政辅弼",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-chengwang-kangwang",
+      "from": "chengwang",
+      "to": "kangwang",
+      "label": "成康之治"
+    },
+    {
+      "id": "c-kangwang-zhaowang",
+      "from": "kangwang",
+      "to": "zhaowang",
+      "label": "嫡嗣继统"
+    },
+    {
+      "id": "c-zhaowang-muwang",
+      "from": "zhaowang",
+      "to": "muwang",
+      "label": "父终子继"
+    },
+    {
+      "id": "c-muwang-gongwang",
+      "from": "muwang",
+      "to": "gongwang",
+      "label": "嫡传嗣位"
+    },
+    {
+      "id": "c-gongwang-yiwang1",
+      "from": "gongwang",
+      "to": "yiwang1",
+      "label": "嫡嗣嗣位"
+    },
+    {
+      "id": "c-gongwang-xiaowang",
+      "from": "gongwang",
+      "to": "xiaowang",
+      "label": "少子代立",
+      "variant": "security"
+    },
+    {
+      "id": "c-yiwang1-yiwang2",
+      "from": "yiwang1",
+      "to": "yiwang2",
+      "label": "懿王子复立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yiwang2-liwang",
+      "from": "yiwang2",
+      "to": "liwang",
+      "label": "父终子继"
+    },
+    {
+      "id": "c-liwang-gonghe",
+      "from": "liwang",
+      "to": "gonghe",
+      "label": "国人暴动出奔",
+      "variant": "security"
+    },
+    {
+      "id": "c-gonghe-xuanwang",
+      "from": "gonghe",
+      "to": "xuanwang",
+      "label": "还政太子中兴",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xuanwang-youwang",
+      "from": "xuanwang",
+      "to": "youwang",
+      "label": "嫡长传位"
+    },
+    {
+      "id": "c-youwang-xiewang",
+      "from": "youwang",
+      "to": "xiewang",
+      "label": "虢公拥立二王并立",
+      "variant": "security"
+    },
+    {
+      "id": "c-youwang-pingwang",
+      "from": "youwang",
+      "to": "pingwang",
+      "label": "废太子东迁洛邑",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-pingwang-xiefu",
+      "from": "pingwang",
+      "to": "xiefu",
+      "label": "立为太子"
+    },
+    {
+      "id": "c-xiefu-huanwang",
+      "from": "xiefu",
+      "to": "huanwang",
+      "label": "太子早卒子继"
+    },
+    {
+      "id": "c-huanwang-zhuangwang",
+      "from": "huanwang",
+      "to": "zhuangwang",
+      "label": "嫡长传位"
+    },
+    {
+      "id": "c-zhuangwang-xiwang",
+      "from": "zhuangwang",
+      "to": "xiwang",
+      "label": "长子继统"
+    },
+    {
+      "id": "c-xiwang-huiwang",
+      "from": "xiwang",
+      "to": "huiwang",
+      "label": "父死子继"
+    },
+    {
+      "id": "c-huiwang-xiangwang",
+      "from": "huiwang",
+      "to": "xiangwang",
+      "label": "长子传位"
+    },
+    {
+      "id": "c-xiangwang-qingwang",
+      "from": "xiangwang",
+      "to": "qingwang",
+      "label": "父终子继"
+    },
+    {
+      "id": "c-qingwang-kuangwang",
+      "from": "qingwang",
+      "to": "kuangwang",
+      "label": "长子立"
+    },
+    {
+      "id": "c-qingwang-dingwang1",
+      "from": "qingwang",
+      "to": "dingwang1",
+      "label": "次子继匡王位"
+    },
+    {
+      "id": "c-dingwang1-jianwang",
+      "from": "dingwang1",
+      "to": "jianwang",
+      "label": "嫡传嗣位"
+    },
+    {
+      "id": "c-jianwang-lingwang",
+      "from": "jianwang",
+      "to": "lingwang",
+      "label": "父终子继"
+    },
+    {
+      "id": "c-lingwang-jingwang1",
+      "from": "lingwang",
+      "to": "jingwang1",
+      "label": "嫡传即位"
+    },
+    {
+      "id": "c-jingwang1-daowang",
+      "from": "jingwang1",
+      "to": "daowang",
+      "label": "嫡长子受立"
+    },
+    {
+      "id": "c-daowang-wangzichao",
+      "from": "daowang",
+      "to": "wangzichao",
+      "label": "庶兄篡弑夺位",
+      "variant": "security"
+    },
+    {
+      "id": "c-jingwang1-jingwang2",
+      "from": "jingwang1",
+      "to": "jingwang2",
+      "label": "晋人辅立敬王",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-jingwang2-yuanwang",
+      "from": "jingwang2",
+      "to": "yuanwang",
+      "label": "正统嫡传入战国",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yuanwang-zhendingwang",
+      "from": "yuanwang",
+      "to": "zhendingwang",
+      "label": "父终子继"
+    },
+    {
+      "id": "c-zhendingwang-aiwang",
+      "from": "zhendingwang",
+      "to": "aiwang",
+      "label": "长子嗣位"
+    },
+    {
+      "id": "c-aiwang-siwang",
+      "from": "aiwang",
+      "to": "siwang",
+      "label": "弟叔弑兄篡位",
+      "variant": "security"
+    },
+    {
+      "id": "c-siwang-kaowang",
+      "from": "siwang",
+      "to": "kaowang",
+      "label": "弟嵬弑兄自立",
+      "variant": "security"
+    },
+    {
+      "id": "c-kaowang-xizhougong",
+      "from": "kaowang",
+      "to": "xizhougong",
+      "label": "分封幼弟于河南",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-kaowang-weiliewang",
+      "from": "kaowang",
+      "to": "weiliewang",
+      "label": "父终子继"
+    },
+    {
+      "id": "c-weiliewang-anwang",
+      "from": "weiliewang",
+      "to": "anwang",
+      "label": "嫡传嗣位"
+    },
+    {
+      "id": "c-anwang-liewang",
+      "from": "anwang",
+      "to": "liewang",
+      "label": "长子即位"
+    },
+    {
+      "id": "c-anwang-xianwang",
+      "from": "anwang",
+      "to": "xianwang",
+      "label": "少子继烈王位"
+    },
+    {
+      "id": "c-xianwang-dongzhougong",
+      "from": "xianwang",
+      "to": "dongzhougong",
+      "label": "分裂东周公国",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-xianwang-shenjingwang",
+      "from": "xianwang",
+      "to": "shenjingwang",
+      "label": "父终子继"
+    },
+    {
+      "id": "c-shenjingwang-nanwang",
+      "from": "shenjingwang",
+      "to": "nanwang",
+      "label": "在位最久末代天子",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-nanwang-zhoudingmie",
+      "from": "nanwang",
+      "to": "zhoudingmie",
+      "label": "降秦失国九鼎迁咸阳",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "礼乐宗法与嫡庶承继制度",
+      "items": [
+        "周公制礼作乐确立大宗小宗法度，天子建国、诸侯立家、卿置侧室",
+        "确立'立嫡以长不以贤，立子以贵不以长'的核心承继规则",
+        "宗法血缘网维系封建制数百年稳定性，西周末期犬戎之乱宗周沦丧"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "共和行政与中国信史纪年起点",
+      "items": [
+        "周厉王好利专政引发'国人暴动'，厉王奔彘客死异乡",
+        "周公、召公二相代行王政（一说共伯和摄政），史称'共和行政'",
+        "公元前841年（共和元年）为中国历史有确切文字纪年之始"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "平王东迁与战国九鼎沉寂",
+      "items": [
+        "前770年幽王被杀后平王东迁洛邑，史称东周，王纲下移诸侯争霸",
+        "繻葛之战周桓王被射中肩膊，天子威信扫地；三家分晋拉开战国序幕",
+        "前256年周赧王筑台避债后降秦，九鼎迁咸阳，享国近八百年之周朝终寝"
+      ]
+    }
+  ]
+}
