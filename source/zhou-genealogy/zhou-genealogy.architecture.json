@@ -56,7 +56,7 @@
     {
       "id": "gugong",
       "type": "cloud",
-      "label": "古公亶父",
+      "label": "古公亶父 (dǎn)",
       "sublabel": "率民迁岐下周原 · 始筑城郭",
       "pos": [
         40,
@@ -176,7 +176,7 @@
     {
       "id": "kangwang",
       "type": "frontend",
-      "label": "3. 周康王 (姬钊)",
+      "label": "3. 周康王 姬钊 (zhāo)",
       "sublabel": "成王之子 · 刑错四十余年不用",
       "pos": [
         300,
@@ -191,7 +191,7 @@
     {
       "id": "zhaowang",
       "type": "backend",
-      "label": "4. 周昭王 (姬瑕)",
+      "label": "4. 周昭王 姬瑕 (xiá)",
       "sublabel": "康王之子 · 亲征楚蛮 · 丧于汉水",
       "pos": [
         300,
@@ -221,7 +221,7 @@
     {
       "id": "gongwang",
       "type": "backend",
-      "label": "6. 周共王 (姬繄扈)",
+      "label": "6. 周共王 姬繄扈 (yī)",
       "sublabel": "穆王之子 · 灭密须国 · 守土无失",
       "pos": [
         300,
@@ -236,7 +236,7 @@
     {
       "id": "yiwang1",
       "type": "backend",
-      "label": "7. 周懿王 (姬囏)",
+      "label": "7. 周懿王 姬囏 (jiān)",
       "sublabel": "共王之子 · 迁都槐里 · 宗周始衰",
       "pos": [
         300,
@@ -251,7 +251,7 @@
     {
       "id": "xiaowang",
       "type": "database",
-      "label": "8. 周孝王 (姬辟方)",
+      "label": "8. 周孝王 姬辟方 (pì)",
       "sublabel": "共王弟/懿王叔 · 代立封秦非子",
       "pos": [
         300,
@@ -266,7 +266,7 @@
     {
       "id": "yiwang2",
       "type": "backend",
-      "label": "9. 周夷王 (姬燮)",
+      "label": "9. 周夷王 姬燮 (xiè)",
       "sublabel": "懿王之子/孝王侄 · 诸侯复立之",
       "pos": [
         300,
@@ -326,7 +326,7 @@
     {
       "id": "youwang",
       "type": "external",
-      "label": "12. 周幽王 (姬宫湦)",
+      "label": "12. 周幽王 姬宫湦 (shēng)",
       "sublabel": "宣王之子 · 宠褒姒戏诸侯 · 犬戎弑之",
       "pos": [
         300,
@@ -356,7 +356,7 @@
     {
       "id": "pingwang",
       "type": "frontend",
-      "label": "13. 周平王 (姬宜臼)",
+      "label": "13. 周平王 姬宜臼 (jiù)",
       "sublabel": "幽王太子 · 东迁洛邑 · 东周始立",
       "pos": [
         570,
@@ -371,7 +371,7 @@
     {
       "id": "xiefu",
       "type": "database",
-      "label": "太子泄父",
+      "label": "太子泄父 (xiè)",
       "sublabel": "平王太子 · 早卒未及立为天子",
       "pos": [
         570,
@@ -401,7 +401,7 @@
     {
       "id": "zhuangwang",
       "type": "backend",
-      "label": "15. 周庄王 (姬佗)",
+      "label": "15. 周庄王 姬佗 (tuó)",
       "sublabel": "桓王长子 · 平定周公黑肩弑君之乱",
       "pos": [
         570,
@@ -416,7 +416,7 @@
     {
       "id": "xiwang",
       "type": "backend",
-      "label": "16. 周僖王 (姬胡齐)",
+      "label": "16. 周僖王 姬胡齐 (xī)",
       "sublabel": "庄王长子 · 齐桓公首成春秋霸业",
       "pos": [
         570,
@@ -431,7 +431,7 @@
     {
       "id": "huiwang",
       "type": "backend",
-      "label": "17. 周惠王 (姬阆)",
+      "label": "17. 周惠王 姬阆 (làng)",
       "sublabel": "僖王之子 · 王子颓之乱获郑虢平定",
       "pos": [
         570,
@@ -461,7 +461,7 @@
     {
       "id": "qingwang",
       "type": "backend",
-      "label": "19. 周顷王 (姬壬臣)",
+      "label": "19. 周顷王 姬壬臣 (rén)",
       "sublabel": "襄王之子 · 王室贫困求赙于诸侯",
       "pos": [
         570,
@@ -491,7 +491,7 @@
     {
       "id": "dingwang1",
       "type": "backend",
-      "label": "21. 周定王 (姬瑜)",
+      "label": "21. 周定王 姬瑜 (yú)",
       "sublabel": "顷王次子/匡王弟 · 楚庄王问鼎轻重",
       "pos": [
         570,
@@ -521,7 +521,7 @@
     {
       "id": "lingwang",
       "type": "backend",
-      "label": "23. 周灵王 (姬泄心)",
+      "label": "23. 周灵王 姬泄心 (xiè)",
       "sublabel": "简王之子 · 谷洛水溢 · 孔子诞鲁国",
       "pos": [
         570,
@@ -581,7 +581,7 @@
     {
       "id": "jingwang2",
       "type": "frontend",
-      "label": "26. 周敬王 (姬匄)",
+      "label": "26. 周敬王 姬匄 (gài)",
       "sublabel": "景王少子/悼王弟 · 晋立之迁都东周",
       "pos": [
         570,
@@ -656,7 +656,7 @@
     {
       "id": "kaowang",
       "type": "database",
-      "label": "31. 周考王 (姬嵬)",
+      "label": "31. 周考王 姬嵬 (wéi)",
       "sublabel": "弑思王自立 · 封弟于河南为西周公",
       "pos": [
         840,
@@ -671,7 +671,7 @@
     {
       "id": "xizhougong",
       "type": "database",
-      "label": "西周桓公 (姬揭)",
+      "label": "西周桓公 姬揭 (jiē)",
       "sublabel": "考王封弟于河南 · 王畿分裂为西周国",
       "pos": [
         840,
@@ -731,7 +731,7 @@
     {
       "id": "xianwang",
       "type": "backend",
-      "label": "35. 周显王 (姬扁)",
+      "label": "35. 周显王 姬扁 (piān)",
       "sublabel": "安王少子/烈王弟 · 商鞅变法诸侯相王",
       "pos": [
         840,
@@ -761,7 +761,7 @@
     {
       "id": "shenjingwang",
       "type": "backend",
-      "label": "36. 周慎靓王 (姬定)",
+      "label": "36. 周慎靓王 姬定 (jìng)",
       "sublabel": "显王之子 · 战国纵横合纵连横",
       "pos": [
         840,
@@ -776,7 +776,7 @@
     {
       "id": "nanwang",
       "type": "external",
-      "label": "37. 周赧王 (姬延)",
+      "label": "37. 周赧王 姬延 (nǎn)",
       "sublabel": "在位五十九年 · 居西周国 · 筑避债台",
       "pos": [
         840,

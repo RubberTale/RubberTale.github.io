@@ -41,7 +41,7 @@
     {
       "id": "xuanzu",
       "type": "cloud",
-      "label": "宋宣祖 (赵弘殷)",
+      "label": "宋宣祖 赵弘殷 (yīn)",
       "sublabel": "护圣都指挥使 · 追尊宣祖 · 生太祖太宗",
       "pos": [
         40,
@@ -56,7 +56,7 @@
     {
       "id": "taizu",
       "type": "frontend",
-      "label": "1. 宋太祖 (赵匡胤)",
+      "label": "1. 宋太祖 赵匡胤 (yìn)",
       "sublabel": "陈桥兵变黄袍加身 · 杯酒释兵权 · 开国",
       "pos": [
         40,
@@ -116,7 +116,7 @@
     {
       "id": "zicheng",
       "type": "cloud",
-      "label": "秀安僖王 (赵子偁)",
+      "label": "秀安僖王 赵子偁 (chēng)",
       "sublabel": "德芳五世孙 · 太祖六世孙 · 孝宗生父",
       "pos": [
         40,
@@ -131,7 +131,7 @@
     {
       "id": "yurui",
       "type": "cloud",
-      "label": "荣王 (赵与芮)",
+      "label": "荣王 赵与芮 (ruì)",
       "sublabel": "德昭九世孙 · 太祖十世孙 · 度宗生父",
       "pos": [
         40,
@@ -161,7 +161,7 @@
     {
       "id": "zhenzong",
       "type": "backend",
-      "label": "3. 宋真宗 (赵恒)",
+      "label": "3. 宋真宗 赵恒 (héng)",
       "sublabel": "太宗三子 · 澶渊之盟约为兄弟 · 咸平之治",
       "pos": [
         320,
@@ -176,7 +176,7 @@
     {
       "id": "renzong",
       "type": "frontend",
-      "label": "4. 宋仁宗 (赵祯)",
+      "label": "4. 宋仁宗 赵祯 (zhēn)",
       "sublabel": "在位四十二年 · 嘉祐之治名臣辈出 · 无嗣",
       "pos": [
         320,
@@ -206,7 +206,7 @@
     {
       "id": "yingzong",
       "type": "database",
-      "label": "5. 宋英宗 (赵曙)",
+      "label": "5. 宋英宗 赵曙 (shù)",
       "sublabel": "仁宗养子入嗣大统 · 濮议之争追尊生父",
       "pos": [
         320,
@@ -221,7 +221,7 @@
     {
       "id": "shenzong",
       "type": "frontend",
-      "label": "6. 宋神宗 (赵顼)",
+      "label": "6. 宋神宗 赵顼 (xū)",
       "sublabel": "英宗长子 · 王安石变法 · 富国强兵熙河开边",
       "pos": [
         320,
@@ -236,7 +236,7 @@
     {
       "id": "zhezong",
       "type": "backend",
-      "label": "7. 宋哲宗 (赵煦)",
+      "label": "7. 宋哲宗 赵煦 (xù)",
       "sublabel": "神宗六子 · 元祐更化 · 亲政绍述恢复新法",
       "pos": [
         600,
@@ -251,7 +251,7 @@
     {
       "id": "huizong",
       "type": "security",
-      "label": "8. 宋徽宗 (赵佶)",
+      "label": "8. 宋徽宗 赵佶 (jí)",
       "sublabel": "神宗十一子端王 · 瘦金体 · 靖康被掳金国",
       "pos": [
         600,
@@ -266,7 +266,7 @@
     {
       "id": "qinzong",
       "type": "security",
-      "label": "9. 宋钦宗 (赵桓)",
+      "label": "9. 宋钦宗 赵桓 (huán)",
       "sublabel": "徽宗长子 · 靖康之耻开封沦陷 · 二帝北狩",
       "pos": [
         600,
@@ -281,7 +281,7 @@
     {
       "id": "gaozong",
       "type": "frontend",
-      "label": "10. 宋高宗 (赵构)",
+      "label": "10. 宋高宗 赵构 (gòu)",
       "sublabel": "徽宗九子康王 · 南渡临安建立南宋 · 无嗣",
       "pos": [
         600,
@@ -296,7 +296,7 @@
     {
       "id": "xiaozong",
       "type": "frontend",
-      "label": "11. 宋孝宗 (赵昚)",
+      "label": "11. 宋孝宗 赵昚 (shèn)",
       "sublabel": "太祖七世孙 · 皇统重归太祖 · 平反岳飞乾淳盛世",
       "pos": [
         600,
@@ -311,7 +311,7 @@
     {
       "id": "guangzong",
       "type": "backend",
-      "label": "12. 宋光宗 (赵惇)",
+      "label": "12. 宋光宗 赵惇 (dūn)",
       "sublabel": "孝宗三子 · 惧内发疯不执丧 · 绍熙内禅退位",
       "pos": [
         600,
@@ -326,7 +326,7 @@
     {
       "id": "ningzong",
       "type": "backend",
-      "label": "13. 宋宁宗 (赵扩)",
+      "label": "13. 宋宁宗 赵扩 (kuò)",
       "sublabel": "光宗次子 · 开禧北伐 · 史弥远专权擅政 · 无嗣",
       "pos": [
         600,
@@ -341,7 +341,7 @@
     {
       "id": "lizong",
       "type": "frontend",
-      "label": "14. 宋理宗 (赵昀)",
+      "label": "14. 宋理宗 赵昀 (yún)",
       "sublabel": "太祖十世孙 · 民间入嗣 · 端平更化联蒙灭金",
       "pos": [
         880,
@@ -356,7 +356,7 @@
     {
       "id": "duzong",
       "type": "backend",
-      "label": "15. 宋度宗 (赵禥)",
+      "label": "15. 宋度宗 赵禥 (qí)",
       "sublabel": "荣王之子入嗣 · 贾似道专权 · 襄樊保卫战失守",
       "pos": [
         880,
@@ -371,7 +371,7 @@
     {
       "id": "gongdi",
       "type": "external",
-      "label": "16. 宋恭帝 (赵㬎)",
+      "label": "16. 宋恭帝 赵㬎 (xiǎn)",
       "sublabel": "度宗幼子 · 临安降元出家萨迦寺 · 封瀛国公",
       "pos": [
         880,
@@ -386,7 +386,7 @@
     {
       "id": "duanzong",
       "type": "security",
-      "label": "17. 宋端宗 (赵昰)",
+      "label": "17. 宋端宗 赵昰 (shì)",
       "sublabel": "度宗长子 · 福州登基流亡海上 · 溺水惊悸崩",
       "pos": [
         880,
@@ -401,7 +401,7 @@
     {
       "id": "shaodi",
       "type": "external",
-      "label": "18. 宋少帝 (赵昺)",
+      "label": "18. 宋少帝 赵昺 (bǐng)",
       "sublabel": "度宗少子 · 陆秀夫拥立崖山 · 崖山之战惨败",
       "pos": [
         880,

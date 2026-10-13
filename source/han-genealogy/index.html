@@ -4868,10 +4868,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   
-  /* === Desktop Readability & Zoom Enhancements === */
+  /* === Desktop Readability & Full Width Enhancements === */
   .container {
-    width: 96% !important;
-    max-width: 1400px !important;
+    width: 98% !important;
+    max-width: 1720px !important;
     margin: 0 auto !important;
   }
   .diagram-container {
@@ -4892,18 +4892,29 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     min-width: 1140px !important;
     max-width: 100% !important;
   }
-  /* Node text readability polish */
+  /* Large Font Size Overrides */
   svg text[data-node-label] {
-    font-size: 11.5px !important;
+    font-size: 14.5px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.5px !important;
   }
   svg text[data-detail="context"] {
-    font-size: 9.2px !important;
+    font-size: 11.2px !important;
     font-weight: 500 !important;
   }
   svg text[data-detail="fine"] {
-    font-size: 7.5px !important;
+    font-size: 9.6px !important;
+    font-weight: 600 !important;
+  }
+  svg text[data-boundary-label] {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+  }
+  svg text.t-edge-default,
+  svg text.t-edge-emphasis,
+  svg text.t-edge-security,
+  svg text.t-edge-dashed {
+    font-size: 10.5px !important;
     font-weight: 600 !important;
   }
   /* Floating Back to Blog Home Button */
@@ -5303,14 +5314,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="600" y="521" class="t-backend" font-size="7" text-anchor="middle">光武中兴·光复汉室</text>
         </g>
 
-        <g id="node-litai" data-node-id="litai" data-node-label="戾太子 刘据" tabindex="0" role="button" aria-label="Focus 戾太子 刘据, 武帝嫡长子 · 巫蛊蒙冤, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="武帝嫡长子 · 巫蛊蒙冤" data-node-tag="宣帝祖父" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>戾太子 刘据 · 武帝嫡长子 · 巫蛊蒙冤 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 宣帝祖父</title>
+        <g id="node-litai" data-node-id="litai" data-node-label="戾太子 刘据 (jù)" tabindex="0" role="button" aria-label="Focus 戾太子 刘据 (jù), 武帝嫡长子 · 巫蛊蒙冤, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="武帝嫡长子 · 巫蛊蒙冤" data-node-tag="宣帝祖父" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>戾太子 刘据 (jù) · 武帝嫡长子 · 巫蛊蒙冤 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 宣帝祖父</title>
           <rect x="60" y="600" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="600" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(66 606) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="137.5" y="630" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">戾太子 刘据</text>
+          <text data-node-label="" data-detail-anchor="" x="137.5" y="630" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">戾太子 刘据 (jù)</text>
         <text data-detail="context" x="137.5" y="646" class="t-muted" font-size="9" text-anchor="middle">武帝嫡长子 · 巫蛊蒙冤</text>
         <text data-detail="fine" x="137.5" y="656" class="t-cloud" font-size="7" text-anchor="middle">宣帝祖父</text>
         </g>
@@ -5339,14 +5350,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="600" y="656" class="t-backend" font-size="7" text-anchor="middle">明章之治</text>
         </g>
 
-        <g id="node-xuandi" data-node-id="xuandi" data-node-label="汉宣帝 刘询" tabindex="0" role="button" aria-label="Focus 汉宣帝 刘询, 前74-前49 · 武帝曾孙, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="前74-前49 · 武帝曾孙" data-node-tag="民间迎立·昭宣盛世" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉宣帝 刘询 · 前74-前49 · 武帝曾孙 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 民间迎立·昭宣盛世</title>
+        <g id="node-xuandi" data-node-id="xuandi" data-node-label="汉宣帝 刘询 (xún)" tabindex="0" role="button" aria-label="Focus 汉宣帝 刘询 (xún), 前74-前49 · 武帝曾孙, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="前74-前49 · 武帝曾孙" data-node-tag="民间迎立·昭宣盛世" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉宣帝 刘询 (xún) · 前74-前49 · 武帝曾孙 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 民间迎立·昭宣盛世</title>
           <rect x="60" y="735" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="735" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(66 741) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="137.5" y="765" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉宣帝 刘询</text>
+          <text data-node-label="" data-detail-anchor="" x="137.5" y="765" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉宣帝 刘询 (xún)</text>
         <text data-detail="context" x="137.5" y="781" class="t-muted" font-size="9" text-anchor="middle">前74-前49 · 武帝曾孙</text>
         <text data-detail="fine" x="137.5" y="791" class="t-backend" font-size="7" text-anchor="middle">民间迎立·昭宣盛世</text>
         </g>
@@ -5363,26 +5374,26 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="367.5" y="791" class="t-external" font-size="7" text-anchor="middle">废帝·海昏侯</text>
         </g>
 
-        <g id="node-zhangdi" data-node-id="zhangdi" data-node-label="汉章帝 刘炟" tabindex="0" role="button" aria-label="Focus 汉章帝 刘炟, 75-88 · 明帝第五子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴" aria-pressed="false" data-node-kind="backend" data-node-sublabel="75-88 · 明帝第五子" data-node-tag="东汉宗统分叉枢纽" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴">
-          <title>汉章帝 刘炟 · 75-88 · 明帝第五子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴 · 东汉宗统分叉枢纽</title>
+        <g id="node-zhangdi" data-node-id="zhangdi" data-node-label="汉章帝 刘炟 (dá)" tabindex="0" role="button" aria-label="Focus 汉章帝 刘炟 (dá), 75-88 · 明帝第五子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴" aria-pressed="false" data-node-kind="backend" data-node-sublabel="75-88 · 明帝第五子" data-node-tag="东汉宗统分叉枢纽" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴">
+          <title>汉章帝 刘炟 (dá) · 75-88 · 明帝第五子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴 · 东汉宗统分叉枢纽</title>
           <rect x="520" y="735" width="160" height="64" rx="6" class="c-mask"/>
           <rect x="520" y="735" width="160" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(526 741) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="600" y="765" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉章帝 刘炟</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="765" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉章帝 刘炟 (dá)</text>
         <text data-detail="context" x="600" y="781" class="t-muted" font-size="9" text-anchor="middle">75-88 · 明帝第五子</text>
         <text data-detail="fine" x="600" y="791" class="t-backend" font-size="7" text-anchor="middle">东汉宗统分叉枢纽</text>
         </g>
 
-        <g id="node-yuandi" data-node-id="yuandi" data-node-label="汉元帝 刘奭" tabindex="0" role="button" aria-label="Focus 汉元帝 刘奭, 前49-前33 · 宣帝嫡长子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前49-前33 · 宣帝嫡长子" data-node-tag="外戚王氏始炽" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉元帝 刘奭 · 前49-前33 · 宣帝嫡长子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 外戚王氏始炽</title>
+        <g id="node-yuandi" data-node-id="yuandi" data-node-label="汉元帝 刘奭 (shì)" tabindex="0" role="button" aria-label="Focus 汉元帝 刘奭 (shì), 前49-前33 · 宣帝嫡长子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前49-前33 · 宣帝嫡长子" data-node-tag="外戚王氏始炽" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉元帝 刘奭 (shì) · 前49-前33 · 宣帝嫡长子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 外戚王氏始炽</title>
           <rect x="60" y="870" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="870" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(66 876) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="137.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉元帝 刘奭</text>
+          <text data-node-label="" data-detail-anchor="" x="137.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉元帝 刘奭 (shì)</text>
         <text data-detail="context" x="137.5" y="916" class="t-muted" font-size="9" text-anchor="middle">前49-前33 · 宣帝嫡长子</text>
         <text data-detail="fine" x="137.5" y="926" class="t-frontend" font-size="7" text-anchor="middle">外戚王氏始炽</text>
         </g>
@@ -5399,14 +5410,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="367.5" y="926" class="t-cloud" font-size="7" text-anchor="middle">定陶王脉</text>
         </g>
 
-        <g id="node-hedi" data-node-id="hedi" data-node-label="汉和帝 刘肇" tabindex="0" role="button" aria-label="Focus 汉和帝 刘肇, 88-106 · 章帝第四子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="88-106 · 章帝第四子" data-node-tag="十岁即位·诛灭窦宪" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉和帝 刘肇 · 88-106 · 章帝第四子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 十岁即位·诛灭窦宪</title>
+        <g id="node-hedi" data-node-id="hedi" data-node-label="汉和帝 刘肇 (zhào)" tabindex="0" role="button" aria-label="Focus 汉和帝 刘肇 (zhào), 88-106 · 章帝第四子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="88-106 · 章帝第四子" data-node-tag="十岁即位·诛灭窦宪" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉和帝 刘肇 (zhào) · 88-106 · 章帝第四子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 十岁即位·诛灭窦宪</title>
           <rect x="520" y="870" width="160" height="64" rx="6" class="c-mask"/>
           <rect x="520" y="870" width="160" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(526 876) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="600" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉和帝 刘肇</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉和帝 刘肇 (zhào)</text>
         <text data-detail="context" x="600" y="916" class="t-muted" font-size="9" text-anchor="middle">88-106 · 章帝第四子</text>
         <text data-detail="fine" x="600" y="926" class="t-frontend" font-size="7" text-anchor="middle">十岁即位·诛灭窦宪</text>
         </g>
@@ -5435,14 +5446,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="1057.5" y="926" class="t-cloud" font-size="7" text-anchor="middle">河间王脉</text>
         </g>
 
-        <g id="node-chengdi" data-node-id="chengdi" data-node-label="汉成帝 刘骜" tabindex="0" role="button" aria-label="Focus 汉成帝 刘骜, 前33-前7 · 元帝嫡子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前33-前7 · 元帝嫡子" data-node-tag="专宠飞燕·绝嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉成帝 刘骜 · 前33-前7 · 元帝嫡子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 专宠飞燕·绝嗣</title>
+        <g id="node-chengdi" data-node-id="chengdi" data-node-label="汉成帝 刘骜 (ào)" tabindex="0" role="button" aria-label="Focus 汉成帝 刘骜 (ào), 前33-前7 · 元帝嫡子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前33-前7 · 元帝嫡子" data-node-tag="专宠飞燕·绝嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉成帝 刘骜 (ào) · 前33-前7 · 元帝嫡子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 专宠飞燕·绝嗣</title>
           <rect x="60" y="1005" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(66 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="137.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉成帝 刘骜</text>
+          <text data-node-label="" data-detail-anchor="" x="137.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉成帝 刘骜 (ào)</text>
         <text data-detail="context" x="137.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">前33-前7 · 元帝嫡子</text>
         <text data-detail="fine" x="137.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">专宠飞燕·绝嗣</text>
         </g>
@@ -5459,26 +5470,26 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="367.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">堂侄继统·无嗣</text>
         </g>
 
-        <g id="node-shangdi" data-node-id="shangdi" data-node-label="汉殇帝 刘隆" tabindex="0" role="button" aria-label="Focus 汉殇帝 刘隆, 106 · 和帝少子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="106 · 和帝少子" data-node-tag="百天即位一岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉殇帝 刘隆 · 106 · 和帝少子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 百天即位一岁早夭</title>
+        <g id="node-shangdi" data-node-id="shangdi" data-node-label="汉殇帝 刘隆 (shāng)" tabindex="0" role="button" aria-label="Focus 汉殇帝 刘隆 (shāng), 106 · 和帝少子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="106 · 和帝少子" data-node-tag="百天即位一岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉殇帝 刘隆 (shāng) · 106 · 和帝少子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 百天即位一岁早夭</title>
           <rect x="520" y="1005" width="160" height="64" rx="6" class="c-mask"/>
           <rect x="520" y="1005" width="160" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(526 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="600" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉殇帝 刘隆</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉殇帝 刘隆 (shāng)</text>
         <text data-detail="context" x="600" y="1051" class="t-muted" font-size="9" text-anchor="middle">106 · 和帝少子</text>
         <text data-detail="fine" x="600" y="1061" class="t-frontend" font-size="7" text-anchor="middle">百天即位一岁早夭</text>
         </g>
 
-        <g id="node-andi" data-node-id="andi" data-node-label="汉安帝 刘祜" tabindex="0" role="button" aria-label="Focus 汉安帝 刘祜, 106-125 · 清河王子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="106-125 · 清河王子" data-node-tag="清河入嗣·邓后临朝" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉安帝 刘祜 · 106-125 · 清河王子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 清河入嗣·邓后临朝</title>
+        <g id="node-andi" data-node-id="andi" data-node-label="汉安帝 刘祜 (hù)" tabindex="0" role="button" aria-label="Focus 汉安帝 刘祜 (hù), 106-125 · 清河王子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="106-125 · 清河王子" data-node-tag="清河入嗣·邓后临朝" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉安帝 刘祜 (hù) · 106-125 · 清河王子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 清河入嗣·邓后临朝</title>
           <rect x="750" y="1005" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="750" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(756 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="827.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉安帝 刘祜</text>
+          <text data-node-label="" data-detail-anchor="" x="827.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉安帝 刘祜 (hù)</text>
         <text data-detail="context" x="827.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">106-125 · 清河王子</text>
         <text data-detail="fine" x="827.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">清河入嗣·邓后临朝</text>
         </g>
@@ -5507,26 +5518,26 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="137.5" y="1196" class="t-cloud" font-size="7" text-anchor="middle">中山王脉</text>
         </g>
 
-        <g id="node-pingdi" data-node-id="pingdi" data-node-label="汉平帝 刘衎" tabindex="0" role="button" aria-label="Focus 汉平帝 刘衎, 前1-公元6 · 中山孝王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前1-公元6 · 中山孝王子" data-node-tag="堂弟入继·王莽鸩杀" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉平帝 刘衎 · 前1-公元6 · 中山孝王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 堂弟入继·王莽鸩杀</title>
+        <g id="node-pingdi" data-node-id="pingdi" data-node-label="汉平帝 刘衎 (kàn)" tabindex="0" role="button" aria-label="Focus 汉平帝 刘衎 (kàn), 前1-公元6 · 中山孝王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前1-公元6 · 中山孝王子" data-node-tag="堂弟入继·王莽鸩杀" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉平帝 刘衎 (kàn) · 前1-公元6 · 中山孝王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 堂弟入继·王莽鸩杀</title>
           <rect x="290" y="1140" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="290" y="1140" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(296 1146) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="367.5" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉平帝 刘衎</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉平帝 刘衎 (kàn)</text>
         <text data-detail="context" x="367.5" y="1186" class="t-muted" font-size="9" text-anchor="middle">前1-公元6 · 中山孝王子</text>
         <text data-detail="fine" x="367.5" y="1196" class="t-frontend" font-size="7" text-anchor="middle">堂弟入继·王莽鸩杀</text>
         </g>
 
-        <g id="node-liukang2" data-node-id="liukang2" data-node-label="千乘贞王 刘伉" tabindex="0" role="button" aria-label="Focus 千乘贞王 刘伉, 章帝子 · 质帝曾祖父, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="章帝子 · 质帝曾祖父" data-node-tag="千乘王脉" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>千乘贞王 刘伉 · 章帝子 · 质帝曾祖父 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 千乘王脉</title>
+        <g id="node-liukang2" data-node-id="liukang2" data-node-label="千乘贞王 刘伉 (kàng)" tabindex="0" role="button" aria-label="Focus 千乘贞王 刘伉 (kàng), 章帝子 · 质帝曾祖父, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="章帝子 · 质帝曾祖父" data-node-tag="千乘王脉" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>千乘贞王 刘伉 (kàng) · 章帝子 · 质帝曾祖父 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 千乘王脉</title>
           <rect x="520" y="1140" width="160" height="64" rx="6" class="c-mask"/>
           <rect x="520" y="1140" width="160" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(526 1146) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="600" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">千乘贞王 刘伉</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">千乘贞王 刘伉 (kàng)</text>
         <text data-detail="context" x="600" y="1186" class="t-muted" font-size="9" text-anchor="middle">章帝子 · 质帝曾祖父</text>
         <text data-detail="fine" x="600" y="1196" class="t-cloud" font-size="7" text-anchor="middle">千乘王脉</text>
         </g>
@@ -5567,50 +5578,50 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="367.5" y="1331" class="t-external" font-size="7" text-anchor="middle">皇太子·王莽受禅</text>
         </g>
 
-        <g id="node-zhidi" data-node-id="zhidi" data-node-label="汉质帝 刘缵" tabindex="0" role="button" aria-label="Focus 汉质帝 刘缵, 145-146 · 千乘王曾孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="145-146 · 千乘王曾孙" data-node-tag="八岁被梁冀鸩杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉质帝 刘缵 · 145-146 · 千乘王曾孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 八岁被梁冀鸩杀</title>
+        <g id="node-zhidi" data-node-id="zhidi" data-node-label="汉质帝 刘缵 (zuǎn)" tabindex="0" role="button" aria-label="Focus 汉质帝 刘缵 (zuǎn), 145-146 · 千乘王曾孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="145-146 · 千乘王曾孙" data-node-tag="八岁被梁冀鸩杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉质帝 刘缵 (zuǎn) · 145-146 · 千乘王曾孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 八岁被梁冀鸩杀</title>
           <rect x="520" y="1275" width="160" height="64" rx="6" class="c-mask"/>
           <rect x="520" y="1275" width="160" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(526 1281) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="600" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉质帝 刘缵</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉质帝 刘缵 (zuǎn)</text>
         <text data-detail="context" x="600" y="1321" class="t-muted" font-size="9" text-anchor="middle">145-146 · 千乘王曾孙</text>
         <text data-detail="fine" x="600" y="1331" class="t-frontend" font-size="7" text-anchor="middle">八岁被梁冀鸩杀</text>
         </g>
 
-        <g id="node-chongdi" data-node-id="chongdi" data-node-label="汉冲帝 刘炳" tabindex="0" role="button" aria-label="Focus 汉冲帝 刘炳, 144-145 · 顺帝独子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="144-145 · 顺帝独子" data-node-tag="两岁即位三岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉冲帝 刘炳 · 144-145 · 顺帝独子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 两岁即位三岁早夭</title>
+        <g id="node-chongdi" data-node-id="chongdi" data-node-label="汉冲帝 刘炳 (bǐng)" tabindex="0" role="button" aria-label="Focus 汉冲帝 刘炳 (bǐng), 144-145 · 顺帝独子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="144-145 · 顺帝独子" data-node-tag="两岁即位三岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉冲帝 刘炳 (bǐng) · 144-145 · 顺帝独子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 两岁即位三岁早夭</title>
           <rect x="750" y="1275" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="750" y="1275" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(756 1281) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="827.5" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉冲帝 刘炳</text>
+          <text data-node-label="" data-detail-anchor="" x="827.5" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉冲帝 刘炳 (bǐng)</text>
         <text data-detail="context" x="827.5" y="1321" class="t-muted" font-size="9" text-anchor="middle">144-145 · 顺帝独子</text>
         <text data-detail="fine" x="827.5" y="1331" class="t-external" font-size="7" text-anchor="middle">两岁即位三岁早夭</text>
         </g>
 
-        <g id="node-shaodi2" data-node-id="shaodi2" data-node-label="弘农王 (少帝) 刘辩" tabindex="0" role="button" aria-label="Focus 弘农王 (少帝) 刘辩, 189 (数月) · 灵帝长子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="189 (数月) · 灵帝长子" data-node-tag="董卓入洛废杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>弘农王 (少帝) 刘辩 · 189 (数月) · 灵帝长子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 董卓入洛废杀</title>
+        <g id="node-shaodi2" data-node-id="shaodi2" data-node-label="弘农王 (少帝) 刘辩 (biàn)" tabindex="0" role="button" aria-label="Focus 弘农王 (少帝) 刘辩 (biàn), 189 (数月) · 灵帝长子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="189 (数月) · 灵帝长子" data-node-tag="董卓入洛废杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>弘农王 (少帝) 刘辩 (biàn) · 189 (数月) · 灵帝长子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 董卓入洛废杀</title>
           <rect x="980" y="1275" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="980" y="1275" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(986 1281) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">弘农王 (少帝) 刘辩</text>
+          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">弘农王 (少帝) 刘辩 (biàn)</text>
         <text data-detail="context" x="1057.5" y="1321" class="t-muted" font-size="9" text-anchor="middle">189 (数月) · 灵帝长子</text>
         <text data-detail="fine" x="1057.5" y="1331" class="t-external" font-size="7" text-anchor="middle">董卓入洛废杀</text>
         </g>
 
-        <g id="node-xiandi" data-node-id="xiandi" data-node-label="汉献帝 刘协" tabindex="0" role="button" aria-label="Focus 汉献帝 刘协, 189-220 · 灵帝次子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="security" data-node-sublabel="189-220 · 灵帝次子" data-node-tag="末代献帝·禅让魏武" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉献帝 刘协 · 189-220 · 灵帝次子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 末代献帝·禅让魏武</title>
+        <g id="node-xiandi" data-node-id="xiandi" data-node-label="汉献帝 刘协 (xié)" tabindex="0" role="button" aria-label="Focus 汉献帝 刘协 (xié), 189-220 · 灵帝次子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="security" data-node-sublabel="189-220 · 灵帝次子" data-node-tag="末代献帝·禅让魏武" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉献帝 刘协 (xié) · 189-220 · 灵帝次子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 末代献帝·禅让魏武</title>
           <rect x="980" y="1410" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="980" y="1410" width="155" height="64" rx="6" class="c-security" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-security" transform="translate(986 1416) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1440" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉献帝 刘协</text>
+          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1440" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉献帝 刘协 (xié)</text>
         <text data-detail="context" x="1057.5" y="1456" class="t-muted" font-size="9" text-anchor="middle">189-220 · 灵帝次子</text>
         <text data-detail="fine" x="1057.5" y="1466" class="t-security" font-size="7" text-anchor="middle">末代献帝·禅让魏武</text>
         </g>
