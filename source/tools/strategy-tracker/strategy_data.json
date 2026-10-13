@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
   "updated_at": "2026-10-13",
-  "generated_time": "2026-10-13 11:40:05",
+  "generated_time": "2026-10-13 14:04:10",
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 970025.0,
@@ -12,7 +12,9 @@
     "profit_loss_ratio": 1.35,
     "total_trades": 12,
     "open_positions_count": 4,
-    "available_slots": 0,
+    "max_slots": 6,
+    "available_slots": 2,
+    "risk_budget_pct": 2.0,
     "total_margin": 129997.8,
     "margin_ratio_pct": 13.4,
     "risk_ratio_pct": 13.4,

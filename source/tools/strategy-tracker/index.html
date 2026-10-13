@@ -147,7 +147,7 @@
           <span id="kpi-max-dd" class="text-2xl sm:text-3xl font-extrabold text-rose-400 font-mono">--%</span>
         </div>
         <div class="mt-2 text-xs text-gray-400">
-          单笔风控 1.2% 严格保护
+          <span id="kpi-risk-note">单笔风控 2.0% 适度进攻</span>
         </div>
       </div>
 
@@ -436,7 +436,12 @@
       }
       const openPosBadge = document.getElementById('kpi-open-pos-badge');
       if (openPosBadge) {
-        openPosBadge.textContent = `${summary.open_positions_count} / 4 槽位`;
+        const maxSlots = summary.max_slots || 6;
+        openPosBadge.textContent = `${summary.open_positions_count} / ${maxSlots} 槽位`;
+      }
+      const riskNote = document.getElementById('kpi-risk-note');
+      if (riskNote && summary.risk_budget_pct) {
+        riskNote.textContent = `单笔风控 ${summary.risk_budget_pct}% 适度进攻`;
       }
       const totalMarginEl = document.getElementById('kpi-total-margin');
       if (totalMarginEl) {
