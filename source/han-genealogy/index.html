@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="archify 3.0.1">
   <meta name="archify-reader-contract" content="declared-wide-v1">
-  <title>两汉皇帝谱系与皇统承袭全景图 (前202 - 公元220) Diagram</title>
+  <title>大汉二十九帝与宗亲世系全景图谱 - 橡胶童话</title>
   <script>
     // Resolve the theme before first paint so light-preference users don't
     // see a dark flash. The toolbar script below re-applies with UI state.
@@ -4867,7 +4867,75 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       .source-evidence-beacon,
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
-  </style>
+  
+  /* === Desktop Readability & Zoom Enhancements === */
+  .container {
+    width: 96% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+  }
+  .diagram-container {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    padding: 1.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .diagram-container > svg {
+    min-width: 1140px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+  html[data-reader-narrow="true"]:not([data-present="true"]) .diagram-container > svg {
+    min-width: 1140px !important;
+    max-width: 100% !important;
+  }
+  /* Node text readability polish */
+  svg text[data-node-label] {
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+  }
+  svg text[data-detail="context"] {
+    font-size: 9.2px !important;
+    font-weight: 500 !important;
+  }
+  svg text[data-detail="fine"] {
+    font-size: 7.5px !important;
+    font-weight: 600 !important;
+  }
+  /* Floating Back to Blog Home Button */
+  .btn-back-home {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(18, 20, 26, 0.88);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 9999px;
+    color: #e6c656;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: all 0.25s ease;
+  }
+  .btn-back-home:hover {
+    border-color: #d4af37;
+    color: #f3e5ab;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.3);
+  }
+
+</style>
 </head>
 <body>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
@@ -4988,7 +5056,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
-      <svg viewBox="0 0 975 2112" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" data-reader-primary-text="14">
+      <svg viewBox="0 0 1205 1562" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="scroll" data-reader-min-text="7.5" data-reader-primary-text="14">
         <title id="archify-diagram-title">两汉皇帝谱系与皇统承袭全景图 (前202 - 公元220)</title>
         <desc id="archify-diagram-description">西汉西京十四帝 + 东汉东京十四帝及核心宗脉枢纽考证全录</desc>
         <!-- Definitions -->
@@ -5014,11 +5082,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Boundaries (behind everything) -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="西汉西京皇统 (前202 - 公元8年 · 定都长安)" x="30" y="30" width="905" height="1059" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="西汉西京皇统 (前202 - 公元8年 · 定都长安)" x="30" y="30" width="445" height="1329" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="1" data-composition-frame-label="东汉东京皇统 (公元25 - 220年 · 定都洛阳)" x="30" y="1120" width="875" height="924" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="1" data-composition-frame-label="东汉东京皇统 (公元25 - 220年 · 定都洛阳)" x="490" y="435" width="675" height="1059" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="security-group" data-composition-frame-id="2" data-composition-frame-label="汉家极盛中兴期 (文景至武宣、光武明章)" x="30" y="165" width="650" height="1339" rx="8" class="c-security-group" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="security-group" data-composition-frame-id="2" data-composition-frame-label="两汉中兴与龙脉传承核心轴" x="260" y="300" width="450" height="519" rx="8" class="c-security-group" stroke-width="1"/>
 
         <!-- Connection paths (before components for correct z-order) -->
         <g data-graph-role="automatic-crossover" style="--step:0">
@@ -5026,36 +5094,36 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <path data-edge-from="gaozu" data-edge-to="huidi" data-edge-label="嫡长传位" data-edge-key="0" data-edge-id="gaozu-to-huidi" data-composition-points="137.5,124;137.5,195" data-composition-crossover="halo" data-composition-independent="true" d="M 137.5 124 L 137.5 195" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:1">
-          <path data-graph-role="automatic-crossover-underlay" d="M 215 92 L 239.5 92 Q 247.5 92 247.5 100 L 247.5 219 Q 247.5 227 255.5 227 L 280 227" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gaozu" data-edge-to="wendi" data-edge-label="四子代王入继" data-edge-key="1" data-edge-id="gaozu-to-wendi" data-composition-points="215,92;247.5,92;247.5,227;280,227" data-composition-crossover="halo" data-composition-independent="true" d="M 215 92 L 239.5 92 Q 247.5 92 247.5 100 L 247.5 219 Q 247.5 227 255.5 227 L 280 227" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 215 92 L 244.5 92 Q 252.5 92 252.5 100 L 252.5 219 Q 252.5 227 260.5 227 L 290 227" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="gaozu" data-edge-to="wendi" data-edge-label="代王入继" data-edge-key="1" data-edge-id="gaozu-to-wendi" data-composition-points="215,92;252.5,92;252.5,227;290,227" data-composition-crossover="halo" data-composition-independent="true" d="M 215 92 L 244.5 92 Q 252.5 92 252.5 100 L 252.5 219 Q 252.5 227 260.5 227 L 290 227" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:2">
-          <path data-graph-role="automatic-crossover-underlay" d="M 357.5 259 L 357.5 330" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="wendi" data-edge-to="jingdi" data-edge-label="嫡长传位" data-edge-key="2" data-edge-id="wendi-to-jingdi" data-composition-points="357.5,259;357.5,330" data-composition-crossover="halo" data-composition-independent="true" d="M 357.5 259 L 357.5 330" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 367.5 259 L 367.5 330" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="wendi" data-edge-to="jingdi" data-edge-label="嫡长传位" data-edge-key="2" data-edge-id="wendi-to-jingdi" data-composition-points="367.5,259;367.5,330" data-composition-crossover="halo" data-composition-independent="true" d="M 367.5 259 L 367.5 330" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:3">
-          <path data-graph-role="automatic-crossover-underlay" d="M 357.5 394 L 357.5 465" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="jingdi" data-edge-to="wudi" data-edge-label="十子继位" data-edge-key="3" data-edge-id="jingdi-to-wudi" data-composition-points="357.5,394;357.5,465" data-composition-crossover="halo" data-composition-independent="true" d="M 357.5 394 L 357.5 465" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 367.5 394 L 367.5 465" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="jingdi" data-edge-to="wudi" data-edge-label="十子继位" data-edge-key="3" data-edge-id="jingdi-to-wudi" data-composition-points="367.5,394;367.5,465" data-composition-crossover="halo" data-composition-independent="true" d="M 367.5 394 L 367.5 465" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:4">
-          <path data-graph-role="automatic-crossover-underlay" d="M 435 362 L 720 362" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="jingdi" data-edge-to="liufa" data-edge-label="六子封长沙" data-edge-key="4" data-edge-id="jingdi-to-liufa" data-composition-points="435,362;720,362" data-composition-crossover="halo" data-composition-independent="true" d="M 435 362 L 720 362" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 445 362 L 520 362" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="jingdi" data-edge-to="liufa" data-edge-label="封长沙王" data-edge-key="4" data-edge-id="jingdi-to-liufa" data-composition-points="445,362;520,362" data-composition-crossover="halo" data-composition-independent="true" d="M 445 362 L 520 362" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:5">
-          <path data-graph-role="automatic-crossover-underlay" d="M 797.5 394 L 797.5 994 Q 797.5 1002 789.5 1002 L 656 1002 Q 648 1002 648 1010 L 648 1118 Q 648 1126 640 1126 L 578 1126 Q 570 1126 570 1134 L 570 1150" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="liufa" data-edge-to="guangwu" data-edge-label="六世孙·重光汉室" data-edge-key="5" data-edge-id="liufa-to-guangwu" data-composition-points="797.5,394;797.5,1002;648,1002;648,1126;570,1126;570,1150" data-composition-crossover="halo" data-composition-independent="true" d="M 797.5 394 L 797.5 994 Q 797.5 1002 789.5 1002 L 656 1002 Q 648 1002 648 1010 L 648 1118 Q 648 1126 640 1126 L 578 1126 Q 570 1126 570 1134 L 570 1150" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 600 394 L 600 465" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="liufa" data-edge-to="guangwu" data-edge-label="六世孙·重光汉室" data-edge-key="5" data-edge-id="liufa-to-guangwu" data-composition-points="600,394;600,465" data-composition-crossover="halo" data-composition-independent="true" d="M 600 394 L 600 465" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:6">
-          <path data-graph-role="automatic-crossover-underlay" d="M 280 497 L 255.5 497 Q 247.5 497 247.5 505 L 247.5 624 Q 247.5 632 239.5 632 L 215 632" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="wudi" data-edge-to="litai" data-edge-label="立戾太子" data-edge-key="6" data-edge-id="wudi-to-litai" data-composition-points="280,497;247.5,497;247.5,632;215,632" data-composition-crossover="halo" data-composition-independent="true" d="M 280 497 L 255.5 497 Q 247.5 497 247.5 505 L 247.5 624 Q 247.5 632 239.5 632 L 215 632" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 290 497 L 260.5 497 Q 252.5 497 252.5 505 L 252.5 624 Q 252.5 632 244.5 632 L 215 632" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="wudi" data-edge-to="litai" data-edge-label="立戾太子" data-edge-key="6" data-edge-id="wudi-to-litai" data-composition-points="290,497;252.5,497;252.5,632;215,632" data-composition-crossover="halo" data-composition-independent="true" d="M 290 497 L 260.5 497 Q 252.5 497 252.5 505 L 252.5 624 Q 252.5 632 244.5 632 L 215 632" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:7">
-          <path data-graph-role="automatic-crossover-underlay" d="M 357.5 529 L 357.5 600" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="wudi" data-edge-to="zhaodi" data-edge-label="幼子受遗诏" data-edge-key="7" data-edge-id="wudi-to-zhaodi" data-composition-points="357.5,529;357.5,600" data-composition-crossover="halo" data-composition-independent="true" d="M 357.5 529 L 357.5 600" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 374.5 529 L 374.5 600" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="wudi" data-edge-to="zhaodi" data-edge-label="幼子受遗诏" data-edge-key="7" data-edge-id="wudi-to-zhaodi" data-composition-points="374.5,529;374.5,600" data-composition-crossover="halo" data-composition-independent="true" d="M 374.5 529 L 374.5 600" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:8">
-          <path data-graph-role="automatic-crossover-underlay" d="M 435 497 L 454.5 497 Q 462.5 497 462.5 505 L 462.5 624 Q 462.5 632 470.5 632 L 490 632" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="wudi" data-edge-to="liuhe" data-edge-label="孙辈昌邑王" data-edge-key="8" data-edge-id="wudi-to-liuhe" data-composition-points="435,497;462.5,497;462.5,632;490,632" data-composition-crossover="halo" data-composition-independent="true" d="M 435 497 L 454.5 497 Q 462.5 497 462.5 505 L 462.5 624 Q 462.5 632 470.5 632 L 490 632" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 445 497 L 461 497 Q 469 497 469 505 L 469 759 Q 469 767 461 767 L 445 767" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="wudi" data-edge-to="liuhe" data-edge-label="迎立昌邑王" data-edge-key="8" data-edge-id="wudi-to-liuhe" data-composition-points="445,497;469,497;469,767;445,767" data-composition-crossover="halo" data-composition-independent="true" d="M 445 497 L 461 497 Q 469 497 469 505 L 469 759 Q 469 767 461 767 L 445 767" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:9">
           <path data-graph-role="automatic-crossover-underlay" d="M 137.5 664 L 137.5 735" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
@@ -5066,161 +5134,173 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <path data-edge-from="xuandi" data-edge-to="yuandi" data-edge-label="嫡长传位" data-edge-key="10" data-edge-id="xuandi-to-yuandi" data-composition-points="137.5,799;137.5,870" data-composition-crossover="halo" data-composition-independent="true" d="M 137.5 799 L 137.5 870" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:11">
-          <path data-graph-role="automatic-crossover-underlay" d="M 137.5 934 L 137.5 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="yuandi" data-edge-to="chengdi" data-edge-label="嫡子传位" data-edge-key="11" data-edge-id="yuandi-to-chengdi" data-composition-points="137.5,934;137.5,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 137.5 934 L 137.5 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 130.5 934 L 130.5 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="yuandi" data-edge-to="chengdi" data-edge-label="嫡子传位" data-edge-key="11" data-edge-id="yuandi-to-chengdi" data-composition-points="130.5,934;130.5,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 130.5 934 L 130.5 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:12">
-          <path data-graph-role="automatic-crossover-underlay" d="M 215 895 L 280 895" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="yuandi" data-edge-to="liukang" data-edge-label="次子封定陶" data-edge-key="12" data-edge-id="yuandi-to-liukang" data-composition-points="215,895;280,895" data-composition-crossover="halo" data-composition-independent="true" d="M 215 895 L 280 895" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 215 902 L 290 902" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="yuandi" data-edge-to="liukang" data-edge-label="次子封定陶" data-edge-key="12" data-edge-id="yuandi-to-liukang" data-composition-points="215,902;290,902" data-composition-crossover="halo" data-composition-independent="true" d="M 215 902 L 290 902" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:13">
-          <path data-graph-role="automatic-crossover-underlay" d="M 215 909 L 231 909 Q 239 909 239 917 L 239 950 Q 239 958 247 958 L 545.5 958 Q 553.5 958 553.5 950 L 553.5 934" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="yuandi" data-edge-to="liuxing" data-edge-label="三子封中山" data-edge-key="13" data-edge-id="yuandi-to-liuxing" data-composition-points="215,909;239,909;239,958;553.5,958;553.5,934" data-composition-crossover="halo" data-composition-independent="true" d="M 215 909 L 231 909 Q 239 909 239 917 L 239 950 Q 239 958 247 958 L 545.5 958 Q 553.5 958 553.5 950 L 553.5 934" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 60 902 L 44 902 Q 36 902 36 910 L 36 1164 Q 36 1172 44 1172 L 60 1172" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="yuandi" data-edge-to="liuxing" data-edge-label="三子封中山" data-edge-key="13" data-edge-id="yuandi-to-liuxing" data-composition-points="60,902;36,902;36,1172;60,1172" data-composition-crossover="halo" data-composition-independent="true" d="M 60 902 L 44 902 Q 36 902 36 910 L 36 1164 Q 36 1172 44 1172 L 60 1172" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:14">
-          <path data-graph-role="automatic-crossover-underlay" d="M 357.5 934 L 357.5 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="liukang" data-edge-to="aidi" data-edge-label="子继大统" data-edge-key="14" data-edge-id="liukang-to-aidi" data-composition-points="357.5,934;357.5,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 357.5 934 L 357.5 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 367.5 934 L 367.5 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="liukang" data-edge-to="aidi" data-edge-label="子继大统" data-edge-key="14" data-edge-id="liukang-to-aidi" data-composition-points="367.5,934;367.5,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 367.5 934 L 367.5 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:15">
-          <path data-graph-role="automatic-crossover-underlay" d="M 567.5 934 L 567.5 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="liuxing" data-edge-to="pingdi" data-edge-label="子继大统" data-edge-key="15" data-edge-id="liuxing-to-pingdi" data-composition-points="567.5,934;567.5,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 567.5 934 L 567.5 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 215 1172 L 290 1172" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="liuxing" data-edge-to="pingdi" data-edge-label="子继大统" data-edge-key="15" data-edge-id="liuxing-to-pingdi" data-composition-points="215,1172;290,1172" data-composition-crossover="halo" data-composition-independent="true" d="M 215 1172 L 290 1172" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:16">
-          <path data-graph-role="automatic-crossover-underlay" d="M 645 1037 L 750 1037" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="pingdi" data-edge-to="ruzi" data-edge-label="选立孺子" data-edge-key="16" data-edge-id="pingdi-to-ruzi" data-composition-points="645,1037;750,1037" data-composition-crossover="halo" data-composition-independent="true" d="M 645 1037 L 750 1037" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 367.5 1204 L 367.5 1275" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="pingdi" data-edge-to="ruzi" data-edge-label="选立孺子" data-edge-key="16" data-edge-id="pingdi-to-ruzi" data-composition-points="367.5,1204;367.5,1275" data-composition-crossover="halo" data-composition-independent="true" d="M 367.5 1204 L 367.5 1275" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:17">
-          <path data-graph-role="automatic-crossover-underlay" d="M 570 1214 L 570 1285" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="guangwu" data-edge-to="mingdi" data-edge-label="四子传位" data-edge-key="17" data-edge-id="guangwu-to-mingdi" data-composition-points="570,1214;570,1285" data-composition-crossover="halo" data-composition-independent="true" d="M 570 1214 L 570 1285" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 600 529 L 600 600" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="guangwu" data-edge-to="mingdi" data-edge-label="四子传位" data-edge-key="17" data-edge-id="guangwu-to-mingdi" data-composition-points="600,529;600,600" data-composition-crossover="halo" data-composition-independent="true" d="M 600 529 L 600 600" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:18">
-          <path data-graph-role="automatic-crossover-underlay" d="M 570 1349 L 570 1420" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="mingdi" data-edge-to="zhangdi" data-edge-label="五子传位" data-edge-key="18" data-edge-id="mingdi-to-zhangdi" data-composition-points="570,1349;570,1420" data-composition-crossover="halo" data-composition-independent="true" d="M 570 1349 L 570 1420" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 600 664 L 600 735" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="mingdi" data-edge-to="zhangdi" data-edge-label="五子传位" data-edge-key="18" data-edge-id="mingdi-to-zhangdi" data-composition-points="600,664;600,735" data-composition-crossover="halo" data-composition-independent="true" d="M 600 664 L 600 735" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:19">
-          <path data-graph-role="automatic-crossover-underlay" d="M 490 1438 L 145.5 1438 Q 137.5 1438 137.5 1446 L 137.5 1555" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="zhangdi" data-edge-to="hedi" data-edge-label="四子继位" data-edge-key="19" data-edge-id="zhangdi-to-hedi" data-composition-points="490,1438;137.5,1438;137.5,1555" data-composition-crossover="halo" data-composition-independent="true" d="M 490 1438 L 145.5 1438 Q 137.5 1438 137.5 1446 L 137.5 1555" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 520 767 L 504 767 Q 496 767 496 775 L 496 894 Q 496 902 504 902 L 520 902" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="zhangdi" data-edge-to="hedi" data-edge-label="四子继位" data-edge-key="19" data-edge-id="zhangdi-to-hedi" data-composition-points="520,767;496,767;496,902;520,902" data-composition-crossover="halo" data-composition-independent="true" d="M 520 767 L 504 767 Q 496 767 496 775 L 496 894 Q 496 902 504 902 L 520 902" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:20">
-          <path data-graph-role="automatic-crossover-underlay" d="M 490 1452 L 470.5 1452 Q 462.5 1452 462.5 1460 L 462.5 1579 Q 462.5 1587 454.5 1587 L 435 1587" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="zhangdi" data-edge-to="liuqing" data-edge-label="长子封清河" data-edge-key="20" data-edge-id="zhangdi-to-liuqing" data-composition-points="490,1452;462.5,1452;462.5,1587;435,1587" data-composition-crossover="halo" data-composition-independent="true" d="M 490 1452 L 470.5 1452 Q 462.5 1452 462.5 1460 L 462.5 1579 Q 462.5 1587 454.5 1587 L 435 1587" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 680 767 L 819.5 767 Q 827.5 767 827.5 775 L 827.5 870" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="zhangdi" data-edge-to="liuqing" data-edge-label="长子封清河" data-edge-key="20" data-edge-id="zhangdi-to-liuqing" data-composition-points="680,767;827.5,767;827.5,870" data-composition-crossover="halo" data-composition-independent="true" d="M 680 767 L 819.5 767 Q 827.5 767 827.5 775 L 827.5 870" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:21">
-          <path data-graph-role="automatic-crossover-underlay" d="M 584 1484 L 584 1511.5 Q 584 1519.5 576 1519.5 L 575.5 1519.5 Q 567.5 1519.5 567.5 1527.5 L 567.5 1555" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="zhangdi" data-edge-to="liukang2" data-edge-label="子封千乘" data-edge-key="21" data-edge-id="zhangdi-to-liukang2" data-composition-points="584,1484;584,1519.5;567.5,1519.5;567.5,1555" data-composition-crossover="halo" data-composition-independent="true" d="M 584 1484 L 584 1511.5 Q 584 1519.5 576 1519.5 L 575.5 1519.5 Q 567.5 1519.5 567.5 1527.5 L 567.5 1555" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 593 799 L 593 859 Q 593 867 601 867 L 675 867 Q 683 867 683 875 L 683 1108 Q 683 1116 675 1116 L 608 1116 Q 600 1116 600 1124 L 600 1140" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="zhangdi" data-edge-to="liukang2" data-edge-label="子封千乘" data-edge-key="21" data-edge-id="zhangdi-to-liukang2" data-composition-points="593,799;593,867;683,867;683,1116;600,1116;600,1140" data-composition-crossover="halo" data-composition-independent="true" d="M 593 799 L 593 859 Q 593 867 601 867 L 675 867 Q 683 867 683 875 L 683 1108 Q 683 1116 675 1116 L 608 1116 Q 600 1116 600 1124 L 600 1140" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:22">
-          <path data-graph-role="automatic-crossover-underlay" d="M 650 1452 L 677 1452 Q 685 1452 685 1460 L 685 1579 Q 685 1587 693 1587 L 720 1587" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="zhangdi" data-edge-to="liukai" data-edge-label="六子封河间" data-edge-key="22" data-edge-id="zhangdi-to-liukai" data-composition-points="650,1452;685,1452;685,1587;720,1587" data-composition-crossover="halo" data-composition-independent="true" d="M 650 1452 L 677 1452 Q 685 1452 685 1460 L 685 1579 Q 685 1587 693 1587 L 720 1587" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 621 799 L 621 815 Q 621 823 629 823 L 948 823 Q 956 823 956 831 L 956 880 Q 956 888 964 888 L 980 888" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="zhangdi" data-edge-to="liukai" data-edge-label="六子封河间" data-edge-key="22" data-edge-id="zhangdi-to-liukai" data-composition-points="621,799;621,823;956,823;956,888;980,888" data-composition-crossover="halo" data-composition-independent="true" d="M 621 799 L 621 815 Q 621 823 629 823 L 948 823 Q 956 823 956 831 L 956 880 Q 956 888 964 888 L 980 888" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:23">
-          <path data-graph-role="automatic-crossover-underlay" d="M 137.5 1619 L 137.5 1690" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="hedi" data-edge-to="shangdi" data-edge-label="幼子即位" data-edge-key="23" data-edge-id="hedi-to-shangdi" data-composition-points="137.5,1619;137.5,1690" data-composition-crossover="halo" data-composition-independent="true" d="M 137.5 1619 L 137.5 1690" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 600 934 L 600 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="hedi" data-edge-to="shangdi" data-edge-label="幼子即位" data-edge-key="23" data-edge-id="hedi-to-shangdi" data-composition-points="600,934;600,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 600 934 L 600 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:24">
-          <path data-graph-role="automatic-crossover-underlay" d="M 357.5 1619 L 357.5 1690" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="liuqing" data-edge-to="andi" data-edge-label="清河入嗣" data-edge-key="24" data-edge-id="liuqing-to-andi" data-composition-points="357.5,1619;357.5,1690" data-composition-crossover="halo" data-composition-independent="true" d="M 357.5 1619 L 357.5 1690" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 827.5 934 L 827.5 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="liuqing" data-edge-to="andi" data-edge-label="清河入嗣" data-edge-key="24" data-edge-id="liuqing-to-andi" data-composition-points="827.5,934;827.5,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 827.5 934 L 827.5 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:25">
-          <path data-graph-role="automatic-crossover-underlay" d="M 357.5 1754 L 357.5 1825" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="andi" data-edge-to="shundi" data-edge-label="独子继位" data-edge-key="25" data-edge-id="andi-to-shundi" data-composition-points="357.5,1754;357.5,1825" data-composition-crossover="halo" data-composition-independent="true" d="M 357.5 1754 L 357.5 1825" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 827.5 1069 L 827.5 1140" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="andi" data-edge-to="shundi" data-edge-label="独子继位" data-edge-key="25" data-edge-id="andi-to-shundi" data-composition-points="827.5,1069;827.5,1140" data-composition-crossover="halo" data-composition-independent="true" d="M 827.5 1069 L 827.5 1140" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:26">
-          <path data-graph-role="automatic-crossover-underlay" d="M 357.5 1889 L 357.5 1960" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="shundi" data-edge-to="chongdi" data-edge-label="幼子即位" data-edge-key="26" data-edge-id="shundi-to-chongdi" data-composition-points="357.5,1889;357.5,1960" data-composition-crossover="halo" data-composition-independent="true" d="M 357.5 1889 L 357.5 1960" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 827.5 1204 L 827.5 1275" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="shundi" data-edge-to="chongdi" data-edge-label="幼子即位" data-edge-key="26" data-edge-id="shundi-to-chongdi" data-composition-points="827.5,1204;827.5,1275" data-composition-crossover="halo" data-composition-independent="true" d="M 827.5 1204 L 827.5 1275" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:27">
-          <path data-graph-role="automatic-crossover-underlay" d="M 567.5 1619 L 567.5 1690" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="liukang2" data-edge-to="zhidi" data-edge-label="曾孙迎立" data-edge-key="27" data-edge-id="liukang2-to-zhidi" data-composition-points="567.5,1619;567.5,1690" data-composition-crossover="halo" data-composition-independent="true" d="M 567.5 1619 L 567.5 1690" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 600 1204 L 600 1275" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="liukang2" data-edge-to="zhidi" data-edge-label="曾孙迎立" data-edge-key="27" data-edge-id="liukang2-to-zhidi" data-composition-points="600,1204;600,1275" data-composition-crossover="halo" data-composition-independent="true" d="M 600 1204 L 600 1275" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:28">
-          <path data-graph-role="automatic-crossover-underlay" d="M 790.5 1619 L 790.5 1690" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="liukai" data-edge-to="huandi" data-edge-label="亲孙迎立" data-edge-key="28" data-edge-id="liukai-to-huandi" data-composition-points="790.5,1619;790.5,1690" data-composition-crossover="halo" data-composition-independent="true" d="M 790.5 1619 L 790.5 1690" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1050.5 934 L 1050.5 1005" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="liukai" data-edge-to="huandi" data-edge-label="亲孙迎立" data-edge-key="28" data-edge-id="liukai-to-huandi" data-composition-points="1050.5,934;1050.5,1005" data-composition-crossover="halo" data-composition-independent="true" d="M 1050.5 934 L 1050.5 1005" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:29">
-          <path data-graph-role="automatic-crossover-underlay" d="M 804.5 1619 L 804.5 1635 Q 804.5 1643 812.5 1643 L 891 1643 Q 899 1643 899 1651 L 899 1849 Q 899 1857 891 1857 L 875 1857" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="liukai" data-edge-to="lingdi" data-edge-label="曾孙迎立" data-edge-key="29" data-edge-id="liukai-to-lingdi" data-composition-points="804.5,1619;804.5,1643;899,1643;899,1857;875,1857" data-composition-crossover="halo" data-composition-independent="true" d="M 804.5 1619 L 804.5 1635 Q 804.5 1643 812.5 1643 L 891 1643 Q 899 1643 899 1651 L 899 1849 Q 899 1857 891 1857 L 875 1857" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 980 902 L 964 902 Q 956 902 956 910 L 956 1164 Q 956 1172 964 1172 L 980 1172" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="liukai" data-edge-to="lingdi" data-edge-label="曾孙迎立" data-edge-key="29" data-edge-id="liukai-to-lingdi" data-composition-points="980,902;956,902;956,1172;980,1172" data-composition-crossover="halo" data-composition-independent="true" d="M 980 902 L 964 902 Q 956 902 956 910 L 956 1164 Q 956 1172 964 1172 L 980 1172" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:30">
-          <path data-graph-role="automatic-crossover-underlay" d="M 720 1857 L 690.5 1857 Q 682.5 1857 682.5 1865 L 682.5 1984 Q 682.5 1992 674.5 1992 L 645 1992" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="lingdi" data-edge-to="shaodi2" data-edge-label="长子继位" data-edge-key="30" data-edge-id="lingdi-to-shaodi2" data-composition-points="720,1857;682.5,1857;682.5,1992;645,1992" data-composition-crossover="halo" data-composition-independent="true" d="M 720 1857 L 690.5 1857 Q 682.5 1857 682.5 1865 L 682.5 1984 Q 682.5 1992 674.5 1992 L 645 1992" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1049.45 1204 L 1049.45 1275" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="lingdi" data-edge-to="shaodi2" data-edge-label="长子继位" data-edge-key="30" data-edge-id="lingdi-to-shaodi2" data-composition-points="1049.45,1204;1049.45,1275" data-composition-crossover="halo" data-composition-independent="true" d="M 1049.45 1204 L 1049.45 1275" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:31">
-          <path data-graph-role="automatic-crossover-underlay" d="M 797.5 1889 L 797.5 1960" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="lingdi" data-edge-to="xiandi" data-edge-label="次子禅魏" data-edge-key="31" data-edge-id="lingdi-to-xiandi" data-composition-points="797.5,1889;797.5,1960" data-composition-crossover="halo" data-composition-independent="true" d="M 797.5 1889 L 797.5 1960" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 1064.5 1204 L 1064.5 1220 Q 1064.5 1228 1072.5 1228 L 1151 1228 Q 1159 1228 1159 1236 L 1159 1434 Q 1159 1442 1151 1442 L 1135 1442" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="lingdi" data-edge-to="xiandi" data-edge-label="次子禅魏" data-edge-key="31" data-edge-id="lingdi-to-xiandi" data-composition-points="1064.5,1204;1064.5,1228;1159,1228;1159,1442;1135,1442" data-composition-crossover="halo" data-composition-independent="true" d="M 1064.5 1204 L 1064.5 1220 Q 1064.5 1228 1072.5 1228 L 1151 1228 Q 1159 1228 1159 1236 L 1159 1434 Q 1159 1442 1151 1442 L 1135 1442" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
 
         <!-- Components -->
-        <g id="node-gaozu" data-node-id="gaozu" data-node-label="汉高祖 刘邦" tabindex="0" role="button" aria-label="Focus 汉高祖 刘邦, 在位 前202-前195 · 开国太祖, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 前202-前195 · 开国太祖" data-node-tag="大汉始祖" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉高祖 刘邦 · 在位 前202-前195 · 开国太祖 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 大汉始祖</title>
+        <g id="node-gaozu" data-node-id="gaozu" data-node-label="汉高祖 刘邦" tabindex="0" role="button" aria-label="Focus 汉高祖 刘邦, 前202-前195 · 开国太祖, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="前202-前195 · 开国太祖" data-node-tag="大汉始祖" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉高祖 刘邦 · 前202-前195 · 开国太祖 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 大汉始祖</title>
           <rect x="60" y="60" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="60" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(66 66) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="137.5" y="90" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉高祖 刘邦</text>
-        <text data-detail="context" x="137.5" y="106" class="t-muted" font-size="9" text-anchor="middle">在位 前202-前195 · 开国太祖</text>
+        <text data-detail="context" x="137.5" y="106" class="t-muted" font-size="9" text-anchor="middle">前202-前195 · 开国太祖</text>
         <text data-detail="fine" x="137.5" y="116" class="t-backend" font-size="7" text-anchor="middle">大汉始祖</text>
         </g>
 
-        <g id="node-huidi" data-node-id="huidi" data-node-label="汉惠帝 刘盈" tabindex="0" role="button" aria-label="Focus 汉惠帝 刘盈, 在位 前195-前188 · 嫡长子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 前195-前188 · 嫡长子" data-node-tag="仁弱早崩" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉惠帝 刘盈 · 在位 前195-前188 · 嫡长子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 仁弱早崩</title>
+        <g id="node-huidi" data-node-id="huidi" data-node-label="汉惠帝 刘盈" tabindex="0" role="button" aria-label="Focus 汉惠帝 刘盈, 前195-前188 · 嫡长子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前195-前188 · 嫡长子" data-node-tag="仁弱早崩" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉惠帝 刘盈 · 前195-前188 · 嫡长子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 仁弱早崩</title>
           <rect x="60" y="195" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="195" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(66 201) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="137.5" y="225" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉惠帝 刘盈</text>
-        <text data-detail="context" x="137.5" y="241" class="t-muted" font-size="9" text-anchor="middle">在位 前195-前188 · 嫡长子</text>
+        <text data-detail="context" x="137.5" y="241" class="t-muted" font-size="9" text-anchor="middle">前195-前188 · 嫡长子</text>
         <text data-detail="fine" x="137.5" y="251" class="t-frontend" font-size="7" text-anchor="middle">仁弱早崩</text>
         </g>
 
-        <g id="node-wendi" data-node-id="wendi" data-node-label="汉文帝 刘恒" tabindex="0" role="button" aria-label="Focus 汉文帝 刘恒, 在位 前180-前157 · 高祖四子, 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 前180-前157 · 高祖四子" data-node-tag="代王入继" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)">
-          <title>汉文帝 刘恒 · 在位 前180-前157 · 高祖四子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章) · 代王入继</title>
-          <rect x="280" y="195" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="195" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(286 201) scale(0.6875)">
+        <g id="node-wendi" data-node-id="wendi" data-node-label="汉文帝 刘恒" tabindex="0" role="button" aria-label="Focus 汉文帝 刘恒, 前180-前157 · 高祖四子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="前180-前157 · 高祖四子" data-node-tag="代王入继" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉文帝 刘恒 · 前180-前157 · 高祖四子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 代王入继</title>
+          <rect x="290" y="195" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="195" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(296 201) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="225" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉文帝 刘恒</text>
-        <text data-detail="context" x="357.5" y="241" class="t-muted" font-size="9" text-anchor="middle">在位 前180-前157 · 高祖四子</text>
-        <text data-detail="fine" x="357.5" y="251" class="t-backend" font-size="7" text-anchor="middle">代王入继</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="225" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉文帝 刘恒</text>
+        <text data-detail="context" x="367.5" y="241" class="t-muted" font-size="9" text-anchor="middle">前180-前157 · 高祖四子</text>
+        <text data-detail="fine" x="367.5" y="251" class="t-backend" font-size="7" text-anchor="middle">代王入继</text>
         </g>
 
-        <g id="node-jingdi" data-node-id="jingdi" data-node-label="汉景帝 刘启" tabindex="0" role="button" aria-label="Focus 汉景帝 刘启, 在位 前157-前141 · 文帝嫡子, 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 前157-前141 · 文帝嫡子" data-node-tag="文景之治" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)">
-          <title>汉景帝 刘启 · 在位 前157-前141 · 文帝嫡子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章) · 文景之治</title>
-          <rect x="280" y="330" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="330" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(286 336) scale(0.6875)">
+        <g id="node-jingdi" data-node-id="jingdi" data-node-label="汉景帝 刘启" tabindex="0" role="button" aria-label="Focus 汉景帝 刘启, 前157-前141 · 文帝嫡子, 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 两汉中兴与龙脉传承核心轴" aria-pressed="false" data-node-kind="backend" data-node-sublabel="前157-前141 · 文帝嫡子" data-node-tag="文景之治" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安) › 两汉中兴与龙脉传承核心轴">
+          <title>汉景帝 刘启 · 前157-前141 · 文帝嫡子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 两汉中兴与龙脉传承核心轴 · 文景之治</title>
+          <rect x="290" y="330" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="330" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(296 336) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="360" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉景帝 刘启</text>
-        <text data-detail="context" x="357.5" y="376" class="t-muted" font-size="9" text-anchor="middle">在位 前157-前141 · 文帝嫡子</text>
-        <text data-detail="fine" x="357.5" y="386" class="t-backend" font-size="7" text-anchor="middle">文景之治</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="360" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉景帝 刘启</text>
+        <text data-detail="context" x="367.5" y="376" class="t-muted" font-size="9" text-anchor="middle">前157-前141 · 文帝嫡子</text>
+        <text data-detail="fine" x="367.5" y="386" class="t-backend" font-size="7" text-anchor="middle">文景之治</text>
         </g>
 
-        <g id="node-liufa" data-node-id="liufa" data-node-label="长沙定王 刘发" tabindex="0" role="button" aria-label="Focus 长沙定王 刘发, 景帝第六子 · 封于长沙, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="景帝第六子 · 封于长沙" data-node-tag="东汉宗脉源流" data-node-context="Architecture component">
-          <title>长沙定王 刘发 · 景帝第六子 · 封于长沙 · Architecture component · 东汉宗脉源流</title>
-          <rect x="720" y="330" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="720" y="330" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(726 336) scale(0.6875)">
+        <g id="node-liufa" data-node-id="liufa" data-node-label="长沙定王 刘发" tabindex="0" role="button" aria-label="Focus 长沙定王 刘发, 景帝六子 · 封于长沙, 两汉中兴与龙脉传承核心轴" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="景帝六子 · 封于长沙" data-node-tag="东汉宗脉源流" data-node-context="两汉中兴与龙脉传承核心轴">
+          <title>长沙定王 刘发 · 景帝六子 · 封于长沙 · 两汉中兴与龙脉传承核心轴 · 东汉宗脉源流</title>
+          <rect x="520" y="330" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="330" width="160" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(526 336) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="797.5" y="360" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">长沙定王 刘发</text>
-        <text data-detail="context" x="797.5" y="376" class="t-muted" font-size="9" text-anchor="middle">景帝第六子 · 封于长沙</text>
-        <text data-detail="fine" x="797.5" y="386" class="t-cloud" font-size="7" text-anchor="middle">东汉宗脉源流</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="360" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">长沙定王 刘发</text>
+        <text data-detail="context" x="600" y="376" class="t-muted" font-size="9" text-anchor="middle">景帝六子 · 封于长沙</text>
+        <text data-detail="fine" x="600" y="386" class="t-cloud" font-size="7" text-anchor="middle">东汉宗脉源流</text>
         </g>
 
-        <g id="node-wudi" data-node-id="wudi" data-node-label="汉武帝 刘彻" tabindex="0" role="button" aria-label="Focus 汉武帝 刘彻, 在位 前141-前87 · 景帝十子, 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 前141-前87 · 景帝十子" data-node-tag="雄才大略" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)">
-          <title>汉武帝 刘彻 · 在位 前141-前87 · 景帝十子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章) · 雄才大略</title>
-          <rect x="280" y="465" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="465" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(286 471) scale(0.6875)">
+        <g id="node-wudi" data-node-id="wudi" data-node-label="汉武帝 刘彻" tabindex="0" role="button" aria-label="Focus 汉武帝 刘彻, 前141-前87 · 景帝十子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="前141-前87 · 景帝十子" data-node-tag="雄才大略" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉武帝 刘彻 · 前141-前87 · 景帝十子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 雄才大略</title>
+          <rect x="290" y="465" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="465" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(296 471) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="495" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉武帝 刘彻</text>
-        <text data-detail="context" x="357.5" y="511" class="t-muted" font-size="9" text-anchor="middle">在位 前141-前87 · 景帝十子</text>
-        <text data-detail="fine" x="357.5" y="521" class="t-backend" font-size="7" text-anchor="middle">雄才大略</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="495" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉武帝 刘彻</text>
+        <text data-detail="context" x="367.5" y="511" class="t-muted" font-size="9" text-anchor="middle">前141-前87 · 景帝十子</text>
+        <text data-detail="fine" x="367.5" y="521" class="t-backend" font-size="7" text-anchor="middle">雄才大略</text>
+        </g>
+
+        <g id="node-guangwu" data-node-id="guangwu" data-node-label="汉光武帝 刘秀" tabindex="0" role="button" aria-label="Focus 汉光武帝 刘秀, 25-57 · 长沙王六世孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴" aria-pressed="false" data-node-kind="backend" data-node-sublabel="25-57 · 长沙王六世孙" data-node-tag="光武中兴·光复汉室" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴">
+          <title>汉光武帝 刘秀 · 25-57 · 长沙王六世孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴 · 光武中兴·光复汉室</title>
+          <rect x="520" y="465" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="465" width="160" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(526 471) scale(0.6875)">
+            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="600" y="495" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉光武帝 刘秀</text>
+        <text data-detail="context" x="600" y="511" class="t-muted" font-size="9" text-anchor="middle">25-57 · 长沙王六世孙</text>
+        <text data-detail="fine" x="600" y="521" class="t-backend" font-size="7" text-anchor="middle">光武中兴·光复汉室</text>
         </g>
 
         <g id="node-litai" data-node-id="litai" data-node-label="戾太子 刘据" tabindex="0" role="button" aria-label="Focus 戾太子 刘据, 武帝嫡长子 · 巫蛊蒙冤, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="武帝嫡长子 · 巫蛊蒙冤" data-node-tag="宣帝祖父" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
@@ -5235,316 +5315,304 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="137.5" y="656" class="t-cloud" font-size="7" text-anchor="middle">宣帝祖父</text>
         </g>
 
-        <g id="node-zhaodi" data-node-id="zhaodi" data-node-label="汉昭帝 刘弗陵" tabindex="0" role="button" aria-label="Focus 汉昭帝 刘弗陵, 在位 前87-前74 · 武帝幼子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 前87-前74 · 武帝幼子" data-node-tag="昭宣中兴·无嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉昭帝 刘弗陵 · 在位 前87-前74 · 武帝幼子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 昭宣中兴·无嗣</title>
-          <rect x="280" y="600" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="600" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(286 606) scale(0.6875)">
+        <g id="node-zhaodi" data-node-id="zhaodi" data-node-label="汉昭帝 刘弗陵" tabindex="0" role="button" aria-label="Focus 汉昭帝 刘弗陵, 前87-前74 · 武帝幼子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前87-前74 · 武帝幼子" data-node-tag="昭宣中兴·无嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉昭帝 刘弗陵 · 前87-前74 · 武帝幼子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 昭宣中兴·无嗣</title>
+          <rect x="290" y="600" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="600" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(296 606) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="630" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉昭帝 刘弗陵</text>
-        <text data-detail="context" x="357.5" y="646" class="t-muted" font-size="9" text-anchor="middle">在位 前87-前74 · 武帝幼子</text>
-        <text data-detail="fine" x="357.5" y="656" class="t-frontend" font-size="7" text-anchor="middle">昭宣中兴·无嗣</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="630" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉昭帝 刘弗陵</text>
+        <text data-detail="context" x="367.5" y="646" class="t-muted" font-size="9" text-anchor="middle">前87-前74 · 武帝幼子</text>
+        <text data-detail="fine" x="367.5" y="656" class="t-frontend" font-size="7" text-anchor="middle">昭宣中兴·无嗣</text>
         </g>
 
-        <g id="node-liuhe" data-node-id="liuhe" data-node-label="昌邑王 刘贺" tabindex="0" role="button" aria-label="Focus 昌邑王 刘贺, 在位 前74 (27天) · 昌邑王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="external" data-node-sublabel="在位 前74 (27天) · 昌邑王子" data-node-tag="废帝·海昏侯" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>昌邑王 刘贺 · 在位 前74 (27天) · 昌邑王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 废帝·海昏侯</title>
-          <rect x="490" y="600" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="600" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(496 606) scale(0.6875)">
+        <g id="node-mingdi" data-node-id="mingdi" data-node-label="汉明帝 刘庄" tabindex="0" role="button" aria-label="Focus 汉明帝 刘庄, 57-75 · 光武第四子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴" aria-pressed="false" data-node-kind="backend" data-node-sublabel="57-75 · 光武第四子" data-node-tag="明章之治" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴">
+          <title>汉明帝 刘庄 · 57-75 · 光武第四子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴 · 明章之治</title>
+          <rect x="520" y="600" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="600" width="160" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(526 606) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="567.5" y="630" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">昌邑王 刘贺</text>
-        <text data-detail="context" x="567.5" y="646" class="t-muted" font-size="9" text-anchor="middle">在位 前74 (27天) · 昌邑王子</text>
-        <text data-detail="fine" x="567.5" y="656" class="t-external" font-size="7" text-anchor="middle">废帝·海昏侯</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="630" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉明帝 刘庄</text>
+        <text data-detail="context" x="600" y="646" class="t-muted" font-size="9" text-anchor="middle">57-75 · 光武第四子</text>
+        <text data-detail="fine" x="600" y="656" class="t-backend" font-size="7" text-anchor="middle">明章之治</text>
         </g>
 
-        <g id="node-xuandi" data-node-id="xuandi" data-node-label="汉宣帝 刘询" tabindex="0" role="button" aria-label="Focus 汉宣帝 刘询, 在位 前74-前49 · 武帝曾孙, 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 前74-前49 · 武帝曾孙" data-node-tag="民间迎立·昭宣盛世" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章)">
-          <title>汉宣帝 刘询 · 在位 前74-前49 · 武帝曾孙 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) › 汉家极盛中兴期 (文景至武宣、光武明章) · 民间迎立·昭宣盛世</title>
+        <g id="node-xuandi" data-node-id="xuandi" data-node-label="汉宣帝 刘询" tabindex="0" role="button" aria-label="Focus 汉宣帝 刘询, 前74-前49 · 武帝曾孙, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="前74-前49 · 武帝曾孙" data-node-tag="民间迎立·昭宣盛世" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉宣帝 刘询 · 前74-前49 · 武帝曾孙 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 民间迎立·昭宣盛世</title>
           <rect x="60" y="735" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="735" width="155" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(66 741) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="137.5" y="765" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉宣帝 刘询</text>
-        <text data-detail="context" x="137.5" y="781" class="t-muted" font-size="9" text-anchor="middle">在位 前74-前49 · 武帝曾孙</text>
+        <text data-detail="context" x="137.5" y="781" class="t-muted" font-size="9" text-anchor="middle">前74-前49 · 武帝曾孙</text>
         <text data-detail="fine" x="137.5" y="791" class="t-backend" font-size="7" text-anchor="middle">民间迎立·昭宣盛世</text>
         </g>
 
-        <g id="node-yuandi" data-node-id="yuandi" data-node-label="汉元帝 刘奭" tabindex="0" role="button" aria-label="Focus 汉元帝 刘奭, 在位 前49-前33 · 宣帝嫡长子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 前49-前33 · 宣帝嫡长子" data-node-tag="外戚王氏始炽" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉元帝 刘奭 · 在位 前49-前33 · 宣帝嫡长子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 外戚王氏始炽</title>
+        <g id="node-liuhe" data-node-id="liuhe" data-node-label="昌邑王 刘贺" tabindex="0" role="button" aria-label="Focus 昌邑王 刘贺, 前74 (27天) · 昌邑王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="external" data-node-sublabel="前74 (27天) · 昌邑王子" data-node-tag="废帝·海昏侯" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>昌邑王 刘贺 · 前74 (27天) · 昌邑王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 废帝·海昏侯</title>
+          <rect x="290" y="735" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="735" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(296 741) scale(0.6875)">
+            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="765" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">昌邑王 刘贺</text>
+        <text data-detail="context" x="367.5" y="781" class="t-muted" font-size="9" text-anchor="middle">前74 (27天) · 昌邑王子</text>
+        <text data-detail="fine" x="367.5" y="791" class="t-external" font-size="7" text-anchor="middle">废帝·海昏侯</text>
+        </g>
+
+        <g id="node-zhangdi" data-node-id="zhangdi" data-node-label="汉章帝 刘炟" tabindex="0" role="button" aria-label="Focus 汉章帝 刘炟, 75-88 · 明帝第五子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴" aria-pressed="false" data-node-kind="backend" data-node-sublabel="75-88 · 明帝第五子" data-node-tag="东汉宗统分叉枢纽" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴">
+          <title>汉章帝 刘炟 · 75-88 · 明帝第五子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) › 两汉中兴与龙脉传承核心轴 · 东汉宗统分叉枢纽</title>
+          <rect x="520" y="735" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="735" width="160" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(526 741) scale(0.6875)">
+            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="600" y="765" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉章帝 刘炟</text>
+        <text data-detail="context" x="600" y="781" class="t-muted" font-size="9" text-anchor="middle">75-88 · 明帝第五子</text>
+        <text data-detail="fine" x="600" y="791" class="t-backend" font-size="7" text-anchor="middle">东汉宗统分叉枢纽</text>
+        </g>
+
+        <g id="node-yuandi" data-node-id="yuandi" data-node-label="汉元帝 刘奭" tabindex="0" role="button" aria-label="Focus 汉元帝 刘奭, 前49-前33 · 宣帝嫡长子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前49-前33 · 宣帝嫡长子" data-node-tag="外戚王氏始炽" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉元帝 刘奭 · 前49-前33 · 宣帝嫡长子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 外戚王氏始炽</title>
           <rect x="60" y="870" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="870" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(66 876) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="137.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉元帝 刘奭</text>
-        <text data-detail="context" x="137.5" y="916" class="t-muted" font-size="9" text-anchor="middle">在位 前49-前33 · 宣帝嫡长子</text>
+        <text data-detail="context" x="137.5" y="916" class="t-muted" font-size="9" text-anchor="middle">前49-前33 · 宣帝嫡长子</text>
         <text data-detail="fine" x="137.5" y="926" class="t-frontend" font-size="7" text-anchor="middle">外戚王氏始炽</text>
         </g>
 
         <g id="node-liukang" data-node-id="liukang" data-node-label="定陶恭王 刘康" tabindex="0" role="button" aria-label="Focus 定陶恭王 刘康, 元帝次子 · 哀帝生父, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="元帝次子 · 哀帝生父" data-node-tag="定陶王脉" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
           <title>定陶恭王 刘康 · 元帝次子 · 哀帝生父 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 定陶王脉</title>
-          <rect x="280" y="870" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="870" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(286 876) scale(0.6875)">
+          <rect x="290" y="870" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="870" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(296 876) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">定陶恭王 刘康</text>
-        <text data-detail="context" x="357.5" y="916" class="t-muted" font-size="9" text-anchor="middle">元帝次子 · 哀帝生父</text>
-        <text data-detail="fine" x="357.5" y="926" class="t-cloud" font-size="7" text-anchor="middle">定陶王脉</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">定陶恭王 刘康</text>
+        <text data-detail="context" x="367.5" y="916" class="t-muted" font-size="9" text-anchor="middle">元帝次子 · 哀帝生父</text>
+        <text data-detail="fine" x="367.5" y="926" class="t-cloud" font-size="7" text-anchor="middle">定陶王脉</text>
         </g>
 
-        <g id="node-liuxing" data-node-id="liuxing" data-node-label="中山孝王 刘兴" tabindex="0" role="button" aria-label="Focus 中山孝王 刘兴, 元帝三子 · 平帝生父, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="元帝三子 · 平帝生父" data-node-tag="中山王脉" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>中山孝王 刘兴 · 元帝三子 · 平帝生父 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 中山王脉</title>
-          <rect x="490" y="870" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="870" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(496 876) scale(0.6875)">
+        <g id="node-hedi" data-node-id="hedi" data-node-label="汉和帝 刘肇" tabindex="0" role="button" aria-label="Focus 汉和帝 刘肇, 88-106 · 章帝第四子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="88-106 · 章帝第四子" data-node-tag="十岁即位·诛灭窦宪" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉和帝 刘肇 · 88-106 · 章帝第四子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 十岁即位·诛灭窦宪</title>
+          <rect x="520" y="870" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="870" width="160" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(526 876) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="567.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">中山孝王 刘兴</text>
-        <text data-detail="context" x="567.5" y="916" class="t-muted" font-size="9" text-anchor="middle">元帝三子 · 平帝生父</text>
-        <text data-detail="fine" x="567.5" y="926" class="t-cloud" font-size="7" text-anchor="middle">中山王脉</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉和帝 刘肇</text>
+        <text data-detail="context" x="600" y="916" class="t-muted" font-size="9" text-anchor="middle">88-106 · 章帝第四子</text>
+        <text data-detail="fine" x="600" y="926" class="t-frontend" font-size="7" text-anchor="middle">十岁即位·诛灭窦宪</text>
         </g>
 
-        <g id="node-chengdi" data-node-id="chengdi" data-node-label="汉成帝 刘骜" tabindex="0" role="button" aria-label="Focus 汉成帝 刘骜, 在位 前33-前7 · 元帝嫡子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 前33-前7 · 元帝嫡子" data-node-tag="专宠飞燕·绝嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉成帝 刘骜 · 在位 前33-前7 · 元帝嫡子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 专宠飞燕·绝嗣</title>
+        <g id="node-liuqing" data-node-id="liuqing" data-node-label="清河孝王 刘庆" tabindex="0" role="button" aria-label="Focus 清河孝王 刘庆, 章帝长子 · 安帝生父, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="章帝长子 · 安帝生父" data-node-tag="清河王脉" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>清河孝王 刘庆 · 章帝长子 · 安帝生父 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 清河王脉</title>
+          <rect x="750" y="870" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="750" y="870" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(756 876) scale(0.6875)">
+            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="827.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">清河孝王 刘庆</text>
+        <text data-detail="context" x="827.5" y="916" class="t-muted" font-size="9" text-anchor="middle">章帝长子 · 安帝生父</text>
+        <text data-detail="fine" x="827.5" y="926" class="t-cloud" font-size="7" text-anchor="middle">清河王脉</text>
+        </g>
+
+        <g id="node-liukai" data-node-id="liukai" data-node-label="河间孝王 刘开" tabindex="0" role="button" aria-label="Focus 河间孝王 刘开, 章帝六子 · 桓灵祖父, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="章帝六子 · 桓灵祖父" data-node-tag="河间王脉" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>河间孝王 刘开 · 章帝六子 · 桓灵祖父 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 河间王脉</title>
+          <rect x="980" y="870" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="980" y="870" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(986 876) scale(0.6875)">
+            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="1057.5" y="900" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">河间孝王 刘开</text>
+        <text data-detail="context" x="1057.5" y="916" class="t-muted" font-size="9" text-anchor="middle">章帝六子 · 桓灵祖父</text>
+        <text data-detail="fine" x="1057.5" y="926" class="t-cloud" font-size="7" text-anchor="middle">河间王脉</text>
+        </g>
+
+        <g id="node-chengdi" data-node-id="chengdi" data-node-label="汉成帝 刘骜" tabindex="0" role="button" aria-label="Focus 汉成帝 刘骜, 前33-前7 · 元帝嫡子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前33-前7 · 元帝嫡子" data-node-tag="专宠飞燕·绝嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉成帝 刘骜 · 前33-前7 · 元帝嫡子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 专宠飞燕·绝嗣</title>
           <rect x="60" y="1005" width="155" height="64" rx="6" class="c-mask"/>
           <rect x="60" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(66 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="137.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉成帝 刘骜</text>
-        <text data-detail="context" x="137.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">在位 前33-前7 · 元帝嫡子</text>
+        <text data-detail="context" x="137.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">前33-前7 · 元帝嫡子</text>
         <text data-detail="fine" x="137.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">专宠飞燕·绝嗣</text>
         </g>
 
-        <g id="node-aidi" data-node-id="aidi" data-node-label="汉哀帝 刘欣" tabindex="0" role="button" aria-label="Focus 汉哀帝 刘欣, 在位 前7-前1 · 定陶恭王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 前7-前1 · 定陶恭王子" data-node-tag="堂侄继统·无嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉哀帝 刘欣 · 在位 前7-前1 · 定陶恭王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 堂侄继统·无嗣</title>
-          <rect x="280" y="1005" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(286 1011) scale(0.6875)">
+        <g id="node-aidi" data-node-id="aidi" data-node-label="汉哀帝 刘欣" tabindex="0" role="button" aria-label="Focus 汉哀帝 刘欣, 前7-前1 · 定陶恭王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前7-前1 · 定陶恭王子" data-node-tag="堂侄继统·无嗣" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉哀帝 刘欣 · 前7-前1 · 定陶恭王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 堂侄继统·无嗣</title>
+          <rect x="290" y="1005" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(296 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉哀帝 刘欣</text>
-        <text data-detail="context" x="357.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">在位 前7-前1 · 定陶恭王子</text>
-        <text data-detail="fine" x="357.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">堂侄继统·无嗣</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉哀帝 刘欣</text>
+        <text data-detail="context" x="367.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">前7-前1 · 定陶恭王子</text>
+        <text data-detail="fine" x="367.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">堂侄继统·无嗣</text>
         </g>
 
-        <g id="node-pingdi" data-node-id="pingdi" data-node-label="汉平帝 刘衎" tabindex="0" role="button" aria-label="Focus 汉平帝 刘衎, 在位 前1-公元6 · 中山孝王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 前1-公元6 · 中山孝王子" data-node-tag="堂弟入继·王莽鸩杀" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>汉平帝 刘衎 · 在位 前1-公元6 · 中山孝王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 堂弟入继·王莽鸩杀</title>
-          <rect x="490" y="1005" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(496 1011) scale(0.6875)">
+        <g id="node-shangdi" data-node-id="shangdi" data-node-label="汉殇帝 刘隆" tabindex="0" role="button" aria-label="Focus 汉殇帝 刘隆, 106 · 和帝少子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="106 · 和帝少子" data-node-tag="百天即位一岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉殇帝 刘隆 · 106 · 和帝少子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 百天即位一岁早夭</title>
+          <rect x="520" y="1005" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="1005" width="160" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(526 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="567.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉平帝 刘衎</text>
-        <text data-detail="context" x="567.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">在位 前1-公元6 · 中山孝王子</text>
-        <text data-detail="fine" x="567.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">堂弟入继·王莽鸩杀</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉殇帝 刘隆</text>
+        <text data-detail="context" x="600" y="1051" class="t-muted" font-size="9" text-anchor="middle">106 · 和帝少子</text>
+        <text data-detail="fine" x="600" y="1061" class="t-frontend" font-size="7" text-anchor="middle">百天即位一岁早夭</text>
         </g>
 
-        <g id="node-ruzi" data-node-id="ruzi" data-node-label="孺子婴 刘婴" tabindex="0" role="button" aria-label="Focus 孺子婴 刘婴, 居摄 公元6-8 · 宣帝玄孙, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="external" data-node-sublabel="居摄 公元6-8 · 宣帝玄孙" data-node-tag="皇太子·王莽受禅" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
-          <title>孺子婴 刘婴 · 居摄 公元6-8 · 宣帝玄孙 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 皇太子·王莽受禅</title>
+        <g id="node-andi" data-node-id="andi" data-node-label="汉安帝 刘祜" tabindex="0" role="button" aria-label="Focus 汉安帝 刘祜, 106-125 · 清河王子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="106-125 · 清河王子" data-node-tag="清河入嗣·邓后临朝" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉安帝 刘祜 · 106-125 · 清河王子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 清河入嗣·邓后临朝</title>
           <rect x="750" y="1005" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="750" y="1005" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(756 1011) scale(0.6875)">
+          <rect x="750" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(756 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="827.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">孺子婴 刘婴</text>
-        <text data-detail="context" x="827.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">居摄 公元6-8 · 宣帝玄孙</text>
-        <text data-detail="fine" x="827.5" y="1061" class="t-external" font-size="7" text-anchor="middle">皇太子·王莽受禅</text>
+          <text data-node-label="" data-detail-anchor="" x="827.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉安帝 刘祜</text>
+        <text data-detail="context" x="827.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">106-125 · 清河王子</text>
+        <text data-detail="fine" x="827.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">清河入嗣·邓后临朝</text>
         </g>
 
-        <g id="node-guangwu" data-node-id="guangwu" data-node-label="汉光武帝 刘秀" tabindex="0" role="button" aria-label="Focus 汉光武帝 刘秀, 在位 25-57 · 长沙王六世孙, 汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 25-57 · 长沙王六世孙" data-node-tag="光武中兴·光复汉室" data-node-context="汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉光武帝 刘秀 · 在位 25-57 · 长沙王六世孙 · 汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 光武中兴·光复汉室</title>
-          <rect x="490" y="1150" width="160" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="1150" width="160" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(496 1156) scale(0.6875)">
+        <g id="node-huandi" data-node-id="huandi" data-node-label="汉桓帝 刘志" tabindex="0" role="button" aria-label="Focus 汉桓帝 刘志, 146-168 · 河间王孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="146-168 · 河间王孙" data-node-tag="梁冀拥立·后诛权臣" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉桓帝 刘志 · 146-168 · 河间王孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 梁冀拥立·后诛权臣</title>
+          <rect x="980" y="1005" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="980" y="1005" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(986 1011) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="570" y="1180" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉光武帝 刘秀</text>
-        <text data-detail="context" x="570" y="1196" class="t-muted" font-size="9" text-anchor="middle">在位 25-57 · 长沙王六世孙</text>
-        <text data-detail="fine" x="570" y="1206" class="t-backend" font-size="7" text-anchor="middle">光武中兴·光复汉室</text>
+          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1035" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉桓帝 刘志</text>
+        <text data-detail="context" x="1057.5" y="1051" class="t-muted" font-size="9" text-anchor="middle">146-168 · 河间王孙</text>
+        <text data-detail="fine" x="1057.5" y="1061" class="t-frontend" font-size="7" text-anchor="middle">梁冀拥立·后诛权臣</text>
         </g>
 
-        <g id="node-mingdi" data-node-id="mingdi" data-node-label="汉明帝 刘庄" tabindex="0" role="button" aria-label="Focus 汉明帝 刘庄, 在位 57-75 · 光武第四子, 汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 57-75 · 光武第四子" data-node-tag="明章之治" data-node-context="汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉明帝 刘庄 · 在位 57-75 · 光武第四子 · 汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 明章之治</title>
-          <rect x="490" y="1285" width="160" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="1285" width="160" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(496 1291) scale(0.6875)">
+        <g id="node-liuxing" data-node-id="liuxing" data-node-label="中山孝王 刘兴" tabindex="0" role="button" aria-label="Focus 中山孝王 刘兴, 元帝三子 · 平帝生父, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="元帝三子 · 平帝生父" data-node-tag="中山王脉" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>中山孝王 刘兴 · 元帝三子 · 平帝生父 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 中山王脉</title>
+          <rect x="60" y="1140" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="60" y="1140" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(66 1146) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="570" y="1315" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉明帝 刘庄</text>
-        <text data-detail="context" x="570" y="1331" class="t-muted" font-size="9" text-anchor="middle">在位 57-75 · 光武第四子</text>
-        <text data-detail="fine" x="570" y="1341" class="t-backend" font-size="7" text-anchor="middle">明章之治</text>
+          <text data-node-label="" data-detail-anchor="" x="137.5" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">中山孝王 刘兴</text>
+        <text data-detail="context" x="137.5" y="1186" class="t-muted" font-size="9" text-anchor="middle">元帝三子 · 平帝生父</text>
+        <text data-detail="fine" x="137.5" y="1196" class="t-cloud" font-size="7" text-anchor="middle">中山王脉</text>
         </g>
 
-        <g id="node-zhangdi" data-node-id="zhangdi" data-node-label="汉章帝 刘炟" tabindex="0" role="button" aria-label="Focus 汉章帝 刘炟, 在位 75-88 · 明帝第五子, 汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="在位 75-88 · 明帝第五子" data-node-tag="东汉皇统宗脉枢纽" data-node-context="汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉章帝 刘炟 · 在位 75-88 · 明帝第五子 · 汉家极盛中兴期 (文景至武宣、光武明章) › 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 东汉皇统宗脉枢纽</title>
-          <rect x="490" y="1420" width="160" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="1420" width="160" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-backend" transform="translate(496 1426) scale(0.6875)">
+        <g id="node-pingdi" data-node-id="pingdi" data-node-label="汉平帝 刘衎" tabindex="0" role="button" aria-label="Focus 汉平帝 刘衎, 前1-公元6 · 中山孝王子, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="前1-公元6 · 中山孝王子" data-node-tag="堂弟入继·王莽鸩杀" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>汉平帝 刘衎 · 前1-公元6 · 中山孝王子 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 堂弟入继·王莽鸩杀</title>
+          <rect x="290" y="1140" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="1140" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(296 1146) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="570" y="1450" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉章帝 刘炟</text>
-        <text data-detail="context" x="570" y="1466" class="t-muted" font-size="9" text-anchor="middle">在位 75-88 · 明帝第五子</text>
-        <text data-detail="fine" x="570" y="1476" class="t-backend" font-size="7" text-anchor="middle">东汉皇统宗脉枢纽</text>
-        </g>
-
-        <g id="node-hedi" data-node-id="hedi" data-node-label="汉和帝 刘肇" tabindex="0" role="button" aria-label="Focus 汉和帝 刘肇, 在位 88-106 · 章帝第四子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 88-106 · 章帝第四子" data-node-tag="十岁即位·诛灭窦宪" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉和帝 刘肇 · 在位 88-106 · 章帝第四子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 十岁即位·诛灭窦宪</title>
-          <rect x="60" y="1555" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="60" y="1555" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(66 1561) scale(0.6875)">
-            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="137.5" y="1585" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉和帝 刘肇</text>
-        <text data-detail="context" x="137.5" y="1601" class="t-muted" font-size="9" text-anchor="middle">在位 88-106 · 章帝第四子</text>
-        <text data-detail="fine" x="137.5" y="1611" class="t-frontend" font-size="7" text-anchor="middle">十岁即位·诛灭窦宪</text>
-        </g>
-
-        <g id="node-liuqing" data-node-id="liuqing" data-node-label="清河孝王 刘庆" tabindex="0" role="button" aria-label="Focus 清河孝王 刘庆, 章帝长子 · 废太子·安帝父, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="章帝长子 · 废太子·安帝父" data-node-tag="清河王脉" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>清河孝王 刘庆 · 章帝长子 · 废太子·安帝父 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 清河王脉</title>
-          <rect x="280" y="1555" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="1555" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(286 1561) scale(0.6875)">
-            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="1585" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">清河孝王 刘庆</text>
-        <text data-detail="context" x="357.5" y="1601" class="t-muted" font-size="9" text-anchor="middle">章帝长子 · 废太子·安帝父</text>
-        <text data-detail="fine" x="357.5" y="1611" class="t-cloud" font-size="7" text-anchor="middle">清河王脉</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉平帝 刘衎</text>
+        <text data-detail="context" x="367.5" y="1186" class="t-muted" font-size="9" text-anchor="middle">前1-公元6 · 中山孝王子</text>
+        <text data-detail="fine" x="367.5" y="1196" class="t-frontend" font-size="7" text-anchor="middle">堂弟入继·王莽鸩杀</text>
         </g>
 
         <g id="node-liukang2" data-node-id="liukang2" data-node-label="千乘贞王 刘伉" tabindex="0" role="button" aria-label="Focus 千乘贞王 刘伉, 章帝子 · 质帝曾祖父, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="章帝子 · 质帝曾祖父" data-node-tag="千乘王脉" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
           <title>千乘贞王 刘伉 · 章帝子 · 质帝曾祖父 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 千乘王脉</title>
-          <rect x="490" y="1555" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="1555" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(496 1561) scale(0.6875)">
+          <rect x="520" y="1140" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="1140" width="160" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(526 1146) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="567.5" y="1585" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">千乘贞王 刘伉</text>
-        <text data-detail="context" x="567.5" y="1601" class="t-muted" font-size="9" text-anchor="middle">章帝子 · 质帝曾祖父</text>
-        <text data-detail="fine" x="567.5" y="1611" class="t-cloud" font-size="7" text-anchor="middle">千乘王脉</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">千乘贞王 刘伉</text>
+        <text data-detail="context" x="600" y="1186" class="t-muted" font-size="9" text-anchor="middle">章帝子 · 质帝曾祖父</text>
+        <text data-detail="fine" x="600" y="1196" class="t-cloud" font-size="7" text-anchor="middle">千乘王脉</text>
         </g>
 
-        <g id="node-liukai" data-node-id="liukai" data-node-label="河间孝王 刘开" tabindex="0" role="button" aria-label="Focus 河间孝王 刘开, 章帝六子 · 桓灵二帝之祖, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="章帝六子 · 桓灵二帝之祖" data-node-tag="河间王脉" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>河间孝王 刘开 · 章帝六子 · 桓灵二帝之祖 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 河间王脉</title>
-          <rect x="720" y="1555" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="720" y="1555" width="155" height="64" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-cloud" transform="translate(726 1561) scale(0.6875)">
+        <g id="node-shundi" data-node-id="shundi" data-node-label="汉顺帝 刘保" tabindex="0" role="button" aria-label="Focus 汉顺帝 刘保, 125-144 · 安帝独子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="125-144 · 安帝独子" data-node-tag="宦官十九侯政变迎立" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉顺帝 刘保 · 125-144 · 安帝独子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 宦官十九侯政变迎立</title>
+          <rect x="750" y="1140" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="750" y="1140" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(756 1146) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="797.5" y="1585" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">河间孝王 刘开</text>
-        <text data-detail="context" x="797.5" y="1601" class="t-muted" font-size="9" text-anchor="middle">章帝六子 · 桓灵二帝之祖</text>
-        <text data-detail="fine" x="797.5" y="1611" class="t-cloud" font-size="7" text-anchor="middle">河间王脉</text>
+          <text data-node-label="" data-detail-anchor="" x="827.5" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉顺帝 刘保</text>
+        <text data-detail="context" x="827.5" y="1186" class="t-muted" font-size="9" text-anchor="middle">125-144 · 安帝独子</text>
+        <text data-detail="fine" x="827.5" y="1196" class="t-frontend" font-size="7" text-anchor="middle">宦官十九侯政变迎立</text>
         </g>
 
-        <g id="node-shangdi" data-node-id="shangdi" data-node-label="汉殇帝 刘隆" tabindex="0" role="button" aria-label="Focus 汉殇帝 刘隆, 在位 106 · 和帝少子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 106 · 和帝少子" data-node-tag="百天即位一岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉殇帝 刘隆 · 在位 106 · 和帝少子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 百天即位一岁早夭</title>
-          <rect x="60" y="1690" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="60" y="1690" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(66 1696) scale(0.6875)">
+        <g id="node-lingdi" data-node-id="lingdi" data-node-label="汉灵帝 刘宏" tabindex="0" role="button" aria-label="Focus 汉灵帝 刘宏, 168-189 · 河间王曾孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="168-189 · 河间王曾孙" data-node-tag="卖官鬻爵·黄巾起义" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉灵帝 刘宏 · 168-189 · 河间王曾孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 卖官鬻爵·黄巾起义</title>
+          <rect x="980" y="1140" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="980" y="1140" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(986 1146) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="137.5" y="1720" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉殇帝 刘隆</text>
-        <text data-detail="context" x="137.5" y="1736" class="t-muted" font-size="9" text-anchor="middle">在位 106 · 和帝少子</text>
-        <text data-detail="fine" x="137.5" y="1746" class="t-frontend" font-size="7" text-anchor="middle">百天即位一岁早夭</text>
+          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1170" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉灵帝 刘宏</text>
+        <text data-detail="context" x="1057.5" y="1186" class="t-muted" font-size="9" text-anchor="middle">168-189 · 河间王曾孙</text>
+        <text data-detail="fine" x="1057.5" y="1196" class="t-frontend" font-size="7" text-anchor="middle">卖官鬻爵·黄巾起义</text>
         </g>
 
-        <g id="node-andi" data-node-id="andi" data-node-label="汉安帝 刘祜" tabindex="0" role="button" aria-label="Focus 汉安帝 刘祜, 在位 106-125 · 清河王子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 106-125 · 清河王子" data-node-tag="清河入嗣·邓后临朝" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉安帝 刘祜 · 在位 106-125 · 清河王子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 清河入嗣·邓后临朝</title>
-          <rect x="280" y="1690" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="1690" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(286 1696) scale(0.6875)">
+        <g id="node-ruzi" data-node-id="ruzi" data-node-label="孺子婴 刘婴" tabindex="0" role="button" aria-label="Focus 孺子婴 刘婴, 居摄 公元6-8 · 宣帝玄孙, 西汉西京皇统 (前202 - 公元8年 · 定都长安)" aria-pressed="false" data-node-kind="external" data-node-sublabel="居摄 公元6-8 · 宣帝玄孙" data-node-tag="皇太子·王莽受禅" data-node-context="西汉西京皇统 (前202 - 公元8年 · 定都长安)">
+          <title>孺子婴 刘婴 · 居摄 公元6-8 · 宣帝玄孙 · 西汉西京皇统 (前202 - 公元8年 · 定都长安) · 皇太子·王莽受禅</title>
+          <rect x="290" y="1275" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="290" y="1275" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(296 1281) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="1720" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉安帝 刘祜</text>
-        <text data-detail="context" x="357.5" y="1736" class="t-muted" font-size="9" text-anchor="middle">在位 106-125 · 清河王子</text>
-        <text data-detail="fine" x="357.5" y="1746" class="t-frontend" font-size="7" text-anchor="middle">清河入嗣·邓后临朝</text>
+          <text data-node-label="" data-detail-anchor="" x="367.5" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">孺子婴 刘婴</text>
+        <text data-detail="context" x="367.5" y="1321" class="t-muted" font-size="9" text-anchor="middle">居摄 公元6-8 · 宣帝玄孙</text>
+        <text data-detail="fine" x="367.5" y="1331" class="t-external" font-size="7" text-anchor="middle">皇太子·王莽受禅</text>
         </g>
 
-        <g id="node-zhidi" data-node-id="zhidi" data-node-label="汉质帝 刘缵" tabindex="0" role="button" aria-label="Focus 汉质帝 刘缵, 在位 145-146 · 千乘王曾孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 145-146 · 千乘王曾孙" data-node-tag="八岁被梁冀鸩杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉质帝 刘缵 · 在位 145-146 · 千乘王曾孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 八岁被梁冀鸩杀</title>
-          <rect x="490" y="1690" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="1690" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(496 1696) scale(0.6875)">
+        <g id="node-zhidi" data-node-id="zhidi" data-node-label="汉质帝 刘缵" tabindex="0" role="button" aria-label="Focus 汉质帝 刘缵, 145-146 · 千乘王曾孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="145-146 · 千乘王曾孙" data-node-tag="八岁被梁冀鸩杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉质帝 刘缵 · 145-146 · 千乘王曾孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 八岁被梁冀鸩杀</title>
+          <rect x="520" y="1275" width="160" height="64" rx="6" class="c-mask"/>
+          <rect x="520" y="1275" width="160" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(526 1281) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="567.5" y="1720" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉质帝 刘缵</text>
-        <text data-detail="context" x="567.5" y="1736" class="t-muted" font-size="9" text-anchor="middle">在位 145-146 · 千乘王曾孙</text>
-        <text data-detail="fine" x="567.5" y="1746" class="t-frontend" font-size="7" text-anchor="middle">八岁被梁冀鸩杀</text>
+          <text data-node-label="" data-detail-anchor="" x="600" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉质帝 刘缵</text>
+        <text data-detail="context" x="600" y="1321" class="t-muted" font-size="9" text-anchor="middle">145-146 · 千乘王曾孙</text>
+        <text data-detail="fine" x="600" y="1331" class="t-frontend" font-size="7" text-anchor="middle">八岁被梁冀鸩杀</text>
         </g>
 
-        <g id="node-huandi" data-node-id="huandi" data-node-label="汉桓帝 刘志" tabindex="0" role="button" aria-label="Focus 汉桓帝 刘志, 在位 146-168 · 河间王孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 146-168 · 河间王孙" data-node-tag="梁冀拥立·后诛权臣" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉桓帝 刘志 · 在位 146-168 · 河间王孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 梁冀拥立·后诛权臣</title>
-          <rect x="720" y="1690" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="720" y="1690" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(726 1696) scale(0.6875)">
+        <g id="node-chongdi" data-node-id="chongdi" data-node-label="汉冲帝 刘炳" tabindex="0" role="button" aria-label="Focus 汉冲帝 刘炳, 144-145 · 顺帝独子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="144-145 · 顺帝独子" data-node-tag="两岁即位三岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉冲帝 刘炳 · 144-145 · 顺帝独子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 两岁即位三岁早夭</title>
+          <rect x="750" y="1275" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="750" y="1275" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(756 1281) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="797.5" y="1720" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉桓帝 刘志</text>
-        <text data-detail="context" x="797.5" y="1736" class="t-muted" font-size="9" text-anchor="middle">在位 146-168 · 河间王孙</text>
-        <text data-detail="fine" x="797.5" y="1746" class="t-frontend" font-size="7" text-anchor="middle">梁冀拥立·后诛权臣</text>
+          <text data-node-label="" data-detail-anchor="" x="827.5" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉冲帝 刘炳</text>
+        <text data-detail="context" x="827.5" y="1321" class="t-muted" font-size="9" text-anchor="middle">144-145 · 顺帝独子</text>
+        <text data-detail="fine" x="827.5" y="1331" class="t-external" font-size="7" text-anchor="middle">两岁即位三岁早夭</text>
         </g>
 
-        <g id="node-shundi" data-node-id="shundi" data-node-label="汉顺帝 刘保" tabindex="0" role="button" aria-label="Focus 汉顺帝 刘保, 在位 125-144 · 安帝独子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 125-144 · 安帝独子" data-node-tag="宦官十九侯政变迎立" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉顺帝 刘保 · 在位 125-144 · 安帝独子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 宦官十九侯政变迎立</title>
-          <rect x="280" y="1825" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="1825" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(286 1831) scale(0.6875)">
+        <g id="node-shaodi2" data-node-id="shaodi2" data-node-label="弘农王 (少帝) 刘辩" tabindex="0" role="button" aria-label="Focus 弘农王 (少帝) 刘辩, 189 (数月) · 灵帝长子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="189 (数月) · 灵帝长子" data-node-tag="董卓入洛废杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>弘农王 (少帝) 刘辩 · 189 (数月) · 灵帝长子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 董卓入洛废杀</title>
+          <rect x="980" y="1275" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="980" y="1275" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(986 1281) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="1855" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉顺帝 刘保</text>
-        <text data-detail="context" x="357.5" y="1871" class="t-muted" font-size="9" text-anchor="middle">在位 125-144 · 安帝独子</text>
-        <text data-detail="fine" x="357.5" y="1881" class="t-frontend" font-size="7" text-anchor="middle">宦官十九侯政变迎立</text>
+          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1305" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">弘农王 (少帝) 刘辩</text>
+        <text data-detail="context" x="1057.5" y="1321" class="t-muted" font-size="9" text-anchor="middle">189 (数月) · 灵帝长子</text>
+        <text data-detail="fine" x="1057.5" y="1331" class="t-external" font-size="7" text-anchor="middle">董卓入洛废杀</text>
         </g>
 
-        <g id="node-lingdi" data-node-id="lingdi" data-node-label="汉灵帝 刘宏" tabindex="0" role="button" aria-label="Focus 汉灵帝 刘宏, 在位 168-189 · 河间王曾孙, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位 168-189 · 河间王曾孙" data-node-tag="卖官鬻爵·黄巾起义" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉灵帝 刘宏 · 在位 168-189 · 河间王曾孙 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 卖官鬻爵·黄巾起义</title>
-          <rect x="720" y="1825" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="720" y="1825" width="155" height="64" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-frontend" transform="translate(726 1831) scale(0.6875)">
+        <g id="node-xiandi" data-node-id="xiandi" data-node-label="汉献帝 刘协" tabindex="0" role="button" aria-label="Focus 汉献帝 刘协, 189-220 · 灵帝次子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="security" data-node-sublabel="189-220 · 灵帝次子" data-node-tag="末代献帝·禅让魏武" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
+          <title>汉献帝 刘协 · 189-220 · 灵帝次子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 末代献帝·禅让魏武</title>
+          <rect x="980" y="1410" width="155" height="64" rx="6" class="c-mask"/>
+          <rect x="980" y="1410" width="155" height="64" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-security" transform="translate(986 1416) scale(0.6875)">
             <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="797.5" y="1855" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉灵帝 刘宏</text>
-        <text data-detail="context" x="797.5" y="1871" class="t-muted" font-size="9" text-anchor="middle">在位 168-189 · 河间王曾孙</text>
-        <text data-detail="fine" x="797.5" y="1881" class="t-frontend" font-size="7" text-anchor="middle">卖官鬻爵·黄巾起义</text>
-        </g>
-
-        <g id="node-chongdi" data-node-id="chongdi" data-node-label="汉冲帝 刘炳" tabindex="0" role="button" aria-label="Focus 汉冲帝 刘炳, 在位 144-145 · 顺帝独子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="在位 144-145 · 顺帝独子" data-node-tag="两岁即位三岁早夭" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉冲帝 刘炳 · 在位 144-145 · 顺帝独子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 两岁即位三岁早夭</title>
-          <rect x="280" y="1960" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="280" y="1960" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(286 1966) scale(0.6875)">
-            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="357.5" y="1990" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉冲帝 刘炳</text>
-        <text data-detail="context" x="357.5" y="2006" class="t-muted" font-size="9" text-anchor="middle">在位 144-145 · 顺帝独子</text>
-        <text data-detail="fine" x="357.5" y="2016" class="t-external" font-size="7" text-anchor="middle">两岁即位三岁早夭</text>
-        </g>
-
-        <g id="node-shaodi2" data-node-id="shaodi2" data-node-label="弘农王 (少帝) 刘辩" tabindex="0" role="button" aria-label="Focus 弘农王 (少帝) 刘辩, 在位 189 (数月) · 灵帝长子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="external" data-node-sublabel="在位 189 (数月) · 灵帝长子" data-node-tag="董卓入洛废杀" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>弘农王 (少帝) 刘辩 · 在位 189 (数月) · 灵帝长子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 董卓入洛废杀</title>
-          <rect x="490" y="1960" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="490" y="1960" width="155" height="64" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-external" transform="translate(496 1966) scale(0.6875)">
-            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="567.5" y="1990" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">弘农王 (少帝) 刘辩</text>
-        <text data-detail="context" x="567.5" y="2006" class="t-muted" font-size="9" text-anchor="middle">在位 189 (数月) · 灵帝长子</text>
-        <text data-detail="fine" x="567.5" y="2016" class="t-external" font-size="7" text-anchor="middle">董卓入洛废杀</text>
-        </g>
-
-        <g id="node-xiandi" data-node-id="xiandi" data-node-label="汉献帝 刘协" tabindex="0" role="button" aria-label="Focus 汉献帝 刘协, 在位 189-220 · 灵帝次子, 东汉东京皇统 (公元25 - 220年 · 定都洛阳)" aria-pressed="false" data-node-kind="security" data-node-sublabel="在位 189-220 · 灵帝次子" data-node-tag="末代献帝·禅让魏武" data-node-context="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <title>汉献帝 刘协 · 在位 189-220 · 灵帝次子 · 东汉东京皇统 (公元25 - 220年 · 定都洛阳) · 末代献帝·禅让魏武</title>
-          <rect x="720" y="1960" width="155" height="64" rx="6" class="c-mask"/>
-          <rect x="720" y="1960" width="155" height="64" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="person" class="semantic-sigil s-security" transform="translate(726 1966) scale(0.6875)">
-            <circle cx="8" cy="4.5" r="2.5"/><path d="M3 14v-2a5 5 0 0 1 10 0v2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="797.5" y="1990" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉献帝 刘协</text>
-        <text data-detail="context" x="797.5" y="2006" class="t-muted" font-size="9" text-anchor="middle">在位 189-220 · 灵帝次子</text>
-        <text data-detail="fine" x="797.5" y="2016" class="t-security" font-size="7" text-anchor="middle">末代献帝·禅让魏武</text>
+          <text data-node-label="" data-detail-anchor="" x="1057.5" y="1440" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">汉献帝 刘协</text>
+        <text data-detail="context" x="1057.5" y="1456" class="t-muted" font-size="9" text-anchor="middle">189-220 · 灵帝次子</text>
+        <text data-detail="fine" x="1057.5" y="1466" class="t-security" font-size="7" text-anchor="middle">末代献帝·禅让魏武</text>
         </g>
 
         <!-- Connection labels -->
@@ -5552,37 +5620,37 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <rect x="83.1" y="152.5" width="48.4" height="14" rx="3" class="c-mask"/>
           <text x="107.3" y="162.5" class="t-edge-default" font-size="8" text-anchor="middle">嫡长传位</text>
         </g>
-        <g data-detail="context" data-edge-from="gaozu" data-edge-to="wendi" data-edge-label="四子代王入继" data-edge-key="1" data-edge-id="gaozu-to-wendi">
-          <rect x="213.7" y="139.5" width="67.6" height="14" rx="3" class="c-mask"/>
-          <text x="247.5" y="149.5" class="t-edge-default" font-size="8" text-anchor="middle">四子代王入继</text>
+        <g data-detail="context" data-edge-from="gaozu" data-edge-to="wendi" data-edge-label="代王入继" data-edge-key="1" data-edge-id="gaozu-to-wendi">
+          <rect x="228.3" y="139.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="252.5" y="149.5" class="t-edge-default" font-size="8" text-anchor="middle">代王入继</text>
         </g>
         <g data-detail="context" data-edge-from="wendi" data-edge-to="jingdi" data-edge-label="嫡长传位" data-edge-key="2" data-edge-id="wendi-to-jingdi">
-          <rect x="303.1" y="287.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="327.3" y="297.5" class="t-edge-default" font-size="8" text-anchor="middle">嫡长传位</text>
+          <rect x="313.1" y="287.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="337.3" y="297.5" class="t-edge-default" font-size="8" text-anchor="middle">嫡长传位</text>
         </g>
         <g data-detail="context" data-edge-from="jingdi" data-edge-to="wudi" data-edge-label="十子继位" data-edge-key="3" data-edge-id="jingdi-to-wudi">
-          <rect x="303.1" y="422.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="327.3" y="432.5" class="t-edge-default" font-size="8" text-anchor="middle">十子继位</text>
+          <rect x="313.1" y="422.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="337.3" y="432.5" class="t-edge-default" font-size="8" text-anchor="middle">十子继位</text>
         </g>
-        <g data-detail="context" data-edge-from="jingdi" data-edge-to="liufa" data-edge-label="六子封长沙" data-edge-key="4" data-edge-id="jingdi-to-liufa">
-          <rect x="548.5" y="342" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="577.5" y="352" class="t-edge-default" font-size="8" text-anchor="middle">六子封长沙</text>
+        <g data-detail="context" data-edge-from="jingdi" data-edge-to="liufa" data-edge-label="封长沙王" data-edge-key="4" data-edge-id="jingdi-to-liufa">
+          <rect x="458.3" y="342" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="482.5" y="352" class="t-edge-default" font-size="8" text-anchor="middle">封长沙王</text>
         </g>
         <g data-detail="context" data-edge-from="liufa" data-edge-to="guangwu" data-edge-label="六世孙·重光汉室" data-edge-key="5" data-edge-id="liufa-to-guangwu">
-          <rect x="681.75" y="982" width="82" height="14" rx="3" class="c-mask"/>
-          <text x="722.75" y="992" class="t-edge-emphasis" font-size="8" text-anchor="middle">六世孙·重光汉室</text>
+          <rect x="512" y="422.5" width="82" height="14" rx="3" class="c-mask"/>
+          <text x="553" y="432.5" class="t-edge-emphasis" font-size="8" text-anchor="middle">六世孙·重光汉室</text>
         </g>
         <g data-detail="context" data-edge-from="wudi" data-edge-to="litai" data-edge-label="立戾太子" data-edge-key="6" data-edge-id="wudi-to-litai">
-          <rect x="223.3" y="544.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="247.5" y="554.5" class="t-edge-default" font-size="8" text-anchor="middle">立戾太子</text>
+          <rect x="228.3" y="544.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="252.5" y="554.5" class="t-edge-default" font-size="8" text-anchor="middle">立戾太子</text>
         </g>
         <g data-detail="context" data-edge-from="wudi" data-edge-to="zhaodi" data-edge-label="幼子受遗诏" data-edge-key="7" data-edge-id="wudi-to-zhaodi">
-          <rect x="293.5" y="557.5" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="322.5" y="567.5" class="t-edge-default" font-size="8" text-anchor="middle">幼子受遗诏</text>
+          <rect x="310.5" y="557.5" width="58" height="14" rx="3" class="c-mask"/>
+          <text x="339.5" y="567.5" class="t-edge-default" font-size="8" text-anchor="middle">幼子受遗诏</text>
         </g>
-        <g data-detail="context" data-edge-from="wudi" data-edge-to="liuhe" data-edge-label="孙辈昌邑王" data-edge-key="8" data-edge-id="wudi-to-liuhe">
-          <rect x="433.5" y="544.5" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="462.5" y="554.5" class="t-edge-default" font-size="8" text-anchor="middle">孙辈昌邑王</text>
+        <g data-detail="context" data-edge-from="wudi" data-edge-to="liuhe" data-edge-label="迎立昌邑王" data-edge-key="8" data-edge-id="wudi-to-liuhe">
+          <rect x="405" y="557.5" width="58" height="14" rx="3" class="c-mask"/>
+          <text x="434" y="567.5" class="t-edge-default" font-size="8" text-anchor="middle">迎立昌邑王</text>
         </g>
         <g data-detail="context" data-edge-from="litai" data-edge-to="xuandi" data-edge-label="亲孙入统" data-edge-key="9" data-edge-id="litai-to-xuandi">
           <rect x="83.1" y="692.5" width="48.4" height="14" rx="3" class="c-mask"/>
@@ -5593,88 +5661,88 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <text x="107.3" y="837.5" class="t-edge-default" font-size="8" text-anchor="middle">嫡长传位</text>
         </g>
         <g data-detail="context" data-edge-from="yuandi" data-edge-to="chengdi" data-edge-label="嫡子传位" data-edge-key="11" data-edge-id="yuandi-to-chengdi">
-          <rect x="83.1" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="107.3" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">嫡子传位</text>
+          <rect x="76.1" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="100.3" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">嫡子传位</text>
         </g>
         <g data-detail="context" data-edge-from="yuandi" data-edge-to="liukang" data-edge-label="次子封定陶" data-edge-key="12" data-edge-id="yuandi-to-liukang">
-          <rect x="218.5" y="875" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="247.5" y="885" class="t-edge-default" font-size="8" text-anchor="middle">次子封定陶</text>
+          <rect x="223.5" y="882" width="58" height="14" rx="3" class="c-mask"/>
+          <text x="252.5" y="892" class="t-edge-default" font-size="8" text-anchor="middle">次子封定陶</text>
         </g>
         <g data-detail="context" data-edge-from="yuandi" data-edge-to="liuxing" data-edge-label="三子封中山" data-edge-key="13" data-edge-id="yuandi-to-liuxing">
-          <rect x="175" y="938.75" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="204" y="948.75" class="t-edge-default" font-size="8" text-anchor="middle">三子封中山</text>
+          <rect x="42" y="1097.5" width="58" height="14" rx="3" class="c-mask"/>
+          <text x="71" y="1107.5" class="t-edge-default" font-size="8" text-anchor="middle">三子封中山</text>
         </g>
         <g data-detail="context" data-edge-from="liukang" data-edge-to="aidi" data-edge-label="子继大统" data-edge-key="14" data-edge-id="liukang-to-aidi">
-          <rect x="303.1" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="327.3" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">子继大统</text>
+          <rect x="313.1" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="337.3" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">子继大统</text>
         </g>
         <g data-detail="context" data-edge-from="liuxing" data-edge-to="pingdi" data-edge-label="子继大统" data-edge-key="15" data-edge-id="liuxing-to-pingdi">
-          <rect x="513.0999999999999" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="537.3" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">子继大统</text>
+          <rect x="228.3" y="1152" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="252.5" y="1162" class="t-edge-default" font-size="8" text-anchor="middle">子继大统</text>
         </g>
         <g data-detail="context" data-edge-from="pingdi" data-edge-to="ruzi" data-edge-label="选立孺子" data-edge-key="16" data-edge-id="pingdi-to-ruzi">
-          <rect x="673.3" y="1017" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="697.5" y="1027" class="t-edge-default" font-size="8" text-anchor="middle">选立孺子</text>
+          <rect x="313.1" y="1232.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="337.3" y="1242.5" class="t-edge-default" font-size="8" text-anchor="middle">选立孺子</text>
         </g>
         <g data-detail="context" data-edge-from="guangwu" data-edge-to="mingdi" data-edge-label="四子传位" data-edge-key="17" data-edge-id="guangwu-to-mingdi">
-          <rect x="515.5999999999999" y="1242.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="539.8" y="1252.5" class="t-edge-default" font-size="8" text-anchor="middle">四子传位</text>
+          <rect x="545.5999999999999" y="557.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="569.8" y="567.5" class="t-edge-default" font-size="8" text-anchor="middle">四子传位</text>
         </g>
         <g data-detail="context" data-edge-from="mingdi" data-edge-to="zhangdi" data-edge-label="五子传位" data-edge-key="18" data-edge-id="mingdi-to-zhangdi">
-          <rect x="515.5999999999999" y="1377.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="539.8" y="1387.5" class="t-edge-default" font-size="8" text-anchor="middle">五子传位</text>
+          <rect x="545.5999999999999" y="692.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="569.8" y="702.5" class="t-edge-default" font-size="8" text-anchor="middle">五子传位</text>
         </g>
         <g data-detail="context" data-edge-from="zhangdi" data-edge-to="hedi" data-edge-label="四子继位" data-edge-key="19" data-edge-id="zhangdi-to-hedi">
-          <rect x="113.3" y="1476.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="137.5" y="1486.5" class="t-edge-default" font-size="8" text-anchor="middle">四子继位</text>
+          <rect x="471.8" y="814.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="496" y="824.5" class="t-edge-default" font-size="8" text-anchor="middle">四子继位</text>
         </g>
         <g data-detail="context" data-edge-from="zhangdi" data-edge-to="liuqing" data-edge-label="长子封清河" data-edge-key="20" data-edge-id="zhangdi-to-liuqing">
-          <rect x="433.5" y="1499.5" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="462.5" y="1509.5" class="t-edge-default" font-size="8" text-anchor="middle">长子封清河</text>
+          <rect x="724.75" y="747" width="58" height="14" rx="3" class="c-mask"/>
+          <text x="753.75" y="757" class="t-edge-default" font-size="8" text-anchor="middle">长子封清河</text>
         </g>
         <g data-detail="context" data-edge-from="zhangdi" data-edge-to="liukang2" data-edge-label="子封千乘" data-edge-key="21" data-edge-id="zhangdi-to-liukang2">
-          <rect x="551.55" y="1499.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="575.75" y="1509.5" class="t-edge-default" font-size="8" text-anchor="middle">子封千乘</text>
+          <rect x="613.8" y="847" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="638" y="857" class="t-edge-default" font-size="8" text-anchor="middle">子封千乘</text>
         </g>
         <g data-detail="context" data-edge-from="zhangdi" data-edge-to="liukai" data-edge-label="六子封河间" data-edge-key="22" data-edge-id="zhangdi-to-liukai">
-          <rect x="656" y="1499.5" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="685" y="1509.5" class="t-edge-default" font-size="8" text-anchor="middle">六子封河间</text>
+          <rect x="759.5" y="803" width="58" height="14" rx="3" class="c-mask"/>
+          <text x="788.5" y="813" class="t-edge-default" font-size="8" text-anchor="middle">六子封河间</text>
         </g>
         <g data-detail="context" data-edge-from="hedi" data-edge-to="shangdi" data-edge-label="幼子即位" data-edge-key="23" data-edge-id="hedi-to-shangdi">
-          <rect x="83.1" y="1647.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="107.3" y="1657.5" class="t-edge-default" font-size="8" text-anchor="middle">幼子即位</text>
+          <rect x="545.5999999999999" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="569.8" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">幼子即位</text>
         </g>
         <g data-detail="context" data-edge-from="liuqing" data-edge-to="andi" data-edge-label="清河入嗣" data-edge-key="24" data-edge-id="liuqing-to-andi">
-          <rect x="303.1" y="1647.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="327.3" y="1657.5" class="t-edge-default" font-size="8" text-anchor="middle">清河入嗣</text>
+          <rect x="773.0999999999999" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="797.3" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">清河入嗣</text>
         </g>
         <g data-detail="context" data-edge-from="andi" data-edge-to="shundi" data-edge-label="独子继位" data-edge-key="25" data-edge-id="andi-to-shundi">
-          <rect x="303.1" y="1782.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="327.3" y="1792.5" class="t-edge-default" font-size="8" text-anchor="middle">独子继位</text>
+          <rect x="773.0999999999999" y="1097.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="797.3" y="1107.5" class="t-edge-default" font-size="8" text-anchor="middle">独子继位</text>
         </g>
         <g data-detail="context" data-edge-from="shundi" data-edge-to="chongdi" data-edge-label="幼子即位" data-edge-key="26" data-edge-id="shundi-to-chongdi">
-          <rect x="303.1" y="1917.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="327.3" y="1927.5" class="t-edge-default" font-size="8" text-anchor="middle">幼子即位</text>
+          <rect x="773.0999999999999" y="1232.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="797.3" y="1242.5" class="t-edge-default" font-size="8" text-anchor="middle">幼子即位</text>
         </g>
         <g data-detail="context" data-edge-from="liukang2" data-edge-to="zhidi" data-edge-label="曾孙迎立" data-edge-key="27" data-edge-id="liukang2-to-zhidi">
-          <rect x="513.0999999999999" y="1647.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="537.3" y="1657.5" class="t-edge-default" font-size="8" text-anchor="middle">曾孙迎立</text>
+          <rect x="545.5999999999999" y="1232.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="569.8" y="1242.5" class="t-edge-default" font-size="8" text-anchor="middle">曾孙迎立</text>
         </g>
         <g data-detail="context" data-edge-from="liukai" data-edge-to="huandi" data-edge-label="亲孙迎立" data-edge-key="28" data-edge-id="liukai-to-huandi">
-          <rect x="736.0999999999999" y="1647.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="760.3" y="1657.5" class="t-edge-default" font-size="8" text-anchor="middle">亲孙迎立</text>
+          <rect x="996.0999999999999" y="962.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="1020.3" y="972.5" class="t-edge-default" font-size="8" text-anchor="middle">亲孙迎立</text>
         </g>
         <g data-detail="context" data-edge-from="liukai" data-edge-to="lingdi" data-edge-label="曾孙迎立" data-edge-key="29" data-edge-id="liukai-to-lingdi">
-          <rect x="827.55" y="1623" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="851.75" y="1633" class="t-edge-default" font-size="8" text-anchor="middle">曾孙迎立</text>
+          <rect x="931.8" y="1017" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="956" y="1027" class="t-edge-default" font-size="8" text-anchor="middle">曾孙迎立</text>
         </g>
         <g data-detail="context" data-edge-from="lingdi" data-edge-to="shaodi2" data-edge-label="长子继位" data-edge-key="30" data-edge-id="lingdi-to-shaodi2">
-          <rect x="658.3" y="1904.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="682.5" y="1914.5" class="t-edge-default" font-size="8" text-anchor="middle">长子继位</text>
+          <rect x="995.05" y="1232.5" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="1019.25" y="1242.5" class="t-edge-default" font-size="8" text-anchor="middle">长子继位</text>
         </g>
         <g data-detail="context" data-edge-from="lingdi" data-edge-to="xiandi" data-edge-label="次子禅魏" data-edge-key="31" data-edge-id="lingdi-to-xiandi">
-          <rect x="743.0999999999999" y="1917.5" width="48.4" height="14" rx="3" class="c-mask"/>
-          <text x="767.3" y="1927.5" class="t-edge-emphasis" font-size="8" text-anchor="middle">次子禅魏</text>
+          <rect x="1087.55" y="1208" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="1111.75" y="1218" class="t-edge-emphasis" font-size="8" text-anchor="middle">次子禅魏</text>
         </g>
 
         <!-- Boundary labels (foreground masks keep routes out of titles) -->
@@ -5684,37 +5752,37 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </g>
 
         <g data-graph-role="structural-frame-label" data-composition-frame-id="1" data-composition-frame-kind="region" data-composition-frame-label="东汉东京皇统 (公元25 - 220年 · 定都洛阳)">
-          <rect data-graph-role="structural-frame-label-mask" x="34" y="1130" width="226" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="38" y="1143" class="t-cloud" font-size="9" font-weight="600">东汉东京皇统 (公元25 - 220年 · 定都洛阳)</text>
+          <rect data-graph-role="structural-frame-label-mask" x="494" y="445" width="226" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="498" y="458" class="t-cloud" font-size="9" font-weight="600">东汉东京皇统 (公元25 - 220年 · 定都洛阳)</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="2" data-composition-frame-kind="security-group" data-composition-frame-label="汉家极盛中兴期 (文景至武宣、光武明章)">
-          <rect data-graph-role="structural-frame-label-mask" x="34" y="175" width="209.79999999999998" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="38" y="188" class="t-security" font-size="9" font-weight="600">汉家极盛中兴期 (文景至武宣、光武明章)</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="2" data-composition-frame-kind="security-group" data-composition-frame-label="两汉中兴与龙脉传承核心轴">
+          <rect data-graph-role="structural-frame-label-mask" x="264" y="310" width="139.6" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="268" y="323" class="t-security" font-size="9" font-weight="600">两汉中兴与龙脉传承核心轴</text>
         </g>
 
         <!-- Legend -->
         <g data-legend="" data-legend-bridge="">
-          <text x="40" y="2076" class="t-primary" font-size="12" font-weight="650">Legend</text>
-          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="Frontend" data-legend-x="40" data-legend-baseline="2096" data-legend-width="83">
-            <rect x="40" y="2087" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
-            <text x="62" y="2096" class="t-muted" font-size="10" font-weight="500">Frontend</text>
+          <text x="40" y="1526" class="t-primary" font-size="12" font-weight="650">Legend</text>
+          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="Frontend" data-legend-x="40" data-legend-baseline="1546" data-legend-width="83">
+            <rect x="40" y="1537" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
+            <text x="62" y="1546" class="t-muted" font-size="10" font-weight="500">Frontend</text>
           </g>
-          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="Backend" data-legend-x="145" data-legend-baseline="2096" data-legend-width="78">
-            <rect x="145" y="2087" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
-            <text x="167" y="2096" class="t-muted" font-size="10" font-weight="500">Backend</text>
+          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="Backend" data-legend-x="145" data-legend-baseline="1546" data-legend-width="78">
+            <rect x="145" y="1537" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
+            <text x="167" y="1546" class="t-muted" font-size="10" font-weight="500">Backend</text>
           </g>
-          <g data-legend-semantic-kind="cloud" data-legend-kind="cloud" data-legend-label="Cloud" data-legend-x="245" data-legend-baseline="2096" data-legend-width="68">
-            <rect x="245" y="2087" width="16" height="10" rx="2.5" class="c-cloud" stroke-width="1"/>
-            <text x="267" y="2096" class="t-muted" font-size="10" font-weight="500">Cloud</text>
+          <g data-legend-semantic-kind="cloud" data-legend-kind="cloud" data-legend-label="Cloud" data-legend-x="245" data-legend-baseline="1546" data-legend-width="68">
+            <rect x="245" y="1537" width="16" height="10" rx="2.5" class="c-cloud" stroke-width="1"/>
+            <text x="267" y="1546" class="t-muted" font-size="10" font-weight="500">Cloud</text>
           </g>
-          <g data-legend-semantic-kind="security" data-legend-kind="security" data-legend-label="Security" data-legend-x="335" data-legend-baseline="2096" data-legend-width="83">
-            <rect x="335" y="2087" width="16" height="10" rx="2.5" class="c-security" stroke-width="1"/>
-            <text x="357" y="2096" class="t-muted" font-size="10" font-weight="500">Security</text>
+          <g data-legend-semantic-kind="security" data-legend-kind="security" data-legend-label="Security" data-legend-x="335" data-legend-baseline="1546" data-legend-width="83">
+            <rect x="335" y="1537" width="16" height="10" rx="2.5" class="c-security" stroke-width="1"/>
+            <text x="357" y="1546" class="t-muted" font-size="10" font-weight="500">Security</text>
           </g>
-          <g data-legend-semantic-kind="external" data-legend-kind="external" data-legend-label="External" data-legend-x="440" data-legend-baseline="2096" data-legend-width="83">
-            <rect x="440" y="2087" width="16" height="10" rx="2.5" class="c-external" stroke-width="1"/>
-            <text x="462" y="2096" class="t-muted" font-size="10" font-weight="500">External</text>
+          <g data-legend-semantic-kind="external" data-legend-kind="external" data-legend-label="External" data-legend-x="440" data-legend-baseline="1546" data-legend-width="83">
+            <rect x="440" y="1537" width="16" height="10" rx="2.5" class="c-external" stroke-width="1"/>
+            <text x="462" y="1546" class="t-muted" font-size="10" font-weight="500">External</text>
           </g>
         </g>
       </svg>
@@ -14284,35 +14352,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     });
   </script>
 
-<style>
-  .btn-back-home {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    z-index: 9999;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: rgba(15, 23, 42, 0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: #e2e8f0;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    border-radius: 9999px;
-    font-size: 13.5px;
-    font-weight: 500;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    transition: all 0.25s ease;
-  }
-  .btn-back-home:hover {
-    border-color: #d4af37;
-    color: #f3e5ab;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.3);
-  }
-</style>
 <a href="/" class="btn-back-home" title="返回橡胶童话博客首页">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
