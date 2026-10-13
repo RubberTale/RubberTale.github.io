@@ -64,6 +64,7 @@ skip_render:
   - "roman/**"
   - "world-history/**"
   - "royal-genealogy/**"
+  - "han-genealogy/**"
   - "google*.html"
   - "**/narration-video-suite/**"
   - "**/旁白/**"
