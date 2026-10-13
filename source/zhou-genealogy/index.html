@@ -4868,18 +4868,53 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   
-  /* Node text readability polish */
+  /* === Desktop Readability & Full Width Enhancements === */
+  .container {
+    width: 98% !important;
+    max-width: 1680px !important;
+    margin: 0 auto !important;
+  }
+  .diagram-container {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    padding: 1.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .diagram-container > svg {
+    min-width: 1140px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+  html[data-reader-narrow="true"]:not([data-present="true"]) .diagram-container > svg {
+    min-width: 1140px !important;
+    max-width: 100% !important;
+  }
+  /* Large Font Size Overrides */
   svg text[data-node-label] {
-    font-size: 11.5px !important;
+    font-size: 13.5px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.5px !important;
   }
   svg text[data-detail="context"] {
-    font-size: 9.2px !important;
+    font-size: 10.8px !important;
     font-weight: 500 !important;
   }
   svg text[data-detail="fine"] {
-    font-size: 7.5px !important;
+    font-size: 9.2px !important;
+    font-weight: 600 !important;
+  }
+  svg text[data-boundary-label] {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+  }
+  svg text.t-edge-default,
+  svg text.t-edge-emphasis,
+  svg text.t-edge-security,
+  svg text.t-edge-dashed {
+    font-size: 10px !important;
     font-weight: 600 !important;
   }
   /* Floating Back to Blog Home Button */

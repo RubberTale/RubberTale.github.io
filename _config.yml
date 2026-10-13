@@ -66,6 +66,7 @@ skip_render:
   - "royal-genealogy/**"
   - "han-genealogy/**"
   - "zhou-genealogy/**"
+  - "song-genealogy/**"
   - "google*.html"
   - "**/narration-video-suite/**"
   - "**/旁白/**"
