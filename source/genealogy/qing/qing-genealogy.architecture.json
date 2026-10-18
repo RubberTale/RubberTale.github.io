@@ -41,7 +41,7 @@
     {
       "id": "taizu",
       "type": "frontend",
-      "label": "清太祖 努尔哈赤",
+      "label": "1. 清太祖 努尔哈赤",
       "sublabel": "十三副遗甲起兵 · 统一女真创八旗 · 萨尔浒之战大捷",
       "pos": [
         40,
@@ -56,7 +56,7 @@
     {
       "id": "taizong",
       "type": "frontend",
-      "label": "1. 清太宗 皇太极",
+      "label": "2. 清太宗 皇太极",
       "sublabel": "改国号为大清改族名满洲 · 降朝鲜破锦州 · 猝崩",
       "pos": [
         40,
@@ -86,7 +86,7 @@
     {
       "id": "shizu",
       "type": "backend",
-      "label": "2. 清世祖 福临",
+      "label": "3. 清世祖 福临",
       "sublabel": "皇太极九子入关首帝 · 抚定中原定都北京 · 宠董鄂妃早崩",
       "pos": [
         40,
@@ -101,7 +101,7 @@
     {
       "id": "shengzu",
       "type": "frontend",
-      "label": "3. 清圣祖 玄烨",
+      "label": "4. 清圣祖 玄烨",
       "sublabel": "擒鳌拜平三藩逐沙俄收台湾 · 亲征准噶尔 · 奠定帝国版图",
       "pos": [
         320,
@@ -131,7 +131,7 @@
     {
       "id": "shizong",
       "type": "frontend",
-      "label": "4. 清世宗 胤禛 (zhēn)",
+      "label": "5. 清世宗 胤禛 (zhēn)",
       "sublabel": "设军机处改土归流 · 摊丁入亩整饬吏治 · 勤政十三载暴崩",
       "pos": [
         320,
@@ -146,7 +146,7 @@
     {
       "id": "gaozong",
       "type": "frontend",
-      "label": "5. 清高宗 弘历",
+      "label": "6. 清高宗 弘历",
       "sublabel": "自封十全老人全盛帝国 · 编纂四库全书 · 晚年宠和珅吏治衰",
       "pos": [
         320,
@@ -161,7 +161,7 @@
     {
       "id": "renzong",
       "type": "backend",
-      "label": "6. 清仁宗 颙琰 (yǎn)",
+      "label": "7. 清仁宗 颙琰 (yǎn)",
       "sublabel": "赐死和珅整肃贪腐 · 白莲教天理教大起义 · 盛世转衰",
       "pos": [
         600,
@@ -176,7 +176,7 @@
     {
       "id": "xuanzong",
       "type": "security",
-      "label": "7. 清宣宗 旻宁 (míng)",
+      "label": "8. 清宣宗 旻宁 (míng)",
       "sublabel": "崇尚节俭补丁龙袍 · 鸦片战争南京条约 · 割香港开五口",
       "pos": [
         600,
@@ -191,7 +191,7 @@
     {
       "id": "wenzong",
       "type": "security",
-      "label": "8. 清文宗 奕詝 (zhǔ)",
+      "label": "9. 清文宗 奕詝 (zhǔ)",
       "sublabel": "太平天国失半壁江山 · 英法联军火烧圆明园 · 避暑山庄崩",
       "pos": [
         600,
@@ -236,7 +236,7 @@
     {
       "id": "muzong",
       "type": "backend",
-      "label": "9. 清穆宗 载淳",
+      "label": "10. 清穆宗 载淳",
       "sublabel": "咸丰独子慈禧生母 · 同治中兴平定捻回 · 十九岁染天花崩",
       "pos": [
         880,
@@ -251,7 +251,7 @@
     {
       "id": "dezong",
       "type": "security",
-      "label": "10. 清德宗 载湉 (tián)",
+      "label": "11. 清德宗 载湉 (tián)",
       "sublabel": "醇亲王奕譞子入嗣 · 甲午战败戊戌变法 · 瀛台囚禁砒霜鸩死",
       "pos": [
         880,
@@ -266,7 +266,7 @@
     {
       "id": "xuantong",
       "type": "external",
-      "label": "11. 宣统帝 溥仪",
+      "label": "12. 宣统帝 溥仪",
       "sublabel": "醇亲王载沣子登基 · 辛亥革命隆裕宣读逊位诏书 · 清朝终局",
       "pos": [
         880,
