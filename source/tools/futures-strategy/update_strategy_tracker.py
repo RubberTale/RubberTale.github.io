@@ -36,7 +36,15 @@ SINA_CONTRACT_MAP = {
     "EB705": "nf_EB2705",
     "UR701": "nf_UR2701",
     "UR705": "nf_UR2705",
-    "AU2612": "nf_AU2612"
+    "AU2612": "nf_AU2612",
+    "CU2612": "nf_CU2612",
+    "AL2612": "nf_AL2612",
+    "FU2611": "nf_FU2611",
+    "SC2612": "nf_SC2612",
+    "PX701": "nf_PX2701",
+    "PX705": "nf_PX2705",
+    "PP701": "nf_PP2701",
+    "PP705": "nf_PP2705"
 }
 
 def load_data(file_path: str = None) -> Dict[str, Any]:
@@ -138,6 +146,48 @@ def fetch_sina_quotes() -> Tuple[str, Dict[str, Dict[str, float]]]:
         market_quotes["AU701 Collar"] = {"high": au["high"], "low": au["low"], "close": au["close"]}
         market_quotes["AU-COLLAR"] = market_quotes["AU701 Collar"]
         market_quotes["AU"] = market_quotes["AU701 Collar"]
+
+    cu = raw_quotes.get("nf_CU2612")
+    al = raw_quotes.get("nf_AL2612")
+    fu = raw_quotes.get("nf_FU2611")
+    sc = raw_quotes.get("nf_SC2612")
+    px1 = raw_quotes.get("nf_PX2701")
+    px5 = raw_quotes.get("nf_PX2705")
+    pp1 = raw_quotes.get("nf_PP2701")
+    pp5 = raw_quotes.get("nf_PP2705")
+
+    if cu and al:
+        ratio_close = round(cu["close"] / al["close"], 3) if al["close"] > 0 else 0
+        ratio_high = round(cu["high"] / al["low"], 3) if al["low"] > 0 else 0
+        ratio_low = round(cu["low"] / al["high"], 3) if al["high"] > 0 else 0
+        market_quotes["CU2612/AL2612"] = {"high": ratio_high, "low": ratio_low, "close": ratio_close}
+        market_quotes["CU-AL"] = market_quotes["CU2612/AL2612"]
+    if cu:
+        market_quotes["CU2612-P-105000"] = {"high": cu["high"], "low": cu["low"], "close": cu["close"]}
+        market_quotes["CU"] = market_quotes["CU2612-P-105000"]
+    if al:
+        market_quotes["AL2612-P-22000"] = {"high": al["high"], "low": al["low"], "close": al["close"]}
+        market_quotes["AL"] = market_quotes["AL2612-P-22000"]
+    if fu:
+        market_quotes["FU2611"] = {"high": fu["high"], "low": fu["low"], "close": fu["close"]}
+        market_quotes["FU"] = market_quotes["FU2611"]
+    if sc:
+        market_quotes["SC2612"] = {"high": sc["high"], "low": sc["low"], "close": sc["close"]}
+        market_quotes["SC"] = market_quotes["SC2612"]
+    if px1 and px5:
+        market_quotes["PX701-PX705"] = {
+            "high": round(px1["high"] - px5["low"], 2),
+            "low": round(px1["low"] - px5["high"], 2),
+            "close": round(px1["close"] - px5["close"], 2)
+        }
+        market_quotes["PX"] = market_quotes["PX701-PX705"]
+    if pp1 and pp5:
+        market_quotes["PP701-PP705"] = {
+            "high": round(pp1["high"] - pp5["low"], 2),
+            "low": round(pp1["low"] - pp5["high"], 2),
+            "close": round(pp1["close"] - pp5["close"], 2)
+        }
+        market_quotes["PP"] = market_quotes["PP701-PP705"]
 
     return trade_date, market_quotes
 
