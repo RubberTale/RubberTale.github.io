@@ -1,0 +1,638 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大唐二十一帝与武周皇统全景谱系",
+    "subtitle": "近三百年盛唐风骨 · 晋阳起兵贞观盛世至朱温篡唐全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "太原肇基与皇储储君",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国英主与中兴名君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "武周鼎革与宗室拥立",
+          "visible": true
+        },
+        "security": {
+          "label": "兵变废立与流亡幼主",
+          "visible": true
+        },
+        "external": {
+          "label": "末代降主与五代终局",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "gaozu",
+      "type": "cloud",
+      "label": "唐高祖 李渊",
+      "sublabel": "太原起兵反隋 · 建立大唐定都长安 · 禅位太上皇",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "618-626 · 在位9年"
+    },
+    {
+      "id": "jiancheng",
+      "type": "database",
+      "label": "隐太子 (李建成)",
+      "sublabel": "高祖长子 · 助定关中军功赫赫 · 玄武门之变被杀",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "唐初太子 · 息王"
+    },
+    {
+      "id": "taizong",
+      "type": "frontend",
+      "label": "1. 唐太宗 李世民",
+      "sublabel": "玄武门之变登基 · 贞观之治 · 天可汗威震万邦",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "626-649 · 在位23年"
+    },
+    {
+      "id": "chengqian",
+      "type": "database",
+      "label": "废太子 (李承乾)",
+      "sublabel": "太宗嫡长子 · 畏惧被废谋反事泄 · 贬为庶人流放",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "太宗长子 · 恒山王"
+    },
+    {
+      "id": "taizi",
+      "type": "database",
+      "label": "魏王 (李泰)",
+      "sublabel": "太宗四子宠冠诸王 · 主修括地志 · 夺嫡朋党贬顺阳",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "濮恭王 · 夺嫡失序"
+    },
+    {
+      "id": "gaozong",
+      "type": "backend",
+      "label": "2. 唐高宗 李治",
+      "sublabel": "太宗九子晋王 · 永徽之治灭高句丽 · 二圣临朝晚年病",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "649-683 · 在位34年"
+    },
+    {
+      "id": "wuhou",
+      "type": "frontend",
+      "label": "3. 武周则天皇帝 (武曌 zhào)",
+      "sublabel": "改国号为周 · 华夏唯一正统女皇 · 上承贞观下启开元",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "690-705 · 武周15年"
+    },
+    {
+      "id": "zhongzong",
+      "type": "backend",
+      "label": "4. 唐中宗 李显 (xiǎn)",
+      "sublabel": "高宗七子 · 废封庐陵王 · 神龙政变复唐韦后毒弑",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "684/705-710 · 复位5年"
+    },
+    {
+      "id": "shaodi",
+      "type": "security",
+      "label": "殇帝 (李重茂)",
+      "sublabel": "中宗幼子温王 · 韦后立为傀儡 · 唐隆政变下台",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "710年 · 在位仅17天"
+    },
+    {
+      "id": "ruizong",
+      "type": "backend",
+      "label": "5. 唐睿宗 李旦 (dàn)",
+      "sublabel": "高宗八子 · 三让天下避祸 · 唐隆政变复位禅位玄宗",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "684/710-712 · 复位2年"
+    },
+    {
+      "id": "xuanzong",
+      "type": "frontend",
+      "label": "6. 唐玄宗 李隆基",
+      "sublabel": "开元盛世万邦来朝 · 宠杨贵妃杨国忠 · 安史之乱幸蜀",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "712-756 · 在位44年"
+    },
+    {
+      "id": "suzong",
+      "type": "frontend",
+      "label": "7. 唐肃宗 李亨 (hēng)",
+      "sublabel": "玄宗三子灵武即位 · 郭子仪李光弼平叛 · 收复两京",
+      "pos": [
+        320,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "756-762 · 在位6年"
+    },
+    {
+      "id": "daizong",
+      "type": "backend",
+      "label": "8. 唐代宗 李豫 (yù)",
+      "sublabel": "肃宗长子 · 平定安史乱收复东都 · 吐蕃陷长安宦官起",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "762-779 · 在位17年"
+    },
+    {
+      "id": "dezong",
+      "type": "backend",
+      "label": "9. 唐德宗 李适 (kuò)",
+      "sublabel": "代宗长子 · 削藩引发泾原兵变奉天定难 · 姑息藩镇",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "779-805 · 在位26年"
+    },
+    {
+      "id": "shunzong",
+      "type": "security",
+      "label": "10. 唐顺宗 李诵 (sòng)",
+      "sublabel": "德宗长子 · 永贞革新二王八司马 · 中风失语内禅",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "805年 · 在位八月"
+    },
+    {
+      "id": "xianzong",
+      "type": "frontend",
+      "label": "11. 唐宪宗 李纯 (chún)",
+      "sublabel": "元和中兴力拔淮西蔡州雪夜 · 藩镇服从晚年服丹弑",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "805-820 · 在位15年"
+    },
+    {
+      "id": "muzong",
+      "type": "backend",
+      "label": "12. 唐穆宗 李恒 (héng)",
+      "sublabel": "宪宗三子宴乐荒怠 · 幽镇魏博河朔三镇再度失控",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "820-824 · 在位4年"
+    },
+    {
+      "id": "wuzong",
+      "type": "frontend",
+      "label": "15. 唐武宗 李炎 (yán)",
+      "sublabel": "穆宗五子 · 会昌中兴破回鹘平昭义 · 会昌法难灭佛",
+      "pos": [
+        600,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "840-846 · 在位6年"
+    },
+    {
+      "id": "xuanzong2",
+      "type": "frontend",
+      "label": "16. 唐宣宗 李忱 (chén)",
+      "sublabel": "宪宗十三子 · 大中之治称小太宗 · 收复河湟晚唐残阳",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "846-859 · 在位13年"
+    },
+    {
+      "id": "yizong",
+      "type": "backend",
+      "label": "17. 唐懿宗 李漼 (cuǐ)",
+      "sublabel": "宣宗长子骄奢淫逸 · 庞勋兵变民不聊生 · 晚唐大乱",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "859-873 · 在位14年"
+    },
+    {
+      "id": "xizong",
+      "type": "security",
+      "label": "18. 唐僖宗 李儇 (xuān)",
+      "sublabel": "十二岁即位击球斗鸡 · 黄巢起义占领长安被迫幸蜀",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "873-888 · 在位15年"
+    },
+    {
+      "id": "zhaozong",
+      "type": "security",
+      "label": "19. 唐昭宗 李晔 (yè)",
+      "sublabel": "僖宗七弟试图自强 · 为朱温李茂贞挟持迁洛阳被弑",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "888-904 · 在位16年"
+    },
+    {
+      "id": "aidi",
+      "type": "external",
+      "label": "20. 唐哀帝 李柷 (zhù)",
+      "sublabel": "昭宗九子辉王 · 朱温立为傀儡 · 白马驿之祸后禅位",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "904-907 · 天祐末帝"
+    },
+    {
+      "id": "houliang",
+      "type": "external",
+      "label": "朱温篡唐 · 后梁代国",
+      "sublabel": "白马驿尽杀公卿 · 鸩杀哀帝改元开平 · 大唐立国289年终",
+      "pos": [
+        880,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "907年 · 五代十国始"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "唐初肇基 · 晋阳起兵与贞观之治 (618-649年)",
+      "wraps": [
+        "gaozu",
+        "jiancheng",
+        "taizong",
+        "chengqian",
+        "taizi",
+        "gaozong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "二圣临朝 · 武周鼎革与开元盛世 (649-756年)",
+      "wraps": [
+        "wuhou",
+        "zhongzong",
+        "shaodi",
+        "ruizong",
+        "xuanzong",
+        "suzong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "安史余波 · 肃代恢复与元和中兴 (756-846年)",
+      "wraps": [
+        "daizong",
+        "dezong",
+        "shunzong",
+        "xianzong",
+        "muzong",
+        "wuzong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "残唐落日 · 黄巢之乱与朱温篡代 (846-907年)",
+      "wraps": [
+        "xuanzong2",
+        "yizong",
+        "xizong",
+        "zhaozong",
+        "aidi",
+        "houliang"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-gaozu-jiancheng",
+      "from": "gaozu",
+      "to": "jiancheng",
+      "label": "长子立储",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-jiancheng-taizong",
+      "from": "jiancheng",
+      "to": "taizong",
+      "label": "玄武门之变弑兄",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-taizong-chengqian",
+      "from": "taizong",
+      "to": "chengqian",
+      "label": "嫡长子立废",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-chengqian-taizi",
+      "from": "chengqian",
+      "to": "taizi",
+      "label": "四弟争嫡两废",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-taizong-gaozong",
+      "from": "taizong",
+      "to": "gaozong",
+      "label": "九子晋王立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-gaozong-wuhou",
+      "from": "gaozong",
+      "to": "wuhou",
+      "label": "二圣临朝天后称帝",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wuhou-zhongzong",
+      "from": "wuhou",
+      "to": "zhongzong",
+      "label": "神龙政变复唐",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zhongzong-shaodi",
+      "from": "zhongzong",
+      "to": "shaodi",
+      "label": "韦后弑帝立温王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shaodi-ruizong",
+      "from": "shaodi",
+      "to": "ruizong",
+      "label": "唐隆政变睿宗复位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-ruizong-xuanzong",
+      "from": "ruizong",
+      "to": "xuanzong",
+      "label": "三子平乱受禅",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xuanzong-suzong",
+      "from": "xuanzong",
+      "to": "suzong",
+      "label": "马嵬坡之变灵武登基",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-suzong-daizong",
+      "from": "suzong",
+      "to": "daizong",
+      "label": "长子代宗立"
+    },
+    {
+      "id": "c-daizong-dezong",
+      "from": "daizong",
+      "to": "dezong",
+      "label": "长子德宗立"
+    },
+    {
+      "id": "c-dezong-shunzong",
+      "from": "dezong",
+      "to": "shunzong",
+      "label": "长子顺宗立"
+    },
+    {
+      "id": "c-shunzong-xianzong",
+      "from": "shunzong",
+      "to": "xianzong",
+      "label": "长子宪宗受内禅",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xianzong-muzong",
+      "from": "xianzong",
+      "to": "muzong",
+      "label": "三子穆宗立"
+    },
+    {
+      "id": "c-muzong-wuzong",
+      "from": "muzong",
+      "to": "wuzong",
+      "label": "五子武宗中兴",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xianzong-xuanzong2",
+      "from": "xianzong",
+      "to": "xuanzong2",
+      "label": "十三子光王立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xuanzong2-yizong",
+      "from": "xuanzong2",
+      "to": "yizong",
+      "label": "长子懿宗立"
+    },
+    {
+      "id": "c-yizong-xizong",
+      "from": "yizong",
+      "to": "xizong",
+      "label": "五子僖宗即位"
+    },
+    {
+      "id": "c-xizong-zhaozong",
+      "from": "xizong",
+      "to": "zhaozong",
+      "label": "七弟昭宗立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zhaozong-aidi",
+      "from": "zhaozong",
+      "to": "aidi",
+      "label": "朱温弑昭宗立九子",
+      "variant": "security"
+    },
+    {
+      "id": "c-aidi-houliang",
+      "from": "aidi",
+      "to": "houliang",
+      "label": "禅位朱温大唐覆亡",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "玄武门之变与贞观天可汗",
+      "items": [
+        "626年秦王李世民发动玄武门之变，诛太子建成、齐王元吉，高宗禅位称太宗",
+        "太宗行均田、设科举、选贤任能，成就'贞观之治'，四海归心被尊为'天可汗'",
+        "贞观政体奠定近三百年盛唐基业与东亚国际秩序文化中心"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "武周代唐与开元天宝转折",
+      "items": [
+        "武则天改国号为周（690-705），为中国历史唯一正统女皇，上承贞观下启开元",
+        "玄宗李隆基励精图治开创'开元盛世'极盛，晚期倦政爆发安史之乱，唐朝由盛转衰",
+        "安史之乱后藩镇割据自雄，宦官专权掌控禁军，中央皇权屡遭倾轧"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "元和中兴绝响与白马之祸",
+      "items": [
+        "唐宪宗李纯力行削藩平定淮西，史称'元和中兴'，然因服食丹药暴亡",
+        "黄巢大起义攻陷长安，藩镇各据一方名存实亡，宣武节度使朱温崛起专政",
+        "907年朱温白马驿杀戮公卿，鸩弑哀帝自立后梁，享国289年盛唐落幕，五代乱世启"
+      ]
+    }
+  ]
+}

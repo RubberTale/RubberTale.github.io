@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>欧洲王室谱系与血缘网络 —— 哈拉尔五世与欧洲诸王</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --bg-primary: #0b1120;
+    --bg-card: rgba(18, 28, 48, 0.85);
+    --bg-card-hover: rgba(28, 42, 70, 0.95);
+    --border-color: rgba(212, 175, 55, 0.25);
+    --border-highlight: #d4af37;
+    --gold: #d4af37;
+    --gold-light: #f3e5ab;
+    --gold-dark: #aa820a;
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+    --text-muted: #64748b;
+    --norway: #ef4444;
+    --denmark: #e11d48;
+    --sweden: #3b82f6;
+    --uk: #8b5cf6;
+    --belgium: #f59e0b;
+    --luxembourg: #06b6d4;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    background-color: var(--bg-primary);
+    background-image: 
+      radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+      linear-gradient(180deg, #070d18 0%, #0b1120 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Header & Navigation */
+  header {
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(11, 17, 32, 0.9);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-main);
+  }
+
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #d4af37, #927116);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #070d18;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  }
+
+  .brand-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #ffffff, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .btn-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-sub);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .btn-nav:hover {
+    color: var(--gold-light);
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  /* Hero Section */
+  .hero {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  .hero h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff 30%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-quote {
+    max-width: 960px;
+    margin: 0 auto 1.5rem;
+    padding: 1.2rem 1.8rem;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+    border-left: 4px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    font-size: 1.05rem;
+    color: #e2e8f0;
+    line-height: 1.8;
+    text-align: left;
+  }
+
+  .hero-quote strong {
+    color: var(--gold-light);
+  }
+
+  .highlight-badge {
+    display: inline-block;
+    padding: 0.1rem 0.45rem;
+    margin: 0 0.15rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.95em;
+  }
+  .bg-no { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+  .bg-dk { background: rgba(225, 29, 72, 0.2); color: #fda4af; border: 1px solid rgba(225, 29, 72, 0.4); }
+  .bg-se { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.4); }
+  .bg-uk { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.4); }
+  .bg-be { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .bg-lu { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4); }
+
+  /* Main Container */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+
+  /* Toolbar & View Switcher */
+  .control-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+  }
+
+  .tab-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-sub);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+  }
+
+  .tab-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold-light);
+    border-color: var(--gold);
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(170, 130, 10, 0.3));
+    color: var(--gold-light);
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+  }
+
+  .chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* Interactive Graph Card */
+  .chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    position: relative;
+  }
+
+  .chart-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .chart-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .chart-hint {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  #mainChart {
+    width: 100%;
+    height: 680px;
+    border-radius: 8px;
+    background: radial-gradient(circle at center, #101a2e 0%, #090e18 100%);
+  }
+
+  /* Matrix / Relationship Calculator */
+  .calc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .calc-header {
+    margin-bottom: 1.2rem;
+  }
+
+  .calc-header h2 {
+    font-size: 1.25rem;
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .calc-body {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .calc-body {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .select-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .select-wrapper label {
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    font-weight: 600;
+  }
+
+  .custom-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #0f172a;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .custom-select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  }
+
+  .calc-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1.3rem;
+  }
+
+  .calc-result-box {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calc-result-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--gold), transparent);
+  }
+
+  .result-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .result-path {
+    font-size: 0.92rem;
+    color: #e2e8f0;
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+
+  .result-note {
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    background: rgba(0, 0, 0, 0.25);
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    border-left: 2px solid var(--gold-dark);
+  }
+
+  /* Relationship Cards Grid */
+  .grid-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin: 2rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .royal-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .royal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .royal-card:hover {
+    transform: translateY(-4px);
+    background: var(--bg-card-hover);
+    border-color: var(--border-highlight);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+  }
+
+  .card-country {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .relation-tag {
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .card-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-dates {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .card-desc {
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 0.85rem;
+  }
+
+  .card-tree-link {
+    font-size: 0.82rem;
+    color: var(--gold-light);
+    background: rgba(212, 175, 55, 0.08);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px dashed rgba(212, 175, 55, 0.3);
+  }
+
+  /* History & Dynasties Info */
+  .dynasty-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .info-box {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .info-box h3 {
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .info-box p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box ul {
+    padding-left: 1.25rem;
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    line-height: 1.8;
+  }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    background: #070d18;
+  }
+
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="nav-container">
+    <a href="/" class="brand">
+      <div class="brand-icon"><i class="fas fa-crown"></i></div>
+      <div class="brand-title">欧洲王室血缘全景图谱</div>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="btn-nav"><i class="fas fa-home"></i> 博客首页</a>
+      <a href="/world-history/" class="btn-nav"><i class="fas fa-globe-asia"></i> 世界史地图</a>
+      <a href="/roman/" class="btn-nav"><i class="fas fa-map-marked-alt"></i> 罗马地图</a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-tag"><i class="fas fa-landmark"></i> 欧洲王室谱系研究 · 现当代君主血缘网络</div>
+  <h1>哈拉尔五世与欧洲诸王的亲属网络</h1>
+  <div class="hero-quote">
+    “刚刚去世的挪威国王<strong>哈拉尔五世</strong>，是前任丹麦女王<strong>玛格丽特二世</strong>堂兄，现任瑞典国王<strong>卡尔十六世·古斯塔夫</strong>表兄，已故英国女王<strong>伊丽莎白二世</strong>、卢森堡大公夫人<strong>约瑟芬·夏洛特公主</strong>、已故比利时国王<strong>博杜安</strong>、前任比利时国王<strong>阿尔贝二世</strong>的表弟。”
+  </div>
+</section>
+
+<!-- Main Container -->
+<div class="container">
+
+  <!-- Control Bar -->
+  <div class="control-bar">
+    <div class="tab-group" id="viewTabs">
+      <button class="tab-btn active" onclick="switchGraphMode('focus')"><i class="fas fa-crosshairs"></i> 哈拉尔五世核心六亲网络</button>
+      <button class="tab-btn" onclick="switchGraphMode('familyTree')"><i class="fas fa-sitemap"></i> 四代欧洲王室系谱树</button>
+      <button class="tab-btn" onclick="switchGraphMode('fullNetwork')"><i class="fas fa-project-diagram"></i> 欧洲王室全景互联血网</button>
+    </div>
+    <div class="chart-legend">
+      <span class="legend-item"><span class="dot" style="background:#ef4444;"></span>挪威 (Norway)</span>
+      <span class="legend-item"><span class="dot" style="background:#e11d48;"></span>丹麦 (Denmark)</span>
+      <span class="legend-item"><span class="dot" style="background:#3b82f6;"></span>瑞典 (Sweden)</span>
+      <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span>英国 (UK)</span>
+      <span class="legend-item"><span class="dot" style="background:#f59e0b;"></span>比利时 (Belgium)</span>
+      <span class="legend-item"><span class="dot" style="background:#06b6d4;"></span>卢森堡 (Luxembourg)</span>
+      <span class="legend-item"><span class="dot" style="background:#d4af37;"></span>欧洲共同祖先/长辈</span>
+    </div>
+  </div>
+
+  <!-- Interactive Graph Card -->
+  <div class="chart-card">
+    <div class="chart-card-header">
+      <div class="chart-title" id="graphTitle"><i class="fas fa-crosshairs"></i> 哈拉尔五世核心六亲网络关系图</div>
+      <div class="chart-hint"><i class="fas fa-mouse-pointer"></i> 提示：可使用鼠标滚轮缩放、拖拽平移，鼠标悬停节点可查看详细血缘档案</div>
+    </div>
+    <div id="mainChart"></div>
+  </div>
+
+  <!-- Relationship Calculator / Explorer -->
+  <div class="calc-card">
+    <div class="calc-header">
+      <h2><i class="fas fa-calculator"></i> 欧洲王室亲属关系透视器 (Kinship Calculator)</h2>
+      <p style="font-size:0.88rem; color:var(--text-sub); margin-top:0.25rem;">选择任意两位欧洲王室君主/成员，立即解析他们的共同祖先、亲属称谓与详细血统路径。</p>
+    </div>
+    <div class="calc-body">
+      <div class="select-wrapper">
+        <label><i class="fas fa-user"></i> 人物 A</label>
+        <select id="personA" class="custom-select" onchange="calculateRelationship()">
+          <option value="harald5" selected>挪威 · 哈拉尔五世 (Harald V)</option>
+          <option value="margrethe2">丹麦 · 玛格丽特二世 (Margrethe II)</option>
+          <option value="carl16">瑞典 · 卡尔十六世·古斯塔夫 (Carl XVI Gustaf)</option>
+          <option value="elizabeth2">英国 · 伊丽莎白二世 (Elizabeth II)</option>
+          <option value="baudouin">比利时 · 博杜安 (Baudouin)</option>
+          <option value="albert2">比利时 · 阿尔贝二世 (Albert II)</option>
+          <option value="josephine">卢森堡 · 约瑟芬·夏洛特 (Joséphine-Charlotte)</option>
+          <option value="charles3">英国 · 查尔斯三世 (Charles III)</option>
+          <option value="philippe">比利时 · 菲利普 (Philippe)</option>
+          <option value="henri">卢森堡 · 亨利大公 (Henri)</option>
+        </select>
+      </div>
+
+      <div class="calc-arrow">
+        <i class="fas fa-exchange-alt"></i>
+      </div>
+
+      <div class="select-wrapper">
+        <label><i class="fas fa-user"></i> 人物 B</label>
+        <select id="personB" class="custom-select" onchange="calculateRelationship()">
+          <option value="harald5">挪威 · 哈拉尔五世 (Harald V)</option>
+          <option value="margrethe2" selected>丹麦 · 玛格丽特二世 (Margrethe II)</option>
+          <option value="carl16">瑞典 · 卡尔十六世·古斯塔夫 (Carl XVI Gustaf)</option>
+          <option value="elizabeth2">英国 · 伊丽莎白二世 (Elizabeth II)</option>
+          <option value="baudouin">比利时 · 博杜安 (Baudouin)</option>
+          <option value="albert2">比利时 · 阿尔贝二世 (Albert II)</option>
+          <option value="josephine">卢森堡 · 约瑟芬·夏洛特 (Joséphine-Charlotte)</option>
+          <option value="charles3">英国 · 查尔斯三世 (Charles III)</option>
+          <option value="philippe">比利时 · 菲利普 (Philippe)</option>
+          <option value="henri">卢森堡 · 亨利大公 (Henri)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="calc-result-box" id="calcResult">
+      <!-- Calculated via JS -->
+    </div>
+  </div>
+
+  <!-- Six Royal Houses Dossiers -->
+  <div class="grid-title"><i class="fas fa-id-card"></i> 核心王室成员档案与亲缘考据</div>
+  <div class="royal-cards-grid">
+
+    <!-- Harald V -->
+    <div class="royal-card">
+      <div class="card-top">
+        <div class="card-country" style="color:var(--norway)"><i class="fas fa-flag"></i> 挪威格吕克斯堡王朝</div>
+        <span class="relation-tag bg-no">本位核心</span>
+      </div>
+      <div class="card-name">哈拉尔五世 (Harald V)</div>
+      <div class="card-dates">1937.02.21 – 2026.08.28 · 在位 1991–2026</div>
+      <div class="card-desc">
+        挪威自1905年独立以来第3位君主。父亲为奥拉夫五世，母亲为瑞典公主玛塔。他汇集了英国、丹麦、瑞典王室的核心直系血统，是当代欧洲王室中血缘连接最密集的君主之一。
+      </div>
+      <div class="card-tree-link">
+        <i class="fas fa-link"></i> <strong>枢纽地位：</strong>母亲为瑞典玛塔公主（比利时王后亲姐），祖母为英国莫德公主（爱德华七世之女）。
+      </div>
+    </div>
+
+    <!-- Margrethe II -->
+    <div class="royal-card">
+      <div class="card-top">
+        <div class="card-country" style="color:var(--denmark)"><i class="fas fa-flag"></i> 丹麦格吕克斯堡王朝</div>
+        <span class="relation-tag bg-dk">堂妹 (哈拉尔为堂兄)</span>
+      </div>
+      <div class="card-name">玛格丽特二世 (Margrethe II)</div>
+      <div class="card-dates">1940.04.16 生 · 在位 1972–2024 (退位)</div>
+      <div class="card-desc">
+        丹麦近半个世纪的国家象征。父亲弗雷德里克九世与哈拉尔五世的祖父哈康七世为直系亲兄弟。
+      </div>
+      <div class="card-tree-link">
+        <i class="fas fa-link"></i> <strong>血缘路径：</strong>共同曾祖父为丹麦国王弗雷德里克八世（纯父系堂亲，哈拉尔大3岁故为堂兄）。
+      </div>
+    </div>
+
+    <!-- Carl XVI Gustaf -->
+    <div class="royal-card">
+      <div class="card-top">
+        <div class="card-country" style="color:var(--sweden)"><i class="fas fa-flag"></i> 瑞典贝尔纳多特王朝</div>
+        <span class="relation-tag bg-se">表弟 (哈拉尔为表兄)</span>
+      </div>
+      <div class="card-name">卡尔十六世·古斯塔夫</div>
+      <div class="card-dates">1946.04.30 生 · 在位 1973–至今</div>
+      <div class="card-desc">
+        瑞典现任国王。其祖父古斯塔夫六世·阿道夫是哈拉尔五世母亲玛塔公主的伯父；同时两家均直系承袭英国维多利亚女王血脉。
+      </div>
+      <div class="card-tree-link">
+        <i class="fas fa-link"></i> <strong>血缘路径：</strong>源自瑞典国王奥斯卡二世及英国维多利亚女王，哈拉尔大9岁故为表兄。
+      </div>
+    </div>
+
+    <!-- Elizabeth II -->
+    <div class="royal-card">
+      <div class="card-top">
+        <div class="card-country" style="color:var(--uk)"><i class="fas fa-flag"></i> 英国温莎王朝</div>
+        <span class="relation-tag bg-uk">表姐 (哈拉尔为表弟)</span>
+      </div>
+      <div class="card-name">伊丽莎白二世 (Elizabeth II)</div>
+      <div class="card-dates">1926.04.21 – 2022.09.08 · 在位 1952–2022</div>
+      <div class="card-desc">
+        英国在位时间最长的君主。其祖父乔治五世与哈拉尔五世的祖母莫德王后是同胞亲兄妹（爱德华七世子女）。
+      </div>
+      <div class="card-tree-link">
+        <i class="fas fa-link"></i> <strong>血缘路径：</strong>共同曾祖父母为英国国王爱德华七世与亚历山德拉王后（女王大11岁故哈拉尔为表弟）。
+      </div>
+    </div>
+
+    <!-- Baudouin & Albert II -->
+    <div class="royal-card">
+      <div class="card-top">
+        <div class="card-country" style="color:var(--belgium)"><i class="fas fa-flag"></i> 比利时萨克森-科堡王朝</div>
+        <span class="relation-tag bg-be">亲表兄 (哈拉尔为亲表弟)</span>
+      </div>
+      <div class="card-name">博杜安 & 阿尔贝二世</div>
+      <div class="card-dates">博杜安 (1930–1993) · 阿尔贝二世 (1934年生)</div>
+      <div class="card-desc">
+        比利时前后两任国王。其母阿斯特里德王后与哈拉尔五世之母玛塔公主是如假包换的<strong>同胞亲姐妹</strong>。
+      </div>
+      <div class="card-tree-link">
+        <i class="fas fa-link"></i> <strong>血缘路径：</strong>共同外祖父母为瑞典卡尔王子与丹麦英格堡公主，哈拉尔与博杜安/阿尔贝为<strong>直系第一代表兄弟 (First Cousins)</strong>。
+      </div>
+    </div>
+
+    <!-- Joséphine-Charlotte -->
+    <div class="royal-card">
+      <div class="card-top">
+        <div class="card-country" style="color:var(--luxembourg)"><i class="fas fa-flag"></i> 卢森堡拿骚-魏尔堡王朝</div>
+        <span class="relation-tag bg-lu">亲表姐 (哈拉尔为亲表弟)</span>
+      </div>
+      <div class="card-name">约瑟芬·夏洛特公主</div>
+      <div class="card-dates">1927.10.11 – 2005.01.10 · 卢森堡大公夫人</div>
+      <div class="card-desc">
+        比利时公主，后嫁入卢森堡成为让大公之妻、现任亨利大公之母。她是博杜安和阿尔贝二世的长姐。
+      </div>
+      <div class="card-tree-link">
+        <i class="fas fa-link"></i> <strong>血缘路径：</strong>同为阿斯特里德王后之女，与哈拉尔五世亦为<strong>直系第一代表亲 (First Cousin)</strong>。
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dynasty Background Knowledge -->
+  <div class="grid-title"><i class="fas fa-book-open"></i> 历史纵深：欧洲王室“一家亲”的双重枢纽</div>
+  <div class="dynasty-section">
+    <div class="info-box">
+      <h3><i class="fas fa-crown" style="color:#e11d48"></i> “欧洲岳父”：丹麦国王克里斯蒂安九世</h3>
+      <p>克里斯蒂安九世（Christian IX，1818–1906）通过子女联姻彻底重构了近代欧洲政治版图：</p>
+      <ul>
+        <li><strong>长子 弗雷德里克八世：</strong>继承丹麦王位（其长子克里斯蒂安十世承丹麦，次子哈康七世入承挪威王位）。</li>
+        <li><strong>长女 亚历山德拉：</strong>嫁给英国爱德华七世，生乔治五世与莫德公主。</li>
+        <li><strong>次子 乔治一世：</strong>被选立为希腊国王（菲利普亲王之祖父）。</li>
+        <li><strong>次女 玛丽亚·费奥多萝芙娜（达格玛）：</strong>嫁沙皇亚历山大三世，生末代沙皇尼古拉二世。</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3><i class="fas fa-crown" style="color:#8b5cf6"></i> “欧洲祖母”：英国女王维多利亚</h3>
+      <p>维多利亚女王（Queen Victoria，1819–1901）将9名子女与欧洲各大强国联姻，其后裔遍布各国王座：</p>
+      <ul>
+        <li><strong>爱德华七世：</strong>英国国王（伊丽莎白二世与哈拉尔五世祖先）。</li>
+        <li><strong>维多利亚长公主：</strong>嫁普鲁士王储，生德皇威廉二世。</li>
+        <li><strong>爱丽丝公主：</strong>生俄国末代皇后亚历山德拉与英国菲利普亲王外祖母。</li>
+        <li><strong>阿瑟王子 & 利奥波德王子：</strong>血统分别注入瑞典王室（玛格丽特公主）与萨克森家族。</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 欧洲王室血缘关系全景可视化研究 · 数据基于欧洲王室近代谱系档案及公开历史文献</p>
+  <p style="margin-top:0.5rem;"><a href="/"><i class="fas fa-arrow-left"></i> 返回博客主页</a> · <a href="/world-history/">世界史地图</a> · <a href="/roman/">罗马帝国地图</a></p>
+</footer>
+
+<script>
+// --- ECharts Graph Configuration & Logic ---
+let myChart = null;
+
+const royalColors = {
+  norway: '#ef4444',
+  denmark: '#e11d48',
+  sweden: '#3b82f6',
+  uk: '#8b5cf6',
+  belgium: '#f59e0b',
+  luxembourg: '#06b6d4',
+  ancestor: '#d4af37',
+  hub: '#10b981'
+};
+
+// Data sets for 3 modes
+const focusData = {
+  nodes: [
+    // Center: Harald V
+    { name: "挪威 · 哈拉尔五世", id: "harald5", category: "norway", symbolSize: 75, value: "哈拉尔五世 (1937–2026)\n挪威国王 (1991–2026)\n枢纽核心君主", itemStyle: { color: royalColors.norway, borderColor: '#fff', borderWidth: 3 } },
+    
+    // Core relations
+    { name: "丹麦 · 玛格丽特二世", id: "margrethe2", category: "denmark", symbolSize: 58, value: "玛格丽特二世 (1940生)\n丹麦女王 (1972–2024)\n哈拉尔五世为其堂兄", itemStyle: { color: royalColors.denmark } },
+    { name: "瑞典 · 卡尔十六世·古斯塔夫", id: "carl16", category: "sweden", symbolSize: 58, value: "卡尔十六世·古斯塔夫 (1946生)\n瑞典国王 (1973–至今)\n哈拉尔五世为其表兄", itemStyle: { color: royalColors.sweden } },
+    { name: "英国 · 伊丽莎白二世", id: "elizabeth2", category: "uk", symbolSize: 60, value: "伊丽莎白二世 (1926–2022)\n英国女王 (1952–2022)\n哈拉尔五世为其表弟", itemStyle: { color: royalColors.uk } },
+    { name: "比利时 · 博杜安", id: "baudouin", category: "belgium", symbolSize: 54, value: "博杜安国王 (1930–1993)\n比利时国王 (1951–1993)\n哈拉尔五世为其直系表弟", itemStyle: { color: royalColors.belgium } },
+    { name: "比利时 · 阿尔贝二世", id: "albert2", category: "belgium", symbolSize: 54, value: "阿尔贝二世 (1934生)\n比利时国王 (1993–2013)\n哈拉尔五世为其直系表弟", itemStyle: { color: royalColors.belgium } },
+    { name: "卢森堡 · 约瑟芬·夏洛特", id: "josephine", category: "luxembourg", symbolSize: 54, value: "约瑟芬·夏洛特公主 (1927–2005)\n卢森堡大公夫人\n哈拉尔五世为其直系表弟", itemStyle: { color: royalColors.luxembourg } },
+
+    // Key connecting ancestors
+    { name: "丹麦 · 弗雷德里克八世", id: "frederik8", category: "ancestor", symbolSize: 42, value: "弗雷德里克八世 (1843–1912)\n丹麦国王\n哈拉尔五世与玛格丽特二世共同曾祖父", itemStyle: { color: royalColors.ancestor } },
+    { name: "英国 · 爱德华七世", id: "edward7", category: "ancestor", symbolSize: 42, value: "爱德华七世 (1841–1910)\n英国国王\n哈拉尔五世与伊丽莎白二世共同曾祖父", itemStyle: { color: royalColors.ancestor } },
+    { name: "瑞典 · 卡尔王子夫妇", id: "prince_carl", category: "ancestor", symbolSize: 48, value: "瑞典卡尔王子 & 丹麦英格堡公主\n玛塔公主与阿斯特里德王后之父母\n挪威/比利时/卢森堡三国王室共同外祖父母", itemStyle: { color: royalColors.ancestor } },
+    { name: "瑞典 · 奥斯卡二世", id: "oscar2", category: "ancestor", symbolSize: 40, value: "奥斯卡二世 (1829–1907)\n瑞典国王\n哈拉尔五世与卡尔十六世共同先祖", itemStyle: { color: royalColors.ancestor } }
+  ],
+  links: [
+    { source: "harald5", target: "frederik8", label: { show: true, formatter: "直系曾祖" } },
+    { source: "margrethe2", target: "frederik8", label: { show: true, formatter: "直系曾祖" } },
+    { source: "harald5", target: "margrethe2", label: { show: true, formatter: "堂兄妹 (二代从兄)" }, lineStyle: { width: 3, color: '#e11d48', type: 'dashed' } },
+
+    { source: "harald5", target: "edward7", label: { show: true, formatter: "直系曾祖" } },
+    { source: "elizabeth2", target: "edward7", label: { show: true, formatter: "直系曾祖" } },
+    { source: "harald5", target: "elizabeth2", label: { show: true, formatter: "表姐弟 (二代表弟)" }, lineStyle: { width: 3, color: '#8b5cf6', type: 'dashed' } },
+
+    { source: "harald5", target: "prince_carl", label: { show: true, formatter: "外祖父母" } },
+    { source: "baudouin", target: "prince_carl", label: { show: true, formatter: "外祖父母" } },
+    { source: "albert2", target: "prince_carl", label: { show: true, formatter: "外祖父母" } },
+    { source: "josephine", target: "prince_carl", label: { show: true, formatter: "外祖父母" } },
+    { source: "harald5", target: "baudouin", label: { show: true, formatter: "亲表弟 (First Cousin)" }, lineStyle: { width: 3, color: '#f59e0b', type: 'solid' } },
+    { source: "harald5", target: "albert2", label: { show: true, formatter: "亲表弟 (First Cousin)" }, lineStyle: { width: 3, color: '#f59e0b', type: 'solid' } },
+    { source: "harald5", target: "josephine", label: { show: true, formatter: "亲表弟 (First Cousin)" }, lineStyle: { width: 3, color: '#06b6d4', type: 'solid' } },
+
+    { source: "harald5", target: "oscar2", label: { show: true, formatter: "曾外祖" } },
+    { source: "carl16", target: "oscar2", label: { show: true, formatter: "高祖" } },
+    { source: "harald5", target: "carl16", label: { show: true, formatter: "表兄 (从表兄)" }, lineStyle: { width: 3, color: '#3b82f6', type: 'dashed' } }
+  ]
+};
+
+// Family Tree hierarchy
+const familyTreeOption = {
+  tooltip: {
+    trigger: 'item',
+    triggerOn: 'mousemove',
+    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+    borderColor: '#d4af37',
+    borderWidth: 1,
+    textStyle: { color: '#f8fafc', fontSize: 13 }
+  },
+  series: [
+    {
+      type: 'tree',
+      data: [{
+        name: "欧洲两大联姻源头\n(克里斯蒂安九世 & 维多利亚女王)",
+        itemStyle: { color: royalColors.ancestor },
+        children: [
+          {
+            name: "丹麦 · 弗雷德里克八世 (1843–1912)",
+            itemStyle: { color: royalColors.denmark },
+            children: [
+              {
+                name: "丹麦 · 克里斯蒂安十世 (1870–1947)",
+                children: [
+                  {
+                    name: "丹麦 · 弗雷德里克九世 (1899–1972)",
+                    children: [
+                      { 
+                        name: "丹麦 · 玛格丽特二世 (1940生)\n[哈拉尔五世堂妹]", 
+                        itemStyle: { color: royalColors.denmark } 
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "挪威 · 哈康七世 (1872–1957)\n[丹麦卡尔王子]",
+                children: [
+                  {
+                    name: "挪威 · 奥拉夫五世 (1903–1991)",
+                    children: [
+                      { 
+                        name: "★ 挪威 · 哈拉尔五世 (1937–2026)\n[枢纽君主]", 
+                        itemStyle: { color: royalColors.norway, borderWidth: 3, borderColor: '#fff' } 
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "丹麦 · 英格堡公主 (1878–1958)\n(嫁瑞典卡尔王子)",
+                itemStyle: { color: royalColors.ancestor },
+                children: [
+                  {
+                    name: "瑞典 · 玛塔公主 (1901–1954)\n(挪威王储妃)",
+                    children: [
+                      { name: "挪威 · 哈拉尔五世 (1937–2026)", itemStyle: { color: royalColors.norway } }
+                    ]
+                  },
+                  {
+                    name: "瑞典 · 阿斯特里德公主 (1905–1935)\n(比利时王后)",
+                    children: [
+                      { name: "卢森堡 · 约瑟芬·夏洛特 (1927–2005)\n[哈拉尔五世表姐]", itemStyle: { color: royalColors.luxembourg } },
+                      { name: "比利时 · 博杜安国王 (1930–1993)\n[哈拉尔五世表兄]", itemStyle: { color: royalColors.belgium } },
+                      { name: "比利时 · 阿尔贝二世 (1934生)\n[哈拉尔五世表兄]", itemStyle: { color: royalColors.belgium } }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: "英国 · 爱德华七世 (1841–1910)",
+            itemStyle: { color: royalColors.uk },
+            children: [
+              {
+                name: "英国 · 乔治五世 (1865–1936)",
+                children: [
+                  {
+                    name: "英国 · 乔治六世 (1895–1952)",
+                    children: [
+                      { 
+                        name: "英国 · 伊丽莎白二世 (1926–2022)\n[哈拉尔五世表姐]", 
+                        itemStyle: { color: royalColors.uk } 
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "挪威 · 莫德王后 (1869–1938)\n(嫁哈康七世)",
+                children: [
+                  {
+                    name: "挪威 · 奥拉夫五世 (1903–1991)",
+                    children: [
+                      { name: "挪威 · 哈拉尔五世 (1937–2026)", itemStyle: { color: royalColors.norway } }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: "瑞典 · 奥斯卡二世 (1829–1907)",
+            itemStyle: { color: royalColors.sweden },
+            children: [
+              {
+                name: "瑞典 · 古斯塔夫五世 (1858–1950)",
+                children: [
+                  {
+                    name: "瑞典 · 古斯塔夫六世·阿道夫 (1882–1973)",
+                    children: [
+                      {
+                        name: "瑞典 · 古斯塔夫·阿道夫亲王 (1906–1947)",
+                        children: [
+                          { 
+                            name: "瑞典 · 卡尔十六世·古斯塔夫 (1946生)\n[哈拉尔五世表弟]", 
+                            itemStyle: { color: royalColors.sweden } 
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }],
+      top: '5%',
+      left: '14%',
+      bottom: '5%',
+      right: '22%',
+      symbolSize: 10,
+      label: {
+        position: 'left',
+        verticalAlign: 'middle',
+        align: 'right',
+        fontSize: 12,
+        color: '#e2e8f0'
+      },
+      leaves: {
+        label: {
+          position: 'right',
+          verticalAlign: 'middle',
+          align: 'left',
+          fontSize: 13,
+          fontWeight: 'bold'
+        }
+      },
+      emphasis: {
+        focus: 'descendant'
+      },
+      expandAndCollapse: true,
+      animationDuration: 550,
+      animationDurationUpdate: 750
+    }
+  ]
+};
+
+// Full Network graph
+const fullNetworkData = {
+  nodes: [
+    ...focusData.nodes,
+    { name: "英国 · 维多利亚女王", id: "victoria", category: "ancestor", symbolSize: 50, value: "维多利亚女王 (1819–1901)\n欧洲祖母", itemStyle: { color: royalColors.ancestor } },
+    { name: "丹麦 · 克里斯蒂安九世", id: "christian9", category: "ancestor", symbolSize: 50, value: "克里斯蒂安九世 (1818–1906)\n欧洲岳父", itemStyle: { color: royalColors.ancestor } },
+    { name: "挪威 · 哈康七世", id: "haakon7", category: "norway", symbolSize: 45, value: "哈康七世 (1872–1957)\n挪威国王", itemStyle: { color: royalColors.norway } },
+    { name: "挪威 · 奥拉夫五世", id: "olav5", category: "norway", symbolSize: 48, value: "奥拉夫五世 (1903–1991)\n挪威国王 (哈拉尔之父)", itemStyle: { color: royalColors.norway } },
+    { name: "瑞典 · 玛塔公主", id: "martha", category: "sweden", symbolSize: 45, value: "玛塔公主 (1901–1954)\n哈拉尔之母", itemStyle: { color: royalColors.sweden } },
+    { name: "瑞典 · 阿斯特里德王后", id: "astrid", category: "sweden", symbolSize: 45, value: "阿斯特里德王后 (1905–1935)\n比利时王后 (博杜安/阿尔贝之母)", itemStyle: { color: royalColors.sweden } },
+    { name: "英国 · 乔治五世", id: "george5", category: "uk", symbolSize: 40, value: "乔治五世 (1865–1936)\n英国国王", itemStyle: { color: royalColors.uk } },
+    { name: "英国 · 乔治六世", id: "george6", category: "uk", symbolSize: 42, value: "乔治六世 (1895–1952)\n英国国王", itemStyle: { color: royalColors.uk } },
+    { name: "丹麦 · 克里斯蒂安十世", id: "christian10", category: "denmark", symbolSize: 40, value: "克里斯蒂安十世 (1870–1947)\n丹麦国王", itemStyle: { color: royalColors.denmark } },
+    { name: "丹麦 · 弗雷德里克九世", id: "frederik9", category: "denmark", symbolSize: 42, value: "弗雷德里克九世 (1899–1972)\n丹麦国王", itemStyle: { color: royalColors.denmark } },
+    { name: "瑞典 · 古斯塔夫五世", id: "gustaf5", category: "sweden", symbolSize: 38, value: "古斯塔夫五世 (1858–1950)\n瑞典国王", itemStyle: { color: royalColors.sweden } },
+    { name: "瑞典 · 古斯塔夫六世", id: "gustaf6", category: "sweden", symbolSize: 40, value: "古斯塔夫六世·阿道夫 (1882–1973)\n瑞典国王", itemStyle: { color: royalColors.sweden } },
+    { name: "瑞典 · 古斯塔夫·阿道夫亲王", id: "prince_ga", category: "sweden", symbolSize: 40, value: "古斯塔夫·阿道夫亲王 (1906–1947)\n卡尔十六世之父", itemStyle: { color: royalColors.sweden } },
+    { name: "英国 · 查尔斯三世", id: "charles3", category: "uk", symbolSize: 46, value: "查尔斯三世 (1948生)\n现任英国国王", itemStyle: { color: royalColors.uk } },
+    { name: "比利时 · 菲利普国王", id: "philippe", category: "belgium", symbolSize: 46, value: "菲利普 (1960生)\n现任比利时国王", itemStyle: { color: royalColors.belgium } },
+    { name: "卢森堡 · 亨利大公", id: "henri", category: "luxembourg", symbolSize: 46, value: "亨利大公 (1955生)\n现任卢森堡大公", itemStyle: { color: royalColors.luxembourg } }
+  ],
+  links: [
+    // Christian IX down
+    { source: "christian9", target: "frederik8" },
+    { source: "christian9", target: "edward7", label: { show: true, formatter: "女婿 (爱德华七世娶亚历山德拉)" } },
+    { source: "victoria", target: "edward7" },
+    
+    // Frederik VIII down
+    { source: "frederik8", target: "christian10" },
+    { source: "frederik8", target: "haakon7" },
+    { source: "frederik8", target: "prince_carl", label: { show: true, formatter: "岳父 (英格堡公主嫁卡尔王子)" } },
+
+    // Denmark line
+    { source: "christian10", target: "frederik9" },
+    { source: "frederik9", target: "margrethe2" },
+
+    // Norway line
+    { source: "haakon7", target: "olav5" },
+    { source: "edward7", target: "olav5", label: { show: true, formatter: "外祖 (莫德王后之子)" } },
+    { source: "olav5", target: "harald5" },
+    { source: "martha", target: "harald5" },
+
+    // Prince Carl & Ingeborg descendants
+    { source: "prince_carl", target: "martha" },
+    { source: "prince_carl", target: "astrid" },
+    { source: "astrid", target: "baudouin" },
+    { source: "astrid", target: "albert2" },
+    { source: "astrid", target: "josephine" },
+
+    // Next gen Belgium & Luxembourg
+    { source: "albert2", target: "philippe" },
+    { source: "josephine", target: "henri" },
+
+    // UK line
+    { source: "edward7", target: "george5" },
+    { source: "george5", target: "george6" },
+    { source: "george6", target: "elizabeth2" },
+    { source: "elizabeth2", target: "charles3" },
+
+    // Sweden line
+    { source: "oscar2", target: "gustaf5" },
+    { source: "oscar2", target: "prince_carl" },
+    { source: "gustaf5", target: "gustaf6" },
+    { source: "gustaf6", target: "prince_ga" },
+    { source: "prince_ga", target: "carl16" }
+  ]
+};
+
+function getFocusGraphOption() {
+  return {
+    tooltip: {
+      backgroundColor: 'rgba(15, 23, 42, 0.95)',
+      borderColor: '#d4af37',
+      borderWidth: 1,
+      textStyle: { color: '#f8fafc', fontSize: 13 },
+      formatter: function(params) {
+        if (params.dataType === 'node') {
+          return `<div style="font-weight:bold; color:#d4af37; margin-bottom:4px;">${params.data.name}</div>${(params.data.value || '').replace(/\n/g, '<br/>')}`;
+        } else if (params.dataType === 'edge') {
+          return `${params.data.source} → ${params.data.target}<br/><span style="color:#d4af37;">${params.data.label?.formatter || '亲属连线'}</span>`;
+        }
+      }
+    },
+    series: [{
+      type: 'graph',
+      layout: 'force',
+      force: {
+        repulsion: 1100,
+        edgeLength: [120, 220],
+        gravity: 0.12
+      },
+      roam: true,
+      draggable: true,
+      label: {
+        show: true,
+        position: 'bottom',
+        color: '#f8fafc',
+        fontSize: 12,
+        fontWeight: 'bold'
+      },
+      edgeSymbol: ['none', 'arrow'],
+      edgeSymbolSize: 6,
+      edgeLabel: {
+        fontSize: 10,
+        color: '#94a3b8'
+      },
+      data: focusData.nodes,
+      links: focusData.links,
+      lineStyle: {
+        opacity: 0.8,
+        width: 2,
+        curveness: 0.1
+      }
+    }]
+  };
+}
+
+function getFullNetworkOption() {
+  return {
+    tooltip: {
+      backgroundColor: 'rgba(15, 23, 42, 0.95)',
+      borderColor: '#d4af37',
+      borderWidth: 1,
+      textStyle: { color: '#f8fafc', fontSize: 13 },
+      formatter: function(params) {
+        if (params.dataType === 'node') {
+          return `<div style="font-weight:bold; color:#d4af37; margin-bottom:4px;">${params.data.name}</div>${(params.data.value || '').replace(/\n/g, '<br/>')}`;
+        }
+      }
+    },
+    series: [{
+      type: 'graph',
+      layout: 'force',
+      force: {
+        repulsion: 800,
+        edgeLength: [80, 180],
+        gravity: 0.15
+      },
+      roam: true,
+      draggable: true,
+      label: {
+        show: true,
+        position: 'right',
+        color: '#e2e8f0',
+        fontSize: 11
+      },
+      edgeSymbol: ['none', 'arrow'],
+      edgeSymbolSize: 6,
+      data: fullNetworkData.nodes,
+      links: fullNetworkData.links,
+      lineStyle: {
+        color: 'rgba(212, 175, 55, 0.4)',
+        opacity: 0.7,
+        width: 1.5,
+        curveness: 0.1
+      }
+    }]
+  };
+}
+
+function switchGraphMode(mode) {
+  const btns = document.querySelectorAll('.tab-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  
+  const title = document.getElementById('graphTitle');
+  
+  if (mode === 'focus') {
+    btns[0].classList.add('active');
+    title.innerHTML = '<i class="fas fa-crosshairs"></i> 哈拉尔五世核心六亲网络关系图';
+    myChart.setOption(getFocusGraphOption(), true);
+  } else if (mode === 'familyTree') {
+    btns[1].classList.add('active');
+    title.innerHTML = '<i class="fas fa-sitemap"></i> 四代欧洲王室系谱树 (折叠展开)';
+    myChart.setOption(familyTreeOption, true);
+  } else if (mode === 'fullNetwork') {
+    btns[2].classList.add('active');
+    title.innerHTML = '<i class="fas fa-project-diagram"></i> 欧洲王室全景互联血网';
+    myChart.setOption(getFullNetworkOption(), true);
+  }
+}
+
+// --- Kinship Calculator Logic ---
+const relationships = {
+  "harald5-margrethe2": {
+    relation: "哈拉尔五世是玛格丽特二世的【堂兄】(Second Cousins in male line)",
+    path: "<strong>共同曾祖父：</strong>丹麦国王弗雷德里克八世 (Frederik VIII)<br/>" +
+          "• 弗雷德里克八世次子 哈康七世 → 挪威国王奥拉夫五世 → <strong>哈拉尔五世 (1937年生)</strong><br/>" +
+          "• 弗雷德里克八世长子 克里斯蒂安十世 → 丹麦国王弗雷德里克九世 → <strong>玛格丽特二世 (1940年生)</strong>",
+    note: "两人是纯父系血统的堂兄妹。哈拉尔五世长3岁，故为堂兄。"
+  },
+  "harald5-carl16": {
+    relation: "哈拉尔五世是卡尔十六世·古斯塔夫的【表兄】(Second Cousin once removed / 贝尔纳多特同宗)",
+    path: "<strong>血统路径 1（瑞典贝尔纳多特王室）：</strong><br/>" +
+          "• 瑞典国王奥斯卡二世 → 卡尔王子 → 玛塔公主 → <strong>哈拉尔五世 (1937年生)</strong><br/>" +
+          "• 瑞典国王奥斯卡二世 → 古斯塔夫五世 → 古斯塔夫六世 → 古斯塔夫·阿道夫亲王 → <strong>卡尔十六世 (1946年生)</strong><br/>" +
+          "<strong>血统路径 2（英国维多利亚女王）：</strong>两家亦均由维多利亚女王血脉下传。",
+    note: "由于哈拉尔五世的母亲玛塔公主为瑞典王室公主，哈拉尔五世长卡尔十六世9岁，依辈分与长幼为表兄。"
+  },
+  "harald5-elizabeth2": {
+    relation: "哈拉尔五世是伊丽莎白二世的【表弟】(Second Cousins)",
+    path: "<strong>共同曾祖父母：</strong>英国国王爱德华七世 (Edward VII) & 亚历山德拉王后<br/>" +
+          "• 爱德华七世次子 乔治五世 → 英国国王乔治六世 → <strong>伊丽莎白二世 (1926年生)</strong><br/>" +
+          "• 爱德华七世三女 莫德公主 → 挪威国王奥拉夫五世 → <strong>哈拉尔五世 (1937年生)</strong>",
+    note: "哈拉尔五世之祖母为英国公主（爱德华七世之女）。伊丽莎白二世大11岁，故哈拉尔五世为其表弟。"
+  },
+  "harald5-baudouin": {
+    relation: "哈拉尔五世是博杜安国王的【亲表弟】(First Cousins)",
+    path: "<strong>共同外祖父母：</strong>瑞典卡尔王子 (Prince Carl) & 丹麦英格堡公主<br/>" +
+          "• 次女 玛塔公主 (Princess Märtha) → <strong>哈拉尔五世 (1937年生)</strong><br/>" +
+          "• 三女 阿斯特里德公主 (Queen Astrid，比利时王后) → <strong>博杜安 (1930年生)</strong>",
+    note: "哈拉尔五世之母与博杜安之母是一母同胞的亲姐妹！博杜安大7岁，哈拉尔五世为亲表弟。"
+  },
+  "harald5-albert2": {
+    relation: "哈拉尔五世是阿尔贝二世的【亲表弟】(First Cousins)",
+    path: "<strong>共同外祖父母：</strong>瑞典卡尔王子 & 丹麦英格堡公主<br/>" +
+          "• 次女 玛塔公主 → <strong>哈拉尔五世 (1937年生)</strong><br/>" +
+          "• 三女 阿斯特里德公主 → <strong>阿尔贝二世 (1934年生)</strong>",
+    note: "哈拉尔之母与阿尔贝之母为同胞亲姐妹。阿尔贝二世大3岁，哈拉尔五世为亲表弟。"
+  },
+  "harald5-josephine": {
+    relation: "哈拉尔五世是约瑟芬·夏洛特公主的【亲表弟】(First Cousins)",
+    path: "<strong>共同外祖父母：</strong>瑞典卡尔王子 & 丹麦英格堡公主<br/>" +
+          "• 次女 玛塔公主 → <strong>哈拉尔五世 (1937年生)</strong><br/>" +
+          "• 三女 阿斯特里德公主 → <strong>约瑟芬·夏洛特 (1927年生)</strong>",
+    note: "约瑟芬·夏洛特为比利时阿斯特里德王后长女、后成为卢森堡大公夫人。大10岁，哈拉尔五世为其亲表弟。"
+  },
+  "margrethe2-carl16": {
+    relation: "玛格丽特二世是卡尔十六世·古斯塔夫的【亲表姐】(First Cousins)",
+    path: "<strong>共同外祖父：</strong>瑞典国王古斯塔夫六世·阿道夫<br/>" +
+          "• 古斯塔夫六世长女 英格丽德公主 (丹麦王后) → <strong>玛格丽特二世 (1940年生)</strong><br/>" +
+          "• 古斯塔夫六世长子 古斯塔夫·阿道夫亲王 → <strong>卡尔十六世 (1946年生)</strong>",
+    note: "丹麦王后英格丽德与瑞典王储是亲姐弟，玛格丽特二世与卡尔十六世是如假包换的第一代亲表姐弟。"
+  },
+  "elizabeth2-charles3": {
+    relation: "伊丽莎白二世是查尔斯三世的【母亲】(Mother & Son)",
+    path: "英国温莎王朝直系传承：伊丽莎白二世 → 查尔斯三世",
+    note: "2022年女王去世后查尔斯三世正式登基。"
+  },
+  "albert2-philippe": {
+    relation: "阿尔贝二世是菲利普国王的【父亲】(Father & Son)",
+    path: "比利时萨克森-科堡王朝传承：阿尔贝二世 (2013年退位) → 菲利普国王",
+    note: "菲利普为阿尔贝二世长子。"
+  },
+  "josephine-henri": {
+    relation: "约瑟芬·夏洛特公主是亨利大公的【母亲】(Mother & Son)",
+    path: "卢森堡拿骚-魏尔堡王朝传承：约瑟芬·夏洛特大公夫人 → 亨利大公",
+    note: "现任卢森堡大公亨利为约瑟芬·夏洛特公主与让大公的长子。"
+  }
+};
+
+function calculateRelationship() {
+  const pA = document.getElementById('personA').value;
+  const pB = document.getElementById('personB').value;
+  const resultBox = document.getElementById('calcResult');
+
+  if (pA === pB) {
+    resultBox.innerHTML = `
+      <div class="result-title" style="color:var(--text-muted)"><i class="fas fa-info-circle"></i> 相同人物</div>
+      <div class="result-path">您选择了同一个人，请在两侧选择不同人物进行亲缘对比。</div>
+    `;
+    return;
+  }
+
+  const key1 = `${pA}-${pB}`;
+  const key2 = `${pB}-${pA}`;
+  const data = relationships[key1] || relationships[key2];
+
+  if (data) {
+    resultBox.innerHTML = `
+      <div class="result-title"><i class="fas fa-award"></i> ${data.relation}</div>
+      <div class="result-path">${data.path}</div>
+      <div class="result-note"><i class="fas fa-comment-dots"></i> <strong>考据注记：</strong>${data.note}</div>
+    `;
+  } else {
+    resultBox.innerHTML = `
+      <div class="result-title"><i class="fas fa-project-diagram"></i> 欧洲王室跨系宗亲</div>
+      <div class="result-path">所选人物均通过 <strong>英国维多利亚女王</strong> 及 <strong>丹麦克里斯蒂安九世</strong> 的多代跨国联姻网络具有表亲/堂亲关联。可在上方全景网络图中查看完整连接路径。</div>
+      <div class="result-note"><i class="fas fa-info-circle"></i> 当代欧洲所有在位君主制王室（英、挪、丹、瑞、比、西、卢、荷）均享有共同王族血统。</div>
+    `;
+  }
+}
+
+// Window init
+window.addEventListener('DOMContentLoaded', () => {
+  const chartDom = document.getElementById('mainChart');
+  myChart = echarts.init(chartDom);
+  myChart.setOption(getFocusGraphOption());
+  calculateRelationship();
+
+  window.addEventListener('resize', () => {
+    myChart && myChart.resize();
+  });
+});
+</script>
+
+</body>
+</html>

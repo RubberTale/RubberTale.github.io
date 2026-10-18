@@ -1,0 +1,680 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大宋十八帝与宗法王统全景谱系",
+    "subtitle": "三百年赵宋皇统 · 开宝烛影斧声至崖山蹈海殉国世系全录",
+    "output": "song-genealogy.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "赵宋祖基与入继宗王",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国元勋与中兴名君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "宗室入嗣与皇弟支系",
+          "visible": true
+        },
+        "security": {
+          "label": "靖康北狩与流亡幼主",
+          "visible": true
+        },
+        "external": {
+          "label": "末代降主与崖山殉国",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "xuanzu",
+      "type": "cloud",
+      "label": "宋宣祖 赵弘殷 (yīn)",
+      "sublabel": "护圣都指挥使 · 追尊宣祖 · 生太祖太宗",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "赵宋肇基"
+    },
+    {
+      "id": "taizu",
+      "type": "frontend",
+      "label": "1. 宋太祖 赵匡胤 (yìn)",
+      "sublabel": "陈桥兵变黄袍加身 · 杯酒释兵权 · 开国",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "960-976 · 在位16年"
+    },
+    {
+      "id": "dezhao",
+      "type": "database",
+      "label": "燕王 (赵德昭)",
+      "sublabel": "太祖次子 · 979年自刎 · 理宗度宗先祖",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "太祖长支 · 燕王脉"
+    },
+    {
+      "id": "defang",
+      "type": "database",
+      "label": "秦王 (赵德芳)",
+      "sublabel": "太祖四子 · 八贤王原型 · 孝宗直系先祖",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "太祖幼支 · 秦王脉"
+    },
+    {
+      "id": "tingmei",
+      "type": "database",
+      "label": "魏王 (赵廷美)",
+      "sublabel": "宣祖四子 · 金匮之盟传弟候选 · 贬死房州",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "太宗弟 · 秦魏二王"
+    },
+    {
+      "id": "zicheng",
+      "type": "cloud",
+      "label": "秀安僖王 赵子偁 (chēng)",
+      "sublabel": "德芳五世孙 · 太祖六世孙 · 孝宗生父",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "孝宗生父 · 绍兴封王"
+    },
+    {
+      "id": "yurui",
+      "type": "cloud",
+      "label": "荣王 赵与芮 (ruì)",
+      "sublabel": "德昭九世孙 · 太祖十世孙 · 度宗生父",
+      "pos": [
+        40,
+        780
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "度宗生父 · 福王荣王"
+    },
+    {
+      "id": "taizong",
+      "type": "frontend",
+      "label": "2. 宋太宗 (赵光义)",
+      "sublabel": "烛影斧声代立 · 灭北汉统中原 · 雍熙北伐",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "976-997 · 在位21年"
+    },
+    {
+      "id": "zhenzong",
+      "type": "backend",
+      "label": "3. 宋真宗 赵恒 (héng)",
+      "sublabel": "太宗三子 · 澶渊之盟约为兄弟 · 咸平之治",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "997-1022 · 在位25年"
+    },
+    {
+      "id": "renzong",
+      "type": "frontend",
+      "label": "4. 宋仁宗 赵祯 (zhēn)",
+      "sublabel": "在位四十二年 · 嘉祐之治名臣辈出 · 无嗣",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1022-1063 · 在位42年"
+    },
+    {
+      "id": "yunrang",
+      "type": "cloud",
+      "label": "濮安懿王 (赵允让)",
+      "sublabel": "太宗商王赵元份子 · 濮议皇考 · 英宗生父",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "太宗曾孙 · 英宗生父"
+    },
+    {
+      "id": "yingzong",
+      "type": "database",
+      "label": "5. 宋英宗 赵曙 (shù)",
+      "sublabel": "仁宗养子入嗣大统 · 濮议之争追尊生父",
+      "pos": [
+        320,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1063-1067 · 在位4年"
+    },
+    {
+      "id": "shenzong",
+      "type": "frontend",
+      "label": "6. 宋神宗 赵顼 (xū)",
+      "sublabel": "英宗长子 · 王安石变法 · 富国强兵熙河开边",
+      "pos": [
+        320,
+        780
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1067-1085 · 在位18年"
+    },
+    {
+      "id": "zhezong",
+      "type": "backend",
+      "label": "7. 宋哲宗 赵煦 (xù)",
+      "sublabel": "神宗六子 · 元祐更化 · 亲政绍述恢复新法",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1085-1100 · 在位15年"
+    },
+    {
+      "id": "huizong",
+      "type": "security",
+      "label": "8. 宋徽宗 赵佶 (jí)",
+      "sublabel": "神宗十一子端王 · 瘦金体 · 靖康被掳金国",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1100-1126 · 在位26年"
+    },
+    {
+      "id": "qinzong",
+      "type": "security",
+      "label": "9. 宋钦宗 赵桓 (huán)",
+      "sublabel": "徽宗长子 · 靖康之耻开封沦陷 · 二帝北狩",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1126-1127 · 北宋灭亡"
+    },
+    {
+      "id": "gaozong",
+      "type": "frontend",
+      "label": "10. 宋高宗 赵构 (gòu)",
+      "sublabel": "徽宗九子康王 · 南渡临安建立南宋 · 无嗣",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1127-1162 · 在位35年"
+    },
+    {
+      "id": "xiaozong",
+      "type": "frontend",
+      "label": "11. 宋孝宗 赵昚 (shèn)",
+      "sublabel": "太祖七世孙 · 皇统重归太祖 · 平反岳飞乾淳盛世",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1162-1189 · 在位27年"
+    },
+    {
+      "id": "guangzong",
+      "type": "backend",
+      "label": "12. 宋光宗 赵惇 (dūn)",
+      "sublabel": "孝宗三子 · 惧内发疯不执丧 · 绍熙内禅退位",
+      "pos": [
+        600,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1189-1194 · 在位5年"
+    },
+    {
+      "id": "ningzong",
+      "type": "backend",
+      "label": "13. 宋宁宗 赵扩 (kuò)",
+      "sublabel": "光宗次子 · 开禧北伐 · 史弥远专权擅政 · 无嗣",
+      "pos": [
+        600,
+        780
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1194-1224 · 在位30年"
+    },
+    {
+      "id": "lizong",
+      "type": "frontend",
+      "label": "14. 宋理宗 赵昀 (yún)",
+      "sublabel": "太祖十世孙 · 民间入嗣 · 端平更化联蒙灭金",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1224-1264 · 在位40年"
+    },
+    {
+      "id": "duzong",
+      "type": "backend",
+      "label": "15. 宋度宗 赵禥 (qí)",
+      "sublabel": "荣王之子入嗣 · 贾似道专权 · 襄樊保卫战失守",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1264-1274 · 在位10年"
+    },
+    {
+      "id": "gongdi",
+      "type": "external",
+      "label": "16. 宋恭帝 赵㬎 (xiǎn)",
+      "sublabel": "度宗幼子 · 临安降元出家萨迦寺 · 封瀛国公",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1274-1276 · 降元出家"
+    },
+    {
+      "id": "duanzong",
+      "type": "security",
+      "label": "17. 宋端宗 赵昰 (shì)",
+      "sublabel": "度宗长子 · 福州登基流亡海上 · 溺水惊悸崩",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1276-1278 · 在位2年"
+    },
+    {
+      "id": "shaodi",
+      "type": "external",
+      "label": "18. 宋少帝 赵昺 (bǐng)",
+      "sublabel": "度宗少子 · 陆秀夫拥立崖山 · 崖山之战惨败",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1278-1279 · 祥兴帝"
+    },
+    {
+      "id": "yashan",
+      "type": "external",
+      "label": "崖山海战 · 亡宋殉国",
+      "sublabel": "陆秀夫负帝蹈海 · 十万军民殉节 · 享国319年",
+      "pos": [
+        880,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1279年 · 崖山海战"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "赵宋肇基 · 宣祖初起与太祖宗支",
+      "wraps": [
+        "xuanzu",
+        "taizu",
+        "dezhao",
+        "defang",
+        "tingmei",
+        "zicheng",
+        "yurui"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)",
+      "wraps": [
+        "taizong",
+        "zhenzong",
+        "renzong",
+        "yunrang",
+        "yingzong",
+        "shenzong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)",
+      "wraps": [
+        "zhezong",
+        "huizong",
+        "qinzong",
+        "gaozong",
+        "xiaozong",
+        "guangzong",
+        "ningzong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)",
+      "wraps": [
+        "lizong",
+        "duzong",
+        "gongdi",
+        "duanzong",
+        "shaodi",
+        "yashan"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-xuanzu-taizu",
+      "from": "xuanzu",
+      "to": "taizu",
+      "label": "长子开国"
+    },
+    {
+      "id": "c-taizu-dezhao",
+      "from": "taizu",
+      "to": "dezhao",
+      "label": "次子燕王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-dezhao-defang",
+      "from": "dezhao",
+      "to": "defang",
+      "label": "四弟秦王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-defang-tingmei",
+      "from": "defang",
+      "to": "tingmei",
+      "label": "叔父魏王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-tingmei-zicheng",
+      "from": "tingmei",
+      "to": "zicheng",
+      "label": "秦王后裔秀王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-zicheng-yurui",
+      "from": "zicheng",
+      "to": "yurui",
+      "label": "燕王后裔荣王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-taizu-taizong",
+      "from": "taizu",
+      "to": "taizong",
+      "label": "烛影斧声",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-taizong-zhenzong",
+      "from": "taizong",
+      "to": "zhenzong",
+      "label": "三子即位"
+    },
+    {
+      "id": "c-zhenzong-renzong",
+      "from": "zhenzong",
+      "to": "renzong",
+      "label": "六子嘉祐之治"
+    },
+    {
+      "id": "c-renzong-yunrang",
+      "from": "renzong",
+      "to": "yunrang",
+      "label": "堂兄濮安懿王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-yunrang-yingzong",
+      "from": "yunrang",
+      "to": "yingzong",
+      "label": "十三子入嗣大统"
+    },
+    {
+      "id": "c-yingzong-shenzong",
+      "from": "yingzong",
+      "to": "shenzong",
+      "label": "长子熙丰变法"
+    },
+    {
+      "id": "c-shenzong-zhezong",
+      "from": "shenzong",
+      "to": "zhezong",
+      "label": "六子哲宗立"
+    },
+    {
+      "id": "c-zhezong-huizong",
+      "from": "zhezong",
+      "to": "huizong",
+      "label": "哲宗早夭弟徽宗继",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-huizong-qinzong",
+      "from": "huizong",
+      "to": "qinzong",
+      "label": "金兵南下长子禅位"
+    },
+    {
+      "id": "c-qinzong-gaozong",
+      "from": "qinzong",
+      "to": "gaozong",
+      "label": "九弟康王南渡称帝",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-gaozong-xiaozong",
+      "from": "gaozong",
+      "to": "xiaozong",
+      "label": "高宗无嗣物归太祖脉",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaozong-guangzong",
+      "from": "xiaozong",
+      "to": "guangzong",
+      "label": "三子内禅光宗"
+    },
+    {
+      "id": "c-guangzong-ningzong",
+      "from": "guangzong",
+      "to": "ningzong",
+      "label": "次子绍熙内禅"
+    },
+    {
+      "id": "c-ningzong-lizong",
+      "from": "ningzong",
+      "to": "lizong",
+      "label": "立太祖后理宗",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-lizong-duzong",
+      "from": "lizong",
+      "to": "duzong",
+      "label": "理宗无嗣弟之子入嗣",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-duzong-gongdi",
+      "from": "duzong",
+      "to": "gongdi",
+      "label": "幼子即位临安降元"
+    },
+    {
+      "id": "c-gongdi-duanzong",
+      "from": "gongdi",
+      "to": "duanzong",
+      "label": "群臣拥长子福州登基",
+      "variant": "security"
+    },
+    {
+      "id": "c-duanzong-shaodi",
+      "from": "duanzong",
+      "to": "shaodi",
+      "label": "端宗溺水崩弟少帝立",
+      "variant": "security"
+    },
+    {
+      "id": "c-shaodi-yashan",
+      "from": "shaodi",
+      "to": "yashan",
+      "label": "负帝蹈海十万殉国",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "烛影斧声与金匮之盟传奇",
+      "items": [
+        "976年宋太祖赵匡胤猝崩，晋王赵光义斧声烛影即位，史称宋太宗",
+        "杜太后'金匮之盟'传言兄终弟及，魏王廷美与皇子德昭、德芳相继暴亡",
+        "太宗一系独掌大宋神器一百五十年，直至靖康之难诸王尽没金国"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "靖康之难与皇统物归太祖",
+      "items": [
+        "1127年金军破开封，徽钦二帝及三千宗室被俘北迁，北宋宣告覆灭",
+        "高宗赵构独支南渡建立南宋，因兵变受惊丧失生育能力，幼子早夭无嗣",
+        "高宗感召寻访太祖七世孙赵昚（孝宗）入宫即位，大宋皇统奇迹般重归太祖一脉"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "民间平民登基与崖山绝响",
+      "items": [
+        "宁宗崩无嗣，权相史弥远自民间拥立太祖十世孙赵昀（宋理宗）入嗣大统",
+        "理宗联蒙灭金，度宗荒怠贾似道专权，襄樊失守后元军长驱直入逼降临安",
+        "1279年崖山海战宋军惨败，陆秀夫负幼帝赵昺蹈海，十万军民殉节，大宋终"
+      ]
+    }
+  ]
+}

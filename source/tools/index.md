@@ -656,12 +656,12 @@ html {
       </a>
     </div>
     <div class="flink-list-item">
-      <a href="/royal-genealogy/" title="欧洲王室世系血统谱系" target="_blank">
+      <a href="/genealogy/" title="华夏历代帝系与皇统谱系大系" target="_blank">
         <div class="flink-item-icon">
-          <img src="https://api.iconify.design/lucide:crown.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="欧洲王室谱系">
+          <img src="https://api.iconify.design/lucide:crown.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="华夏历代帝系谱系大系">
         </div>
-        <div class="flink-item-name">欧洲王室世系血统图谱</div>
-        <div class="flink-item-desc">详尽梳理欧洲哈布斯堡、波旁、金雀花等主要王族世系血统网络与跨国联姻地缘政治传承。</div>
+        <div class="flink-item-name">华夏历代帝系与皇统全景谱系大系</div>
+        <div class="flink-item-desc">全景交互呈现两周、两汉、两晋、大唐、大宋、大明、大清与欧洲王室世系，图解三千年正统传承与血统演进。</div>
       </a>
     </div>
   </div>

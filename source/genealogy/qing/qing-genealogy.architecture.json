@@ -1,0 +1,495 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大清十二帝与后金宗支全景谱系",
+    "subtitle": "近三百年白山黑水 · 赫图阿拉起兵入关至辛亥逊位全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "白山黑水与摄政宗王",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国雄主与盛世盛治",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "九子夺嫡与宗亲辅政",
+          "visible": true
+        },
+        "security": {
+          "label": "外患割地与变法囚禁",
+          "visible": true
+        },
+        "external": {
+          "label": "辛亥逊位与两千年终局",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "taizu",
+      "type": "frontend",
+      "label": "清太祖 努尔哈赤",
+      "sublabel": "十三副遗甲起兵 · 统一女真创八旗 · 萨尔浒之战大捷",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1616-1626 · 天命汗"
+    },
+    {
+      "id": "taizong",
+      "type": "frontend",
+      "label": "1. 清太宗 皇太极",
+      "sublabel": "改国号为大清改族名满洲 · 降朝鲜破锦州 · 猝崩",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1626-1643 · 崇德称帝"
+    },
+    {
+      "id": "duoergun",
+      "type": "cloud",
+      "label": "睿亲王 (多尔衮)",
+      "sublabel": "太祖十四子摄政王 · 迎吴三桂清军入关 · 追尊义皇帝后削爵",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "摄政王 · 定鼎关内"
+    },
+    {
+      "id": "shizu",
+      "type": "backend",
+      "label": "2. 清世祖 福临",
+      "sublabel": "皇太极九子入关首帝 · 抚定中原定都北京 · 宠董鄂妃早崩",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1643-1661 · 顺治18年"
+    },
+    {
+      "id": "shengzu",
+      "type": "frontend",
+      "label": "3. 清圣祖 玄烨",
+      "sublabel": "擒鳌拜平三藩逐沙俄收台湾 · 亲征准噶尔 · 奠定帝国版图",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1661-1722 · 康熙61年"
+    },
+    {
+      "id": "yinreng",
+      "type": "database",
+      "label": "理密亲王 (胤礽 réng)",
+      "sublabel": "康熙嫡子两立两废 · 引发九子夺嫡朋党倾轧 · 幽死咸安宫",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "皇太子 · 九子夺嫡"
+    },
+    {
+      "id": "shizong",
+      "type": "frontend",
+      "label": "4. 清世宗 胤禛 (zhēn)",
+      "sublabel": "设军机处改土归流 · 摊丁入亩整饬吏治 · 勤政十三载暴崩",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1722-1735 · 雍正13年"
+    },
+    {
+      "id": "gaozong",
+      "type": "frontend",
+      "label": "5. 清高宗 弘历",
+      "sublabel": "自封十全老人全盛帝国 · 编纂四库全书 · 晚年宠和珅吏治衰",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1735-1796 · 乾隆60年"
+    },
+    {
+      "id": "renzong",
+      "type": "backend",
+      "label": "6. 清仁宗 颙琰 (yǎn)",
+      "sublabel": "赐死和珅整肃贪腐 · 白莲教天理教大起义 · 盛世转衰",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1796-1820 · 嘉庆25年"
+    },
+    {
+      "id": "xuanzong",
+      "type": "security",
+      "label": "7. 清宣宗 旻宁 (míng)",
+      "sublabel": "崇尚节俭补丁龙袍 · 鸦片战争南京条约 · 割香港开五口",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1820-1850 · 道光30年"
+    },
+    {
+      "id": "wenzong",
+      "type": "security",
+      "label": "8. 清文宗 奕詝 (zhǔ)",
+      "sublabel": "太平天国失半壁江山 · 英法联军火烧圆明园 · 避暑山庄崩",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1850-1861 · 咸丰11年"
+    },
+    {
+      "id": "yixin",
+      "type": "cloud",
+      "label": "恭亲王 (奕訢 xīn)",
+      "sublabel": "道光六子鬼子六 · 辛酉政变辅两宫 · 总理衙门创洋务自强",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "议政王 · 洋务领袖"
+    },
+    {
+      "id": "cixi",
+      "type": "cloud",
+      "label": "慈禧皇太后 (叶赫那拉氏)",
+      "sublabel": "垂帘听政四十八载 · 辛酉政变戊戌政变 · 庚子拳乱西狩西安",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1861-1908 · 实际统治"
+    },
+    {
+      "id": "muzong",
+      "type": "backend",
+      "label": "9. 清穆宗 载淳",
+      "sublabel": "咸丰独子慈禧生母 · 同治中兴平定捻回 · 十九岁染天花崩",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1861-1875 · 同治13年"
+    },
+    {
+      "id": "dezong",
+      "type": "security",
+      "label": "10. 清德宗 载湉 (tián)",
+      "sublabel": "醇亲王奕譞子入嗣 · 甲午战败戊戌变法 · 瀛台囚禁砒霜鸩死",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1875-1908 · 光绪34年"
+    },
+    {
+      "id": "xuantong",
+      "type": "external",
+      "label": "11. 宣统帝 溥仪",
+      "sublabel": "醇亲王载沣子登基 · 辛亥革命隆裕宣读逊位诏书 · 清朝终局",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1908-1912 · 末代皇帝"
+    },
+    {
+      "id": "xinhai",
+      "type": "external",
+      "label": "辛亥革命 · 帝制终结",
+      "sublabel": "武昌起义天下响应 · 清帝逊位共和肇造 · 终结两千年帝制",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1912年 · 走向共和"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "关外肇基 · 萨尔浒与入关定鼎 (1616-1661年)",
+      "wraps": [
+        "taizu",
+        "taizong",
+        "duoergun",
+        "shizu"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "康乾极盛 · 统一版图与盛世巅峰 (1661-1796年)",
+      "wraps": [
+        "shengzu",
+        "yinreng",
+        "shizong",
+        "gaozong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "嘉道衰微 · 鸦片战争与太平天国 (1796-1861年)",
+      "wraps": [
+        "renzong",
+        "xuanzong",
+        "wenzong",
+        "yixin"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "晚清风云 · 辛酉政变与辛亥逊位 (1861-1912年)",
+      "wraps": [
+        "cixi",
+        "muzong",
+        "dezong",
+        "xuantong",
+        "xinhai"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-taizu-taizong",
+      "from": "taizu",
+      "to": "taizong",
+      "label": "八子继汗改国号",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-taizu-duoergun",
+      "from": "taizu",
+      "to": "duoergun",
+      "label": "十四子睿亲王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-taizong-shizu",
+      "from": "taizong",
+      "to": "shizu",
+      "label": "九子即位多尔衮摄政",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-duoergun-shizu",
+      "from": "duoergun",
+      "to": "shizu",
+      "label": "辅政入关定鼎北京",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shizu-shengzu",
+      "from": "shizu",
+      "to": "shengzu",
+      "label": "三子玄烨出天花即位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shengzu-yinreng",
+      "from": "shengzu",
+      "to": "yinreng",
+      "label": "嫡子立废两度废黜",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shengzu-shizong",
+      "from": "shengzu",
+      "to": "shizong",
+      "label": "四子夺嫡登基",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shizong-gaozong",
+      "from": "shizong",
+      "to": "gaozong",
+      "label": "四子秘密立储弘历",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-gaozong-renzong",
+      "from": "gaozong",
+      "to": "renzong",
+      "label": "十五子颙琰禅代",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-renzong-xuanzong",
+      "from": "renzong",
+      "to": "xuanzong",
+      "label": "次子旻宁即位"
+    },
+    {
+      "id": "c-xuanzong-wenzong",
+      "from": "xuanzong",
+      "to": "wenzong",
+      "label": "四子咸丰立"
+    },
+    {
+      "id": "c-wenzong-yixin",
+      "from": "wenzong",
+      "to": "yixin",
+      "label": "六弟恭亲王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-wenzong-cixi",
+      "from": "wenzong",
+      "to": "cixi",
+      "label": "懿贵妃两宫垂帘",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-wenzong-muzong",
+      "from": "wenzong",
+      "to": "muzong",
+      "label": "独子同治即位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-cixi-muzong",
+      "from": "cixi",
+      "to": "muzong",
+      "label": "生母慈禧垂帘辅政",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-muzong-dezong",
+      "from": "muzong",
+      "to": "dezong",
+      "label": "同治无嗣慈禧立醇王子",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-dezong-xuantong",
+      "from": "dezong",
+      "to": "xuantong",
+      "label": "光绪无嗣立溥仪",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xuantong-xinhai",
+      "from": "xuantong",
+      "to": "xinhai",
+      "label": "辛亥革命宣读逊位诏书",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "从萨尔浒到顺治定鼎中原",
+      "items": [
+        "努尔哈赤以十三副遗甲起兵，统一女真各部创立八旗制度，1619年萨尔浒之战大破明军",
+        "皇太极改国号大清、族名满洲，确立兼并关内战略；多尔衮摄政引吴三桂入山海关",
+        "顺治帝福临入主北京定鼎中原，大清自此成为统治全国的大一统王朝"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "康乾盛世与九子夺嫡风云",
+      "items": [
+        "康熙帝在位61年，智擒鳌拜、平定三藩、驱逐沙俄、统一台湾，奠定全盛版图",
+        "晚年皇子争储爆发惊心动魄的'九子夺嫡'，雍正帝胤禛继位推行严密反腐与摊丁入亩",
+        "乾隆帝承其父祖之业自称'十全老人'，修纂《四库全书》，康乾盛世达到古典皇权巅峰"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "三千年未有之大变局与清逊位",
+      "items": [
+        "道光朝鸦片战争打破闭关锁国，割让香港开辟五口，中国沦入近代半殖民地屈辱史",
+        "慈禧太后垂帘听政近半个世纪，历经太平天国、洋务自强、甲午战败与庚子拳乱",
+        "1911年武昌首义爆发辛亥革命，1912年隆裕皇太后颁布退位诏书，清朝296年终，两千年帝制终结"
+      ]
+    }
+  ]
+}

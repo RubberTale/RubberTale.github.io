@@ -1,0 +1,598 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大明十六帝与宗法靖难全景谱系",
+    "subtitle": "二百七十六年日月同辉 · 凤阳布衣提剑至煤山殉国世系全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "洪武开国与皇储懿文",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国雄主与中兴明君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "靖难夺位与藩王入嗣",
+          "visible": true
+        },
+        "security": {
+          "label": "土木蒙尘与国本党争",
+          "visible": true
+        },
+        "external": {
+          "label": "煤山殉节与南明绝唱",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "taizu",
+      "type": "frontend",
+      "label": "1. 明太祖 朱元璋",
+      "sublabel": "布衣提剑取天下 · 废丞相设锦衣卫 · 洪武之治",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1368-1398 · 在位31年"
+    },
+    {
+      "id": "zhubiao",
+      "type": "cloud",
+      "label": "懿文太子 (朱标)",
+      "sublabel": "太祖长子宽仁得人心 · 考察陕西染疾早逝 · 追尊兴宗",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "洪武皇太子 · 兴宗"
+    },
+    {
+      "id": "jianwen",
+      "type": "security",
+      "label": "2. 建文帝 朱允炆",
+      "sublabel": "太祖嫡长孙即位 · 削藩激变靖难之役 · 宫焚下落成谜",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1398-1402 · 在位4年"
+    },
+    {
+      "id": "chengzu",
+      "type": "frontend",
+      "label": "3. 明成祖 朱棣",
+      "sublabel": "燕王起兵靖难篡位 · 迁都北京五征漠北 · 永乐盛世",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1402-1424 · 在位22年"
+    },
+    {
+      "id": "rengzong",
+      "type": "backend",
+      "label": "4. 明仁宗 朱高炽",
+      "sublabel": "成祖长子仁德宽厚 · 息兵养民平反冤狱 · 仁宣之治始",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1424-1425 · 在位10月"
+    },
+    {
+      "id": "xuanzong",
+      "type": "frontend",
+      "label": "5. 明宣宗 朱瞻基",
+      "sublabel": "平汉王高煦叛乱 · 促成仁宣之治 · 开启内阁票拟太监批红",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1425-1435 · 在位10年"
+    },
+    {
+      "id": "yingzong",
+      "type": "security",
+      "label": "6. 明英宗 朱祁镇",
+      "sublabel": "土木堡之变被俘瓦剌 · 南宫幽禁八载 · 夺门之变复辟",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1435-49/57-64 · 两朝立"
+    },
+    {
+      "id": "daizong",
+      "type": "backend",
+      "label": "7. 明代宗 朱祁钰",
+      "sublabel": "英宗弟危难立孤 · 任用于谦京师保卫战大捷 · 夺门被废",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1449-1457 · 景泰帝"
+    },
+    {
+      "id": "xianzong",
+      "type": "backend",
+      "label": "8. 明宪宗 朱见深",
+      "sublabel": "成化新政抚流民 · 宠万贵妃立西厂 · 恢复景泰帝帝号",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1464-1487 · 在位23年"
+    },
+    {
+      "id": "xiaozong",
+      "type": "frontend",
+      "label": "9. 明孝宗 朱佑樘 (chēng)",
+      "sublabel": "一生独宠张皇后 · 弘治中兴名臣盈朝 · 恭俭爱民仁政",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1487-1505 · 在位18年"
+    },
+    {
+      "id": "wuzong",
+      "type": "security",
+      "label": "10. 明武宗 朱厚照",
+      "sublabel": "自封威武大将军朱寿 · 应州大捷败蒙古 · 豹房嬉戏无嗣崩",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1505-1521 · 在位16年"
+    },
+    {
+      "id": "xingwang",
+      "type": "cloud",
+      "label": "睿宗献皇帝 (朱祐杬)",
+      "sublabel": "宪宗四子兴献王 · 嘉靖帝生父 · 引发大礼议追尊皇考",
+      "pos": [
+        320,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "兴献王 · 大礼议焦点"
+    },
+    {
+      "id": "shizong",
+      "type": "backend",
+      "label": "11. 明世宗 朱厚熜 (cōng)",
+      "sublabel": "兴献王子入继大统 · 大礼议争统 · 痴迷修道深居西苑",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1521-1566 · 嘉靖45年"
+    },
+    {
+      "id": "muzong",
+      "type": "backend",
+      "label": "12. 明穆宗 朱载坖 (jì)",
+      "sublabel": "俺答封贡隆庆和议 · 隆庆开海解除海禁 · 宽恕直言名臣",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1566-1572 · 隆庆6年"
+    },
+    {
+      "id": "shenzong",
+      "type": "backend",
+      "label": "13. 明神宗 朱翊钧 (yùn)",
+      "sublabel": "张居正改革一条鞭法 · 万历三大征 · 晚年怠政萨尔浒大败",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1572-1620 · 万历48年"
+    },
+    {
+      "id": "guangzong",
+      "type": "security",
+      "label": "14. 明光宗 朱常洛",
+      "sublabel": "国本之争历尽坎坷 · 服红丸一月暴卒 · 红丸案梃击案",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1620年 · 泰昌一月"
+    },
+    {
+      "id": "xizong",
+      "type": "security",
+      "label": "15. 明熹宗 朱由校",
+      "sublabel": "擅长木工木匠皇帝 · 宠信宦官魏忠贤 · 东林党争天启大乱",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1620-1627 · 天启7年"
+    },
+    {
+      "id": "sizong",
+      "type": "external",
+      "label": "16. 明思宗 朱由检",
+      "sublabel": "铲除阉党勤政自励 · 多疑杀袁崇焕 · 李自成破京自缢煤山",
+      "pos": [
+        600,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1627-1644 · 崇祯17年"
+    },
+    {
+      "id": "hongguang",
+      "type": "security",
+      "label": "南明弘光帝 (朱由崧)",
+      "sublabel": "万历帝三子福王之子 · 南京登基荒淫无度 · 降清被害",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1644-1645 · 南京弘光"
+    },
+    {
+      "id": "longwu",
+      "type": "security",
+      "label": "南明隆武帝 (朱聿键)",
+      "sublabel": "太祖二十三子唐王八世孙 · 福州即位得郑芝龙拥立 · 汀州殉难",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1645-1646 · 福州隆武"
+    },
+    {
+      "id": "yongli",
+      "type": "external",
+      "label": "南明永历帝 (朱由榔)",
+      "sublabel": "神宗孙桂王之子 · 联大西大顺抗清 · 缅甸殉难",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1646-1662 · 永历16年"
+    },
+    {
+      "id": "mingmie",
+      "type": "external",
+      "label": "煤山殉国 · 大明终局",
+      "sublabel": "天子守国门君王死社稷 · 享国276年 · 华夏衣冠风骨永存",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1644年 · 甲申之变"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "洪武开国 · 布衣提剑与靖难风云 (1368-1435年)",
+      "wraps": [
+        "taizu",
+        "zhubiao",
+        "jianwen",
+        "chengzu",
+        "rengzong",
+        "xuanzong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "仁宣治平 · 土木夺门与弘治中兴 (1435-1521年)",
+      "wraps": [
+        "yingzong",
+        "daizong",
+        "xianzong",
+        "xiaozong",
+        "wuzong",
+        "xingwang"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "嘉靖世宗 · 万历怠政与甲申煤山 (1521-1644年)",
+      "wraps": [
+        "shizong",
+        "muzong",
+        "shenzong",
+        "guangzong",
+        "xizong",
+        "sizong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "南明抗清 · 日月沉沦与滇缅绝唱 (1644-1662年)",
+      "wraps": [
+        "hongguang",
+        "longwu",
+        "yongli",
+        "mingmie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-taizu-zhubiao",
+      "from": "taizu",
+      "to": "zhubiao",
+      "label": "长子立储",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-zhubiao-jianwen",
+      "from": "zhubiao",
+      "to": "jianwen",
+      "label": "皇太孙嗣位"
+    },
+    {
+      "id": "c-jianwen-chengzu",
+      "from": "jianwen",
+      "to": "chengzu",
+      "label": "燕王靖难夺位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-chengzu-rengzong",
+      "from": "chengzu",
+      "to": "rengzong",
+      "label": "长子仁宗立"
+    },
+    {
+      "id": "c-rengzong-xuanzong",
+      "from": "rengzong",
+      "to": "xuanzong",
+      "label": "好圣孙宣宗立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xuanzong-yingzong",
+      "from": "xuanzong",
+      "to": "yingzong",
+      "label": "长子英宗立"
+    },
+    {
+      "id": "c-yingzong-daizong",
+      "from": "yingzong",
+      "to": "daizong",
+      "label": "土木被俘弟代宗立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-daizong-yingzong",
+      "from": "daizong",
+      "to": "yingzong",
+      "label": "夺门之变复辟",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yingzong-xianzong",
+      "from": "yingzong",
+      "to": "xianzong",
+      "label": "长子宪宗立"
+    },
+    {
+      "id": "c-xianzong-xiaozong",
+      "from": "xianzong",
+      "to": "xiaozong",
+      "label": "三子孝宗立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaozong-wuzong",
+      "from": "xiaozong",
+      "to": "wuzong",
+      "label": "独子武宗立"
+    },
+    {
+      "id": "c-xianzong-xingwang",
+      "from": "xianzong",
+      "to": "xingwang",
+      "label": "四子兴献王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-xingwang-shizong",
+      "from": "xingwang",
+      "to": "shizong",
+      "label": "武宗无嗣堂弟入嗣",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shizong-muzong",
+      "from": "shizong",
+      "to": "muzong",
+      "label": "三子穆宗立"
+    },
+    {
+      "id": "c-muzong-shenzong",
+      "from": "muzong",
+      "to": "shenzong",
+      "label": "三子神宗立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shenzong-guangzong",
+      "from": "shenzong",
+      "to": "guangzong",
+      "label": "长子光宗立",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-guangzong-xizong",
+      "from": "guangzong",
+      "to": "xizong",
+      "label": "长子熹宗立"
+    },
+    {
+      "id": "c-xizong-sizong",
+      "from": "xizong",
+      "to": "sizong",
+      "label": "熹宗无嗣弟信王立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-sizong-mingmie",
+      "from": "sizong",
+      "to": "mingmie",
+      "label": "闯军入京自缢煤山",
+      "variant": "security"
+    },
+    {
+      "id": "c-shenzong-hongguang",
+      "from": "shenzong",
+      "to": "hongguang",
+      "label": "福王系南渡即位",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-hongguang-longwu",
+      "from": "hongguang",
+      "to": "longwu",
+      "label": "弘光覆灭唐王福州立",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-longwu-yongli",
+      "from": "longwu",
+      "to": "yongli",
+      "label": "桂王肇庆抗清",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "靖难之役与成祖北迁定都",
+      "items": [
+        "建文削藩过激，燕王朱棣以'清君侧'为名起兵靖难，1402年攻陷南京夺取皇位",
+        "成祖迁都北京，天子守国门，五征漠北、七下西洋、修永乐大典，铸就永乐全盛",
+        "靖难之变使大明皇统由懿文太子一脉彻底转入成祖燕王一脉"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "土木之变与夺门复辟惊魂",
+      "items": [
+        "1449年明英宗轻率北征惨败瓦剌俘于土木堡，于谦力挽狂澜拥立代宗取得京师保卫战大捷",
+        "景泰帝拒不复立英宗，1457年石亨徐有贞发动'夺门之变'迎英宗复辟，于谦冤死",
+        "土木堡之变是大明由攻转守的分水岭，京营精锐丧尽，边防从此陷入战略被动"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "天子守国门与甲申煤山殉节",
+      "items": [
+        "明代宗藩恪守'不和亲、不赔款、不割地、天子守国门、君王死社稷'之铁律",
+        "1644年李自成大顺军破北京，崇祯帝朱由检自缢景山寿皇亭，大明正统享国276年终",
+        "南明弘光、隆武、永历转战大江南北十八载，最终永历帝死于缅甸，日月同辉成绝响"
+      ]
+    }
+  ]
+}

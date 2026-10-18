@@ -63,6 +63,7 @@ skip_render:
   - "rubber/**"
   - "roman/**"
   - "world-history/**"
+  - "genealogy/**"
   - "royal-genealogy/**"
   - "han-genealogy/**"
   - "zhou-genealogy/**"

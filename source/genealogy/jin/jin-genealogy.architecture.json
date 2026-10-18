@@ -1,0 +1,612 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "两晋十五帝与宗室王权全景谱系",
+    "subtitle": "一百五十五年司马皇统 · 高平陵奠基至衣冠南渡与刘宋代晋世系全录",
+    "output": "jin-genealogy.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "司马祖基与琅邪宗脉",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国元勋与中兴名君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "皇储太子与受害宗王",
+          "visible": true
+        },
+        "security": {
+          "label": "内乱篡立与国难蒙尘",
+          "visible": true
+        },
+        "external": {
+          "label": "末代禅让与南北朝代晋",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "simayi",
+      "type": "cloud",
+      "label": "晋宣帝 (司马懿 yì)",
+      "sublabel": "高平陵之变夺曹魏实权 · 追尊宣帝",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "司马氏肇基"
+    },
+    {
+      "id": "simazhao",
+      "type": "cloud",
+      "label": "晋文帝 (司马昭 zhāo)",
+      "sublabel": "昭心路人皆知 · 灭蜀汉掌魏政",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "追尊文帝"
+    },
+    {
+      "id": "wudi",
+      "type": "frontend",
+      "label": "1. 晋武帝 (司马炎 yán)",
+      "sublabel": "受魏禅称帝 · 灭吴一统天下 · 太康盛治",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "265-290 · 在位25年"
+    },
+    {
+      "id": "huidi",
+      "type": "backend",
+      "label": "2. 晋惠帝 (司马衷 zhōng)",
+      "sublabel": "何不食肉糜 · 贾后专权 · 引爆八王乱",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "290-307 · 在位17年"
+    },
+    {
+      "id": "simayu",
+      "type": "database",
+      "label": "愍怀太子 (司马遹 yù)",
+      "sublabel": "惠帝长子聪慧 · 遭贾南风诬杀激化内讧",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "八王之乱诱因"
+    },
+    {
+      "id": "simalun",
+      "type": "security",
+      "label": "赵王 (司马伦 lún)",
+      "sublabel": "宣帝九子 · 诛贾后僭登帝位百余日被诛",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "301年 · 僭位三月"
+    },
+    {
+      "id": "huaidi",
+      "type": "security",
+      "label": "3. 晋怀帝 (司马炽 chì)",
+      "sublabel": "武帝二十五子 · 永嘉之乱洛阳陷青衣行酒",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "307-313 · 被俘见害"
+    },
+    {
+      "id": "mindi",
+      "type": "security",
+      "label": "4. 晋愍帝 (司马邺 yè)",
+      "sublabel": "武帝之孙 · 长安受降肉袒出城西晋覆亡",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "313-316 · 西晋终亡"
+    },
+    {
+      "id": "simazhou",
+      "type": "cloud",
+      "label": "琅邪武王 (司马伷 zhòu)",
+      "sublabel": "宣帝四子 · 伐吴名将受降孙皓 · 琅邪国祖",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "东晋皇脉先祖"
+    },
+    {
+      "id": "simajin",
+      "type": "cloud",
+      "label": "琅邪恭王 (司马觐 jìn)",
+      "sublabel": "伷之世子 · 袭封琅邪王 · 元帝生父",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "元帝生父"
+    },
+    {
+      "id": "yuandi",
+      "type": "frontend",
+      "label": "5. 晋元帝 (司马睿 ruì)",
+      "sublabel": "衣冠南渡建立东晋 · 王与马共天下",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "318-323 · 东晋开国"
+    },
+    {
+      "id": "mingdi",
+      "type": "frontend",
+      "label": "6. 晋明帝 (司马绍 shào)",
+      "sublabel": "元帝长子 · 平定王敦之乱 · 黄须儿英主",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "323-325 · 在位3年"
+    },
+    {
+      "id": "chengdi",
+      "type": "backend",
+      "label": "7. 晋成帝 (司马衍 yǎn)",
+      "sublabel": "明帝长子幼冲继位 · 苏峻之乱陶侃平叛",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "325-342 · 在位17年"
+    },
+    {
+      "id": "kangdi",
+      "type": "backend",
+      "label": "8. 晋康帝 (司马岳 yuè)",
+      "sublabel": "成帝同母弟 · 临危即位在位仅二年崩",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "342-344 · 在位2年"
+    },
+    {
+      "id": "mudi",
+      "type": "backend",
+      "label": "9. 晋穆帝 (司马聃 dān)",
+      "sublabel": "康帝长子两岁即位 · 褚后临朝桓温北伐",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "344-361 · 在位17年"
+    },
+    {
+      "id": "aidi",
+      "type": "backend",
+      "label": "10. 晋哀帝 (司马丕 pī)",
+      "sublabel": "成帝长子迎立 · 崇信金石服食丹药早崩",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "361-365 · 在位4年"
+    },
+    {
+      "id": "feidi",
+      "type": "security",
+      "label": "11. 晋废帝 (司马奕 yì)",
+      "sublabel": "成帝次子 · 遭权臣桓温废黜降为海西公",
+      "pos": [
+        600,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "365-371 · 降海西公"
+    },
+    {
+      "id": "jianwendi",
+      "type": "backend",
+      "label": "12. 晋简文帝 (司马昱 yù)",
+      "sublabel": "元帝少子清谈名士 · 桓温迎立八月忧崩",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "372年 · 在位8月"
+    },
+    {
+      "id": "xiaowudi",
+      "type": "frontend",
+      "label": "13. 晋孝武帝 (司马曜 yào)",
+      "sublabel": "简文三子 · 淝水大捷中兴 · 张贵人弑崩",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "372-396 · 淝水大捷"
+    },
+    {
+      "id": "andi",
+      "type": "backend",
+      "label": "14. 晋安帝 (司马德宗 zōng)",
+      "sublabel": "孝武长子天生痴哑 · 门阀混战刘裕执政",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "396-419 · 痴暗受制"
+    },
+    {
+      "id": "huanxuan",
+      "type": "security",
+      "label": "楚帝 (桓玄 xuán)",
+      "sublabel": "桓温之子 · 攻入建康篡晋立楚仅数月覆灭",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "403-404 · 僭位篡立"
+    },
+    {
+      "id": "gongdi",
+      "type": "external",
+      "label": "15. 晋恭帝 (司马德文 wén)",
+      "sublabel": "孝武次子 · 禅位刘裕被封零陵王旋被弑",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "419-420 · 末代禅让"
+    },
+    {
+      "id": "songmie",
+      "type": "external",
+      "label": "刘宋代晋 · 南朝肇基",
+      "sublabel": "刘裕称帝建立宋朝 · 两晋灭亡享国155年",
+      "pos": [
+        880,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "420年 · 两晋终局"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "西晋肇基与盛治初崩 (265 - 301年)",
+      "wraps": [
+        "simayi",
+        "simazhao",
+        "wudi",
+        "huidi",
+        "simayu",
+        "simalun"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "永嘉国难与宗室南渡 (307 - 323年)",
+      "wraps": [
+        "huaidi",
+        "mindi",
+        "simazhou",
+        "simajin",
+        "yuandi"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "东晋前朝 · 明帝一系六帝 (323 - 371年)",
+      "wraps": [
+        "mingdi",
+        "chengdi",
+        "kangdi",
+        "mudi",
+        "aidi",
+        "feidi"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "简文皇统 · 淝水大捷与禅宋 (372 - 420年)",
+      "wraps": [
+        "jianwendi",
+        "xiaowudi",
+        "andi",
+        "huanxuan",
+        "gongdi",
+        "songmie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-simayi-simazhao",
+      "from": "simayi",
+      "to": "simazhao",
+      "label": "次子掌魏政"
+    },
+    {
+      "id": "c-simazhao-wudi",
+      "from": "simazhao",
+      "to": "wudi",
+      "label": "长子禅魏称帝",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wudi-huidi",
+      "from": "wudi",
+      "to": "huidi",
+      "label": "次子继立大统"
+    },
+    {
+      "id": "c-huidi-simayu",
+      "from": "huidi",
+      "to": "simayu",
+      "label": "独子立为储君",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-simayu-simalun",
+      "from": "simayu",
+      "to": "simalun",
+      "label": "赵王假诏篡立",
+      "variant": "security"
+    },
+    {
+      "id": "c-wudi-huaidi",
+      "from": "wudi",
+      "to": "huaidi",
+      "label": "二十五子继立"
+    },
+    {
+      "id": "c-simayi-simazhou",
+      "from": "simayi",
+      "to": "simazhou",
+      "label": "四子封琅邪王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-huaidi-mindi",
+      "from": "huaidi",
+      "to": "mindi",
+      "label": "怀帝被俘侄继立",
+      "variant": "security"
+    },
+    {
+      "id": "c-simazhou-simajin",
+      "from": "simazhou",
+      "to": "simajin",
+      "label": "长子袭琅邪王",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-simajin-yuandi",
+      "from": "simajin",
+      "to": "yuandi",
+      "label": "长子江左即位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yuandi-mingdi",
+      "from": "yuandi",
+      "to": "mingdi",
+      "label": "长子明帝即位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-mingdi-chengdi",
+      "from": "mingdi",
+      "to": "chengdi",
+      "label": "长子成帝即位"
+    },
+    {
+      "id": "c-chengdi-kangdi",
+      "from": "chengdi",
+      "to": "kangdi",
+      "label": "同母弟康帝承统"
+    },
+    {
+      "id": "c-kangdi-mudi",
+      "from": "kangdi",
+      "to": "mudi",
+      "label": "独子穆帝即位"
+    },
+    {
+      "id": "c-mudi-aidi",
+      "from": "mudi",
+      "to": "aidi",
+      "label": "穆帝无嗣立成帝长子"
+    },
+    {
+      "id": "c-aidi-feidi",
+      "from": "aidi",
+      "to": "feidi",
+      "label": "哀帝崩弟废帝继位"
+    },
+    {
+      "id": "c-feidi-jianwendi",
+      "from": "feidi",
+      "to": "jianwendi",
+      "label": "桓温废立迎简文",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-jianwendi-xiaowudi",
+      "from": "jianwendi",
+      "to": "xiaowudi",
+      "label": "三子即位淝水大捷",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaowudi-andi",
+      "from": "xiaowudi",
+      "to": "andi",
+      "label": "长子安帝即位"
+    },
+    {
+      "id": "c-andi-huanxuan",
+      "from": "andi",
+      "to": "huanxuan",
+      "label": "桓玄篡安帝立楚",
+      "variant": "security"
+    },
+    {
+      "id": "c-huanxuan-gongdi",
+      "from": "huanxuan",
+      "to": "gongdi",
+      "label": "刘裕诛逆迎立恭帝",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-gongdi-songmie",
+      "from": "gongdi",
+      "to": "songmie",
+      "label": "恭帝禅位刘裕建宋",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "八王之乱与永嘉之祸",
+      "items": [
+        "晋惠帝昏懦，贾南风专权毒杀愍怀太子司马遹，引爆皇族长达十六年自相残杀",
+        "八王之乱彻底摧毁西晋中央军力，匈奴、羯、鲜卑、氐、羌五胡乘虚并起",
+        "311年刘聪陷洛阳俘虏怀帝，316年刘曜破长安愍帝出降受害，西晋五十二年国祚覆亡"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "衣冠南渡与王与马共天下",
+      "items": [
+        "中原沦陷士族百姓南渡大江，琅邪王司马睿在王导、王敦辅佐下建都建康开启东晋",
+        "东晋呈现'门阀政治'，皇权式微，王敦之乱与苏峻之乱后庾氏、桓氏相继操纵朝政",
+        "桓温三次北伐威震天下，两度行废立之举，东晋皇统自明帝系转移至简文帝一脉"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "淝水大捷与刘宋代晋",
+      "items": [
+        "383年苻坚倾国百万南侵，宰相谢安从容调度，谢玄率八万北府精兵斩获淝水空前大捷",
+        "淝水战后中原再度分裂，东晋爆发孙恩卢循之乱与桓玄篡立楚国，门阀世族根基瓦解",
+        "北府宿将刘裕平定叛乱统领大权，两度北伐收复洛阳长安，420年受禅建宋南朝开启"
+      ]
+    }
+  ]
+}
