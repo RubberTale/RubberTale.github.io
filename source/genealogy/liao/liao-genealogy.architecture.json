@@ -1,0 +1,451 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大辽九帝与契丹后族全景谱系",
+    "subtitle": "两百年塞北雄风 · 上京临潢开国澶渊之盟至西辽称霸全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "契丹肇基与让国后族",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国雄主与全盛巅峰",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "西辽远播与中亚争霸",
+          "visible": true
+        },
+        "security": {
+          "label": "宫廷弑逆与政变流血",
+          "visible": true
+        },
+        "external": {
+          "label": "女真追亡与末路终局",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "abaoji",
+      "type": "frontend",
+      "label": "1. 辽太祖 天赞帝 耶律阿保机",
+      "sublabel": "统一契丹八部创契丹文 · 临潢立国灭渤海国",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "916-926 · 契丹立国"
+    },
+    {
+      "id": "deguang",
+      "type": "frontend",
+      "label": "2. 辽太宗 会同帝 耶律德光",
+      "sublabel": "得燕云十六州建大辽 · 灭后晋占开封崩杀胡林",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "927-947 · 得燕云称大辽"
+    },
+    {
+      "id": "yelubei",
+      "type": "cloud",
+      "label": "让国皇帝 (耶律倍 / 突欲)",
+      "sublabel": "太祖嫡长子东丹人皇王 · 让位投唐追尊辽义宗",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "东丹王 · 大房源流"
+    },
+    {
+      "id": "shizong_liao",
+      "type": "backend",
+      "label": "3. 辽世宗 天禄帝 耶律阮 (ruǎn)",
+      "sublabel": "耶律倍长子即位归大房 · 推行南北面官制为察割弑",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "947-951 · 祥古山之乱"
+    },
+    {
+      "id": "muzong_liao",
+      "type": "security",
+      "label": "4. 辽穆宗 应历帝 耶律璟 (jǐng)",
+      "sublabel": "太宗长子帝统归二房 · 嗜酒好杀号睡王近侍弑",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "951-969 · 睡王十八年"
+    },
+    {
+      "id": "jingzong_liao",
+      "type": "backend",
+      "label": "5. 辽景宗 保宁帝 耶律贤",
+      "sublabel": "世宗次子帝统重回大房 · 体弱多病任汉官休养",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "969-982 · 景宗中兴"
+    },
+    {
+      "id": "xiaotaihou",
+      "type": "cloud",
+      "label": "承天萧太后 (萧绰 / 燕燕)",
+      "sublabel": "景宗皇后统军摄政 · 澶渊之盟奠定辽宋百年和平",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "摄政统军 · 澶渊之盟"
+    },
+    {
+      "id": "shengzong_liao",
+      "type": "frontend",
+      "label": "6. 辽圣宗 统和帝 耶律隆绪",
+      "sublabel": "景宗长子萧后亲子 · 亲征澶渊文治武功极盛",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "982-1031 · 辽代极盛"
+    },
+    {
+      "id": "xingzong_liao",
+      "type": "backend",
+      "label": "7. 辽兴宗 重熙帝 耶律宗真",
+      "sublabel": "圣宗长子重熙增币 · 河曲之战破西夏李元昊",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1031-1055 · 重熙增币"
+    },
+    {
+      "id": "daozong_liao",
+      "type": "security",
+      "label": "8. 辽道宗 清宁帝 耶律洪基",
+      "sublabel": "佞臣乙辛陷十香词冤案 · 赐死萧后杀太子极盛转衰",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1055-1101 · 十香词狱"
+    },
+    {
+      "id": "yelujun",
+      "type": "cloud",
+      "label": "昭怀太子 (耶律濬 jùn)",
+      "sublabel": "道宗嫡子天资聪颖 · 遭耶律乙辛构陷幽死玉田",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "冤死太子 · 天祚生父"
+    },
+    {
+      "id": "tianzuodi_liao",
+      "type": "external",
+      "label": "9. 辽天祚帝 保大帝 耶律延禧",
+      "sublabel": "道宗孙荒淫游猎失军心 · 金军追亡穷途被俘大辽亡",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1101-1125 · 大辽终局"
+    },
+    {
+      "id": "yeludashi",
+      "type": "database",
+      "label": "西辽德宗 (耶律大石)",
+      "sublabel": "阿保机八世孙西出漠北 · 卡特万之战破塞尔柱帝国",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1124-1143 · 菊儿汗立国"
+    },
+    {
+      "id": "katewan",
+      "type": "database",
+      "label": "卡特万之战 · 威震中亚",
+      "sublabel": "十万联军覆没寻思干 · 建立哈剌契丹称霸中亚百年",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1141年 · 续命百年"
+    },
+    {
+      "id": "xiliao_mie",
+      "type": "external",
+      "label": "屈出律篡位 · 蒙古西征",
+      "sublabel": "乃蛮王子客寄篡夺帝位 · 成吉思汗哲别西征灭亡西辽",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1218年 · 契丹绝唱"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "契丹肇基 · 燕云入版与两房皇统 (916-951年)",
+      "wraps": [
+        "abaoji",
+        "deguang",
+        "yelubei",
+        "shizong_liao"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "景圣治平 · 萧后摄政与澶渊之盟 (951-1031年)",
+      "wraps": [
+        "muzong_liao",
+        "jingzong_liao",
+        "xiaotaihou",
+        "shengzong_liao"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "道宗衰世 · 十香冤狱与金兵覆亡 (1031-1125年)",
+      "wraps": [
+        "xingzong_liao",
+        "daozong_liao",
+        "yelujun",
+        "tianzuodi_liao"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "西辽绝响 · 远播中亚与蒙古西征 (1124-1218年)",
+      "wraps": [
+        "yeludashi",
+        "katewan",
+        "xiliao_mie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-abaoji-deguang",
+      "from": "abaoji",
+      "to": "deguang",
+      "label": "次子继位得燕云",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-abaoji-yelubei",
+      "from": "abaoji",
+      "to": "yelubei",
+      "label": "长子东丹王让国",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-yelubei-shizong",
+      "from": "yelubei",
+      "to": "shizong_liao",
+      "label": "长子即位归大房",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-deguang-muzong",
+      "from": "deguang",
+      "to": "muzong_liao",
+      "label": "世宗遇弑太宗子继位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shizong-jingzong",
+      "from": "shizong_liao",
+      "to": "jingzong_liao",
+      "label": "穆宗被弑世宗子立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-jingzong-xiaotaihou",
+      "from": "jingzong_liao",
+      "to": "xiaotaihou",
+      "label": "后妃同治托孤辅政",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-jingzong-shengzong",
+      "from": "jingzong_liao",
+      "to": "shengzong_liao",
+      "label": "嫡长子圣宗登基",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaotaihou-shengzong",
+      "from": "xiaotaihou",
+      "to": "shengzong_liao",
+      "label": "太后摄政打出全盛",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shengzong-xingzong",
+      "from": "shengzong_liao",
+      "to": "xingzong_liao",
+      "label": "长子兴宗重熙增币",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xingzong-daozong",
+      "from": "xingzong_liao",
+      "to": "daozong_liao",
+      "label": "长子道宗嗣位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-daozong-yelujun",
+      "from": "daozong_liao",
+      "to": "yelujun",
+      "label": "听信谗言杀嫡太子",
+      "variant": "security"
+    },
+    {
+      "id": "c-yelujun-tianzuodi",
+      "from": "yelujun",
+      "to": "tianzuodi_liao",
+      "label": "太子遗孤天祚立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-daozong-tianzuodi",
+      "from": "daozong_liao",
+      "to": "tianzuodi_liao",
+      "label": "皇孙嗣位亡国",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-tianzuodi-yeludashi",
+      "from": "tianzuodi_liao",
+      "to": "yeludashi",
+      "label": "皇族大石决裂西征",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-yeludashi-katewan",
+      "from": "yeludashi",
+      "to": "katewan",
+      "label": "横扫中亚破塞尔柱",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-katewan-xiliao_mie",
+      "from": "katewan",
+      "to": "xiliao_mie",
+      "label": "享国近百年灭于蒙古",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "大辽契丹肇基与幽云十六州",
+      "items": [
+        "916年耶律阿保机建国契丹，耶律德光助石敬瑭灭后唐，割取幽云十六州，中原失去天然屏障长达四百年",
+        "大辽确立'因俗而治'的南北面官制度：官分南北，以国制治契丹，以汉制待汉人，开创复合帝国典范",
+        "皇统在阿保机长房东丹王耶律倍与次房太宗耶律德光后代中流转，景宗之后皇位稳固由长房传承"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "承天萧太后摄政与澶渊之盟",
+      "items": [
+        "景宗早崩，萧太后（萧绰）以三十岁青年太后临朝称制二十七载，韩德让、耶律休哥辅政，大辽军势达顶峰",
+        "1004年萧太后与圣宗率二十万铁骑深入宋境直逼澶州，与宋真宗订立'澶渊之盟'，开启辽宋百二十年和平互市",
+        "辽圣宗推行科举取士、编修律令，契丹由游牧铁骑成功蜕变为高度文明与强盛的塞北天朝"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "十香词冤案、天祚被俘与西辽西征",
+      "items": [
+        "辽道宗信任奸臣耶律乙辛，制造骇人听闻的'十香词案'赐死萧后、谋杀太子耶律濬，辽朝宗室离心、极盛转衰",
+        "女真完颜阿骨打起兵反辽，辽天祚帝一败涂地遭金兵俘于应州，大辽在关内享国210年亡",
+        "皇族耶律大石率残部西征中亚，于卡特万战役歼灭塞尔柱十万大军建立西辽（哈剌契丹），威名远播欧洲"
+      ]
+    }
+  ]
+}

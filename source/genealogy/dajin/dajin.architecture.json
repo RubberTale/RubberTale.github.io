@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大金十帝与女真勃极烈全景谱系",
+    "subtitle": "百二十年白山黑水 · 破辽灭北宋迁都中都至蔡州殉国全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "女真勃极烈与宗室名将",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国雄主与中兴尧舜",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "迁都中都与文治极盛",
+          "visible": true
+        },
+        "security": {
+          "label": "弑君夺位与宗室喋血",
+          "visible": true
+        },
+        "external": {
+          "label": "蒙宋合灭与蔡州殉节",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "aguda",
+      "type": "frontend",
+      "label": "1. 金太祖 收国帝 完颜阿骨打",
+      "sublabel": "统女真建大金起兵反辽 · 护步达冈两万破七十万",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1115-1123 · 大金开国"
+    },
+    {
+      "id": "taizong_jin",
+      "type": "frontend",
+      "label": "2. 金太宗 天会帝 完颜晟 (shèng)",
+      "sublabel": "大举南下灭辽破汴梁 · 靖康之变掳徽钦二帝灭北宋",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1123-1135 · 靖康灭宋"
+    },
+    {
+      "id": "wuzhu",
+      "type": "cloud",
+      "label": "越国王 (完颜宗弼 / 金兀术 zhú)",
+      "sublabel": "太祖四子女真战神 · 搜山检海追宋高宗立淮界",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "都元帅 · 梁王宗弼"
+    },
+    {
+      "id": "xizong_jin",
+      "type": "backend",
+      "label": "3. 金熙宗 皇统帝 完颜亶 (dǎn)",
+      "sublabel": "太祖嫡长孙废伪齐推汉制 · 绍兴和议晚年酗杀被弑",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1135-1150 · 皇统汉制"
+    },
+    {
+      "id": "liang_jin",
+      "type": "security",
+      "label": "4. 海陵王 贞元帝 完颜亮",
+      "sublabel": "弑熙宗即位迁都燕京中都 · 六十万伐宋采石兵变弑",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1150-1161 · 迁都中都"
+    },
+    {
+      "id": "shizong_jin",
+      "type": "frontend",
+      "label": "5. 金世宗 大定帝 完颜雍",
+      "sublabel": "东京政变称帝休养生息 · 大定之治尊北方小尧舜",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1161-1189 · 大定之治"
+    },
+    {
+      "id": "zhangzong_jin",
+      "type": "database",
+      "label": "6. 金章宗 明昌帝 完颜璟 (jǐng)",
+      "sublabel": "世宗嫡孙承大定基业 · 明昌之治极盛南宋开禧北伐",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1189-1208 · 明昌盛世"
+    },
+    {
+      "id": "weishaowang",
+      "type": "security",
+      "label": "7. 卫绍王 大安帝 完颜永济",
+      "sublabel": "世宗七子庸懦失政 · 野狐岭四十万精锐溃于成吉思汗",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1208-1213 · 野狐岭溃败"
+    },
+    {
+      "id": "xuanzong_jin",
+      "type": "backend",
+      "label": "8. 金宣宗 贞祐帝 完颜珣 (xún)",
+      "sublabel": "迁都汴京弃守中都 · 盲目南攻南宋北抗蒙古失策",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1213-1224 · 迁都汴京"
+    },
+    {
+      "id": "aizong_jin",
+      "type": "external",
+      "label": "9. 金哀宗 正大帝 完颜守绪",
+      "sublabel": "尽力抗蒙起用忠孝军 · 三峰山精锐丧尽退保蔡州自缢",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1224-1234 · 哀宗殉社稷"
+    },
+    {
+      "id": "chenglin",
+      "type": "external",
+      "label": "10. 金末帝 盛昌帝 完颜承麟",
+      "sublabel": "哀宗禅位危城 · 在位不足半日即战死蔡州城破",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1234年 · 在位半日"
+    },
+    {
+      "id": "caizhou",
+      "type": "external",
+      "label": "蔡州之战 · 蒙宋合灭",
+      "sublabel": "塔察儿孟珙会师围蔡州 · 金朝享国一百二十年终",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1234年 · 大金覆灭"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "女真崛起 · 破辽灭宋与立国汉制 (1115-1150年)",
+      "wraps": [
+        "aguda",
+        "taizong_jin",
+        "wuzhu",
+        "xizong_jin"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "海陵世宗 · 迁都中都与大定之治 (1150-1213年)",
+      "wraps": [
+        "liang_jin",
+        "shizong_jin",
+        "zhangzong_jin",
+        "weishaowang"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "宣哀末运 · 迁都汴京与蔡州殉节 (1213-1234年)",
+      "wraps": [
+        "xuanzong_jin",
+        "aizong_jin",
+        "chenglin",
+        "caizhou"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-aguda-taizong",
+      "from": "aguda",
+      "to": "taizong_jin",
+      "label": "太祖弟继立灭辽破宋",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-aguda-wuzhu",
+      "from": "aguda",
+      "to": "wuzhu",
+      "label": "四子金兀术掌军",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-taizong-xizong",
+      "from": "taizong_jin",
+      "to": "xizong_jin",
+      "label": "帝统归太祖嫡孙亶",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wuzhu-xizong",
+      "from": "wuzhu",
+      "to": "xizong_jin",
+      "label": "叔父辅政划淮立界",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-xizong-liang",
+      "from": "xizong_jin",
+      "to": "liang_jin",
+      "label": "海陵王弑君篡位",
+      "variant": "security"
+    },
+    {
+      "id": "c-liang-shizong",
+      "from": "liang_jin",
+      "to": "shizong_jin",
+      "label": "采石兵变世宗政变立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shizong-zhangzong",
+      "from": "shizong_jin",
+      "to": "zhangzong_jin",
+      "label": "嫡孙章宗明昌极盛",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zhangzong-weishao",
+      "from": "zhangzong_jin",
+      "to": "weishaowang",
+      "label": "无嗣叔父卫绍王立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-weishao-xuanzong",
+      "from": "weishaowang",
+      "to": "xuanzong_jin",
+      "label": "胡沙虎弑君立宣宗",
+      "variant": "security"
+    },
+    {
+      "id": "c-xuanzong-aizong",
+      "from": "xuanzong_jin",
+      "to": "aizong_jin",
+      "label": "三子哀宗退保汴蔡",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-aizong-chenglin",
+      "from": "aizong_jin",
+      "to": "chenglin",
+      "label": "蔡州绝境禅位承麟",
+      "variant": "security"
+    },
+    {
+      "id": "c-chenglin-caizhou",
+      "from": "chenglin",
+      "to": "caizhou",
+      "label": "蒙宋合围死战蔡州",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "完颜阿骨打起兵与靖康之变",
+      "items": [
+        "1115年完颜阿骨打反辽，护步达冈以两万女真骑兵击溃七十万辽军，大金崛起势不可挡",
+        "金太宗发两路大军灭辽，旋即南下长驱直入攻陷开封，掳徽钦二帝与三千皇族宗亲北狩，北宋灭亡",
+        "女真铁骑'金戈铁马，气吞万里如虎'，南渡宋高宗被追逐入海，最终确立以淮河大散关为界"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "海陵迁都中都与大定小尧舜",
+      "items": [
+        "完颜亮力排众议迁都燕京并改名'中都'（今北京），成为北京建都之始，开创华夏大一统首都格局",
+        "金世宗完颜雍拨乱反正，平定兵乱、轻徭薄赋、尊孔崇儒，开创三十年'大定之治'，被尊为'小尧舜'",
+        "章宗朝编修《大金集礼》、颁行女真字与汉制，文治达到女真政权巅峰，名士辈出"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "野狐岭溃败与蔡州君臣死节",
+      "items": [
+        "成吉思汗崛起于大漠，1211年野狐岭战役歼灭金军四十万主力，金中都陷落被迫迁都汴京",
+        "金宣宗犯下战略大错，北失蒙古却妄图南攻南宋补偿，导致南北两线受敌陷入彻底孤立",
+        "1234年宋蒙合围蔡州，金哀宗自缢，金末帝完颜承麟在位不足半日力战阵亡，大金120年悲壮终结"
+      ]
+    }
+  ]
+}

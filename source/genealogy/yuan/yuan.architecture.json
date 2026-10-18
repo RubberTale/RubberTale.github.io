@@ -3,7 +3,7 @@
   "diagram_type": "architecture",
   "meta": {
     "title": "大元帝国与大蒙古国全景谱系",
-    "subtitle": "瀚海铁骑威震亚欧 · 忽必烈定都大都改元平宋至顺帝北奔开北元全录",
+    "subtitle": "混一天下跨越欧亚 · 大漠铁骑崖山一统至北奔残局全录",
     "output": "index.html",
     "locale": "zh-CN",
     "quality_profile": "showcase",
@@ -11,11 +11,11 @@
       "mode": "all",
       "entries": {
         "cloud": {
-          "label": "四大汗国与开国名帅",
+          "label": "蒙古汗庭与黄金家族",
           "visible": true
         },
         "frontend": {
-          "label": "大汗英主与开元明君",
+          "label": "开国大汗与一统雄主",
           "visible": true
         },
         "backend": {
@@ -23,15 +23,15 @@
           "visible": true
         },
         "database": {
-          "label": "两都之争与宗室乱政",
+          "label": "四大汗国与中原名臣",
           "visible": true
         },
         "security": {
-          "label": "红巾起义与北奔大漠",
+          "label": "两都之战与南坡之变",
           "visible": true
         },
         "external": {
-          "label": "朱明北伐与北元残局",
+          "label": "红巾并起与北奔残局",
           "visible": true
         }
       }
@@ -41,8 +41,8 @@
     {
       "id": "temujin",
       "type": "frontend",
-      "label": "元太祖 (成吉思汗)",
-      "sublabel": "统一蒙古各部斡难河称汗 · 颁大扎撒西征灭西夏金",
+      "label": "元太祖 (成吉思汗 铁木真)",
+      "sublabel": "斡难河源称成吉思汗 · 统一蒙古诸部横扫欧亚",
       "pos": [
         40,
         60
@@ -56,8 +56,8 @@
     {
       "id": "ogedei",
       "type": "frontend",
-      "label": "元太宗 (窝阔台)",
-      "sublabel": "太祖三子定都哈拉和林 · 联宋灭金拔都西征震欧陆",
+      "label": "元太宗 (窝阔台汗)",
+      "sublabel": "太祖三子建都哈拉和林 · 灭金西征拔都饮马多瑙河",
       "pos": [
         40,
         180
@@ -69,10 +69,10 @@
       "tag": "1229-1241 · 灭金西征"
     },
     {
-      "id": "mongke",
-      "type": "frontend",
-      "label": "元宪宗 (蒙哥汗)",
-      "sublabel": "拖雷长子南征攻宋破大理 · 钓鱼城战役中流矢崩逝",
+      "id": "guyuk",
+      "type": "backend",
+      "label": "元定宗 (贵由汗)",
+      "sublabel": "窝阔台长子登基 · 罗马教廷使者来朝西征拔都暴崩",
       "pos": [
         40,
         300
@@ -81,13 +81,13 @@
         210,
         74
       ],
-      "tag": "1251-1259 · 钓鱼城殉"
+      "tag": "1246-1248 · 汗位转拖雷"
     },
     {
-      "id": "tuolei",
-      "type": "cloud",
-      "label": "元睿宗 (拖雷)",
-      "sublabel": "成吉思汗幼子掌大斡耳朵 · 抚军监国生蒙哥忽必烈",
+      "id": "mongke",
+      "type": "frontend",
+      "label": "元宪宗 (蒙哥汗)",
+      "sublabel": "拖雷长子夺回汗统 · 旭烈兀西征钓鱼城战死",
       "pos": [
         40,
         420
@@ -96,13 +96,13 @@
         210,
         74
       ],
-      "tag": "拖雷家族 · 诸帝之父"
+      "tag": "1251-1259 · 钓鱼城之战"
     },
     {
-      "id": "sida_hanguo",
+      "id": "tuolei",
       "type": "cloud",
-      "label": "四大汗国宗藩网络",
-      "sublabel": "钦察汗国察合台伊儿窝阔台 · 领土横跨欧亚大陆",
+      "label": "元睿宗 (拖雷 / 监国)",
+      "sublabel": "太祖幼子幼子守灶掌大军 · 舍身代兄饮水暴卒",
       "pos": [
         40,
         540
@@ -111,13 +111,28 @@
         210,
         74
       ],
-      "tag": "横跨亚欧 · 宗主地位"
+      "tag": "掌军监国 · 黄金宗支"
+    },
+    {
+      "id": "sida_hanguo",
+      "type": "database",
+      "label": "四大汗国宗藩网络",
+      "sublabel": "钦察察合台窝阔台伊利 · 黄金家族跨欧亚宗藩",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "跨欧亚大帝国"
     },
     {
       "id": "hubilie",
       "type": "frontend",
-      "label": "1. 元世祖 忽必烈",
-      "sublabel": "开平即位建元大都 · 实行汉法创行省制平定南宋",
+      "label": "1. 元世祖 至元帝 忽必烈",
+      "sublabel": "建国号大元定都大都 · 灭南宋混一天下设行省",
       "pos": [
         320,
         60
@@ -126,13 +141,13 @@
         210,
         74
       ],
-      "tag": "1260-1294 · 大元始祖"
+      "tag": "1260-1294 · 混一天下"
     },
     {
-      "id": "boyan",
-      "type": "cloud",
-      "label": "丞相伯颜与郭守敬",
-      "sublabel": "伯颜统帅大军克临安 · 郭守敬修授时历开通通惠河",
+      "id": "temuer",
+      "type": "backend",
+      "label": "2. 元成宗 大德帝 铁穆耳",
+      "sublabel": "世宗嫡孙罢征日本爪哇 · 停征用儒平定海都叛乱",
       "pos": [
         320,
         180
@@ -141,13 +156,13 @@
         210,
         74
       ],
-      "tag": "元初柱石 · 平宋重相"
+      "tag": "1294-1307 · 守成令主"
     },
     {
-      "id": "yashan",
-      "type": "external",
-      "label": "崖山海战 · 混一天下",
-      "sublabel": "1279年陆秀夫负帝昺投海 · 十万蹈海宋亡大元一统",
+      "id": "wuzong_yuan",
+      "type": "backend",
+      "label": "3. 元武宗 至大帝 海山",
+      "sublabel": "顺宗长子军功即位 · 设立尚书省印发至大银钞",
       "pos": [
         320,
         300
@@ -156,46 +171,16 @@
         210,
         74
       ],
-      "tag": "1279年 · 华夏大一统"
-    },
-    {
-      "id": "temuer",
-      "type": "backend",
-      "label": "2. 元成宗 铁穆耳",
-      "sublabel": "世祖孙即位停征爪哇日本 · 罢不急之务善守祖业",
-      "pos": [
-        320,
-        420
-      ],
-      "size": [
-        210,
-        74
-      ],
-      "tag": "1294-1307 · 守成名君"
-    },
-    {
-      "id": "wuzong_yuan",
-      "type": "backend",
-      "label": "3. 元武宗 海山",
-      "sublabel": "镇守朔漠抚军即位 · 创设尚书省行至大银钞",
-      "pos": [
-        320,
-        540
-      ],
-      "size": [
-        210,
-        74
-      ],
-      "tag": "1307-1311 · 尚书行钞"
+      "tag": "1307-1311 · 兄弟相传"
     },
     {
       "id": "renzong_yuan",
       "type": "frontend",
-      "label": "4. 元仁宗 爱育黎拔力八达",
-      "sublabel": "推行汉法重开科举延祐复科 · 编纂大元通制文治",
+      "label": "4. 元仁宗 皇庆帝 爱育黎拔力八达",
+      "sublabel": "武宗弟延祐复科举 · 尊孔崇儒推行汉法推延祐经理",
       "pos": [
-        600,
-        60
+        320,
+        420
       ],
       "size": [
         210,
@@ -205,12 +190,12 @@
     },
     {
       "id": "yingzong_yuan",
-      "type": "database",
-      "label": "5. 元英宗 硕德八剌",
-      "sublabel": "至治改革推行汉法削宗室 · 南坡之变遭铁失弑杀",
+      "type": "security",
+      "label": "5. 元英宗 至治帝 硕德八剌",
+      "sublabel": "仁宗嫡子颁大元通制 · 激化蒙汉矛盾南坡之变弑",
       "pos": [
-        600,
-        180
+        320,
+        540
       ],
       "size": [
         210,
@@ -222,7 +207,37 @@
       "id": "taidingdi",
       "type": "backend",
       "label": "6. 泰定帝 也孙铁木儿",
-      "sublabel": "晋王镇漠北即位 · 抚绥漠北平息宗室朝局稍定",
+      "sublabel": "真金孙晋王北疆即位 · 息兵安民修治黄河崩于上都",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1323-1328 · 晋王入继"
+    },
+    {
+      "id": "tianshundi",
+      "type": "security",
+      "label": "7. 天顺帝 阿速吉八",
+      "sublabel": "泰定帝幼子上都即位 · 两都之战大都燕帖木儿攻破",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1328年 · 两都之战"
+    },
+    {
+      "id": "wenzong_yuan",
+      "type": "backend",
+      "label": "8. 元文宗 至顺帝 图帖睦尔",
+      "sublabel": "武宗次子燕帖木儿立 · 创奎章阁修经世大典弑明宗",
       "pos": [
         600,
         300
@@ -231,13 +246,13 @@
         210,
         74
       ],
-      "tag": "1323-1328 · 泰定之政"
+      "tag": "1328/1329-1332 · 奎章阁"
     },
     {
-      "id": "wenzong_yuan",
-      "type": "database",
-      "label": "8. 元文宗 图帖睦尔",
-      "sublabel": "大都两都之战登基 · 创立奎章阁修经世大典雅好文",
+      "id": "mingzong_yuan",
+      "type": "security",
+      "label": "9. 元明宗 天历帝 和世㻋 (sè)",
+      "sublabel": "武宗长子漠北南下称帝 · 途中为弟文宗鸠杀仅八月",
       "pos": [
         600,
         420
@@ -246,13 +261,13 @@
         210,
         74
       ],
-      "tag": "1328-1332 · 奎章阁学"
+      "tag": "1329年 · 在位八月"
     },
     {
-      "id": "tuotuo",
-      "type": "cloud",
-      "label": "太师脱脱",
-      "sublabel": "脱脱更化治黄河修宋辽金三史 · 功高遭谗被贬被害",
+      "id": "ningzong_yuan",
+      "type": "security",
+      "label": "10. 元宁宗 至顺帝 懿璘质班",
+      "sublabel": "明宗幼子文宗皇后立 · 在位仅五十三日早卒七岁崩",
       "pos": [
         600,
         540
@@ -261,13 +276,28 @@
         210,
         74
       ],
-      "tag": "贤相脱脱 · 修三史"
+      "tag": "1332年 · 在位53天"
     },
     {
       "id": "shundi",
+      "type": "external",
+      "label": "11. 元顺帝 至正帝 妥懽帖睦尔",
+      "sublabel": "明宗长子在位三十五年 · 脱脱变法黄河溃决红巾起",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1333-1368 · 北奔应昌"
+    },
+    {
+      "id": "hongjin",
       "type": "security",
-      "label": "11. 元顺帝 妥懽帖睦尔",
-      "sublabel": "在位三十五年后怠政 · 黄河决堤红巾军起兵天倾",
+      "label": "红巾军起义与群雄并起",
+      "sublabel": "莫道石人一只眼挑动黄河 · 朱元璋陈友谅张士诚",
       "pos": [
         880,
         180
@@ -276,13 +306,13 @@
         210,
         74
       ],
-      "tag": "1333-1368 · 大元末代"
+      "tag": "1351年 · 天下大乱"
     },
     {
-      "id": "hongjin",
-      "type": "security",
-      "label": "红巾军起义与群雄并起",
-      "sublabel": "刘福通韩山童石人一只眼 · 朱元璋陈友谅张士诚割据",
+      "id": "ming_mieyuan",
+      "type": "external",
+      "label": "明军克大都 · 顺帝北奔",
+      "sublabel": "徐达常遇春下大都 · 顺帝开健德门北奔退守漠北",
       "pos": [
         880,
         300
@@ -291,13 +321,13 @@
         210,
         74
       ],
-      "tag": "1351年 · 莫道石人一只眼"
+      "tag": "1368年 · 元朝终局"
     },
     {
-      "id": "ming_mieyuan",
-      "type": "external",
-      "label": "明军克大都 · 顺帝北奔",
-      "sublabel": "1368年徐达常遇春克大都 · 顺帝北走开平大元九十八载终",
+      "id": "beiyuan",
+      "type": "database",
+      "label": "北元残局 (昭宗妥懽)",
+      "sublabel": "退回蒙古草原称北元 · 捕鱼儿海大败分裂鞑靼瓦剌",
       "pos": [
         880,
         420
@@ -306,31 +336,17 @@
         210,
         74
       ],
-      "tag": "1368年 · 驱逐胡虏"
-    },
-    {
-      "id": "beiyuan",
-      "type": "backend",
-      "label": "北元残局 (昭宗妥懽)",
-      "sublabel": "退守漠北仍称大元国号 · 捕鱼儿海大败分裂为瓦剌鞑靼",
-      "pos": [
-        880,
-        540
-      ],
-      "size": [
-        210,
-        74
-      ],
-      "tag": "退居大漠 · 北元残局"
+      "tag": "1368-1402 · 黄金残部"
     }
   ],
   "boundaries": [
     {
       "kind": "region",
-      "label": "大汗崛起 · 斡难河称汗与长子西征 (1206-1259年)",
+      "label": "大蒙古国 · 铁骑西征与黄金家族 (1206-1259年)",
       "wraps": [
         "temujin",
         "ogedei",
+        "guyuk",
         "mongke",
         "tuolei",
         "sida_hanguo"
@@ -338,29 +354,29 @@
     },
     {
       "kind": "region",
-      "label": "建元立极 · 大都定鼎与崖山平宋 (1260-1311年)",
+      "label": "大哉乾元 · 忽必烈混一与武仁治平 (1260-1323年)",
       "wraps": [
         "hubilie",
-        "boyan",
-        "yashan",
         "temuer",
-        "wuzong_yuan"
-      ]
-    },
-    {
-      "kind": "region",
-      "label": "汉法推展 · 延祐复科与奎章阁学 (1311-1333年)",
-      "wraps": [
+        "wuzong_yuan",
         "renzong_yuan",
-        "yingzong_yuan",
-        "taidingdi",
-        "wenzong_yuan",
-        "tuotuo"
+        "yingzong_yuan"
       ]
     },
     {
       "kind": "region",
-      "label": "红巾鼎革 · 顺帝北奔与北元残局 (1333-1368年)",
+      "label": "频繁更迭 · 两都内讧与权臣专政 (1323-1332年)",
+      "wraps": [
+        "taidingdi",
+        "tianshundi",
+        "wenzong_yuan",
+        "mingzong_yuan",
+        "ningzong_yuan"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "至正乱世 · 红巾起义与北奔残局 (1333-1402年)",
       "wraps": [
         "shundi",
         "hongjin",
@@ -374,160 +390,161 @@
       "id": "c-temujin-ogedei",
       "from": "temujin",
       "to": "ogedei",
-      "label": "三子即位大汗",
+      "label": "太祖指定三子窝阔台立",
       "variant": "emphasis"
     },
     {
-      "id": "c-ogedei-mongke",
+      "id": "c-ogedei-guyuk",
       "from": "ogedei",
-      "to": "mongke",
-      "label": "汗位转入拖雷家族",
+      "to": "guyuk",
+      "label": "长子贵由汗继位",
       "variant": "emphasis"
+    },
+    {
+      "id": "c-temujin-tuolei",
+      "from": "temujin",
+      "to": "tuolei",
+      "variant": "dashed"
     },
     {
       "id": "c-tuolei-mongke",
       "from": "tuolei",
       "to": "mongke",
-      "label": "长子蒙哥登基",
-      "variant": "dashed"
+      "label": "拔都支持汗位归拖雷系",
+      "variant": "emphasis"
     },
     {
       "id": "c-mongke-hubilie",
       "from": "mongke",
       "to": "hubilie",
-      "label": "钓鱼城崩忽必烈争位",
+      "label": "钓鱼城战死忽必烈夺位",
       "variant": "emphasis"
     },
     {
-      "id": "c-temujin-sida_hanguo",
-      "from": "temujin",
-      "to": "sida_hanguo",
-      "label": "诸子分封四大汗国",
-      "variant": "dashed"
-    },
-    {
-      "id": "c-hubilie-boyan",
+      "id": "c-hubilie-sida",
       "from": "hubilie",
-      "to": "boyan",
-      "label": "命伯颜统帅伐宋",
+      "to": "sida_hanguo",
+      "label": "汉化称帝四大汗国渐独立",
       "variant": "dashed"
-    },
-    {
-      "id": "c-boyan-yashan",
-      "from": "boyan",
-      "to": "yashan",
-      "label": "崖山海战十万殉国",
-      "variant": "emphasis"
     },
     {
       "id": "c-hubilie-temuer",
       "from": "hubilie",
       "to": "temuer",
-      "label": "皇孙成宗守成即位",
+      "label": "皇太子真金早卒立嫡孙",
       "variant": "emphasis"
     },
     {
-      "id": "c-temuer-wuzong_yuan",
+      "id": "c-temuer-wuzong",
       "from": "temuer",
       "to": "wuzong_yuan",
-      "label": "侄武宗朔漠引军立"
+      "label": "成宗无嗣侄海山立",
+      "variant": "emphasis"
     },
     {
       "id": "c-wuzong-renzong",
       "from": "wuzong_yuan",
       "to": "renzong_yuan",
-      "label": "弟仁宗推行汉法",
+      "label": "兄弟相约立仁宗",
       "variant": "emphasis"
     },
     {
       "id": "c-renzong-yingzong",
       "from": "renzong_yuan",
       "to": "yingzong_yuan",
-      "label": "子英宗至治改革"
-    },
-    {
-      "id": "c-yingzong-taidingdi",
-      "from": "yingzong_yuan",
-      "to": "taidingdi",
-      "label": "南坡变后晋王称帝",
-      "variant": "security"
-    },
-    {
-      "id": "c-taidingdi-wenzong",
-      "from": "taidingdi",
-      "to": "wenzong_yuan",
-      "label": "两都之战文宗登基",
+      "label": "仁宗背约立亲子英宗",
       "variant": "emphasis"
     },
     {
-      "id": "c-wenzong-tuotuo",
-      "from": "wenzong_yuan",
-      "to": "tuotuo",
-      "label": "脱脱更化治河修史",
-      "variant": "dashed"
+      "id": "c-yingzong-taiding",
+      "from": "yingzong_yuan",
+      "to": "taidingdi",
+      "label": "南坡之变晋王入继",
+      "variant": "security"
     },
     {
-      "id": "c-wenzong-shundi",
+      "id": "c-taiding-tianshun",
+      "from": "taidingdi",
+      "to": "tianshundi",
+      "label": "幼子上都称帝遇袭",
+      "variant": "security"
+    },
+    {
+      "id": "c-tianshun-wenzong",
+      "from": "tianshundi",
+      "to": "wenzong_yuan",
+      "label": "大都政变两都战夺位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wenzong-mingzong",
       "from": "wenzong_yuan",
+      "to": "mingzong_yuan",
+      "label": "迎兄明宗称帝中途弑之",
+      "variant": "security"
+    },
+    {
+      "id": "c-mingzong-ningzong",
+      "from": "mingzong_yuan",
+      "to": "ningzong_yuan",
+      "label": "文宗悔过立明宗幼子",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-ningzong-shundi",
+      "from": "ningzong_yuan",
       "to": "shundi",
-      "label": "兄顺帝妥懽即位",
+      "label": "宁宗早夭立明宗长子",
       "variant": "emphasis"
     },
     {
       "id": "c-shundi-hongjin",
       "from": "shundi",
       "to": "hongjin",
-      "label": "黄河决堤红巾四起",
+      "label": "黄河泛滥红巾并起",
       "variant": "security"
     },
     {
-      "id": "c-hongjin-ming_mieyuan",
+      "id": "c-hongjin-mingmie",
       "from": "hongjin",
       "to": "ming_mieyuan",
-      "label": "朱元璋麾军克大都",
-      "variant": "emphasis"
-    },
-    {
-      "id": "c-shundi-ming_mieyuan",
-      "from": "shundi",
-      "to": "ming_mieyuan",
-      "label": "顺帝弃大都北奔",
+      "label": "朱元璋北伐克复大都",
       "variant": "security"
     },
     {
       "id": "c-shundi-beiyuan",
       "from": "shundi",
       "to": "beiyuan",
-      "label": "退居大漠开北元",
-      "variant": "dashed"
+      "label": "开健德门北奔大漠称北元",
+      "variant": "security"
     }
   ],
   "cards": [
     {
       "dot": "amber",
-      "title": "一代天骄斡难称汗与横扫欧亚",
+      "title": "大蒙古国铁骑西征与世祖忽必烈混一",
       "items": [
-        "成吉思汗铁木真统一漠北诸部，公元1206年斡难河畔建大蒙古国，颁行《大扎撒》，创千户百户军政合一体制",
-        "以强悍骑兵横扫西夏、西辽、花剌子模，窝阔台继位拔都长子西征饮马多瑙河，建立幅员空前的跨欧亚大帝国",
-        "蒙哥汗挥军南下攻宋克大理，公元1259年合州钓鱼城下中流矢崩逝，改变欧亚大陆地缘政治走向"
+        "成吉思汗统一蒙古草原，制定扎撒大典，发动三次大规模西征横扫欧亚大陆，建立人类史上空前庞大的帝国",
+        "忽必烈取《易经》'大哉乾元'建国号大元，营建大都（今北京），1279年崖山海战灭南宋，终结分裂混一天下",
+        "创立行中书省制度（行省制），奠定中国后世数百年地方行政制度的基石"
       ]
     },
     {
       "dot": "cyan",
-      "title": "忽必烈大都建元与崖山海战混一",
+      "title": "延祐复科与中后期频繁政变",
       "items": [
-        "忽必烈开平称帝击败阿里不哥，公元1271年取《易经》'大哉乾元'建国号大元，营建大都（今北京）奠定帝都格局",
-        "推行汉法、创设中书省与十一行中书省，开创影响后世七百年的行省制度，郭守敬编订《授时历》通惠水运",
-        "丞相伯颜麾军南下克临安，1279年广东崖门海战张弘范击溃宋残军，陆秀夫负幼帝赵昺蹈海殉国，大元混一天下"
+        "元仁宗推行汉法，恢复中断数十年的科举取士（延祐复科），汉蒙藏多民族文化深度交融",
+        "元朝皇位继承缺乏稳定宗法制度，南坡之变、两都之战连续爆发，短短三十年间更迭十帝，权臣频频专政弑君",
+        "文宗设奎章阁编修《经世大典》，元曲杂剧与书画繁荣，诞生关汉卿、赵孟頫、黄公望等艺术巨匠"
       ]
     },
     {
       "dot": "rose",
-      "title": "红巾鼎沸天倾与大明克大都北奔",
+      "title": "红巾军起义与元顺帝北奔",
       "items": [
-        "元中后期皇位更迭频繁，南坡之变、两都之战内耗严重，仁宗延祐复科重开汉人科举，文宗创立奎章阁",
-        "元末黄河决堤贾鲁治河引发'石人一只眼挑动黄河天下反'，刘福通韩山童红巾大起义，朱元璋渡江崛起江南",
-        "公元1368年朱元璋应天称帝建大明，大将军徐达北伐攻克大都，元顺帝开健德门北奔漠北，大元中原九十八载告终"
+        "元末黄河决口，丞相脱脱治理黄河引发白莲教红巾军大起义，天下群雄并起割据四方",
+        "1368年朱元璋在南京称帝建立大明，徐达统帅二十万北伐军克复大都，元顺帝妥懽帖睦尔开健德门北奔漠北",
+        "元朝残余势力退回蒙古草原延续为'北元'，捕鱼儿海大败后瓦解为鞑靼与瓦剌，享国九十八年终"
       ]
     }
   ]

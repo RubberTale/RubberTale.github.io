@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "西夏十主与白高大夏国全景谱系",
+    "subtitle": "近两百年塞上雄踞 · 拓跋立基雄踞河西至六征蒙灭全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "党项肇基与太后摄政",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国英主与全盛天盛",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "翰墨法度与尊孔崇佛",
+          "visible": true
+        },
+        "security": {
+          "label": "外戚专权与宫廷废立",
+          "visible": true
+        },
+        "external": {
+          "label": "六征亡国与末主成尘",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "jiqian",
+      "type": "cloud",
+      "label": "夏太祖 (李继迁)",
+      "sublabel": "党项拓跋部首领抗宋保夏 · 破灵州奠定立国根基",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "982-1004 · 党项拓拔"
+    },
+    {
+      "id": "deming",
+      "type": "cloud",
+      "label": "夏太宗 (李德明)",
+      "sublabel": "纳贡宋辽拓展河西走廊 · 定都兴庆府大夏雏形",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1004-1032 · 拓展河西"
+    },
+    {
+      "id": "yuanhao",
+      "type": "frontend",
+      "label": "1. 西夏景宗 天授帝 李元昊",
+      "sublabel": "筑台登基建大夏创西夏文 · 三川口好水川三大战破宋",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1038-1048 · 西夏建国"
+    },
+    {
+      "id": "liangzuo",
+      "type": "backend",
+      "label": "2. 西夏毅宗 拱化帝 李谅祚 (zuò)",
+      "sublabel": "元昊幼子没藏太后摄政 · 诛外戚亲政去蕃礼用汉仪",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1048-1067 · 诛灭没藏"
+    },
+    {
+      "id": "bingchang",
+      "type": "security",
+      "label": "3. 西夏惠宗 大安帝 李秉常",
+      "sublabel": "毅宗长子大梁太后囚禁 · 引发宋夏五路伐夏大血战",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1067-1086 · 梁太后乱政"
+    },
+    {
+      "id": "qianshun",
+      "type": "backend",
+      "label": "4. 西夏崇宗 天庆帝 李乾顺",
+      "sublabel": "惠宗长子小梁太后被辽赐死 · 亲政联金灭辽取河套",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1086-1139 · 崇宗中兴"
+    },
+    {
+      "id": "renxiao",
+      "type": "frontend",
+      "label": "5. 西夏仁宗 天盛帝 李仁孝",
+      "sublabel": "崇宗长子在位54年极盛 · 颁行天盛律令尊孔崇儒",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1139-1193 · 天盛盛世"
+    },
+    {
+      "id": "chunyou",
+      "type": "backend",
+      "label": "6. 西夏桓宗 天庆帝 李纯祐",
+      "sublabel": "仁宗长子奉行和宋附金 · 蒙古初袭被堂弟安全政变废",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1193-1206 · 蒙古初临"
+    },
+    {
+      "id": "anquan",
+      "type": "security",
+      "label": "7. 西夏襄宗 皇建帝 李安全",
+      "sublabel": "崇宗孙篡位附蒙古侵金 · 连年兵祸国力大耗忧惧死",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1206-1211 · 附蒙攻金"
+    },
+    {
+      "id": "zunxu",
+      "type": "database",
+      "label": "8. 西夏神宗 光定帝 李遵顼 (xū)",
+      "sublabel": "唯一状元皇帝篡位即位 · 附蒙侵金民怨沸腾内禅",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1211-1223 · 状元皇帝"
+    },
+    {
+      "id": "dewang",
+      "type": "security",
+      "label": "9. 西夏献宗 乾德帝 李德旺",
+      "sublabel": "神宗次子转联金抗蒙失策 · 蒙古围城忧惧吐血崩",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1223-1226 · 联金抗蒙"
+    },
+    {
+      "id": "lixian",
+      "type": "external",
+      "label": "10. 西夏末主 宝庆帝 李睍 (xiàn)",
+      "sublabel": "献宗侄坚守兴庆府半年 · 地震城陷出降遭杀西夏亡",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1226-1227 · 西夏终局"
+    },
+    {
+      "id": "chenggis_xia",
+      "type": "external",
+      "label": "成吉思汗六征西夏",
+      "sublabel": "六度亲征踏破贺兰山缺 · 成吉思汗死于六盘山行宫",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1205-1227 · 铁骑南下"
+    },
+    {
+      "id": "xixia_mie",
+      "type": "external",
+      "label": "兴庆屠城 · 党项沉沦",
+      "sublabel": "西夏享国一百九十年亡 · 文物典籍焚毁西夏文几失传",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1227年 · 西夏灭绝"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "党项肇基 · 元昊建制与三大战败宋 (982-1067年)",
+      "wraps": [
+        "jiqian",
+        "deming",
+        "yuanhao",
+        "liangzuo"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "梁后乱政 · 崇仁极盛与天盛律令 (1067-1206年)",
+      "wraps": [
+        "bingchang",
+        "qianshun",
+        "renxiao",
+        "chunyou"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "附蒙侵金 · 战略昏招与城覆人亡 (1206-1227年)",
+      "wraps": [
+        "anquan",
+        "zunxu",
+        "dewang",
+        "lixian"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "蒙军西征 · 六盘绝命与兴庆尘埃 (1205-1227年)",
+      "wraps": [
+        "chenggis_xia",
+        "xixia_mie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-jiqian-deming",
+      "from": "jiqian",
+      "to": "deming",
+      "label": "子继大位拓河西",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-deming-yuanhao",
+      "from": "deming",
+      "to": "yuanhao",
+      "label": "嫡子称帝建白高大夏",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yuanhao-liangzuo",
+      "from": "yuanhao",
+      "to": "liangzuo",
+      "label": "元昊遇弑幼子继位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-liangzuo-bingchang",
+      "from": "liangzuo",
+      "to": "bingchang",
+      "label": "长子立母梁太后专权",
+      "variant": "security"
+    },
+    {
+      "id": "c-bingchang-qianshun",
+      "from": "bingchang",
+      "to": "qianshun",
+      "label": "长子崇宗亲政灭辽",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-qianshun-renxiao",
+      "from": "qianshun",
+      "to": "renxiao",
+      "label": "长子仁宗天盛极盛",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-renxiao-chunyou",
+      "from": "renxiao",
+      "to": "chunyou",
+      "label": "长子桓宗和宋附金",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-chunyou-anquan",
+      "from": "chunyou",
+      "to": "anquan",
+      "label": "堂弟安全政变夺位",
+      "variant": "security"
+    },
+    {
+      "id": "c-anquan-zunxu",
+      "from": "anquan",
+      "to": "zunxu",
+      "label": "宗室状元遵顼篡位",
+      "variant": "security"
+    },
+    {
+      "id": "c-zunxu-dewang",
+      "from": "zunxu",
+      "to": "dewang",
+      "label": "神宗内禅次子立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-dewang-lixian",
+      "from": "dewang",
+      "to": "lixian",
+      "label": "献宗忧崩侄末主立",
+      "variant": "security"
+    },
+    {
+      "id": "c-lixian-chenggis_xia",
+      "from": "lixian",
+      "to": "chenggis_xia",
+      "label": "成吉思汗六征亲临",
+      "variant": "security"
+    },
+    {
+      "id": "c-chenggis_xia-xixia_mie",
+      "from": "chenggis_xia",
+      "to": "xixia_mie",
+      "label": "投降被杀屠城绝祀",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "党项拓跋崛起与李元昊三大战败宋",
+      "items": [
+        "1038年李元昊正式称帝建白高大夏国，创制西夏文字，筑白落驿台，与宋朝断交爆发长达数年全面战争",
+        "元昊展现卓越军事才能，于三川口、好水川、定川寨三大战役重创北宋西军主力，宋夏订立'庆历和议'",
+        "元昊同时在河曲之战击溃辽兴宗十万精锐，确立宋、辽、夏三国并立平衡的国际战略格局"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "两代梁氏太后专政与仁宗天盛之治",
+      "items": [
+        "惠宗崇宗两朝遭遇大梁太后与小梁太后专权数十载，大举侵宋挑起永乐城之战，导致西夏国力大损",
+        "夏仁宗李仁孝在位五十四载，尊崇儒术、广设学校、编纂《天盛律令》，开创西夏文治与经济全盛峰值",
+        "西夏佛教盛行，莫高窟、榆林窟、黑水城出土大量西夏文刻本与佛经，堪称中古丝路文化瑰宝"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "战略失误、成吉思汗六征与西夏终局",
+      "items": [
+        "夏襄宗、夏神宗目光短浅，奉行'附蒙侵金'错误国策，与金朝死磕耗尽国力，蒙古反身南向长驱直入",
+        "成吉思汗生前六度亲征西夏，最终在六盘山行宫病逝，留下'灭其全族'遗嘱",
+        "1227年西夏末主李睍出降被杀，兴庆府惨遭屠城毁坏，享国190年的西夏帝国彻底化为历史尘埃"
+      ]
+    }
+  ]
+}
