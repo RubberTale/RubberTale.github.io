@@ -326,6 +326,13 @@ top_img: false
 .fs-badge-wait { background: rgba(100, 116, 139, 0.15); color: #64748b; border: 1px solid rgba(100, 116, 139, 0.3); }
 .fs-badge-warn { background: rgba(217, 119, 6, 0.12); color: #d97706; border: 1px solid rgba(217, 119, 6, 0.3); }
 
+/* 观点演变差异对比标签体系 */
+.fs-badge-diff-reversal { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; text-align: center; white-space: nowrap; background: rgba(220, 38, 38, 0.15); color: #ef4444; border: 1px solid rgba(220, 38, 38, 0.35); }
+.fs-badge-diff-new { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; text-align: center; white-space: nowrap; background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.35); }
+.fs-badge-diff-upgrade { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; text-align: center; white-space: nowrap; background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.35); }
+.fs-badge-diff-continue { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; text-align: center; white-space: nowrap; background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.35); }
+.fs-badge-diff-archive { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 700; text-align: center; white-space: nowrap; background: rgba(100, 116, 139, 0.15); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); }
+
 /* 八大落地策略卡片网格 */
 .fs-grid-plans {
   display: grid;
@@ -558,7 +565,8 @@ top_img: false
 
 <!-- 粘性快捷导航 -->
 <div class="fs-nav-sticky">
-  <a href="#fs-sec-matrix" class="fs-nav-btn active"><i class="fas fa-table"></i> 策略执行总览矩阵</a>
+  <a href="#fs-sec-diff" class="fs-nav-btn active"><i class="fas fa-exchange-alt"></i> 观点演变与转向对照</a>
+  <a href="#fs-sec-matrix" class="fs-nav-btn"><i class="fas fa-table"></i> 策略执行总览矩阵</a>
   <a href="#fs-sec-macro" class="fs-nav-btn"><i class="fas fa-globe-americas"></i> 宏观与信用推演</a>
   <a href="#fs-sec-plans" class="fs-nav-btn"><i class="fas fa-layer-group"></i> 八大实战执行手册</a>
   <a href="#fs-sec-options" class="fs-nav-btn"><i class="fas fa-percentage"></i> 期权战术与风控</a>
@@ -566,7 +574,98 @@ top_img: false
   <a href="#fs-sec-calcs" class="fs-nav-btn"><i class="fas fa-calculator"></i> 交互测算工具</a>
 </div>
 
-<!-- 第一板块：全景策略执行总览矩阵 -->
+<!-- 核心板块：策略研判演变与期次观点对照 (Viewpoint Evolution & Diff Matrix) -->
+<div class="fs-card" id="fs-sec-diff">
+  <div class="fs-card-header">
+    <h2 class="fs-card-title"><i class="fas fa-exchange-alt" style="color: var(--fs-accent-blue);"></i> 策略研判演变与期次观点对照 (2026-09-27 vs 2026-10-18)</h2>
+    <span class="fs-tag"><i class="fas fa-history"></i> 捕捉边际变化 · 洞察机构逻辑转向</span>
+  </div>
+
+  <div style="margin-bottom: 14px; font-size: 13.5px; color: var(--fs-text-sub); line-height: 1.7;">
+    <strong>💡 投研视角：</strong>真正的超额收益往往产生于<strong>「机构观点的边际改变与多空逻辑逆转」</strong>。下表深度梳理了 2026-09-27 研讨会与 2026-10-18 最新研讨会在宏观、品种及期权维度的观点演变脉络：
+  </div>
+
+  <div class="fs-table-responsive">
+    <table class="fs-table">
+      <thead>
+        <tr>
+          <th>品种 / 资产板块</th>
+          <th>2026-09-27 会议研判 (往期)</th>
+          <th>2026-10-18 会议研判 (最新)</th>
+          <th>观点演变性质</th>
+          <th>交易台实操转向与应对策略</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>聚烯烃 (L / PP)</strong></td>
+          <td><strong>预期开工率上行走反套</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">短期供应压力不大，但受制于上游成本主导与下游亏损，预期装置复产建议反套</span></td>
+          <td><strong>美以袭击伊朗风险重估，转向正套</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">美以可能打击伊朗石油石化设施，中东进口受阻风险陡增，重新计价近端溢价</span></td>
+          <td><span class="fs-badge-diff-reversal"><i class="fas fa-sync-alt"></i> 重大方向转向<br>(反套 ➔ 正套)</span></td>
+          <td><strong>坚决平掉前期反套持仓</strong>，顺应中东地缘溢价，逢回调分批布局买 01 卖 05 正套。</td>
+        </tr>
+        <tr>
+          <td><strong>原油 (SC / WTI)</strong></td>
+          <td><strong>地缘溢价逐步挤出</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">美伊冲突难缓和但溢价正逐步消退，高油价压制能化下游，建议以跨期对冲替代单边</span></td>
+          <td><strong>供给刚性极限与地缘偏强多头</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">美油达产量极限+新井未增，OPEC+暂停增产，美伊局势紧张致抛储未落实+霍尔木兹紧绷</span></td>
+          <td><span class="fs-badge-diff-upgrade"><i class="fas fa-arrow-up"></i> 态度显著转强<br>(由弱转强/逢低多)</span></td>
+          <td>供给弹性几乎归零，地缘风险彻底封死大幅回调空间。<strong>严禁摸顶沽空</strong>，以逢低偏多或正套为主。</td>
+        </tr>
+        <tr>
+          <td><strong>甲醇 (MA)</strong></td>
+          <td><strong>港口去库与绝对坚挺</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">海外进口缩减及港口显性库存加速去化，低库存护城河支持逢低做正套</span></td>
+          <td><strong>MTO集中停车短期累库，但基差强挺正套</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">下游4套MTO装置停车致平衡表转向累库大幅回调；但现货基差强且近端库存优于远端</span></td>
+          <td><span class="fs-badge-diff-upgrade"><i class="fas fa-sliders-h"></i> 预期短期翻转<br>(累库逆风下逢低正套)</span></td>
+          <td>不再追单边多头。利用 MTO 集中停车砸出的回调窗口，在 0 ~ +25 元/吨低位吸筹 01-05 正套。</td>
+        </tr>
+        <tr>
+          <td><strong>有色金属 (铜铝)</strong></td>
+          <td><em>往期研讨未重点讨论有色品种</em></td>
+          <td><strong>铜铝基本面深度分化 + 多铜空铝</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">铜绝对低库存+减产预期坚挺；铝海外投产+国内铝水比例提升增产承压，为空配标的</span></td>
+          <td><span class="fs-badge-diff-new"><i class="fas fa-plus-circle"></i> 全新核心配置<br>(有色强弱配对)</span></td>
+          <td>确立<strong>「多铜空铝跨品种正套」</strong>为本期确定性最高主线；铝下游卖虚值Put降本，铜买Put防宏观下杀。</td>
+        </tr>
+        <tr>
+          <td><strong>能源化工 (高硫燃料油)</strong></td>
+          <td><em>往期未列入重点监控清单</em></td>
+          <td><strong>11 月极低库存严重逼仓风险预警</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">柴油紧俏+海外发电需求溢价，库存降至历史极低位，11月面临逼仓挤兑</span></td>
+          <td><span class="fs-badge-diff-reversal"><i class="fas fa-exclamation-triangle"></i> 极端逼仓预警<br>(防逼仓严禁做空)</span></td>
+          <td><strong>绝对禁止逆势摸顶沽空 FU2611 合约</strong>；可轻仓顺势做多或做 FU2611 与远月正套。</td>
+        </tr>
+        <tr>
+          <td><strong>芳烃产业链 (纯苯/PX/EB)</strong></td>
+          <td><strong>苯乙烯低库存偏强正套</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">苯乙烯显性库存极低，纯苯成本坚挺，推荐买近卖远正套</span></td>
+          <td><strong>纯苯/PX成本支撑与产业链分化</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">纯苯/PX受油品组分成本坚挺支撑，但下游亏损严重；苯乙烯开工下滑+下游节后补货</span></td>
+          <td><span class="fs-badge-diff-new"><i class="fas fa-layer-group"></i> 覆盖范围扩充<br>(纳入纯苯与PX正套)</span></td>
+          <td>明确组分油成本强支撑 vs 下游负反馈，单边容易受抑制，<strong>最优策略结构依然是跨期正套</strong>。</td>
+        </tr>
+        <tr>
+          <td><strong>股指期货 (IF / IC / IM)</strong></td>
+          <td><strong>持币观望 / 0 仓位</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">前期信贷数据未见实质改善，模型给出 10 月观望建议，不盲目隔夜抄底</span></td>
+          <td><strong>救市第一步，非反转大底</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">核心宽基ETF放量仅属救市第一阶段，非大底；货币供应放缓缺乏向上动力，下杀难度大但反转未明</span></td>
+          <td><span class="fs-badge-diff-continue"><i class="fas fa-check"></i> 逻辑深化验证<br>(防守加固/不搏反弹)</span></td>
+          <td>彻底打破左侧抄底幻想，拒绝盲目搏反弹；保持 0 投机持仓，耐心等待 M1/M2 剪刀差改善。</td>
+        </tr>
+        <tr>
+          <td><strong>贵金属 (AU / AG)</strong></td>
+          <td><strong>观点偏空 + 领口对冲 (Collar)</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">美债实际利率走高及美债发债放缓压制10月金银，建议买Put+卖Call领口保护</span></td>
+          <td><strong>实际利率下行缓和跌势，但未见反转</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">实际利率下行起到一定缓和跌势作用，但目前尚未达到形成中期反转信号的强度</span></td>
+          <td><span class="fs-badge-diff-upgrade"><i class="fas fa-pause-circle"></i> 跌势趋缓筑底<br>(暂不追空亦不抄底)</span></td>
+          <td>空仓维持区间观望；在持有的黄金领口对冲仓位继续按既定纪律护航，不盲目加码做多。</td>
+        </tr>
+        <tr>
+          <td><strong>农产品/胶/化肥 (棉/胶/尿素)</strong></td>
+          <td><strong>棉高空 · 胶多头 · 尿素反套</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">国庆长假攻防三大主力单边与套利策略</span></td>
+          <td><strong>焦点转移至宏观信用与能化有色正套</strong><br><span style="font-size: 12px; color: var(--fs-text-sub);">本期会议未重点讨论农产品与化肥，精力全面聚焦于宏观地缘与大选主线</span></td>
+          <td><span class="fs-badge-diff-archive"><i class="fas fa-archive"></i> 转入存量跟踪<br>(原雷达继续盯市)</span></td>
+          <td>棉花 16000 沽空、橡胶 18450 低吸及尿素反套维持既定触发线监控，不新增风险预算。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 第二板块：全景策略执行总览矩阵 -->
 <div class="fs-card" id="fs-sec-matrix">
   <div class="fs-card-header">
     <h2 class="fs-card-title"><i class="fas fa-th-list" style="color: var(--fs-accent-blue);"></i> 全景资产配置与策略执行矩阵 (Master Execution Matrix)</h2>

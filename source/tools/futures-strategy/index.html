@@ -173,6 +173,10 @@
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
         <span>🎯 下周入场触发雷达 (<span id="tab-radar-count">13</span>)</span>
       </button>
+      <button onclick="switchTab('diff')" id="tab-btn-diff" class="tab-btn px-4 py-2 rounded-lg font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition flex items-center space-x-1.5 shrink-0">
+        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+        <span>🔄 观点演变与转向对照</span>
+      </button>
       <button onclick="switchTab('positions')" id="tab-btn-positions" class="tab-btn px-4 py-2 rounded-lg font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition flex items-center space-x-1.5 shrink-0">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
         <span>💼 实时在持仓位 (<span id="tab-pos-count">0</span>)</span>
@@ -296,6 +300,104 @@
             </thead>
             <tbody id="ledger-tbody" class="divide-y divide-gray-800/60">
               <!-- 动态记账流水 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: 观点演变与转向对照 -->
+    <div id="tab-content-diff" class="tab-content hidden space-y-4">
+      <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-5 space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2 border-b border-gray-800 pb-3">
+          <div>
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+              <span>策略研判演变与多空转向对照 (2026-09-27 vs 2026-10-18 最新)</span>
+            </h3>
+            <p class="text-xs text-gray-400 mt-1">捕捉机构观点边际改变与多空逻辑逆转，精准锚定本期重点增配与战术防守标的</p>
+          </div>
+          <a href="/futures-strategy/" class="px-3 py-1.5 rounded-lg bg-blue-600/20 text-blue-400 hover:bg-blue-600/30 border border-blue-500/30 text-xs font-semibold flex items-center gap-1.5 transition">
+            <span>查看完整研报落地细则</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-gray-800 text-gray-400 bg-gray-950/60 font-semibold">
+                <th class="py-3 px-3">品种 / 资产板块</th>
+                <th class="py-3 px-3">2026-09-27 会议研判 (往期)</th>
+                <th class="py-3 px-3">2026-10-18 会议研判 (最新)</th>
+                <th class="py-3 px-3 text-center">观点演变性质</th>
+                <th class="py-3 px-3">交易台实操转向与应对策略</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-800/60 font-sans">
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">聚烯烃 (L / PP)</td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>预期开工率上行走反套</strong><br><span class="text-[11px] text-gray-500">上游成本主导与下游亏损，装置复产预期建议反套</span></td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>美以袭伊风险重估，转向正套</strong><br><span class="text-[11px] text-gray-400">美以或打伊朗石化设施，进口受阻风险陡增，计价近端溢价</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-rose-500/15 text-rose-400 border border-rose-500/30">🚨 重大转向 (反套➔正套)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]"><strong>坚决平掉反套</strong>，顺应地缘溢价，逢回调分批布局买 01 卖 05 正套</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">原油 (SC / WTI)</td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>地缘溢价逐步挤出</strong><br><span class="text-[11px] text-gray-500">美伊冲突难缓和但溢价正逐步消退，压制下游</span></td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>供给刚性极限与地缘偏强多头</strong><br><span class="text-[11px] text-gray-400">美油产量极限+OPEC+暂停增产，美伊冲突严峻致抛储落空+霍尔木兹紧绷</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">🟡 态度转强 (偏强逢低多)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]">供给弹性归零，地缘风险锁定下行空间，<strong>严禁摸顶沽空</strong>，逢低偏多</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">甲醇 (MA)</td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>港口去库与绝对坚挺</strong><br><span class="text-[11px] text-gray-500">海外进口缩减及港口库存加速去化，护城河支撑正套</span></td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>MTO停车短期累库，但基差强挺正套</strong><br><span class="text-[11px] text-gray-400">4套MTO装置停车致平衡表转累库大幅回调，但现货基差强且近端优于远端</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">🟠 预期翻转 (累库低吸正套)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]">不追单边，利用 MTO 停车砸出的回调窗口在 0 ~ +25 元/吨逢低吸筹 01-05 正套</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">有色金属 (铜铝)</td>
+                <td class="py-3.5 px-3 text-gray-500 italic">往期策略会未重点覆盖</td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>铜铝基本面深度分化 + 多铜空铝</strong><br><span class="text-[11px] text-gray-400">铜绝对低库存坚挺；铝海外投产+国内铝水比例提升增产承压</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">🟢 全新核心配置 (多铜空铝)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]">确立<strong>「多铜空铝跨品种正套」</strong>为本期最高胜率主线；铝下游卖Put，铜买Put防宏观下杀</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">高硫燃料油 (FU)</td>
+                <td class="py-3.5 px-3 text-gray-500 italic">往期策略会未重点覆盖</td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>11 月极低库存严重逼仓风险预警</strong><br><span class="text-[11px] text-gray-400">柴油紧俏+海外发电需求溢价，库存降至极低，11月面临逼仓挤兑</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-rose-500/15 text-rose-400 border border-rose-500/30">🚨 极端逼仓预警 (禁空/逢低多)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]"><strong>绝对禁止逆势摸顶沽空 FU2611</strong>；逢回调轻仓顺势做多或做 FU2611-2701 正套</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">纯苯 / PX / EB</td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>苯乙烯低库存偏强正套</strong><br><span class="text-[11px] text-gray-500">苯乙烯显性库存极低，纯苯成本支撑</span></td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>纯苯/PX成本支撑强与产业链分化</strong><br><span class="text-[11px] text-gray-400">纯苯/PX组分油成本强支撑但下游亏损；EB装置开工下滑+下游节后补货</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-blue-500/15 text-blue-400 border border-blue-500/30">🔵 覆盖扩充 (纳入纯苯与PX)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]">成本支撑 vs 下游负反馈，单边容易受抑制，<strong>最优策略结构依然是逢低正套</strong></td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">股指期货 (IF/IC)</td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>持币观望 / 0 仓位</strong><br><span class="text-[11px] text-gray-500">信贷未实质改善，不盲目隔夜抄底</span></td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>救市第一步，非反转大底</strong><br><span class="text-[11px] text-gray-400">核心ETF放量属救市第一阶段，非大底；货币供应放缓缺乏向上动力</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-gray-500/15 text-gray-400 border border-gray-500/30">⚪ 观点验证 (防守加固/不搏反弹)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]">彻底打破左侧抄底幻想，拒绝盲目搏反弹；保持 0 投机持仓，等待信贷改善</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">贵金属 (AU/AG)</td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>观点偏空 + 领口对冲 (Collar)</strong><br><span class="text-[11px] text-gray-500">美债实际利率走高及发债放缓压制</span></td>
+                <td class="py-3.5 px-3 text-gray-200"><strong>实际利率下行缓和跌势，但未见反转</strong><br><span class="text-[11px] text-gray-400">实际利率下行起到一定缓和跌势作用，但目前尚未达到形成中期反转信号强度</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">🟣 跌势趋缓 (暂不抄底/对冲底仓)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]">维持区间观望；在持有的黄金领口对冲仓位继续按既定纪律护航，不盲目追单边</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition">
+                <td class="py-3.5 px-3 font-bold text-white whitespace-nowrap">棉花 / 橡胶 / 尿素</td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>棉高空 · 胶多头 · 尿素反套</strong><br><span class="text-[11px] text-gray-500">国庆长假攻防三大主力单边与套利</span></td>
+                <td class="py-3.5 px-3 text-gray-400"><strong>焦点转移至宏观信用与能化有色正套</strong><br><span class="text-[11px] text-gray-500">本期会议未重点讨论，精力聚焦宏观地缘大选主线</span></td>
+                <td class="py-3.5 px-3 text-center whitespace-nowrap"><span class="px-2 py-1 rounded text-[11px] font-bold bg-gray-500/15 text-gray-400 border border-gray-500/30">⏸️ 存量跟踪 (原雷达继续盯市)</span></td>
+                <td class="py-3.5 px-3 text-gray-300 font-mono text-[11.5px]">棉花 16000 沽空、橡胶 18450 低吸及尿素反套维持既定触发线监控，不新增预算</td>
+              </tr>
             </tbody>
           </table>
         </div>
