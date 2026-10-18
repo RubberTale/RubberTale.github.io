@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大秦帝国与楚汉鼎革全景谱系",
+    "subtitle": "首创华夏皇帝大统 · 始皇横扫六合统一度量衡至巨鹿垓下楚汉相争全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "法家先驱与开国王相",
+          "visible": true
+        },
+        "frontend": {
+          "label": "始皇雄主与开国霸业",
+          "visible": true
+        },
+        "backend": {
+          "label": "守成子嗣与宗法承续",
+          "visible": true
+        },
+        "database": {
+          "label": "权相专权与沙丘政变",
+          "visible": true
+        },
+        "security": {
+          "label": "暴虐失德与楚汉兵燹",
+          "visible": true
+        },
+        "external": {
+          "label": "汉祖代立与四百年汉",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "shangyang",
+      "type": "cloud",
+      "label": "商鞅 (卫鞅)",
+      "sublabel": "秦孝公力挺变法废井田 · 设县制立耕战奠强秦基",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前356 · 战国变法"
+    },
+    {
+      "id": "zhaoxiang",
+      "type": "frontend",
+      "label": "秦昭襄王 (嬴稷)",
+      "sublabel": "在位五十六年任白起 · 长平之战破赵奠定灭六国",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前306-前251 · 强秦全盛"
+    },
+    {
+      "id": "zhuangxiang",
+      "type": "backend",
+      "label": "秦庄襄王 (子楚)",
+      "sublabel": "赵国质子吕不韦奇货可居 · 即位三年灭东周国",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前250-前247 · 灭东周"
+    },
+    {
+      "id": "lvbuwei",
+      "type": "cloud",
+      "label": "吕不韦 (仲父文信侯)",
+      "sublabel": "巨贾奇货可居助子楚立 · 编纂吕氏春秋掌政十载",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "秦国仲父 · 奇货可居"
+    },
+    {
+      "id": "shihuang",
+      "type": "frontend",
+      "label": "1. 秦始皇 嬴政",
+      "sublabel": "十年灭六国称始皇帝 · 废分封立郡县书同文车同轨",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前221-前210 · 千古一帝"
+    },
+    {
+      "id": "lisi",
+      "type": "cloud",
+      "label": "李斯 (丞相)",
+      "sublabel": "作谏逐客书佐始皇平天下 · 统一度量衡创小篆法",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "法家集大成 · 始皇重相"
+    },
+    {
+      "id": "fusu",
+      "type": "backend",
+      "label": "公子扶苏",
+      "sublabel": "始皇长子性宽仁直谏 · 蒙恬统大军北筑长城戍边",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "始皇长子 · 仁德早夭"
+    },
+    {
+      "id": "zhaogao",
+      "type": "database",
+      "label": "赵高 (中车府令)",
+      "sublabel": "沙丘政变伪造诏书逼死扶苏 · 指鹿为马擅杀公卿",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "权阉乱政 · 指鹿为马"
+    },
+    {
+      "id": "huhai",
+      "type": "security",
+      "label": "2. 秦二世 胡亥",
+      "sublabel": "杀兄屠妹诛尽骨肉公卿 · 徭役苛暴致大泽乡起义",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前210-前207 · 荒虐早弑"
+    },
+    {
+      "id": "ziying",
+      "type": "security",
+      "label": "3. 秦王子婴",
+      "sublabel": "即位仅四十六日计杀赵高 · 沛公入关素车白马降汉",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前207 · 大秦覆亡"
+    },
+    {
+      "id": "qinmie",
+      "type": "security",
+      "label": "秦帝国覆灭 · 焚阿房宫",
+      "sublabel": "项羽入关杀子婴焚秦宫室 · 大秦十四年大统告终",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前206 · 统一第一朝"
+    },
+    {
+      "id": "chengsheng",
+      "type": "cloud",
+      "label": "陈胜吴广起义",
+      "sublabel": "大泽乡斩木为兵大呼王侯将相宁有种乎 · 掀灭秦狂潮",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前209 · 首揭反旗"
+    },
+    {
+      "id": "xiangyu",
+      "type": "security",
+      "label": "西楚霸王 项羽",
+      "sublabel": "巨鹿之战破釜沉舟破秦军主力 · 彭城破汉分封诸侯",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "力拔山兮 · 气盖世"
+    },
+    {
+      "id": "yuji",
+      "type": "cloud",
+      "label": "虞姬与霸王别姬",
+      "sublabel": "垓下之围汉军四面楚歌 · 拔剑自刎凄绝千古词话",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "霸王别姬 · 垓下血泪"
+    },
+    {
+      "id": "wujiang",
+      "type": "security",
+      "label": "乌江自刎 · 西楚覆亡",
+      "sublabel": "八百骑突围无颜见江东父老 · 自刎乌江项楚终结",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前202 · 西楚覆灭"
+    },
+    {
+      "id": "liubang_qin",
+      "type": "frontend",
+      "label": "汉高祖 刘邦",
+      "sublabel": "沛县斩蛇起义还定三秦 · 约法三章垓下击溃项羽",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前202 · 汉朝开国"
+    },
+    {
+      "id": "hanchusanjie",
+      "type": "cloud",
+      "label": "汉初三杰 (萧张韩)",
+      "sublabel": "张良运筹帷幄萧何镇抚关中 · 韩信多多益善用兵如神",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "佐汉功臣 · 开创四百年"
+    },
+    {
+      "id": "dahan_ding",
+      "type": "external",
+      "label": "大汉四百年基业奠基",
+      "sublabel": "公元前202年定都长安定国号汉 · 承秦制开汉风四百年",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前202 · 大汉立国"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "始皇扫合 · 变法强秦至兼并天下 (前356-前210年)",
+      "wraps": [
+        "shangyang",
+        "zhaoxiang",
+        "zhuangxiang",
+        "lvbuwei",
+        "shihuang",
+        "lisi"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "沙丘祸乱 · 二世苛虐与大秦速亡 (前210-前206年)",
+      "wraps": [
+        "fusu",
+        "zhaogao",
+        "huhai",
+        "ziying",
+        "qinmie"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "楚汉风云 · 巨鹿破秦与垓下楚歌 (前209-前202年)",
+      "wraps": [
+        "chengsheng",
+        "xiangyu",
+        "yuji",
+        "wujiang"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "汉祖开基 · 汉承秦制与定鼎长安 (前206-前202年)",
+      "wraps": [
+        "liubang_qin",
+        "hanchusanjie",
+        "dahan_ding"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-shangyang-zhaoxiang",
+      "from": "shangyang",
+      "to": "zhaoxiang",
+      "label": "变法奠定强秦基",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zhaoxiang-zhuangxiang",
+      "from": "zhaoxiang",
+      "to": "zhuangxiang",
+      "label": "孙子楚即位",
+      "labelDy": 24
+    },
+    {
+      "id": "c-zhuangxiang-lvbuwei",
+      "from": "zhuangxiang",
+      "to": "lvbuwei",
+      "label": "奇货可居拜相国",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-zhuangxiang-shihuang",
+      "from": "zhuangxiang",
+      "to": "shihuang",
+      "label": "子嬴政十三岁继位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shihuang-lisi",
+      "from": "shihuang",
+      "to": "lisi",
+      "label": "重用李斯平天下",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shihuang-fusu",
+      "from": "shihuang",
+      "to": "fusu",
+      "label": "长子扶苏戍上郡"
+    },
+    {
+      "id": "c-fusu-zhaogao",
+      "from": "fusu",
+      "to": "zhaogao",
+      "label": "沙丘政变赵高矫诏",
+      "variant": "security"
+    },
+    {
+      "id": "c-zhaogao-huhai",
+      "from": "zhaogao",
+      "to": "huhai",
+      "label": "立幼子胡亥为二世",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-huhai-ziying",
+      "from": "huhai",
+      "to": "ziying",
+      "label": "望夷宫弑二世立子婴",
+      "variant": "security"
+    },
+    {
+      "id": "c-ziying-qinmie",
+      "from": "ziying",
+      "to": "qinmie",
+      "label": "子婴降沛公秦亡",
+      "variant": "security"
+    },
+    {
+      "id": "c-huhai-chengsheng",
+      "from": "huhai",
+      "to": "chengsheng",
+      "label": "苛暴致大泽乡起义",
+      "variant": "security"
+    },
+    {
+      "id": "c-chengsheng-xiangyu",
+      "from": "chengsheng",
+      "to": "xiangyu",
+      "label": "项羽破釜沉舟破秦",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiangyu-yuji",
+      "from": "xiangyu",
+      "to": "yuji",
+      "label": "垓下四面楚歌别姬",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-xiangyu-wujiang",
+      "from": "xiangyu",
+      "to": "wujiang",
+      "label": "无颜见江东自刎",
+      "variant": "security"
+    },
+    {
+      "id": "c-qinmie-liubang_qin",
+      "from": "qinmie",
+      "to": "liubang_qin",
+      "label": "刘邦入关约法三章",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiangyu-liubang_qin",
+      "from": "xiangyu",
+      "to": "liubang_qin",
+      "label": "楚汉争霸四年",
+      "variant": "security"
+    },
+    {
+      "id": "c-liubang_qin-hanchusanjie",
+      "from": "liubang_qin",
+      "to": "hanchusanjie",
+      "label": "三杰佐命定天下",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-liubang_qin-dahan_ding",
+      "from": "liubang_qin",
+      "to": "dahan_ding",
+      "label": "定都长安建立大汉",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "商鞅变法与始皇千古一统",
+      "items": [
+        "商鞅入秦推行彻底变法，废井田立县制、论军功行赏，奠定秦国虎狼之师横扫六合的制度根基",
+        "秦始皇嬴政以雄才大略任用李斯、尉缭、王翦，十年扫灭齐楚燕韩赵魏，终结春秋战国五百年混战",
+        "初创'皇帝'尊号，废除分封立郡县，书同文、车同轨、统一度量衡，筑万里长城，铸就华夏两千年帝制范式"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "沙丘之变与十四载速亡之谜",
+      "items": [
+        "公元前210年始皇病逝沙丘，赵高联合李斯伪造遗诏，赐死长子扶苏与名将蒙恬，立幼子胡亥为二世",
+        "胡亥残害血亲屠戮忠良，繁重徭役修骊山阿房宫，终于引发陈胜吴广'大泽乡起义'，天下云合响应",
+        "赵高望夷宫逼死二世立子婴，子婴计除赵高，沛公兵临咸阳素车白马出降，开创大一统的强秦仅十四载而亡"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "巨鹿破釜与垓下悲歌汉祖代立",
+      "items": [
+        "西楚霸王项羽巨鹿之战'破釜沉舟'大破秦军主力二十万，收降章邯诸将，威震天下分封十八诸侯",
+        "沛公刘邦入关约法三章收揽民心，还定三秦任用韩信、张良、萧何，历经四年楚汉相争决战垓下",
+        "项羽十面埋伏四面楚歌霸王别姬自刎乌江，刘邦公元前202年即皇帝位于定陶建立大汉，汉承秦制开启四百年盛世"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "三国鼎立与群雄争霸全景谱系",
+    "subtitle": "天下三分英雄辈出 · 曹魏受禅蜀汉昭烈东吴大帝与三家归晋全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "奠基先烈与谋臣大贤",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国雄主与承袭帝王",
+          "visible": true
+        },
+        "backend": {
+          "label": "守成天子与宗统正统",
+          "visible": true
+        },
+        "database": {
+          "label": "权相专擅与宗室内讧",
+          "visible": true
+        },
+        "security": {
+          "label": "兵败被弑与覆亡宗室",
+          "visible": true
+        },
+        "external": {
+          "label": "受禅受封与西晋归一",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "caocao",
+      "type": "cloud",
+      "label": "魏武帝 (曹操)",
+      "sublabel": "挟天子令诸侯官渡破袁绍 · 统一北方奠魏基业",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "魏国奠基 · 追尊武帝"
+    },
+    {
+      "id": "caopi",
+      "type": "frontend",
+      "label": "1. 魏文帝 曹丕",
+      "sublabel": "受汉献帝禅让建魏都洛阳 · 创九品中正制称帝",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "220-226 · 曹魏开国"
+    },
+    {
+      "id": "caorui",
+      "type": "backend",
+      "label": "2. 魏明帝 曹叡 (ruì)",
+      "sublabel": "击退诸葛亮北伐与孙吴 · 晚年大修宫殿托孤失当",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "226-239 · 曹魏中兴"
+    },
+    {
+      "id": "caofang",
+      "type": "database",
+      "label": "3. 齐王 曹芳",
+      "sublabel": "明帝养子即位 · 高平陵之变司马氏专政遭废黜",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "239-254 · 权臣所废"
+    },
+    {
+      "id": "caomao",
+      "type": "security",
+      "label": "4. 高贵乡公 曹髦",
+      "sublabel": "司马昭之心路人皆知 · 拔剑亲讨遭成济刺杀",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "254-260 · 悲壮弑君"
+    },
+    {
+      "id": "caohuan",
+      "type": "external",
+      "label": "5. 魏元帝 曹奂",
+      "sublabel": "燕王曹宇子傀儡即位 · 咸熙二年禅位司马炎降封",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "260-265 · 曹魏终帝"
+    },
+    {
+      "id": "simayi",
+      "type": "cloud",
+      "label": "晋宣帝 (司马懿)",
+      "sublabel": "辅政三世克日破孟达 · 高平陵政变诛曹爽掌朝政",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "司马开端 · 追尊宣帝"
+    },
+    {
+      "id": "simashi",
+      "type": "database",
+      "label": "晋景帝 (司马师)",
+      "sublabel": "掌禁军平定淮南三叛 · 废曹芳立曹髦巩固家业",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "沉稳掌枢 · 追尊景帝"
+    },
+    {
+      "id": "simazhao",
+      "type": "database",
+      "label": "晋文帝 (司马昭)",
+      "sublabel": "封晋王加九锡 · 命邓艾钟会发兵西征灭亡蜀汉",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "专揽朝政 · 灭蜀封王"
+    },
+    {
+      "id": "simayan",
+      "type": "external",
+      "label": "晋武帝 司马炎",
+      "sublabel": "受魏禅代魏建立西晋 · 太康元年发兵灭吴混一天下",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "265-290 · 三家归晋"
+    },
+    {
+      "id": "sanguogui",
+      "type": "external",
+      "label": "天下重归混一 · 西晋立国",
+      "sublabel": "280年王濬楼船下益州 · 孙皓出降终结六十年三国",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "280年 · 太康繁盛"
+    },
+    {
+      "id": "liubei",
+      "type": "frontend",
+      "label": "1. 汉昭烈帝 刘备",
+      "sublabel": "弘毅宽厚桃园结义 · 三顾茅庐赤壁取荆益称帝",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "221-223 · 蜀汉昭烈"
+    },
+    {
+      "id": "zhugeliang",
+      "type": "cloud",
+      "label": "诸葛亮 (忠武侯)",
+      "sublabel": "鞠躬尽瘁死而后已 · 白帝托孤六出祁山病逝五丈原",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "千古良相 · 蜀汉之魂"
+    },
+    {
+      "id": "liushan",
+      "type": "backend",
+      "label": "2. 蜀汉后主 刘禅 (shàn)",
+      "sublabel": "在位四十载任贤相 · 邓艾破绵竹开城投降乐不思蜀",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "223-263 · 安乐思蜀"
+    },
+    {
+      "id": "jiangwei",
+      "type": "cloud",
+      "label": "姜维 (凉州上将)",
+      "sublabel": "承丞相遗志九伐中原 · 一计害三贤悲壮殉国",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "九伐中原 · 尽忠死节"
+    },
+    {
+      "id": "shuhanmie",
+      "type": "security",
+      "label": "蜀汉覆亡 · 降于曹魏",
+      "sublabel": "263年魏军入成都 · 蜀汉享国43年为三国首亡",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "263年 · 蜀汉终局"
+    },
+    {
+      "id": "sunjian",
+      "type": "cloud",
+      "label": "破虏讨逆 (孙坚孙策)",
+      "sublabel": "破虏江东猛虎斩华雄 · 小霸王渡江定江东六郡",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "江东肇基 · 奠定吴业"
+    },
+    {
+      "id": "sunquan",
+      "type": "frontend",
+      "label": "1. 吴大帝 孙权",
+      "sublabel": "十九岁领江东赤壁夷陵破蜀魏 · 称帝立武昌建业",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "229-252 · 江东霸主"
+    },
+    {
+      "id": "sunliang",
+      "type": "backend",
+      "label": "2. 吴少帝 孙亮",
+      "sublabel": "孙权幼子即位 · 诸葛恪孙綝宗室乱权遭废黜",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "252-258 · 宗室废立"
+    },
+    {
+      "id": "sunxiu",
+      "type": "backend",
+      "label": "3. 吴景帝 孙休",
+      "sublabel": "权六子即位 · 联合丁奉诛杀权臣孙綝重夺皇权",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "258-264 · 诛除权奸"
+    },
+    {
+      "id": "sunhao",
+      "type": "security",
+      "label": "4. 吴末帝 孙皓",
+      "sublabel": "孙策孙即位沉溺暴虐 · 晋军六路大举南下出降",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "264-280 · 东吴覆灭"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "曹魏正统 · 文明盛治至高平陵变 (220-265年)",
+      "wraps": [
+        "caocao",
+        "caopi",
+        "caorui",
+        "caofang",
+        "caomao",
+        "caohuan"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "司马揽权 · 淮南三叛至三家归晋 (249-280年)",
+      "wraps": [
+        "simayi",
+        "simashi",
+        "simazhao",
+        "simayan",
+        "sanguogui"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "蜀汉正朔 · 昭烈托孤与九伐死节 (221-263年)",
+      "wraps": [
+        "liubei",
+        "zhugeliang",
+        "liushan",
+        "jiangwei",
+        "shuhanmie"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "东吴据江 · 称雄赤壁至石头城降 (229-280年)",
+      "wraps": [
+        "sunjian",
+        "sunquan",
+        "sunliang",
+        "sunxiu",
+        "sunhao"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-caocao-caopi",
+      "from": "caocao",
+      "to": "caopi",
+      "label": "次子曹丕代汉受禅",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-caopi-caorui",
+      "from": "caopi",
+      "to": "caorui",
+      "label": "长子明帝大治",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-caorui-caofang",
+      "from": "caorui",
+      "to": "caofang",
+      "label": "养子齐王即位"
+    },
+    {
+      "id": "c-caofang-caomao",
+      "from": "caofang",
+      "to": "caomao",
+      "label": "司马氏废齐王立高贵乡公"
+    },
+    {
+      "id": "c-caomao-caohuan",
+      "from": "caomao",
+      "to": "caohuan",
+      "label": "成济弑君立陈留王",
+      "variant": "security"
+    },
+    {
+      "id": "c-simayi-simashi",
+      "from": "simayi",
+      "to": "simashi",
+      "label": "长子继掌枢机",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-simashi-simazhao",
+      "from": "simashi",
+      "to": "simazhao",
+      "label": "弟昭进位晋王",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-simazhao-simayan",
+      "from": "simazhao",
+      "to": "simayan",
+      "label": "长子司马炎代魏",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-caohuan-simayan",
+      "from": "caohuan",
+      "to": "simayan",
+      "label": "咸熙二年禅让西晋",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-simayan-sanguogui",
+      "from": "simayan",
+      "to": "sanguogui",
+      "label": "太康混一天下",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-liubei-zhugeliang",
+      "from": "liubei",
+      "to": "zhugeliang",
+      "label": "白帝托孤如鱼得水",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-liubei-liushan",
+      "from": "liubei",
+      "to": "liushan",
+      "label": "长子后主即位"
+    },
+    {
+      "id": "c-zhugeliang-jiangwei",
+      "from": "zhugeliang",
+      "to": "jiangwei",
+      "label": "遗志传姜维九伐",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-liushan-shuhanmie",
+      "from": "liushan",
+      "to": "shuhanmie",
+      "label": "邓艾偷袭后主降",
+      "variant": "security"
+    },
+    {
+      "id": "c-shuhanmie-simazhao",
+      "from": "shuhanmie",
+      "to": "simazhao",
+      "label": "蜀汉降于司马昭",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-sunjian-sunquan",
+      "from": "sunjian",
+      "to": "sunquan",
+      "label": "弟孙权统揽江东",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-sunquan-sunliang",
+      "from": "sunquan",
+      "to": "sunliang",
+      "label": "幼子孙亮即位"
+    },
+    {
+      "id": "c-sunliang-sunxiu",
+      "from": "sunliang",
+      "to": "sunxiu",
+      "label": "孙綝废立景帝"
+    },
+    {
+      "id": "c-sunxiu-sunhao",
+      "from": "sunxiu",
+      "to": "sunhao",
+      "label": "策孙皓即位荒淫",
+      "variant": "security"
+    },
+    {
+      "id": "c-sunhao-sanguogui",
+      "from": "sunhao",
+      "to": "sanguogui",
+      "label": "王濬下建业孙皓降",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "曹魏受禅与高平陵政变",
+      "items": [
+        "曹操统一北方奠定根基，曹丕受汉献帝禅让定都洛阳，创立九品中正制收拢门阀世家",
+        "魏明帝曹叡英年早逝，托孤大将军曹爽与太尉司马懿，引爆公元249年高平陵事变",
+        "司马懿尽诛曹爽三族，兵权尽归司马氏，高贵乡公拔剑讨贼血溅长街，曹魏沦为傀儡"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "蜀汉昭烈与千古忠义托孤",
+      "items": [
+        "刘备弘毅宽厚桃园结义，三顾茅庐得诸葛亮，赤壁联吴大破曹军，取益州定汉中登帝位",
+        "夷陵惨败白帝托孤，诸葛亮鞠躬尽瘁七擒孟获、六出祁山，为报知遇之恩病逝五丈原",
+        "姜维承丞相遗志九伐中原，终因后主出降大势已去，'一计害三贤'悲壮舍身殉国"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "江东鼎峙与太康三家归晋",
+      "items": [
+        "孙氏父子孙坚、孙策渡江拓土，孙权统帅江东大破曹操于赤壁、击退刘备于夷陵称帝",
+        "晚年二宫夺嫡废立屡兴，权臣孙綝专擅朝政，末帝孙皓暴虐残忍大失江东士庶人心",
+        "公元280年晋武帝司马炎六路大军平吴，王濬楼船顺流而下破石头城，六十年三国归于一统"
+      ]
+    }
+  ]
+}

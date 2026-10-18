@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大隋王朝与隋末争雄全景谱系",
+    "subtitle": "终结近三百年南北分立 · 开创科举三省六部制大运河至江都兵变唐代隋全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "开国重臣与隋唐桥梁",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开皇盛治与承袭帝王",
+          "visible": true
+        },
+        "backend": {
+          "label": "末帝废立与皇宗余脉",
+          "visible": true
+        },
+        "database": {
+          "label": "大运河与营建东都",
+          "visible": true
+        },
+        "security": {
+          "label": "三征高丽与反王兵燹",
+          "visible": true
+        },
+        "external": {
+          "label": "晋阳代立与大唐初兴",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "yangjian_sui",
+      "type": "frontend",
+      "label": "1. 隋文帝 杨坚",
+      "sublabel": "受周禅代周建隋平定江南 · 终结近三百年分裂",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "581-604 · 开皇之治"
+    },
+    {
+      "id": "duguhou",
+      "type": "cloud",
+      "label": "文献独孤皇后",
+      "sublabel": "鲜卑名门八柱国独孤信女 · 隋文帝并称二圣废太子杨勇",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "开皇二圣 · 严整后宫"
+    },
+    {
+      "id": "kaihuangzhi",
+      "type": "cloud",
+      "label": "开皇之治与制度重构",
+      "sublabel": "创科举制设三省六部 · 均田富国仓库充溢五十年",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "制度奠基 · 府库充盈"
+    },
+    {
+      "id": "gaojiong",
+      "type": "cloud",
+      "label": "高颎与杨素",
+      "sublabel": "高颎佐文帝平江南定刑律 · 杨素助炀帝夺嫡征战功勋",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "开皇柱石 · 宰辅重臣"
+    },
+    {
+      "id": "yangguang",
+      "type": "security",
+      "label": "2. 隋炀帝 杨广",
+      "sublabel": "弑父夺嫡修大运河建东都 · 三征高句丽引爆天下大乱",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "604-618 · 大业狂澜"
+    },
+    {
+      "id": "dayunhe",
+      "type": "database",
+      "label": "大运河与营建东都",
+      "sublabel": "征发数百万民通南北水运 · 功在千秋然民不堪命",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "贯通南北 · 劳民伤财"
+    },
+    {
+      "id": "gaogouli",
+      "type": "security",
+      "label": "三征高句丽溃败",
+      "sublabel": "三次统百万大军远征辽东 · 萨水大败天下蜂起反隋",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "612-614 · 亡国死结"
+    },
+    {
+      "id": "jiangdubiang",
+      "type": "security",
+      "label": "江都兵变 · 炀帝被弑",
+      "sublabel": "618年近卫骁果军夜叛 · 宇文化及白绫缢杀炀帝",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "618年 · 炀帝绝局"
+    },
+    {
+      "id": "wagang",
+      "type": "cloud",
+      "label": "瓦岗寨 (李密翟让)",
+      "sublabel": "夺洛口仓开仓济民 · 败宇文化及与王世充争洛阳",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "中原群雄 · 瓦岗风云"
+    },
+    {
+      "id": "doujiande",
+      "type": "cloud",
+      "label": "大夏王 (窦建德)",
+      "sublabel": "河北起兵据乐寿号大夏 · 救王世充虎牢关败于李世民",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "河北雄霸 · 虎牢兵败"
+    },
+    {
+      "id": "wangshichong",
+      "type": "security",
+      "label": "郑国 (王世充)",
+      "sublabel": "据东都洛阳立越王后篡立郑 · 虎牢关破降于李唐",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "洛阳僭号 · 终归李唐"
+    },
+    {
+      "id": "yangdong",
+      "type": "backend",
+      "label": "越王 (杨侗)",
+      "sublabel": "炀帝孙留守东都洛阳 · 王世充拥立为傀儡旋即鸩杀",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "皇泰主 · 洛阳悲歌"
+    },
+    {
+      "id": "yangyou",
+      "type": "backend",
+      "label": "3. 隋恭帝 杨侑 (yòu)",
+      "sublabel": "留守长安李渊入关拥立 · 义宁二年禅让大唐降封酅国公",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "617-618 · 禅位受封"
+    },
+    {
+      "id": "liuyuan_sui",
+      "type": "frontend",
+      "label": "唐高祖 李渊",
+      "sublabel": "太原起兵破霍邑入长安 · 受隋恭帝禅让建立大唐帝国",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "618年 · 李唐受禅"
+    },
+    {
+      "id": "tang_chuxing",
+      "type": "external",
+      "label": "大隋三十八年终 · 唐统华夏",
+      "sublabel": "终结分裂开创制度之隋覆亡 · 大唐承隋制开三百年盛世",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "618年 · 华夏归唐"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "开皇肇基 · 平陈一统与制度鼎新 (581-604年)",
+      "wraps": [
+        "yangjian_sui",
+        "duguhou",
+        "kaihuangzhi",
+        "gaojiong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "大业极盛 · 功在千秋与江都绝局 (604-618年)",
+      "wraps": [
+        "yangguang",
+        "dayunhe",
+        "gaogouli",
+        "jiangdubiang"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "隋末蜂起 · 瓦岗河北争雄与越王 (616-619年)",
+      "wraps": [
+        "wagang",
+        "doujiande",
+        "wangshichong",
+        "yangdong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "晋阳代立 · 恭帝禅位与大唐开国 (617-618年)",
+      "wraps": [
+        "yangyou",
+        "liuyuan_sui",
+        "tang_chuxing"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-yangjian-duguhou",
+      "from": "yangjian_sui",
+      "to": "duguhou",
+      "label": "独孤皇后并称二圣",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-yangjian-kaihuangzhi",
+      "from": "yangjian_sui",
+      "to": "kaihuangzhi",
+      "label": "创科举三省六部制",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yangjian-gaojiong",
+      "from": "yangjian_sui",
+      "to": "gaojiong",
+      "label": "高颎杨素辅理大政",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-yangjian-yangguang",
+      "from": "yangjian_sui",
+      "to": "yangguang",
+      "label": "杨广夺嫡",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yangguang-dayunhe",
+      "from": "yangguang",
+      "to": "dayunhe",
+      "label": "开凿大运河建东都",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yangguang-gaogouli",
+      "from": "yangguang",
+      "to": "gaogouli",
+      "label": "三征高句丽伤国本",
+      "variant": "security"
+    },
+    {
+      "id": "c-gaogouli-jiangdubiang",
+      "from": "gaogouli",
+      "to": "jiangdubiang",
+      "label": "兵变夜发白绫缢弑",
+      "variant": "security"
+    },
+    {
+      "id": "c-gaogouli-wagang",
+      "from": "gaogouli",
+      "to": "wagang",
+      "label": "天下群雄四起反隋",
+      "variant": "security"
+    },
+    {
+      "id": "c-wagang-doujiande",
+      "from": "wagang",
+      "to": "doujiande",
+      "label": "河北山东群雄割据",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-doujiande-wangshichong",
+      "from": "doujiande",
+      "to": "wangshichong",
+      "label": "王世充据洛阳僭立",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-wangshichong-yangdong",
+      "from": "wangshichong",
+      "to": "yangdong",
+      "label": "王世充弑皇泰主",
+      "variant": "security"
+    },
+    {
+      "id": "c-jiangdubiang-yangyou",
+      "from": "jiangdubiang",
+      "to": "yangyou",
+      "label": "李渊占长安立代王侑",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yangyou-liuyuan_sui",
+      "from": "yangyou",
+      "to": "liuyuan_sui",
+      "label": "义宁二年禅位李渊",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-liuyuan_sui-tang_chuxing",
+      "from": "liuyuan_sui",
+      "to": "tang_chuxing",
+      "label": "建立大唐一统天下",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "开皇之治与制度重构奠基",
+      "items": [
+        "隋文帝杨坚受禅代北周建立大隋，公元589年发兵渡江灭陈，终结自西晋永嘉之乱近300年南北大分裂",
+        "创制科举取士打破门阀垄断，确立三省六部制、颁行《开皇律》、推行均田制与大索貌阅，社会经济空前繁荣",
+        "天下府库粮食充盈，据《贞观政要》载隋代所积粟帛至唐太宗贞观初年尚未用尽，为盛唐鼎盛奠定物质根基"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "大运河千秋伟业与三征高丽溃败",
+      "items": [
+        "隋炀帝杨广登基后动用数百万民夫开通大运河，贯通海河、黄河、淮河、长江、钱塘江五大水系，沟通华夏南北经济脉络",
+        "营建东都洛阳、巡幸西域大会二十七国，然连年大兴土木、赋税徭役极度苛重，民不堪命",
+        "公元612-614年三次统兵百万亲征高句丽，萨水大败三十万大军仅二千七百人还，天下民变如星火燎原"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "群雄割据与晋阳起兵代隋",
+      "items": [
+        "瓦岗军李密夺洛口仓、窦建德据河北、杜伏威占江淮，618年江都兵变宇文化及勒杀炀帝，大隋分崩离析",
+        "太原留守李渊于晋阳起兵，挥师破霍邑直取关中，拥立代王杨侑为帝，进位唐王",
+        "公元618年隋恭帝禅位，李渊登基建立大唐，扫平王世充、窦建德、萧铣等十八路割据反王，混一天下"
+      ]
+    }
+  ]
+}
