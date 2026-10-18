@@ -4894,12 +4894,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   }
   /* Large Font Size Overrides (两宋/两汉统一规格：字号放大，适应屏幕宽度) */
   svg text[data-node-label] {
-    font-size: 14.5px !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
+    letter-spacing: 0.3px !important;
   }
-  svg text[data-detail="context"] {
-    font-size: 11.2px !important;
+  svg text[data-detail="context"],
+  svg text[data-detail="context"] tspan {
+    font-size: 10.6px !important;
     font-weight: 500 !important;
   }
   svg text[data-detail="fine"] {
@@ -5199,9 +5200,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 66) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="95" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">晋宣帝 (司马懿 yì)</text>
-        <text data-detail="context" x="145" y="111" class="t-muted" font-size="9" text-anchor="middle">高平陵之变夺曹魏实权 · 追尊宣帝</text>
-        <text data-detail="fine" x="145" y="126" class="t-cloud" font-size="7" text-anchor="middle">司马氏肇基</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">晋宣帝 (司马懿 yì)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="99">高平陵之变夺曹魏实权</tspan>
+          <tspan x="145" y="113">追尊宣帝</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="127" class="t-cloud" font-size="7" text-anchor="middle">司马氏肇基</text>
         </g>
 
         <g id="node-simazhao" data-node-id="simazhao" data-node-label="晋文帝 (司马昭 zhāo)" tabindex="0" role="button" aria-label="聚焦晋文帝 (司马昭 zhāo)，昭心路人皆知 · 灭蜀汉掌魏政, 西晋肇基与盛治初崩 (265 - 301年)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="昭心路人皆知 · 灭蜀汉掌魏政" data-node-tag="追尊文帝" data-node-context="西晋肇基与盛治初崩 (265 - 301年)">
@@ -5211,9 +5215,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 186) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">晋文帝 (司马昭 zhāo)</text>
-        <text data-detail="context" x="145" y="231" class="t-muted" font-size="9" text-anchor="middle">昭心路人皆知 · 灭蜀汉掌魏政</text>
-        <text data-detail="fine" x="145" y="246" class="t-cloud" font-size="7" text-anchor="middle">追尊文帝</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">晋文帝 (司马昭 zhāo)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="219">昭心路人皆知</tspan>
+          <tspan x="145" y="233">灭蜀汉掌魏政</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="247" class="t-cloud" font-size="7" text-anchor="middle">追尊文帝</text>
         </g>
 
         <g id="node-wudi" data-node-id="wudi" data-node-label="1. 晋武帝 (司马炎 yán)" tabindex="0" role="button" aria-label="聚焦1. 晋武帝 (司马炎 yán)，受魏禅称帝 · 灭吴一统天下 · 太康盛治, 西晋肇基与盛治初崩 (265 - 301年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="受魏禅称帝 · 灭吴一统天下 · 太康盛治" data-node-tag="265-290 · 在位25年" data-node-context="西晋肇基与盛治初崩 (265 - 301年)">
@@ -5226,9 +5233,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">1. 晋武帝 (司马炎 yán)</text>
-        <text data-detail="context" x="145" y="351" class="t-muted" font-size="9" text-anchor="middle">受魏禅称帝 · 灭吴一统天下 · 太康盛治</text>
-        <text data-detail="fine" x="145" y="366" class="t-frontend" font-size="7" text-anchor="middle">265-290 · 在位25年</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">1. 晋武帝 (司马炎 yán)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="339">受魏禅称帝</tspan>
+          <tspan x="145" y="353">灭吴一统天下 · 太康盛治</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="367" class="t-frontend" font-size="7" text-anchor="middle">265-290 · 在位25年</text>
         </g>
 
         <g id="node-huidi" data-node-id="huidi" data-node-label="2. 晋惠帝 (司马衷 zhōng)" tabindex="0" role="button" aria-label="聚焦2. 晋惠帝 (司马衷 zhōng)，何不食肉糜 · 贾后专权 · 引爆八王乱, 西晋肇基与盛治初崩 (265 - 301年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="何不食肉糜 · 贾后专权 · 引爆八王乱" data-node-tag="290-307 · 在位17年" data-node-context="西晋肇基与盛治初崩 (265 - 301年)">
@@ -5238,9 +5248,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(46 426) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">2. 晋惠帝 (司马衷 zhōng)</text>
-        <text data-detail="context" x="145" y="471" class="t-muted" font-size="9" text-anchor="middle">何不食肉糜 · 贾后专权 · 引爆八王乱</text>
-        <text data-detail="fine" x="145" y="486" class="t-backend" font-size="7" text-anchor="middle">290-307 · 在位17年</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">2. 晋惠帝 (司马衷 zhōng)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="459">何不食肉糜 · 贾后专权</tspan>
+          <tspan x="145" y="473">引爆八王乱</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="487" class="t-backend" font-size="7" text-anchor="middle">290-307 · 在位17年</text>
         </g>
 
         <g id="node-simayu" data-node-id="simayu" data-node-label="愍怀太子 (司马遹 yù)" tabindex="0" role="button" aria-label="聚焦愍怀太子 (司马遹 yù)，惠帝长子聪慧 · 遭贾南风诬杀激化内讧, 西晋肇基与盛治初崩 (265 - 301年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="惠帝长子聪慧 · 遭贾南风诬杀激化内讧" data-node-tag="八王之乱诱因" data-node-context="西晋肇基与盛治初崩 (265 - 301年)">
@@ -5251,9 +5264,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">愍怀太子 (司马遹 yù)</text>
-        <text data-detail="context" x="145" y="591" class="t-muted" font-size="9" text-anchor="middle">惠帝长子聪慧 · 遭贾南风诬杀激化内讧</text>
-        <text data-detail="fine" x="145" y="606" class="t-database" font-size="7" text-anchor="middle">八王之乱诱因</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">愍怀太子 (司马遹 yù)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="579">惠帝长子聪慧</tspan>
+          <tspan x="145" y="593">遭贾南风诬杀激化内讧</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="607" class="t-database" font-size="7" text-anchor="middle">八王之乱诱因</text>
         </g>
 
         <g id="node-simalun" data-node-id="simalun" data-node-label="赵王 (司马伦 lún)" tabindex="0" role="button" aria-label="聚焦赵王 (司马伦 lún)，宣帝九子 · 诛贾后僭登帝位百余日被诛, 西晋肇基与盛治初崩 (265 - 301年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="宣帝九子 · 诛贾后僭登帝位百余日被诛" data-node-tag="301年 · 僭位三月" data-node-context="西晋肇基与盛治初崩 (265 - 301年)">
@@ -5264,9 +5280,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="695" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">赵王 (司马伦 lún)</text>
-        <text data-detail="context" x="145" y="711" class="t-muted" font-size="9" text-anchor="middle">宣帝九子 · 诛贾后僭登帝位百余日被诛</text>
-        <text data-detail="fine" x="145" y="726" class="t-security" font-size="7" text-anchor="middle">301年 · 僭位三月</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">赵王 (司马伦 lún)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="699">宣帝九子</tspan>
+          <tspan x="145" y="713">诛贾后僭登帝位百余日被诛</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="727" class="t-security" font-size="7" text-anchor="middle">301年 · 僭位三月</text>
         </g>
 
         <g id="node-huaidi" data-node-id="huaidi" data-node-label="3. 晋怀帝 (司马炽 chì)" tabindex="0" role="button" aria-label="聚焦3. 晋怀帝 (司马炽 chì)，武帝二十五子 · 永嘉之乱洛阳陷青衣行酒, 永嘉国难与宗室南渡 (307 - 323年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="武帝二十五子 · 永嘉之乱洛阳陷青衣行酒" data-node-tag="307-313 · 被俘见害" data-node-context="永嘉国难与宗室南渡 (307 - 323年)">
@@ -5277,9 +5296,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="95" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">3. 晋怀帝 (司马炽 chì)</text>
-        <text data-detail="context" x="425" y="111" class="t-muted" font-size="9" text-anchor="middle">武帝二十五子 · 永嘉之乱洛阳陷青衣行酒</text>
-        <text data-detail="fine" x="425" y="126" class="t-security" font-size="7" text-anchor="middle">307-313 · 被俘见害</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">3. 晋怀帝 (司马炽 chì)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="99">武帝二十五子</tspan>
+          <tspan x="425" y="113">永嘉之乱洛阳陷青衣行酒</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="127" class="t-security" font-size="7" text-anchor="middle">307-313 · 被俘见害</text>
         </g>
 
         <g id="node-mindi" data-node-id="mindi" data-node-label="4. 晋愍帝 (司马邺 yè)" tabindex="0" role="button" aria-label="聚焦4. 晋愍帝 (司马邺 yè)，武帝之孙 · 长安受降肉袒出城西晋覆亡, 永嘉国难与宗室南渡 (307 - 323年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="武帝之孙 · 长安受降肉袒出城西晋覆亡" data-node-tag="313-316 · 西晋终亡" data-node-context="永嘉国难与宗室南渡 (307 - 323年)">
@@ -5290,9 +5312,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">4. 晋愍帝 (司马邺 yè)</text>
-        <text data-detail="context" x="425" y="231" class="t-muted" font-size="9" text-anchor="middle">武帝之孙 · 长安受降肉袒出城西晋覆亡</text>
-        <text data-detail="fine" x="425" y="246" class="t-security" font-size="7" text-anchor="middle">313-316 · 西晋终亡</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">4. 晋愍帝 (司马邺 yè)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="219">武帝之孙</tspan>
+          <tspan x="425" y="233">长安受降肉袒出城西晋覆亡</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="247" class="t-security" font-size="7" text-anchor="middle">313-316 · 西晋终亡</text>
         </g>
 
         <g id="node-simazhou" data-node-id="simazhou" data-node-label="琅邪武王 (司马伷 zhòu)" tabindex="0" role="button" aria-label="聚焦琅邪武王 (司马伷 zhòu)，宣帝四子 · 伐吴名将受降孙皓 · 琅邪国祖, 永嘉国难与宗室南渡 (307 - 323年)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="宣帝四子 · 伐吴名将受降孙皓 · 琅邪国祖" data-node-tag="东晋皇脉先祖" data-node-context="永嘉国难与宗室南渡 (307 - 323年)">
@@ -5302,9 +5327,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(326 306) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">琅邪武王 (司马伷 zhòu)</text>
-        <text data-detail="context" x="425" y="351" class="t-muted" font-size="8.8" text-anchor="middle">宣帝四子 · 伐吴名将受降孙皓 · 琅邪国祖</text>
-        <text data-detail="fine" x="425" y="366" class="t-cloud" font-size="7" text-anchor="middle">东晋皇脉先祖</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">琅邪武王 (司马伷 zhòu)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="339">宣帝四子 · 伐吴名将受降孙皓</tspan>
+          <tspan x="425" y="353">琅邪国祖</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="367" class="t-cloud" font-size="7" text-anchor="middle">东晋皇脉先祖</text>
         </g>
 
         <g id="node-simajin" data-node-id="simajin" data-node-label="琅邪恭王 (司马觐 jìn)" tabindex="0" role="button" aria-label="聚焦琅邪恭王 (司马觐 jìn)，伷之世子 · 袭封琅邪王 · 元帝生父, 永嘉国难与宗室南渡 (307 - 323年)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="伷之世子 · 袭封琅邪王 · 元帝生父" data-node-tag="元帝生父" data-node-context="永嘉国难与宗室南渡 (307 - 323年)">
@@ -5314,9 +5342,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(326 426) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">琅邪恭王 (司马觐 jìn)</text>
-        <text data-detail="context" x="425" y="471" class="t-muted" font-size="9" text-anchor="middle">伷之世子 · 袭封琅邪王 · 元帝生父</text>
-        <text data-detail="fine" x="425" y="486" class="t-cloud" font-size="7" text-anchor="middle">元帝生父</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">琅邪恭王 (司马觐 jìn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="459">伷之世子 · 袭封琅邪王</tspan>
+          <tspan x="425" y="473">元帝生父</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="487" class="t-cloud" font-size="7" text-anchor="middle">元帝生父</text>
         </g>
 
         <g id="node-yuandi" data-node-id="yuandi" data-node-label="5. 晋元帝 (司马睿 ruì)" tabindex="0" role="button" aria-label="聚焦5. 晋元帝 (司马睿 ruì)，衣冠南渡建立东晋 · 王与马共天下, 永嘉国难与宗室南渡 (307 - 323年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="衣冠南渡建立东晋 · 王与马共天下" data-node-tag="318-323 · 东晋开国" data-node-context="永嘉国难与宗室南渡 (307 - 323年)">
@@ -5329,9 +5360,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">5. 晋元帝 (司马睿 ruì)</text>
-        <text data-detail="context" x="425" y="591" class="t-muted" font-size="9" text-anchor="middle">衣冠南渡建立东晋 · 王与马共天下</text>
-        <text data-detail="fine" x="425" y="606" class="t-frontend" font-size="7" text-anchor="middle">318-323 · 东晋开国</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">5. 晋元帝 (司马睿 ruì)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="579">衣冠南渡建立东晋</tspan>
+          <tspan x="425" y="593">王与马共天下</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="607" class="t-frontend" font-size="7" text-anchor="middle">318-323 · 东晋开国</text>
         </g>
 
         <g id="node-mingdi" data-node-id="mingdi" data-node-label="6. 晋明帝 (司马绍 shào)" tabindex="0" role="button" aria-label="聚焦6. 晋明帝 (司马绍 shào)，元帝长子 · 平定王敦之乱 · 黄须儿英主, 东晋前朝 · 明帝一系六帝 (323 - 371年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="元帝长子 · 平定王敦之乱 · 黄须儿英主" data-node-tag="323-325 · 在位3年" data-node-context="东晋前朝 · 明帝一系六帝 (323 - 371年)">
@@ -5344,9 +5378,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="95" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">6. 晋明帝 (司马绍 shào)</text>
-        <text data-detail="context" x="705" y="111" class="t-muted" font-size="9" text-anchor="middle">元帝长子 · 平定王敦之乱 · 黄须儿英主</text>
-        <text data-detail="fine" x="705" y="126" class="t-frontend" font-size="7" text-anchor="middle">323-325 · 在位3年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">6. 晋明帝 (司马绍 shào)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="99">元帝长子 · 平定王敦之乱</tspan>
+          <tspan x="705" y="113">黄须儿英主</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="127" class="t-frontend" font-size="7" text-anchor="middle">323-325 · 在位3年</text>
         </g>
 
         <g id="node-chengdi" data-node-id="chengdi" data-node-label="7. 晋成帝 (司马衍 yǎn)" tabindex="0" role="button" aria-label="聚焦7. 晋成帝 (司马衍 yǎn)，明帝长子幼冲继位 · 苏峻之乱陶侃平叛, 东晋前朝 · 明帝一系六帝 (323 - 371年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="明帝长子幼冲继位 · 苏峻之乱陶侃平叛" data-node-tag="325-342 · 在位17年" data-node-context="东晋前朝 · 明帝一系六帝 (323 - 371年)">
@@ -5356,9 +5393,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 186) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">7. 晋成帝 (司马衍 yǎn)</text>
-        <text data-detail="context" x="705" y="231" class="t-muted" font-size="9" text-anchor="middle">明帝长子幼冲继位 · 苏峻之乱陶侃平叛</text>
-        <text data-detail="fine" x="705" y="246" class="t-backend" font-size="7" text-anchor="middle">325-342 · 在位17年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">7. 晋成帝 (司马衍 yǎn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="219">明帝长子幼冲继位</tspan>
+          <tspan x="705" y="233">苏峻之乱陶侃平叛</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="247" class="t-backend" font-size="7" text-anchor="middle">325-342 · 在位17年</text>
         </g>
 
         <g id="node-kangdi" data-node-id="kangdi" data-node-label="8. 晋康帝 (司马岳 yuè)" tabindex="0" role="button" aria-label="聚焦8. 晋康帝 (司马岳 yuè)，成帝同母弟 · 临危即位在位仅二年崩, 东晋前朝 · 明帝一系六帝 (323 - 371年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="成帝同母弟 · 临危即位在位仅二年崩" data-node-tag="342-344 · 在位2年" data-node-context="东晋前朝 · 明帝一系六帝 (323 - 371年)">
@@ -5368,9 +5408,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 306) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">8. 晋康帝 (司马岳 yuè)</text>
-        <text data-detail="context" x="705" y="351" class="t-muted" font-size="9" text-anchor="middle">成帝同母弟 · 临危即位在位仅二年崩</text>
-        <text data-detail="fine" x="705" y="366" class="t-backend" font-size="7" text-anchor="middle">342-344 · 在位2年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">8. 晋康帝 (司马岳 yuè)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="339">成帝同母弟</tspan>
+          <tspan x="705" y="353">临危即位在位仅二年崩</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="367" class="t-backend" font-size="7" text-anchor="middle">342-344 · 在位2年</text>
         </g>
 
         <g id="node-mudi" data-node-id="mudi" data-node-label="9. 晋穆帝 (司马聃 dān)" tabindex="0" role="button" aria-label="聚焦9. 晋穆帝 (司马聃 dān)，康帝长子两岁即位 · 褚后临朝桓温北伐, 东晋前朝 · 明帝一系六帝 (323 - 371年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="康帝长子两岁即位 · 褚后临朝桓温北伐" data-node-tag="344-361 · 在位17年" data-node-context="东晋前朝 · 明帝一系六帝 (323 - 371年)">
@@ -5380,9 +5423,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 426) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">9. 晋穆帝 (司马聃 dān)</text>
-        <text data-detail="context" x="705" y="471" class="t-muted" font-size="9" text-anchor="middle">康帝长子两岁即位 · 褚后临朝桓温北伐</text>
-        <text data-detail="fine" x="705" y="486" class="t-backend" font-size="7" text-anchor="middle">344-361 · 在位17年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">9. 晋穆帝 (司马聃 dān)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="459">康帝长子两岁即位</tspan>
+          <tspan x="705" y="473">褚后临朝桓温北伐</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="487" class="t-backend" font-size="7" text-anchor="middle">344-361 · 在位17年</text>
         </g>
 
         <g id="node-aidi" data-node-id="aidi" data-node-label="10. 晋哀帝 (司马丕 pī)" tabindex="0" role="button" aria-label="聚焦10. 晋哀帝 (司马丕 pī)，成帝长子迎立 · 崇信金石服食丹药早崩, 东晋前朝 · 明帝一系六帝 (323 - 371年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="成帝长子迎立 · 崇信金石服食丹药早崩" data-node-tag="361-365 · 在位4年" data-node-context="东晋前朝 · 明帝一系六帝 (323 - 371年)">
@@ -5392,9 +5438,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 546) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">10. 晋哀帝 (司马丕 pī)</text>
-        <text data-detail="context" x="705" y="591" class="t-muted" font-size="9" text-anchor="middle">成帝长子迎立 · 崇信金石服食丹药早崩</text>
-        <text data-detail="fine" x="705" y="606" class="t-backend" font-size="7" text-anchor="middle">361-365 · 在位4年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">10. 晋哀帝 (司马丕 pī)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="579">成帝长子迎立</tspan>
+          <tspan x="705" y="593">崇信金石服食丹药早崩</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="607" class="t-backend" font-size="7" text-anchor="middle">361-365 · 在位4年</text>
         </g>
 
         <g id="node-feidi" data-node-id="feidi" data-node-label="11. 晋废帝 (司马奕 yì)" tabindex="0" role="button" aria-label="聚焦11. 晋废帝 (司马奕 yì)，成帝次子 · 遭权臣桓温废黜降为海西公, 东晋前朝 · 明帝一系六帝 (323 - 371年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="成帝次子 · 遭权臣桓温废黜降为海西公" data-node-tag="365-371 · 降海西公" data-node-context="东晋前朝 · 明帝一系六帝 (323 - 371年)">
@@ -5405,9 +5454,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="695" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">11. 晋废帝 (司马奕 yì)</text>
-        <text data-detail="context" x="705" y="711" class="t-muted" font-size="9" text-anchor="middle">成帝次子 · 遭权臣桓温废黜降为海西公</text>
-        <text data-detail="fine" x="705" y="726" class="t-security" font-size="7" text-anchor="middle">365-371 · 降海西公</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">11. 晋废帝 (司马奕 yì)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="699">成帝次子</tspan>
+          <tspan x="705" y="713">遭权臣桓温废黜降为海西公</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="727" class="t-security" font-size="7" text-anchor="middle">365-371 · 降海西公</text>
         </g>
 
         <g id="node-jianwendi" data-node-id="jianwendi" data-node-label="12. 晋简文帝 (司马昱 yù)" tabindex="0" role="button" aria-label="聚焦12. 晋简文帝 (司马昱 yù)，元帝少子清谈名士 · 桓温迎立八月忧崩, 简文皇统 · 淝水大捷与禅宋 (372 - 420年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="元帝少子清谈名士 · 桓温迎立八月忧崩" data-node-tag="372年 · 在位8月" data-node-context="简文皇统 · 淝水大捷与禅宋 (372 - 420年)">
@@ -5417,9 +5469,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(886 66) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="95" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">12. 晋简文帝 (司马昱 yù)</text>
-        <text data-detail="context" x="985" y="111" class="t-muted" font-size="9" text-anchor="middle">元帝少子清谈名士 · 桓温迎立八月忧崩</text>
-        <text data-detail="fine" x="985" y="126" class="t-backend" font-size="7" text-anchor="middle">372年 · 在位8月</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">12. 晋简文帝 (司马昱 yù)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="99">元帝少子清谈名士</tspan>
+          <tspan x="985" y="113">桓温迎立八月忧崩</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="127" class="t-backend" font-size="7" text-anchor="middle">372年 · 在位8月</text>
         </g>
 
         <g id="node-xiaowudi" data-node-id="xiaowudi" data-node-label="13. 晋孝武帝 (司马曜 yào)" tabindex="0" role="button" aria-label="聚焦13. 晋孝武帝 (司马曜 yào)，简文三子 · 淝水大捷中兴 · 张贵人弑崩, 简文皇统 · 淝水大捷与禅宋 (372 - 420年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="简文三子 · 淝水大捷中兴 · 张贵人弑崩" data-node-tag="372-396 · 淝水大捷" data-node-context="简文皇统 · 淝水大捷与禅宋 (372 - 420年)">
@@ -5432,9 +5487,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">13. 晋孝武帝 (司马曜 yào)</text>
-        <text data-detail="context" x="985" y="231" class="t-muted" font-size="9" text-anchor="middle">简文三子 · 淝水大捷中兴 · 张贵人弑崩</text>
-        <text data-detail="fine" x="985" y="246" class="t-frontend" font-size="7" text-anchor="middle">372-396 · 淝水大捷</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">13. 晋孝武帝 (司马曜 yào)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="219">简文三子 · 淝水大捷中兴</tspan>
+          <tspan x="985" y="233">张贵人弑崩</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="247" class="t-frontend" font-size="7" text-anchor="middle">372-396 · 淝水大捷</text>
         </g>
 
         <g id="node-andi" data-node-id="andi" data-node-label="14. 晋安帝 (司马德宗 zōng)" tabindex="0" role="button" aria-label="聚焦14. 晋安帝 (司马德宗 zōng)，孝武长子天生痴哑 · 门阀混战刘裕执政, 简文皇统 · 淝水大捷与禅宋 (372 - 420年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="孝武长子天生痴哑 · 门阀混战刘裕执政" data-node-tag="396-419 · 痴暗受制" data-node-context="简文皇统 · 淝水大捷与禅宋 (372 - 420年)">
@@ -5444,9 +5502,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(886 306) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">14. 晋安帝 (司马德宗 zōng)</text>
-        <text data-detail="context" x="985" y="351" class="t-muted" font-size="9" text-anchor="middle">孝武长子天生痴哑 · 门阀混战刘裕执政</text>
-        <text data-detail="fine" x="985" y="366" class="t-backend" font-size="7" text-anchor="middle">396-419 · 痴暗受制</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">14. 晋安帝 (司马德宗 zōng)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="339">孝武长子天生痴哑</tspan>
+          <tspan x="985" y="353">门阀混战刘裕执政</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="367" class="t-backend" font-size="7" text-anchor="middle">396-419 · 痴暗受制</text>
         </g>
 
         <g id="node-huanxuan" data-node-id="huanxuan" data-node-label="楚帝 (桓玄 xuán)" tabindex="0" role="button" aria-label="聚焦楚帝 (桓玄 xuán)，桓温之子 · 攻入建康篡晋立楚仅数月覆灭, 简文皇统 · 淝水大捷与禅宋 (372 - 420年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="桓温之子 · 攻入建康篡晋立楚仅数月覆灭" data-node-tag="403-404 · 僭位篡立" data-node-context="简文皇统 · 淝水大捷与禅宋 (372 - 420年)">
@@ -5457,9 +5518,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">楚帝 (桓玄 xuán)</text>
-        <text data-detail="context" x="985" y="471" class="t-muted" font-size="9" text-anchor="middle">桓温之子 · 攻入建康篡晋立楚仅数月覆灭</text>
-        <text data-detail="fine" x="985" y="486" class="t-security" font-size="7" text-anchor="middle">403-404 · 僭位篡立</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">楚帝 (桓玄 xuán)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="459">桓温之子</tspan>
+          <tspan x="985" y="473">攻入建康篡晋立楚仅数月覆灭</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="487" class="t-security" font-size="7" text-anchor="middle">403-404 · 僭位篡立</text>
         </g>
 
         <g id="node-gongdi" data-node-id="gongdi" data-node-label="15. 晋恭帝 (司马德文 wén)" tabindex="0" role="button" aria-label="聚焦15. 晋恭帝 (司马德文 wén)，孝武次子 · 禅位刘裕被封零陵王旋被弑, 简文皇统 · 淝水大捷与禅宋 (372 - 420年)" aria-pressed="false" data-node-kind="external" data-node-sublabel="孝武次子 · 禅位刘裕被封零陵王旋被弑" data-node-tag="419-420 · 末代禅让" data-node-context="简文皇统 · 淝水大捷与禅宋 (372 - 420年)">
@@ -5470,9 +5534,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">15. 晋恭帝 (司马德文 wén)</text>
-        <text data-detail="context" x="985" y="591" class="t-muted" font-size="9" text-anchor="middle">孝武次子 · 禅位刘裕被封零陵王旋被弑</text>
-        <text data-detail="fine" x="985" y="606" class="t-external" font-size="7" text-anchor="middle">419-420 · 末代禅让</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">15. 晋恭帝 (司马德文 wén)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="579">孝武次子</tspan>
+          <tspan x="985" y="593">禅位刘裕被封零陵王旋被弑</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="607" class="t-external" font-size="7" text-anchor="middle">419-420 · 末代禅让</text>
         </g>
 
         <g id="node-songmie" data-node-id="songmie" data-node-label="刘宋代晋 · 南朝肇基" tabindex="0" role="button" aria-label="聚焦刘宋代晋 · 南朝肇基，刘裕称帝建立宋朝 · 两晋灭亡享国155年, 简文皇统 · 淝水大捷与禅宋 (372 - 420年)" aria-pressed="false" data-node-kind="external" data-node-sublabel="刘裕称帝建立宋朝 · 两晋灭亡享国155年" data-node-tag="420年 · 两晋终局" data-node-context="简文皇统 · 淝水大捷与禅宋 (372 - 420年)">
@@ -5483,9 +5550,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="695" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">刘宋代晋 · 南朝肇基</text>
-        <text data-detail="context" x="985" y="711" class="t-muted" font-size="9" text-anchor="middle">刘裕称帝建立宋朝 · 两晋灭亡享国155年</text>
-        <text data-detail="fine" x="985" y="726" class="t-external" font-size="7" text-anchor="middle">420年 · 两晋终局</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">刘宋代晋 · 南朝肇基</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="699">刘裕称帝建立宋朝</tspan>
+          <tspan x="985" y="713">两晋灭亡享国155年</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="727" class="t-external" font-size="7" text-anchor="middle">420年 · 两晋终局</text>
         </g>
 
         <!-- Connection labels -->
