@@ -1,0 +1,588 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "辽金西夏与北境霸业全景谱系",
+    "subtitle": "辽代双轨统治 · 大金崛起南侵靖康 · 西夏白高三足鼎立全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "契丹肇基与萧后摄政",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国雄主与盛世盛治",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "西辽拓展与党项世系",
+          "visible": true
+        },
+        "security": {
+          "label": "靖康俘掳与迁都南渡",
+          "visible": true
+        },
+        "external": {
+          "label": "蔡州殉难与蒙古覆灭",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "abaoji",
+      "type": "frontend",
+      "label": "1. 辽太祖 耶律阿保机",
+      "sublabel": "统一契丹创契丹文 · 上京临潢立国灭渤海国",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "916-926 · 契丹立国"
+    },
+    {
+      "id": "deguang",
+      "type": "frontend",
+      "label": "2. 辽太宗 耶律德光",
+      "sublabel": "得燕云十六州建大辽 · 灭后晋占开封崩杀胡林",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "927-947 · 得燕云称大辽"
+    },
+    {
+      "id": "xiaotaigou",
+      "type": "cloud",
+      "label": "承天萧太后 (萧绰)",
+      "sublabel": "承天太后摄政统军 · 澶渊之盟奠辽宋百年和",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "萧太后摄政 · 澶渊之盟"
+    },
+    {
+      "id": "shengzong",
+      "type": "backend",
+      "label": "3. 辽圣宗 耶律隆绪",
+      "sublabel": "萧太后子开创全盛 · 南北面官制度治理燕云",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "982-1031 · 辽代极盛"
+    },
+    {
+      "id": "tianzuodi",
+      "type": "security",
+      "label": "4. 辽天祚帝 耶律延禧",
+      "sublabel": "荒淫游猎失军心 · 金军大举追击兵败遭俘",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1101-1125 · 辽代终结"
+    },
+    {
+      "id": "yeludashi",
+      "type": "database",
+      "label": "西辽德宗 (耶律大石)",
+      "sublabel": "率部西征中亚破塞尔柱 · 建立西辽哈剌契丹",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1124-1143 · 称雄中亚"
+    },
+    {
+      "id": "aguda",
+      "type": "frontend",
+      "label": "1. 金太祖 完颜阿骨打",
+      "sublabel": "统女真反辽护步达冈大捷 · 两万破七十万建金",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1115-1123 · 大金开国"
+    },
+    {
+      "id": "taizong_jin",
+      "type": "frontend",
+      "label": "2. 金太宗 完颜晟 (shèng)",
+      "sublabel": "挥军灭辽靖康破汴京 · 俘虏徽钦二帝灭亡北宋",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1123-1135 · 靖康破宋"
+    },
+    {
+      "id": "xizong_jin",
+      "type": "backend",
+      "label": "3. 金熙宗 完颜亶 (dǎn)",
+      "sublabel": "废伪齐确立汉制 · 绍兴和议划淮为界为亮弑",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1135-1150 · 皇统汉制"
+    },
+    {
+      "id": "liang_jin",
+      "type": "security",
+      "label": "4. 海陵王 完颜亮",
+      "sublabel": "弑熙宗篡位迁都燕京中都 · 伐宋兵败采石矶弑",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1150-1161 · 迁都中都"
+    },
+    {
+      "id": "shizong_jin",
+      "type": "frontend",
+      "label": "5. 金世宗 完颜雍",
+      "sublabel": "政变称帝停战休兵 · 大定之治尊北方小尧舜",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1161-1189 · 大定之治"
+    },
+    {
+      "id": "zhangzong_jin",
+      "type": "backend",
+      "label": "6. 金章宗 完颜璟 (jǐng)",
+      "sublabel": "明昌之治文治昌盛 · 击退韩侂胄北伐蒙古崛起",
+      "pos": [
+        320,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1189-1208 · 明昌盛世"
+    },
+    {
+      "id": "xuanzong_jin",
+      "type": "security",
+      "label": "7. 金宣宗 完颜珣 (xún)",
+      "sublabel": "蒙围中都迁都汴京 · 弃北境侵南宋失战略地",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1213-1224 · 迁都汴京"
+    },
+    {
+      "id": "aizong_jin",
+      "type": "external",
+      "label": "8. 金哀宗 完颜守绪",
+      "sublabel": "任陈和尚抗蒙 · 蒙宋合围退守蔡州自缢殉国",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1224-1234 · 蔡州殉国"
+    },
+    {
+      "id": "chenglin",
+      "type": "external",
+      "label": "金末帝 完颜承麟",
+      "sublabel": "危城受禅即位仅数小时 · 迎战蒙宋联军战死",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1234年 · 在位半日"
+    },
+    {
+      "id": "jinmie",
+      "type": "external",
+      "label": "蔡州之战 · 蒙宋灭金",
+      "sublabel": "1234年蔡州城破孟珙入 · 哀宗殉国大金覆亡",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1234年 · 大金覆亡"
+    },
+    {
+      "id": "jichian",
+      "type": "cloud",
+      "label": "西夏太祖 (李继迁)",
+      "sublabel": "抗宋削藩袭取灵州 · 奠定党项西夏立国基",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "党项肇基 · 灵州立国"
+    },
+    {
+      "id": "deming",
+      "type": "backend",
+      "label": "西夏太宗 (李德明)",
+      "sublabel": "和宋称臣休养生息 · 西向拓河西定都兴庆府",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "经略河西 · 定都银川"
+    },
+    {
+      "id": "yuanhao",
+      "type": "frontend",
+      "label": "1. 西夏景宗 李元昊",
+      "sublabel": "创西夏字建白高大夏 · 三川口好水川三破宋军",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1038-1048 · 西夏建国"
+    },
+    {
+      "id": "liangzuo",
+      "type": "backend",
+      "label": "2. 西夏毅宗 李谅祚 (zuò)",
+      "sublabel": "元昊幼子诛没藏专权 · 改行汉礼强化集权",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1048-1067 · 崇汉改革"
+    },
+    {
+      "id": "renxiao",
+      "type": "frontend",
+      "label": "5. 西夏仁宗 李仁孝",
+      "sublabel": "在位五十四年天盛盛治 · 开科修律文化鼎盛",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1139-1193 · 天盛盛世"
+    },
+    {
+      "id": "xiamie",
+      "type": "external",
+      "label": "蒙古灭夏 · 西夏终局",
+      "sublabel": "成吉思汗六征降西夏 · 王陵尽毁文献长埋",
+      "pos": [
+        880,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1227年 · 西夏灭亡"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "契丹帝国 · 太祖建制与萧太后澶渊 (916-1125年)",
+      "wraps": [
+        "abaoji",
+        "deguang",
+        "xiaotaigou",
+        "shengzong",
+        "tianzuodi",
+        "yeludashi"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "女真崛起 · 靖康覆北宋与大定之治 (1115-1208年)",
+      "wraps": [
+        "aguda",
+        "taizong_jin",
+        "xizong_jin",
+        "liang_jin",
+        "shizong_jin",
+        "zhangzong_jin"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "蒙宋夹攻 · 宣宗南渡与蔡州绝唱 (1213-1234年)",
+      "wraps": [
+        "xuanzong_jin",
+        "aizong_jin",
+        "chenglin",
+        "jinmie"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "白高大夏 · 元昊称帝与河西三足立 (1038-1227年)",
+      "wraps": [
+        "jichian",
+        "deming",
+        "yuanhao",
+        "liangzuo",
+        "renxiao",
+        "xiamie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-abaoji-deguang",
+      "from": "abaoji",
+      "to": "deguang",
+      "label": "次子太宗立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-deguang-xiaotaigou",
+      "from": "deguang",
+      "to": "xiaotaigou",
+      "label": "萧太后摄政统军",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaotaigou-shengzong",
+      "from": "xiaotaigou",
+      "to": "shengzong",
+      "label": "圣宗开创全盛",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shengzong-tianzuodi",
+      "from": "shengzong",
+      "to": "tianzuodi",
+      "label": "天祚帝昏庸亡国",
+      "variant": "security"
+    },
+    {
+      "id": "c-tianzuodi-yeludashi",
+      "from": "tianzuodi",
+      "to": "yeludashi",
+      "label": "大石率残部西征立西辽",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-tianzuodi-aguda",
+      "from": "tianzuodi",
+      "to": "aguda",
+      "label": "阿骨打女真反辽灭之",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-aguda-taizong_jin",
+      "from": "aguda",
+      "to": "taizong_jin",
+      "label": "弟太宗南下灭北宋",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-taizong_jin-xizong_jin",
+      "from": "taizong_jin",
+      "to": "xizong_jin",
+      "label": "阿骨打嫡孙熙宗立"
+    },
+    {
+      "id": "c-xizong_jin-liang_jin",
+      "from": "xizong_jin",
+      "to": "liang_jin",
+      "label": "海陵王弑君迁都中都",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-liang_jin-shizong_jin",
+      "from": "liang_jin",
+      "to": "shizong_jin",
+      "label": "世宗政变大定之治",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shizong_jin-zhangzong_jin",
+      "from": "shizong_jin",
+      "to": "zhangzong_jin",
+      "label": "孙章宗明昌之盛"
+    },
+    {
+      "id": "c-zhangzong_jin-xuanzong_jin",
+      "from": "zhangzong_jin",
+      "to": "xuanzong_jin",
+      "label": "宣宗南渡迁都开封",
+      "variant": "security"
+    },
+    {
+      "id": "c-xuanzong_jin-aizong_jin",
+      "from": "xuanzong_jin",
+      "to": "aizong_jin",
+      "label": "哀宗死守蔡州幽兰轩",
+      "variant": "security"
+    },
+    {
+      "id": "c-aizong_jin-chenglin",
+      "from": "aizong_jin",
+      "to": "chenglin",
+      "label": "禅位末帝承麟殉节",
+      "variant": "security"
+    },
+    {
+      "id": "c-chenglin-jinmie",
+      "from": "chenglin",
+      "to": "jinmie",
+      "label": "蒙宋联军破城大金亡",
+      "variant": "security"
+    },
+    {
+      "id": "c-jichian-deming",
+      "from": "jichian",
+      "to": "deming",
+      "label": "长子德明拓河西",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-deming-yuanhao",
+      "from": "deming",
+      "to": "yuanhao",
+      "label": "元昊称帝建大夏国",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yuanhao-liangzuo",
+      "from": "yuanhao",
+      "to": "liangzuo",
+      "label": "少子谅祚推行汉制"
+    },
+    {
+      "id": "c-liangzuo-renxiao",
+      "from": "liangzuo",
+      "to": "renxiao",
+      "label": "仁宗开天盛盛世",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-renxiao-xiamie",
+      "from": "renxiao",
+      "to": "xiamie",
+      "label": "成吉思汗六伐西夏降亡",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "契丹南北面官与澶渊之盟",
+      "items": [
+        "辽太祖耶律阿保机创制契丹文字，独创'以国制治契丹，以汉制待汉人'之南北面官双轨体制",
+        "萧太后与辽圣宗统帅铁骑南征，与宋真宗订立'澶渊之盟'，开启辽宋百余年边境和平与榷场贸易",
+        "天祚帝末期金兵南下辽亡，耶律大石率八百骑西征中亚建立西辽，威震葱岭以西"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "女真两万破七十万与靖康雪耻",
+      "items": [
+        "完颜阿骨打起兵反辽，护步达冈以两万女真铁骑大破七十万辽军，建立大金王朝",
+        "金太宗灭辽后大举南侵破汴京，俘虏宋徽宗、宋钦宗及皇室北迁，北宋宣告覆灭",
+        "金世宗与金章宗推行汉化，开创大定明昌之治，金国成为兼具北方游牧与中原儒学之超级帝国"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "元昊三足鼎立与蒙军扫荡蔡州",
+      "items": [
+        "李元昊创西夏文字建白高大夏国，三川口、好水川、定川寨三败宋军，形成宋辽夏三足鼎立",
+        "金朝后期遭蒙古野狐岭重创被迫迁都汴京，1234年蒙宋联军围困蔡州，金哀宗自缢金末帝战死",
+        "西夏亦于1227年遭成吉思汗大军围困灭国，宋金夏百年博弈终在蒙古铁骑下落幕"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,555 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "五代十国与唐宋鼎革全景谱系",
+    "subtitle": "半个世纪武夫跋扈 · 梁唐晋汉周五代更替至陈桥兵变世系全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "沙陀世系与十国宗脉",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国霸主与治世名君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "将领拥立与篡代政变",
+          "visible": true
+        },
+        "security": {
+          "label": "儿皇割地与伶官政变",
+          "visible": true
+        },
+        "external": {
+          "label": "陈桥兵变与宋代五代",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "zhuwen",
+      "type": "frontend",
+      "label": "1. 后梁太祖 朱温",
+      "sublabel": "宣武节度使鸩杀昭宗哀帝 · 建立后梁都开封荒淫为子弑",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "907-912 · 五代始"
+    },
+    {
+      "id": "zhuyouzhen",
+      "type": "backend",
+      "label": "2. 后梁末帝 朱友贞",
+      "sublabel": "除兄即位坚守汴梁 · 梁晋争霸十年城破自刎",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "913-923 · 后梁覆灭"
+    },
+    {
+      "id": "likeyong",
+      "type": "cloud",
+      "label": "晋王 (李克用)",
+      "sublabel": "沙陀名将独眼龙霸河东 · 与朱温血战后唐追太祖",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "沙陀军阀 · 后唐先祖"
+    },
+    {
+      "id": "licunxu",
+      "type": "frontend",
+      "label": "3. 后唐庄宗 李存勖",
+      "sublabel": "三矢灭梁入主中原 · 宠伶人荒政兴教门被射",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "923-926 · 灭后梁建唐"
+    },
+    {
+      "id": "lisiyuan",
+      "type": "backend",
+      "label": "4. 后唐明宗 李嗣源",
+      "sublabel": "克用养子乱军拥立 · 诛谗佞劝农桑五代稍安",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "926-933 · 五代少治"
+    },
+    {
+      "id": "licongke",
+      "type": "security",
+      "label": "5. 后唐末帝 李从珂",
+      "sublabel": "明宗养子夺位潞王 · 石敬瑭引契丹灭唐自焚",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "934-936 · 后唐终"
+    },
+    {
+      "id": "shijingtang",
+      "type": "security",
+      "label": "6. 后晋高祖 石敬瑭",
+      "sublabel": "称儿皇帝割燕云十六州 · 借契丹兵灭唐建后晋",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "936-942 · 割燕云十六州"
+    },
+    {
+      "id": "shichonggui",
+      "type": "backend",
+      "label": "7. 后晋出帝 石重贵",
+      "sublabel": "称孙不称臣绝辽贡 · 辽太宗南下灭晋俘黄龙府",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "942-947 · 后晋亡"
+    },
+    {
+      "id": "yeludeguang",
+      "type": "database",
+      "label": "辽太宗 耶律德光",
+      "sublabel": "灭后晋占开封改大辽 · 纵兵打草谷死杀胡林",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "927-947 · 入主中原"
+    },
+    {
+      "id": "liuzhiyuan",
+      "type": "frontend",
+      "label": "8. 后汉高祖 刘知远",
+      "sublabel": "辽北撤入汴京建后汉 · 河东节度使在位一年崩",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "947-948 · 后汉肇基"
+    },
+    {
+      "id": "liuchengyou",
+      "type": "security",
+      "label": "9. 后汉隐帝 刘承祐",
+      "sublabel": "隐帝年少猜忌宿将 · 密杀郭威反逼兵变被弑",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "948-951 · 激变被弑"
+    },
+    {
+      "id": "liuchong",
+      "type": "cloud",
+      "label": "北汉世祖 (刘崇)",
+      "sublabel": "知远弟不服郭威据太原 · 依附契丹立北汉",
+      "pos": [
+        320,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "十国之一 · 北汉孤立"
+    },
+    {
+      "id": "guowei",
+      "type": "frontend",
+      "label": "10. 后周太祖 郭威",
+      "sublabel": "邺都黄旗加身代汉建周 · 减赋肃贪传位柴荣",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "951-954 · 后周肇造"
+    },
+    {
+      "id": "chairong",
+      "type": "frontend",
+      "label": "11. 后周世宗 柴荣",
+      "sublabel": "五代第一明君高平破汉 · 三征南唐取淮南克燕",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "954-959 · 五代第一明君"
+    },
+    {
+      "id": "chaizongxun",
+      "type": "security",
+      "label": "12. 后周恭帝 柴宗训",
+      "sublabel": "世宗幼子七岁登基 · 陈桥兵变禅位赵匡胤",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "959-960 · 禅位受封"
+    },
+    {
+      "id": "shiguoxiansu",
+      "type": "cloud",
+      "label": "南方十国割据",
+      "sublabel": "前蜀后蜀南唐吴越割据 · 十国经济繁华富庶",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "十国割据繁华"
+    },
+    {
+      "id": "liuyu_tang",
+      "type": "cloud",
+      "label": "南唐后主 李煜",
+      "sublabel": "词中之帝一江春水向东流 · 降宋被鸩绝命词",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "南唐绝唱 · 词中之圣"
+    },
+    {
+      "id": "zhaokuangyin",
+      "type": "external",
+      "label": "13. 宋太祖 赵匡胤",
+      "sublabel": "陈桥兵变黄袍加身建宋 · 杯酒释兵权平定江南",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "960-976 · 北宋开国"
+    },
+    {
+      "id": "zhaoguangyi",
+      "type": "external",
+      "label": "宋太宗 赵光义",
+      "sublabel": "烛影斧声继统 · 亲征太原灭北汉混一天下",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "979年 · 混一天下"
+    },
+    {
+      "id": "wudaimie",
+      "type": "external",
+      "label": "五代十国终结 · 归于大宋",
+      "sublabel": "二百年藩镇割据终结 · 崇文抑武重建大一统",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "979年 · 华夏统一"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "梁唐争霸 · 宣武朱温与沙陀李克用 (907-936年)",
+      "wraps": [
+        "zhuwen",
+        "zhuyouzhen",
+        "likeyong",
+        "licunxu",
+        "lisiyuan",
+        "licongke"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "石晋儿皇 · 割燕云引契丹与后汉急兴 (936-951年)",
+      "wraps": [
+        "shijingtang",
+        "shichonggui",
+        "yeludeguang",
+        "liuzhiyuan",
+        "liuchengyou",
+        "liuchong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "后周奠基 · 郭威反贪与柴荣大开疆 (951-960年)",
+      "wraps": [
+        "guowei",
+        "chairong",
+        "chaizongxun",
+        "shiguoxiansu",
+        "liuyu_tang"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "陈桥受禅 · 黄袍加身与混一十国 (960-979年)",
+      "wraps": [
+        "zhaokuangyin",
+        "zhaoguangyi",
+        "wudaimie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-zhuwen-zhuyouzhen",
+      "from": "zhuwen",
+      "to": "zhuyouzhen",
+      "label": "二子友贞平弑即位"
+    },
+    {
+      "id": "c-zhuwen-likeyong",
+      "from": "zhuwen",
+      "to": "likeyong",
+      "label": "朱李世仇血战数十年",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-likeyong-licunxu",
+      "from": "likeyong",
+      "to": "licunxu",
+      "label": "三矢遗命子存勖灭梁",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zhuyouzhen-licunxu",
+      "from": "zhuyouzhen",
+      "to": "licunxu",
+      "label": "李存勖攻破汴京灭梁",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-licunxu-lisiyuan",
+      "from": "licunxu",
+      "to": "lisiyuan",
+      "label": "兴教门之变明宗拥立",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-lisiyuan-licongke",
+      "from": "lisiyuan",
+      "to": "licongke",
+      "label": "养子李从珂夺位"
+    },
+    {
+      "id": "c-licongke-shijingtang",
+      "from": "licongke",
+      "to": "shijingtang",
+      "label": "石敬瑭反唐勾结契丹",
+      "variant": "security"
+    },
+    {
+      "id": "c-shijingtang-shichonggui",
+      "from": "shijingtang",
+      "to": "shichonggui",
+      "label": "侄重贵即位绝辽贡"
+    },
+    {
+      "id": "c-shichonggui-yeludeguang",
+      "from": "shichonggui",
+      "to": "yeludeguang",
+      "label": "辽军南下俘后晋出帝",
+      "variant": "security"
+    },
+    {
+      "id": "c-yeludeguang-liuzhiyuan",
+      "from": "yeludeguang",
+      "to": "liuzhiyuan",
+      "label": "辽北撤刘知远入汴称帝",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-liuzhiyuan-liuchengyou",
+      "from": "liuzhiyuan",
+      "to": "liuchengyou",
+      "label": "次子隐帝即位",
+      "labelDy": 24
+    },
+    {
+      "id": "c-liuchengyou-liuchong",
+      "from": "liuchengyou",
+      "to": "liuchong",
+      "label": "叔刘崇据太原立北汉",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-liuchengyou-guowei",
+      "from": "liuchengyou",
+      "to": "guowei",
+      "label": "诛郭威家反逼其代汉",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-guowei-chairong",
+      "from": "guowei",
+      "to": "chairong",
+      "label": "传内侄养子周世宗",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-chairong-chaizongxun",
+      "from": "chairong",
+      "to": "chaizongxun",
+      "label": "幼子恭帝七岁即位"
+    },
+    {
+      "id": "c-chaizongxun-zhaokuangyin",
+      "from": "chaizongxun",
+      "to": "zhaokuangyin",
+      "label": "陈桥兵变禅位赵宋",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-chairong-shiguoxiansu",
+      "from": "chairong",
+      "to": "shiguoxiansu",
+      "label": "三征南唐开拓疆土",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shiguoxiansu-liuyu_tang",
+      "from": "shiguoxiansu",
+      "to": "liuyu_tang",
+      "label": "江南国主词圣李煜",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-zhaokuangyin-zhaoguangyi",
+      "from": "zhaokuangyin",
+      "to": "zhaoguangyi",
+      "label": "烛影斧声弟太宗即位",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zhaoguangyi-wudaimie",
+      "from": "zhaoguangyi",
+      "to": "wudaimie",
+      "label": "亲征太原灭北汉混一天下",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "梁晋世仇与沙陀庄宗盛衰",
+      "items": [
+        "朱温灭唐建梁，沙陀李克用独霸河东，临终留三矢遗命要求讨灭后梁、击退契丹",
+        "其子李存勖雄才大略，百战消灭后梁入主中原建立后唐，然宠溺伶官荒废国政",
+        "短短数年内变生肘腋，李存勖在兴教门兵变中遭乱箭射死，五代王朝易手如走马灯"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "石敬瑭割燕云与契丹南侵",
+      "items": [
+        "石敬瑭为自保反唐，甘当'儿皇帝'向契丹割让幽云十六州，中原北大门从此洞开",
+        "辽太宗耶律德光南下俘灭后晋出帝，在开封称帝建大辽，因纵兵掠夺遭全民反抗北撤",
+        "燕云十六州沦于辽金四百余载，成为两宋三百年在北方地缘防务上最深重之梦魇"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "周世宗奠基与赵匡胤陈桥易代",
+      "items": [
+        "郭威崇俭反腐建立后周，养子周世宗柴荣雄才伟略高平破北汉、三征南唐、克复幽南三关",
+        "柴荣英年早逝幼主在位，960年殿前都点检赵匡胤陈桥兵变黄袍加身和平受禅代周建宋",
+        "宋太宗979年亲征攻破太原灭亡北汉，终结自安史之乱以来220余年的割据混战"
+      ]
+    }
+  ]
+}

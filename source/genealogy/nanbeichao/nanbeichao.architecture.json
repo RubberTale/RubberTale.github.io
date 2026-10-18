@@ -1,0 +1,617 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "南北朝对峙与胡汉融合全景谱系",
+    "subtitle": "近二百年江左风流与拓跋北朝 · 宋齐梁陈与东西分立至隋一统全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "南朝开国与拓跋肇基",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国雄主与汉化明君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "权相篡立与六镇诸将",
+          "visible": true
+        },
+        "security": {
+          "label": "侯景之乱与河阴兵祸",
+          "visible": true
+        },
+        "external": {
+          "label": "隋灭南陈与南北合一",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "liuyu",
+      "type": "frontend",
+      "label": "1. 宋武帝 刘裕",
+      "sublabel": "气吞万里灭南燕后秦 · 永初代晋立南朝宋",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "420-422 · 南朝宋始"
+    },
+    {
+      "id": "songwen",
+      "type": "frontend",
+      "label": "2. 宋文帝 刘义隆",
+      "sublabel": "劝课农桑元嘉之治 · 元嘉草草北伐惨败被弑",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "424-453 · 元嘉之治"
+    },
+    {
+      "id": "xiaowu",
+      "type": "backend",
+      "label": "3. 宋孝武帝 刘骏",
+      "sublabel": "诛刘劭平乱即位 · 削弱门阀猜忌宗室由盛转衰",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "453-464 · 刘宋衰落"
+    },
+    {
+      "id": "xiaodaocheng",
+      "type": "frontend",
+      "label": "4. 齐高帝 萧道成",
+      "sublabel": "兰陵萧氏统禁军平乱 · 禅代南朝宋建立萧齐",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "479-482 · 南齐肇基"
+    },
+    {
+      "id": "qiwu",
+      "type": "backend",
+      "label": "5. 齐武帝 萧赜 (zé)",
+      "sublabel": "兴学整顿版籍 · 永明之治文学繁荣晚年内讧",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "482-493 · 永明之治"
+    },
+    {
+      "id": "donghun",
+      "type": "security",
+      "label": "东昏侯 萧宝卷",
+      "sublabel": "荒淫步步生莲 · 诛杀辅政公卿大失人心被弑",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "498-501 · 南齐覆灭"
+    },
+    {
+      "id": "liangwu",
+      "type": "frontend",
+      "label": "6. 梁武帝 萧衍",
+      "sublabel": "代齐建梁四度舍身同泰寺 · 侯景之乱台城饿死",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "502-549 · 在位48年"
+    },
+    {
+      "id": "houjing",
+      "type": "security",
+      "label": "侯景之乱 (太清兵祸)",
+      "sublabel": "叛魏奔梁太清兵祸 · 陷台城江南白骨摧残士族",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "548-552 · 南朝分水岭"
+    },
+    {
+      "id": "liangyuan",
+      "type": "security",
+      "label": "7. 梁元帝 萧绎",
+      "sublabel": "讨灭侯景即位江陵 · 西魏破城江陵焚书十四万",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "552-555 · 江陵焚书"
+    },
+    {
+      "id": "chenbaxian",
+      "type": "frontend",
+      "label": "8. 陈武帝 陈霸先",
+      "sublabel": "平定侯景之乱破北齐 · 代梁建陈收拾残破江南",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "557-559 · 陈朝肇基"
+    },
+    {
+      "id": "chenweng",
+      "type": "backend",
+      "label": "9. 陈文帝 陈蒨 (qiàn)",
+      "sublabel": "霸先长侄励精图治 · 减徭江南经济复苏天嘉治",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "559-566 · 天嘉之治"
+    },
+    {
+      "id": "chenhouzhu",
+      "type": "external",
+      "label": "10. 陈后主 陈叔宝",
+      "sublabel": "沉溺声色玉树后庭花 · 隋大军渡江景阳井被俘",
+      "pos": [
+        320,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "582-589 · 南朝终局"
+    },
+    {
+      "id": "tuobagui",
+      "type": "cloud",
+      "label": "11. 北魏道武帝 拓跋珪",
+      "sublabel": "参合陂破后燕定都平城 · 建立北魏改行农耕",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "386-409 · 北魏开国"
+    },
+    {
+      "id": "taowu",
+      "type": "frontend",
+      "label": "12. 北魏太武帝 拓跋焘",
+      "sublabel": "雄才大略统一北方 · 破柔然灭大夏终结十六国",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "423-452 · 统一北方"
+    },
+    {
+      "id": "fengtaihou",
+      "type": "cloud",
+      "label": "文明冯太后 (冯氏)",
+      "sublabel": "临朝称制二十载 · 推均田三长班禄改革奠基",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "476-490 · 改革总设计师"
+    },
+    {
+      "id": "xiaowen",
+      "type": "frontend",
+      "label": "13. 北魏孝文帝 元宏",
+      "sublabel": "迁洛阳禁胡服断胡语改汉姓 · 推通婚胡汉融合",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "471-499 · 孝文帝汉化"
+    },
+    {
+      "id": "erzhurong",
+      "type": "security",
+      "label": "六镇兵变与尔朱荣",
+      "sublabel": "边塞六镇起义 · 尔朱荣河阴之变屠杀公卿二千",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "528年 · 河阴之变"
+    },
+    {
+      "id": "dongweixiwei",
+      "type": "database",
+      "label": "东西魏分裂 (高宇分立)",
+      "sublabel": "孝武奔长安投宇文泰 · 高欢立孝静北魏分裂",
+      "pos": [
+        600,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "534年 · 东西二魏"
+    },
+    {
+      "id": "gaohuan",
+      "type": "database",
+      "label": "高欢 (东魏神武帝)",
+      "sublabel": "掌东魏居晋阳 · 子高洋代魏建北齐鲜卑化",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "东魏权相 · 北齐奠基"
+    },
+    {
+      "id": "yuwentai",
+      "type": "database",
+      "label": "宇文泰 (西魏文帝)",
+      "sublabel": "创八柱国府兵制做六条诏书 · 关陇集团奠基",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "西魏权相 · 关陇崛起"
+    },
+    {
+      "id": "zhouwu",
+      "type": "frontend",
+      "label": "14. 北周武帝 宇文邕",
+      "sublabel": "诛权相宇文护 · 建德灭佛均田挥师灭齐统北方",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "560-578 · 北周灭齐"
+    },
+    {
+      "id": "yangjian",
+      "type": "external",
+      "label": "15. 隋文帝 杨坚",
+      "sublabel": "外戚辅政受禅代周建隋 · 南下灭陈终结三百年乱",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "581-604 · 开皇一统"
+    },
+    {
+      "id": "suimie",
+      "type": "external",
+      "label": "隋灭陈 · 南北统一",
+      "sublabel": "589年隋军渡江灭陈 · 终结永嘉以来南北分裂",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "589年 · 天下一统"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "南朝前叶 · 刘宋气吞万里与萧齐永明 (420-502年)",
+      "wraps": [
+        "liuyu",
+        "songwen",
+        "xiaowu",
+        "xiaodaocheng",
+        "qiwu",
+        "donghun"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "南朝后叶 · 梁武舍身与侯景破台城 (502-589年)",
+      "wraps": [
+        "liangwu",
+        "houjing",
+        "liangyuan",
+        "chenbaxian",
+        "chenweng",
+        "chenhouzhu"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "北魏鼎立 · 太武统北方与孝文大汉化 (386-534年)",
+      "wraps": [
+        "tuobagui",
+        "taowu",
+        "fengtaihou",
+        "xiaowen",
+        "erzhurong",
+        "dongweixiwei"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "关陇代兴 · 北周灭齐与隋开皇一统 (534-589年)",
+      "wraps": [
+        "gaohuan",
+        "yuwentai",
+        "zhouwu",
+        "yangjian",
+        "suimie"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-liuyu-songwen",
+      "from": "liuyu",
+      "to": "songwen",
+      "label": "三子文帝元嘉之治",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-songwen-xiaowu",
+      "from": "songwen",
+      "to": "xiaowu",
+      "label": "三子孝武平乱即位"
+    },
+    {
+      "id": "c-xiaowu-xiaodaocheng",
+      "from": "xiaowu",
+      "to": "xiaodaocheng",
+      "label": "萧道成代宋建齐",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaodaocheng-qiwu",
+      "from": "xiaodaocheng",
+      "to": "qiwu",
+      "label": "长子武帝永明治"
+    },
+    {
+      "id": "c-qiwu-donghun",
+      "from": "qiwu",
+      "to": "donghun",
+      "label": "东昏侯残暴内讧",
+      "variant": "security"
+    },
+    {
+      "id": "c-donghun-liangwu",
+      "from": "donghun",
+      "to": "liangwu",
+      "label": "萧衍起兵代齐建梁",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-liangwu-houjing",
+      "from": "liangwu",
+      "to": "houjing",
+      "label": "收纳侯景引狼入室",
+      "variant": "security"
+    },
+    {
+      "id": "c-houjing-liangyuan",
+      "from": "houjing",
+      "to": "liangyuan",
+      "label": "诛侯景元帝江陵立"
+    },
+    {
+      "id": "c-liangyuan-chenbaxian",
+      "from": "liangyuan",
+      "to": "chenbaxian",
+      "label": "陈霸先平乱代梁建陈",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-chenbaxian-chenweng",
+      "from": "chenbaxian",
+      "to": "chenweng",
+      "label": "侄文帝开天嘉治"
+    },
+    {
+      "id": "c-chenweng-chenhouzhu",
+      "from": "chenweng",
+      "to": "chenhouzhu",
+      "label": "后主荒淫井底擒",
+      "variant": "security"
+    },
+    {
+      "id": "c-tuobagui-taowu",
+      "from": "tuobagui",
+      "to": "taowu",
+      "label": "太武帝统一北方",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-taowu-fengtaihou",
+      "from": "taowu",
+      "to": "fengtaihou",
+      "label": "冯太后临朝奠基",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-fengtaihou-xiaowen",
+      "from": "fengtaihou",
+      "to": "xiaowen",
+      "label": "孝文帝迁都汉化",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaowen-erzhurong",
+      "from": "xiaowen",
+      "to": "erzhurong",
+      "label": "六镇起义河阴兵变",
+      "variant": "security"
+    },
+    {
+      "id": "c-erzhurong-dongweixiwei",
+      "from": "erzhurong",
+      "to": "dongweixiwei",
+      "label": "北魏分裂为东西二魏",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-dongweixiwei-gaohuan",
+      "from": "dongweixiwei",
+      "to": "gaohuan",
+      "label": "高欢专擅东魏北齐",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-dongweixiwei-yuwentai",
+      "from": "dongweixiwei",
+      "to": "yuwentai",
+      "label": "宇文泰据关陇八柱国",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-yuwentai-zhouwu",
+      "from": "yuwentai",
+      "to": "zhouwu",
+      "label": "周武帝励精图治灭齐",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zhouwu-yangjian",
+      "from": "zhouwu",
+      "to": "yangjian",
+      "label": "杨坚辅政代周建隋",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yangjian-suimie",
+      "from": "yangjian",
+      "to": "suimie",
+      "label": "发兵灭陈一统天下",
+      "variant": "security"
+    },
+    {
+      "id": "c-chenhouzhu-suimie",
+      "from": "chenhouzhu",
+      "to": "suimie",
+      "label": "降隋南朝彻底终结",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "元嘉草草与侯景摧残士族",
+      "items": [
+        "宋文帝元嘉之治南朝经济繁荣，然三度北伐仓皇败北，辛弃疾叹'元嘉草草赢得仓皇北顾'",
+        "梁武帝萧衍在位近半世纪好佛崇道，盲目接纳侯景降军，引爆侯景之乱台城饿死",
+        "侯景之乱对江南世家门阀造成毁灭性摧残，王谢高门风流殆尽，南朝力量元气大伤"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "孝文汉化与关陇八柱国崛起",
+      "items": [
+        "北魏孝文帝元宏以超绝魄力迁都洛阳，断胡语、禁胡服、改汉姓、通婚媾，促成胡汉大融合",
+        "西魏宇文泰创立'八柱国十二大将军'府兵制，催生出影响后世数百年的关陇军事贵族集团",
+        "关陇集团融汇鲜卑强悍骑兵与汉人士族制度，成为随后隋唐大一统帝国的孕育母体"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "周灭北齐与开皇终结三百年乱世",
+      "items": [
+        "北周武帝宇文邕灭佛收丁、富国强兵，挥军攻灭昏乱的北齐高氏，统一整个中国北方",
+        "周宣帝死后杨坚以外戚总揽朝政代周建隋，公元589年挥师大举南下灭陈",
+        "隋文帝终结自西晋永嘉之乱以来近300年的南北大分裂，华夏文明重归混一"
+      ]
+    }
+  ]
+}

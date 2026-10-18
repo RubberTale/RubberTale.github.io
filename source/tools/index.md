@@ -661,7 +661,7 @@ html {
           <img src="https://api.iconify.design/lucide:crown.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="华夏历代帝系谱系大系">
         </div>
         <div class="flink-item-name">华夏历代帝系与皇统全景谱系大系</div>
-        <div class="flink-item-desc">全景交互呈现两周、两汉、两晋、大唐、大宋、大明、大清与欧洲王室世系，图解三千年正统传承与血统演进。</div>
+        <div class="flink-item-desc">全景交互呈现夏商、两周、两汉、两晋、南北朝、大唐、五代十国、辽金西夏、大宋、大明、大清与欧洲王室世系，图解四千年正统传承与血统演进。</div>
       </a>
     </div>
   </div>

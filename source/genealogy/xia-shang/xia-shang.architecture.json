@@ -1,0 +1,569 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "夏商两代与早期王朝全景世系",
+    "subtitle": "四千载华夏王统肇始 · 大禹治水开夏至鸣条牧野鹿台全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "治水肇基与开国王相",
+          "visible": true
+        },
+        "frontend": {
+          "label": "开国英主与中兴名君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "摄政辅佐与王室旁支",
+          "visible": true
+        },
+        "security": {
+          "label": "荒淫失国与鸣条之役",
+          "visible": true
+        },
+        "external": {
+          "label": "末代焚国与牧野易代",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "dayu",
+      "type": "cloud",
+      "label": "夏后大禹 (姒文命)",
+      "sublabel": "平定滔天洪水划九州 · 涂山之会大会诸侯 · 奠夏朝基业",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "华夏始祖 · 禹夏开端"
+    },
+    {
+      "id": "xiaqi",
+      "type": "frontend",
+      "label": "1. 夏后启",
+      "sublabel": "废禅让制开家天下 · 甘之战灭有扈氏 · 开启夏后氏四百年",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "夏代首主 · 家天下始"
+    },
+    {
+      "id": "taikang",
+      "type": "security",
+      "label": "2. 太康",
+      "sublabel": "不恤民事田猎失度 · 东夷后羿拒于洛汭 · 太康失国亡位",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "太康失国 · 后羿摄政"
+    },
+    {
+      "id": "zhongkang",
+      "type": "backend",
+      "label": "3. 仲康",
+      "sublabel": "太康弟后羿立为傀儡 · 日食羲和失职胤征出伐 · 郁郁早崩",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "夏代三任 · 居斟寻"
+    },
+    {
+      "id": "shaokang",
+      "type": "frontend",
+      "label": "4. 少康",
+      "sublabel": "避难有虞氏少康中兴 · 诛浇灭豨恢复禹祀 · 夏朝重振",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "少康中兴 · 绝处逢生"
+    },
+    {
+      "id": "kongjia",
+      "type": "security",
+      "label": "5. 孔甲",
+      "sublabel": "笃信鬼神蓄龙失德 · 诸侯畔夏夏政大乱 · 夏道渐衰",
+      "pos": [
+        40,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "夏朝衰落 · 诸侯离心"
+    },
+    {
+      "id": "xiajie",
+      "type": "external",
+      "label": "6. 夏桀 (履癸 guǐ)",
+      "sublabel": "暴虐荒淫宠妹喜 · 筑倾宫肉林酒池 · 鸣条之战亡于商汤",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "夏代末帝 · 鸣条降灭"
+    },
+    {
+      "id": "shangtang",
+      "type": "frontend",
+      "label": "1. 商汤 (子履)",
+      "sublabel": "鸣条之战灭夏建商 · 景亳之命定都亳京 · 殷商立国始祖",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前1600 · 商朝开国"
+    },
+    {
+      "id": "yiyin",
+      "type": "cloud",
+      "label": "伊尹 (元圣阿衡)",
+      "sublabel": "商汤重臣五朝元老 · 放太甲于桐宫悔过 · 开权臣辅政先河",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代元圣 · 辅政开先"
+    },
+    {
+      "id": "taijia",
+      "type": "backend",
+      "label": "2. 太甲 (太宗)",
+      "sublabel": "汤嫡长孙即位暴虐 · 桐宫思过三年悔悟自新 · 称商太宗",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "桐宫悔过 · 称太宗"
+    },
+    {
+      "id": "taiwu",
+      "type": "frontend",
+      "label": "3. 太戊 (中宗)",
+      "sublabel": "桑谷生朝修德修政 · 诸侯慕德重朝伊陟辅政 · 在位七十五年",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商中宗 · 治世极盛"
+    },
+    {
+      "id": "zhongding",
+      "type": "security",
+      "label": "4. 仲丁",
+      "sublabel": "迁都于隞引发九世之乱 · 诸兄弟夺嫡争立 · 诸侯莫朝商道衰",
+      "pos": [
+        320,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "九世之乱 · 商道衰微"
+    },
+    {
+      "id": "pangeng",
+      "type": "frontend",
+      "label": "5. 盘庚 (世祖)",
+      "sublabel": "力排众议迁都于殷 · 遵汤祖德行重振商风 · 商从此称殷商",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "盘庚迁殷 · 殷商定鼎"
+    },
+    {
+      "id": "xiaoyi",
+      "type": "backend",
+      "label": "小乙",
+      "sublabel": "盘庚弟命子武丁居民间 · 了解民生稼穑疾苦 · 奠中兴基",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "武丁生父 · 培育明君"
+    },
+    {
+      "id": "wuding",
+      "type": "frontend",
+      "label": "6. 武丁 (高宗)",
+      "sublabel": "梦得良相傅说辅佐 · 妇好征羌克荆楚 · 武丁盛世国力极盛",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "武丁中兴 · 殷商极盛"
+    },
+    {
+      "id": "fuhao",
+      "type": "cloud",
+      "label": "妇好 (司母辛)",
+      "sublabel": "武丁王后兼军事统帅 · 统兵万余征伐鬼方羌戎 · 妇好鸮尊",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "中华首位女统帅"
+    },
+    {
+      "id": "wuyi",
+      "type": "security",
+      "label": "7. 武乙",
+      "sublabel": "无道暴慢囊血射天戏神 · 猎于河渭遭暴雷震死 · 殷商转衰",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "射天戏神 · 震死河渭"
+    },
+    {
+      "id": "diyi",
+      "type": "backend",
+      "label": "8. 帝乙",
+      "sublabel": "商代倒数第二主 · 征淮夷归妹微子启庶长 · 传位幼子帝辛",
+      "pos": [
+        600,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代晚期 · 归妹征淮"
+    },
+    {
+      "id": "dixin",
+      "type": "external",
+      "label": "9. 商纣王 (帝辛)",
+      "sublabel": "资辩捷疾力格猛兽 · 宠妲己杀比干剖心 · 牧野惨败鹿台自焚",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代末代 · 鹿台自焚"
+    },
+    {
+      "id": "weiziqi",
+      "type": "database",
+      "label": "微子启",
+      "sublabel": "纣王庶兄抱祭器归周 · 武王克商封于宋国 · 续殷商祭祀",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "宋国始祖 · 殷祀不绝"
+    },
+    {
+      "id": "muye",
+      "type": "external",
+      "label": "牧野之战 · 武王克商",
+      "sublabel": "前1046年武王大会诸侯 · 前徒倒戈大商覆亡 · 享国554年",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前1046年 · 封建周代始"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "大禹立夏 · 家天下与太康少康中兴 (前2070-前1600年)",
+      "wraps": [
+        "dayu",
+        "xiaqi",
+        "taikang",
+        "zhongkang",
+        "shaokang",
+        "kongjia"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "鸣条易代 · 商汤灭夏与伊尹辅政 (前1600-前1300年)",
+      "wraps": [
+        "xiajie",
+        "shangtang",
+        "yiyin",
+        "taijia",
+        "taiwu",
+        "zhongding"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "盘庚迁殷 · 武丁极盛与妇好征伐 (前1300-前1100年)",
+      "wraps": [
+        "pangeng",
+        "xiaoyi",
+        "wuding",
+        "fuhao",
+        "wuyi",
+        "diyi"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "牧野血战 · 鹿台焚火与周代立国 (前1100-前1046年)",
+      "wraps": [
+        "dixin",
+        "weiziqi",
+        "muye"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-dayu-xiaqi",
+      "from": "dayu",
+      "to": "xiaqi",
+      "label": "废禅让子启登基",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaqi-taikang",
+      "from": "xiaqi",
+      "to": "taikang",
+      "label": "长子即位荒怠"
+    },
+    {
+      "id": "c-taikang-zhongkang",
+      "from": "taikang",
+      "to": "zhongkang",
+      "label": "后羿逐太康立其弟",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-zhongkang-shaokang",
+      "from": "zhongkang",
+      "to": "shaokang",
+      "label": "少康中兴复禹祀",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shaokang-kongjia",
+      "from": "shaokang",
+      "to": "kongjia",
+      "label": "少康后裔失德"
+    },
+    {
+      "id": "c-kongjia-xiajie",
+      "from": "kongjia",
+      "to": "xiajie",
+      "label": "夏末暴虐乱政",
+      "variant": "security"
+    },
+    {
+      "id": "c-xiajie-shangtang",
+      "from": "xiajie",
+      "to": "shangtang",
+      "label": "鸣条之战灭夏建商",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shangtang-yiyin",
+      "from": "shangtang",
+      "to": "yiyin",
+      "label": "重臣开国辅政",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shangtang-taijia",
+      "from": "shangtang",
+      "to": "taijia",
+      "label": "嫡孙太甲立"
+    },
+    {
+      "id": "c-taijia-taiwu",
+      "from": "taijia",
+      "to": "taiwu",
+      "label": "子太戊大治中宗",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-taiwu-zhongding",
+      "from": "taiwu",
+      "to": "zhongding",
+      "label": "仲丁即位引发乱",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-zhongding-pangeng",
+      "from": "zhongding",
+      "to": "pangeng",
+      "label": "盘庚迁殷中兴",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-pangeng-xiaoyi",
+      "from": "pangeng",
+      "to": "xiaoyi",
+      "label": "弟小乙继位"
+    },
+    {
+      "id": "c-xiaoyi-wuding",
+      "from": "xiaoyi",
+      "to": "wuding",
+      "label": "子武丁开创全盛",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wuding-fuhao",
+      "from": "wuding",
+      "to": "fuhao",
+      "label": "王后领兵伐羌",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-wuding-wuyi",
+      "from": "wuding",
+      "to": "wuyi",
+      "label": "武丁后裔射天衰"
+    },
+    {
+      "id": "c-wuyi-diyi",
+      "from": "wuyi",
+      "to": "diyi",
+      "label": "帝乙南征淮夷"
+    },
+    {
+      "id": "c-diyi-dixin",
+      "from": "diyi",
+      "to": "dixin",
+      "label": "少子辛即位商纣",
+      "variant": "security"
+    },
+    {
+      "id": "c-dixin-weiziqi",
+      "from": "dixin",
+      "to": "weiziqi",
+      "label": "庶兄抱器归周",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-dixin-muye",
+      "from": "dixin",
+      "to": "muye",
+      "label": "牧野之战鹿台自焚",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "家天下开启与少康中兴",
+      "items": [
+        "大禹治水划分九州奠定华夏地理观念，其子启废除部落禅让推行世袭家天下",
+        "太康失德遭东夷后羿代夏，少康逃亡有虞氏励精图治，诛浇复国，史称'少康中兴'",
+        "夏代奠定华夏青铜文明与早期国家组织雏形，享国四百余年"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "盘庚迁殷与武丁全盛甲骨文",
+      "items": [
+        "商汤以仁德立国鸣条灭夏；盘庚力排众议迁都于殷，终结'九世之乱'开创殷商盛世",
+        "武丁起用傅说、王后妇好开疆拓土，甲骨文刻辞鼎盛，青铜礼器铸造登峰造极",
+        "殷商神权与王权合一，建立了覆盖黄淮平原庞大且成熟的古代祭祀与宗族方国网络"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "牧野之战与三代天命转移",
+      "items": [
+        "商纣王帝辛伐东夷耗尽国力，内政暴虐残杀比干，武王联合八百诸侯孟津誓师",
+        "公元前1046年牧野之战商军前徒倒戈，纣王自焚鹿台，殷商554年享国终",
+        "周公以'敬天保民'与'德政'重塑天命观，完成了从神权祭祀向礼乐宗法的人文转折"
+      ]
+    }
+  ]
+}
