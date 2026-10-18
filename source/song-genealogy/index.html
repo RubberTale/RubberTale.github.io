@@ -4894,16 +4894,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   }
   /* Large Font Size Overrides (用户特别要求字大、适配屏幕) */
   svg text[data-node-label] {
-    font-size: 14.5px !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
+    letter-spacing: 0.3px !important;
   }
-  svg text[data-detail="context"] {
-    font-size: 11.2px !important;
+  svg text[data-detail="context"],
+  svg text[data-detail="context"] tspan {
+    font-size: 10.6px !important;
     font-weight: 500 !important;
   }
   svg text[data-detail="fine"] {
-    font-size: 9.6px !important;
+    font-size: 9.5px !important;
     font-weight: 600 !important;
   }
   svg text[data-boundary-label] {
@@ -5211,9 +5212,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 66) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="95" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">宋宣祖 赵弘殷 (yīn)</text>
-        <text data-detail="context" x="145" y="111" class="t-muted" font-size="9" text-anchor="middle">护圣都指挥使 · 追尊宣祖 · 生太祖太宗</text>
-        <text data-detail="fine" x="145" y="126" class="t-cloud" font-size="7" text-anchor="middle">赵宋肇基</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">宋宣祖 赵弘殷 (yīn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="99">护圣都指挥使</tspan>
+          <tspan x="145" y="113">追尊宣祖 · 生太祖太宗</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="127" class="t-cloud" font-size="7" text-anchor="middle">赵宋肇基</text>
         </g>
 
         <g id="node-taizu" data-node-id="taizu" data-node-label="1. 宋太祖 赵匡胤 (yìn)" tabindex="0" role="button" aria-label="聚焦1. 宋太祖 赵匡胤 (yìn)，陈桥兵变黄袍加身 · 杯酒释兵权 · 开国, 赵宋肇基 · 宣祖初起与太祖宗支" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="陈桥兵变黄袍加身 · 杯酒释兵权 · 开国" data-node-tag="960-976 · 在位16年" data-node-context="赵宋肇基 · 宣祖初起与太祖宗支">
@@ -5226,9 +5230,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">1. 宋太祖 赵匡胤 (yìn)</text>
-        <text data-detail="context" x="145" y="231" class="t-muted" font-size="9" text-anchor="middle">陈桥兵变黄袍加身 · 杯酒释兵权 · 开国</text>
-        <text data-detail="fine" x="145" y="246" class="t-frontend" font-size="7" text-anchor="middle">960-976 · 在位16年</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">1. 宋太祖 赵匡胤 (yìn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="219">陈桥兵变黄袍加身</tspan>
+          <tspan x="145" y="233">杯酒释兵权 · 开国</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="247" class="t-frontend" font-size="7" text-anchor="middle">960-976 · 在位16年</text>
         </g>
 
         <g id="node-dezhao" data-node-id="dezhao" data-node-label="燕王 (赵德昭)" tabindex="0" role="button" aria-label="聚焦燕王 (赵德昭)，太祖次子 · 979年自刎 · 理宗度宗先祖, 赵宋肇基 · 宣祖初起与太祖宗支" aria-pressed="false" data-node-kind="database" data-node-sublabel="太祖次子 · 979年自刎 · 理宗度宗先祖" data-node-tag="太祖长支 · 燕王脉" data-node-context="赵宋肇基 · 宣祖初起与太祖宗支">
@@ -5239,9 +5246,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">燕王 (赵德昭)</text>
-        <text data-detail="context" x="145" y="351" class="t-muted" font-size="9" text-anchor="middle">太祖次子 · 979年自刎 · 理宗度宗先祖</text>
-        <text data-detail="fine" x="145" y="366" class="t-database" font-size="7" text-anchor="middle">太祖长支 · 燕王脉</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">燕王 (赵德昭)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="339">太祖次子 · 979年自刎</tspan>
+          <tspan x="145" y="353">理宗度宗先祖</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="367" class="t-database" font-size="7" text-anchor="middle">太祖长支 · 燕王脉</text>
         </g>
 
         <g id="node-defang" data-node-id="defang" data-node-label="秦王 (赵德芳)" tabindex="0" role="button" aria-label="聚焦秦王 (赵德芳)，太祖四子 · 八贤王原型 · 孝宗直系先祖, 赵宋肇基 · 宣祖初起与太祖宗支" aria-pressed="false" data-node-kind="database" data-node-sublabel="太祖四子 · 八贤王原型 · 孝宗直系先祖" data-node-tag="太祖幼支 · 秦王脉" data-node-context="赵宋肇基 · 宣祖初起与太祖宗支">
@@ -5252,9 +5262,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">秦王 (赵德芳)</text>
-        <text data-detail="context" x="145" y="471" class="t-muted" font-size="9" text-anchor="middle">太祖四子 · 八贤王原型 · 孝宗直系先祖</text>
-        <text data-detail="fine" x="145" y="486" class="t-database" font-size="7" text-anchor="middle">太祖幼支 · 秦王脉</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">秦王 (赵德芳)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="459">太祖四子 · 八贤王原型</tspan>
+          <tspan x="145" y="473">孝宗直系先祖</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="487" class="t-database" font-size="7" text-anchor="middle">太祖幼支 · 秦王脉</text>
         </g>
 
         <g id="node-tingmei" data-node-id="tingmei" data-node-label="魏王 (赵廷美)" tabindex="0" role="button" aria-label="聚焦魏王 (赵廷美)，宣祖四子 · 金匮之盟传弟候选 · 贬死房州, 赵宋肇基 · 宣祖初起与太祖宗支" aria-pressed="false" data-node-kind="database" data-node-sublabel="宣祖四子 · 金匮之盟传弟候选 · 贬死房州" data-node-tag="太宗弟 · 秦魏二王" data-node-context="赵宋肇基 · 宣祖初起与太祖宗支">
@@ -5265,9 +5278,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">魏王 (赵廷美)</text>
-        <text data-detail="context" x="145" y="591" class="t-muted" font-size="8.8" text-anchor="middle">宣祖四子 · 金匮之盟传弟候选 · 贬死房州</text>
-        <text data-detail="fine" x="145" y="606" class="t-database" font-size="7" text-anchor="middle">太宗弟 · 秦魏二王</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">魏王 (赵廷美)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="579">宣祖四子 · 金匮之盟</tspan>
+          <tspan x="145" y="593">传弟候选 · 贬死房州</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="607" class="t-database" font-size="7" text-anchor="middle">太宗弟 · 秦魏二王</text>
         </g>
 
         <g id="node-zicheng" data-node-id="zicheng" data-node-label="秀安僖王 赵子偁 (chēng)" tabindex="0" role="button" aria-label="聚焦秀安僖王 赵子偁 (chēng)，德芳五世孙 · 太祖六世孙 · 孝宗生父, 赵宋肇基 · 宣祖初起与太祖宗支" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="德芳五世孙 · 太祖六世孙 · 孝宗生父" data-node-tag="孝宗生父 · 绍兴封王" data-node-context="赵宋肇基 · 宣祖初起与太祖宗支">
@@ -5277,9 +5293,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 666) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="695" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">秀安僖王 赵子偁 (chēng)</text>
-        <text data-detail="context" x="145" y="711" class="t-muted" font-size="9" text-anchor="middle">德芳五世孙 · 太祖六世孙 · 孝宗生父</text>
-        <text data-detail="fine" x="145" y="726" class="t-cloud" font-size="7" text-anchor="middle">孝宗生父 · 绍兴封王</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">秀安僖王 赵子偁 (chēng)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="699">德芳五世孙 · 太祖六世孙</tspan>
+          <tspan x="145" y="713">孝宗生父</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="727" class="t-cloud" font-size="7" text-anchor="middle">孝宗生父 · 绍兴封王</text>
         </g>
 
         <g id="node-yurui" data-node-id="yurui" data-node-label="荣王 赵与芮 (ruì)" tabindex="0" role="button" aria-label="聚焦荣王 赵与芮 (ruì)，德昭九世孙 · 太祖十世孙 · 度宗生父, 赵宋肇基 · 宣祖初起与太祖宗支" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="德昭九世孙 · 太祖十世孙 · 度宗生父" data-node-tag="度宗生父 · 福王荣王" data-node-context="赵宋肇基 · 宣祖初起与太祖宗支">
@@ -5289,9 +5308,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 786) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="145" y="815" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">荣王 赵与芮 (ruì)</text>
-        <text data-detail="context" x="145" y="831" class="t-muted" font-size="9" text-anchor="middle">德昭九世孙 · 太祖十世孙 · 度宗生父</text>
-        <text data-detail="fine" x="145" y="846" class="t-cloud" font-size="7" text-anchor="middle">度宗生父 · 福王荣王</text>
+          <text data-node-label="" data-detail-anchor="" x="145" y="804" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">荣王 赵与芮 (ruì)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="819">德昭九世孙 · 太祖十世孙</tspan>
+          <tspan x="145" y="833">度宗生父</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="847" class="t-cloud" font-size="7" text-anchor="middle">度宗生父 · 福王荣王</text>
         </g>
 
         <g id="node-taizong" data-node-id="taizong" data-node-label="2. 宋太宗 (赵光义)" tabindex="0" role="button" aria-label="聚焦2. 宋太宗 (赵光义)，烛影斧声代立 · 灭北汉统中原 · 雍熙北伐, 北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="烛影斧声代立 · 灭北汉统中原 · 雍熙北伐" data-node-tag="976-997 · 在位21年" data-node-context="北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)">
@@ -5304,9 +5326,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">2. 宋太宗 (赵光义)</text>
-        <text data-detail="context" x="425" y="231" class="t-muted" font-size="8.8" text-anchor="middle">烛影斧声代立 · 灭北汉统中原 · 雍熙北伐</text>
-        <text data-detail="fine" x="425" y="246" class="t-frontend" font-size="7" text-anchor="middle">976-997 · 在位21年</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">2. 宋太宗 (赵光义)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="219">烛影斧声代立 · 灭北汉</tspan>
+          <tspan x="425" y="233">统中原 · 雍熙北伐</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="247" class="t-frontend" font-size="7" text-anchor="middle">976-997 · 在位21年</text>
         </g>
 
         <g id="node-zhenzong" data-node-id="zhenzong" data-node-label="3. 宋真宗 赵恒 (héng)" tabindex="0" role="button" aria-label="聚焦3. 宋真宗 赵恒 (héng)，太宗三子 · 澶渊之盟约为兄弟 · 咸平之治, 北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="太宗三子 · 澶渊之盟约为兄弟 · 咸平之治" data-node-tag="997-1022 · 在位25年" data-node-context="北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)">
@@ -5316,9 +5341,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(326 306) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">3. 宋真宗 赵恒 (héng)</text>
-        <text data-detail="context" x="425" y="351" class="t-muted" font-size="8.8" text-anchor="middle">太宗三子 · 澶渊之盟约为兄弟 · 咸平之治</text>
-        <text data-detail="fine" x="425" y="366" class="t-backend" font-size="7" text-anchor="middle">997-1022 · 在位25年</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">3. 宋真宗 赵恒 (héng)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="339">太宗三子 · 澶渊之盟</tspan>
+          <tspan x="425" y="353">约为兄弟 · 咸平之治</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="367" class="t-backend" font-size="7" text-anchor="middle">997-1022 · 在位25年</text>
         </g>
 
         <g id="node-renzong" data-node-id="renzong" data-node-label="4. 宋仁宗 赵祯 (zhēn)" tabindex="0" role="button" aria-label="聚焦4. 宋仁宗 赵祯 (zhēn)，在位四十二年 · 嘉祐之治名臣辈出 · 无嗣, 北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="在位四十二年 · 嘉祐之治名臣辈出 · 无嗣" data-node-tag="1022-1063 · 在位42年" data-node-context="北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)">
@@ -5331,9 +5359,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">4. 宋仁宗 赵祯 (zhēn)</text>
-        <text data-detail="context" x="425" y="471" class="t-muted" font-size="8.8" text-anchor="middle">在位四十二年 · 嘉祐之治名臣辈出 · 无嗣</text>
-        <text data-detail="fine" x="425" y="486" class="t-frontend" font-size="7" text-anchor="middle">1022-1063 · 在位42年</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">4. 宋仁宗 赵祯 (zhēn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="459">在位四十二年 · 嘉祐之治</tspan>
+          <tspan x="425" y="473">名臣辈出 · 无嗣</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="487" class="t-frontend" font-size="7" text-anchor="middle">1022-1063 · 在位42年</text>
         </g>
 
         <g id="node-yunrang" data-node-id="yunrang" data-node-label="濮安懿王 (赵允让)" tabindex="0" role="button" aria-label="聚焦濮安懿王 (赵允让)，太宗商王赵元份子 · 濮议皇考 · 英宗生父, 北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="太宗商王赵元份子 · 濮议皇考 · 英宗生父" data-node-tag="太宗曾孙 · 英宗生父" data-node-context="北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)">
@@ -5343,9 +5374,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(326 546) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">濮安懿王 (赵允让)</text>
-        <text data-detail="context" x="425" y="591" class="t-muted" font-size="8.8" text-anchor="middle">太宗商王赵元份子 · 濮议皇考 · 英宗生父</text>
-        <text data-detail="fine" x="425" y="606" class="t-cloud" font-size="7" text-anchor="middle">太宗曾孙 · 英宗生父</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">濮安懿王 (赵允让)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="579">太宗商王赵元份子</tspan>
+          <tspan x="425" y="593">濮议皇考 · 英宗生父</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="607" class="t-cloud" font-size="7" text-anchor="middle">太宗曾孙 · 英宗生父</text>
         </g>
 
         <g id="node-yingzong" data-node-id="yingzong" data-node-label="5. 宋英宗 赵曙 (shù)" tabindex="0" role="button" aria-label="聚焦5. 宋英宗 赵曙 (shù)，仁宗养子入嗣大统 · 濮议之争追尊生父, 北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="仁宗养子入嗣大统 · 濮议之争追尊生父" data-node-tag="1063-1067 · 在位4年" data-node-context="北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)">
@@ -5356,9 +5390,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="695" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">5. 宋英宗 赵曙 (shù)</text>
-        <text data-detail="context" x="425" y="711" class="t-muted" font-size="9" text-anchor="middle">仁宗养子入嗣大统 · 濮议之争追尊生父</text>
-        <text data-detail="fine" x="425" y="726" class="t-database" font-size="7" text-anchor="middle">1063-1067 · 在位4年</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">5. 宋英宗 赵曙 (shù)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="699">仁宗养子入嗣大统</tspan>
+          <tspan x="425" y="713">濮议之争追尊生父</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="727" class="t-database" font-size="7" text-anchor="middle">1063-1067 · 在位4年</text>
         </g>
 
         <g id="node-shenzong" data-node-id="shenzong" data-node-label="6. 宋神宗 赵顼 (xū)" tabindex="0" role="button" aria-label="聚焦6. 宋神宗 赵顼 (xū)，英宗长子 · 王安石变法 · 富国强兵熙河开边, 北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="英宗长子 · 王安石变法 · 富国强兵熙河开边" data-node-tag="1067-1085 · 在位18年" data-node-context="北宋极盛 · 太宗皇统与真仁英神盛治 (976 - 1085年)">
@@ -5371,9 +5408,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="815" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">6. 宋神宗 赵顼 (xū)</text>
-        <text data-detail="context" x="425" y="831" class="t-muted" font-size="8.4" text-anchor="middle">英宗长子 · 王安石变法 · 富国强兵熙河开边</text>
-        <text data-detail="fine" x="425" y="846" class="t-frontend" font-size="7" text-anchor="middle">1067-1085 · 在位18年</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="804" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">6. 宋神宗 赵顼 (xū)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="819">英宗长子 · 王安石变法</tspan>
+          <tspan x="425" y="833">富国强兵 · 熙河开边</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="847" class="t-frontend" font-size="7" text-anchor="middle">1067-1085 · 在位18年</text>
         </g>
 
         <g id="node-zhezong" data-node-id="zhezong" data-node-label="7. 宋哲宗 赵煦 (xù)" tabindex="0" role="button" aria-label="聚焦7. 宋哲宗 赵煦 (xù)，神宗六子 · 元祐更化 · 亲政绍述恢复新法, 靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="神宗六子 · 元祐更化 · 亲政绍述恢复新法" data-node-tag="1085-1100 · 在位15年" data-node-context="靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)">
@@ -5383,9 +5423,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 66) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="95" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">7. 宋哲宗 赵煦 (xù)</text>
-        <text data-detail="context" x="705" y="111" class="t-muted" font-size="8.8" text-anchor="middle">神宗六子 · 元祐更化 · 亲政绍述恢复新法</text>
-        <text data-detail="fine" x="705" y="126" class="t-backend" font-size="7" text-anchor="middle">1085-1100 · 在位15年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">7. 宋哲宗 赵煦 (xù)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="99">神宗六子 · 元祐更化</tspan>
+          <tspan x="705" y="113">亲政绍述 · 恢复新法</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="127" class="t-backend" font-size="7" text-anchor="middle">1085-1100 · 在位15年</text>
         </g>
 
         <g id="node-huizong" data-node-id="huizong" data-node-label="8. 宋徽宗 赵佶 (jí)" tabindex="0" role="button" aria-label="聚焦8. 宋徽宗 赵佶 (jí)，神宗十一子端王 · 瘦金体 · 靖康被掳金国, 靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="神宗十一子端王 · 瘦金体 · 靖康被掳金国" data-node-tag="1100-1126 · 在位26年" data-node-context="靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)">
@@ -5396,9 +5439,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">8. 宋徽宗 赵佶 (jí)</text>
-        <text data-detail="context" x="705" y="231" class="t-muted" font-size="8.8" text-anchor="middle">神宗十一子端王 · 瘦金体 · 靖康被掳金国</text>
-        <text data-detail="fine" x="705" y="246" class="t-security" font-size="7" text-anchor="middle">1100-1126 · 在位26年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">8. 宋徽宗 赵佶 (jí)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="219">神宗十一子端王 · 瘦金体</tspan>
+          <tspan x="705" y="233">靖康被掳金国</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="247" class="t-security" font-size="7" text-anchor="middle">1100-1126 · 在位26年</text>
         </g>
 
         <g id="node-qinzong" data-node-id="qinzong" data-node-label="9. 宋钦宗 赵桓 (huán)" tabindex="0" role="button" aria-label="聚焦9. 宋钦宗 赵桓 (huán)，徽宗长子 · 靖康之耻开封沦陷 · 二帝北狩, 靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="徽宗长子 · 靖康之耻开封沦陷 · 二帝北狩" data-node-tag="1126-1127 · 北宋灭亡" data-node-context="靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)">
@@ -5409,9 +5455,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">9. 宋钦宗 赵桓 (huán)</text>
-        <text data-detail="context" x="705" y="351" class="t-muted" font-size="8.8" text-anchor="middle">徽宗长子 · 靖康之耻开封沦陷 · 二帝北狩</text>
-        <text data-detail="fine" x="705" y="366" class="t-security" font-size="7" text-anchor="middle">1126-1127 · 北宋灭亡</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">9. 宋钦宗 赵桓 (huán)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="339">徽宗长子 · 靖康之耻</tspan>
+          <tspan x="705" y="353">开封沦陷 · 二帝北狩</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="367" class="t-security" font-size="7" text-anchor="middle">1126-1127 · 北宋灭亡</text>
         </g>
 
         <g id="node-gaozong" data-node-id="gaozong" data-node-label="10. 宋高宗 赵构 (gòu)" tabindex="0" role="button" aria-label="聚焦10. 宋高宗 赵构 (gòu)，徽宗九子康王 · 南渡临安建立南宋 · 无嗣, 靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="徽宗九子康王 · 南渡临安建立南宋 · 无嗣" data-node-tag="1127-1162 · 在位35年" data-node-context="靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)">
@@ -5424,9 +5473,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">10. 宋高宗 赵构 (gòu)</text>
-        <text data-detail="context" x="705" y="471" class="t-muted" font-size="8.8" text-anchor="middle">徽宗九子康王 · 南渡临安建立南宋 · 无嗣</text>
-        <text data-detail="fine" x="705" y="486" class="t-frontend" font-size="7" text-anchor="middle">1127-1162 · 在位35年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">10. 宋高宗 赵构 (gòu)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="459">徽宗九子康王 · 南渡临安</tspan>
+          <tspan x="705" y="473">建立南宋 · 无嗣</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="487" class="t-frontend" font-size="7" text-anchor="middle">1127-1162 · 在位35年</text>
         </g>
 
         <g id="node-xiaozong" data-node-id="xiaozong" data-node-label="11. 宋孝宗 赵昚 (shèn)" tabindex="0" role="button" aria-label="聚焦11. 宋孝宗 赵昚 (shèn)，太祖七世孙 · 皇统重归太祖 · 平反岳飞乾淳盛世, 靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="太祖七世孙 · 皇统重归太祖 · 平反岳飞乾淳盛世" data-node-tag="1162-1189 · 在位27年" data-node-context="靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)">
@@ -5439,9 +5491,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">11. 宋孝宗 赵昚 (shèn)</text>
-        <text data-detail="context" x="705" y="591" class="t-muted" font-size="7.6" text-anchor="middle">太祖七世孙 · 皇统重归太祖 · 平反岳飞乾淳盛世</text>
-        <text data-detail="fine" x="705" y="606" class="t-frontend" font-size="7" text-anchor="middle">1162-1189 · 在位27年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">11. 宋孝宗 赵昚 (shèn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="579">太祖七世孙 · 皇统重归太祖</tspan>
+          <tspan x="705" y="593">平反岳飞 · 乾淳盛世</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="607" class="t-frontend" font-size="7" text-anchor="middle">1162-1189 · 在位27年</text>
         </g>
 
         <g id="node-guangzong" data-node-id="guangzong" data-node-label="12. 宋光宗 赵惇 (dūn)" tabindex="0" role="button" aria-label="聚焦12. 宋光宗 赵惇 (dūn)，孝宗三子 · 惧内发疯不执丧 · 绍熙内禅退位, 靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="孝宗三子 · 惧内发疯不执丧 · 绍熙内禅退位" data-node-tag="1189-1194 · 在位5年" data-node-context="靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)">
@@ -5451,9 +5506,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 666) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="695" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">12. 宋光宗 赵惇 (dūn)</text>
-        <text data-detail="context" x="705" y="711" class="t-muted" font-size="8.4" text-anchor="middle">孝宗三子 · 惧内发疯不执丧 · 绍熙内禅退位</text>
-        <text data-detail="fine" x="705" y="726" class="t-backend" font-size="7" text-anchor="middle">1189-1194 · 在位5年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">12. 宋光宗 赵惇 (dūn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="699">孝宗三子 · 惧内发疯不执丧</tspan>
+          <tspan x="705" y="713">绍熙内禅退位</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="727" class="t-backend" font-size="7" text-anchor="middle">1189-1194 · 在位5年</text>
         </g>
 
         <g id="node-ningzong" data-node-id="ningzong" data-node-label="13. 宋宁宗 赵扩 (kuò)" tabindex="0" role="button" aria-label="聚焦13. 宋宁宗 赵扩 (kuò)，光宗次子 · 开禧北伐 · 史弥远专权擅政 · 无嗣, 靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="光宗次子 · 开禧北伐 · 史弥远专权擅政 · 无嗣" data-node-tag="1194-1224 · 在位30年" data-node-context="靖康国难与南宋中兴 · 皇统重归太祖 (1085 - 1224年)">
@@ -5463,9 +5521,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 786) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="815" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">13. 宋宁宗 赵扩 (kuò)</text>
-        <text data-detail="context" x="705" y="831" class="t-muted" font-size="7.8" text-anchor="middle">光宗次子 · 开禧北伐 · 史弥远专权擅政 · 无嗣</text>
-        <text data-detail="fine" x="705" y="846" class="t-backend" font-size="7" text-anchor="middle">1194-1224 · 在位30年</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="804" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">13. 宋宁宗 赵扩 (kuò)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="819">光宗次子 · 开禧北伐</tspan>
+          <tspan x="705" y="833">史弥远专权擅政 · 无嗣</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="847" class="t-backend" font-size="7" text-anchor="middle">1194-1224 · 在位30年</text>
         </g>
 
         <g id="node-lizong" data-node-id="lizong" data-node-label="14. 宋理宗 赵昀 (yún)" tabindex="0" role="button" aria-label="聚焦14. 宋理宗 赵昀 (yún)，太祖十世孙 · 民间入嗣 · 端平更化联蒙灭金, 南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="太祖十世孙 · 民间入嗣 · 端平更化联蒙灭金" data-node-tag="1224-1264 · 在位40年" data-node-context="南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)">
@@ -5478,9 +5539,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="95" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">14. 宋理宗 赵昀 (yún)</text>
-        <text data-detail="context" x="985" y="111" class="t-muted" font-size="8.4" text-anchor="middle">太祖十世孙 · 民间入嗣 · 端平更化联蒙灭金</text>
-        <text data-detail="fine" x="985" y="126" class="t-frontend" font-size="7" text-anchor="middle">1224-1264 · 在位40年</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">14. 宋理宗 赵昀 (yún)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="99">太祖十世孙 · 民间入嗣</tspan>
+          <tspan x="985" y="113">端平更化 · 联蒙灭金</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="127" class="t-frontend" font-size="7" text-anchor="middle">1224-1264 · 在位40年</text>
         </g>
 
         <g id="node-duzong" data-node-id="duzong" data-node-label="15. 宋度宗 赵禥 (qí)" tabindex="0" role="button" aria-label="聚焦15. 宋度宗 赵禥 (qí)，荣王之子入嗣 · 贾似道专权 · 襄樊保卫战失守, 南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="荣王之子入嗣 · 贾似道专权 · 襄樊保卫战失守" data-node-tag="1264-1274 · 在位10年" data-node-context="南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)">
@@ -5490,9 +5554,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(886 186) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">15. 宋度宗 赵禥 (qí)</text>
-        <text data-detail="context" x="985" y="231" class="t-muted" font-size="8" text-anchor="middle">荣王之子入嗣 · 贾似道专权 · 襄樊保卫战失守</text>
-        <text data-detail="fine" x="985" y="246" class="t-backend" font-size="7" text-anchor="middle">1264-1274 · 在位10年</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">15. 宋度宗 赵禥 (qí)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="219">荣王之子入嗣 · 贾似道专权</tspan>
+          <tspan x="985" y="233">襄樊保卫战失守</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="247" class="t-backend" font-size="7" text-anchor="middle">1264-1274 · 在位10年</text>
         </g>
 
         <g id="node-gongdi" data-node-id="gongdi" data-node-label="16. 宋恭帝 赵㬎 (xiǎn)" tabindex="0" role="button" aria-label="聚焦16. 宋恭帝 赵㬎 (xiǎn)，度宗幼子 · 临安降元出家萨迦寺 · 封瀛国公, 南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)" aria-pressed="false" data-node-kind="external" data-node-sublabel="度宗幼子 · 临安降元出家萨迦寺 · 封瀛国公" data-node-tag="1274-1276 · 降元出家" data-node-context="南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)">
@@ -5503,9 +5570,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="335" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">16. 宋恭帝 赵㬎 (xiǎn)</text>
-        <text data-detail="context" x="985" y="351" class="t-muted" font-size="8.4" text-anchor="middle">度宗幼子 · 临安降元出家萨迦寺 · 封瀛国公</text>
-        <text data-detail="fine" x="985" y="366" class="t-external" font-size="7" text-anchor="middle">1274-1276 · 降元出家</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">16. 宋恭帝 赵㬎 (xiǎn)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="339">度宗幼子 · 临安降元</tspan>
+          <tspan x="985" y="353">出家萨迦寺 · 封瀛国公</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="367" class="t-external" font-size="7" text-anchor="middle">1274-1276 · 降元出家</text>
         </g>
 
         <g id="node-duanzong" data-node-id="duanzong" data-node-label="17. 宋端宗 赵昰 (shì)" tabindex="0" role="button" aria-label="聚焦17. 宋端宗 赵昰 (shì)，度宗长子 · 福州登基流亡海上 · 溺水惊悸崩, 南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="度宗长子 · 福州登基流亡海上 · 溺水惊悸崩" data-node-tag="1276-1278 · 在位2年" data-node-context="南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)">
@@ -5516,9 +5586,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="455" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">17. 宋端宗 赵昰 (shì)</text>
-        <text data-detail="context" x="985" y="471" class="t-muted" font-size="8.4" text-anchor="middle">度宗长子 · 福州登基流亡海上 · 溺水惊悸崩</text>
-        <text data-detail="fine" x="985" y="486" class="t-security" font-size="7" text-anchor="middle">1276-1278 · 在位2年</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">17. 宋端宗 赵昰 (shì)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="459">度宗长子 · 福州登基</tspan>
+          <tspan x="985" y="473">流亡海上 · 溺水惊悸崩</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="487" class="t-security" font-size="7" text-anchor="middle">1276-1278 · 在位2年</text>
         </g>
 
         <g id="node-shaodi" data-node-id="shaodi" data-node-label="18. 宋少帝 赵昺 (bǐng)" tabindex="0" role="button" aria-label="聚焦18. 宋少帝 赵昺 (bǐng)，度宗少子 · 陆秀夫拥立崖山 · 崖山之战惨败, 南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)" aria-pressed="false" data-node-kind="external" data-node-sublabel="度宗少子 · 陆秀夫拥立崖山 · 崖山之战惨败" data-node-tag="1278-1279 · 祥兴帝" data-node-context="南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)">
@@ -5529,9 +5602,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="575" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">18. 宋少帝 赵昺 (bǐng)</text>
-        <text data-detail="context" x="985" y="591" class="t-muted" font-size="8.4" text-anchor="middle">度宗少子 · 陆秀夫拥立崖山 · 崖山之战惨败</text>
-        <text data-detail="fine" x="985" y="606" class="t-external" font-size="7" text-anchor="middle">1278-1279 · 祥兴帝</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">18. 宋少帝 赵昺 (bǐng)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="579">度宗少子 · 陆秀夫拥立</tspan>
+          <tspan x="985" y="593">崖山之战惨败</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="607" class="t-external" font-size="7" text-anchor="middle">1278-1279 · 祥兴帝</text>
         </g>
 
         <g id="node-yashan" data-node-id="yashan" data-node-label="崖山海战 · 亡宋殉国" tabindex="0" role="button" aria-label="聚焦崖山海战 · 亡宋殉国，陆秀夫负帝蹈海 · 十万军民殉节 · 享国319年, 南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)" aria-pressed="false" data-node-kind="external" data-node-sublabel="陆秀夫负帝蹈海 · 十万军民殉节 · 享国319年" data-node-tag="1279年 · 崖山海战" data-node-context="南宋晚期与崖山绝唱 · 十万蹈海殉节 (1224 - 1279年)">
@@ -5542,9 +5618,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="695" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">崖山海战 · 亡宋殉国</text>
-        <text data-detail="context" x="985" y="711" class="t-muted" font-size="8.2" text-anchor="middle">陆秀夫负帝蹈海 · 十万军民殉节 · 享国319年</text>
-        <text data-detail="fine" x="985" y="726" class="t-external" font-size="7" text-anchor="middle">1279年 · 崖山海战</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">崖山海战 · 亡宋殉国</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="985" y="699">陆秀夫负帝蹈海</tspan>
+          <tspan x="985" y="713">十万军民殉节 · 享国319年</tspan>
+        </text>
+        <text data-detail="fine" x="985" y="727" class="t-external" font-size="7" text-anchor="middle">1279年 · 崖山海战</text>
         </g>
 
         <!-- Connection labels -->
