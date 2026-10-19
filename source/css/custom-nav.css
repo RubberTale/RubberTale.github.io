@@ -1,0 +1,22 @@
+/* Custom Desktop Navigation Enhancements */
+@media screen and (min-width: 769px) {
+  #nav .menus_item_child {
+    max-height: calc(100vh - 85px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
+  }
+  #nav .menus_item_child::-webkit-scrollbar {
+    width: 5px;
+  }
+  #nav .menus_item_child::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #nav .menus_item_child::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.4);
+    border-radius: 4px;
+  }
+  #nav .menus_item_child::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.7);
+  }
+}

@@ -24,6 +24,26 @@ menu:
     分类索引: /categories/ || fas fa-folder-open
     标签墙: /tags/ || fas fa-tags
     精选图表: /charts/ || fas fa-chart-bar
+  朝代谱系 || fas fa-crown:
+    🏛️ 华夏帝系全景总览: /genealogy/ || fas fa-landmark
+    夏商早期世系: /genealogy/xia-shang/ || fas fa-sun
+    周朝天子世系: /genealogy/zhou/ || fas fa-chess-king
+    大秦帝国全景: /genealogy/qin/ || fas fa-shield-alt
+    大汉二十九帝: /genealogy/han/ || fas fa-monument
+    三国鼎立世系: /genealogy/sanguo/ || fas fa-shield-virus
+    两晋十五帝系: /genealogy/jin/ || fas fa-scroll
+    南北朝全景系: /genealogy/nanbeichao/ || fas fa-exchange-alt
+    大隋王朝全景: /genealogy/sui/ || fas fa-archway
+    大唐二十一帝: /genealogy/tang/ || fas fa-dragon
+    五代十国世系: /genealogy/wudai/ || fas fa-hourglass-half
+    大辽九帝谱系: /genealogy/liao/ || fas fa-horse
+    大金十帝谱系: /genealogy/dajin/ || fas fa-feather-alt
+    西夏十主谱系: /genealogy/xixia/ || fas fa-fort-awesome
+    大宋十八帝系: /genealogy/song/ || fas fa-book
+    大元十五汗帝: /genealogy/yuan/ || fas fa-compass
+    大明十六帝系: /genealogy/ming/ || fas fa-sun
+    大清十二帝系: /genealogy/qing/ || fas fa-mountain
+    欧洲王室谱系: /genealogy/europe/ || fas fa-chess-queen
   投研看板 || fas fa-chart-line:
     期货公司策略建议: /tools/futures-strategy/ || fas fa-crosshairs
     期货投研导航: /futures-nav/ || fas fa-compass
@@ -54,11 +74,6 @@ menu:
   探索与更多 || fas fa-compass:
     罗马历史地图: /roman/ || fas fa-map-marked-alt
     世界史对照地图: /world-history/ || fas fa-globe-asia
-    欧洲王室谱系: /royal-genealogy/ || fas fa-crown
-    两汉皇帝谱系: /han-genealogy/ || fas fa-landmark
-    两晋皇帝谱系: /jin-genealogy/ || fas fa-scroll
-    周朝天子谱系: /zhou-genealogy/ || fas fa-chess-king
-    大宋皇帝谱系: /song-genealogy/ || fas fa-monument
     休闲小游戏: /games/ || fas fa-gamepad
     燕园叽喳论坛: https://pkuai.run.place/forum/ || fas fa-comments
   赞赏与支持: /sponsor/ || fas fa-coffee
@@ -1114,6 +1129,7 @@ inject:
   head:
     - <link rel=stylesheet href=/css/blog-chat-widget.css>
     - <link rel=stylesheet href=/css/rubber-chronicle-cards.css>
+    - <link rel=stylesheet href=/css/custom-nav.css>
   bottom:
     - <script src=/js/blog-chat-widget.js></script>
     - <script src=/js/rubber-chronicle-cards.js></script>
