@@ -1132,7 +1132,7 @@ inject:
   bottom:
     - <script src=/js/blog-chat-widget.js></script>
     - <script src=/js/rubber-chronicle-cards.js></script>
-   
+    - <script src=/js/nav-submenus.js></script>
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work

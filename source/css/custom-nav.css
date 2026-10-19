@@ -33,11 +33,7 @@
     pointer-events: auto !important;
   }
 
-  /* 3. Seamless Dropdown Menu:
-        - Snap directly to the bottom of the nav bar (top: 100%, margin-top: 0)
-        - Disable translateY animation that causes the dropdown to lag away from the cursor
-        - Add safe max-height and custom golden scrollbar
-  */
+  /* 3. Seamless Dropdown Menu */
   #nav .menus_item_child {
     top: 100% !important;
     margin-top: 0 !important;
@@ -46,27 +42,9 @@
     opacity: 1 !important;
     z-index: 99 !important;
     padding: 6px 0 !important;
-    max-height: calc(100vh - 75px) !important;
-    overflow-y: auto !important;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
-  }
-
-  #nav .menus_item_child::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  #nav .menus_item_child::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  #nav .menus_item_child::-webkit-scrollbar-thumb {
-    background: rgba(212, 175, 55, 0.4);
-    border-radius: 4px;
-  }
-
-  #nav .menus_item_child::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 175, 55, 0.75);
+    overflow: visible !important; /* Allow flyout sub-menus to expand horizontally */
+    box-shadow: 0 5px 20px -4px rgba(0, 0, 0, 0.5) !important;
+    border-radius: 6px !important;
   }
 
   #nav .menus_item_child li {
@@ -76,5 +54,142 @@
   #nav .menus_item_child li a {
     white-space: nowrap !important;
     padding: 8px 18px !important;
+  }
+
+  /* 4. Secondary Sub-menu (Flyout Menu on the Left) */
+  #nav .menus_sub_item {
+    position: relative !important;
+    list-style: none !important;
+  }
+
+  #nav .menus_sub_item .sub-trigger {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    color: var(--font-color) !important;
+  }
+
+  #nav .menus_sub_item .sub-title {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  #nav .menus_sub_item .sub-arrow {
+    font-size: 0.75rem !important;
+    margin-left: 12px !important;
+    opacity: 0.65 !important;
+    transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease !important;
+  }
+
+  #nav .menus_sub_item:hover .sub-arrow {
+    transform: translateX(-4px) !important;
+    opacity: 1 !important;
+    color: #d4af37 !important;
+  }
+
+  /* Flyout Menu Box */
+  #nav .menus_sub_child {
+    position: absolute !important;
+    right: 100% !important;
+    top: 0 !important;
+    margin: 0 !important;
+    padding: 6px 0 !important;
+    min-width: 195px !important;
+    max-height: calc(100vh - 75px) !important;
+    overflow-y: auto !important;
+    background-color: var(--sidebar-bg) !important;
+    box-shadow: 0 5px 20px -4px rgba(0, 0, 0, 0.5) !important;
+    border-radius: 6px !important;
+    display: none !important;
+    z-index: 101 !important;
+    list-style: none !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
+  }
+
+  /* Hover Bridge for Sub-menu: Prevents mouseleave when moving leftward into the flyout */
+  #nav .menus_sub_item:hover::before {
+    content: "" !important;
+    position: absolute !important;
+    top: -10px !important;
+    bottom: -10px !important;
+    right: 80% !important;
+    left: -25px !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+  }
+
+  #nav .menus_sub_item:hover > .menus_sub_child,
+  #nav .menus_sub_child:hover {
+    display: block !important;
+  }
+
+  #nav .menus_sub_child li a {
+    padding: 7px 16px !important;
+  }
+
+  /* Custom Golden Scrollbar for Sub-menu */
+  #nav .menus_sub_child::-webkit-scrollbar {
+    width: 6px;
+  }
+  #nav .menus_sub_child::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #nav .menus_sub_child::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.4);
+    border-radius: 4px;
+  }
+  #nav .menus_sub_child::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.75);
+  }
+}
+
+/* Mobile Sidebar Drawer Accordion Styling */
+@media screen and (max-width: 768px) {
+  #sidebar #sidebar-menus .menus_sub_item {
+    list-style: none !important;
+  }
+
+  #sidebar #sidebar-menus .menus_sub_item .sub-trigger {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 8px 16px !important;
+    cursor: pointer !important;
+  }
+
+  #sidebar #sidebar-menus .menus_sub_item .sub-title {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  #sidebar #sidebar-menus .menus_sub_item .sub-arrow {
+    font-size: 0.8rem !important;
+    transition: transform 0.3s ease !important;
+    transform: rotate(-90deg);
+  }
+
+  #sidebar #sidebar-menus .menus_sub_item .sub-arrow.rotate {
+    transform: rotate(0deg) !important;
+  }
+
+  #sidebar #sidebar-menus .menus_sub_child {
+    display: none !important;
+    padding-left: 18px !important;
+    margin: 4px 0 !important;
+    list-style: none !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-left: 2px solid rgba(212, 175, 55, 0.35) !important;
+  }
+
+  #sidebar #sidebar-menus .menus_sub_child.sub-open {
+    display: block !important;
+  }
+
+  #sidebar #sidebar-menus .menus_sub_child li a {
+    padding: 6px 12px !important;
+    font-size: 0.95em !important;
   }
 }
