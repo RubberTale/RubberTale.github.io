@@ -1,0 +1,771 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "日本皇室万世一系与天皇家全景谱系",
+    "subtitle": "两千六百年神话肇基飞鸟奈良平安院政至近代立宪与现代象征天皇家全览",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "frontend": {
+          "label": "肇基开国与摄政女帝",
+          "visible": true
+        },
+        "backend": {
+          "label": "律令治世与守成正统",
+          "visible": true
+        },
+        "database": {
+          "label": "院政治天与南北纷争",
+          "visible": true
+        },
+        "security": {
+          "label": "幕府隐忍与禁中幽闭",
+          "visible": true
+        },
+        "cloud": {
+          "label": "近代维新与强国极盛",
+          "visible": true
+        },
+        "external": {
+          "label": "战后象征与当代皇室",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "jimmu",
+      "type": "frontend",
+      "label": "1. 神武天皇 神日本磐余彦",
+      "sublabel": "神话肇基辛酉即位 · 东征大和开创皇室",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前660-前585 · 皇统之源"
+    },
+    {
+      "id": "sujin",
+      "type": "backend",
+      "label": "10. 崇神天皇 御肇国天皇",
+      "sublabel": "设四道将军经略四方 · 确立大和王权祭祀三神器",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前97-前30 · 御肇国"
+    },
+    {
+      "id": "ojin",
+      "type": "frontend",
+      "label": "15. 应神天皇 誉田别尊",
+      "sublabel": "八幡大菩萨化身 · 汉字与大陆渡来人技术入日",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "270-310 · 八幡总本宫"
+    },
+    {
+      "id": "nintoku",
+      "type": "backend",
+      "label": "16. 仁德天皇 大鹪鹩尊",
+      "sublabel": "见民灶无炊烟免税三年 · 仁政大仙陵古坟",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "313-399 · 圣帝仁政"
+    },
+    {
+      "id": "keitai",
+      "type": "frontend",
+      "label": "26. 继体天皇 男大迹王",
+      "sublabel": "应神五世孙越前应诏 · 近江越前皇裔皇统重光",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "507-531 · 旁系还统"
+    },
+    {
+      "id": "suiko",
+      "type": "frontend",
+      "label": "33. 推古天皇 额田部皇女",
+      "sublabel": "日本首位女帝登基 · 圣德太子摄政开创飞鸟文化",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "592-628 · 首任女帝"
+    },
+    {
+      "id": "shotoku",
+      "type": "cloud",
+      "label": "圣德太子 (厩户皇子)",
+      "sublabel": "推冠位十二阶十七条宪法 · 遣隋使小野妹子",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "574-622 · 飞鸟伟人"
+    },
+    {
+      "id": "tenji",
+      "type": "frontend",
+      "label": "38. 天智天皇 中大兄皇子",
+      "sublabel": "乙巳之变诛苏我入鹿 · 推行大化改新奠定律令",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "668-671 · 大化改新"
+    },
+    {
+      "id": "tenmu",
+      "type": "backend",
+      "label": "40. 天武天皇 大海人皇子",
+      "sublabel": "壬申之乱夺位登基 · 正式定名天皇号与八色之姓",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "673-686 · 壬申之乱"
+    },
+    {
+      "id": "jito",
+      "type": "backend",
+      "label": "41. 持统天皇 赞良皇女",
+      "sublabel": "天武皇后女帝 · 迁都藤原京制定飞鸟净御原令",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "690-697 · 藤原京奠基"
+    },
+    {
+      "id": "gemmei",
+      "type": "backend",
+      "label": "43. 元明天皇 阿闭皇女",
+      "sublabel": "迁都平城京开创奈良时代 · 命太安万侣修古事记",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "707-715 · 平城迁都"
+    },
+    {
+      "id": "shomu",
+      "type": "frontend",
+      "label": "45. 圣武天皇 首皇",
+      "sublabel": "天平文化极盛笃信佛法 · 铸东大寺卢舍那大佛",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "724-749 · 天平盛世"
+    },
+    {
+      "id": "kanmu",
+      "type": "frontend",
+      "label": "50. 桓武天皇 山部亲王",
+      "sublabel": "迁都平安京摆脱僧侣 · 遣最澄空海入唐求法",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "781-806 · 平安迁都"
+    },
+    {
+      "id": "saga",
+      "type": "backend",
+      "label": "52. 嵯峨天皇 神野亲王",
+      "sublabel": "弘仁之治设藏人所 · 赐姓源氏开嵯峨源氏先声",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "809-823 · 弘仁之治"
+    },
+    {
+      "id": "shirakawa",
+      "type": "database",
+      "label": "72. 白河天皇 贞仁亲王",
+      "sublabel": "开创治天之君院政体制 · 叹贺茂川水骰子与僧兵",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1073-1087 · 院政始祖"
+    },
+    {
+      "id": "gotoba",
+      "type": "database",
+      "label": "82. 后鸟羽天皇 尊成亲王",
+      "sublabel": "文武双全修新古今集 · 承久之乱讨幕失败流放",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1183-1198 · 承久之乱"
+    },
+    {
+      "id": "godaigo",
+      "type": "frontend",
+      "label": "96. 后醍醐天皇 尊治亲王",
+      "sublabel": "南朝大觉寺统 · 建武中兴灭镰仓楠木正成勤王",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1318-1339 · 建武中兴"
+    },
+    {
+      "id": "kogon",
+      "type": "database",
+      "label": "北朝首任 光严天皇 量仁",
+      "sublabel": "北朝持明院统之祖 · 足利尊氏拥立室町幕府",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1331-1333 · 北朝持明院"
+    },
+    {
+      "id": "gokomatsu",
+      "type": "backend",
+      "label": "100. 后小松天皇 干仁亲王",
+      "sublabel": "足利义满斡旋调停 · 明德合一终结半世纪南北朝",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1382-1412 · 明德合一"
+    },
+    {
+      "id": "gotsuchimikado",
+      "type": "security",
+      "label": "103. 后土御门天皇 成仁",
+      "sublabel": "应仁之乱陷战国乱世 · 皇室穷困崩后停灵四十余日",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1464-1500 · 战国严冬"
+    },
+    {
+      "id": "ogimachi",
+      "type": "backend",
+      "label": "106. 正亲町天皇 和仁",
+      "sublabel": "信长秀吉相继拥戴上洛 · 皇权自战国谷底重光",
+      "pos": [
+        1160,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1557-1586 · 织丰重光"
+    },
+    {
+      "id": "gomizunoo",
+      "type": "security",
+      "label": "108. 后水尾天皇 政仁",
+      "sublabel": "迎娶德川和子 · 禁中公家法度紫衣事件抗议退位",
+      "pos": [
+        1160,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1611-1629 · 紫衣事件"
+    },
+    {
+      "id": "kokaku",
+      "type": "backend",
+      "label": "119. 光格天皇 兼仁亲王",
+      "sublabel": "闲院宫旁系入继大统 · 尊号事件抗衡幕府近世中兴",
+      "pos": [
+        1160,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1779-1817 · 近世中兴"
+    },
+    {
+      "id": "komei",
+      "type": "security",
+      "label": "121. 孝明天皇 统仁亲王",
+      "sublabel": "幕末黑船来航尊王攘夷 · 拒签通商条约支持公武合体",
+      "pos": [
+        1160,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1846-1867 · 尊王攘夷"
+    },
+    {
+      "id": "meiji",
+      "type": "cloud",
+      "label": "122. 明治天皇 睦仁",
+      "sublabel": "五条御誓文明治维新 · 脱亚入欧建立近代立宪帝国",
+      "pos": [
+        1440,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1867-1912 · 明治维新"
+    },
+    {
+      "id": "taisho",
+      "type": "backend",
+      "label": "123. 大正天皇 嘉仁",
+      "sublabel": "大正民主思潮与政党政治 · 晚年抱恙皇太子裕仁摄政",
+      "pos": [
+        1440,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1912-1926 · 大正民主"
+    },
+    {
+      "id": "showa",
+      "type": "external",
+      "label": "124. 昭和天皇 裕仁",
+      "sublabel": "二战对外战争至投降 · 发表人间宣言降格为象征天皇",
+      "pos": [
+        1440,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1926-1989 · 象征化"
+    },
+    {
+      "id": "akihito",
+      "type": "external",
+      "label": "125. 上皇 明仁",
+      "sublabel": "平成三十年和平治世 · 首开近代生前退位先例巡访",
+      "pos": [
+        1440,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "1989-2019 · 平成治世"
+    },
+    {
+      "id": "naruhito",
+      "type": "external",
+      "label": "126. 今上天皇 德仁",
+      "sublabel": "开启令和新元继宪政 · 皇嗣文仁亲王悠仁受瞩目",
+      "pos": [
+        1440,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "2019-至今 · 令和时代"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "大和王权与神话肇基 (前660-592年)",
+      "wraps": [
+        "jimmu",
+        "sujin",
+        "ojin",
+        "nintoku",
+        "keitai"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "飞鸟奈良与律令革新 (592-794年)",
+      "wraps": [
+        "suiko",
+        "shotoku",
+        "tenji",
+        "tenmu",
+        "jito"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "平安盛世与院政治天 (794-1185年)",
+      "wraps": [
+        "gemmei",
+        "shomu",
+        "kanmu",
+        "saga",
+        "shirakawa"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "武家崛起与南北两统 (1185-1557年)",
+      "wraps": [
+        "gotoba",
+        "godaigo",
+        "kogon",
+        "gokomatsu",
+        "gotsuchimikado"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "织丰复苏与江户禁中 (1557-1867年)",
+      "wraps": [
+        "ogimachi",
+        "gomizunoo",
+        "kokaku",
+        "komei"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "近代立宪与现代象征 (1867年至今)",
+      "wraps": [
+        "meiji",
+        "taisho",
+        "showa",
+        "akihito",
+        "naruhito"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-jimmu-sujin",
+      "from": "jimmu",
+      "to": "sujin",
+      "label": "崇神称御肇国",
+      "variant": "default"
+    },
+    {
+      "id": "c-sujin-ojin",
+      "from": "sujin",
+      "to": "ojin",
+      "label": "大陆渡来与汉字入日",
+      "variant": "default"
+    },
+    {
+      "id": "c-ojin-nintoku",
+      "from": "ojin",
+      "to": "nintoku",
+      "label": "父子相承仁政圣帝",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-nintoku-keitai",
+      "from": "nintoku",
+      "to": "keitai",
+      "label": "越前应诏旁系还统",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-keitai-suiko",
+      "from": "keitai",
+      "to": "suiko",
+      "label": "开创飞鸟时代首位女帝",
+      "variant": "default"
+    },
+    {
+      "id": "c-suiko-shotoku",
+      "from": "suiko",
+      "to": "shotoku",
+      "label": "皇侄摄政十七条宪法",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shotoku-tenji",
+      "from": "shotoku",
+      "to": "tenji",
+      "label": "乙巳之变诛苏我氏",
+      "variant": "security"
+    },
+    {
+      "id": "c-tenji-tenmu",
+      "from": "tenji",
+      "to": "tenmu",
+      "label": "壬申之乱兄弟夺位",
+      "variant": "security"
+    },
+    {
+      "id": "c-tenmu-jito",
+      "from": "tenmu",
+      "to": "jito",
+      "label": "皇后即位建藤原京",
+      "variant": "default"
+    },
+    {
+      "id": "c-jito-gemmei",
+      "from": "jito",
+      "to": "gemmei",
+      "label": "平城迁都奈良时代",
+      "variant": "default"
+    },
+    {
+      "id": "c-gemmei-shomu",
+      "from": "gemmei",
+      "to": "shomu",
+      "label": "东大寺卢舍那大佛",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shomu-kanmu",
+      "from": "shomu",
+      "to": "kanmu",
+      "label": "迁都平安新京",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-kanmu-saga",
+      "from": "kanmu",
+      "to": "saga",
+      "label": "弘仁治世赐姓源氏",
+      "variant": "default"
+    },
+    {
+      "id": "c-saga-shirakawa",
+      "from": "saga",
+      "to": "shirakawa",
+      "label": "开创治天之君院政",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shirakawa-gotoba",
+      "from": "shirakawa",
+      "to": "gotoba",
+      "label": "承久之乱讨幕失败",
+      "variant": "security"
+    },
+    {
+      "id": "c-gotoba-godaigo",
+      "from": "gotoba",
+      "to": "godaigo",
+      "label": "建武中兴楠木勤王",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-godaigo-kogon",
+      "from": "godaigo",
+      "to": "kogon",
+      "label": "大觉寺与持明院对立",
+      "variant": "security"
+    },
+    {
+      "id": "c-kogon-gokomatsu",
+      "from": "kogon",
+      "to": "gokomatsu",
+      "label": "足利义满明德合一",
+      "variant": "default"
+    },
+    {
+      "id": "c-gokomatsu-gotsuchimikado",
+      "from": "gokomatsu",
+      "to": "gotsuchimikado",
+      "label": "应仁之乱皇室寒冬",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-gotsuchimikado-ogimachi",
+      "from": "gotsuchimikado",
+      "to": "ogimachi",
+      "label": "信长秀吉上洛尊皇",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-ogimachi-gomizunoo",
+      "from": "ogimachi",
+      "to": "gomizunoo",
+      "label": "禁中法度紫衣抗命",
+      "variant": "security"
+    },
+    {
+      "id": "c-gomizunoo-kokaku",
+      "from": "gomizunoo",
+      "to": "kokaku",
+      "label": "闲院宫入继近世中兴",
+      "variant": "default"
+    },
+    {
+      "id": "c-kokaku-komei",
+      "from": "kokaku",
+      "to": "komei",
+      "label": "黑船来航尊王攘夷",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-komei-meiji",
+      "from": "komei",
+      "to": "meiji",
+      "label": "明治维新建立近代帝国",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-meiji-taisho",
+      "from": "meiji",
+      "to": "taisho",
+      "label": "大正民主政党政治",
+      "variant": "default"
+    },
+    {
+      "id": "c-taisho-showa",
+      "from": "taisho",
+      "to": "showa",
+      "label": "对外战争到象征天皇",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-showa-akihito",
+      "from": "showa",
+      "to": "akihito",
+      "label": "平成和平生前退位",
+      "variant": "default"
+    },
+    {
+      "id": "c-akihito-naruhito",
+      "from": "akihito",
+      "to": "naruhito",
+      "label": "令和改元今上德仁",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "万世一系神话与大化改新律令制",
+      "items": [
+        "传说始于公元前660年神武天皇辛酉即位，经应神、仁德大和王权奠定，至大化改新建立律令制中央集权国家",
+        "圣德太子推行《十七条宪法》与冠位十二阶，派遣遣隋使小野妹子建构平等外交，飞鸟佛法文化高度繁荣",
+        "天武天皇在壬申之乱后正式确立'天皇'尊号与八色之姓，元明天皇平城迁都，圣武天皇铸东大寺大佛达天平盛世"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "平安院政、武家夺权与南北两统",
+      "items": [
+        "桓武天皇迁都平安京摆脱南都僧侣干政，白河天皇开创'治天之君'院政体制架空藤原摄关家，权倾一时",
+        "镰仓幕府建立后武家夺权，后鸟羽天皇承久之乱讨幕失败流放，后嵯峨天皇分立大觉寺统与持明院统埋分裂祸根",
+        "后醍醐天皇发动建武中兴灭镰仓，旋遭足利尊氏反扑引发半世纪南北朝对立，室町三代足利义满终促成明德合一"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "战国严冬、明治维新与现代象征天皇",
+      "items": [
+        "应仁之乱后皇室穷困潦倒，至织田信长、丰臣秀吉上洛尊皇方获经济与朝廷权威复苏；江户幕府颁布禁中法度严加管束",
+        "黑船来航激起尊王攘夷狂潮，明治天皇借倒幕运动重掌大权，推行明治维新、富国强兵，建立近代立宪君主帝国",
+        "二战战败后昭和天皇发表《人间宣言》，日本国宪法确立天皇为'日本国及日本国民整合之象征'，平成明仁首开生前退位先河"
+      ]
+    }
+  ]
+}
