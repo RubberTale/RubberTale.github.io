@@ -4868,19 +4868,94 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       svg [data-node-id], svg [data-edge-from], svg [data-detail], svg [data-detail-anchor], svg [data-legend-hit], svg { transition: none !important; }
     }
   
-<style>
-/* 针对性增强卡片内部排版呼吸感与正文层次 */
-svg text {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif !important;
-}
-.arch-card {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
-  border-radius: 12px !important;
-}
-.arch-sublabel {
-  letter-spacing: 0.2px !important;
-}
-</style>
+  /* === Desktop Readability & Full Width Enhancements === */
+  .container {
+    width: 98% !important;
+    max-width: 1680px !important;
+    margin: 0 auto !important;
+  }
+  .diagram-container {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    padding: 1.5rem !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .diagram-container > svg {
+    min-width: 1140px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+  html[data-reader-narrow="true"]:not([data-present="true"]) .diagram-container > svg {
+    min-width: 1140px !important;
+    max-width: 100% !important;
+  }
+  /* Large Font Size Overrides */
+  svg text {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif !important;
+  }
+  svg text[data-node-label] {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+  }
+  svg text[data-detail="context"],
+  svg text[data-detail="context"] tspan {
+    font-size: 10.6px !important;
+    font-weight: 500 !important;
+  }
+  svg text[data-detail="fine"] {
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+  }
+  svg text[data-boundary-label] {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+  }
+  svg text.t-edge-default,
+  svg text.t-edge-emphasis,
+  svg text.t-edge-security,
+  svg text.t-edge-dashed {
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+  }
+  .arch-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 12px !important;
+  }
+  .arch-sublabel {
+    letter-spacing: 0.2px !important;
+  }
+  /* Floating Back to Hub Button */
+  .btn-back-home {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(18, 20, 26, 0.88);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 9999px;
+    color: #e6c656;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: all 0.25s ease;
+  }
+  .btn-back-home:hover {
+    border-color: #d4af37;
+    color: #f3e5ab;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.3);
+  }
 
 </style>
 </head>

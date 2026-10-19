@@ -4888,6 +4888,46 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     display: block !important;
     margin: 0 auto !important;
   }
+  html[data-reader-narrow="true"]:not([data-present="true"]) .diagram-container > svg {
+    min-width: 1140px !important;
+    max-width: 100% !important;
+  }
+  /* Large Font Size Overrides */
+  svg text {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif !important;
+  }
+  svg text[data-node-label] {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+  }
+  svg text[data-detail="context"],
+  svg text[data-detail="context"] tspan {
+    font-size: 10.6px !important;
+    font-weight: 500 !important;
+  }
+  svg text[data-detail="fine"] {
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+  }
+  svg text[data-boundary-label] {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+  }
+  svg text.t-edge-default,
+  svg text.t-edge-emphasis,
+  svg text.t-edge-security,
+  svg text.t-edge-dashed {
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+  }
+  .arch-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 12px !important;
+  }
+  .arch-sublabel {
+    letter-spacing: 0.2px !important;
+  }
   .btn-back-home {
     position: fixed;
     bottom: 24px;
