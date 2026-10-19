@@ -290,6 +290,263 @@
       }
     }
   </style>
+<style id="dynasty-dock-style">
+/* === Dynasty Bottom Navigation Dock === */
+.dynasty-bottom-dock {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9998;
+  max-width: min(96vw, 1320px);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  user-select: none;
+  pointer-events: auto;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hide legacy floating back button to prevent visual collisions */
+.btn-back-home {
+  display: none !important;
+}
+
+.dynasty-bottom-dock .dock-container {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  background: rgba(13, 17, 23, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 9999px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.65), 0 0 16px rgba(212, 175, 55, 0.15);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.dynasty-bottom-dock .dock-side-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dynasty-bottom-dock .dock-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+.dynasty-bottom-dock .dock-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c9d1d9;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.dynasty-bottom-dock .dock-pill-btn:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: rgba(212, 175, 55, 0.5);
+  color: #f3e5ab;
+  transform: translateY(-1px);
+}
+
+.dynasty-bottom-dock .dock-hub-btn {
+  color: #e6c656;
+  border-color: rgba(212, 175, 55, 0.28);
+}
+.dynasty-bottom-dock .dock-hub-btn.active {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.4) 0%, rgba(180, 135, 20, 0.25) 100%);
+  border-color: #d4af37;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+}
+
+.dynasty-bottom-dock .dock-step-btn {
+  color: #e6c656;
+  font-size: 12px;
+  padding: 5px 9px;
+}
+
+.dynasty-bottom-dock .dock-step-btn.is-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: transparent;
+  border-color: transparent;
+}
+
+.dynasty-bottom-dock .dock-toggle-btn {
+  padding: 5px 8px;
+  color: #8b949e;
+  border-color: transparent;
+  background: transparent;
+}
+.dynasty-bottom-dock .dock-toggle-btn:hover {
+  color: #f0f6fc;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Timeline scroll track */
+.dynasty-bottom-dock .dock-timeline-track {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 2px 4px;
+  max-width: min(58vw, 820px);
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dynasty-bottom-dock .dock-timeline-track::-webkit-scrollbar {
+  display: none;
+}
+
+.dynasty-bottom-dock .dock-dynasty-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8b949e;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1.2;
+}
+
+.dynasty-bottom-dock .dock-dynasty-chip:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: rgba(212, 175, 55, 0.45);
+  color: #f3e5ab;
+  transform: translateY(-1px);
+}
+
+/* Active current dynasty chip */
+.dynasty-bottom-dock .dock-dynasty-chip.active {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.38) 0%, rgba(180, 135, 20, 0.22) 100%);
+  border-color: #d4af37;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+  position: relative;
+}
+
+/* Collapsed mini bubble */
+.dynasty-bottom-dock .dock-mini-bubble {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px 5px 12px;
+  background: rgba(13, 17, 23, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.15);
+}
+
+.dynasty-bottom-dock .dock-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #f0f6fc;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.dynasty-bottom-dock .dock-mini-icon {
+  font-size: 13px;
+}
+
+.dynasty-bottom-dock .dock-mini-badge {
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #e6c656;
+  font-size: 11px;
+}
+
+.dynasty-bottom-dock .dock-mini-hub-btn {
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #8b949e;
+  font-size: 11px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.dynasty-bottom-dock .dock-mini-hub-btn:hover {
+  color: #e6c656;
+  background: rgba(212, 175, 55, 0.15);
+}
+
+/* Collapsed state modifier */
+.dynasty-bottom-dock.is-collapsed .dock-container {
+  display: none;
+}
+.dynasty-bottom-dock.is-collapsed .dock-mini-bubble {
+  display: flex;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .dynasty-bottom-dock .dock-timeline-track {
+    max-width: 48vw;
+  }
+}
+
+@media (max-width: 680px) {
+  .dynasty-bottom-dock {
+    bottom: 10px;
+    max-width: 98vw;
+  }
+  .dynasty-bottom-dock .dock-container {
+    padding: 5px 8px;
+    gap: 5px;
+  }
+  .dynasty-bottom-dock .dock-home-btn {
+    display: none;
+  }
+  .dynasty-bottom-dock .dock-timeline-track {
+    max-width: 42vw;
+  }
+  .dynasty-bottom-dock .dock-pill-btn {
+    font-size: 11.5px;
+    padding: 4px 7px;
+  }
+  .dynasty-bottom-dock .dock-dynasty-chip {
+    font-size: 11.5px;
+    padding: 3px 8px;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="container">
@@ -783,5 +1040,113 @@
     </svg>
     <span>返回博客首页</span>
   </a>
+<!-- === 历代帝王谱系 底部快捷时序导航栏 === -->
+<nav class="dynasty-bottom-dock" id="dynastyBottomDock" aria-label="朝代时序快捷跳转导航">
+  <div class="dock-container">
+    <div class="dock-side-group">
+      <a href="/genealogy/" class="dock-pill-btn dock-hub-btn active" title="返回历代帝系总览">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>总览</span>
+      </a>
+      <a href="/" class="dock-pill-btn dock-home-btn" title="返回博客首页">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      </a>
+    </div>
+
+    <div class="dock-divider"></div>
+
+    <span class="dock-pill-btn dock-step-btn is-disabled" title="无更早朝代"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg><span>上一朝</span></span>
+
+    <div class="dock-timeline-track" id="dockTimelineTrack">
+      <a href="/genealogy/xia-shang/" class="dock-dynasty-chip" data-id="xia-shang" title="夏商早期王朝世系 (前2070-前1046)">夏商</a>
+      <a href="/genealogy/zhou/" class="dock-dynasty-chip" data-id="zhou" title="两周八百年世系 (前1046-前256)">两周</a>
+      <a href="/genealogy/qin/" class="dock-dynasty-chip" data-id="qin" title="大秦帝国与楚汉 (前221-前202)">大秦</a>
+      <a href="/genealogy/han/" class="dock-dynasty-chip" data-id="han" title="两汉四百年帝系 (前202-220)">两汉</a>
+      <a href="/genealogy/sanguo/" class="dock-dynasty-chip" data-id="sanguo" title="三国鼎立争霸 (220-280)">三国</a>
+      <a href="/genealogy/jin/" class="dock-dynasty-chip" data-id="jin" title="两晋十五帝宗谱 (265-420)">两晋</a>
+      <a href="/genealogy/nanbeichao/" class="dock-dynasty-chip" data-id="nanbeichao" title="南北朝全景谱系 (386-589)">南北朝</a>
+      <a href="/genealogy/sui/" class="dock-dynasty-chip" data-id="sui" title="大隋王朝与隋末 (581-618)">大隋</a>
+      <a href="/genealogy/tang/" class="dock-dynasty-chip" data-id="tang" title="大唐二十一帝谱 (618-907)">大唐</a>
+      <a href="/genealogy/wudai/" class="dock-dynasty-chip" data-id="wudai" title="五代十国鼎革谱 (907-979)">五代</a>
+      <a href="/genealogy/liao/" class="dock-dynasty-chip" data-id="liao" title="大辽九帝契丹全景 (916-1125)">大辽</a>
+      <a href="/genealogy/dajin/" class="dock-dynasty-chip" data-id="dajin" title="大金十帝女真全景 (1115-1234)">大金</a>
+      <a href="/genealogy/xixia/" class="dock-dynasty-chip" data-id="xixia" title="西夏十主党项全景 (1038-1227)">西夏</a>
+      <a href="/genealogy/song/" class="dock-dynasty-chip" data-id="song" title="大宋十八帝谱系 (960-1279)">大宋</a>
+      <a href="/genealogy/yuan/" class="dock-dynasty-chip" data-id="yuan" title="大元帝国蒙古全景 (1206-1368)">大元</a>
+      <a href="/genealogy/ming/" class="dock-dynasty-chip" data-id="ming" title="大明十六帝谱系 (1368-1662)">大明</a>
+      <a href="/genealogy/qing/" class="dock-dynasty-chip" data-id="qing" title="大清十二帝谱系 (1616-1912)">大清</a>
+      <a href="/genealogy/europe/" class="dock-dynasty-chip" data-id="europe" title="欧洲王室血统谱系与跨国联姻">欧洲王室</a>
+    </div>
+
+    <span class="dock-pill-btn dock-step-btn is-disabled" title="无后续朝代"><span>下一朝</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+
+    <div class="dock-divider"></div>
+
+    <button type="button" class="dock-pill-btn dock-toggle-btn" id="dockCollapseBtn" title="收起导航栏" aria-label="收起导航栏">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+  </div>
+
+  <div class="dock-mini-bubble" id="dockMiniBubble">
+    <button type="button" class="dock-mini-btn" id="dockExpandBtn" title="展开朝代时序导航">
+      <span class="dock-mini-icon">👑</span>
+      <span class="dock-mini-title">朝代跳转</span>
+      <span class="dock-mini-badge">帝系总览</span>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+    <a href="/genealogy/" class="dock-mini-hub-btn" title="返回历代帝系总览">总览</a>
+  </div>
+</nav>
+
+<script id="dynasty-dock-script">
+(function() {
+  var dock = document.getElementById('dynastyBottomDock');
+  if (!dock) return;
+  var track = document.getElementById('dockTimelineTrack');
+  var collapseBtn = document.getElementById('dockCollapseBtn');
+  var expandBtn = document.getElementById('dockExpandBtn');
+
+  function centerActiveChip() {
+    if (!track) return;
+    var activeChip = track.querySelector('.dock-dynasty-chip.active');
+    if (activeChip) {
+      var scrollPos = activeChip.offsetLeft - (track.clientWidth / 2) + (activeChip.clientWidth / 2);
+      track.scrollTo({ left: Math.max(0, scrollPos), behavior: 'smooth' });
+    }
+  }
+
+  try {
+    if (localStorage.getItem('dynasty_dock_collapsed') === '1') {
+      dock.classList.add('is-collapsed');
+    }
+  } catch(e) {}
+
+  if (collapseBtn) {
+    collapseBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dock.classList.add('is-collapsed');
+      try { localStorage.setItem('dynasty_dock_collapsed', '1'); } catch(e) {}
+    });
+  }
+
+  if (expandBtn) {
+    expandBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dock.classList.remove('is-collapsed');
+      try { localStorage.setItem('dynasty_dock_collapsed', '0'); } catch(e) {}
+      setTimeout(centerActiveChip, 150);
+    });
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(centerActiveChip, 200);
+  } else {
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(centerActiveChip, 200);
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
