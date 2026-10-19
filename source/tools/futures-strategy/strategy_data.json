@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-10-16",
-  "generated_time": "2026-10-16 07:15:04",
+  "updated_at": "2026-10-19",
+  "generated_time": "2026-10-19 07:15:04",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "商品与股指策略研讨会（2026-10-18 最新研判）",
@@ -11,20 +11,20 @@
   },
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 995660.0,
-    "net_value": 0.9957,
-    "total_return_pct": -0.43,
-    "max_drawdown_pct": 1.88,
+    "final_equity": 978610.0,
+    "net_value": 0.9786,
+    "total_return_pct": -2.14,
+    "max_drawdown_pct": 2.71,
     "win_rate": 0.0,
     "profit_loss_ratio": 0.0,
-    "total_trades": 1,
-    "open_positions_count": 1,
-    "available_slots": 5,
-    "total_margin": 93600.0,
-    "margin_ratio_pct": 9.4,
-    "risk_ratio_pct": 9.4,
-    "available_cash": 902060.0,
-    "market_status": "正在持仓 (1个品种在持，总保证金占用 93600.0元)"
+    "total_trades": 2,
+    "open_positions_count": 2,
+    "available_slots": 4,
+    "total_margin": 135975.0,
+    "margin_ratio_pct": 13.89,
+    "risk_ratio_pct": 13.89,
+    "available_cash": 842635.0,
+    "market_status": "正在持仓 (2个品种在持，总保证金占用 135975.0元)"
   },
   "radar_signals": [
     {
@@ -70,9 +70,9 @@
       "margin_rate": 15.0,
       "estimated_margin": 42750.0,
       "risk_reward_ratio": 3.5,
-      "status": "WAITING",
-      "status_text": "待触发 (极低库存防逼仓)",
-      "trigger_date": null,
+      "status": "TRIGGERED",
+      "status_text": "已触发进场 (2026-10-19)",
+      "trigger_date": "2026-10-19",
       "logic": "柴油紧张及发电溢价，高硫油库存极低，11月份大概率面临逼仓行情，空头交割风险严峻，严禁做空。"
     },
     {
@@ -142,9 +142,9 @@
       "margin_rate": 15.0,
       "estimated_margin": 108750.0,
       "risk_reward_ratio": 2.5,
-      "status": "WAITING",
-      "status_text": "待触发 (地缘溢价支撑)",
-      "trigger_date": null,
+      "status": "TRIGGERED",
+      "status_text": "已触发进场 (2026-10-19)",
+      "trigger_date": "2026-10-19",
       "logic": "美油增产到顶+OPEC+暂停增产，美伊冲突严峻致抛储落空，霍尔木兹海峡局势紧张，维持偏强思路。"
     },
     {
@@ -347,17 +347,38 @@
       "lots": 1,
       "entry_date": "2026-09-28",
       "entry_price": 904.66,
-      "current_price": 901.82,
+      "current_price": 902.42,
       "stop_price": 755.0,
       "tp_price_1": 815.0,
       "tp_price_2": 820.0,
       "multiplier": 1000,
       "margin_rate": 12.0,
       "position_margin": 93600.0,
-      "hold_days": 11,
-      "unrealized_pnl": -2840.0,
-      "return_pct": -3.03,
+      "hold_days": 12,
+      "unrealized_pnl": -2240.0,
+      "return_pct": -2.39,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
+    },
+    {
+      "id": "POS-FU2611-2026-10-19",
+      "symbol": "FU",
+      "name": "高硫燃料油",
+      "contract": "FU2611",
+      "direction": "做多",
+      "lots": 5,
+      "entry_date": "2026-10-19",
+      "entry_price": 5650.0,
+      "current_price": 5797.0,
+      "stop_price": 5480.0,
+      "tp_price_1": 5950.0,
+      "tp_price_2": 6150.0,
+      "multiplier": 10,
+      "margin_rate": 15.0,
+      "position_margin": 42375.0,
+      "hold_days": 2,
+      "unrealized_pnl": 7350.0,
+      "return_pct": 17.35,
+      "logic": "柴油紧张及发电溢价，高硫油库存极低，11月份大概率面临逼仓行情，空头交割风险严峻，严禁做空。"
     }
   ],
   "closed_trades": [
@@ -373,6 +394,21 @@
       "entry_price": 60.0,
       "exit_price": 0.0,
       "pnl": -1500.0,
+      "reason": "触碰止损线",
+      "hold_days": 2
+    },
+    {
+      "id": "POS-SC2612-2026-10-19",
+      "symbol": "SC",
+      "name": "原油主力",
+      "contract": "SC2612",
+      "direction": "做多",
+      "lots": 1,
+      "entry_date": "2026-10-19",
+      "exit_date": "2026-10-19",
+      "entry_price": 725.0,
+      "exit_price": 700.0,
+      "pnl": -25000.0,
       "reason": "触碰止损线",
       "hold_days": 2
     }
@@ -498,6 +534,17 @@
       "margin_used": 93600.0,
       "risk_ratio": 9.4,
       "remark": "收盘盯市：新触发开仓 0 笔，平仓 0 笔"
+    },
+    {
+      "date": "2026-10-19",
+      "net_value": 0.9786,
+      "equity": 978610.0,
+      "daily_pnl": -19890.0,
+      "drawdown": 2.71,
+      "open_positions": 2,
+      "margin_used": 135975.0,
+      "risk_ratio": 13.89,
+      "remark": "收盘盯市：新触发开仓 2 笔，平仓 1 笔"
     }
   ],
   "daily_settlement_log": [
@@ -621,6 +668,17 @@
       "daily_mtm_pnl": -2840.0,
       "cumulative_equity": 995660.0,
       "risk_status": "安全"
+    },
+    {
+      "date": "2026-10-19",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-10-19 盘后逐日盯市结算",
+      "content": "当日新触发开仓 2 笔，触碰平仓 1 笔。在持仓位 2 个，浮动盈亏 5110.0 元，账户最新净值 0.9786。",
+      "triggered_entries": 2,
+      "triggered_exits": 1,
+      "daily_mtm_pnl": -19890.0,
+      "cumulative_equity": 978610.0,
+      "risk_status": "安全"
     }
   ],
   "accounting_ledger": [
@@ -682,6 +740,51 @@
       "commission": 30.0,
       "realized_pnl": -1500.0,
       "balance": 958820.0,
+      "note": "平仓：触碰止损线"
+    },
+    {
+      "index": 5,
+      "date": "2026-10-19",
+      "action": "OPEN_POSITION",
+      "symbol": "FU",
+      "contract": "FU2611",
+      "direction": "做多",
+      "price": 5650.0,
+      "lots": 5,
+      "amount": 42375.0,
+      "commission": 30.0,
+      "realized_pnl": 0.0,
+      "balance": 859685.0,
+      "note": "触发开仓条件：盘中回踩 ≤ 5650.0 元/吨触发买入"
+    },
+    {
+      "index": 6,
+      "date": "2026-10-19",
+      "action": "OPEN_POSITION",
+      "symbol": "SC",
+      "contract": "SC2612",
+      "direction": "做多",
+      "price": 725.0,
+      "lots": 1,
+      "amount": 108750.0,
+      "commission": 30.0,
+      "realized_pnl": 0.0,
+      "balance": 793310.0,
+      "note": "触发开仓条件：盘中回踩 ≤ 725.0 元/桶触发买入"
+    },
+    {
+      "index": 7,
+      "date": "2026-10-19",
+      "action": "CLOSE_POSITION",
+      "symbol": "SC",
+      "contract": "SC2612",
+      "direction": "做多",
+      "price": 700.0,
+      "lots": 1,
+      "amount": 108750.0,
+      "commission": 30.0,
+      "realized_pnl": -25000.0,
+      "balance": 985810.0,
       "note": "平仓：触碰止损线"
     }
   ]
