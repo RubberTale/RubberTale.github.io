@@ -1,22 +1,80 @@
 /* Custom Desktop Navigation Enhancements */
 @media screen and (min-width: 769px) {
+  /* 1. Ensure nav items fill the entire navbar height (60px) to eliminate vertical blank zones */
+  #nav #menus {
+    display: flex !important;
+    align-items: center !important;
+    height: 60px !important;
+  }
+
+  #nav .menus_items {
+    display: inline-flex !important;
+    align-items: stretch !important;
+    height: 60px !important;
+  }
+
+  #nav .menus_items .menus_item {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 60px !important;
+    padding: 0 0 0 14px !important;
+    position: relative !important;
+  }
+
+  /* 2. Hover Safety Bridge: Invisible hitbox covering the threshold zone to prevent mouseleave drops */
+  #nav .menus_items .menus_item:hover::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: -20px !important;
+    right: -20px !important;
+    height: 25px !important;
+    z-index: 98 !important;
+    pointer-events: auto !important;
+  }
+
+  /* 3. Seamless Dropdown Menu:
+        - Snap directly to the bottom of the nav bar (top: 100%, margin-top: 0)
+        - Disable translateY animation that causes the dropdown to lag away from the cursor
+        - Add safe max-height and custom golden scrollbar
+  */
   #nav .menus_item_child {
-    max-height: calc(100vh - 85px);
-    overflow-y: auto;
+    top: 100% !important;
+    margin-top: 0 !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    z-index: 99 !important;
+    padding: 6px 0 !important;
+    max-height: calc(100vh - 75px) !important;
+    overflow-y: auto !important;
     scrollbar-width: thin;
     scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
   }
+
   #nav .menus_item_child::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
   }
+
   #nav .menus_item_child::-webkit-scrollbar-track {
     background: transparent;
   }
+
   #nav .menus_item_child::-webkit-scrollbar-thumb {
     background: rgba(212, 175, 55, 0.4);
     border-radius: 4px;
   }
+
   #nav .menus_item_child::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 175, 55, 0.7);
+    background: rgba(212, 175, 55, 0.75);
+  }
+
+  #nav .menus_item_child li {
+    transition: background-color 0.15s ease;
+  }
+
+  #nav .menus_item_child li a {
+    white-space: nowrap !important;
+    padding: 8px 18px !important;
   }
 }
