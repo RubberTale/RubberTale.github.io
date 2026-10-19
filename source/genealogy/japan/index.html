@@ -4871,7 +4871,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   /* === Desktop Readability & Full Width Enhancements === */
   .container {
     width: 98% !important;
-    max-width: 1720px !important;
+    max-width: 1680px !important;
     margin: 0 auto !important;
   }
   .diagram-container {
@@ -4902,6 +4902,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   svg text[data-detail="fine"] {
     font-size: 9.5px !important;
     font-weight: 600 !important;
+  }
+  svg text[data-boundary-label] {
+    font-size: 12px !important;
+    font-weight: 700 !important;
   }
 
 </style>
@@ -5282,7 +5286,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / 图版 04">
-      <svg viewBox="0 0 1720 702" role="img" lang="zh-CN" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" data-reader-primary-text="14">
+      <svg viewBox="0 0 1160 1062" role="img" lang="zh-CN" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase" data-reader-fit="intrinsic-height" data-reader-min-text="7.5" data-reader-primary-text="14">
         <title id="archify-diagram-title">日本皇室万世一系与天皇家全景谱系</title>
         <desc id="archify-diagram-description">两千六百年神话肇基飞鸟奈良平安院政至近代立宪与现代象征天皇家全览</desc>
         <!-- Definitions -->
@@ -5308,17 +5312,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Boundaries (behind everything) -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="大和王权与神话肇基 (前660-592年)" x="10" y="30" width="270" height="604" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="大和古坟与飞鸟圣德 (前660-628年)" x="10" y="30" width="270" height="844" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="1" data-composition-frame-label="飞鸟奈良与律令革新 (592-794年)" x="290" y="30" width="270" height="604" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="1" data-composition-frame-label="律令确立与奈良平安 (668-823年)" x="290" y="30" width="270" height="844" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="2" data-composition-frame-label="平安盛世与院政治天 (794-1185年)" x="570" y="30" width="270" height="604" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="2" data-composition-frame-label="院政治天与南北两统 (1073-1586年)" x="570" y="30" width="270" height="844" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="3" data-composition-frame-label="武家崛起与南北两统 (1185-1557年)" x="850" y="30" width="270" height="604" rx="12" class="c-region" stroke-width="1"/>
-
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="4" data-composition-frame-label="织丰复苏与江户禁中 (1557-1867年)" x="1130" y="30" width="270" height="484" rx="12" class="c-region" stroke-width="1"/>
-
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="5" data-composition-frame-label="近代立宪与现代象征 (1867年至今)" x="1410" y="30" width="270" height="604" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="3" data-composition-frame-label="江户禁中与近代立宪象征 (1611年至今)" x="850" y="30" width="270" height="964" rx="12" class="c-region" stroke-width="1"/>
 
         <!-- Connection paths (before components for correct z-order) -->
         <g data-graph-role="automatic-crossover" style="--step:0">
@@ -5334,108 +5334,108 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <path data-edge-from="ojin" data-edge-to="nintoku" data-edge-label="父子相承仁政圣帝" data-edge-key="2" data-edge-id="c-ojin-nintoku" data-composition-points="145,374;145,420" data-composition-crossover="halo" data-composition-independent="true" d="M 145 374 L 145 420" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:3">
-          <path data-graph-role="automatic-crossover-underlay" d="M 138 494 L 138 540" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="nintoku" data-edge-to="keitai" data-edge-label="越前应诏旁系还统" data-edge-key="3" data-edge-id="c-nintoku-keitai" data-composition-points="138,494;138,540" data-composition-crossover="halo" data-composition-independent="true" d="M 138 494 L 138 540" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 145 494 L 145 540" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="nintoku" data-edge-to="keitai" data-edge-label="越前应诏旁系还统" data-edge-key="3" data-edge-id="c-nintoku-keitai" data-composition-points="145,494;145,540" data-composition-crossover="halo" data-composition-independent="true" d="M 145 494 L 145 540" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:4">
-          <path data-graph-role="automatic-crossover-underlay" d="M 250 577 L 277 577 Q 285 577 285 569 L 285 105 Q 285 97 293 97 L 320 97" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="keitai" data-edge-to="suiko" data-edge-label="开创飞鸟时代首位女帝" data-edge-key="4" data-edge-id="c-keitai-suiko" data-composition-points="250,577;285,577;285,97;320,97" data-composition-crossover="halo" data-composition-independent="true" d="M 250 577 L 277 577 Q 285 577 285 569 L 285 105 Q 285 97 293 97 L 320 97" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 145 614 L 145 660" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="keitai" data-edge-to="suiko" data-edge-label="开创飞鸟时代首位女帝" data-edge-key="4" data-edge-id="c-keitai-suiko" data-composition-points="145,614;145,660" data-composition-crossover="halo" data-composition-independent="true" d="M 145 614 L 145 660" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:5">
-          <path data-graph-role="automatic-crossover-underlay" d="M 433.05 134 L 433.05 180" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="suiko" data-edge-to="shotoku" data-edge-label="皇侄摄政十七条宪法" data-edge-key="5" data-edge-id="c-suiko-shotoku" data-composition-points="433.05,134;433.05,180" data-composition-crossover="halo" data-composition-independent="true" d="M 433.05 134 L 433.05 180" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 136.95 734 L 136.95 780" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="suiko" data-edge-to="shotoku" data-edge-label="皇侄摄政十七条宪法" data-edge-key="5" data-edge-id="c-suiko-shotoku" data-composition-points="136.95,734;136.95,780" data-composition-crossover="halo" data-composition-independent="true" d="M 136.95 734 L 136.95 780" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:6">
-          <path data-graph-role="automatic-crossover-underlay" d="M 425 254 L 425 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="shotoku" data-edge-to="tenji" data-edge-label="乙巳之变诛苏我氏" data-edge-key="6" data-edge-id="c-shotoku-tenji" data-composition-points="425,254;425,300" data-composition-crossover="halo" data-composition-independent="true" d="M 425 254 L 425 300" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 250 817 L 277 817 Q 285 817 285 809 L 285 105 Q 285 97 293 97 L 320 97" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="shotoku" data-edge-to="tenji" data-edge-label="乙巳之变诛苏我氏" data-edge-key="6" data-edge-id="c-shotoku-tenji" data-composition-points="250,817;285,817;285,97;320,97" data-composition-crossover="halo" data-composition-independent="true" d="M 250 817 L 277 817 Q 285 817 285 809 L 285 105 Q 285 97 293 97 L 320 97" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:7">
-          <path data-graph-role="automatic-crossover-underlay" d="M 425 374 L 425 420" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="tenji" data-edge-to="tenmu" data-edge-label="壬申之乱兄弟夺位" data-edge-key="7" data-edge-id="c-tenji-tenmu" data-composition-points="425,374;425,420" data-composition-crossover="halo" data-composition-independent="true" d="M 425 374 L 425 420" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 432 134 L 432 180" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="tenji" data-edge-to="tenmu" data-edge-label="壬申之乱兄弟夺位" data-edge-key="7" data-edge-id="c-tenji-tenmu" data-composition-points="432,134;432,180" data-composition-crossover="halo" data-composition-independent="true" d="M 432 134 L 432 180" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:8">
-          <path data-graph-role="automatic-crossover-underlay" d="M 418 494 L 418 540" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="tenmu" data-edge-to="jito" data-edge-label="皇后即位建藤原京" data-edge-key="8" data-edge-id="c-tenmu-jito" data-composition-points="418,494;418,540" data-composition-crossover="halo" data-composition-independent="true" d="M 418 494 L 418 540" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 425 254 L 425 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="tenmu" data-edge-to="jito" data-edge-label="皇后即位建藤原京" data-edge-key="8" data-edge-id="c-tenmu-jito" data-composition-points="425,254;425,300" data-composition-crossover="halo" data-composition-independent="true" d="M 425 254 L 425 300" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:9">
-          <path data-graph-role="automatic-crossover-underlay" d="M 530 577 L 557 577 Q 565 577 565 569 L 565 105 Q 565 97 573 97 L 600 97" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="jito" data-edge-to="gemmei" data-edge-label="平城迁都奈良时代" data-edge-key="9" data-edge-id="c-jito-gemmei" data-composition-points="530,577;565,577;565,97;600,97" data-composition-crossover="halo" data-composition-independent="true" d="M 530 577 L 557 577 Q 565 577 565 569 L 565 105 Q 565 97 573 97 L 600 97" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 425 374 L 425 420" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="jito" data-edge-to="gemmei" data-edge-label="平城迁都奈良时代" data-edge-key="9" data-edge-id="c-jito-gemmei" data-composition-points="425,374;425,420" data-composition-crossover="halo" data-composition-independent="true" d="M 425 374 L 425 420" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:10">
-          <path data-graph-role="automatic-crossover-underlay" d="M 713.05 134 L 713.05 180" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gemmei" data-edge-to="shomu" data-edge-label="东大寺卢舍那大佛" data-edge-key="10" data-edge-id="c-gemmei-shomu" data-composition-points="713.05,134;713.05,180" data-composition-crossover="halo" data-composition-independent="true" d="M 713.05 134 L 713.05 180" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 425 494 L 425 540" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="gemmei" data-edge-to="shomu" data-edge-label="东大寺卢舍那大佛" data-edge-key="10" data-edge-id="c-gemmei-shomu" data-composition-points="425,494;425,540" data-composition-crossover="halo" data-composition-independent="true" d="M 425 494 L 425 540" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:11">
-          <path data-graph-role="automatic-crossover-underlay" d="M 705 254 L 705 300" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="shomu" data-edge-to="kanmu" data-edge-label="迁都平安新京" data-edge-key="11" data-edge-id="c-shomu-kanmu" data-composition-points="705,254;705,300" data-composition-crossover="halo" data-composition-independent="true" d="M 705 254 L 705 300" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 425 614 L 425 660" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="shomu" data-edge-to="kanmu" data-edge-label="迁都平安新京" data-edge-key="11" data-edge-id="c-shomu-kanmu" data-composition-points="425,614;425,660" data-composition-crossover="halo" data-composition-independent="true" d="M 425 614 L 425 660" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:12">
-          <path data-graph-role="automatic-crossover-underlay" d="M 705 374 L 705 420" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="kanmu" data-edge-to="saga" data-edge-label="弘仁治世赐姓源氏" data-edge-key="12" data-edge-id="c-kanmu-saga" data-composition-points="705,374;705,420" data-composition-crossover="halo" data-composition-independent="true" d="M 705 374 L 705 420" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 416.95 734 L 416.95 780" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="kanmu" data-edge-to="saga" data-edge-label="弘仁治世赐姓源氏" data-edge-key="12" data-edge-id="c-kanmu-saga" data-composition-points="416.95,734;416.95,780" data-composition-crossover="halo" data-composition-independent="true" d="M 416.95 734 L 416.95 780" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:13">
-          <path data-graph-role="automatic-crossover-underlay" d="M 696.95 494 L 696.95 540" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="saga" data-edge-to="shirakawa" data-edge-label="开创治天之君院政" data-edge-key="13" data-edge-id="c-saga-shirakawa" data-composition-points="696.95,494;696.95,540" data-composition-crossover="halo" data-composition-independent="true" d="M 696.95 494 L 696.95 540" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 530 817 L 557 817 Q 565 817 565 809 L 565 105 Q 565 97 573 97 L 600 97" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="saga" data-edge-to="shirakawa" data-edge-label="开创治天之君院政" data-edge-key="13" data-edge-id="c-saga-shirakawa" data-composition-points="530,817;565,817;565,97;600,97" data-composition-crossover="halo" data-composition-independent="true" d="M 530 817 L 557 817 Q 565 817 565 809 L 565 105 Q 565 97 573 97 L 600 97" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:14">
-          <path data-graph-role="automatic-crossover-underlay" d="M 810 577 L 837 577 Q 845 577 845 569 L 845 105 Q 845 97 853 97 L 880 97" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="shirakawa" data-edge-to="gotoba" data-edge-label="承久之乱讨幕失败" data-edge-key="14" data-edge-id="c-shirakawa-gotoba" data-composition-points="810,577;845,577;845,97;880,97" data-composition-crossover="halo" data-composition-independent="true" d="M 810 577 L 837 577 Q 845 577 845 569 L 845 105 Q 845 97 853 97 L 880 97" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 713.05 134 L 713.05 180" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="shirakawa" data-edge-to="gotoba" data-edge-label="承久之乱讨幕失败" data-edge-key="14" data-edge-id="c-shirakawa-gotoba" data-composition-points="713.05,134;713.05,180" data-composition-crossover="halo" data-composition-independent="true" d="M 713.05 134 L 713.05 180" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:15">
-          <path data-graph-role="automatic-crossover-underlay" d="M 993.05 134 L 993.05 180" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gotoba" data-edge-to="godaigo" data-edge-label="建武中兴楠木勤王" data-edge-key="15" data-edge-id="c-gotoba-godaigo" data-composition-points="993.05,134;993.05,180" data-composition-crossover="halo" data-composition-independent="true" d="M 993.05 134 L 993.05 180" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 705 254 L 705 300" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="gotoba" data-edge-to="godaigo" data-edge-label="建武中兴楠木勤王" data-edge-key="15" data-edge-id="c-gotoba-godaigo" data-composition-points="705,254;705,300" data-composition-crossover="halo" data-composition-independent="true" d="M 705 254 L 705 300" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:16">
-          <path data-graph-role="automatic-crossover-underlay" d="M 985 254 L 985 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="godaigo" data-edge-to="kogon" data-edge-label="大觉寺与持明院对立" data-edge-key="16" data-edge-id="c-godaigo-kogon" data-composition-points="985,254;985,300" data-composition-crossover="halo" data-composition-independent="true" d="M 985 254 L 985 300" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 705 374 L 705 420" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="godaigo" data-edge-to="kogon" data-edge-label="大觉寺与持明院对立" data-edge-key="16" data-edge-id="c-godaigo-kogon" data-composition-points="705,374;705,420" data-composition-crossover="halo" data-composition-independent="true" d="M 705 374 L 705 420" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:17">
-          <path data-graph-role="automatic-crossover-underlay" d="M 985 374 L 985 420" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="kogon" data-edge-to="gokomatsu" data-edge-label="足利义满明德合一" data-edge-key="17" data-edge-id="c-kogon-gokomatsu" data-composition-points="985,374;985,420" data-composition-crossover="halo" data-composition-independent="true" d="M 985 374 L 985 420" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 705 494 L 705 540" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="kogon" data-edge-to="gokomatsu" data-edge-label="足利义满明德合一" data-edge-key="17" data-edge-id="c-kogon-gokomatsu" data-composition-points="705,494;705,540" data-composition-crossover="halo" data-composition-independent="true" d="M 705 494 L 705 540" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:18">
-          <path data-graph-role="automatic-crossover-underlay" d="M 976.95 494 L 976.95 540" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gokomatsu" data-edge-to="gotsuchimikado" data-edge-label="应仁之乱皇室寒冬" data-edge-key="18" data-edge-id="c-gokomatsu-gotsuchimikado" data-composition-points="976.95,494;976.95,540" data-composition-crossover="halo" data-composition-independent="true" d="M 976.95 494 L 976.95 540" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 705 614 L 705 660" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="gokomatsu" data-edge-to="gotsuchimikado" data-edge-label="应仁之乱皇室寒冬" data-edge-key="18" data-edge-id="c-gokomatsu-gotsuchimikado" data-composition-points="705,614;705,660" data-composition-crossover="halo" data-composition-independent="true" d="M 705 614 L 705 660" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:19">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1090 577 L 1117 577 Q 1125 577 1125 569 L 1125 105 Q 1125 97 1133 97 L 1160 97" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gotsuchimikado" data-edge-to="ogimachi" data-edge-label="信长秀吉上洛尊皇" data-edge-key="19" data-edge-id="c-gotsuchimikado-ogimachi" data-composition-points="1090,577;1125,577;1125,97;1160,97" data-composition-crossover="halo" data-composition-independent="true" d="M 1090 577 L 1117 577 Q 1125 577 1125 569 L 1125 105 Q 1125 97 1133 97 L 1160 97" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 696.95 734 L 696.95 780" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="gotsuchimikado" data-edge-to="ogimachi" data-edge-label="信长秀吉上洛尊皇" data-edge-key="19" data-edge-id="c-gotsuchimikado-ogimachi" data-composition-points="696.95,734;696.95,780" data-composition-crossover="halo" data-composition-independent="true" d="M 696.95 734 L 696.95 780" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:20">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1273.05 134 L 1273.05 180" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="ogimachi" data-edge-to="gomizunoo" data-edge-label="禁中法度紫衣抗命" data-edge-key="20" data-edge-id="c-ogimachi-gomizunoo" data-composition-points="1273.05,134;1273.05,180" data-composition-crossover="halo" data-composition-independent="true" d="M 1273.05 134 L 1273.05 180" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 810 817 L 837 817 Q 845 817 845 809 L 845 105 Q 845 97 853 97 L 880 97" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="ogimachi" data-edge-to="gomizunoo" data-edge-label="禁中法度紫衣抗命" data-edge-key="20" data-edge-id="c-ogimachi-gomizunoo" data-composition-points="810,817;845,817;845,97;880,97" data-composition-crossover="halo" data-composition-independent="true" d="M 810 817 L 837 817 Q 845 817 845 809 L 845 105 Q 845 97 853 97 L 880 97" class="a-security" stroke-width="1.5" marker-end="url(#arrowhead-security)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:21">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1265 254 L 1265 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gomizunoo" data-edge-to="kokaku" data-edge-label="闲院宫入继近世中兴" data-edge-key="21" data-edge-id="c-gomizunoo-kokaku" data-composition-points="1265,254;1265,300" data-composition-crossover="halo" data-composition-independent="true" d="M 1265 254 L 1265 300" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 992 134 L 992 180" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="gomizunoo" data-edge-to="kokaku" data-edge-label="闲院宫入继近世中兴" data-edge-key="21" data-edge-id="c-gomizunoo-kokaku" data-composition-points="992,134;992,180" data-composition-crossover="halo" data-composition-independent="true" d="M 992 134 L 992 180" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:22">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1255.9 374 L 1255.9 420" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="kokaku" data-edge-to="komei" data-edge-label="黑船来航尊王攘夷" data-edge-key="22" data-edge-id="c-kokaku-komei" data-composition-points="1255.9,374;1255.9,420" data-composition-crossover="halo" data-composition-independent="true" d="M 1255.9 374 L 1255.9 420" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 985 254 L 985 300" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="kokaku" data-edge-to="komei" data-edge-label="黑船来航尊王攘夷" data-edge-key="22" data-edge-id="c-kokaku-komei" data-composition-points="985,254;985,300" data-composition-crossover="halo" data-composition-independent="true" d="M 985 254 L 985 300" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:23">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1370 457 L 1397 457 Q 1405 457 1405 449 L 1405 105 Q 1405 97 1413 97 L 1440 97" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="komei" data-edge-to="meiji" data-edge-label="明治维新建立近代帝国" data-edge-key="23" data-edge-id="c-komei-meiji" data-composition-points="1370,457;1405,457;1405,97;1440,97" data-composition-crossover="halo" data-composition-independent="true" d="M 1370 457 L 1397 457 Q 1405 457 1405 449 L 1405 105 Q 1405 97 1413 97 L 1440 97" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 985 374 L 985 420" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="komei" data-edge-to="meiji" data-edge-label="明治维新建立近代帝国" data-edge-key="23" data-edge-id="c-komei-meiji" data-composition-points="985,374;985,420" data-composition-crossover="halo" data-composition-independent="true" d="M 985 374 L 985 420" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:24">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1553.05 134 L 1553.05 180" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="meiji" data-edge-to="taisho" data-edge-label="大正民主政党政治" data-edge-key="24" data-edge-id="c-meiji-taisho" data-composition-points="1553.05,134;1553.05,180" data-composition-crossover="halo" data-composition-independent="true" d="M 1553.05 134 L 1553.05 180" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 985 494 L 985 540" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="meiji" data-edge-to="taisho" data-edge-label="大正民主政党政治" data-edge-key="24" data-edge-id="c-meiji-taisho" data-composition-points="985,494;985,540" data-composition-crossover="halo" data-composition-independent="true" d="M 985 494 L 985 540" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:25">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1545 254 L 1545 300" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="taisho" data-edge-to="showa" data-edge-label="对外战争到象征天皇" data-edge-key="25" data-edge-id="c-taisho-showa" data-composition-points="1545,254;1545,300" data-composition-crossover="halo" data-composition-independent="true" d="M 1545 254 L 1545 300" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 985 614 L 985 660" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="taisho" data-edge-to="showa" data-edge-label="对外战争到象征天皇" data-edge-key="25" data-edge-id="c-taisho-showa" data-composition-points="985,614;985,660" data-composition-crossover="halo" data-composition-independent="true" d="M 985 614 L 985 660" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:26">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1545 374 L 1545 420" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="showa" data-edge-to="akihito" data-edge-label="平成和平生前退位" data-edge-key="26" data-edge-id="c-showa-akihito" data-composition-points="1545,374;1545,420" data-composition-crossover="halo" data-composition-independent="true" d="M 1545 374 L 1545 420" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 985 734 L 985 780" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="showa" data-edge-to="akihito" data-edge-label="平成和平生前退位" data-edge-key="26" data-edge-id="c-showa-akihito" data-composition-points="985,734;985,780" data-composition-crossover="halo" data-composition-independent="true" d="M 985 734 L 985 780" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:27">
-          <path data-graph-role="automatic-crossover-underlay" d="M 1545 494 L 1545 540" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="akihito" data-edge-to="naruhito" data-edge-label="令和改元今上德仁" data-edge-key="27" data-edge-id="c-akihito-naruhito" data-composition-points="1545,494;1545,540" data-composition-crossover="halo" data-composition-independent="true" d="M 1545 494 L 1545 540" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-graph-role="automatic-crossover-underlay" d="M 985 854 L 985 900" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
+          <path data-edge-from="akihito" data-edge-to="naruhito" data-edge-label="令和改元今上德仁" data-edge-key="27" data-edge-id="c-akihito-naruhito" data-composition-points="985,854;985,900" data-composition-crossover="halo" data-composition-independent="true" d="M 985 854 L 985 900" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
 
         <!-- Components -->
-        <g id="node-jimmu" data-node-id="jimmu" data-node-label="1. 神武天皇 神日本磐余彦" tabindex="0" role="button" aria-label="聚焦1. 神武天皇 神日本磐余彦，神话肇基辛酉即位 · 东征大和开创皇室, 大和王权与神话肇基 (前660-592年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="神话肇基辛酉即位 · 东征大和开创皇室" data-node-tag="前660-前585 · 皇统之源" data-node-context="大和王权与神话肇基 (前660-592年)">
+        <g id="node-jimmu" data-node-id="jimmu" data-node-label="1. 神武天皇 神日本磐余彦" tabindex="0" role="button" aria-label="聚焦1. 神武天皇 神日本磐余彦，神话肇基辛酉即位 · 东征大和开创皇室, 大和古坟与飞鸟圣德 (前660-628年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="神话肇基辛酉即位 · 东征大和开创皇室" data-node-tag="前660-前585 · 皇统之源" data-node-context="大和古坟与飞鸟圣德 (前660-628年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="40" y="60" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="40" y="60" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
@@ -5453,7 +5453,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="145" y="127" class="t-frontend" font-size="7" text-anchor="middle">前660-前585 · 皇统之源</text>
         </g>
 
-        <g id="node-sujin" data-node-id="sujin" data-node-label="10. 崇神天皇 御肇国天皇" tabindex="0" role="button" aria-label="聚焦10. 崇神天皇 御肇国天皇，设四道将军经略四方 · 确立大和王权祭祀三神器, 大和王权与神话肇基 (前660-592年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="设四道将军经略四方 · 确立大和王权祭祀三神器" data-node-tag="前97-前30 · 御肇国" data-node-context="大和王权与神话肇基 (前660-592年)">
+        <g id="node-sujin" data-node-id="sujin" data-node-label="10. 崇神天皇 御肇国天皇" tabindex="0" role="button" aria-label="聚焦10. 崇神天皇 御肇国天皇，设四道将军经略四方 · 确立大和王权祭祀三神器, 大和古坟与飞鸟圣德 (前660-628年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="设四道将军经略四方 · 确立大和王权祭祀三神器" data-node-tag="前97-前30 · 御肇国" data-node-context="大和古坟与飞鸟圣德 (前660-628年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="40" y="180" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="40" y="180" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
@@ -5468,7 +5468,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="145" y="247" class="t-backend" font-size="7" text-anchor="middle">前97-前30 · 御肇国</text>
         </g>
 
-        <g id="node-ojin" data-node-id="ojin" data-node-label="15. 应神天皇 誉田别尊" tabindex="0" role="button" aria-label="聚焦15. 应神天皇 誉田别尊，八幡大菩萨化身 · 汉字与大陆渡来人技术入日, 大和王权与神话肇基 (前660-592年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="八幡大菩萨化身 · 汉字与大陆渡来人技术入日" data-node-tag="270-310 · 八幡总本宫" data-node-context="大和王权与神话肇基 (前660-592年)">
+        <g id="node-ojin" data-node-id="ojin" data-node-label="15. 应神天皇 誉田别尊" tabindex="0" role="button" aria-label="聚焦15. 应神天皇 誉田别尊，八幡大菩萨化身 · 汉字与大陆渡来人技术入日, 大和古坟与飞鸟圣德 (前660-628年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="八幡大菩萨化身 · 汉字与大陆渡来人技术入日" data-node-tag="270-310 · 八幡总本宫" data-node-context="大和古坟与飞鸟圣德 (前660-628年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="40" y="300" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="40" y="300" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
@@ -5486,7 +5486,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="145" y="367" class="t-frontend" font-size="7" text-anchor="middle">270-310 · 八幡总本宫</text>
         </g>
 
-        <g id="node-nintoku" data-node-id="nintoku" data-node-label="16. 仁德天皇 大鹪鹩尊" tabindex="0" role="button" aria-label="聚焦16. 仁德天皇 大鹪鹩尊，见民灶无炊烟免税三年 · 仁政大仙陵古坟, 大和王权与神话肇基 (前660-592年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="见民灶无炊烟免税三年 · 仁政大仙陵古坟" data-node-tag="313-399 · 圣帝仁政" data-node-context="大和王权与神话肇基 (前660-592年)">
+        <g id="node-nintoku" data-node-id="nintoku" data-node-label="16. 仁德天皇 大鹪鹩尊" tabindex="0" role="button" aria-label="聚焦16. 仁德天皇 大鹪鹩尊，见民灶无炊烟免税三年 · 仁政大仙陵古坟, 大和古坟与飞鸟圣德 (前660-628年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="见民灶无炊烟免税三年 · 仁政大仙陵古坟" data-node-tag="313-399 · 圣帝仁政" data-node-context="大和古坟与飞鸟圣德 (前660-628年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="40" y="420" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="40" y="420" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
@@ -5501,7 +5501,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="145" y="487" class="t-backend" font-size="7" text-anchor="middle">313-399 · 圣帝仁政</text>
         </g>
 
-        <g id="node-keitai" data-node-id="keitai" data-node-label="26. 继体天皇 男大迹王" tabindex="0" role="button" aria-label="聚焦26. 继体天皇 男大迹王，应神五世孙越前应诏 · 近江越前皇裔皇统重光, 大和王权与神话肇基 (前660-592年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="应神五世孙越前应诏 · 近江越前皇裔皇统重光" data-node-tag="507-531 · 旁系还统" data-node-context="大和王权与神话肇基 (前660-592年)">
+        <g id="node-keitai" data-node-id="keitai" data-node-label="26. 继体天皇 男大迹王" tabindex="0" role="button" aria-label="聚焦26. 继体天皇 男大迹王，应神五世孙越前应诏 · 近江越前皇裔皇统重光, 大和古坟与飞鸟圣德 (前660-628年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="应神五世孙越前应诏 · 近江越前皇裔皇统重光" data-node-tag="507-531 · 旁系还统" data-node-context="大和古坟与飞鸟圣德 (前660-628年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="40" y="540" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="40" y="540" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
@@ -5519,7 +5519,40 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="fine" x="145" y="607" class="t-frontend" font-size="7" text-anchor="middle">507-531 · 旁系还统</text>
         </g>
 
-        <g id="node-suiko" data-node-id="suiko" data-node-label="33. 推古天皇 额田部皇女" tabindex="0" role="button" aria-label="聚焦33. 推古天皇 额田部皇女，日本首位女帝登基 · 圣德太子摄政开创飞鸟文化, 飞鸟奈良与律令革新 (592-794年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="日本首位女帝登基 · 圣德太子摄政开创飞鸟文化" data-node-tag="592-628 · 首任女帝" data-node-context="飞鸟奈良与律令革新 (592-794年)">
+        <g id="node-suiko" data-node-id="suiko" data-node-label="33. 推古天皇 额田部皇女" tabindex="0" role="button" aria-label="聚焦33. 推古天皇 额田部皇女，日本首位女帝登基 · 圣德太子摄政开创飞鸟文化, 大和古坟与飞鸟圣德 (前660-628年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="日本首位女帝登基 · 圣德太子摄政开创飞鸟文化" data-node-tag="592-628 · 首任女帝" data-node-context="大和古坟与飞鸟圣德 (前660-628年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="40" y="660" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="40" y="660" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(46 666) scale(0.6875)">
+            <rect x="2" y="3" width="12" height="10" rx="2"/>
+            <path d="M2 6.5h12"/>
+            <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
+            <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="145" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">33. 推古天皇 额田部皇女</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="699">日本首位女帝登基</tspan>
+          <tspan x="145" y="713">圣德太子摄政开创飞鸟文化</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="727" class="t-frontend" font-size="7" text-anchor="middle">592-628 · 首任女帝</text>
+        </g>
+
+        <g id="node-shotoku" data-node-id="shotoku" data-node-label="圣德太子 (厩户皇子)" tabindex="0" role="button" aria-label="聚焦圣德太子 (厩户皇子)，推冠位十二阶十七条宪法 · 遣隋使小野妹子, 大和古坟与飞鸟圣德 (前660-628年)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="推冠位十二阶十七条宪法 · 遣隋使小野妹子" data-node-tag="574-622 · 飞鸟伟人" data-node-context="大和古坟与飞鸟圣德 (前660-628年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="40" y="780" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="40" y="780" width="210" height="74" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 786) scale(0.6875)">
+            <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="145" y="804" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">圣德太子 (厩户皇子)</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="145" y="819">推冠位十二阶十七条宪法</tspan>
+          <tspan x="145" y="833">遣隋使小野妹子</tspan>
+        </text>
+        <text data-detail="fine" x="145" y="847" class="t-cloud" font-size="7" text-anchor="middle">574-622 · 飞鸟伟人</text>
+        </g>
+
+        <g id="node-tenji" data-node-id="tenji" data-node-label="38. 天智天皇 中大兄皇子" tabindex="0" role="button" aria-label="聚焦38. 天智天皇 中大兄皇子，乙巳之变诛苏我入鹿 · 推行大化改新奠定律令, 律令确立与奈良平安 (668-823年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="乙巳之变诛苏我入鹿 · 推行大化改新奠定律令" data-node-tag="668-671 · 大化改新" data-node-context="律令确立与奈良平安 (668-823年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="320" y="60" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="320" y="60" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
@@ -5529,111 +5562,143 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">33. 推古天皇 额田部皇女</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">38. 天智天皇 中大兄皇子</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="425" y="99">日本首位女帝登基</tspan>
-          <tspan x="425" y="113">圣德太子摄政开创飞鸟文化</tspan>
+          <tspan x="425" y="99">乙巳之变诛苏我入鹿</tspan>
+          <tspan x="425" y="113">推行大化改新奠定律令</tspan>
         </text>
-        <text data-detail="fine" x="425" y="127" class="t-frontend" font-size="7" text-anchor="middle">592-628 · 首任女帝</text>
+        <text data-detail="fine" x="425" y="127" class="t-frontend" font-size="7" text-anchor="middle">668-671 · 大化改新</text>
         </g>
 
-        <g id="node-shotoku" data-node-id="shotoku" data-node-label="圣德太子 (厩户皇子)" tabindex="0" role="button" aria-label="聚焦圣德太子 (厩户皇子)，推冠位十二阶十七条宪法 · 遣隋使小野妹子, 飞鸟奈良与律令革新 (592-794年)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="推冠位十二阶十七条宪法 · 遣隋使小野妹子" data-node-tag="574-622 · 飞鸟伟人" data-node-context="飞鸟奈良与律令革新 (592-794年)">
+        <g id="node-tenmu" data-node-id="tenmu" data-node-label="40. 天武天皇 大海人皇子" tabindex="0" role="button" aria-label="聚焦40. 天武天皇 大海人皇子，壬申之乱夺位登基 · 正式定名天皇号与八色之姓, 律令确立与奈良平安 (668-823年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="壬申之乱夺位登基 · 正式定名天皇号与八色之姓" data-node-tag="673-686 · 壬申之乱" data-node-context="律令确立与奈良平安 (668-823年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="320" y="180" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="320" y="180" width="210" height="74" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(326 186) scale(0.6875)">
-            <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
+          <rect x="320" y="180" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(326 186) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">圣德太子 (厩户皇子)</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">40. 天武天皇 大海人皇子</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="425" y="219">推冠位十二阶十七条宪法</tspan>
-          <tspan x="425" y="233">遣隋使小野妹子</tspan>
+          <tspan x="425" y="219">壬申之乱夺位登基</tspan>
+          <tspan x="425" y="233">正式定名天皇号与八色之姓</tspan>
         </text>
-        <text data-detail="fine" x="425" y="247" class="t-cloud" font-size="7" text-anchor="middle">574-622 · 飞鸟伟人</text>
+        <text data-detail="fine" x="425" y="247" class="t-backend" font-size="7" text-anchor="middle">673-686 · 壬申之乱</text>
         </g>
 
-        <g id="node-tenji" data-node-id="tenji" data-node-label="38. 天智天皇 中大兄皇子" tabindex="0" role="button" aria-label="聚焦38. 天智天皇 中大兄皇子，乙巳之变诛苏我入鹿 · 推行大化改新奠定律令, 飞鸟奈良与律令革新 (592-794年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="乙巳之变诛苏我入鹿 · 推行大化改新奠定律令" data-node-tag="668-671 · 大化改新" data-node-context="飞鸟奈良与律令革新 (592-794年)">
+        <g id="node-jito" data-node-id="jito" data-node-label="41. 持统天皇 赞良皇女" tabindex="0" role="button" aria-label="聚焦41. 持统天皇 赞良皇女，天武皇后女帝 · 迁都藤原京制定飞鸟净御原令, 律令确立与奈良平安 (668-823年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="天武皇后女帝 · 迁都藤原京制定飞鸟净御原令" data-node-tag="690-697 · 藤原京奠基" data-node-context="律令确立与奈良平安 (668-823年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="320" y="300" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="320" y="300" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(326 306) scale(0.6875)">
-            <rect x="2" y="3" width="12" height="10" rx="2"/>
-            <path d="M2 6.5h12"/>
-            <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
-            <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
+          <rect x="320" y="300" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(326 306) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">38. 天智天皇 中大兄皇子</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">41. 持统天皇 赞良皇女</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="425" y="339">乙巳之变诛苏我入鹿</tspan>
-          <tspan x="425" y="353">推行大化改新奠定律令</tspan>
+          <tspan x="425" y="339">天武皇后女帝</tspan>
+          <tspan x="425" y="353">迁都藤原京制定飞鸟净御原令</tspan>
         </text>
-        <text data-detail="fine" x="425" y="367" class="t-frontend" font-size="7" text-anchor="middle">668-671 · 大化改新</text>
+        <text data-detail="fine" x="425" y="367" class="t-backend" font-size="7" text-anchor="middle">690-697 · 藤原京奠基</text>
         </g>
 
-        <g id="node-tenmu" data-node-id="tenmu" data-node-label="40. 天武天皇 大海人皇子" tabindex="0" role="button" aria-label="聚焦40. 天武天皇 大海人皇子，壬申之乱夺位登基 · 正式定名天皇号与八色之姓, 飞鸟奈良与律令革新 (592-794年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="壬申之乱夺位登基 · 正式定名天皇号与八色之姓" data-node-tag="673-686 · 壬申之乱" data-node-context="飞鸟奈良与律令革新 (592-794年)">
+        <g id="node-gemmei" data-node-id="gemmei" data-node-label="43. 元明天皇 阿闭皇女" tabindex="0" role="button" aria-label="聚焦43. 元明天皇 阿闭皇女，迁都平城京开创奈良时代 · 命太安万侣修古事记, 律令确立与奈良平安 (668-823年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="迁都平城京开创奈良时代 · 命太安万侣修古事记" data-node-tag="707-715 · 平城迁都" data-node-context="律令确立与奈良平安 (668-823年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="320" y="420" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="320" y="420" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(326 426) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">40. 天武天皇 大海人皇子</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">43. 元明天皇 阿闭皇女</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="425" y="459">壬申之乱夺位登基</tspan>
-          <tspan x="425" y="473">正式定名天皇号与八色之姓</tspan>
+          <tspan x="425" y="459">迁都平城京开创奈良时代</tspan>
+          <tspan x="425" y="473">命太安万侣修古事记</tspan>
         </text>
-        <text data-detail="fine" x="425" y="487" class="t-backend" font-size="7" text-anchor="middle">673-686 · 壬申之乱</text>
+        <text data-detail="fine" x="425" y="487" class="t-backend" font-size="7" text-anchor="middle">707-715 · 平城迁都</text>
         </g>
 
-        <g id="node-jito" data-node-id="jito" data-node-label="41. 持统天皇 赞良皇女" tabindex="0" role="button" aria-label="聚焦41. 持统天皇 赞良皇女，天武皇后女帝 · 迁都藤原京制定飞鸟净御原令, 飞鸟奈良与律令革新 (592-794年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="天武皇后女帝 · 迁都藤原京制定飞鸟净御原令" data-node-tag="690-697 · 藤原京奠基" data-node-context="飞鸟奈良与律令革新 (592-794年)">
+        <g id="node-shomu" data-node-id="shomu" data-node-label="45. 圣武天皇 首皇" tabindex="0" role="button" aria-label="聚焦45. 圣武天皇 首皇，天平文化极盛笃信佛法 · 铸东大寺卢舍那大佛, 律令确立与奈良平安 (668-823年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="天平文化极盛笃信佛法 · 铸东大寺卢舍那大佛" data-node-tag="724-749 · 天平盛世" data-node-context="律令确立与奈良平安 (668-823年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="320" y="540" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="320" y="540" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(326 546) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="425" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">41. 持统天皇 赞良皇女</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="425" y="579">天武皇后女帝</tspan>
-          <tspan x="425" y="593">迁都藤原京制定飞鸟净御原令</tspan>
-        </text>
-        <text data-detail="fine" x="425" y="607" class="t-backend" font-size="7" text-anchor="middle">690-697 · 藤原京奠基</text>
-        </g>
-
-        <g id="node-gemmei" data-node-id="gemmei" data-node-label="43. 元明天皇 阿闭皇女" tabindex="0" role="button" aria-label="聚焦43. 元明天皇 阿闭皇女，迁都平城京开创奈良时代 · 命太安万侣修古事记, 平安盛世与院政治天 (794-1185年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="迁都平城京开创奈良时代 · 命太安万侣修古事记" data-node-tag="707-715 · 平城迁都" data-node-context="平安盛世与院政治天 (794-1185年)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="600" y="60" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="600" y="60" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 66) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">43. 元明天皇 阿闭皇女</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="705" y="99">迁都平城京开创奈良时代</tspan>
-          <tspan x="705" y="113">命太安万侣修古事记</tspan>
-        </text>
-        <text data-detail="fine" x="705" y="127" class="t-backend" font-size="7" text-anchor="middle">707-715 · 平城迁都</text>
-        </g>
-
-        <g id="node-shomu" data-node-id="shomu" data-node-label="45. 圣武天皇 首皇" tabindex="0" role="button" aria-label="聚焦45. 圣武天皇 首皇，天平文化极盛笃信佛法 · 铸东大寺卢舍那大佛, 平安盛世与院政治天 (794-1185年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="天平文化极盛笃信佛法 · 铸东大寺卢舍那大佛" data-node-tag="724-749 · 天平盛世" data-node-context="平安盛世与院政治天 (794-1185年)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="600" y="180" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="600" y="180" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(606 186) scale(0.6875)">
+          <rect x="320" y="540" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(326 546) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">45. 圣武天皇 首皇</text>
+          <text data-node-label="" data-detail-anchor="" x="425" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">45. 圣武天皇 首皇</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="705" y="219">天平文化极盛笃信佛法</tspan>
-          <tspan x="705" y="233">铸东大寺卢舍那大佛</tspan>
+          <tspan x="425" y="579">天平文化极盛笃信佛法</tspan>
+          <tspan x="425" y="593">铸东大寺卢舍那大佛</tspan>
         </text>
-        <text data-detail="fine" x="705" y="247" class="t-frontend" font-size="7" text-anchor="middle">724-749 · 天平盛世</text>
+        <text data-detail="fine" x="425" y="607" class="t-frontend" font-size="7" text-anchor="middle">724-749 · 天平盛世</text>
         </g>
 
-        <g id="node-kanmu" data-node-id="kanmu" data-node-label="50. 桓武天皇 山部亲王" tabindex="0" role="button" aria-label="聚焦50. 桓武天皇 山部亲王，迁都平安京摆脱僧侣 · 遣最澄空海入唐求法, 平安盛世与院政治天 (794-1185年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="迁都平安京摆脱僧侣 · 遣最澄空海入唐求法" data-node-tag="781-806 · 平安迁都" data-node-context="平安盛世与院政治天 (794-1185年)">
+        <g id="node-kanmu" data-node-id="kanmu" data-node-label="50. 桓武天皇 山部亲王" tabindex="0" role="button" aria-label="聚焦50. 桓武天皇 山部亲王，迁都平安京摆脱僧侣 · 遣最澄空海入唐求法, 律令确立与奈良平安 (668-823年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="迁都平安京摆脱僧侣 · 遣最澄空海入唐求法" data-node-tag="781-806 · 平安迁都" data-node-context="律令确立与奈良平安 (668-823年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="320" y="660" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="320" y="660" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(326 666) scale(0.6875)">
+            <rect x="2" y="3" width="12" height="10" rx="2"/>
+            <path d="M2 6.5h12"/>
+            <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
+            <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="425" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">50. 桓武天皇 山部亲王</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="699">迁都平安京摆脱僧侣</tspan>
+          <tspan x="425" y="713">遣最澄空海入唐求法</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="727" class="t-frontend" font-size="7" text-anchor="middle">781-806 · 平安迁都</text>
+        </g>
+
+        <g id="node-saga" data-node-id="saga" data-node-label="52. 嵯峨天皇 神野亲王" tabindex="0" role="button" aria-label="聚焦52. 嵯峨天皇 神野亲王，弘仁之治设藏人所 · 赐姓源氏开嵯峨源氏先声, 律令确立与奈良平安 (668-823年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="弘仁之治设藏人所 · 赐姓源氏开嵯峨源氏先声" data-node-tag="809-823 · 弘仁之治" data-node-context="律令确立与奈良平安 (668-823年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="320" y="780" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="320" y="780" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(326 786) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="425" y="804" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">52. 嵯峨天皇 神野亲王</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="425" y="819">弘仁之治设藏人所</tspan>
+          <tspan x="425" y="833">赐姓源氏开嵯峨源氏先声</tspan>
+        </text>
+        <text data-detail="fine" x="425" y="847" class="t-backend" font-size="7" text-anchor="middle">809-823 · 弘仁之治</text>
+        </g>
+
+        <g id="node-shirakawa" data-node-id="shirakawa" data-node-label="72. 白河天皇 贞仁亲王" tabindex="0" role="button" aria-label="聚焦72. 白河天皇 贞仁亲王，开创治天之君院政体制 · 叹贺茂川水骰子与僧兵, 院政治天与南北两统 (1073-1586年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="开创治天之君院政体制 · 叹贺茂川水骰子与僧兵" data-node-tag="1073-1087 · 院政始祖" data-node-context="院政治天与南北两统 (1073-1586年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="600" y="60" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="600" y="60" width="210" height="74" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(606 66) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="705" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">72. 白河天皇 贞仁亲王</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="99">开创治天之君院政体制</tspan>
+          <tspan x="705" y="113">叹贺茂川水骰子与僧兵</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="127" class="t-database" font-size="7" text-anchor="middle">1073-1087 · 院政始祖</text>
+        </g>
+
+        <g id="node-gotoba" data-node-id="gotoba" data-node-label="82. 后鸟羽天皇 尊成亲王" tabindex="0" role="button" aria-label="聚焦82. 后鸟羽天皇 尊成亲王，文武双全修新古今集 · 承久之乱讨幕失败流放, 院政治天与南北两统 (1073-1586年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="文武双全修新古今集 · 承久之乱讨幕失败流放" data-node-tag="1183-1198 · 承久之乱" data-node-context="院政治天与南北两统 (1073-1586年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="600" y="180" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="600" y="180" width="210" height="74" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(606 186) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="705" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">82. 后鸟羽天皇 尊成亲王</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="219">文武双全修新古今集</tspan>
+          <tspan x="705" y="233">承久之乱讨幕失败流放</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="247" class="t-database" font-size="7" text-anchor="middle">1183-1198 · 承久之乱</text>
+        </g>
+
+        <g id="node-godaigo" data-node-id="godaigo" data-node-label="96. 后醍醐天皇 尊治亲王" tabindex="0" role="button" aria-label="聚焦96. 后醍醐天皇 尊治亲王，南朝大觉寺统 · 建武中兴灭镰仓楠木正成勤王, 院政治天与南北两统 (1073-1586年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="南朝大觉寺统 · 建武中兴灭镰仓楠木正成勤王" data-node-tag="1318-1339 · 建武中兴" data-node-context="院政治天与南北两统 (1073-1586年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="600" y="300" width="210" height="74" rx="6" class="c-mask"/>
           <rect x="600" y="300" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
@@ -5643,264 +5708,199 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">50. 桓武天皇 山部亲王</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">96. 后醍醐天皇 尊治亲王</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="705" y="339">迁都平安京摆脱僧侣</tspan>
-          <tspan x="705" y="353">遣最澄空海入唐求法</tspan>
+          <tspan x="705" y="339">南朝大觉寺统</tspan>
+          <tspan x="705" y="353">建武中兴灭镰仓楠木正成勤王</tspan>
         </text>
-        <text data-detail="fine" x="705" y="367" class="t-frontend" font-size="7" text-anchor="middle">781-806 · 平安迁都</text>
+        <text data-detail="fine" x="705" y="367" class="t-frontend" font-size="7" text-anchor="middle">1318-1339 · 建武中兴</text>
         </g>
 
-        <g id="node-saga" data-node-id="saga" data-node-label="52. 嵯峨天皇 神野亲王" tabindex="0" role="button" aria-label="聚焦52. 嵯峨天皇 神野亲王，弘仁之治设藏人所 · 赐姓源氏开嵯峨源氏先声, 平安盛世与院政治天 (794-1185年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="弘仁之治设藏人所 · 赐姓源氏开嵯峨源氏先声" data-node-tag="809-823 · 弘仁之治" data-node-context="平安盛世与院政治天 (794-1185年)">
+        <g id="node-kogon" data-node-id="kogon" data-node-label="北朝首任 光严天皇 量仁" tabindex="0" role="button" aria-label="聚焦北朝首任 光严天皇 量仁，北朝持明院统之祖 · 足利尊氏拥立室町幕府, 院政治天与南北两统 (1073-1586年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="北朝持明院统之祖 · 足利尊氏拥立室町幕府" data-node-tag="1331-1333 · 北朝持明院" data-node-context="院政治天与南北两统 (1073-1586年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="600" y="420" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="600" y="420" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 426) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          <rect x="600" y="420" width="210" height="74" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(606 426) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">52. 嵯峨天皇 神野亲王</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">北朝首任 光严天皇 量仁</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="705" y="459">弘仁之治设藏人所</tspan>
-          <tspan x="705" y="473">赐姓源氏开嵯峨源氏先声</tspan>
+          <tspan x="705" y="459">北朝持明院统之祖</tspan>
+          <tspan x="705" y="473">足利尊氏拥立室町幕府</tspan>
         </text>
-        <text data-detail="fine" x="705" y="487" class="t-backend" font-size="7" text-anchor="middle">809-823 · 弘仁之治</text>
+        <text data-detail="fine" x="705" y="487" class="t-database" font-size="7" text-anchor="middle">1331-1333 · 北朝持明院</text>
         </g>
 
-        <g id="node-shirakawa" data-node-id="shirakawa" data-node-label="72. 白河天皇 贞仁亲王" tabindex="0" role="button" aria-label="聚焦72. 白河天皇 贞仁亲王，开创治天之君院政体制 · 叹贺茂川水骰子与僧兵, 平安盛世与院政治天 (794-1185年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="开创治天之君院政体制 · 叹贺茂川水骰子与僧兵" data-node-tag="1073-1087 · 院政始祖" data-node-context="平安盛世与院政治天 (794-1185年)">
+        <g id="node-gokomatsu" data-node-id="gokomatsu" data-node-label="100. 后小松天皇 干仁亲王" tabindex="0" role="button" aria-label="聚焦100. 后小松天皇 干仁亲王，足利义满斡旋调停 · 明德合一终结半世纪南北朝, 院政治天与南北两统 (1073-1586年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="足利义满斡旋调停 · 明德合一终结半世纪南北朝" data-node-tag="1382-1412 · 明德合一" data-node-context="院政治天与南北两统 (1073-1586年)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="600" y="540" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="600" y="540" width="210" height="74" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(606 546) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          <rect x="600" y="540" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 546) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="705" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">72. 白河天皇 贞仁亲王</text>
+          <text data-node-label="" data-detail-anchor="" x="705" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">100. 后小松天皇 干仁亲王</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="705" y="579">开创治天之君院政体制</tspan>
-          <tspan x="705" y="593">叹贺茂川水骰子与僧兵</tspan>
+          <tspan x="705" y="579">足利义满斡旋调停</tspan>
+          <tspan x="705" y="593">明德合一终结半世纪南北朝</tspan>
         </text>
-        <text data-detail="fine" x="705" y="607" class="t-database" font-size="7" text-anchor="middle">1073-1087 · 院政始祖</text>
+        <text data-detail="fine" x="705" y="607" class="t-backend" font-size="7" text-anchor="middle">1382-1412 · 明德合一</text>
         </g>
 
-        <g id="node-gotoba" data-node-id="gotoba" data-node-label="82. 后鸟羽天皇 尊成亲王" tabindex="0" role="button" aria-label="聚焦82. 后鸟羽天皇 尊成亲王，文武双全修新古今集 · 承久之乱讨幕失败流放, 武家崛起与南北两统 (1185-1557年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="文武双全修新古今集 · 承久之乱讨幕失败流放" data-node-tag="1183-1198 · 承久之乱" data-node-context="武家崛起与南北两统 (1185-1557年)">
+        <g id="node-gotsuchimikado" data-node-id="gotsuchimikado" data-node-label="103. 后土御门天皇 成仁" tabindex="0" role="button" aria-label="聚焦103. 后土御门天皇 成仁，应仁之乱陷战国乱世 · 皇室穷困崩后停灵四十余日, 院政治天与南北两统 (1073-1586年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="应仁之乱陷战国乱世 · 皇室穷困崩后停灵四十余日" data-node-tag="1464-1500 · 战国严冬" data-node-context="院政治天与南北两统 (1073-1586年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="600" y="660" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="600" y="660" width="210" height="74" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(606 666) scale(0.6875)">
+            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
+            <path d="m5.8 8 1.5 1.5 3-3"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="705" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">103. 后土御门天皇 成仁</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="699">应仁之乱陷战国乱世</tspan>
+          <tspan x="705" y="713">皇室穷困崩后停灵四十余日</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="727" class="t-security" font-size="7" text-anchor="middle">1464-1500 · 战国严冬</text>
+        </g>
+
+        <g id="node-ogimachi" data-node-id="ogimachi" data-node-label="106. 正亲町天皇 和仁" tabindex="0" role="button" aria-label="聚焦106. 正亲町天皇 和仁，信长秀吉相继拥戴上洛 · 皇权自战国谷底重光, 院政治天与南北两统 (1073-1586年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="信长秀吉相继拥戴上洛 · 皇权自战国谷底重光" data-node-tag="1557-1586 · 织丰重光" data-node-context="院政治天与南北两统 (1073-1586年)">
+          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
+          <rect x="600" y="780" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="600" y="780" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(606 786) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="705" y="804" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">106. 正亲町天皇 和仁</text>
+        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
+          <tspan x="705" y="819">信长秀吉相继拥戴上洛</tspan>
+          <tspan x="705" y="833">皇权自战国谷底重光</tspan>
+        </text>
+        <text data-detail="fine" x="705" y="847" class="t-backend" font-size="7" text-anchor="middle">1557-1586 · 织丰重光</text>
+        </g>
+
+        <g id="node-gomizunoo" data-node-id="gomizunoo" data-node-label="108. 后水尾天皇 政仁" tabindex="0" role="button" aria-label="聚焦108. 后水尾天皇 政仁，迎娶德川和子 · 禁中公家法度紫衣事件抗议退位, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="security" data-node-sublabel="迎娶德川和子 · 禁中公家法度紫衣事件抗议退位" data-node-tag="1611-1629 · 紫衣事件" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="880" y="60" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="880" y="60" width="210" height="74" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(886 66) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          <rect x="880" y="60" width="210" height="74" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(886 66) scale(0.6875)">
+            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
+            <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">82. 后鸟羽天皇 尊成亲王</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">108. 后水尾天皇 政仁</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="985" y="99">文武双全修新古今集</tspan>
-          <tspan x="985" y="113">承久之乱讨幕失败流放</tspan>
+          <tspan x="985" y="99">迎娶德川和子</tspan>
+          <tspan x="985" y="113">禁中公家法度紫衣事件抗议退位</tspan>
         </text>
-        <text data-detail="fine" x="985" y="127" class="t-database" font-size="7" text-anchor="middle">1183-1198 · 承久之乱</text>
+        <text data-detail="fine" x="985" y="127" class="t-security" font-size="7" text-anchor="middle">1611-1629 · 紫衣事件</text>
         </g>
 
-        <g id="node-godaigo" data-node-id="godaigo" data-node-label="96. 后醍醐天皇 尊治亲王" tabindex="0" role="button" aria-label="聚焦96. 后醍醐天皇 尊治亲王，南朝大觉寺统 · 建武中兴灭镰仓楠木正成勤王, 武家崛起与南北两统 (1185-1557年)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="南朝大觉寺统 · 建武中兴灭镰仓楠木正成勤王" data-node-tag="1318-1339 · 建武中兴" data-node-context="武家崛起与南北两统 (1185-1557年)">
+        <g id="node-kokaku" data-node-id="kokaku" data-node-label="119. 光格天皇 兼仁亲王" tabindex="0" role="button" aria-label="聚焦119. 光格天皇 兼仁亲王，闲院宫旁系入继大统 · 尊号事件抗衡幕府近世中兴, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="闲院宫旁系入继大统 · 尊号事件抗衡幕府近世中兴" data-node-tag="1779-1817 · 近世中兴" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="880" y="180" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="880" y="180" width="210" height="74" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(886 186) scale(0.6875)">
-            <rect x="2" y="3" width="12" height="10" rx="2"/>
-            <path d="M2 6.5h12"/>
-            <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
-            <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
+          <rect x="880" y="180" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(886 186) scale(0.6875)">
+            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">96. 后醍醐天皇 尊治亲王</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">119. 光格天皇 兼仁亲王</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="985" y="219">南朝大觉寺统</tspan>
-          <tspan x="985" y="233">建武中兴灭镰仓楠木正成勤王</tspan>
+          <tspan x="985" y="219">闲院宫旁系入继大统</tspan>
+          <tspan x="985" y="233">尊号事件抗衡幕府近世中兴</tspan>
         </text>
-        <text data-detail="fine" x="985" y="247" class="t-frontend" font-size="7" text-anchor="middle">1318-1339 · 建武中兴</text>
+        <text data-detail="fine" x="985" y="247" class="t-backend" font-size="7" text-anchor="middle">1779-1817 · 近世中兴</text>
         </g>
 
-        <g id="node-kogon" data-node-id="kogon" data-node-label="北朝首任 光严天皇 量仁" tabindex="0" role="button" aria-label="聚焦北朝首任 光严天皇 量仁，北朝持明院统之祖 · 足利尊氏拥立室町幕府, 武家崛起与南北两统 (1185-1557年)" aria-pressed="false" data-node-kind="database" data-node-sublabel="北朝持明院统之祖 · 足利尊氏拥立室町幕府" data-node-tag="1331-1333 · 北朝持明院" data-node-context="武家崛起与南北两统 (1185-1557年)">
+        <g id="node-komei" data-node-id="komei" data-node-label="121. 孝明天皇 统仁亲王" tabindex="0" role="button" aria-label="聚焦121. 孝明天皇 统仁亲王，幕末黑船来航尊王攘夷 · 拒签通商条约支持公武合体, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="security" data-node-sublabel="幕末黑船来航尊王攘夷 · 拒签通商条约支持公武合体" data-node-tag="1846-1867 · 尊王攘夷" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="880" y="300" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="880" y="300" width="210" height="74" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(886 306) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          <rect x="880" y="300" width="210" height="74" rx="6" class="c-security" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(886 306) scale(0.6875)">
+            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
+            <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">北朝首任 光严天皇 量仁</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">121. 孝明天皇 统仁亲王</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="985" y="339">北朝持明院统之祖</tspan>
-          <tspan x="985" y="353">足利尊氏拥立室町幕府</tspan>
+          <tspan x="985" y="339">幕末黑船来航尊王攘夷</tspan>
+          <tspan x="985" y="353">拒签通商条约支持公武合体</tspan>
         </text>
-        <text data-detail="fine" x="985" y="367" class="t-database" font-size="7" text-anchor="middle">1331-1333 · 北朝持明院</text>
+        <text data-detail="fine" x="985" y="367" class="t-security" font-size="7" text-anchor="middle">1846-1867 · 尊王攘夷</text>
         </g>
 
-        <g id="node-gokomatsu" data-node-id="gokomatsu" data-node-label="100. 后小松天皇 干仁亲王" tabindex="0" role="button" aria-label="聚焦100. 后小松天皇 干仁亲王，足利义满斡旋调停 · 明德合一终结半世纪南北朝, 武家崛起与南北两统 (1185-1557年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="足利义满斡旋调停 · 明德合一终结半世纪南北朝" data-node-tag="1382-1412 · 明德合一" data-node-context="武家崛起与南北两统 (1185-1557年)">
+        <g id="node-meiji" data-node-id="meiji" data-node-label="122. 明治天皇 睦仁" tabindex="0" role="button" aria-label="聚焦122. 明治天皇 睦仁，五条御誓文明治维新 · 脱亚入欧建立近代立宪帝国, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="五条御誓文明治维新 · 脱亚入欧建立近代立宪帝国" data-node-tag="1867-1912 · 明治维新" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
           <rect x="880" y="420" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="880" y="420" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(886 426) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">100. 后小松天皇 干仁亲王</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="985" y="459">足利义满斡旋调停</tspan>
-          <tspan x="985" y="473">明德合一终结半世纪南北朝</tspan>
-        </text>
-        <text data-detail="fine" x="985" y="487" class="t-backend" font-size="7" text-anchor="middle">1382-1412 · 明德合一</text>
-        </g>
-
-        <g id="node-gotsuchimikado" data-node-id="gotsuchimikado" data-node-label="103. 后土御门天皇 成仁" tabindex="0" role="button" aria-label="聚焦103. 后土御门天皇 成仁，应仁之乱陷战国乱世 · 皇室穷困崩后停灵四十余日, 武家崛起与南北两统 (1185-1557年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="应仁之乱陷战国乱世 · 皇室穷困崩后停灵四十余日" data-node-tag="1464-1500 · 战国严冬" data-node-context="武家崛起与南北两统 (1185-1557年)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="880" y="540" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="880" y="540" width="210" height="74" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(886 546) scale(0.6875)">
-            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
-            <path d="m5.8 8 1.5 1.5 3-3"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="985" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">103. 后土御门天皇 成仁</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="985" y="579">应仁之乱陷战国乱世</tspan>
-          <tspan x="985" y="593">皇室穷困崩后停灵四十余日</tspan>
-        </text>
-        <text data-detail="fine" x="985" y="607" class="t-security" font-size="7" text-anchor="middle">1464-1500 · 战国严冬</text>
-        </g>
-
-        <g id="node-ogimachi" data-node-id="ogimachi" data-node-label="106. 正亲町天皇 和仁" tabindex="0" role="button" aria-label="聚焦106. 正亲町天皇 和仁，信长秀吉相继拥戴上洛 · 皇权自战国谷底重光, 织丰复苏与江户禁中 (1557-1867年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="信长秀吉相继拥戴上洛 · 皇权自战国谷底重光" data-node-tag="1557-1586 · 织丰重光" data-node-context="织丰复苏与江户禁中 (1557-1867年)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1160" y="60" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1160" y="60" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1166 66) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="1265" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">106. 正亲町天皇 和仁</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1265" y="99">信长秀吉相继拥戴上洛</tspan>
-          <tspan x="1265" y="113">皇权自战国谷底重光</tspan>
-        </text>
-        <text data-detail="fine" x="1265" y="127" class="t-backend" font-size="7" text-anchor="middle">1557-1586 · 织丰重光</text>
-        </g>
-
-        <g id="node-gomizunoo" data-node-id="gomizunoo" data-node-label="108. 后水尾天皇 政仁" tabindex="0" role="button" aria-label="聚焦108. 后水尾天皇 政仁，迎娶德川和子 · 禁中公家法度紫衣事件抗议退位, 织丰复苏与江户禁中 (1557-1867年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="迎娶德川和子 · 禁中公家法度紫衣事件抗议退位" data-node-tag="1611-1629 · 紫衣事件" data-node-context="织丰复苏与江户禁中 (1557-1867年)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1160" y="180" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1160" y="180" width="210" height="74" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(1166 186) scale(0.6875)">
-            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
-            <path d="m5.8 8 1.5 1.5 3-3"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="1265" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">108. 后水尾天皇 政仁</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1265" y="219">迎娶德川和子</tspan>
-          <tspan x="1265" y="233">禁中公家法度紫衣事件抗议退位</tspan>
-        </text>
-        <text data-detail="fine" x="1265" y="247" class="t-security" font-size="7" text-anchor="middle">1611-1629 · 紫衣事件</text>
-        </g>
-
-        <g id="node-kokaku" data-node-id="kokaku" data-node-label="119. 光格天皇 兼仁亲王" tabindex="0" role="button" aria-label="聚焦119. 光格天皇 兼仁亲王，闲院宫旁系入继大统 · 尊号事件抗衡幕府近世中兴, 织丰复苏与江户禁中 (1557-1867年)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="闲院宫旁系入继大统 · 尊号事件抗衡幕府近世中兴" data-node-tag="1779-1817 · 近世中兴" data-node-context="织丰复苏与江户禁中 (1557-1867年)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1160" y="300" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1160" y="300" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1166 306) scale(0.6875)">
-            <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="1265" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">119. 光格天皇 兼仁亲王</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1265" y="339">闲院宫旁系入继大统</tspan>
-          <tspan x="1265" y="353">尊号事件抗衡幕府近世中兴</tspan>
-        </text>
-        <text data-detail="fine" x="1265" y="367" class="t-backend" font-size="7" text-anchor="middle">1779-1817 · 近世中兴</text>
-        </g>
-
-        <g id="node-komei" data-node-id="komei" data-node-label="121. 孝明天皇 统仁亲王" tabindex="0" role="button" aria-label="聚焦121. 孝明天皇 统仁亲王，幕末黑船来航尊王攘夷 · 拒签通商条约支持公武合体, 织丰复苏与江户禁中 (1557-1867年)" aria-pressed="false" data-node-kind="security" data-node-sublabel="幕末黑船来航尊王攘夷 · 拒签通商条约支持公武合体" data-node-tag="1846-1867 · 尊王攘夷" data-node-context="织丰复苏与江户禁中 (1557-1867年)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1160" y="420" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1160" y="420" width="210" height="74" rx="6" class="c-security" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(1166 426) scale(0.6875)">
-            <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
-            <path d="m5.8 8 1.5 1.5 3-3"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="1265" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">121. 孝明天皇 统仁亲王</text>
-        <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1265" y="459">幕末黑船来航尊王攘夷</tspan>
-          <tspan x="1265" y="473">拒签通商条约支持公武合体</tspan>
-        </text>
-        <text data-detail="fine" x="1265" y="487" class="t-security" font-size="7" text-anchor="middle">1846-1867 · 尊王攘夷</text>
-        </g>
-
-        <g id="node-meiji" data-node-id="meiji" data-node-label="122. 明治天皇 睦仁" tabindex="0" role="button" aria-label="聚焦122. 明治天皇 睦仁，五条御誓文明治维新 · 脱亚入欧建立近代立宪帝国, 近代立宪与现代象征 (1867年至今)" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="五条御誓文明治维新 · 脱亚入欧建立近代立宪帝国" data-node-tag="1867-1912 · 明治维新" data-node-context="近代立宪与现代象征 (1867年至今)">
-          <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1440" y="60" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1440" y="60" width="210" height="74" rx="6" class="c-cloud" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(1446 66) scale(0.6875)">
+          <rect x="880" y="420" width="210" height="74" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(886 426) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1545" y="84" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">122. 明治天皇 睦仁</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">122. 明治天皇 睦仁</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1545" y="99">五条御誓文明治维新</tspan>
-          <tspan x="1545" y="113">脱亚入欧建立近代立宪帝国</tspan>
+          <tspan x="985" y="459">五条御誓文明治维新</tspan>
+          <tspan x="985" y="473">脱亚入欧建立近代立宪帝国</tspan>
         </text>
-        <text data-detail="fine" x="1545" y="127" class="t-cloud" font-size="7" text-anchor="middle">1867-1912 · 明治维新</text>
+        <text data-detail="fine" x="985" y="487" class="t-cloud" font-size="7" text-anchor="middle">1867-1912 · 明治维新</text>
         </g>
 
-        <g id="node-taisho" data-node-id="taisho" data-node-label="123. 大正天皇 嘉仁" tabindex="0" role="button" aria-label="聚焦123. 大正天皇 嘉仁，大正民主思潮与政党政治 · 晚年抱恙皇太子裕仁摄政, 近代立宪与现代象征 (1867年至今)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="大正民主思潮与政党政治 · 晚年抱恙皇太子裕仁摄政" data-node-tag="1912-1926 · 大正民主" data-node-context="近代立宪与现代象征 (1867年至今)">
+        <g id="node-taisho" data-node-id="taisho" data-node-label="123. 大正天皇 嘉仁" tabindex="0" role="button" aria-label="聚焦123. 大正天皇 嘉仁，大正民主思潮与政党政治 · 晚年抱恙皇太子裕仁摄政, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="backend" data-node-sublabel="大正民主思潮与政党政治 · 晚年抱恙皇太子裕仁摄政" data-node-tag="1912-1926 · 大正民主" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1440" y="180" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1440" y="180" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1446 186) scale(0.6875)">
+          <rect x="880" y="540" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="880" y="540" width="210" height="74" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(886 546) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1545" y="204" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">123. 大正天皇 嘉仁</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">123. 大正天皇 嘉仁</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1545" y="219">大正民主思潮与政党政治</tspan>
-          <tspan x="1545" y="233">晚年抱恙皇太子裕仁摄政</tspan>
+          <tspan x="985" y="579">大正民主思潮与政党政治</tspan>
+          <tspan x="985" y="593">晚年抱恙皇太子裕仁摄政</tspan>
         </text>
-        <text data-detail="fine" x="1545" y="247" class="t-backend" font-size="7" text-anchor="middle">1912-1926 · 大正民主</text>
+        <text data-detail="fine" x="985" y="607" class="t-backend" font-size="7" text-anchor="middle">1912-1926 · 大正民主</text>
         </g>
 
-        <g id="node-showa" data-node-id="showa" data-node-label="124. 昭和天皇 裕仁" tabindex="0" role="button" aria-label="聚焦124. 昭和天皇 裕仁，二战对外战争至投降 · 发表人间宣言降格为象征天皇, 近代立宪与现代象征 (1867年至今)" aria-pressed="false" data-node-kind="external" data-node-sublabel="二战对外战争至投降 · 发表人间宣言降格为象征天皇" data-node-tag="1926-1989 · 象征化" data-node-context="近代立宪与现代象征 (1867年至今)">
+        <g id="node-showa" data-node-id="showa" data-node-label="124. 昭和天皇 裕仁" tabindex="0" role="button" aria-label="聚焦124. 昭和天皇 裕仁，二战对外战争至投降 · 发表人间宣言降格为象征天皇, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="external" data-node-sublabel="二战对外战争至投降 · 发表人间宣言降格为象征天皇" data-node-tag="1926-1989 · 象征化" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1440" y="300" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1440" y="300" width="210" height="74" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1446 306) scale(0.6875)">
+          <rect x="880" y="660" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="880" y="660" width="210" height="74" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(886 666) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1545" y="324" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">124. 昭和天皇 裕仁</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="684" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">124. 昭和天皇 裕仁</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1545" y="339">二战对外战争至投降</tspan>
-          <tspan x="1545" y="353">发表人间宣言降格为象征天皇</tspan>
+          <tspan x="985" y="699">二战对外战争至投降</tspan>
+          <tspan x="985" y="713">发表人间宣言降格为象征天皇</tspan>
         </text>
-        <text data-detail="fine" x="1545" y="367" class="t-external" font-size="7" text-anchor="middle">1926-1989 · 象征化</text>
+        <text data-detail="fine" x="985" y="727" class="t-external" font-size="7" text-anchor="middle">1926-1989 · 象征化</text>
         </g>
 
-        <g id="node-akihito" data-node-id="akihito" data-node-label="125. 上皇 明仁" tabindex="0" role="button" aria-label="聚焦125. 上皇 明仁，平成三十年和平治世 · 首开近代生前退位先例巡访, 近代立宪与现代象征 (1867年至今)" aria-pressed="false" data-node-kind="external" data-node-sublabel="平成三十年和平治世 · 首开近代生前退位先例巡访" data-node-tag="1989-2019 · 平成治世" data-node-context="近代立宪与现代象征 (1867年至今)">
+        <g id="node-akihito" data-node-id="akihito" data-node-label="125. 上皇 明仁" tabindex="0" role="button" aria-label="聚焦125. 上皇 明仁，平成三十年和平治世 · 首开近代生前退位先例巡访, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="external" data-node-sublabel="平成三十年和平治世 · 首开近代生前退位先例巡访" data-node-tag="1989-2019 · 平成治世" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1440" y="420" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1440" y="420" width="210" height="74" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1446 426) scale(0.6875)">
+          <rect x="880" y="780" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="880" y="780" width="210" height="74" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(886 786) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1545" y="444" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">125. 上皇 明仁</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="804" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">125. 上皇 明仁</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1545" y="459">平成三十年和平治世</tspan>
-          <tspan x="1545" y="473">首开近代生前退位先例巡访</tspan>
+          <tspan x="985" y="819">平成三十年和平治世</tspan>
+          <tspan x="985" y="833">首开近代生前退位先例巡访</tspan>
         </text>
-        <text data-detail="fine" x="1545" y="487" class="t-external" font-size="7" text-anchor="middle">1989-2019 · 平成治世</text>
+        <text data-detail="fine" x="985" y="847" class="t-external" font-size="7" text-anchor="middle">1989-2019 · 平成治世</text>
         </g>
 
-        <g id="node-naruhito" data-node-id="naruhito" data-node-label="126. 今上天皇 德仁" tabindex="0" role="button" aria-label="聚焦126. 今上天皇 德仁，开启令和新元继宪政 · 皇嗣文仁亲王悠仁受瞩目, 近代立宪与现代象征 (1867年至今)" aria-pressed="false" data-node-kind="external" data-node-sublabel="开启令和新元继宪政 · 皇嗣文仁亲王悠仁受瞩目" data-node-tag="2019-至今 · 令和时代" data-node-context="近代立宪与现代象征 (1867年至今)">
+        <g id="node-naruhito" data-node-id="naruhito" data-node-label="126. 今上天皇 德仁" tabindex="0" role="button" aria-label="聚焦126. 今上天皇 德仁，开启令和新元继宪政 · 皇嗣文仁亲王悠仁受瞩目, 江户禁中与近代立宪象征 (1611年至今)" aria-pressed="false" data-node-kind="external" data-node-sublabel="开启令和新元继宪政 · 皇嗣文仁亲王悠仁受瞩目" data-node-tag="2019-至今 · 令和时代" data-node-context="江户禁中与近代立宪象征 (1611年至今)">
           <title>日本皇室万世一系与天皇家全景谱系 - 橡胶童话</title>
-          <rect x="1440" y="540" width="210" height="74" rx="6" class="c-mask"/>
-          <rect x="1440" y="540" width="210" height="74" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(1446 546) scale(0.6875)">
+          <rect x="880" y="900" width="210" height="74" rx="6" class="c-mask"/>
+          <rect x="880" y="900" width="210" height="74" rx="6" class="c-external" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(886 906) scale(0.6875)">
             <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1545" y="564" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">126. 今上天皇 德仁</text>
+          <text data-node-label="" data-detail-anchor="" x="985" y="924" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">126. 今上天皇 德仁</text>
         <text data-detail="context" class="t-muted" font-size="9" text-anchor="middle">
-          <tspan x="1545" y="579">开启令和新元继宪政</tspan>
-          <tspan x="1545" y="593">皇嗣文仁亲王悠仁受瞩目</tspan>
+          <tspan x="985" y="939">开启令和新元继宪政</tspan>
+          <tspan x="985" y="953">皇嗣文仁亲王悠仁受瞩目</tspan>
         </text>
-        <text data-detail="fine" x="1545" y="607" class="t-external" font-size="7" text-anchor="middle">2019-至今 · 令和时代</text>
+        <text data-detail="fine" x="985" y="967" class="t-external" font-size="7" text-anchor="middle">2019-至今 · 令和时代</text>
         </g>
 
         <!-- Connection labels -->
@@ -5917,167 +5917,157 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <text x="95.6" y="400" class="t-edge-emphasis" font-size="8" text-anchor="middle">父子相承仁政圣帝</text>
         </g>
         <g data-detail="context" data-edge-from="nintoku" data-edge-to="keitai" data-edge-label="越前应诏旁系还统" data-edge-key="3" data-edge-id="c-nintoku-keitai">
-          <rect x="45.199999999999996" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="88.6" y="520" class="t-edge-dashed" font-size="8" text-anchor="middle">越前应诏旁系还统</text>
+          <rect x="52.199999999999996" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="95.6" y="520" class="t-edge-dashed" font-size="8" text-anchor="middle">越前应诏旁系还统</text>
         </g>
         <g data-detail="context" data-edge-from="keitai" data-edge-to="suiko" data-edge-label="开创飞鸟时代首位女帝" data-edge-key="4" data-edge-id="c-keitai-suiko">
-          <rect x="173" y="510" width="106" height="14" rx="3" class="c-mask"/>
-          <text x="226" y="520" class="t-edge-default" font-size="8" text-anchor="middle">开创飞鸟时代首位女帝</text>
+          <rect x="33" y="630" width="106" height="14" rx="3" class="c-mask"/>
+          <text x="86" y="640" class="t-edge-default" font-size="8" text-anchor="middle">开创飞鸟时代首位女帝</text>
         </g>
         <g data-detail="context" data-edge-from="suiko" data-edge-to="shotoku" data-edge-label="皇侄摄政十七条宪法" data-edge-key="5" data-edge-id="c-suiko-shotoku">
-          <rect x="330.65000000000003" y="150" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="378.85" y="160" class="t-edge-emphasis" font-size="8" text-anchor="middle">皇侄摄政十七条宪法</text>
+          <rect x="34.550000000000004" y="750" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="82.75" y="760" class="t-edge-emphasis" font-size="8" text-anchor="middle">皇侄摄政十七条宪法</text>
         </g>
         <g data-detail="context" data-edge-from="shotoku" data-edge-to="tenji" data-edge-label="乙巳之变诛苏我氏" data-edge-key="6" data-edge-id="c-shotoku-tenji">
-          <rect x="332.20000000000005" y="270" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="375.6" y="280" class="t-edge-security" font-size="8" text-anchor="middle">乙巳之变诛苏我氏</text>
+          <rect x="192.2" y="630" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="235.6" y="640" class="t-edge-security" font-size="8" text-anchor="middle">乙巳之变诛苏我氏</text>
         </g>
         <g data-detail="context" data-edge-from="tenji" data-edge-to="tenmu" data-edge-label="壬申之乱兄弟夺位" data-edge-key="7" data-edge-id="c-tenji-tenmu">
-          <rect x="332.20000000000005" y="390" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="375.6" y="400" class="t-edge-security" font-size="8" text-anchor="middle">壬申之乱兄弟夺位</text>
+          <rect x="339.20000000000005" y="150" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="382.6" y="160" class="t-edge-security" font-size="8" text-anchor="middle">壬申之乱兄弟夺位</text>
         </g>
         <g data-detail="context" data-edge-from="tenmu" data-edge-to="jito" data-edge-label="皇后即位建藤原京" data-edge-key="8" data-edge-id="c-tenmu-jito">
-          <rect x="325.20000000000005" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="368.6" y="520" class="t-edge-default" font-size="8" text-anchor="middle">皇后即位建藤原京</text>
+          <rect x="332.20000000000005" y="270" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="375.6" y="280" class="t-edge-default" font-size="8" text-anchor="middle">皇后即位建藤原京</text>
         </g>
         <g data-detail="context" data-edge-from="jito" data-edge-to="gemmei" data-edge-label="平城迁都奈良时代" data-edge-key="9" data-edge-id="c-jito-gemmei">
-          <rect x="472.20000000000005" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="515.6" y="520" class="t-edge-default" font-size="8" text-anchor="middle">平城迁都奈良时代</text>
+          <rect x="332.20000000000005" y="390" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="375.6" y="400" class="t-edge-default" font-size="8" text-anchor="middle">平城迁都奈良时代</text>
         </g>
         <g data-detail="context" data-edge-from="gemmei" data-edge-to="shomu" data-edge-label="东大寺卢舍那大佛" data-edge-key="10" data-edge-id="c-gemmei-shomu">
-          <rect x="620.25" y="150" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="663.65" y="160" class="t-edge-emphasis" font-size="8" text-anchor="middle">东大寺卢舍那大佛</text>
+          <rect x="332.20000000000005" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="375.6" y="520" class="t-edge-emphasis" font-size="8" text-anchor="middle">东大寺卢舍那大佛</text>
         </g>
         <g data-detail="context" data-edge-from="shomu" data-edge-to="kanmu" data-edge-label="迁都平安新京" data-edge-key="11" data-edge-id="c-shomu-kanmu">
-          <rect x="631.4000000000001" y="270" width="67.6" height="14" rx="3" class="c-mask"/>
-          <text x="665.2" y="280" class="t-edge-emphasis" font-size="8" text-anchor="middle">迁都平安新京</text>
+          <rect x="351.4" y="630" width="67.6" height="14" rx="3" class="c-mask"/>
+          <text x="385.2" y="640" class="t-edge-emphasis" font-size="8" text-anchor="middle">迁都平安新京</text>
         </g>
         <g data-detail="context" data-edge-from="kanmu" data-edge-to="saga" data-edge-label="弘仁治世赐姓源氏" data-edge-key="12" data-edge-id="c-kanmu-saga">
-          <rect x="612.2" y="390" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="655.6" y="400" class="t-edge-default" font-size="8" text-anchor="middle">弘仁治世赐姓源氏</text>
+          <rect x="324.15000000000003" y="750" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="367.55" y="760" class="t-edge-default" font-size="8" text-anchor="middle">弘仁治世赐姓源氏</text>
         </g>
         <g data-detail="context" data-edge-from="saga" data-edge-to="shirakawa" data-edge-label="开创治天之君院政" data-edge-key="13" data-edge-id="c-saga-shirakawa">
-          <rect x="604.1500000000001" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="647.5500000000001" y="520" class="t-edge-emphasis" font-size="8" text-anchor="middle">开创治天之君院政</text>
+          <rect x="472.20000000000005" y="630" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="515.6" y="640" class="t-edge-emphasis" font-size="8" text-anchor="middle">开创治天之君院政</text>
         </g>
         <g data-detail="context" data-edge-from="shirakawa" data-edge-to="gotoba" data-edge-label="承久之乱讨幕失败" data-edge-key="14" data-edge-id="c-shirakawa-gotoba">
-          <rect x="752.2" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="795.6" y="520" class="t-edge-security" font-size="8" text-anchor="middle">承久之乱讨幕失败</text>
+          <rect x="620.25" y="150" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="663.65" y="160" class="t-edge-security" font-size="8" text-anchor="middle">承久之乱讨幕失败</text>
         </g>
         <g data-detail="context" data-edge-from="gotoba" data-edge-to="godaigo" data-edge-label="建武中兴楠木勤王" data-edge-key="15" data-edge-id="c-gotoba-godaigo">
-          <rect x="900.25" y="150" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="943.65" y="160" class="t-edge-emphasis" font-size="8" text-anchor="middle">建武中兴楠木勤王</text>
+          <rect x="612.2" y="270" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="655.6" y="280" class="t-edge-emphasis" font-size="8" text-anchor="middle">建武中兴楠木勤王</text>
         </g>
         <g data-detail="context" data-edge-from="godaigo" data-edge-to="kogon" data-edge-label="大觉寺与持明院对立" data-edge-key="16" data-edge-id="c-godaigo-kogon">
-          <rect x="882.5999999999999" y="270" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="930.8" y="280" class="t-edge-security" font-size="8" text-anchor="middle">大觉寺与持明院对立</text>
+          <rect x="602.5999999999999" y="390" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="650.8" y="400" class="t-edge-security" font-size="8" text-anchor="middle">大觉寺与持明院对立</text>
         </g>
         <g data-detail="context" data-edge-from="kogon" data-edge-to="gokomatsu" data-edge-label="足利义满明德合一" data-edge-key="17" data-edge-id="c-kogon-gokomatsu">
-          <rect x="892.2" y="390" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="935.6" y="400" class="t-edge-default" font-size="8" text-anchor="middle">足利义满明德合一</text>
+          <rect x="612.2" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="655.6" y="520" class="t-edge-default" font-size="8" text-anchor="middle">足利义满明德合一</text>
         </g>
         <g data-detail="context" data-edge-from="gokomatsu" data-edge-to="gotsuchimikado" data-edge-label="应仁之乱皇室寒冬" data-edge-key="18" data-edge-id="c-gokomatsu-gotsuchimikado">
-          <rect x="884.1500000000001" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="927.5500000000001" y="520" class="t-edge-dashed" font-size="8" text-anchor="middle">应仁之乱皇室寒冬</text>
+          <rect x="612.2" y="630" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="655.6" y="640" class="t-edge-dashed" font-size="8" text-anchor="middle">应仁之乱皇室寒冬</text>
         </g>
         <g data-detail="context" data-edge-from="gotsuchimikado" data-edge-to="ogimachi" data-edge-label="信长秀吉上洛尊皇" data-edge-key="19" data-edge-id="c-gotsuchimikado-ogimachi">
-          <rect x="1032.1999999999998" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="1075.6" y="520" class="t-edge-emphasis" font-size="8" text-anchor="middle">信长秀吉上洛尊皇</text>
+          <rect x="604.1500000000001" y="750" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="647.5500000000001" y="760" class="t-edge-emphasis" font-size="8" text-anchor="middle">信长秀吉上洛尊皇</text>
         </g>
         <g data-detail="context" data-edge-from="ogimachi" data-edge-to="gomizunoo" data-edge-label="禁中法度紫衣抗命" data-edge-key="20" data-edge-id="c-ogimachi-gomizunoo">
-          <rect x="1180.2499999999998" y="150" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="1223.6499999999999" y="160" class="t-edge-security" font-size="8" text-anchor="middle">禁中法度紫衣抗命</text>
+          <rect x="752.2" y="630" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="795.6" y="640" class="t-edge-security" font-size="8" text-anchor="middle">禁中法度紫衣抗命</text>
         </g>
         <g data-detail="context" data-edge-from="gomizunoo" data-edge-to="kokaku" data-edge-label="闲院宫入继近世中兴" data-edge-key="21" data-edge-id="c-gomizunoo-kokaku">
-          <rect x="1162.6" y="270" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="1210.8" y="280" class="t-edge-default" font-size="8" text-anchor="middle">闲院宫入继近世中兴</text>
+          <rect x="889.5999999999999" y="150" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="937.8" y="160" class="t-edge-default" font-size="8" text-anchor="middle">闲院宫入继近世中兴</text>
         </g>
         <g data-detail="context" data-edge-from="kokaku" data-edge-to="komei" data-edge-label="黑船来航尊王攘夷" data-edge-key="22" data-edge-id="c-kokaku-komei">
-          <rect x="1163.1" y="390" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="1206.5" y="400" class="t-edge-emphasis" font-size="8" text-anchor="middle">黑船来航尊王攘夷</text>
+          <rect x="892.2" y="270" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="935.6" y="280" class="t-edge-emphasis" font-size="8" text-anchor="middle">黑船来航尊王攘夷</text>
         </g>
         <g data-detail="context" data-edge-from="komei" data-edge-to="meiji" data-edge-label="明治维新建立近代帝国" data-edge-key="23" data-edge-id="c-komei-meiji">
-          <rect x="1352" y="257" width="106" height="14" rx="3" class="c-mask"/>
-          <text x="1405" y="267" class="t-edge-emphasis" font-size="8" text-anchor="middle">明治维新建立近代帝国</text>
+          <rect x="873" y="390" width="106" height="14" rx="3" class="c-mask"/>
+          <text x="926" y="400" class="t-edge-emphasis" font-size="8" text-anchor="middle">明治维新建立近代帝国</text>
         </g>
         <g data-detail="context" data-edge-from="meiji" data-edge-to="taisho" data-edge-label="大正民主政党政治" data-edge-key="24" data-edge-id="c-meiji-taisho">
-          <rect x="1460.2499999999998" y="150" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="1503.6499999999999" y="160" class="t-edge-default" font-size="8" text-anchor="middle">大正民主政党政治</text>
+          <rect x="892.2" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="935.6" y="520" class="t-edge-default" font-size="8" text-anchor="middle">大正民主政党政治</text>
         </g>
         <g data-detail="context" data-edge-from="taisho" data-edge-to="showa" data-edge-label="对外战争到象征天皇" data-edge-key="25" data-edge-id="c-taisho-showa">
-          <rect x="1551" y="270" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
-          <text x="1599.2" y="280" class="t-edge-dashed" font-size="8" text-anchor="middle">对外战争到象征天皇</text>
+          <rect x="882.5999999999999" y="630" width="96.39999999999999" height="14" rx="3" class="c-mask"/>
+          <text x="930.8" y="640" class="t-edge-dashed" font-size="8" text-anchor="middle">对外战争到象征天皇</text>
         </g>
         <g data-detail="context" data-edge-from="showa" data-edge-to="akihito" data-edge-label="平成和平生前退位" data-edge-key="26" data-edge-id="c-showa-akihito">
-          <rect x="1452.1999999999998" y="390" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="1495.6" y="400" class="t-edge-default" font-size="8" text-anchor="middle">平成和平生前退位</text>
+          <rect x="892.2" y="750" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="935.6" y="760" class="t-edge-default" font-size="8" text-anchor="middle">平成和平生前退位</text>
         </g>
         <g data-detail="context" data-edge-from="akihito" data-edge-to="naruhito" data-edge-label="令和改元今上德仁" data-edge-key="27" data-edge-id="c-akihito-naruhito">
-          <rect x="1452.1999999999998" y="510" width="86.8" height="14" rx="3" class="c-mask"/>
-          <text x="1495.6" y="520" class="t-edge-emphasis" font-size="8" text-anchor="middle">令和改元今上德仁</text>
+          <rect x="892.2" y="870" width="86.8" height="14" rx="3" class="c-mask"/>
+          <text x="935.6" y="880" class="t-edge-emphasis" font-size="8" text-anchor="middle">令和改元今上德仁</text>
         </g>
 
         <!-- Boundary labels (foreground masks keep routes out of titles) -->
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="大和王权与神话肇基 (前660-592年)">
-          <rect data-graph-role="structural-frame-label-mask" x="14" y="37" width="223.05808371612903" height="19" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="18" y="52.09677519354839" class="t-cloud" font-size="11.096775193548387" font-weight="600">大和王权与神话肇基 (前660-592年)</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="大和古坟与飞鸟圣德 (前660-628年)">
+          <rect data-graph-role="structural-frame-label-mask" x="14" y="40" width="182.79999999999998" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="18" y="53" class="t-cloud" font-size="9" font-weight="600">大和古坟与飞鸟圣德 (前660-628年)</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="1" data-composition-frame-kind="region" data-composition-frame-label="飞鸟奈良与律令革新 (592-794年)">
-          <rect data-graph-role="structural-frame-label-mask" x="294" y="37" width="209.74195348387096" height="19" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="298" y="52.09677519354839" class="t-cloud" font-size="11.096775193548387" font-weight="600">飞鸟奈良与律令革新 (592-794年)</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="1" data-composition-frame-kind="region" data-composition-frame-label="律令确立与奈良平安 (668-823年)">
+          <rect data-graph-role="structural-frame-label-mask" x="294" y="40" width="172" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="298" y="53" class="t-cloud" font-size="9" font-weight="600">律令确立与奈良平安 (668-823年)</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="2" data-composition-frame-kind="region" data-composition-frame-label="平安盛世与院政治天 (794-1185年)">
-          <rect data-graph-role="structural-frame-label-mask" x="574" y="37" width="216.40001859999998" height="19" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="578" y="52.09677519354839" class="t-cloud" font-size="11.096775193548387" font-weight="600">平安盛世与院政治天 (794-1185年)</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="2" data-composition-frame-kind="region" data-composition-frame-label="院政治天与南北两统 (1073-1586年)">
+          <rect data-graph-role="structural-frame-label-mask" x="574" y="40" width="182.79999999999998" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="578" y="53" class="t-cloud" font-size="9" font-weight="600">院政治天与南北两统 (1073-1586年)</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="3" data-composition-frame-kind="region" data-composition-frame-label="武家崛起与南北两统 (1185-1557年)">
-          <rect data-graph-role="structural-frame-label-mask" x="854" y="37" width="223.05808371612903" height="19" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="858" y="52.09677519354839" class="t-cloud" font-size="11.096775193548387" font-weight="600">武家崛起与南北两统 (1185-1557年)</text>
-        </g>
-
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="4" data-composition-frame-kind="region" data-composition-frame-label="织丰复苏与江户禁中 (1557-1867年)">
-          <rect data-graph-role="structural-frame-label-mask" x="1134" y="37" width="223.05808371612903" height="19" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="1138" y="52.09677519354839" class="t-cloud" font-size="11.096775193548387" font-weight="600">织丰复苏与江户禁中 (1557-1867年)</text>
-        </g>
-
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="5" data-composition-frame-kind="region" data-composition-frame-label="近代立宪与现代象征 (1867年至今)">
-          <rect data-graph-role="structural-frame-label-mask" x="1414" y="37" width="216.40001859999998" height="19" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="1418" y="52.09677519354839" class="t-cloud" font-size="11.096775193548387" font-weight="600">近代立宪与现代象征 (1867年至今)</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="3" data-composition-frame-kind="region" data-composition-frame-label="江户禁中与近代立宪象征 (1611年至今)">
+          <rect data-graph-role="structural-frame-label-mask" x="854" y="40" width="199" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="858" y="53" class="t-cloud" font-size="9" font-weight="600">江户禁中与近代立宪象征 (1611年至今)</text>
         </g>
 
         <!-- Legend -->
         <g data-legend="" data-legend-bridge="">
-          <text x="40" y="666" class="t-primary" font-size="12" font-weight="650">图例</text>
-          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="肇基开国与摄政女帝" data-legend-x="40" data-legend-baseline="686" data-legend-width="133">
-            <rect x="40" y="677" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
-            <text x="62" y="686" class="t-muted" font-size="10" font-weight="500">肇基开国与摄政女帝</text>
+          <text x="40" y="1026" class="t-primary" font-size="12" font-weight="650">图例</text>
+          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="肇基开国与摄政女帝" data-legend-x="40" data-legend-baseline="1046" data-legend-width="133">
+            <rect x="40" y="1037" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
+            <text x="62" y="1046" class="t-muted" font-size="10" font-weight="500">肇基开国与摄政女帝</text>
           </g>
-          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="律令治世与守成正统" data-legend-x="195" data-legend-baseline="686" data-legend-width="133">
-            <rect x="195" y="677" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
-            <text x="217" y="686" class="t-muted" font-size="10" font-weight="500">律令治世与守成正统</text>
+          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="律令治世与守成正统" data-legend-x="195" data-legend-baseline="1046" data-legend-width="133">
+            <rect x="195" y="1037" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
+            <text x="217" y="1046" class="t-muted" font-size="10" font-weight="500">律令治世与守成正统</text>
           </g>
-          <g data-legend-semantic-kind="database" data-legend-kind="database" data-legend-label="院政治天与南北纷争" data-legend-x="350" data-legend-baseline="686" data-legend-width="133">
-            <rect x="350" y="677" width="16" height="10" rx="2.5" class="c-database" stroke-width="1"/>
-            <text x="372" y="686" class="t-muted" font-size="10" font-weight="500">院政治天与南北纷争</text>
+          <g data-legend-semantic-kind="database" data-legend-kind="database" data-legend-label="院政治天与南北纷争" data-legend-x="350" data-legend-baseline="1046" data-legend-width="133">
+            <rect x="350" y="1037" width="16" height="10" rx="2.5" class="c-database" stroke-width="1"/>
+            <text x="372" y="1046" class="t-muted" font-size="10" font-weight="500">院政治天与南北纷争</text>
           </g>
-          <g data-legend-semantic-kind="cloud" data-legend-kind="cloud" data-legend-label="近代维新与强国极盛" data-legend-x="505" data-legend-baseline="686" data-legend-width="133">
-            <rect x="505" y="677" width="16" height="10" rx="2.5" class="c-cloud" stroke-width="1"/>
-            <text x="527" y="686" class="t-muted" font-size="10" font-weight="500">近代维新与强国极盛</text>
+          <g data-legend-semantic-kind="cloud" data-legend-kind="cloud" data-legend-label="近代维新与强国极盛" data-legend-x="505" data-legend-baseline="1046" data-legend-width="133">
+            <rect x="505" y="1037" width="16" height="10" rx="2.5" class="c-cloud" stroke-width="1"/>
+            <text x="527" y="1046" class="t-muted" font-size="10" font-weight="500">近代维新与强国极盛</text>
           </g>
-          <g data-legend-semantic-kind="security" data-legend-kind="security" data-legend-label="幕府隐忍与禁中幽闭" data-legend-x="660" data-legend-baseline="686" data-legend-width="133">
-            <rect x="660" y="677" width="16" height="10" rx="2.5" class="c-security" stroke-width="1"/>
-            <text x="682" y="686" class="t-muted" font-size="10" font-weight="500">幕府隐忍与禁中幽闭</text>
+          <g data-legend-semantic-kind="security" data-legend-kind="security" data-legend-label="幕府隐忍与禁中幽闭" data-legend-x="660" data-legend-baseline="1046" data-legend-width="133">
+            <rect x="660" y="1037" width="16" height="10" rx="2.5" class="c-security" stroke-width="1"/>
+            <text x="682" y="1046" class="t-muted" font-size="10" font-weight="500">幕府隐忍与禁中幽闭</text>
           </g>
-          <g data-legend-semantic-kind="messagebus" data-legend-x="815" data-legend-baseline="686" data-legend-width="62">
-            <rect x="815" y="677" width="16" height="10" rx="2.5" class="c-messagebus" stroke-width="1"/>
-            <text x="837" y="686" class="t-muted" font-size="10" font-weight="500">消息总线</text>
+          <g data-legend-semantic-kind="messagebus" data-legend-x="815" data-legend-baseline="1046" data-legend-width="62">
+            <rect x="815" y="1037" width="16" height="10" rx="2.5" class="c-messagebus" stroke-width="1"/>
+            <text x="837" y="1046" class="t-muted" font-size="10" font-weight="500">消息总线</text>
           </g>
-          <g data-legend-semantic-kind="external" data-legend-kind="external" data-legend-label="战后象征与当代皇室" data-legend-x="899" data-legend-baseline="686" data-legend-width="133">
-            <rect x="899" y="677" width="16" height="10" rx="2.5" class="c-external" stroke-width="1"/>
-            <text x="921" y="686" class="t-muted" font-size="10" font-weight="500">战后象征与当代皇室</text>
+          <g data-legend-semantic-kind="external" data-legend-kind="external" data-legend-label="战后象征与当代皇室" data-legend-x="899" data-legend-baseline="1046" data-legend-width="133">
+            <rect x="899" y="1037" width="16" height="10" rx="2.5" class="c-external" stroke-width="1"/>
+            <text x="921" y="1046" class="t-muted" font-size="10" font-weight="500">战后象征与当代皇室</text>
           </g>
         </g>
       </svg>
