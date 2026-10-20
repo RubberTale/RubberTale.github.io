@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-10-19",
-  "generated_time": "2026-10-19 07:15:04",
+  "updated_at": "2026-10-20",
+  "generated_time": "2026-10-20 07:15:04",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "商品与股指策略研讨会（2026-10-18 最新研判）",
@@ -11,20 +11,20 @@
   },
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 978610.0,
-    "net_value": 0.9786,
-    "total_return_pct": -2.14,
-    "max_drawdown_pct": 2.71,
-    "win_rate": 0.0,
-    "profit_loss_ratio": 0.0,
-    "total_trades": 2,
+    "final_equity": 975900.42,
+    "net_value": 0.9759,
+    "total_return_pct": -2.41,
+    "max_drawdown_pct": 2.98,
+    "win_rate": 33.3,
+    "profit_loss_ratio": 1.13,
+    "total_trades": 3,
     "open_positions_count": 2,
     "available_slots": 4,
-    "total_margin": 135975.0,
-    "margin_ratio_pct": 13.89,
-    "risk_ratio_pct": 13.89,
-    "available_cash": 842635.0,
-    "market_status": "正在持仓 (2个品种在持，总保证金占用 135975.0元)"
+    "total_margin": 173600.0,
+    "margin_ratio_pct": 17.79,
+    "risk_ratio_pct": 17.79,
+    "available_cash": 802300.42,
+    "market_status": "正在持仓 (2个品种在持，总保证金占用 173600.0元)"
   },
   "radar_signals": [
     {
@@ -46,9 +46,9 @@
       "margin_rate": 12.0,
       "estimated_margin": 80000.0,
       "risk_reward_ratio": 3.2,
-      "status": "WAITING",
-      "status_text": "待触发 (等待回调)",
-      "trigger_date": null,
+      "status": "TRIGGERED",
+      "status_text": "已触发进场 (2026-10-20)",
+      "trigger_date": "2026-10-20",
       "logic": "基于铜去库坚挺与铝海外投产增产预期分化，多铜空铝跨期正套趋势明确且走势最顺畅。"
     },
     {
@@ -347,38 +347,38 @@
       "lots": 1,
       "entry_date": "2026-09-28",
       "entry_price": 904.66,
-      "current_price": 902.42,
+      "current_price": 892.06,
       "stop_price": 755.0,
       "tp_price_1": 815.0,
       "tp_price_2": 820.0,
       "multiplier": 1000,
       "margin_rate": 12.0,
       "position_margin": 93600.0,
-      "hold_days": 12,
-      "unrealized_pnl": -2240.0,
-      "return_pct": -2.39,
+      "hold_days": 13,
+      "unrealized_pnl": -12600.0,
+      "return_pct": -13.46,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
     },
     {
-      "id": "POS-FU2611-2026-10-19",
-      "symbol": "FU",
-      "name": "高硫燃料油",
-      "contract": "FU2611",
-      "direction": "做多",
-      "lots": 5,
-      "entry_date": "2026-10-19",
-      "entry_price": 5650.0,
-      "current_price": 5797.0,
-      "stop_price": 5480.0,
-      "tp_price_1": 5950.0,
-      "tp_price_2": 6150.0,
-      "multiplier": 10,
-      "margin_rate": 15.0,
-      "position_margin": 42375.0,
+      "id": "POS-CU2612/AL2612-2026-10-20",
+      "symbol": "CU-AL",
+      "name": "铜铝跨品种对冲",
+      "contract": "CU2612/AL2612",
+      "direction": "跨期正套",
+      "lots": 2,
+      "entry_date": "2026-10-20",
+      "entry_price": 4.68,
+      "current_price": 4.722,
+      "stop_price": 4.55,
+      "tp_price_1": 4.95,
+      "tp_price_2": 5.15,
+      "multiplier": 5,
+      "margin_rate": 12.0,
+      "position_margin": 80000.0,
       "hold_days": 2,
-      "unrealized_pnl": 7350.0,
-      "return_pct": 17.35,
-      "logic": "柴油紧张及发电溢价，高硫油库存极低，11月份大概率面临逼仓行情，空头交割风险严峻，严禁做空。"
+      "unrealized_pnl": 0.42,
+      "return_pct": 0.0,
+      "logic": "基于铜去库坚挺与铝海外投产增产预期分化，多铜空铝跨期正套趋势明确且走势最顺畅。"
     }
   ],
   "closed_trades": [
@@ -411,6 +411,21 @@
       "pnl": -25000.0,
       "reason": "触碰止损线",
       "hold_days": 2
+    },
+    {
+      "id": "POS-FU2611-2026-10-19",
+      "symbol": "FU",
+      "name": "高硫燃料油",
+      "contract": "FU2611",
+      "direction": "做多",
+      "lots": 5,
+      "entry_date": "2026-10-19",
+      "exit_date": "2026-10-20",
+      "entry_price": 5650.0,
+      "exit_price": 5950.0,
+      "pnl": 15000.0,
+      "reason": "触碰第一止盈位",
+      "hold_days": 3
     }
   ],
   "equity_curve": [
@@ -545,6 +560,17 @@
       "margin_used": 135975.0,
       "risk_ratio": 13.89,
       "remark": "收盘盯市：新触发开仓 2 笔，平仓 1 笔"
+    },
+    {
+      "date": "2026-10-20",
+      "net_value": 0.9759,
+      "equity": 975900.42,
+      "daily_pnl": 2400.42,
+      "drawdown": 2.98,
+      "open_positions": 2,
+      "margin_used": 173600.0,
+      "risk_ratio": 17.79,
+      "remark": "收盘盯市：新触发开仓 1 笔，平仓 1 笔"
     }
   ],
   "daily_settlement_log": [
@@ -679,6 +705,17 @@
       "daily_mtm_pnl": -19890.0,
       "cumulative_equity": 978610.0,
       "risk_status": "安全"
+    },
+    {
+      "date": "2026-10-20",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-10-20 盘后逐日盯市结算",
+      "content": "当日新触发开仓 1 笔，触碰平仓 1 笔。在持仓位 2 个，浮动盈亏 -12599.58 元，账户最新净值 0.9759。",
+      "triggered_entries": 1,
+      "triggered_exits": 1,
+      "daily_mtm_pnl": 2400.42,
+      "cumulative_equity": 975900.42,
+      "risk_status": "安全"
     }
   ],
   "accounting_ledger": [
@@ -786,6 +823,36 @@
       "realized_pnl": -25000.0,
       "balance": 985810.0,
       "note": "平仓：触碰止损线"
+    },
+    {
+      "index": 8,
+      "date": "2026-10-20",
+      "action": "OPEN_POSITION",
+      "symbol": "CU-AL",
+      "contract": "CU2612/AL2612",
+      "direction": "跨期正套",
+      "price": 4.68,
+      "lots": 2,
+      "amount": 80000.0,
+      "commission": 30.0,
+      "realized_pnl": 0.0,
+      "balance": 762635.0,
+      "note": "触发开仓条件：铜铝价比回踩 ≤ 4.68 或逢低建仓正套"
+    },
+    {
+      "index": 9,
+      "date": "2026-10-20",
+      "action": "CLOSE_POSITION",
+      "symbol": "FU",
+      "contract": "FU2611",
+      "direction": "做多",
+      "price": 5950.0,
+      "lots": 5,
+      "amount": 42375.0,
+      "commission": 30.0,
+      "realized_pnl": 15000.0,
+      "balance": 900010.0,
+      "note": "平仓：触碰第一止盈位"
     }
   ]
 }
