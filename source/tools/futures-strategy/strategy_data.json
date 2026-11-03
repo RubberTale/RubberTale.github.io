@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-11-02",
-  "generated_time": "2026-11-02 07:15:04",
+  "updated_at": "2026-11-03",
+  "generated_time": "2026-11-03 07:15:03",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "商品与股指策略研讨会（2026-10-18 最新研判）",
@@ -11,20 +11,20 @@
   },
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 965874.76,
+    "final_equity": 965873.7,
     "net_value": 0.9659,
     "total_return_pct": -3.41,
     "max_drawdown_pct": 4.22,
-    "win_rate": 50.0,
-    "profit_loss_ratio": 0.66,
-    "total_trades": 4,
-    "open_positions_count": 2,
-    "available_slots": 4,
-    "total_margin": 173600.0,
-    "margin_ratio_pct": 17.97,
-    "risk_ratio_pct": 17.97,
-    "available_cash": 792274.76,
-    "market_status": "正在持仓 (2个品种在持，总保证金占用 173600.0元)"
+    "win_rate": 40.0,
+    "profit_loss_ratio": 0.98,
+    "total_trades": 5,
+    "open_positions_count": 1,
+    "available_slots": 5,
+    "total_margin": 93600.0,
+    "margin_ratio_pct": 9.69,
+    "risk_ratio_pct": 9.69,
+    "available_cash": 872273.7,
+    "market_status": "正在持仓 (1个品种在持，总保证金占用 93600.0元)"
   },
   "radar_signals": [
     {
@@ -347,38 +347,17 @@
       "lots": 1,
       "entry_date": "2026-09-28",
       "entry_price": 904.66,
-      "current_price": 836.76,
+      "current_price": 841.8,
       "stop_price": 755.0,
       "tp_price_1": 815.0,
       "tp_price_2": 820.0,
       "multiplier": 1000,
       "margin_rate": 12.0,
       "position_margin": 93600.0,
-      "hold_days": 22,
+      "hold_days": 23,
       "unrealized_pnl": -25000.0,
       "return_pct": -26.71,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
-    },
-    {
-      "id": "POS-CU2612/AL2612-2026-10-20",
-      "symbol": "CU-AL",
-      "name": "铜铝跨品种对冲",
-      "contract": "CU2612/AL2612",
-      "direction": "跨期正套",
-      "lots": 2,
-      "entry_date": "2026-10-20",
-      "entry_price": 4.68,
-      "current_price": 4.656,
-      "stop_price": 4.55,
-      "tp_price_1": 4.95,
-      "tp_price_2": 5.15,
-      "multiplier": 5,
-      "margin_rate": 12.0,
-      "position_margin": 80000.0,
-      "hold_days": 11,
-      "unrealized_pnl": -0.24,
-      "return_pct": -0.0,
-      "logic": "基于铜去库坚挺与铝海外投产增产预期分化，多铜空铝跨期正套趋势明确且走势最顺畅。"
     }
   ],
   "closed_trades": [
@@ -441,6 +420,21 @@
       "pnl": 2375.0,
       "reason": "触碰第一止盈位",
       "hold_days": 2
+    },
+    {
+      "id": "POS-CU2612/AL2612-2026-10-20",
+      "symbol": "CU-AL",
+      "name": "铜铝跨品种对冲",
+      "contract": "CU2612/AL2612",
+      "direction": "跨期正套",
+      "lots": 2,
+      "entry_date": "2026-10-20",
+      "exit_date": "2026-11-03",
+      "entry_price": 4.68,
+      "exit_price": 4.55,
+      "pnl": -1.3,
+      "reason": "触碰止损线",
+      "hold_days": 12
     }
   ],
   "equity_curve": [
@@ -685,6 +679,17 @@
       "margin_used": 173600.0,
       "risk_ratio": 17.97,
       "remark": "收盘盯市：新触发开仓 0 笔，平仓 0 笔"
+    },
+    {
+      "date": "2026-11-03",
+      "net_value": 0.9659,
+      "equity": 965873.7,
+      "daily_pnl": -25001.3,
+      "drawdown": 3.98,
+      "open_positions": 1,
+      "margin_used": 93600.0,
+      "risk_ratio": 9.69,
+      "remark": "收盘盯市：新触发开仓 0 笔，平仓 1 笔"
     }
   ],
   "daily_settlement_log": [
@@ -929,6 +934,17 @@
       "daily_mtm_pnl": -25000.24,
       "cumulative_equity": 965874.76,
       "risk_status": "安全"
+    },
+    {
+      "date": "2026-11-03",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-11-03 盘后逐日盯市结算",
+      "content": "当日新触发开仓 0 笔，触碰平仓 1 笔。在持仓位 1 个，浮动盈亏 -25000.0 元，账户最新净值 0.9659。",
+      "triggered_entries": 0,
+      "triggered_exits": 1,
+      "daily_mtm_pnl": -25001.3,
+      "cumulative_equity": 965873.7,
+      "risk_status": "安全"
     }
   ],
   "accounting_ledger": [
@@ -1096,6 +1112,21 @@
       "realized_pnl": 2375.0,
       "balance": 822274.82,
       "note": "平仓：触碰第一止盈位"
+    },
+    {
+      "index": 12,
+      "date": "2026-11-03",
+      "action": "CLOSE_POSITION",
+      "symbol": "CU-AL",
+      "contract": "CU2612/AL2612",
+      "direction": "跨期正套",
+      "price": 4.55,
+      "lots": 2,
+      "amount": 80000.0,
+      "commission": 30.0,
+      "realized_pnl": -1.3,
+      "balance": 872273.46,
+      "note": "平仓：触碰止损线"
     }
   ]
 }
