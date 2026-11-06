@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-11-05",
-  "generated_time": "2026-11-05 07:15:03",
+  "updated_at": "2026-11-06",
+  "generated_time": "2026-11-06 07:15:03",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "商品与股指策略研讨会（2026-10-18 最新研判）",
@@ -11,20 +11,20 @@
   },
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 973753.7,
-    "net_value": 0.9738,
-    "total_return_pct": -2.62,
+    "final_equity": 969923.7,
+    "net_value": 0.9699,
+    "total_return_pct": -3.01,
     "max_drawdown_pct": 4.22,
     "win_rate": 40.0,
     "profit_loss_ratio": 0.98,
     "total_trades": 5,
-    "open_positions_count": 1,
-    "available_slots": 5,
-    "total_margin": 93600.0,
-    "margin_ratio_pct": 9.61,
-    "risk_ratio_pct": 9.61,
-    "available_cash": 880153.7,
-    "market_status": "正在持仓 (1个品种在持，总保证金占用 93600.0元)"
+    "open_positions_count": 2,
+    "available_slots": 4,
+    "total_margin": 171090.0,
+    "margin_ratio_pct": 17.64,
+    "risk_ratio_pct": 17.64,
+    "available_cash": 798833.7,
+    "market_status": "正在持仓 (2个品种在持，总保证金占用 171090.0元)"
   },
   "radar_signals": [
     {
@@ -238,9 +238,10 @@
       "margin_rate": 14.0,
       "estimated_margin": 77490.0,
       "risk_reward_ratio": 3.89,
-      "status": "WAITING",
-      "status_text": "待触发 (等待回踩支撑)",
-      "logic": "20号胶去库加速，全钢胎库存降至5年新低临近库容荒；前期抛储未补库，国家层面轮储补库概率高，看至突破2万大关。"
+      "status": "TRIGGERED",
+      "status_text": "已触发进场 (2026-11-06)",
+      "logic": "20号胶去库加速，全钢胎库存降至5年新低临近库容荒；前期抛储未补库，国家层面轮储补库概率高，看至突破2万大关。",
+      "trigger_date": "2026-11-06"
     },
     {
       "id": "SIG-MA-SPREAD",
@@ -347,17 +348,38 @@
       "lots": 1,
       "entry_date": "2026-09-28",
       "entry_price": 904.66,
-      "current_price": 887.54,
+      "current_price": 869.86,
       "stop_price": 755.0,
       "tp_price_1": 815.0,
       "tp_price_2": 820.0,
       "multiplier": 1000,
       "margin_rate": 12.0,
       "position_margin": 93600.0,
-      "hold_days": 25,
-      "unrealized_pnl": -17120.0,
-      "return_pct": -18.29,
+      "hold_days": 26,
+      "unrealized_pnl": -25000.0,
+      "return_pct": -26.71,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
+    },
+    {
+      "id": "POS-RU701-2026-11-06",
+      "symbol": "RU",
+      "name": "天然橡胶",
+      "contract": "RU701",
+      "direction": "做多",
+      "lots": 3,
+      "entry_date": "2026-11-06",
+      "entry_price": 18450.0,
+      "current_price": 18585.0,
+      "stop_price": 18000.0,
+      "tp_price_1": 19500.0,
+      "tp_price_2": 20200.0,
+      "multiplier": 10,
+      "margin_rate": 14.0,
+      "position_margin": 77490.0,
+      "hold_days": 2,
+      "unrealized_pnl": 4050.0,
+      "return_pct": 5.23,
+      "logic": "20号胶去库加速，全钢胎库存降至5年新低临近库容荒；前期抛储未补库，国家层面轮储补库概率高，看至突破2万大关。"
     }
   ],
   "closed_trades": [
@@ -712,6 +734,17 @@
       "margin_used": 93600.0,
       "risk_ratio": 9.61,
       "remark": "收盘盯市：新触发开仓 0 笔，平仓 0 笔"
+    },
+    {
+      "date": "2026-11-06",
+      "net_value": 0.9699,
+      "equity": 969923.7,
+      "daily_pnl": -20950.0,
+      "drawdown": 3.58,
+      "open_positions": 2,
+      "margin_used": 171090.0,
+      "risk_ratio": 17.64,
+      "remark": "收盘盯市：新触发开仓 1 笔，平仓 0 笔"
     }
   ],
   "daily_settlement_log": [
@@ -989,6 +1022,17 @@
       "daily_mtm_pnl": -17120.0,
       "cumulative_equity": 973753.7,
       "risk_status": "安全"
+    },
+    {
+      "date": "2026-11-06",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-11-06 盘后逐日盯市结算",
+      "content": "当日新触发开仓 1 笔，触碰平仓 0 笔。在持仓位 2 个，浮动盈亏 -20950.0 元，账户最新净值 0.9699。",
+      "triggered_entries": 1,
+      "triggered_exits": 0,
+      "daily_mtm_pnl": -20950.0,
+      "cumulative_equity": 969923.7,
+      "risk_status": "安全"
     }
   ],
   "accounting_ledger": [
@@ -1171,6 +1215,21 @@
       "realized_pnl": -1.3,
       "balance": 872273.46,
       "note": "平仓：触碰止损线"
+    },
+    {
+      "index": 13,
+      "date": "2026-11-06",
+      "action": "OPEN_POSITION",
+      "symbol": "RU",
+      "contract": "RU701",
+      "direction": "做多",
+      "price": 18450.0,
+      "lots": 3,
+      "amount": 77490.0,
+      "commission": 30.0,
+      "realized_pnl": 0.0,
+      "balance": 802663.7,
+      "note": "触发开仓条件：盘中回踩价格 ≤ 18450.0 元/吨 (支撑区间 18350-18500)"
     }
   ]
 }
