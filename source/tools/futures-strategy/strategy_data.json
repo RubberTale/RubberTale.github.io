@@ -1,7 +1,7 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
-  "updated_at": "2026-11-09",
-  "generated_time": "2026-11-09 07:15:03",
+  "updated_at": "2026-11-10",
+  "generated_time": "2026-11-10 07:15:04",
   "strategy_info": {
     "title": "期货公司策略建议 · 下周触发雷达与逐日盯市跟踪器",
     "source_meeting": "商品与股指策略研讨会（2026-10-18 最新研判）",
@@ -11,9 +11,9 @@
   },
   "summary": {
     "initial_capital": 1000000.0,
-    "final_equity": 975423.7,
-    "net_value": 0.9754,
-    "total_return_pct": -2.46,
+    "final_equity": 981833.7,
+    "net_value": 0.9818,
+    "total_return_pct": -1.82,
     "max_drawdown_pct": 4.22,
     "win_rate": 40.0,
     "profit_loss_ratio": 0.98,
@@ -21,9 +21,9 @@
     "open_positions_count": 2,
     "available_slots": 4,
     "total_margin": 171090.0,
-    "margin_ratio_pct": 17.54,
-    "risk_ratio_pct": 17.54,
-    "available_cash": 804333.7,
+    "margin_ratio_pct": 17.43,
+    "risk_ratio_pct": 17.43,
+    "available_cash": 810743.7,
     "market_status": "正在持仓 (2个品种在持，总保证金占用 171090.0元)"
   },
   "radar_signals": [
@@ -348,16 +348,16 @@
       "lots": 1,
       "entry_date": "2026-09-28",
       "entry_price": 904.66,
-      "current_price": 882.76,
+      "current_price": 885.12,
       "stop_price": 755.0,
       "tp_price_1": 815.0,
       "tp_price_2": 820.0,
       "multiplier": 1000,
       "margin_rate": 12.0,
       "position_margin": 93600.0,
-      "hold_days": 27,
-      "unrealized_pnl": -21900.0,
-      "return_pct": -23.4,
+      "hold_days": 28,
+      "unrealized_pnl": -19540.0,
+      "return_pct": -20.88,
       "logic": "美债实际利率上行与美债增速放缓压制10月贵金属，长假期间通过买Put锁死下行、卖Call覆盖成本，零成本锁定黑天鹅。"
     },
     {
@@ -369,16 +369,16 @@
       "lots": 3,
       "entry_date": "2026-11-06",
       "entry_price": 18450.0,
-      "current_price": 18665.0,
+      "current_price": 18800.0,
       "stop_price": 18000.0,
       "tp_price_1": 19500.0,
       "tp_price_2": 20200.0,
       "multiplier": 10,
       "margin_rate": 14.0,
       "position_margin": 77490.0,
-      "hold_days": 3,
-      "unrealized_pnl": 6450.0,
-      "return_pct": 8.32,
+      "hold_days": 4,
+      "unrealized_pnl": 10500.0,
+      "return_pct": 13.55,
       "logic": "20号胶去库加速，全钢胎库存降至5年新低临近库容荒；前期抛储未补库，国家层面轮储补库概率高，看至突破2万大关。"
     }
   ],
@@ -756,6 +756,17 @@
       "margin_used": 171090.0,
       "risk_ratio": 17.54,
       "remark": "收盘盯市：新触发开仓 0 笔，平仓 0 笔"
+    },
+    {
+      "date": "2026-11-10",
+      "net_value": 0.9818,
+      "equity": 981833.7,
+      "daily_pnl": -9040.0,
+      "drawdown": 2.39,
+      "open_positions": 2,
+      "margin_used": 171090.0,
+      "risk_ratio": 17.43,
+      "remark": "收盘盯市：新触发开仓 0 笔，平仓 0 笔"
     }
   ],
   "daily_settlement_log": [
@@ -1054,6 +1065,17 @@
       "triggered_exits": 0,
       "daily_mtm_pnl": -15450.0,
       "cumulative_equity": 975423.7,
+      "risk_status": "安全"
+    },
+    {
+      "date": "2026-11-10",
+      "event_type": "MARK_TO_MARKET",
+      "title": "2026-11-10 盘后逐日盯市结算",
+      "content": "当日新触发开仓 0 笔，触碰平仓 0 笔。在持仓位 2 个，浮动盈亏 -9040.0 元，账户最新净值 0.9818。",
+      "triggered_entries": 0,
+      "triggered_exits": 0,
+      "daily_mtm_pnl": -9040.0,
+      "cumulative_equity": 981833.7,
       "risk_status": "安全"
     }
   ],
