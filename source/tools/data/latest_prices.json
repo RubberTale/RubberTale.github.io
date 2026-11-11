@@ -1,48 +1,48 @@
 {
-  "updated_at": "2026-11-10 08:44:25",
-  "trade_date": "2026-11-10",
+  "updated_at": "2026-11-11 08:30:03",
+  "trade_date": "2026-11-11",
   "source": "Local MySQL (futures_stock & rubber)",
   "varieties": {
     "RU": {
       "name": "天然橡胶 (RU)",
       "spotName": "上海国产全乳胶 (SCR WF)",
-      "spotPrice": 18450.0,
+      "spotPrice": 18550.0,
       "nearContract": "RU2701",
-      "nearPrice": 18800.0,
-      "nearSettle": 18795.0,
+      "nearPrice": 19475.0,
+      "nearSettle": 19195.0,
       "farContract": "RU2705",
-      "farPrice": 18860.0,
+      "farPrice": 19540.0,
       "daysDiff": 120,
-      "openInterest": 124334,
-      "basis": -350.0,
-      "spread": 60.0
+      "openInterest": 133145,
+      "basis": -925.0,
+      "spread": 65.0
     },
     "NR": {
       "name": "20号胶 (NR)",
       "spotName": "青岛保税区 泰混现货",
-      "spotPrice": 17980.0,
+      "spotPrice": 18080.0,
       "nearContract": "NR2701",
-      "nearPrice": 15895.0,
-      "nearSettle": 15900.0,
+      "nearPrice": 16530.0,
+      "nearSettle": 16285.0,
       "farContract": "NR2702",
-      "farPrice": 15905.0,
+      "farPrice": 16510.0,
       "daysDiff": 60,
-      "openInterest": 64600,
-      "basis": 2085.0,
-      "spread": 10.0
+      "openInterest": 71891,
+      "basis": 1550.0,
+      "spread": -20.0
     },
     "BR": {
       "name": "合成顺丁橡胶 (BR)",
       "spotName": "华东齐鲁顺丁橡胶 (BR9000)",
       "spotPrice": 14900.0,
       "nearContract": "BR2701",
-      "nearPrice": 14775.0,
-      "nearSettle": 15235.0,
+      "nearPrice": 15455.0,
+      "nearSettle": 15185.0,
       "farContract": "BR2702",
-      "farPrice": 14600.0,
+      "farPrice": 15280.0,
       "daysDiff": 60,
-      "openInterest": 59102,
-      "basis": 125.0,
+      "openInterest": 58010,
+      "basis": -555.0,
       "spread": -175.0
     }
   },
@@ -50,75 +50,75 @@
     "RU": [
       {
         "code": "RU2701",
-        "close": 18800.0,
-        "settle": 18795.0,
-        "open_interest": 124334,
-        "volume": 214949
+        "close": 19475.0,
+        "settle": 19195.0,
+        "open_interest": 133145,
+        "volume": 455863
       },
       {
         "code": "RU2705",
-        "close": 18860.0,
-        "settle": 18855.0,
-        "open_interest": 49203,
-        "volume": 32392
+        "close": 19540.0,
+        "settle": 19275.0,
+        "open_interest": 56693,
+        "volume": 80444
       },
       {
         "code": "RU2709",
-        "close": 18875.0,
-        "settle": 18890.0,
-        "open_interest": 3876,
-        "volume": 1087
+        "close": 19540.0,
+        "settle": 19285.0,
+        "open_interest": 4426,
+        "volume": 4230
       },
       {
         "code": "RU2703",
-        "close": 18825.0,
-        "settle": 18820.0,
-        "open_interest": 1397,
-        "volume": 549
+        "close": 19510.0,
+        "settle": 19205.0,
+        "open_interest": 2175,
+        "volume": 3131
       },
       {
         "code": "RU2611",
-        "close": 18350.0,
-        "settle": 18295.0,
-        "open_interest": 638,
-        "volume": 22
+        "close": 19050.0,
+        "settle": 18575.0,
+        "open_interest": 555,
+        "volume": 163
       },
       {
         "code": "RU2707",
-        "close": 18870.0,
-        "settle": 18865.0,
-        "open_interest": 173,
-        "volume": 34
+        "close": 19535.0,
+        "settle": 19350.0,
+        "open_interest": 186,
+        "volume": 163
       }
     ],
     "NR": [
       {
         "code": "NR2701",
-        "close": 15895.0,
-        "settle": 15900.0,
-        "open_interest": 64600,
-        "volume": 53912
+        "close": 16530.0,
+        "settle": 16285.0,
+        "open_interest": 71891,
+        "volume": 112634
       },
       {
         "code": "NR2612",
-        "close": 15925.0,
-        "settle": 15930.0,
-        "open_interest": 18085,
-        "volume": 10797
+        "close": 16550.0,
+        "settle": 16305.0,
+        "open_interest": 16768,
+        "volume": 14824
       },
       {
         "code": "NR2702",
-        "close": 15905.0,
-        "settle": 15915.0,
-        "open_interest": 13962,
-        "volume": 9189
+        "close": 16510.0,
+        "settle": 16280.0,
+        "open_interest": 15676,
+        "volume": 17116
       },
       {
         "code": "NR2703",
-        "close": 15940.0,
-        "settle": 15950.0,
-        "open_interest": 3975,
-        "volume": 3764
+        "close": 16505.0,
+        "settle": 16295.0,
+        "open_interest": 5753,
+        "volume": 7284
       },
       {
         "code": "NR2611",
@@ -129,54 +129,54 @@
       },
       {
         "code": "NR2705",
-        "close": 15935.0,
-        "settle": 15940.0,
-        "open_interest": 373,
-        "volume": 49
+        "close": 16530.0,
+        "settle": 16350.0,
+        "open_interest": 415,
+        "volume": 123
       }
     ],
     "BR": [
       {
         "code": "BR2701",
-        "close": 14775.0,
-        "settle": 15235.0,
-        "open_interest": 59102,
-        "volume": 146694
-      },
-      {
-        "code": "BR2612",
-        "close": 15020.0,
-        "settle": 15485.0,
-        "open_interest": 28514,
-        "volume": 165401
+        "close": 15455.0,
+        "settle": 15185.0,
+        "open_interest": 58010,
+        "volume": 162972
       },
       {
         "code": "BR2702",
-        "close": 14600.0,
-        "settle": 15045.0,
-        "open_interest": 23749,
-        "volume": 17175
+        "close": 15280.0,
+        "settle": 15030.0,
+        "open_interest": 25728,
+        "volume": 16967
+      },
+      {
+        "code": "BR2612",
+        "close": 15650.0,
+        "settle": 15400.0,
+        "open_interest": 24723,
+        "volume": 133999
       },
       {
         "code": "BR2705",
-        "close": 14365.0,
-        "settle": 14675.0,
-        "open_interest": 833,
-        "volume": 629
+        "close": 15055.0,
+        "settle": 14840.0,
+        "open_interest": 953,
+        "volume": 737
       },
       {
         "code": "BR2611",
-        "close": 15850.0,
-        "settle": 16195.0,
-        "open_interest": 458,
-        "volume": 26
+        "close": 15600.0,
+        "settle": 15600.0,
+        "open_interest": 438,
+        "volume": 48
       },
       {
         "code": "BR2703",
-        "close": 14490.0,
-        "settle": 14870.0,
-        "open_interest": 372,
-        "volume": 836
+        "close": 15160.0,
+        "settle": 14960.0,
+        "open_interest": 409,
+        "volume": 1026
       }
     ]
   }
