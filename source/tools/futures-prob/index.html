@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>期货主力次日价格概率预测 · Probability Radar | 橡胶童话</title>
-  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <link rel="icon" type="image/png" href="/img/橡胶童话logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
   <script>
@@ -62,9 +62,9 @@
         <div>
           <div class="flex items-center space-x-2.5">
             <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">期货主力次日概率预测</h1>
-            <span class="text-xs px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 font-bold">FHS + EWMA</span>
+            <span class="text-xs px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 font-bold">FHS + 贝叶斯竞技场</span>
           </div>
-          <p class="text-xs sm:text-sm text-slate-500 hidden sm:block">过滤历史模拟法 · 动态波动率滤波 · 结算价口径纠偏</p>
+          <p class="text-xs sm:text-sm text-slate-500 hidden sm:block">多模型赛马打擂 · 过滤历史模拟法 · 贝叶斯共轭收缩 · 结算价口径纠偏</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-xs sm:text-sm">
@@ -86,6 +86,38 @@
 
   <!-- 主体宽屏容器 (max-w-[1600px] 减少白边) -->
   <main class="flex-1 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 w-full">
+
+    <!-- 多模型赛马引擎选择器 (Champion-Challenger Model Selector) -->
+    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-2xl shadow-md shadow-amber-500/20 shrink-0">
+          🏆
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-base sm:text-lg font-extrabold text-slate-900">测算模型版本切换</span>
+            <span id="model-active-badge" class="text-xs px-2.5 py-0.5 rounded-md bg-blue-100 text-blue-800 font-bold border border-blue-200">当前：贝叶斯收缩版 (擂主)</span>
+          </div>
+          <p id="model-active-desc" class="text-xs sm:text-sm text-slate-500 mt-0.5">Beta-Binomial共轭后验收缩，在长周期FHS先验与微观量价状态间平滑收缩，兼具稳健性与微观灵敏度</p>
+        </div>
+      </div>
+
+      <!-- 3个模型切换按钮 -->
+      <div class="flex items-center gap-2 bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200 shrink-0 overflow-x-auto custom-scrollbar">
+        <button id="btn-model-bayes" class="model-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-blue-600 text-white shadow-sm" data-model="bayes_shrink">
+          <span>👑 贝叶斯收缩版</span>
+          <span class="text-[10px] px-1.5 py-0.2 rounded bg-blue-700/90 text-blue-100">擂主·推荐</span>
+        </button>
+        <button id="btn-model-base" class="model-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-700 hover:text-slate-900 hover:bg-slate-200" data-model="fhs_base">
+          <span>🛡️ 经典基准版</span>
+          <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-200 text-slate-600">稳健基石</span>
+        </button>
+        <button id="btn-model-regime" class="model-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-700 hover:text-slate-900 hover:bg-slate-200" data-model="regime_cond">
+          <span>⚡ 量价动量版</span>
+          <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-200 text-slate-600">激进先锋</span>
+        </button>
+      </div>
+    </div>
 
     <!-- 顶部品种核心状态卡片 -->
     <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm relative overflow-hidden">
@@ -192,7 +224,9 @@
 
         <!-- 持仓变动 -->
         <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 sm:p-4">
-          <div class="text-xs sm:text-sm font-semibold text-slate-500">日增仓变化 (手)</div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs sm:text-sm font-semibold text-slate-500">日增仓变化 (手)</span>
+          </div>
           <div id="vp-oi-chg" class="text-xl sm:text-2xl font-extrabold font-mono mt-1">--</div>
           <div id="vp-oi-desc" class="text-xs text-slate-400 mt-0.5 font-mono">较前一交易日</div>
         </div>
@@ -251,7 +285,7 @@
     <!-- 板块筛选与品种快速选择器 -->
     <div class="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <!-- 板块分类标签 (更大字号) -->
+        <!-- 板块分类标签 -->
         <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar text-xs sm:text-sm">
           <button class="sector-tab px-4 py-2 rounded-xl font-bold transition whitespace-nowrap bg-blue-600 text-white shadow-sm" data-sector="all">全部 (70)</button>
           <button class="sector-tab px-4 py-2 rounded-xl font-semibold transition whitespace-nowrap bg-slate-100 text-slate-700 hover:bg-slate-200" data-sector="rubber">橡胶产业</button>
@@ -286,7 +320,7 @@
               <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
                 <span>🎯 盘中触碰概率雷达</span>
               </h2>
-              <span class="text-xs px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">非互斥 / 盘中到过即算</span>
+              <span id="ladder-model-tag" class="text-xs px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 border border-blue-200 font-bold">贝叶斯收缩版</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-500 mt-1">次日高低点触及各档位累积概率，适合日内挂单成交率与止损设定</p>
           </div>
@@ -297,7 +331,7 @@
             <div class="space-y-2.5">
               <div class="text-sm font-bold text-emerald-700 flex items-center justify-between">
                 <span>▲ 向上触及 (阻力位 / 挂单止盈)</span>
-                <span class="text-xs text-slate-400 font-medium">目标价格 | 历史概率</span>
+                <span class="text-xs text-slate-400 font-medium">目标价格 | 预测概率</span>
               </div>
               <div id="touch-up-list" class="space-y-2">
                 <!-- 动态填充 -->
@@ -316,7 +350,7 @@
             <div class="space-y-2.5">
               <div class="text-sm font-bold text-rose-700 flex items-center justify-between">
                 <span>▼ 向下触及 (支撑位 / 埋伏低吸)</span>
-                <span class="text-xs text-slate-400 font-medium">目标价格 | 历史概率</span>
+                <span class="text-xs text-slate-400 font-medium">目标价格 | 预测概率</span>
               </div>
               <div id="touch-down-list" class="space-y-2">
                 <!-- 动态填充 -->
@@ -345,9 +379,10 @@
         <div class="border-b border-slate-200 pb-3.5">
           <div class="flex items-center justify-between flex-wrap gap-2">
             <div>
-              <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                <span>📊 次日收盘概率分布直方图</span>
-              </h2>
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-extrabold text-slate-900">📊 次日收盘概率分布直方图</h2>
+                <span id="chart-model-tag" class="text-xs px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-bold border border-blue-200">贝叶斯收缩版</span>
+              </div>
               <p class="text-xs sm:text-sm text-slate-500 mt-1">以今结算为基准，1%为步长切分的互斥概率分布（合计严格 100%）</p>
             </div>
             <div class="text-right bg-blue-50 px-3.5 py-1.5 rounded-xl border border-blue-200">
@@ -357,7 +392,7 @@
           </div>
         </div>
 
-        <!-- ECharts 容器 (高度提升，字体更大更清爽) -->
+        <!-- ECharts 容器 -->
         <div id="close-dist-chart" class="w-full h-[400px] sm:h-[450px]"></div>
 
         <!-- 图表底部说明标签 -->
@@ -368,21 +403,62 @@
             <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500"></span> 强势上涨</span>
           </div>
           <div class="text-slate-400 text-xs">
-            *柱顶直接标有概率数值，清晰可见无需悬停
+            *柱顶标有清晰数值标签，无需悬停一眼看清
           </div>
         </div>
       </div>
 
     </div>
 
+    <!-- 模型竞技场·赛马天梯实测榜 (Champion-Challenger Tournament Arena) -->
+    <div id="arena-card" class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-5 transition-all">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div>
+          <div class="flex items-center gap-3 flex-wrap">
+            <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <span>🏁 模型竞技场 · 赛马天梯实测榜</span>
+            </h2>
+            <span class="px-3 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
+              Champion-Challenger Arena
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">全市场 70 个品种近 32 个交易日（2,100 次真实预测）盘中触碰逐日打擂，基于布里尔分数 (Brier Score) 严苛核验</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-600 bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200">
+          <span>实测周期: <strong id="arena-period" class="text-slate-800 font-mono font-bold">--</strong></span>
+          <span>•</span>
+          <span>核验样本: <strong id="arena-samples" class="text-blue-600 font-mono font-bold">--</strong></span>
+        </div>
+      </div>
+
+      <!-- 三大模型赛马战绩卡片网格 -->
+      <div id="arena-models-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 动态生成 3 个模型卡片 -->
+      </div>
+
+      <!-- 近期每日市场冠军滚动战报 -->
+      <div class="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3.5 sm:p-4 space-y-2">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-600">
+          <span>📅 近 10 个交易日每日全市场打擂冠军流水</span>
+          <span class="text-slate-400 font-normal">基于全市场当日各品种平均 Brier 误差裁决</span>
+        </div>
+        <div id="arena-history-strip" class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar text-xs font-mono">
+          <!-- 动态注入每日战绩胶囊 -->
+        </div>
+      </div>
+    </div>
+
     <!-- 全市场 70 个品种概率全景对比表 (字号加大，宽屏布局) -->
     <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
         <div>
-          <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2.5">
-            <span>📋 全市场主力合约次日概率全景一览</span>
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <span>📋 全市场主力合约次日概率全景一览</span>
+            </h2>
             <span id="table-count-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-mono font-bold">70 个品种</span>
-          </h2>
+            <span id="table-model-indicator" class="text-xs px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 font-bold">当前排序列：贝叶斯收缩版</span>
+          </div>
           <p class="text-xs sm:text-sm text-slate-500 mt-1">点击任意品种行，上方看板将立即平滑切换至该品种的完整深度雷达与分布图</p>
         </div>
         <div class="text-xs sm:text-sm text-slate-600 flex items-center gap-3 flex-wrap">
@@ -394,11 +470,9 @@
             <span class="font-medium">排序方式:</span>
             <select id="table-sort-select" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-blue-600 font-medium">
               <option value="vr_desc">量比 VR (放量异动最高)</option>
-              <option value="cond_up1_desc">条件上触 +1% (由高到低)</option>
-              <option value="cond_dn1_desc">当下触 -1% (由高到低)</option>
+              <option value="cur_up1_desc">当前模型上触 +1% (由高到低)</option>
+              <option value="cur_dn1_desc">当前模型下触 -1% (由高到低)</option>
               <option value="vol_desc">EWMA 波动率 (由高到低)</option>
-              <option value="up1_desc">基准上触 +1% (由高到低)</option>
-              <option value="dn1_desc">基准下触 -1% (由高到低)</option>
               <option value="gap_abs_desc">收盘/结算 偏离绝对值 (由高到低)</option>
               <option value="symbol_asc">品种代码 (A-Z)</option>
             </select>
@@ -411,17 +485,17 @@
         <table class="w-full text-left text-sm">
           <thead class="bg-slate-100/90 text-slate-700 border-b border-slate-200 font-mono text-xs sm:text-sm font-bold">
             <tr>
-              <th class="py-3 px-4">品种 / 合约</th>
-              <th class="py-3 px-4">量价状态诊断</th>
-              <th class="py-3 px-4">量比 (VR)</th>
-              <th class="py-3 px-4">收盘 (CLV)</th>
-              <th class="py-3 px-4">今结算 / 今收盘</th>
-              <th class="py-3 px-4">偏离度</th>
-              <th class="py-3 px-4">日波动率</th>
-              <th class="py-3 px-4 text-emerald-700 font-bold">条件上触+1% (基准)</th>
-              <th class="py-3 px-4 text-rose-700 font-bold">当下触-1% (基准)</th>
-              <th class="py-3 px-4 text-amber-700 font-bold">触板率 (涨/跌)</th>
-              <th class="py-3 px-4">样本</th>
+              <th class="py-3.5 px-4">品种 / 合约</th>
+              <th class="py-3.5 px-4">量价状态诊断</th>
+              <th class="py-3.5 px-4">量比 (VR)</th>
+              <th class="py-3.5 px-4">收盘 (CLV)</th>
+              <th class="py-3.5 px-4">今结算 / 今收盘</th>
+              <th class="py-3.5 px-4">偏离度</th>
+              <th class="py-3.5 px-4">日波动率</th>
+              <th id="th-up1" class="py-3.5 px-4 text-emerald-700 font-bold">上触+1% (当前模型)</th>
+              <th id="th-dn1" class="py-3.5 px-4 text-rose-700 font-bold">下触-1% (当前模型)</th>
+              <th class="py-3.5 px-4 text-amber-700 font-bold">触板率 (涨/跌)</th>
+              <th class="py-3.5 px-4">样本</th>
             </tr>
           </thead>
           <tbody id="overview-table-body" class="divide-y divide-slate-100 font-mono text-xs sm:text-sm">
@@ -441,7 +515,7 @@
           <span class="text-2xl">🔬</span>
           <div>
             <h3 class="text-lg font-extrabold text-slate-900">模型算法与12年样本外回测报告</h3>
-            <p class="text-xs sm:text-sm text-slate-500">基于过滤历史模拟法 (FHS) 与交易所真实结算规则</p>
+            <p class="text-xs sm:text-sm text-slate-500">过滤历史模拟法 (FHS) · 贝叶斯共轭收缩 · 赛马打擂机制</p>
           </div>
         </div>
         <button id="btn-close-modal" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 transition">
@@ -451,43 +525,32 @@
 
       <div class="space-y-4 text-sm text-slate-700 leading-relaxed">
         <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-4 space-y-2">
-          <div class="font-extrabold text-blue-900 text-base">一、核心算法机制 (FHS + EWMA)</div>
-          <p>1. <strong>严控同合约自身收益</strong>：排除跨月换月时的虚假跳空，纯净提取同合约真实历史日收益率与振幅。</p>
-          <p>2. <strong>EWMA 波动率滤波 (λ=0.94)</strong>：实时捕捉当前最新的市场恐慌/冷淡能量，自适应调整模拟幅度。</p>
-          <p>3. <strong>保留真实尖峰肥尾</strong>：不假设正态分布，提取过去 15 年真实的无量纲残差，精准度量暴涨暴跌与极端值。</p>
-          <p>4. <strong>结算价口径纠偏 (G因子)</strong>：交易所次日涨跌停和涨跌幅均以结算价为基准。模型先在“收盘-收盘”交易口径下模拟，再通过偏离因子 $G = \text{Close}/\text{Settle}$ 平移映射，彻底消除尾盘拉升导致的虚假动量幻觉。</p>
-        </div>
-
-        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 space-y-2">
-          <div class="font-extrabold text-emerald-900 text-base">二、12年逐日滚动回测结果 (2014-2026, 3000+交易日)</div>
-          <p>• <strong>PIT 概率积分变换检验（核心分布均匀性）</strong>：<br>
-            RU 实测 10 个十分位数发生率：<code class="font-mono font-bold text-emerald-800 bg-emerald-100/80 px-1.5 py-0.5 rounded">9.4%, 9.1%, 10.2%, 10.6%, 9.3%, 11.7%, 9.6%, 10.9%, 9.8%, 9.5%</code>（理论基准各为 10.0%），铜(CU)、螺纹(RB)同样完美通过，证明分布预测无偏、无系统性高估/低估。
-          </p>
-          <p>• <strong>极端风险覆盖 (VaR 击穿率)</strong>：<br>
-            95% 风险击穿率实测 <strong>4.66%</strong>（基准 5.0%）；99% 极端风险击穿率实测 <strong>1.40%</strong>（基准 1.0%），有效防御黑天鹅。
-          </p>
-          <p>• <strong>概率校准度 (Calibration)</strong>：<br>
-            当模型预测向上触及 +1% 的概率在 [20%~40%] 时，实际发生率恰为 <strong>31.6%</strong>；预测向下触及 -1% 在 [20%~40%] 时，实际发生率恰为 <strong>29.9%</strong>。Brier 分数低至 0.06~0.18，高度可靠。
-          </p>
-        </div>
-
-        <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 space-y-2">
-          <div class="font-extrabold text-amber-900 text-base">三、实战使用指南（怎么用是正确的）</div>
-          <p>✅ <strong>适合用途</strong>：日内极值挂单（如触碰概率 ≤10% 的支撑阻力位埋伏抄底摸顶）、动态止损位设定（放置在 95% 或 99% VaR 外防正常杂波）、网格交易步长调整与期权波动率参考。</p>
-          <p>⚠️ <strong>切忌用法</strong>：切勿将该模型视作“单边趋势预测机”。如果某天模型显示上涨概率 70%，绝大多数是因为当天尾盘急拉导致收盘比结算高很多，次日净收益均值接近 0，切忌盲目追高开多。</p>
+          <div class="font-extrabold text-blue-900 text-base">一、FHS + EWMA 核心算法流程</div>
+          <p>1. <strong>剔除换月跳空</strong>：仅使用同合约内部连续收盘价收益率，杜绝因换月主力平移产生的虚假波动信号。</p>
+          <p>2. <strong>EWMA 波动率动态滤波</strong>：以 $\lambda = 0.94$（半衰期约 11 交易日）自适应捕捉近期市场情绪能量，动态调整模拟振幅。</p>
+          <p>3. <strong>保留真实尖峰肥尾</strong>：不假设高斯正态分布，提取过去 15 年真实的无量纲残差，精准度量暴涨暴跌与极端极端值。</p>
+          <p>4. <strong>结算价口径纠偏 (G因子)</strong>：交易所次日停板与涨跌幅均以结算价为基准。模型先在收盘口径下模拟，再通过偏离因子 $G = \text{Close}/\text{Settle}$ 平移映射，彻底消除尾盘急拉导致的虚假动量幻觉。</p>
         </div>
 
         <div class="bg-indigo-50/70 border border-indigo-200 rounded-2xl p-4 space-y-2">
-          <div class="font-extrabold text-indigo-900 text-base">四、量价异动诊断与条件概率校准体系 (方案 A)</div>
-          <p>1. <strong>成交量比 (VR, Volume Ratio)</strong>：当日成交量除以 20 日成交量移动平均线。$VR \ge 1.3$ 判定为显著放量，主力资金博弈激化；$VR < 0.8$ 判定为极度缩量，市场交投观望蓄势。</p>
-          <p>2. <strong>收盘位置 (CLV, Close Location Value)</strong>：$\text{CLV} = (\text{Close} - \text{Low}) / (\text{High} - \text{Low}) \in [0, 1]$。$\ge 0.75$ 为日内高位/光头阳线收盘，多头攻势凌厉；$\le 0.25$ 为日内低位/光脚阴线收盘，空头抛压沉重。</p>
-          <p>3. <strong>五大量价状态映射与实证特征</strong>：
-            <br>• <strong>放量强势收高</strong> ($VR \ge 1.3, CLV \ge 0.75$)：次日惯性上触+1%概率常暴增至 80%~87%，突破前高概率超 70%；但实测次日相对今日收盘的收涨率仅约 43%（均值收益负数），呈现典型“夜盘/早盘冲高、尾盘获利回吐”，追高易被套，多头宜逢高止盈。
-            <br>• <strong>放量恐慌杀跌</strong> ($VR \ge 1.3, CLV \le 0.25$)：次日惯性下探-1%概率常超 85%，但收盘杀跌动能衰竭，空头回补反抽概率提升，切忌地板价追空。
-            <br>• <strong>放量滞涨分歧</strong> ($VR \ge 1.3, 0.25 < CLV < 0.75$)：巨量长影线，多空双向触及极值概率同步提升，宽幅剧烈震荡。
-            <br>• <strong>极度缩量整理</strong> ($VR < 0.8$)：交投清淡，振幅收敛，大振幅概率被动压制，适合区间网格策略。
-            <br>• <strong>常态温和换手</strong>：量价处于平衡态，次日概率高度贴合 FHS 历史基准模型。
-          </p>
+          <div class="font-extrabold text-indigo-900 text-base">二、多模型赛马竞技场与贝叶斯共轭收缩 (Champion-Challenger Arena)</div>
+          <p>系统同时运行并每日实战打擂 3 个版本模型：</p>
+          <p>1. <strong>经典 FHS 基准版 (fhs_base)</strong>：稳健基石。长周期均方误差最小，大数定律无偏标定，不受短期噪音干扰。</p>
+          <p>2. <strong>量价动量条件版 (regime_cond)</strong>：激进先锋。以成交量比VR和收盘位置CLV匹配历史同类行情微观频率，动能突破行情时抓取力强。</p>
+          <p>3. <strong>贝叶斯后验收缩版 (bayes_shrink)</strong>：综合擂主。采用 Beta-Binomial 共轭更新：以 FHS 基准概率为先验（等效先验样本数 $N_0 = 30$），历史同状态样本数为 $N_{\text{cond}}$，自适应权重 $w = N_{\text{cond}} / (30 + N_{\text{cond}})$。在保留宏观稳健性的同时，灵敏捕捉微观放量异动，实战综合体验最佳。</p>
+        </div>
+
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 space-y-2">
+          <div class="font-extrabold text-emerald-900 text-base">三、12年逐日滚动回测结果 (2014-2026, 3000+交易日)</div>
+          <p>• <strong>PIT 概率积分变换检验（分布均匀性）</strong>：RU 实测十分位数发生率在 9.1%~11.7% 之间（理论各 10.0%），通过卡方检验，证明分布预测无偏。</p>
+          <p>• <strong>极端风险覆盖 (VaR 击穿率)</strong>：95% 风险击穿率实测 <strong>4.66%</strong>（基准 5.0%）；99% 极端风险击穿率实测 <strong>1.40%</strong>，有效防御极端黑天鹅。</p>
+          <p>• <strong>布里尔分数 (Brier Score)</strong>：全市场实测 Brier 分数低至 <strong>0.1437</strong>，显著优于传统正态假设或 GARCH 模型。</p>
+        </div>
+
+        <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 space-y-2">
+          <div class="font-extrabold text-amber-900 text-base">四、实战使用指南（怎么用是正确的）</div>
+          <p>✅ <strong>适合用途</strong>：日内极值挂单（如触碰概率 ≤10% 的支撑阻力位埋伏抄底摸顶）、动态止损位设定（放置在 95% 或 99% VaR 外防正常杂波）、网格交易步长调整与期权波动率参考。</p>
+          <p>⚠️ <strong>切忌用法</strong>：切勿将该模型视作“单边趋势预测机”。如果某天模型显示上涨概率 70%，绝大多数是因为当天尾盘急拉导致收盘比结算高很多，次日净收益均值接近 0，切忌盲目追高开多。</p>
         </div>
       </div>
 
@@ -501,7 +564,7 @@
 
   <!-- 底部页脚 -->
   <footer class="border-t border-slate-200/90 bg-white py-6 text-center text-xs text-slate-500 space-y-1">
-    <p>© 2026 橡胶童话 · 期货量化投研实验室 | 过滤历史模拟法 (FHS) 概率测算系统</p>
+    <p>© 2026 橡胶童话 · 期货量化投研实验室 | 过滤历史模拟法 (FHS) 与多模型贝叶斯竞技场系统</p>
     <p class="text-[11px] text-slate-400">注：本系统提供纯物理统计意义下的历史条件概率分布，不构成任何方向性投资买卖建议。市场有风险，投资需谨慎。</p>
   </footer>
 
@@ -590,11 +653,37 @@
     };
 
     let allItems = [];
+    let arenaData = null;
     let activeContractsMap = {};
     let currentSymbol = "RU";
     let currentContract = "RU2701";
+    let currentModel = "bayes_shrink"; // 默认使用贝叶斯收缩版
     let chartInstance = null;
     let onlyAnomaly = false;
+
+    const MODEL_META = {
+      "bayes_shrink": {
+        name: "贝叶斯收缩版",
+        badge: "当前：贝叶斯收缩版 (擂主)",
+        badgeClass: "bg-blue-100 text-blue-800 border-blue-200",
+        desc: "Beta-Binomial共轭后验收缩，在长周期FHS先验与微观量价状态间平滑收缩，兼具稳健性与微观灵敏度",
+        tag: "稳健+灵敏"
+      },
+      "fhs_base": {
+        name: "经典基准版",
+        badge: "当前：经典 FHS 基准版 (稳健基石)",
+        badgeClass: "bg-emerald-100 text-emerald-800 border-emerald-200",
+        desc: "纯 Filtered Historical Simulation + EWMA(λ=0.94) 过滤历史模拟，保留真实肥尾分布，不受短周期情绪噪音扰动",
+        tag: "长周期稳健"
+      },
+      "regime_cond": {
+        name: "量价动量版",
+        badge: "当前：量价动量条件版 (激进先锋)",
+        badgeClass: "bg-amber-100 text-amber-800 border-amber-200",
+        desc: "基于成交量比VR与收盘位置CLV严格匹配历史同类行情微观条件频率，强动能行情下攻击性极强",
+        tag: "高敏激进"
+      }
+    };
 
     // 页面启动与数据加载
     document.addEventListener("DOMContentLoaded", async () => {
@@ -615,6 +704,7 @@
         const data = await res.json();
         
         allItems = data.items || [];
+        arenaData = data.arena || null;
 
         // 尝试加载 active_contracts 市场多合约明细
         try {
@@ -648,6 +738,7 @@
           currentContract = allItems[0].contract || "";
         }
 
+        renderArenaLeaderboard();
         renderVarietyChips("all", "");
         renderCurrentSymbol();
         renderOverviewTable();
@@ -660,7 +751,6 @@
 
     function initChart() {
       const container = document.getElementById("close-dist-chart");
-      // 使用默认亮色主题
       chartInstance = echarts.init(container);
       window.addEventListener("resize", () => {
         if (chartInstance) chartInstance.resize();
@@ -668,6 +758,14 @@
     }
 
     function initEvents() {
+      // 模型切换按钮
+      document.querySelectorAll(".model-select-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const modelKey = btn.dataset.model;
+          switchModel(modelKey);
+        });
+      });
+
       // 板块切换
       document.querySelectorAll(".sector-tab").forEach(tab => {
         tab.addEventListener("click", () => {
@@ -742,7 +840,149 @@
       });
     }
 
-    // 渲染品种筛选芯片 (亮色风格 + 状态圆点)
+    // 切换当前激活模型
+    function switchModel(modelKey) {
+      if (!MODEL_META[modelKey]) return;
+      currentModel = modelKey;
+
+      // 更新按钮高亮
+      document.querySelectorAll(".model-select-btn").forEach(btn => {
+        const isThis = btn.dataset.model === modelKey;
+        if (isThis) {
+          btn.className = "model-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-blue-600 text-white shadow-sm";
+        } else {
+          btn.className = "model-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-700 hover:text-slate-900 hover:bg-slate-200";
+        }
+      });
+
+      const meta = MODEL_META[modelKey];
+      const badge = document.getElementById("model-active-badge");
+      badge.textContent = meta.badge;
+      badge.className = `text-xs px-2.5 py-0.5 rounded-md font-bold border ${meta.badgeClass}`;
+      document.getElementById("model-active-desc").textContent = meta.desc;
+
+      document.getElementById("ladder-model-tag").textContent = meta.name;
+      document.getElementById("chart-model-tag").textContent = meta.name;
+      document.getElementById("table-model-indicator").textContent = `当前排序列：${meta.name}`;
+      document.getElementById("th-up1").textContent = `上触+1% (${meta.name})`;
+      document.getElementById("th-dn1").textContent = `下触-1% (${meta.name})`;
+
+      renderCurrentSymbol();
+      renderOverviewTable();
+      renderArenaLeaderboard(); // 刷新高亮激活卡片
+    }
+
+    // 渲染竞技场天梯榜
+    function renderArenaLeaderboard() {
+      if (!arenaData) return;
+
+      document.getElementById("arena-period").textContent = arenaData.audit_period || "--";
+      document.getElementById("arena-samples").textContent = `${arenaData.total_eval_samples ? arenaData.total_eval_samples.toLocaleString() : '--'} 次预测`;
+
+      const grid = document.getElementById("arena-models-grid");
+      grid.innerHTML = "";
+
+      const models = arenaData.models || [];
+      models.forEach(m => {
+        const isCurrent = m.id === currentModel;
+        const card = document.createElement("div");
+        card.className = `p-5 rounded-2xl border transition relative flex flex-col justify-between space-y-4 ${
+          isCurrent 
+            ? "bg-blue-50/60 border-blue-400 ring-2 ring-blue-500/20 shadow-md" 
+            : "bg-slate-50/70 border-slate-200 hover:border-slate-300 hover:bg-white"
+        }`;
+
+        let rankBadge = `<span class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-slate-200 text-slate-700">#${m.rank}</span>`;
+        if (m.rank === 1) rankBadge = `<span class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-amber-400 text-amber-950 shadow-xs">🥇 天梯第一</span>`;
+        else if (m.rank === 2) rankBadge = `<span class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-slate-200 text-slate-800">🥈 榜眼·擂主</span>`;
+        else if (m.rank === 3) rankBadge = `<span class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-amber-100 text-amber-800">🥉 探花·先锋</span>`;
+
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                ${rankBadge}
+                <span class="text-base sm:text-lg font-extrabold text-slate-900">${m.name}</span>
+              </div>
+              <span class="text-xs px-2 py-0.5 rounded-md font-semibold bg-white border border-slate-200 text-slate-600">${m.tag}</span>
+            </div>
+
+            <!-- Brier Score 核心比分 (均方误差) -->
+            <div class="bg-white border border-slate-200/90 rounded-xl p-3.5 space-y-1">
+              <div class="flex items-baseline justify-between">
+                <span class="text-xs text-slate-500 font-semibold">布里尔均方误差 (Brier)</span>
+                <span class="text-xs text-slate-400">越低越准</span>
+              </div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-2xl sm:text-3xl font-extrabold font-mono text-slate-900">${m.brier_score_str}</span>
+                <span class="text-xs font-bold ${m.daily_win_rate > 50 ? 'text-amber-600' : 'text-slate-500'}">胜率: ${m.daily_win_rate}% (${m.daily_wins}胜)</span>
+              </div>
+            </div>
+
+            <!-- 预测校准度吻合度 -->
+            <div class="space-y-1.5 text-xs font-mono">
+              <div class="flex items-center justify-between text-slate-600">
+                <span>上触+1% 吻合度:</span>
+                <span class="font-bold text-slate-900">预测 ${m.pred_up1}% vs 实测 ${m.actual_up1}%</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-600">
+                <span>下触-1% 吻合度:</span>
+                <span class="font-bold text-slate-900">预测 ${m.pred_dn1}% vs 实测 ${m.actual_dn1}%</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-500 pt-1 border-t border-slate-200/70">
+                <span class="font-sans">校准绝对偏差 (MAE):</span>
+                <span class="font-bold text-blue-600">${m.calibration_gap}%</span>
+              </div>
+            </div>
+
+            <!-- 特性评价 -->
+            <p class="text-xs text-slate-600 leading-relaxed font-sans pt-1">
+              ${m.advantage}
+            </p>
+          </div>
+
+          <!-- 激活此模型按钮 -->
+          <button class="w-full py-2.5 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-1.5 ${
+            isCurrent 
+              ? 'bg-blue-600 text-white shadow-sm cursor-default' 
+              : 'bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 border border-slate-200 hover:border-blue-300'
+          }" onclick="switchModel('${m.id}')">
+            ${isCurrent ? '✓ 当前已激活生效' : '⚡ 一键切换至此模型'}
+          </button>
+        `;
+        grid.appendChild(card);
+      });
+
+      // 渲染最近 10 天每日市场冠军
+      const strip = document.getElementById("arena-history-strip");
+      strip.innerHTML = "";
+      const history = arenaData.recent_10_champions || [];
+      history.forEach(h => {
+        let tagColor = "bg-slate-100 text-slate-700 border-slate-200";
+        let winnerName = "经典基准";
+        if (h.winner === "fhs_base") {
+          tagColor = "bg-emerald-50 text-emerald-800 border-emerald-200";
+          winnerName = "🛡️ 经典基准";
+        } else if (h.winner === "bayes_shrink") {
+          tagColor = "bg-blue-50 text-blue-800 border-blue-200";
+          winnerName = "👑 贝叶斯";
+        } else if (h.winner === "regime_cond") {
+          tagColor = "bg-amber-50 text-amber-800 border-amber-200";
+          winnerName = "⚡ 量价动量";
+        }
+
+        const pill = document.createElement("div");
+        pill.className = `px-2.5 py-1.5 rounded-lg border flex items-center gap-1.5 shrink-0 whitespace-nowrap ${tagColor}`;
+        pill.innerHTML = `
+          <span class="text-slate-500">${h.date.slice(5)}</span>
+          <span class="font-bold">${winnerName}</span>
+          <span class="text-slate-400 font-mono">(${h.winner_brier})</span>
+        `;
+        strip.appendChild(pill);
+      });
+    }
+
+    // 渲染品种筛选芯片
     function renderVarietyChips(sector, filterText) {
       const container = document.getElementById("variety-chips");
       container.innerHTML = "";
@@ -801,7 +1041,7 @@
       document.getElementById("stat-sector-badge").textContent = meta.tag;
       document.getElementById("stat-asof").textContent = baseItem.as_of || "--";
 
-      // 动态准备可选主力合约列表 (优先从 activeContractsMap，其次兜底生成标准月份合约)
+      // 动态准备可选主力合约列表
       const selectEl = document.getElementById("stat-contract-select");
       let contractsList = [];
       const fromActive = activeContractsMap[baseItem.symbol];
@@ -846,17 +1086,24 @@
         ).join('');
       }
 
-      // 根据选中的具体合约构建测算对象 (按合约真实结算价/收盘价折算)
-      const chosenContract = contractsList.find(c => c.code === currentContractCode) || contractsList[0];
-      const item = JSON.parse(JSON.stringify(baseItem));
-      item.contract = chosenContract ? chosenContract.code : baseItem.contract;
+      // 提取当前选定模型的测算数据
+      const activeModelKey = currentModel || "bayes_shrink";
+      const chosenModel = (baseItem.models && baseItem.models[activeModelKey]) ? baseItem.models[activeModelKey] : null;
 
+      const item = JSON.parse(JSON.stringify(baseItem));
+      item.contract = currentContractCode;
+
+      if (chosenModel) {
+        item.touch = JSON.parse(JSON.stringify(chosenModel.touch));
+        item.close_bins = JSON.parse(JSON.stringify(chosenModel.close_bins));
+      }
+
+      const chosenContract = contractsList.find(c => c.code === currentContractCode) || contractsList[0];
       if (chosenContract && chosenContract.settle) {
         item.settle = chosenContract.settle;
         item.close = chosenContract.close || chosenContract.settle;
         item.gap_pct = ((item.close - item.settle) / item.settle) * 100;
         
-        // 重新按照该合约结算价折算触及阶梯价格
         const limitPct = item.limit_pct || 6;
         item.limit_up_price = Math.round(item.settle * (1 + limitPct / 100));
         item.limit_down_price = Math.round(item.settle * (1 - limitPct / 100));
@@ -890,7 +1137,7 @@
       document.getElementById("stat-touch-limit").textContent = `${(item.touch && item.touch["任一触板"] !== undefined ? item.touch["任一触板"] : 0).toFixed(2)}%`;
       document.getElementById("stat-tick1").textContent = `${item.tick_1pct ? item.tick_1pct.toLocaleString() : '--'} 元`;
 
-      // ── 量价异动与条件概率渲染 (方案 A) ──
+      // ── 量价异动与条件概率渲染 ──
       const vs = item.volume_state || {};
       const ct = vs.cond_touch || {};
       const baseUp = item.touch && item.touch["+1%"] ? item.touch["+1%"].prob : 0;
@@ -931,7 +1178,7 @@
         stateBadge.className = "px-3.5 py-1 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-sm bg-blue-50 text-blue-700 border border-blue-200";
         stateBadge.textContent = "🔵 " + stateLabel;
         biasBadge.className = "px-2.5 py-0.5 rounded-lg text-xs font-bold border border-blue-200 bg-blue-50/60 text-blue-700";
-        biasBadge.textContent = biasText + " (贴合FHS基准)";
+        biasBadge.textContent = biasText + " (贴合基准)";
         riskBox.className = "p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition bg-blue-50/40 border-blue-200";
       }
 
@@ -1011,7 +1258,7 @@
       renderCloseChart(item);
     }
 
-    // 渲染盘中触及阶梯 (字号显著加大、清晰醒目)
+    // 渲染盘中触及阶梯
     function renderTouchLadder(item) {
       const upList = document.getElementById("touch-up-list");
       const dnList = document.getElementById("touch-down-list");
@@ -1067,7 +1314,7 @@
       });
     }
 
-    // 渲染收盘区间分布柱状图 (大字体、直观清晰柱顶标签)
+    // 渲染收盘区间分布柱状图
     function renderCloseChart(item) {
       if (!chartInstance) return;
       const bins = item.close_bins || {};
@@ -1086,20 +1333,19 @@
 
       const S = item.settle || 0;
 
-      // 亮色清爽配色
       const seriesData = labels.map((label, idx) => {
         const val = values[idx];
-        let color = "#3b82f6"; // 默认中性深蓝
+        let color = "#3b82f6";
         if (label === "跌停" || label.startsWith("-6") || label.startsWith("-5") || label.startsWith("-4") || label.startsWith("-3")) {
-          color = "#f43f5e"; // 深度下跌 亮红
+          color = "#f43f5e";
         } else if (label.startsWith("-2") || label.startsWith("-1")) {
-          color = "#fb7185"; // 浅红
+          color = "#fb7185";
         } else if (label.startsWith("+0") || label.startsWith("-0")) {
-          color = "#0284c7"; // 核心中枢 湖蓝
+          color = "#0284c7";
         } else if (label.startsWith("+1") || label.startsWith("+2")) {
-          color = "#10b981"; // 浅绿
+          color = "#10b981";
         } else {
-          color = "#059669"; // 强势上涨 深绿
+          color = "#059669";
         }
         return {
           value: val,
@@ -1172,7 +1418,6 @@
             type: "bar",
             barMaxWidth: 44,
             data: seriesData,
-            // 柱顶直接标注清晰大字，一眼就能看清
             label: {
               show: true,
               position: "top",
@@ -1192,7 +1437,7 @@
       chartInstance.setOption(option, true);
     }
 
-    // 渲染全市场表格 (更大字体、更高对比度、量价异动融合)
+    // 渲染全市场表格 (以当前选定模型为主展示)
     function renderOverviewTable() {
       const tbody = document.getElementById("overview-table-body");
       tbody.innerHTML = "";
@@ -1209,24 +1454,29 @@
       }
 
       const sorted = list.sort((a, b) => {
+        const getModelTouch = (it) => {
+          if (it.models && it.models[currentModel] && it.models[currentModel].touch) {
+            return it.models[currentModel].touch;
+          }
+          return it.touch || {};
+        };
+
         if (sortMode === "vr_desc") {
           const vrA = (a.volume_state && a.volume_state.vr) || 0;
           const vrB = (b.volume_state && b.volume_state.vr) || 0;
           return vrB - vrA;
         }
-        if (sortMode === "cond_up1_desc") {
-          const pA = (a.volume_state && a.volume_state.cond_touch && a.volume_state.cond_touch.p_up1) !== undefined ? a.volume_state.cond_touch.p_up1 : ((a.touch && a.touch["+1%"]) ? a.touch["+1%"].prob : 0);
-          const pB = (b.volume_state && b.volume_state.cond_touch && b.volume_state.cond_touch.p_up1) !== undefined ? b.volume_state.cond_touch.p_up1 : ((b.touch && b.touch["+1%"]) ? b.touch["+1%"].prob : 0);
+        if (sortMode === "cur_up1_desc") {
+          const pA = getModelTouch(a)["+1%"] ? getModelTouch(a)["+1%"].prob : 0;
+          const pB = getModelTouch(b)["+1%"] ? getModelTouch(b)["+1%"].prob : 0;
           return pB - pA;
         }
-        if (sortMode === "cond_dn1_desc") {
-          const pA = (a.volume_state && a.volume_state.cond_touch && a.volume_state.cond_touch.p_dn1) !== undefined ? a.volume_state.cond_touch.p_dn1 : ((a.touch && a.touch["-1%"]) ? a.touch["-1%"].prob : 0);
-          const pB = (b.volume_state && b.volume_state.cond_touch && b.volume_state.cond_touch.p_dn1) !== undefined ? b.volume_state.cond_touch.p_dn1 : ((b.touch && b.touch["-1%"]) ? b.touch["-1%"].prob : 0);
+        if (sortMode === "cur_dn1_desc") {
+          const pA = getModelTouch(a)["-1%"] ? getModelTouch(a)["-1%"].prob : 0;
+          const pB = getModelTouch(b)["-1%"] ? getModelTouch(b)["-1%"].prob : 0;
           return pB - pA;
         }
         if (sortMode === "vol_desc") return (b.ewma_vol_pct || 0) - (a.ewma_vol_pct || 0);
-        if (sortMode === "up1_desc") return ((b.touch && b.touch["+1%"] ? b.touch["+1%"].prob : 0) - (a.touch && a.touch["+1%"] ? a.touch["+1%"].prob : 0));
-        if (sortMode === "dn1_desc") return ((b.touch && b.touch["-1%"] ? b.touch["-1%"].prob : 0) - (a.touch && a.touch["-1%"] ? a.touch["-1%"].prob : 0));
         if (sortMode === "gap_abs_desc") return Math.abs(b.gap_pct || 0) - Math.abs(a.gap_pct || 0);
         if (sortMode === "symbol_asc") return a.symbol.localeCompare(b.symbol);
         return 0;
@@ -1247,15 +1497,15 @@
         const gapSign = gapVal > 0 ? "+" : "";
         const gapColor = gapVal >= 0 ? "text-emerald-600 font-bold" : "text-rose-600 font-bold";
 
-        const t = item.touch || {};
-        const up1 = t["+1%"] ? t["+1%"].prob.toFixed(1) : "--";
-        const dn1 = t["-1%"] ? t["-1%"].prob.toFixed(1) : "--";
-        const lu = t["涨停"] ? t["涨停"].prob.toFixed(2) : "--";
-        const ld = t["跌停"] ? t["跌停"].prob.toFixed(2) : "--";
+        // 获取当前选中模型的触碰数据
+        const mTouch = (item.models && item.models[currentModel] && item.models[currentModel].touch) || item.touch || {};
+        const up1 = mTouch["+1%"] ? mTouch["+1%"].prob.toFixed(1) : "--";
+        const dn1 = mTouch["-1%"] ? mTouch["-1%"].prob.toFixed(1) : "--";
+        const lu = mTouch["涨停"] ? mTouch["涨停"].prob.toFixed(2) : "--";
+        const ld = mTouch["跌停"] ? mTouch["跌停"].prob.toFixed(2) : "--";
 
         // 量价状态
         const vs = item.volume_state || {};
-        const ct = vs.cond_touch || {};
         let stateBadgeHtml = `<span class="px-2 py-0.5 rounded-md text-xs text-slate-400">常态</span>`;
         if (vs.state_label === "放量强势收高") {
           stateBadgeHtml = `<span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-rose-100 text-rose-700 border border-rose-200">🔴 放量收高</span>`;
@@ -1276,9 +1526,6 @@
         let clvColor = "text-slate-600";
         if (clvVal >= 0.75) clvColor = "text-rose-600 font-extrabold";
         else if (clvVal <= 0.25) clvColor = "text-emerald-700 font-extrabold";
-
-        const condUp1Val = ct.p_up1 !== undefined ? ct.p_up1.toFixed(1) : up1;
-        const condDn1Val = ct.p_dn1 !== undefined ? ct.p_dn1.toFixed(1) : dn1;
 
         tr.innerHTML = `
           <td class="py-3.5 px-4">
@@ -1307,12 +1554,10 @@
             ${(item.ewma_vol_pct || 0).toFixed(2)}%
           </td>
           <td class="py-3.5 px-4 whitespace-nowrap">
-            <span class="text-emerald-700 font-bold text-sm sm:text-base">${condUp1Val}%</span>
-            <span class="text-xs text-slate-400 font-mono font-normal">(${up1}%)</span>
+            <span class="text-emerald-700 font-bold text-sm sm:text-base">${up1}%</span>
           </td>
           <td class="py-3.5 px-4 whitespace-nowrap">
-            <span class="text-rose-700 font-bold text-sm sm:text-base">${condDn1Val}%</span>
-            <span class="text-xs text-slate-400 font-mono font-normal">(${dn1}%)</span>
+            <span class="text-rose-700 font-bold text-sm sm:text-base">${dn1}%</span>
           </td>
           <td class="py-3.5 px-4 text-amber-700 font-bold whitespace-nowrap">
             ${lu}% / ${ld}%
