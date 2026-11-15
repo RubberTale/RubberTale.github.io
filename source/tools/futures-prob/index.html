@@ -94,7 +94,14 @@
         <div class="space-y-2">
           <div class="flex items-center gap-3.5 flex-wrap">
             <span id="stat-symbol-name" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">--</span>
-            <span id="stat-contract" class="text-base sm:text-lg font-mono px-3 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 font-extrabold">--</span>
+            <div class="relative inline-flex items-center">
+              <select id="stat-contract-select" class="appearance-none text-base sm:text-lg font-mono pl-3.5 pr-8 py-1 rounded-lg bg-blue-50 hover:bg-blue-100/80 text-blue-700 border border-blue-200 hover:border-blue-300 font-extrabold cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all shadow-xs" title="点击切换主力合约">
+                <option value="">--</option>
+              </select>
+              <div class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-blue-500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+            </div>
             <span id="stat-sector-badge" class="text-xs sm:text-sm px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200 font-medium">--</span>
           </div>
           <div class="flex items-center gap-3 text-xs sm:text-sm text-slate-500">
@@ -452,7 +459,9 @@
     };
 
     let allItems = [];
+    let activeContractsMap = {};
     let currentSymbol = "RU";
+    let currentContract = "RU2701";
     let chartInstance = null;
 
     // 页面启动与数据加载
@@ -474,14 +483,33 @@
         const data = await res.json();
         
         allItems = data.items || [];
+
+        // 尝试加载 active_contracts 市场多合约明细
+        try {
+          let pRes;
+          try {
+            pRes = await fetch("../data/latest_prices.json?t=" + Date.now());
+          } catch(pe) {
+            pRes = await fetch("/tools/data/latest_prices.json?t=" + Date.now());
+          }
+          if (pRes && pRes.ok) {
+            const pData = await pRes.json();
+            activeContractsMap = pData.active_contracts || {};
+          }
+        } catch(pe) {
+          console.warn("加载 active_contracts 失败，使用默认衍生合约:", pe);
+        }
+
         document.getElementById("header-update-time").textContent = data.generated_at ? data.generated_at.split(" ")[0] : "--";
         document.getElementById("table-count-badge").textContent = `${allItems.length} 个主力品种`;
 
         const ruExists = allItems.find(x => x.symbol === "RU");
         if (ruExists) {
           currentSymbol = "RU";
+          currentContract = ruExists.contract || "RU2701";
         } else if (allItems.length > 0) {
           currentSymbol = allItems[0].symbol;
+          currentContract = allItems[0].contract || "";
         }
 
         renderVarietyChips("all", "");
@@ -531,6 +559,15 @@
       document.getElementById("table-sort-select").addEventListener("change", () => {
         renderOverviewTable();
       });
+
+      // 切换主力合约下拉菜单
+      const contractSelect = document.getElementById("stat-contract-select");
+      if (contractSelect) {
+        contractSelect.addEventListener("change", (e) => {
+          currentContract = e.target.value;
+          renderCurrentSymbol(e.target.value);
+        });
+      }
 
       // Modal 弹窗
       const modal = document.getElementById("modal-methodology");
@@ -582,6 +619,7 @@
         btn.innerHTML = `<span>${item.symbol}</span><span class="text-xs font-sans opacity-90">${meta.name}</span>`;
         btn.onclick = () => {
           currentSymbol = item.symbol;
+          currentContract = item.contract || "";
           renderVarietyChips(sector, filterText);
           renderCurrentSymbol();
         };
@@ -589,16 +627,86 @@
       });
     }
 
-    // 渲染当前选中的品种核心数据
-    function renderCurrentSymbol() {
-      const item = allItems.find(x => x.symbol === currentSymbol);
-      if (!item) return;
+    // 渲染当前选中的品种与指定主力合约核心数据
+    function renderCurrentSymbol(overrideContract = null) {
+      const baseItem = allItems.find(x => x.symbol === currentSymbol);
+      if (!baseItem) return;
 
-      const meta = VARIETY_META[item.symbol] || { name: item.symbol, tag: "商品" };
-      document.getElementById("stat-symbol-name").textContent = `${meta.name} (${item.symbol})`;
-      document.getElementById("stat-contract").textContent = item.contract;
+      const meta = VARIETY_META[baseItem.symbol] || { name: baseItem.symbol, tag: "商品" };
+      document.getElementById("stat-symbol-name").textContent = `${meta.name} (${baseItem.symbol})`;
       document.getElementById("stat-sector-badge").textContent = meta.tag;
-      document.getElementById("stat-asof").textContent = item.as_of || "--";
+      document.getElementById("stat-asof").textContent = baseItem.as_of || "--";
+
+      // 动态准备可选主力合约列表 (优先从 activeContractsMap，其次兜底生成标准月份合约)
+      const selectEl = document.getElementById("stat-contract-select");
+      let contractsList = [];
+      const fromActive = activeContractsMap[baseItem.symbol];
+      if (fromActive && fromActive.length > 0) {
+        contractsList = fromActive.map(c => ({
+          code: c.code,
+          label: `${c.code}${c.code === baseItem.contract ? ' (当前主力)' : ''}`,
+          settle: c.settle,
+          close: c.close,
+          open_interest: c.open_interest,
+          volume: c.volume
+        }));
+      } else {
+        const defMonths = ["2701", "2705", "2709", "2703"];
+        contractsList = defMonths.map(m => {
+          const code = `${baseItem.symbol}${m}`;
+          return {
+            code: code,
+            label: `${code}${code === baseItem.contract ? ' (当前主力)' : ''}`,
+            settle: baseItem.settle,
+            close: baseItem.close
+          };
+        });
+      }
+
+      // 确定选中的合约代码
+      let currentContractCode = overrideContract;
+      if (!currentContractCode) {
+        if (currentContract && contractsList.some(c => c.code === currentContract)) {
+          currentContractCode = currentContract;
+        } else if (selectEl && selectEl.value && contractsList.some(c => c.code === selectEl.value)) {
+          currentContractCode = selectEl.value;
+        } else {
+          currentContractCode = baseItem.contract || (contractsList[0] ? contractsList[0].code : "");
+        }
+      }
+      currentContract = currentContractCode;
+
+      if (selectEl) {
+        selectEl.innerHTML = contractsList.map(c => 
+          `<option value="${c.code}" ${c.code === currentContractCode ? 'selected' : ''}>${c.label}</option>`
+        ).join('');
+      }
+
+      // 根据选中的具体合约构建测算对象 (按合约真实结算价/收盘价折算)
+      const chosenContract = contractsList.find(c => c.code === currentContractCode) || contractsList[0];
+      const item = JSON.parse(JSON.stringify(baseItem));
+      item.contract = chosenContract ? chosenContract.code : baseItem.contract;
+
+      if (chosenContract && chosenContract.settle) {
+        item.settle = chosenContract.settle;
+        item.close = chosenContract.close || chosenContract.settle;
+        item.gap_pct = ((item.close - item.settle) / item.settle) * 100;
+        
+        // 重新按照该合约结算价折算触及阶梯价格
+        const limitPct = item.limit_pct || 6;
+        item.limit_up_price = Math.round(item.settle * (1 + limitPct / 100));
+        item.limit_down_price = Math.round(item.settle * (1 - limitPct / 100));
+        item.tick_1pct = Math.round(item.settle * 0.01);
+        
+        if (item.touch) {
+          for (let p = 1; p <= 5; p++) {
+            if (item.touch[`+${p}%`]) item.touch[`+${p}%`].price = Math.round(item.settle * (1 + p / 100));
+            if (item.touch[`-${p}%`]) item.touch[`-${p}%`].price = Math.round(item.settle * (1 - p / 100));
+          }
+          if (item.touch["涨停"]) item.touch["涨停"].price = item.limit_up_price;
+          if (item.touch["跌停"]) item.touch["跌停"].price = item.limit_down_price;
+        }
+      }
 
       // 价格数据
       document.getElementById("stat-settle").textContent = item.settle ? item.settle.toLocaleString() : "--";
@@ -867,6 +975,7 @@
 
         tr.onclick = () => {
           currentSymbol = item.symbol;
+          currentContract = item.contract || "";
           const activeTab = document.querySelector(".sector-tab.bg-blue-600");
           const sector = activeTab ? activeTab.dataset.sector : "all";
           const searchVal = document.getElementById("variety-search").value.trim().toUpperCase();
