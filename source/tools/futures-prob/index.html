@@ -140,6 +140,114 @@
       </div>
     </div>
 
+    <!-- 量价异动诊断与条件概率雷达 (方案 A 核心交付) -->
+    <div id="volume-price-card" class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-5 transition-all">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-3 flex-wrap">
+          <h2 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+            <span>⚡ 量价异动诊断与条件概率雷达</span>
+          </h2>
+          <span id="vp-state-badge" class="px-3.5 py-1 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-sm bg-slate-100 text-slate-800 border border-slate-200">
+            --
+          </span>
+          <span id="vp-bias-badge" class="px-2.5 py-0.5 rounded-lg text-xs font-bold border border-slate-200 bg-slate-50 text-slate-600">
+            --
+          </span>
+        </div>
+        <div class="text-xs sm:text-sm text-slate-500 flex items-center gap-2 flex-wrap">
+          <span>历史形态匹配: <strong id="vp-cond-samples" class="text-slate-800 font-mono font-bold">--</strong> 天</span>
+          <span>•</span>
+          <span class="text-slate-600">成交量比 (VR) + 收盘位置 (CLV) 动态条件映射</span>
+        </div>
+      </div>
+
+      <!-- 4 列核心量价指标 -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <!-- 量比 VR -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 sm:p-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs sm:text-sm font-semibold text-slate-500">成交量比 (VR)</span>
+            <span id="vp-vr-tag" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-200 text-slate-700">--</span>
+          </div>
+          <div id="vp-vr-val" class="text-xl sm:text-2xl font-extrabold font-mono text-slate-900 mt-1">--</div>
+          <div class="text-xs text-slate-400 mt-0.5 font-mono">20日均量: <span id="vp-vol-ma20">--</span></div>
+        </div>
+
+        <!-- 收盘位置 CLV -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 sm:p-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs sm:text-sm font-semibold text-slate-500">收盘位置 (CLV)</span>
+            <span id="vp-clv-tag" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-200 text-slate-700">--</span>
+          </div>
+          <div id="vp-clv-val" class="text-xl sm:text-2xl font-extrabold font-mono text-slate-900 mt-1">--</div>
+          <div class="text-xs text-slate-400 mt-0.5 font-mono">0=最低 1=最高</div>
+        </div>
+
+        <!-- 今日成交量 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 sm:p-4">
+          <div class="text-xs sm:text-sm font-semibold text-slate-500">今日成交量 (手)</div>
+          <div id="vp-volume-val" class="text-xl sm:text-2xl font-extrabold font-mono text-slate-900 mt-1">--</div>
+          <div class="text-xs text-slate-400 mt-0.5 font-mono">持仓量: <span id="vp-oi-val">--</span></div>
+        </div>
+
+        <!-- 持仓变动 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 sm:p-4">
+          <div class="text-xs sm:text-sm font-semibold text-slate-500">日增仓变化 (手)</div>
+          <div id="vp-oi-chg" class="text-xl sm:text-2xl font-extrabold font-mono mt-1">--</div>
+          <div id="vp-oi-desc" class="text-xs text-slate-400 mt-0.5 font-mono">较前一交易日</div>
+        </div>
+      </div>
+
+      <!-- 条件概率 vs 基准概率对比网格 -->
+      <div class="bg-slate-50/80 border border-slate-200/90 rounded-2xl p-4 sm:p-5 space-y-3">
+        <div class="text-xs sm:text-sm font-bold text-slate-700 tracking-wider flex items-center justify-between border-b border-slate-200 pb-2">
+          <span>🎯 当日量价特征下 · 次日条件概率校准 (对比全样本基准)</span>
+          <span class="text-xs text-slate-400 font-normal hidden sm:inline">基于历史同类形态次日实际发生表现</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+          <!-- 上触+1% -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 sm:p-3.5">
+            <div class="text-xs text-slate-500 font-medium">条件上触 +1%</div>
+            <div id="vp-cond-up1" class="text-xl sm:text-2xl font-extrabold font-mono text-emerald-700 mt-1">--%</div>
+            <div id="vp-base-up1-diff" class="text-xs font-mono font-bold mt-1">基准: --%</div>
+          </div>
+
+          <!-- 下触-1% -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 sm:p-3.5">
+            <div class="text-xs text-slate-500 font-medium">当下触 -1%</div>
+            <div id="vp-cond-dn1" class="text-xl sm:text-2xl font-extrabold font-mono text-rose-700 mt-1">--%</div>
+            <div id="vp-base-dn1-diff" class="text-xs font-mono font-bold mt-1">基准: --%</div>
+          </div>
+
+          <!-- 突破前日极值 -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 sm:p-3.5">
+            <div class="text-xs text-slate-500 font-medium">突破前高 / 破前低</div>
+            <div id="vp-break-extrema" class="text-lg sm:text-xl font-extrabold font-mono text-indigo-700 mt-1">-- / --</div>
+            <div class="text-xs text-slate-400 mt-1 font-mono">突破极值概率</div>
+          </div>
+
+          <!-- 次日收盘表现 -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 sm:p-3.5">
+            <div class="text-xs text-slate-500 font-medium">次日收盘相对今日收涨</div>
+            <div id="vp-close-winrate" class="text-lg sm:text-xl font-extrabold font-mono text-slate-800 mt-1">--%</div>
+            <div id="vp-close-mean-ret" class="text-xs font-mono font-bold mt-1">均值收益: --%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 研判与交易风控警示卡片 -->
+      <div id="vp-risk-box" class="p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition bg-blue-50/50 border-blue-200">
+        <span class="text-2xl shrink-0 mt-0.5">💡</span>
+        <div class="space-y-1.5 flex-1">
+          <div class="text-xs font-extrabold tracking-wide uppercase text-slate-500">投研研判与交易风控警示 (Risk & Trading Insight)</div>
+          <p id="vp-risk-tip" class="text-xs sm:text-sm font-semibold leading-relaxed text-slate-800">
+            --
+          </p>
+        </div>
+      </div>
+    </div>
+
     <!-- 板块筛选与品种快速选择器 -->
     <div class="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -277,15 +385,24 @@
           </h2>
           <p class="text-xs sm:text-sm text-slate-500 mt-1">点击任意品种行，上方看板将立即平滑切换至该品种的完整深度雷达与分布图</p>
         </div>
-        <div class="text-xs sm:text-sm text-slate-600 flex items-center gap-2">
-          <span class="font-medium">排序方式:</span>
-          <select id="table-sort-select" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-blue-600 font-medium">
-            <option value="vol_desc">EWMA 波动率 (由高到低)</option>
-            <option value="up1_desc">向上触及 +1% 概率 (由高到低)</option>
-            <option value="dn1_desc">向下触及 -1% 概率 (由高到低)</option>
-            <option value="gap_abs_desc">收盘/结算 偏离绝对值 (由高到低)</option>
-            <option value="symbol_asc">品种代码 (A-Z)</option>
-          </select>
+        <div class="text-xs sm:text-sm text-slate-600 flex items-center gap-3 flex-wrap">
+          <button id="btn-toggle-anomaly" class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold border transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200 shadow-sm">
+            <span>⚡ 仅看量价异动</span>
+            <span id="anomaly-count-pill" class="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-mono font-bold">--</span>
+          </button>
+          <div class="flex items-center gap-2">
+            <span class="font-medium">排序方式:</span>
+            <select id="table-sort-select" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-blue-600 font-medium">
+              <option value="vr_desc">量比 VR (放量异动最高)</option>
+              <option value="cond_up1_desc">条件上触 +1% (由高到低)</option>
+              <option value="cond_dn1_desc">当下触 -1% (由高到低)</option>
+              <option value="vol_desc">EWMA 波动率 (由高到低)</option>
+              <option value="up1_desc">基准上触 +1% (由高到低)</option>
+              <option value="dn1_desc">基准下触 -1% (由高到低)</option>
+              <option value="gap_abs_desc">收盘/结算 偏离绝对值 (由高到低)</option>
+              <option value="symbol_asc">品种代码 (A-Z)</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -295,15 +412,16 @@
           <thead class="bg-slate-100/90 text-slate-700 border-b border-slate-200 font-mono text-xs sm:text-sm font-bold">
             <tr>
               <th class="py-3 px-4">品种 / 合约</th>
+              <th class="py-3 px-4">量价状态诊断</th>
+              <th class="py-3 px-4">量比 (VR)</th>
+              <th class="py-3 px-4">收盘 (CLV)</th>
               <th class="py-3 px-4">今结算 / 今收盘</th>
               <th class="py-3 px-4">偏离度</th>
               <th class="py-3 px-4">日波动率</th>
-              <th class="py-3 px-4 text-emerald-700 font-bold">上触 +1%</th>
-              <th class="py-3 px-4 text-emerald-700 font-bold">上触 +2%</th>
-              <th class="py-3 px-4 text-rose-700 font-bold">下触 -1%</th>
-              <th class="py-3 px-4 text-rose-700 font-bold">下触 -2%</th>
+              <th class="py-3 px-4 text-emerald-700 font-bold">条件上触+1% (基准)</th>
+              <th class="py-3 px-4 text-rose-700 font-bold">当下触-1% (基准)</th>
               <th class="py-3 px-4 text-amber-700 font-bold">触板率 (涨/跌)</th>
-              <th class="py-3 px-4">样本天数</th>
+              <th class="py-3 px-4">样本</th>
             </tr>
           </thead>
           <tbody id="overview-table-body" class="divide-y divide-slate-100 font-mono text-xs sm:text-sm">
@@ -357,6 +475,19 @@
           <div class="font-extrabold text-amber-900 text-base">三、实战使用指南（怎么用是正确的）</div>
           <p>✅ <strong>适合用途</strong>：日内极值挂单（如触碰概率 ≤10% 的支撑阻力位埋伏抄底摸顶）、动态止损位设定（放置在 95% 或 99% VaR 外防正常杂波）、网格交易步长调整与期权波动率参考。</p>
           <p>⚠️ <strong>切忌用法</strong>：切勿将该模型视作“单边趋势预测机”。如果某天模型显示上涨概率 70%，绝大多数是因为当天尾盘急拉导致收盘比结算高很多，次日净收益均值接近 0，切忌盲目追高开多。</p>
+        </div>
+
+        <div class="bg-indigo-50/70 border border-indigo-200 rounded-2xl p-4 space-y-2">
+          <div class="font-extrabold text-indigo-900 text-base">四、量价异动诊断与条件概率校准体系 (方案 A)</div>
+          <p>1. <strong>成交量比 (VR, Volume Ratio)</strong>：当日成交量除以 20 日成交量移动平均线。$VR \ge 1.3$ 判定为显著放量，主力资金博弈激化；$VR < 0.8$ 判定为极度缩量，市场交投观望蓄势。</p>
+          <p>2. <strong>收盘位置 (CLV, Close Location Value)</strong>：$\text{CLV} = (\text{Close} - \text{Low}) / (\text{High} - \text{Low}) \in [0, 1]$。$\ge 0.75$ 为日内高位/光头阳线收盘，多头攻势凌厉；$\le 0.25$ 为日内低位/光脚阴线收盘，空头抛压沉重。</p>
+          <p>3. <strong>五大量价状态映射与实证特征</strong>：
+            <br>• <strong>放量强势收高</strong> ($VR \ge 1.3, CLV \ge 0.75$)：次日惯性上触+1%概率常暴增至 80%~87%，突破前高概率超 70%；但实测次日相对今日收盘的收涨率仅约 43%（均值收益负数），呈现典型“夜盘/早盘冲高、尾盘获利回吐”，追高易被套，多头宜逢高止盈。
+            <br>• <strong>放量恐慌杀跌</strong> ($VR \ge 1.3, CLV \le 0.25$)：次日惯性下探-1%概率常超 85%，但收盘杀跌动能衰竭，空头回补反抽概率提升，切忌地板价追空。
+            <br>• <strong>放量滞涨分歧</strong> ($VR \ge 1.3, 0.25 < CLV < 0.75$)：巨量长影线，多空双向触及极值概率同步提升，宽幅剧烈震荡。
+            <br>• <strong>极度缩量整理</strong> ($VR < 0.8$)：交投清淡，振幅收敛，大振幅概率被动压制，适合区间网格策略。
+            <br>• <strong>常态温和换手</strong>：量价处于平衡态，次日概率高度贴合 FHS 历史基准模型。
+          </p>
         </div>
       </div>
 
@@ -463,6 +594,7 @@
     let currentSymbol = "RU";
     let currentContract = "RU2701";
     let chartInstance = null;
+    let onlyAnomaly = false;
 
     // 页面启动与数据加载
     document.addEventListener("DOMContentLoaded", async () => {
@@ -502,6 +634,10 @@
 
         document.getElementById("header-update-time").textContent = data.generated_at ? data.generated_at.split(" ")[0] : "--";
         document.getElementById("table-count-badge").textContent = `${allItems.length} 个主力品种`;
+
+        const anomalyCount = allItems.filter(x => x.volume_state && x.volume_state.state_label !== "常态温和换手").length;
+        const pill = document.getElementById("anomaly-count-pill");
+        if (pill) pill.textContent = anomalyCount;
 
         const ruExists = allItems.find(x => x.symbol === "RU");
         if (ruExists) {
@@ -555,6 +691,24 @@
         renderVarietyChips(sector, e.target.value.trim().toUpperCase());
       });
 
+      // 仅看量价异动切换
+      const btnAnomaly = document.getElementById("btn-toggle-anomaly");
+      if (btnAnomaly) {
+        btnAnomaly.addEventListener("click", () => {
+          onlyAnomaly = !onlyAnomaly;
+          if (onlyAnomaly) {
+            btnAnomaly.className = "px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold border transition flex items-center gap-1.5 bg-amber-500 text-white border-amber-600 shadow-md shadow-amber-500/20";
+          } else {
+            btnAnomaly.className = "px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold border transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200 shadow-sm";
+          }
+          const activeTab = document.querySelector(".sector-tab.bg-blue-600");
+          const sector = activeTab ? activeTab.dataset.sector : "all";
+          const searchVal = document.getElementById("variety-search").value.trim().toUpperCase();
+          renderVarietyChips(sector, searchVal);
+          renderOverviewTable();
+        });
+      }
+
       // 表格排序
       document.getElementById("table-sort-select").addEventListener("change", () => {
         renderOverviewTable();
@@ -588,7 +742,7 @@
       });
     }
 
-    // 渲染品种筛选芯片 (亮色风格)
+    // 渲染品种筛选芯片 (亮色风格 + 状态圆点)
     function renderVarietyChips(sector, filterText) {
       const container = document.getElementById("variety-chips");
       container.innerHTML = "";
@@ -599,29 +753,39 @@
         const matchText = !filterText || 
                           item.symbol.includes(filterText) || 
                           meta.name.includes(filterText);
-        return matchSector && matchText;
+        const isAnomaly = item.volume_state && item.volume_state.state_label !== "常态温和换手";
+        const matchAnomaly = !onlyAnomaly || isAnomaly;
+        return matchSector && matchText && matchAnomaly;
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = `<span class="text-xs text-slate-400 py-1">未找到匹配品种</span>`;
+        container.innerHTML = `<span class="text-xs text-slate-400 py-1">未找到匹配品种${onlyAnomaly ? ' (当前无异动品种)' : ''}</span>`;
         return;
       }
 
       filtered.forEach(item => {
         const meta = VARIETY_META[item.symbol] || { name: item.symbol };
         const isActive = item.symbol === currentSymbol;
+        const vs = item.volume_state || {};
+        let dot = "";
+        if (vs.state_label === "放量强势收高") dot = "🔴";
+        else if (vs.state_label === "放量恐慌杀跌") dot = "🟢";
+        else if (vs.state_label === "放量滞涨分歧") dot = "🟡";
+        else if (vs.state_label === "极度缩量整理") dot = "⚪";
+
         const btn = document.createElement("button");
         btn.className = `px-3 py-1.5 rounded-xl text-xs sm:text-sm font-mono transition flex items-center gap-1.5 border ${
           isActive 
             ? "bg-blue-600 text-white border-blue-600 font-bold shadow-md shadow-blue-500/25 scale-[1.02]" 
             : "bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-400 hover:text-blue-600 hover:bg-white"
         }`;
-        btn.innerHTML = `<span>${item.symbol}</span><span class="text-xs font-sans opacity-90">${meta.name}</span>`;
+        btn.innerHTML = `<span>${dot ? dot + ' ' : ''}${item.symbol}</span><span class="text-xs font-sans opacity-90">${meta.name}</span>`;
         btn.onclick = () => {
           currentSymbol = item.symbol;
           currentContract = item.contract || "";
           renderVarietyChips(sector, filterText);
           renderCurrentSymbol();
+          renderOverviewTable();
         };
         container.appendChild(btn);
       });
@@ -725,6 +889,123 @@
       document.getElementById("touch-center-price").textContent = item.settle ? `${item.settle.toLocaleString()} 元` : "--";
       document.getElementById("stat-touch-limit").textContent = `${(item.touch && item.touch["任一触板"] !== undefined ? item.touch["任一触板"] : 0).toFixed(2)}%`;
       document.getElementById("stat-tick1").textContent = `${item.tick_1pct ? item.tick_1pct.toLocaleString() : '--'} 元`;
+
+      // ── 量价异动与条件概率渲染 (方案 A) ──
+      const vs = item.volume_state || {};
+      const ct = vs.cond_touch || {};
+      const baseUp = item.touch && item.touch["+1%"] ? item.touch["+1%"].prob : 0;
+      const baseDn = item.touch && item.touch["-1%"] ? item.touch["-1%"].prob : 0;
+
+      const stateBadge = document.getElementById("vp-state-badge");
+      const biasBadge = document.getElementById("vp-bias-badge");
+      const riskBox = document.getElementById("vp-risk-box");
+
+      const stateLabel = vs.state_label || "常态温和换手";
+      const biasText = vs.bias || "常态均衡";
+
+      if (vs.state_code === "STRONG_BULL") {
+        stateBadge.className = "px-3.5 py-1 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-sm bg-rose-600 text-white";
+        stateBadge.textContent = "🔴 " + stateLabel;
+        biasBadge.className = "px-2.5 py-0.5 rounded-lg text-xs font-bold border border-rose-300 bg-rose-50 text-rose-700";
+        biasBadge.textContent = biasText + " (惯性冲高)";
+        riskBox.className = "p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition bg-rose-50/70 border-rose-200";
+      } else if (vs.state_code === "PANIC_BEAR") {
+        stateBadge.className = "px-3.5 py-1 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-sm bg-emerald-700 text-white";
+        stateBadge.textContent = "🟢 " + stateLabel;
+        biasBadge.className = "px-2.5 py-0.5 rounded-lg text-xs font-bold border border-emerald-300 bg-emerald-50 text-emerald-800";
+        biasBadge.textContent = biasText + " (惯性下探)";
+        riskBox.className = "p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition bg-emerald-50/70 border-emerald-200";
+      } else if (vs.state_code === "VOLUME_STALL") {
+        stateBadge.className = "px-3.5 py-1 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-sm bg-amber-500 text-white";
+        stateBadge.textContent = "🟡 " + stateLabel;
+        biasBadge.className = "px-2.5 py-0.5 rounded-lg text-xs font-bold border border-amber-300 bg-amber-50 text-amber-800";
+        biasBadge.textContent = biasText + " (宽幅震荡)";
+        riskBox.className = "p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition bg-amber-50/70 border-amber-200";
+      } else if (vs.state_code === "SHRINK_REST") {
+        stateBadge.className = "px-3.5 py-1 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-sm bg-slate-200 text-slate-800 border border-slate-300";
+        stateBadge.textContent = "⚪ " + stateLabel;
+        biasBadge.className = "px-2.5 py-0.5 rounded-lg text-xs font-bold border border-slate-300 bg-slate-100 text-slate-700";
+        biasBadge.textContent = biasText + " (蓄势待变)";
+        riskBox.className = "p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition bg-slate-100/70 border-slate-200";
+      } else {
+        stateBadge.className = "px-3.5 py-1 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-sm bg-blue-50 text-blue-700 border border-blue-200";
+        stateBadge.textContent = "🔵 " + stateLabel;
+        biasBadge.className = "px-2.5 py-0.5 rounded-lg text-xs font-bold border border-blue-200 bg-blue-50/60 text-blue-700";
+        biasBadge.textContent = biasText + " (贴合FHS基准)";
+        riskBox.className = "p-4 sm:p-5 rounded-xl border flex items-start gap-3.5 transition bg-blue-50/40 border-blue-200";
+      }
+
+      document.getElementById("vp-cond-samples").textContent = vs.cond_samples !== undefined ? vs.cond_samples : "--";
+
+      // 量比 VR
+      const vrVal = vs.vr !== undefined ? vs.vr : 1.0;
+      document.getElementById("vp-vr-val").textContent = vrVal.toFixed(2);
+      const vrTag = document.getElementById("vp-vr-tag");
+      if (vrVal >= 1.3) {
+        vrTag.textContent = `放量 +${((vrVal - 1) * 100).toFixed(0)}%`;
+        vrTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-700 border border-rose-200";
+      } else if (vrVal < 0.8) {
+        vrTag.textContent = `缩量 ${((vrVal - 1) * 100).toFixed(0)}%`;
+        vrTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-slate-200 text-slate-700";
+      } else {
+        vrTag.textContent = "常态换手";
+        vrTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200";
+      }
+      document.getElementById("vp-vol-ma20").textContent = vs.vol_ma20 ? vs.vol_ma20.toLocaleString() : "--";
+
+      // 收盘位置 CLV
+      const clvVal = vs.clv !== undefined ? vs.clv : 0.5;
+      document.getElementById("vp-clv-val").textContent = clvVal.toFixed(2);
+      const clvTag = document.getElementById("vp-clv-tag");
+      if (clvVal >= 0.75) {
+        clvTag.textContent = "极高收盘 (多强)";
+        clvTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-700 border border-rose-200";
+      } else if (clvVal <= 0.25) {
+        clvTag.textContent = "极低收盘 (空强)";
+        clvTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200";
+      } else {
+        clvTag.textContent = "中枢平稳";
+        clvTag.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-slate-200 text-slate-700";
+      }
+
+      // 成交与持仓
+      document.getElementById("vp-volume-val").textContent = vs.volume ? vs.volume.toLocaleString() : "--";
+      document.getElementById("vp-oi-val").textContent = vs.open_interest ? vs.open_interest.toLocaleString() : "--";
+      
+      const oiChgEl = document.getElementById("vp-oi-chg");
+      const oiChg = vs.oi_chg || 0;
+      if (oiChg > 0) {
+        oiChgEl.textContent = `+${oiChg.toLocaleString()}`;
+        oiChgEl.className = "text-xl sm:text-2xl font-extrabold font-mono mt-1 text-rose-600";
+      } else if (oiChg < 0) {
+        oiChgEl.textContent = `${oiChg.toLocaleString()}`;
+        oiChgEl.className = "text-xl sm:text-2xl font-extrabold font-mono mt-1 text-emerald-600";
+      } else {
+        oiChgEl.textContent = "0";
+        oiChgEl.className = "text-xl sm:text-2xl font-extrabold font-mono mt-1 text-slate-600";
+      }
+
+      // 条件概率
+      const condUp1 = ct.p_up1 !== undefined ? ct.p_up1 : baseUp;
+      const condDn1 = ct.p_dn1 !== undefined ? ct.p_dn1 : baseDn;
+      document.getElementById("vp-cond-up1").textContent = `${condUp1.toFixed(1)}%`;
+      document.getElementById("vp-cond-dn1").textContent = `${condDn1.toFixed(1)}%`;
+
+      const diffUp = condUp1 - baseUp;
+      const diffDn = condDn1 - baseDn;
+      document.getElementById("vp-base-up1-diff").innerHTML = `基准: ${baseUp.toFixed(1)}% <span class="${diffUp >= 0 ? 'text-emerald-600' : 'text-slate-400'} font-bold">(${diffUp >= 0 ? '+' : ''}${diffUp.toFixed(1)}%)</span>`;
+      document.getElementById("vp-base-dn1-diff").innerHTML = `基准: ${baseDn.toFixed(1)}% <span class="${diffDn >= 0 ? 'text-rose-600' : 'text-slate-400'} font-bold">(${diffDn >= 0 ? '+' : ''}${diffDn.toFixed(1)}%)</span>`;
+
+      const brkHigh = ct.break_prev_high !== undefined ? ct.break_prev_high.toFixed(0) : "--";
+      const brkLow = ct.break_prev_low !== undefined ? ct.break_prev_low.toFixed(0) : "--";
+      document.getElementById("vp-break-extrema").textContent = `${brkHigh}% / ${brkLow}%`;
+
+      const winRate = ct.next_close_up_winrate !== undefined ? ct.next_close_up_winrate.toFixed(1) : "--";
+      const meanRet = ct.next_close_mean_return !== undefined ? ct.next_close_mean_return : 0;
+      document.getElementById("vp-close-winrate").textContent = `${winRate}%`;
+      document.getElementById("vp-close-mean-ret").textContent = `均值收益: ${meanRet >= 0 ? '+' : ''}${meanRet.toFixed(2)}%`;
+
+      document.getElementById("vp-risk-tip").textContent = vs.risk_tip || "量价处于常态均衡分布。";
 
       renderTouchLadder(item);
       renderCloseChart(item);
@@ -911,13 +1192,38 @@
       chartInstance.setOption(option, true);
     }
 
-    // 渲染全市场表格 (更大字体、更高对比度)
+    // 渲染全市场表格 (更大字体、更高对比度、量价异动融合)
     function renderOverviewTable() {
       const tbody = document.getElementById("overview-table-body");
       tbody.innerHTML = "";
 
+      const anomalyCount = allItems.filter(x => x.volume_state && x.volume_state.state_label !== "常态温和换手").length;
+      const pill = document.getElementById("anomaly-count-pill");
+      if (pill) pill.textContent = anomalyCount;
+
       const sortMode = document.getElementById("table-sort-select").value;
-      const sorted = [...allItems].sort((a, b) => {
+      
+      let list = [...allItems];
+      if (onlyAnomaly) {
+        list = list.filter(x => x.volume_state && x.volume_state.state_label !== "常态温和换手");
+      }
+
+      const sorted = list.sort((a, b) => {
+        if (sortMode === "vr_desc") {
+          const vrA = (a.volume_state && a.volume_state.vr) || 0;
+          const vrB = (b.volume_state && b.volume_state.vr) || 0;
+          return vrB - vrA;
+        }
+        if (sortMode === "cond_up1_desc") {
+          const pA = (a.volume_state && a.volume_state.cond_touch && a.volume_state.cond_touch.p_up1) !== undefined ? a.volume_state.cond_touch.p_up1 : ((a.touch && a.touch["+1%"]) ? a.touch["+1%"].prob : 0);
+          const pB = (b.volume_state && b.volume_state.cond_touch && b.volume_state.cond_touch.p_up1) !== undefined ? b.volume_state.cond_touch.p_up1 : ((b.touch && b.touch["+1%"]) ? b.touch["+1%"].prob : 0);
+          return pB - pA;
+        }
+        if (sortMode === "cond_dn1_desc") {
+          const pA = (a.volume_state && a.volume_state.cond_touch && a.volume_state.cond_touch.p_dn1) !== undefined ? a.volume_state.cond_touch.p_dn1 : ((a.touch && a.touch["-1%"]) ? a.touch["-1%"].prob : 0);
+          const pB = (b.volume_state && b.volume_state.cond_touch && b.volume_state.cond_touch.p_dn1) !== undefined ? b.volume_state.cond_touch.p_dn1 : ((b.touch && b.touch["-1%"]) ? b.touch["-1%"].prob : 0);
+          return pB - pA;
+        }
         if (sortMode === "vol_desc") return (b.ewma_vol_pct || 0) - (a.ewma_vol_pct || 0);
         if (sortMode === "up1_desc") return ((b.touch && b.touch["+1%"] ? b.touch["+1%"].prob : 0) - (a.touch && a.touch["+1%"] ? a.touch["+1%"].prob : 0));
         if (sortMode === "dn1_desc") return ((b.touch && b.touch["-1%"] ? b.touch["-1%"].prob : 0) - (a.touch && a.touch["-1%"] ? a.touch["-1%"].prob : 0));
@@ -925,6 +1231,11 @@
         if (sortMode === "symbol_asc") return a.symbol.localeCompare(b.symbol);
         return 0;
       });
+
+      if (sorted.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" class="py-8 text-center text-slate-400">当前筛选条件下暂无品种数据</td></tr>`;
+        return;
+      }
 
       sorted.forEach(item => {
         const meta = VARIETY_META[item.symbol] || { name: item.symbol };
@@ -938,11 +1249,36 @@
 
         const t = item.touch || {};
         const up1 = t["+1%"] ? t["+1%"].prob.toFixed(1) : "--";
-        const up2 = t["+2%"] ? t["+2%"].prob.toFixed(1) : "--";
         const dn1 = t["-1%"] ? t["-1%"].prob.toFixed(1) : "--";
-        const dn2 = t["-2%"] ? t["-2%"].prob.toFixed(1) : "--";
         const lu = t["涨停"] ? t["涨停"].prob.toFixed(2) : "--";
         const ld = t["跌停"] ? t["跌停"].prob.toFixed(2) : "--";
+
+        // 量价状态
+        const vs = item.volume_state || {};
+        const ct = vs.cond_touch || {};
+        let stateBadgeHtml = `<span class="px-2 py-0.5 rounded-md text-xs text-slate-400">常态</span>`;
+        if (vs.state_label === "放量强势收高") {
+          stateBadgeHtml = `<span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-rose-100 text-rose-700 border border-rose-200">🔴 放量收高</span>`;
+        } else if (vs.state_label === "放量恐慌杀跌") {
+          stateBadgeHtml = `<span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">🟢 恐慌杀跌</span>`;
+        } else if (vs.state_label === "放量滞涨分歧") {
+          stateBadgeHtml = `<span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">🟡 滞涨分歧</span>`;
+        } else if (vs.state_label === "极度缩量整理") {
+          stateBadgeHtml = `<span class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">⚪ 极度缩量</span>`;
+        }
+
+        const vrVal = vs.vr !== undefined ? vs.vr : 1.0;
+        let vrColor = "text-slate-700";
+        if (vrVal >= 1.3) vrColor = "text-rose-600 font-extrabold";
+        else if (vrVal < 0.8) vrColor = "text-slate-500 font-semibold";
+
+        const clvVal = vs.clv !== undefined ? vs.clv : 0.5;
+        let clvColor = "text-slate-600";
+        if (clvVal >= 0.75) clvColor = "text-rose-600 font-extrabold";
+        else if (clvVal <= 0.25) clvColor = "text-emerald-700 font-extrabold";
+
+        const condUp1Val = ct.p_up1 !== undefined ? ct.p_up1.toFixed(1) : up1;
+        const condDn1Val = ct.p_dn1 !== undefined ? ct.p_dn1.toFixed(1) : dn1;
 
         tr.innerHTML = `
           <td class="py-3.5 px-4">
@@ -952,7 +1288,16 @@
               <span class="text-xs text-slate-400 font-mono">(${item.contract})</span>
             </div>
           </td>
-          <td class="py-3.5 px-4 text-slate-800 font-semibold">
+          <td class="py-3.5 px-4 whitespace-nowrap">
+            ${stateBadgeHtml}
+          </td>
+          <td class="py-3.5 px-4 font-mono ${vrColor}">
+            ${vrVal.toFixed(2)}
+          </td>
+          <td class="py-3.5 px-4 font-mono ${clvColor}">
+            ${clvVal.toFixed(2)}
+          </td>
+          <td class="py-3.5 px-4 text-slate-800 font-semibold whitespace-nowrap">
             ${item.settle ? item.settle.toLocaleString() : '--'} / <span class="text-slate-500 font-normal">${item.close ? item.close.toLocaleString() : '--'}</span>
           </td>
           <td class="py-3.5 px-4 ${gapColor}">
@@ -961,14 +1306,18 @@
           <td class="py-3.5 px-4 text-blue-700 font-extrabold">
             ${(item.ewma_vol_pct || 0).toFixed(2)}%
           </td>
-          <td class="py-3.5 px-4 text-emerald-700 font-bold">${up1}%</td>
-          <td class="py-3.5 px-4 text-emerald-600 font-semibold">${up2}%</td>
-          <td class="py-3.5 px-4 text-rose-700 font-bold">${dn1}%</td>
-          <td class="py-3.5 px-4 text-rose-600 font-semibold">${dn2}%</td>
-          <td class="py-3.5 px-4 text-amber-700 font-bold">
+          <td class="py-3.5 px-4 whitespace-nowrap">
+            <span class="text-emerald-700 font-bold text-sm sm:text-base">${condUp1Val}%</span>
+            <span class="text-xs text-slate-400 font-mono font-normal">(${up1}%)</span>
+          </td>
+          <td class="py-3.5 px-4 whitespace-nowrap">
+            <span class="text-rose-700 font-bold text-sm sm:text-base">${condDn1Val}%</span>
+            <span class="text-xs text-slate-400 font-mono font-normal">(${dn1}%)</span>
+          </td>
+          <td class="py-3.5 px-4 text-amber-700 font-bold whitespace-nowrap">
             ${lu}% / ${ld}%
           </td>
-          <td class="py-3.5 px-4 text-slate-400">
+          <td class="py-3.5 px-4 text-slate-400 font-mono">
             ${item.sample_days}
           </td>
         `;
