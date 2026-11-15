@@ -229,6 +229,15 @@ html {
 <div class="flink">
   <div class="flink-list">
     <div class="flink-list-item">
+      <a href="/tools/futures-prob/" title="期货主力次日概率预测 · 波动雷达" target="_blank">
+        <div class="flink-item-icon">
+          <img src="https://api.iconify.design/lucide:radar.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货主力次日概率预测">
+        </div>
+        <div class="flink-item-name">期货主力次日概率预测</div>
+        <div class="flink-item-desc">过滤历史模拟(FHS)与EWMA动态波动率模型，每日测算全市场70+主力合约盘中触及及收盘分布概率。</div>
+      </a>
+    </div>
+    <div class="flink-list-item">
       <a href="/tools/futures-strategy/" title="期货公司策略建议 · 触发雷达与逐日盯市跟踪器" target="_blank">
         <div class="flink-item-icon">
           <img src="https://api.iconify.design/lucide:crosshair.svg" onerror='this.onerror=null;this.src="/img/friend_404.gif"' alt="期货公司策略建议">

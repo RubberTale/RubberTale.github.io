@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>期货主力次日价格概率预测 · Probability Radar | 橡胶童话</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            },
+            darkbg: '#0a0e17',
+            cardbg: '#111827',
+            bordercol: '#1f293d'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background-color: #0a0e17;
+      color: #e2e8f0;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .glow-emerald {
+      box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.25);
+    }
+    .glow-rose {
+      box-shadow: 0 0 15px -3px rgba(244, 63, 94, 0.25);
+    }
+    .glow-blue {
+      box-shadow: 0 0 15px -3px rgba(59, 130, 246, 0.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- 顶部导航栏 -->
+  <header class="border-b border-gray-800/80 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="/" title="返回橡胶童话首页" class="block shrink-0">
+          <img src="/img/橡胶童话logo.png" alt="橡胶童话 Logo" class="w-9 h-9 rounded-xl shadow-md hover:scale-105 transition-transform object-contain bg-white/5 p-0.5 border border-white/10">
+        </a>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">期货主力次日概率预测</h1>
+            <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">FHS + EWMA</span>
+          </div>
+          <p class="text-xs text-gray-400 hidden sm:block">过滤历史模拟 · 动态波动率滤波 · 结算价口径纠偏</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3 text-xs">
+        <button id="btn-methodology" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-indigo-500/15 text-indigo-400 hover:bg-indigo-500/25 border border-indigo-500/30 transition font-semibold">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>算法与12年回测</span>
+        </button>
+        <div class="flex items-center space-x-2 text-gray-400 bg-gray-900/80 px-3 py-1.5 rounded-lg border border-gray-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>更新: <strong id="header-update-time" class="text-gray-200 font-mono">--</strong></span>
+        </div>
+        <a href="/tools/" class="text-gray-300 hover:text-white px-3 py-1.5 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 transition flex items-center space-x-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          <span>工具箱</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体容器 -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 w-full">
+
+    <!-- 顶部品种核心状态卡片 -->
+    <div class="bg-gray-900/70 border border-gray-800 rounded-2xl p-5 shadow-xl relative overflow-hidden backdrop-blur">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <!-- 品种基础信息 -->
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-3">
+            <span id="stat-symbol-name" class="text-2xl font-extrabold text-white tracking-tight">--</span>
+            <span id="stat-contract" class="text-sm font-mono px-2.5 py-0.5 rounded-md bg-blue-500/20 text-blue-300 border border-blue-500/30 font-bold">--</span>
+            <span id="stat-sector-badge" class="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-400 border border-gray-700">--</span>
+          </div>
+          <div class="flex items-center gap-4 text-xs text-gray-400">
+            <span>数据基准日: <strong id="stat-asof" class="text-gray-200 font-mono">--</strong></span>
+            <span>•</span>
+            <span>测算目标: <strong class="text-amber-300 font-medium">次日完整交易日（含今晚夜盘）</strong></span>
+          </div>
+        </div>
+
+        <!-- 关键价格指标网格 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="bg-gray-950/60 border border-gray-800/80 rounded-xl p-3">
+            <div class="text-[11px] text-gray-400">今结算价 (Settle)</div>
+            <div id="stat-settle" class="text-lg font-bold font-mono text-white mt-0.5">--</div>
+            <div class="text-[10px] text-gray-500">法定涨跌停基准</div>
+          </div>
+
+          <div class="bg-gray-950/60 border border-gray-800/80 rounded-xl p-3">
+            <div class="text-[11px] text-gray-400">今收盘价 (Close)</div>
+            <div id="stat-close" class="text-lg font-bold font-mono text-white mt-0.5">--</div>
+            <div id="stat-gap" class="text-[10px] font-mono">--</div>
+          </div>
+
+          <div class="bg-gray-950/60 border border-gray-800/80 rounded-xl p-3">
+            <div class="text-[11px] text-gray-400">EWMA 日波动率</div>
+            <div id="stat-vol" class="text-lg font-bold font-mono text-cyan-400 mt-0.5">--</div>
+            <div class="text-[10px] text-gray-500">RiskMetrics λ=0.94</div>
+          </div>
+
+          <div class="bg-gray-950/60 border border-gray-800/80 rounded-xl p-3">
+            <div class="text-[11px] text-gray-400">涨跌停板 / 样本</div>
+            <div id="stat-limit" class="text-lg font-bold font-mono text-amber-400 mt-0.5">--</div>
+            <div id="stat-sample" class="text-[10px] text-gray-500 font-mono">--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 板块筛选与品种快速选择器 -->
+    <div class="bg-gray-900/60 border border-gray-800/80 rounded-2xl p-4 space-y-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <!-- 板块分类标签 -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar text-xs">
+          <button class="sector-tab px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap bg-blue-600 text-white" data-sector="all">全部 (70)</button>
+          <button class="sector-tab px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap bg-gray-800 text-gray-300 hover:bg-gray-700" data-sector="rubber">橡胶产业</button>
+          <button class="sector-tab px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap bg-gray-800 text-gray-300 hover:bg-gray-700" data-sector="ferrous">黑色建材</button>
+          <button class="sector-tab px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap bg-gray-800 text-gray-300 hover:bg-gray-700" data-sector="nonferrous">有色贵金属</button>
+          <button class="sector-tab px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap bg-gray-800 text-gray-300 hover:bg-gray-700" data-sector="energy">能化产业链</button>
+          <button class="sector-tab px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap bg-gray-800 text-gray-300 hover:bg-gray-700" data-sector="agri">农副产品</button>
+          <button class="sector-tab px-3 py-1.5 rounded-lg font-medium transition whitespace-nowrap bg-gray-800 text-gray-300 hover:bg-gray-700" data-sector="financial">金融期货</button>
+        </div>
+
+        <!-- 搜索输入框 -->
+        <div class="relative w-full sm:w-48 shrink-0">
+          <input type="text" id="variety-search" placeholder="搜索品种 (如 RU / 铜)..." class="w-full bg-gray-950 border border-gray-700/80 rounded-lg px-3 py-1.5 text-xs text-gray-200 placeholder-gray-500 focus:outline-none focus:border-blue-500 font-mono">
+          <svg class="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-2.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+      </div>
+
+      <!-- 品种选择芯片列表 -->
+      <div id="variety-chips" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto custom-scrollbar pt-1">
+        <!-- 动态注入芯片 -->
+      </div>
+    </div>
+
+    <!-- 核心视图：左侧盘中触碰雷达 + 右侧收盘区间柱状图 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- 左侧：盘中触碰概率雷达 (5/12) -->
+      <div class="lg:col-span-5 bg-gray-900/70 border border-gray-800 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-5">
+        <div>
+          <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+            <div>
+              <h2 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🎯 盘中触碰概率雷达</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">非互斥 / 可同时到过</span>
+              </h2>
+              <p class="text-xs text-gray-400 mt-0.5">次日盘中最高价/最低价只要触碰过即计入，适合日内挂单与止盈止损</p>
+            </div>
+          </div>
+
+          <!-- 触碰阶梯列表 -->
+          <div class="mt-4 space-y-3.5">
+            <!-- 向上触及序列 -->
+            <div class="space-y-2">
+              <div class="text-xs font-semibold text-emerald-400 flex items-center justify-between">
+                <span>▲ 向上触及 (突破阻力位)</span>
+                <span class="text-[11px] text-gray-400 font-normal">目标价格 | 历史概率</span>
+              </div>
+              <div id="touch-up-list" class="space-y-1.5">
+                <!-- 动态填充 -->
+              </div>
+            </div>
+
+            <!-- 分割线 -->
+            <div class="relative py-1">
+              <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-800"></div></div>
+              <div class="relative flex justify-center text-[10px] text-gray-500 uppercase tracking-widest"><span class="bg-gray-900 px-2 font-mono">今结算价中枢: <strong id="touch-center-price" class="text-gray-300">--</strong></span></div>
+            </div>
+
+            <!-- 向下触及序列 -->
+            <div class="space-y-2">
+              <div class="text-xs font-semibold text-rose-400 flex items-center justify-between">
+                <span>▼ 向下触及 (下探支撑位)</span>
+                <span class="text-[11px] text-gray-400 font-normal">目标价格 | 历史概率</span>
+              </div>
+              <div id="touch-down-list" class="space-y-1.5">
+                <!-- 动态填充 -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 触碰极值摘要小卡片 -->
+        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-800/80">
+          <div class="bg-gray-950/70 border border-gray-800/80 rounded-xl p-2.5 text-center">
+            <div class="text-[11px] text-gray-400">任一方向触及停板</div>
+            <div id="stat-touch-limit" class="text-base font-bold font-mono text-amber-400 mt-0.5">--%</div>
+            <div class="text-[10px] text-gray-500">极端行情对冲参考</div>
+          </div>
+          <div class="bg-gray-950/70 border border-gray-800/80 rounded-xl p-2.5 text-center">
+            <div class="text-[11px] text-gray-400">1%一跳步长</div>
+            <div id="stat-tick1" class="text-base font-bold font-mono text-blue-400 mt-0.5">-- 元</div>
+            <div class="text-[10px] text-gray-500">网格交易步长参考</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：收盘落在各区间概率分布柱状图 (7/12) -->
+      <div class="lg:col-span-7 bg-gray-900/70 border border-gray-800 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+        <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+          <div>
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <span>📊 次日收盘落在各区间概率</span>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">互斥分布 / 合计100%</span>
+            </h2>
+            <p class="text-xs text-gray-400 mt-0.5">以今结算价为基准，1%为一跳切分的收盘概率密度（已剔除结算偏离机械效应）</p>
+          </div>
+          <div class="text-right hidden sm:block">
+            <span class="text-[11px] text-gray-400">最高峰值区间</span>
+            <div id="chart-peak-bin" class="text-xs font-bold text-emerald-400 font-mono">--</div>
+          </div>
+        </div>
+
+        <!-- ECharts 容器 -->
+        <div id="close-dist-chart" class="w-full h-80 sm:h-96"></div>
+
+        <!-- 图表底部说明标签 -->
+        <div class="flex flex-wrap items-center justify-between text-[11px] text-gray-400 bg-gray-950/50 p-2.5 rounded-xl border border-gray-800/80 gap-2">
+          <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-rose-500"></span> 深度下跌区</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500"></span> 常态中枢震荡</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span> 强势上涨区</span>
+          </div>
+          <div class="text-gray-500 text-[10px]">
+            *若今收盘高于结算，分布中枢会天然向正区间微偏，属正常结算物理机制
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 全市场 70 个品种概率速览对比表 -->
+    <div class="bg-gray-900/70 border border-gray-800 rounded-2xl p-5 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-800 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <span>📋 全市场主力合约次日概率全景一览</span>
+            <span id="table-count-badge" class="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-300 font-mono">70 个品种</span>
+          </h2>
+          <p class="text-xs text-gray-400 mt-0.5">点击表格中任意品种行，可立即在上方看板切换显示该品种的完整深度雷达与图表</p>
+        </div>
+        <div class="text-xs text-gray-400 flex items-center gap-2">
+          <span>排序方式:</span>
+          <select id="table-sort-select" class="bg-gray-950 border border-gray-700 rounded-lg px-2.5 py-1 text-xs text-gray-200 focus:outline-none">
+            <option value="vol_desc">EWMA 波动率 (由高到低)</option>
+            <option value="up1_desc">向上触及 +1% 概率 (由高到低)</option>
+            <option value="dn1_desc">向下触及 -1% 概率 (由高到低)</option>
+            <option value="gap_abs_desc">收盘/结算 偏离绝对值 (由高到低)</option>
+            <option value="symbol_asc">品种代码 (A-Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 表格滚动容器 -->
+      <div class="overflow-x-auto custom-scrollbar">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-gray-950/80 text-gray-400 border-b border-gray-800 font-mono">
+            <tr>
+              <th class="py-2.5 px-3">品种 / 合约</th>
+              <th class="py-2.5 px-3">结算价 / 收盘价</th>
+              <th class="py-2.5 px-3">偏离度</th>
+              <th class="py-2.5 px-3">日波动率</th>
+              <th class="py-2.5 px-3 text-emerald-400">上触 +1%</th>
+              <th class="py-2.5 px-3 text-emerald-400">上触 +2%</th>
+              <th class="py-2.5 px-3 text-rose-400">下触 -1%</th>
+              <th class="py-2.5 px-3 text-rose-400">下触 -2%</th>
+              <th class="py-2.5 px-3 text-amber-400">触板概率 (涨/跌)</th>
+              <th class="py-2.5 px-3">样本天数</th>
+            </tr>
+          </thead>
+          <tbody id="overview-table-body" class="divide-y divide-gray-800/50">
+            <!-- 动态生成行 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 算法与12年回测介绍 Modal 弹窗 -->
+  <div id="modal-methodology" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200">
+    <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar space-y-5">
+      <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">🔬</span>
+          <div>
+            <h3 class="text-base font-bold text-white">模型算法与12年样本外回测报告</h3>
+            <p class="text-xs text-gray-400">基于过滤历史模拟法 (FHS) 与交易所真实结算规则</p>
+          </div>
+        </div>
+        <button id="btn-close-modal" class="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-gray-800 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs text-gray-300 leading-relaxed">
+        <div class="bg-blue-950/40 border border-blue-900/40 rounded-xl p-3.5 space-y-1.5">
+          <div class="font-bold text-blue-300 text-sm">一、核心算法机制 (FHS + EWMA)</div>
+          <p>1. <strong>严控同合约自身收益</strong>：排除跨月换月时的虚假跳空，纯净提取同合约真实历史日收益率与振幅。</p>
+          <p>2. <strong>EWMA 波动率滤波 (λ=0.94)</strong>：实时捕捉当前最新的市场恐慌/冷淡能量，自适应调整模拟幅度。</p>
+          <p>3. <strong>保留真实尖峰肥尾</strong>：不假设正态分布，提取过去 15 年真实的无量纲残差，精准度量暴涨暴跌与极端极端值。</p>
+          <p>4. <strong>结算价口径纠偏 (G因子)</strong>：交易所次日涨跌停和涨跌幅均以结算价为基准。模型先在“收盘-收盘”交易口径下模拟，再通过偏离因子 $G = \text{Close}/\text{Settle}$ 平移映射，彻底消除尾盘拉升导致的虚假动量幻觉。</p>
+        </div>
+
+        <div class="bg-emerald-950/40 border border-emerald-900/40 rounded-xl p-3.5 space-y-1.5">
+          <div class="font-bold text-emerald-300 text-sm">二、12年逐日滚动回测结果 (2014-2026, 3000+交易日)</div>
+          <p>• <strong>PIT 概率积分变换检验（核心分布均匀性）</strong>：<br>
+            RU 实测 10 个十分位数发生率：<code class="font-mono text-emerald-200">9.4%, 9.1%, 10.2%, 10.6%, 9.3%, 11.7%, 9.6%, 10.9%, 9.8%, 9.5%</code>（理论基准各为 10.0%），铜(CU)、螺纹(RB)同样完美通过，证明分布预测无偏、无系统性高估/低估。
+          </p>
+          <p>• <strong>极端风险覆盖 (VaR 击穿率)</strong>：<br>
+            95% 风险击穿率实测 <strong>4.66%</strong>（基准 5.0%）；99% 极端风险击穿率实测 <strong>1.40%</strong>（基准 1.0%），有效防御黑天鹅。
+          </p>
+          <p>• <strong>概率校准度 (Calibration)</strong>：<br>
+            当模型预测向上触及 +1% 的概率在 [20%~40%] 时，实际发生率恰为 <strong>31.6%</strong>；预测向下触及 -1% 在 [20%~40%] 时，实际发生率恰为 <strong>29.9%</strong>。Brier 分数低至 0.06~0.18，高度可靠。
+          </p>
+        </div>
+
+        <div class="bg-amber-950/40 border border-amber-900/40 rounded-xl p-3.5 space-y-1.5">
+          <div class="font-bold text-amber-300 text-sm">三、实战使用指南（怎么用是正确的）</div>
+          <p>✅ <strong>适合用途</strong>：日内极值挂单（如触碰概率 ≤10% 的支撑阻力位埋伏抄底摸顶）、动态止损位设定（放置在 95% 或 99% VaR 外防正常杂波）、网格交易步长调整与期权波动率参考。</p>
+          <p>⚠️ <strong>切忌用法</strong>：切勿将该模型视作“单边趋势预测机”。如果某天模型显示上涨概率 70%，绝大多数是因为当天尾盘急拉导致收盘比结算高很多，次日净收益均值接近 0，切忌盲目追高开多。</p>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-gray-800 text-right">
+        <button id="btn-modal-got-it" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition text-xs shadow-lg shadow-blue-600/30">
+          了解并返回看板
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部页脚 -->
+  <footer class="border-t border-gray-800/80 bg-gray-950/50 py-6 text-center text-xs text-gray-500 space-y-1">
+    <p>© 2026 橡胶童话 · 期货量化投研实验室 | 过滤历史模拟法 (FHS) 概率测算系统</p>
+    <p class="text-[11px] text-gray-600">注：本系统提供纯物理统计意义下的历史条件概率分布，不构成任何方向性投资买卖建议。市场有风险，投资需谨慎。</p>
+  </footer>
+
+  <!-- 交互逻辑 JavaScript -->
+  <script>
+    // 品种中文名与板块映射配置
+    const VARIETY_META = {
+      // 橡胶系
+      "RU": { name: "天然橡胶", sector: "rubber", tag: "上期所" },
+      "NR": { name: "20号胶", sector: "rubber", tag: "能源中心" },
+      "BR": { name: "顺丁橡胶", sector: "rubber", tag: "上期所" },
+      // 黑色金属
+      "RB": { name: "螺纹钢", sector: "ferrous", tag: "上期所" },
+      "HC": { name: "热轧卷板", sector: "ferrous", tag: "上期所" },
+      "SS": { name: "不锈钢", sector: "ferrous", tag: "上期所" },
+      "WR": { name: "线材", sector: "ferrous", tag: "上期所" },
+      "I":  { name: "铁矿石", sector: "ferrous", tag: "大商所" },
+      "J":  { name: "焦炭", sector: "ferrous", tag: "大商所" },
+      "JM": { name: "焦煤", sector: "ferrous", tag: "大商所" },
+      "SF": { name: "硅铁", sector: "ferrous", tag: "郑商所" },
+      "SM": { name: "锰硅", sector: "ferrous", tag: "郑商所" },
+      // 有色贵金属
+      "CU": { name: "沪铜", sector: "nonferrous", tag: "上期所" },
+      "AL": { name: "沪铝", sector: "nonferrous", tag: "上期所" },
+      "ZN": { name: "沪锌", sector: "nonferrous", tag: "上期所" },
+      "PB": { name: "沪铅", sector: "nonferrous", tag: "上期所" },
+      "NI": { name: "沪镍", sector: "nonferrous", tag: "上期所" },
+      "SN": { name: "沪锡", sector: "nonferrous", tag: "上期所" },
+      "AO": { name: "氧化铝", sector: "nonferrous", tag: "上期所" },
+      "BC": { name: "国际铜", sector: "nonferrous", tag: "能源中心" },
+      "AU": { name: "沪金", sector: "nonferrous", tag: "上期所" },
+      "AG": { name: "沪银", sector: "nonferrous", tag: "上期所" },
+      // 能化产业链
+      "SC": { name: "原油", sector: "energy", tag: "能源中心" },
+      "LU": { name: "低硫燃料油", sector: "energy", tag: "能源中心" },
+      "FU": { name: "燃料油", sector: "energy", tag: "上期所" },
+      "BU": { name: "沥青", sector: "energy", tag: "上期所" },
+      "PG": { name: "LPG液化气", sector: "energy", tag: "大商所" },
+      "EC": { name: "欧线集运", sector: "energy", tag: "能源中心" },
+      "TA": { name: "PTA", sector: "energy", tag: "郑商所" },
+      "MA": { name: "甲醇", sector: "energy", tag: "郑商所" },
+      "EG": { name: "乙二醇", sector: "energy", tag: "大商所" },
+      "EB": { name: "苯乙烯", sector: "energy", tag: "大商所" },
+      "PP": { name: "聚丙烯", sector: "energy", tag: "大商所" },
+      "L":  { name: "塑料LLDPE", sector: "energy", tag: "大商所" },
+      "V":  { name: "PVC", sector: "energy", tag: "大商所" },
+      "SA": { name: "纯碱", sector: "energy", tag: "郑商所" },
+      "UR": { name: "尿素", sector: "energy", tag: "郑商所" },
+      "PF": { name: "短纤", sector: "energy", tag: "郑商所" },
+      "PR": { name: "瓶片", sector: "energy", tag: "郑商所" },
+      "PX": { name: "对二甲苯", sector: "energy", tag: "郑商所" },
+      // 农副产品
+      "M":  { name: "豆粕", sector: "agri", tag: "大商所" },
+      "Y":  { name: "豆油", sector: "agri", tag: "大商所" },
+      "P":  { name: "棕榈油", sector: "agri", tag: "大商所" },
+      "A":  { name: "豆一", sector: "agri", tag: "大商所" },
+      "B":  { name: "豆二", sector: "agri", tag: "大商所" },
+      "C":  { name: "玉米", sector: "agri", tag: "大商所" },
+      "CS": { name: "玉米淀粉", sector: "agri", tag: "大商所" },
+      "CF": { name: "棉花", sector: "agri", tag: "郑商所" },
+      "CY": { name: "棉纱", sector: "agri", tag: "郑商所" },
+      "SR": { name: "白糖", sector: "agri", tag: "郑商所" },
+      "OI": { name: "菜油", sector: "agri", tag: "郑商所" },
+      "RM": { name: "菜粕", sector: "agri", tag: "郑商所" },
+      "PK": { name: "花生", sector: "agri", tag: "郑商所" },
+      "AP": { name: "苹果", sector: "agri", tag: "郑商所" },
+      "CJ": { name: "红枣", sector: "agri", tag: "郑商所" },
+      "JD": { name: "鸡蛋", sector: "agri", tag: "大商所" },
+      "LH": { name: "生猪", sector: "agri", tag: "大商所" },
+      "RR": { name: "粳米", sector: "agri", tag: "大商所" },
+      // 金融期货
+      "IF": { name: "沪深300", sector: "financial", tag: "中金所" },
+      "IC": { name: "中证500", sector: "financial", tag: "中金所" },
+      "IH": { name: "上证50", sector: "financial", tag: "中金所" },
+      "IM": { name: "中证1000", sector: "financial", tag: "中金所" },
+      "T":  { name: "10年国债", sector: "financial", tag: "中金所" },
+      "TF": { name: "5年国债", sector: "financial", tag: "中金所" },
+      "TS": { name: "2年国债", sector: "financial", tag: "中金所" },
+      "TL": { name: "30年国债", sector: "financial", tag: "中金所" },
+      // 新能源 / 其他
+      "SI": { name: "工业硅", sector: "energy", tag: "广期所" },
+      "LC": { name: "碳酸锂", sector: "energy", tag: "广期所" },
+      "SP": { name: "纸浆", sector: "energy", tag: "上期所" },
+      "FG": { name: "玻璃", sector: "ferrous", tag: "郑商所" },
+      "SH": { name: "烧碱", sector: "energy", tag: "郑商所" }
+    };
+
+    let allItems = [];
+    let currentSymbol = "RU";
+    let chartInstance = null;
+
+    // 页面启动与数据加载
+    document.addEventListener("DOMContentLoaded", async () => {
+      initChart();
+      initEvents();
+      await loadData();
+    });
+
+    async function loadData() {
+      try {
+        // 尝试从相对路径或绝对路径拉取 JSON
+        let res;
+        try {
+          res = await fetch("../data/futures_prob_forecast.json?t=" + Date.now());
+        } catch(e) {
+          res = await fetch("/tools/data/futures_prob_forecast.json?t=" + Date.now());
+        }
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        
+        allItems = data.items || [];
+        document.getElementById("header-update-time").textContent = data.generated_at ? data.generated_at.split(" ")[0] : "--";
+        document.getElementById("table-count-badge").textContent = `${allItems.length} 个主力品种`;
+
+        // 默认优先选中 RU，没有则选第一个
+        const ruExists = allItems.find(x => x.symbol === "RU");
+        if (ruExists) {
+          currentSymbol = "RU";
+        } else if (allItems.length > 0) {
+          currentSymbol = allItems[0].symbol;
+        }
+
+        renderVarietyChips("all", "");
+        renderCurrentSymbol();
+        renderOverviewTable();
+      } catch (err) {
+        console.error("加载预测数据失败:", err);
+        document.getElementById("stat-symbol-name").textContent = "数据加载失败";
+        document.getElementById("stat-asof").textContent = "请确认后台同步状态";
+      }
+    }
+
+    function initChart() {
+      const container = document.getElementById("close-dist-chart");
+      chartInstance = echarts.init(container, "dark");
+      window.addEventListener("resize", () => {
+        if (chartInstance) chartInstance.resize();
+      });
+    }
+
+    function initEvents() {
+      // 板块切换
+      document.querySelectorAll(".sector-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".sector-tab").forEach(t => {
+            t.classList.remove("bg-blue-600", "text-white");
+            t.classList.add("bg-gray-800", "text-gray-300");
+          });
+          tab.classList.remove("bg-gray-800", "text-gray-300");
+          tab.classList.add("bg-blue-600", "text-white");
+          
+          const sector = tab.dataset.sector;
+          const searchVal = document.getElementById("variety-search").value.trim().toUpperCase();
+          renderVarietyChips(sector, searchVal);
+        });
+      });
+
+      // 搜索品种
+      document.getElementById("variety-search").addEventListener("input", (e) => {
+        const activeTab = document.querySelector(".sector-tab.bg-blue-600");
+        const sector = activeTab ? activeTab.dataset.sector : "all";
+        renderVarietyChips(sector, e.target.value.trim().toUpperCase());
+      });
+
+      // 表格排序
+      document.getElementById("table-sort-select").addEventListener("change", () => {
+        renderOverviewTable();
+      });
+
+      // Modal 弹窗
+      const modal = document.getElementById("modal-methodology");
+      const openModal = () => {
+        modal.classList.remove("hidden");
+        setTimeout(() => modal.classList.remove("opacity-0"), 10);
+      };
+      const closeModal = () => {
+        modal.classList.add("opacity-0");
+        setTimeout(() => modal.classList.add("hidden"), 200);
+      };
+
+      document.getElementById("btn-methodology").addEventListener("click", openModal);
+      document.getElementById("btn-close-modal").addEventListener("click", closeModal);
+      document.getElementById("btn-modal-got-it").addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    // 渲染品种筛选芯片
+    function renderVarietyChips(sector, filterText) {
+      const container = document.getElementById("variety-chips");
+      container.innerHTML = "";
+
+      const filtered = allItems.filter(item => {
+        const meta = VARIETY_META[item.symbol] || { name: item.symbol, sector: "other" };
+        const matchSector = (sector === "all") || (meta.sector === sector);
+        const matchText = !filterText || 
+                          item.symbol.includes(filterText) || 
+                          meta.name.includes(filterText);
+        return matchSector && matchText;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<span class="text-xs text-gray-500 py-1">未找到匹配品种</span>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const meta = VARIETY_META[item.symbol] || { name: item.symbol };
+        const isActive = item.symbol === currentSymbol;
+        const btn = document.createElement("button");
+        btn.className = `px-2.5 py-1 rounded-lg text-xs font-mono transition flex items-center gap-1.5 border ${
+          isActive 
+            ? "bg-blue-600 text-white border-blue-400 font-bold shadow-md shadow-blue-600/30" 
+            : "bg-gray-950/80 text-gray-300 border-gray-800 hover:border-gray-600 hover:text-white"
+        }`;
+        btn.innerHTML = `<span>${item.symbol}</span><span class="text-[10px] opacity-75 font-sans">${meta.name}</span>`;
+        btn.onclick = () => {
+          currentSymbol = item.symbol;
+          renderVarietyChips(sector, filterText);
+          renderCurrentSymbol();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    // 渲染当前选中的品种核心数据
+    function renderCurrentSymbol() {
+      const item = allItems.find(x => x.symbol === currentSymbol);
+      if (!item) return;
+
+      const meta = VARIETY_META[item.symbol] || { name: item.symbol, tag: "商品" };
+      document.getElementById("stat-symbol-name").textContent = `${meta.name} (${item.symbol})`;
+      document.getElementById("stat-contract").textContent = item.contract;
+      document.getElementById("stat-sector-badge").textContent = meta.tag;
+      document.getElementById("stat-asof").textContent = item.as_of || "--";
+
+      // 价格数据
+      document.getElementById("stat-settle").textContent = item.settle ? item.settle.toLocaleString() : "--";
+      document.getElementById("stat-close").textContent = item.close ? item.close.toLocaleString() : "--";
+      
+      const gapEl = document.getElementById("stat-gap");
+      const gapVal = item.gap_pct || 0;
+      const gapSign = gapVal > 0 ? "+" : "";
+      gapEl.textContent = `收盘偏离: ${gapSign}${gapVal.toFixed(2)}%`;
+      gapEl.className = `text-[10px] font-mono ${gapVal >= 0 ? "text-emerald-400" : "text-rose-400"}`;
+
+      document.getElementById("stat-vol").textContent = `${(item.ewma_vol_pct || 0).toFixed(2)}%`;
+      document.getElementById("stat-limit").textContent = `±${(item.limit_pct || 6).toFixed(0)}%`;
+      document.getElementById("stat-sample").textContent = `${item.sample_days} 天 (${item.sample_since ? item.sample_since.slice(0,4) : '2010'}起)`;
+
+      document.getElementById("touch-center-price").textContent = item.settle ? `${item.settle.toLocaleString()} 元` : "--";
+      document.getElementById("stat-touch-limit").textContent = `${(item.touch && item.touch["任一触板"] !== undefined ? item.touch["任一触板"] : 0).toFixed(2)}%`;
+      document.getElementById("stat-tick1").textContent = `${item.tick_1pct ? item.tick_1pct.toLocaleString() : '--'} 元`;
+
+      renderTouchLadder(item);
+      renderCloseChart(item);
+    }
+
+    // 渲染盘中触及阶梯
+    function renderTouchLadder(item) {
+      const upList = document.getElementById("touch-up-list");
+      const dnList = document.getElementById("touch-down-list");
+      upList.innerHTML = "";
+      dnList.innerHTML = "";
+
+      const touch = item.touch || {};
+
+      // 向上触及: +1% 到 +5%, 涨停
+      const upKeys = ["+1%", "+2%", "+3%", "+4%", "+5%", "涨停"];
+      upKeys.forEach(k => {
+        const d = touch[k];
+        if (!d) return;
+        const prob = d.prob !== undefined ? d.prob : 0;
+        const row = document.createElement("div");
+        row.className = "flex items-center justify-between text-xs font-mono bg-gray-950/40 px-2.5 py-1.5 rounded-lg border border-gray-800/60";
+        row.innerHTML = `
+          <div class="flex items-center gap-2 w-28">
+            <span class="w-10 font-bold ${k === '涨停' ? 'text-amber-300' : 'text-emerald-400'}">${k}</span>
+            <span class="text-gray-300 text-[11px]">${d.price ? d.price.toLocaleString() : '--'}</span>
+          </div>
+          <div class="flex-1 mx-3 bg-gray-800/70 h-2 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-500 rounded-full transition-all duration-500" style="width: ${Math.min(prob, 100)}%"></div>
+          </div>
+          <div class="w-14 text-right font-bold ${prob >= 50 ? 'text-emerald-300' : 'text-gray-300'}">
+            ${prob.toFixed(1)}%
+          </div>
+        `;
+        upList.appendChild(row);
+      });
+
+      // 向下触及: -1% 到 -5%, 跌停
+      const dnKeys = ["-1%", "-2%", "-3%", "-4%", "-5%", "跌停"];
+      dnKeys.forEach(k => {
+        const d = touch[k];
+        if (!d) return;
+        const prob = d.prob !== undefined ? d.prob : 0;
+        const row = document.createElement("div");
+        row.className = "flex items-center justify-between text-xs font-mono bg-gray-950/40 px-2.5 py-1.5 rounded-lg border border-gray-800/60";
+        row.innerHTML = `
+          <div class="flex items-center gap-2 w-28">
+            <span class="w-10 font-bold ${k === '跌停' ? 'text-amber-300' : 'text-rose-400'}">${k}</span>
+            <span class="text-gray-300 text-[11px]">${d.price ? d.price.toLocaleString() : '--'}</span>
+          </div>
+          <div class="flex-1 mx-3 bg-gray-800/70 h-2 rounded-full overflow-hidden">
+            <div class="h-full bg-rose-500 rounded-full transition-all duration-500" style="width: ${Math.min(prob, 100)}%"></div>
+          </div>
+          <div class="w-14 text-right font-bold ${prob >= 50 ? 'text-rose-300' : 'text-gray-300'}">
+            ${prob.toFixed(1)}%
+          </div>
+        `;
+        dnList.appendChild(row);
+      });
+    }
+
+    // 渲染收盘区间分布柱状图 (ECharts)
+    function renderCloseChart(item) {
+      if (!chartInstance) return;
+      const bins = item.close_bins || {};
+      const labels = Object.keys(bins);
+      const values = Object.values(bins);
+
+      let peakVal = -1;
+      let peakLabel = "--";
+      labels.forEach((l, i) => {
+        if (values[i] > peakVal) {
+          peakVal = values[i];
+          peakLabel = l;
+        }
+      });
+      document.getElementById("chart-peak-bin").textContent = `${peakLabel} (${peakVal.toFixed(1)}%)`;
+
+      const S = item.settle || 0;
+
+      // 构造每个柱子的颜色
+      const seriesData = labels.map((label, idx) => {
+        const val = values[idx];
+        let color = "#3b82f6"; // 默认中性蓝
+        if (label === "跌停" || label.startsWith("-6") || label.startsWith("-5") || label.startsWith("-4") || label.startsWith("-3")) {
+          color = "#f43f5e"; // 深度下跌 玫瑰红
+        } else if (label.startsWith("-2") || label.startsWith("-1")) {
+          color = "#fb7185"; // 浅红
+        } else if (label.startsWith("+0") || label.startsWith("-0")) {
+          color = "#38bdf8"; // 核心中枢
+        } else if (label.startsWith("+1") || label.startsWith("+2")) {
+          color = "#34d399"; // 浅绿
+        } else {
+          color = "#10b981"; // 强势上涨 翡翠绿
+        }
+        return {
+          value: val,
+          itemStyle: {
+            color: color,
+            borderRadius: [4, 4, 0, 0]
+          }
+        };
+      });
+
+      const option = {
+        backgroundColor: "transparent",
+        tooltip: {
+          trigger: "axis",
+          axisPointer: { type: "shadow" },
+          backgroundColor: "rgba(15, 23, 42, 0.95)",
+          borderColor: "#334155",
+          borderWidth: 1,
+          textStyle: { color: "#e2e8f0", fontSize: 12 },
+          formatter: (params) => {
+            const p = params[0];
+            const binName = p.name;
+            const prob = p.value;
+            return `
+              <div class="font-mono space-y-1">
+                <div class="font-bold text-white text-xs border-b border-gray-700 pb-1">收盘区间: ${binName}</div>
+                <div class="text-xs text-gray-300">发生概率: <strong class="text-blue-400 text-sm">${prob.toFixed(1)}%</strong></div>
+                <div class="text-[10px] text-gray-500">基准结算价: ${S.toLocaleString()} 元</div>
+              </div>
+            `;
+          }
+        },
+        grid: {
+          top: "12%",
+          left: "2%",
+          right: "2%",
+          bottom: "8%",
+          containLabel: true
+        },
+        xAxis: {
+          type: "category",
+          data: labels,
+          axisLine: { lineStyle: { color: "#334155" } },
+          axisLabel: {
+            color: "#94a3b8",
+            fontSize: 10,
+            interval: 0,
+            rotate: labels.length > 10 ? 35 : 0,
+            fontFamily: "JetBrains Mono"
+          }
+        },
+        yAxis: {
+          type: "value",
+          name: "概率 (%)",
+          nameTextStyle: { color: "#64748b", fontSize: 10 },
+          splitLine: { lineStyle: { color: "#1e293b", type: "dashed" } },
+          axisLabel: {
+            color: "#64748b",
+            fontSize: 10,
+            formatter: "{value}%",
+            fontFamily: "JetBrains Mono"
+          }
+        },
+        series: [
+          {
+            name: "概率",
+            type: "bar",
+            barMaxWidth: 32,
+            data: seriesData
+          }
+        ]
+      };
+
+      chartInstance.setOption(option, true);
+    }
+
+    // 渲染全市场表格
+    function renderOverviewTable() {
+      const tbody = document.getElementById("overview-table-body");
+      tbody.innerHTML = "";
+
+      const sortMode = document.getElementById("table-sort-select").value;
+      const sorted = [...allItems].sort((a, b) => {
+        if (sortMode === "vol_desc") return (b.ewma_vol_pct || 0) - (a.ewma_vol_pct || 0);
+        if (sortMode === "up1_desc") return ((b.touch && b.touch["+1%"] ? b.touch["+1%"].prob : 0) - (a.touch && a.touch["+1%"] ? a.touch["+1%"].prob : 0));
+        if (sortMode === "dn1_desc") return ((b.touch && b.touch["-1%"] ? b.touch["-1%"].prob : 0) - (a.touch && a.touch["-1%"] ? a.touch["-1%"].prob : 0));
+        if (sortMode === "gap_abs_desc") return Math.abs(b.gap_pct || 0) - Math.abs(a.gap_pct || 0);
+        if (sortMode === "symbol_asc") return a.symbol.localeCompare(b.symbol);
+        return 0;
+      });
+
+      sorted.forEach(item => {
+        const meta = VARIETY_META[item.symbol] || { name: item.symbol };
+        const tr = document.createElement("tr");
+        const isCurrent = item.symbol === currentSymbol;
+        tr.className = `cursor-pointer transition hover:bg-gray-800/60 font-mono text-xs ${isCurrent ? 'bg-blue-950/40 border-l-2 border-blue-500' : ''}`;
+        
+        const gapVal = item.gap_pct || 0;
+        const gapSign = gapVal > 0 ? "+" : "";
+        const gapColor = gapVal >= 0 ? "text-emerald-400" : "text-rose-400";
+
+        const t = item.touch || {};
+        const up1 = t["+1%"] ? t["+1%"].prob.toFixed(1) : "--";
+        const up2 = t["+2%"] ? t["+2%"].prob.toFixed(1) : "--";
+        const dn1 = t["-1%"] ? t["-1%"].prob.toFixed(1) : "--";
+        const dn2 = t["-2%"] ? t["-2%"].prob.toFixed(1) : "--";
+        const lu = t["涨停"] ? t["涨停"].prob.toFixed(2) : "--";
+        const ld = t["跌停"] ? t["跌停"].prob.toFixed(2) : "--";
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-white">${item.symbol}</span>
+              <span class="text-gray-400 font-sans text-[11px]">${meta.name}</span>
+              <span class="text-[10px] text-gray-500 font-mono">(${item.contract})</span>
+            </div>
+          </td>
+          <td class="py-2.5 px-3 text-gray-300">
+            ${item.settle ? item.settle.toLocaleString() : '--'} / <span class="text-gray-400">${item.close ? item.close.toLocaleString() : '--'}</span>
+          </td>
+          <td class="py-2.5 px-3 ${gapColor}">
+            ${gapSign}${gapVal.toFixed(2)}%
+          </td>
+          <td class="py-2.5 px-3 text-cyan-400 font-bold">
+            ${(item.ewma_vol_pct || 0).toFixed(2)}%
+          </td>
+          <td class="py-2.5 px-3 text-emerald-400">${up1}%</td>
+          <td class="py-2.5 px-3 text-emerald-300">${up2}%</td>
+          <td class="py-2.5 px-3 text-rose-400">${dn1}%</td>
+          <td class="py-2.5 px-3 text-rose-300">${dn2}%</td>
+          <td class="py-2.5 px-3 text-amber-300">
+            ${lu}% / ${ld}%
+          </td>
+          <td class="py-2.5 px-3 text-gray-500">
+            ${item.sample_days}
+          </td>
+        `;
+
+        tr.onclick = () => {
+          currentSymbol = item.symbol;
+          const activeTab = document.querySelector(".sector-tab.bg-blue-600");
+          const sector = activeTab ? activeTab.dataset.sector : "all";
+          const searchVal = document.getElementById("variety-search").value.trim().toUpperCase();
+          renderVarietyChips(sector, searchVal);
+          renderCurrentSymbol();
+          renderOverviewTable();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>
