@@ -819,7 +819,15 @@
       const dates = equityCurve.map(d => d.date);
       const netValues = equityCurve.map(d => d.net_value);
       const dailyPnls = equityCurve.map(d => d.daily_pnl);
-      const drawdowns = equityCurve.map(d => d.drawdown);
+      let peakInit = 0;
+      const drawdowns = equityCurve.map(d => {
+        const nv = d.net_value;
+        if (nv > peakInit) peakInit = nv;
+        if (d.drawdown !== undefined && d.drawdown !== null && d.drawdown !== 0) {
+          return d.drawdown;
+        }
+        return Number(((nv - peakInit) / peakInit * 100).toFixed(2));
+      });
 
       updateChartOption(dates, netValues, dailyPnls, drawdowns);
 
@@ -987,6 +995,7 @@
           },
           yAxis: {
             type: 'value',
+            max: 0,
             splitLine: { lineStyle: { color: '#1e293b' } },
             axisLabel: { color: '#94a3b8', fontSize: 11, formatter: '{value}%' }
           },
@@ -1000,9 +1009,15 @@
               lineStyle: { color: '#f43f5e', width: 1.5 },
               areaStyle: {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  { offset: 0, color: 'rgba(244, 63, 94, 0.0)' },
-                  { offset: 1, color: 'rgba(244, 63, 94, 0.4)' }
+                  { offset: 0, color: 'rgba(244, 63, 94, 0.05)' },
+                  { offset: 1, color: 'rgba(244, 63, 94, 0.45)' }
                 ])
+              },
+              markLine: {
+                symbol: 'none',
+                data: [
+                  { yAxis: 0, lineStyle: { color: '#64748b', type: 'dashed' }, label: { show: true, formatter: '0% 海平面' } }
+                ]
               }
             }
           ]
@@ -1026,11 +1041,20 @@
 
       if (globalData) {
         const ec = globalData.equity_curve;
+        let peakSwitch = 0;
+        const dds = ec.map(d => {
+          const nv = d.net_value;
+          if (nv > peakSwitch) peakSwitch = nv;
+          if (d.drawdown !== undefined && d.drawdown !== null && d.drawdown !== 0) {
+            return d.drawdown;
+          }
+          return Number(((nv - peakSwitch) / peakSwitch * 100).toFixed(2));
+        });
         updateChartOption(
           ec.map(d => d.date),
           ec.map(d => d.net_value),
           ec.map(d => d.daily_pnl),
-          ec.map(d => d.drawdown)
+          dds
         );
       }
     }

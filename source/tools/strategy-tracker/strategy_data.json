@@ -1018,7 +1018,7 @@
       "net_value": 1.0044,
       "equity": 1004380.0,
       "daily_pnl": -2310.0,
-      "drawdown": 0.0,
+      "drawdown": -0.23,
       "open_positions": 3
     },
     {
@@ -1026,7 +1026,7 @@
       "net_value": 0.9826,
       "equity": 982560.0,
       "daily_pnl": -21820.0,
-      "drawdown": 0.0,
+      "drawdown": -2.39,
       "open_positions": 3
     },
     {
@@ -1034,7 +1034,7 @@
       "net_value": 0.9684,
       "equity": 968385.0,
       "daily_pnl": -14175.0,
-      "drawdown": 0.0,
+      "drawdown": -3.8,
       "open_positions": 3
     },
     {
@@ -1042,7 +1042,7 @@
       "net_value": 0.9763,
       "equity": 976335.0,
       "daily_pnl": 7950.0,
-      "drawdown": 0.0,
+      "drawdown": -3.02,
       "open_positions": 3
     },
     {
@@ -1050,7 +1050,7 @@
       "net_value": 0.9804,
       "equity": 980440.0,
       "daily_pnl": 4105.0,
-      "drawdown": 0.0,
+      "drawdown": -2.61,
       "open_positions": 2
     },
     {
@@ -1058,7 +1058,7 @@
       "net_value": 0.969,
       "equity": 969010.0,
       "daily_pnl": -11430.0,
-      "drawdown": 0.0,
+      "drawdown": -3.74,
       "open_positions": 4
     },
     {
@@ -1066,7 +1066,7 @@
       "net_value": 0.9636,
       "equity": 963620.0,
       "daily_pnl": -5390.0,
-      "drawdown": 0.0,
+      "drawdown": -4.28,
       "open_positions": 2
     },
     {
@@ -1074,7 +1074,7 @@
       "net_value": 0.9678,
       "equity": 967820.0,
       "daily_pnl": 4200.0,
-      "drawdown": 0.0,
+      "drawdown": -3.86,
       "open_positions": 2
     },
     {
@@ -1082,7 +1082,7 @@
       "net_value": 0.9565,
       "equity": 956480.0,
       "daily_pnl": -11340.0,
-      "drawdown": 0.0,
+      "drawdown": -4.99,
       "open_positions": 2
     },
     {
@@ -1090,7 +1090,7 @@
       "net_value": 0.9657,
       "equity": 965710.0,
       "daily_pnl": 9230.0,
-      "drawdown": 0.0,
+      "drawdown": -4.07,
       "open_positions": 2
     },
     {
@@ -1098,7 +1098,7 @@
       "net_value": 0.9646,
       "equity": 964640.0,
       "daily_pnl": -1070.0,
-      "drawdown": 0.0,
+      "drawdown": -4.18,
       "open_positions": 1
     },
     {
@@ -1106,7 +1106,7 @@
       "net_value": 0.9683,
       "equity": 968290.0,
       "daily_pnl": 3650.0,
-      "drawdown": 0.0,
+      "drawdown": -3.81,
       "open_positions": 2
     },
     {
@@ -1114,7 +1114,7 @@
       "net_value": 0.9661,
       "equity": 966140.0,
       "daily_pnl": -2150.0,
-      "drawdown": 0.0,
+      "drawdown": -4.03,
       "open_positions": 3
     },
     {
@@ -1122,7 +1122,7 @@
       "net_value": 0.9611,
       "equity": 961115.0,
       "daily_pnl": -5025.0,
-      "drawdown": 0.0,
+      "drawdown": -4.53,
       "open_positions": 2
     },
     {
@@ -1130,7 +1130,7 @@
       "net_value": 0.9763,
       "equity": 976290.0,
       "daily_pnl": 15175.0,
-      "drawdown": 0.0,
+      "drawdown": -3.02,
       "open_positions": 2
     },
     {
@@ -1138,7 +1138,7 @@
       "net_value": 0.9727,
       "equity": 972650.0,
       "daily_pnl": -3640.0,
-      "drawdown": 0.0,
+      "drawdown": -3.38,
       "open_positions": 2
     },
     {
@@ -1146,7 +1146,7 @@
       "net_value": 0.972,
       "equity": 971975.0,
       "daily_pnl": -675.0,
-      "drawdown": 0.0,
+      "drawdown": -3.45,
       "open_positions": 1
     },
     {
@@ -1154,7 +1154,7 @@
       "net_value": 0.97,
       "equity": 970025.0,
       "daily_pnl": -1950.0,
-      "drawdown": 0.0,
+      "drawdown": -3.65,
       "open_positions": 4
     },
     {
@@ -1202,7 +1202,7 @@
       "net_value": 1.0279,
       "equity": 1027950.0,
       "daily_pnl": -33900.0,
-      "drawdown": 0.0,
+      "drawdown": -3.19,
       "open_positions": 2
     },
     {
@@ -1210,7 +1210,7 @@
       "net_value": 1.0414,
       "equity": 1041400.0,
       "daily_pnl": 13450.0,
-      "drawdown": 0.0,
+      "drawdown": -1.92,
       "open_positions": 4
     },
     {
@@ -1218,7 +1218,7 @@
       "net_value": 1.0211,
       "equity": 1021130.0,
       "daily_pnl": -20270.0,
-      "drawdown": 0.0,
+      "drawdown": -3.83,
       "open_positions": 2
     },
     {
@@ -1226,7 +1226,7 @@
       "net_value": 1.0064,
       "equity": 1006360.0,
       "daily_pnl": -14770.0,
-      "drawdown": 0.0,
+      "drawdown": -5.22,
       "open_positions": 4
     },
     {
@@ -1234,7 +1234,7 @@
       "net_value": 1.0129,
       "equity": 1012930.0,
       "daily_pnl": 6570.0,
-      "drawdown": 0.0,
+      "drawdown": -4.61,
       "open_positions": 5
     },
     {
@@ -1242,7 +1242,7 @@
       "net_value": 1.0097,
       "equity": 1009680.0,
       "daily_pnl": -3250.0,
-      "drawdown": 0.0,
+      "drawdown": -4.91,
       "open_positions": 5
     },
     {
@@ -1250,7 +1250,7 @@
       "net_value": 1.0195,
       "equity": 1019465.0,
       "daily_pnl": 9785.0,
-      "drawdown": 0.0,
+      "drawdown": -3.98,
       "open_positions": 6
     },
     {
@@ -1258,7 +1258,7 @@
       "net_value": 1.044,
       "equity": 1044050.0,
       "daily_pnl": 24585.0,
-      "drawdown": 0.0,
+      "drawdown": -1.68,
       "open_positions": 6
     },
     {
@@ -1266,7 +1266,7 @@
       "net_value": 1.0608,
       "equity": 1060845.0,
       "daily_pnl": 16795.0,
-      "drawdown": 0.0,
+      "drawdown": -0.09,
       "open_positions": 2
     },
     {
@@ -1274,7 +1274,7 @@
       "net_value": 1.0457,
       "equity": 1045745.0,
       "daily_pnl": -15100.0,
-      "drawdown": 0.0,
+      "drawdown": -1.52,
       "open_positions": 2
     },
     {
@@ -1282,7 +1282,7 @@
       "net_value": 1.0409,
       "equity": 1040915.0,
       "daily_pnl": -4830.0,
-      "drawdown": 0.0,
+      "drawdown": -1.97,
       "open_positions": 4
     },
     {
@@ -1322,7 +1322,7 @@
       "net_value": 1.0835,
       "equity": 1083525.0,
       "daily_pnl": -19820.0,
-      "drawdown": 0.0,
+      "drawdown": -1.79,
       "open_positions": 2
     },
     {
@@ -1330,7 +1330,7 @@
       "net_value": 1.0798,
       "equity": 1079815.0,
       "daily_pnl": -3710.0,
-      "drawdown": 0.0,
+      "drawdown": -2.13,
       "open_positions": 1
     },
     {
@@ -1338,7 +1338,7 @@
       "net_value": 1.0828,
       "equity": 1082805.0,
       "daily_pnl": 2990.0,
-      "drawdown": 0.0,
+      "drawdown": -1.86,
       "open_positions": 2
     }
   ],
