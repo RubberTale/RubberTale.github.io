@@ -1531,16 +1531,16 @@
         } else {
           // 今日最新模式 (展示该品种近30个交易日历史综合回测能力)
           const he = curItem.historical_eval || {};
-          evalTitle.textContent = `${meta.name} (${curItem.symbol}) · 近30日历史回测评估`;
-          scopeBadge.textContent = `样本容量: ${he.eval_days || 32} 个交易日`;
-          scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-indigo-50 text-indigo-700 border border-indigo-200";
+          evalTitle.textContent = `${meta.name} (${curItem.symbol}) · 近30日历史回测表现基准`;
+          scopeBadge.textContent = `⏳ 今日实盘未结算 · 近${he.eval_days || 32}日历史回测`;
+          scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-amber-50 text-amber-900 border border-amber-200 shadow-xs";
 
           const rk = he.rank !== undefined ? he.rank : "--";
           const tot = he.total_symbols || allItems.length || 70;
           rankBadge.textContent = `全市场历史天梯 #${rk} / ${tot}`;
           rankBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-extrabold bg-blue-50 text-blue-900 border border-blue-200 shadow-xs";
 
-          evalDesc.textContent = `基于过去 30 个交易日真实逐笔比对，今日最新预测正在进行中（明日盘后自动回测结算）`;
+          evalDesc.textContent = `💡 该品种今日预测次日实盘走势尚未收盘；当前看板展示过去 30 个交易日逐笔比对的历史胜率与质量评分（全市场天梯排位 #${rk}）。若需看实盘已兑现结果，请切换上方「⏮️ 昨日测试」。`;
 
           // KPI 1: 历史综合评分
           document.getElementById("eval-kpi-1-label").textContent = "品种历史质量分 (PQS)";
@@ -1595,10 +1595,16 @@
         const ev = isHistoryMode ? (currentHistorySnap ? currentHistorySnap.evaluation : null) : globalEvalData;
         if (!ev) return;
 
-        evalTitle.textContent = isHistoryMode ? "全市场主力合约 · 本期兑现评估报告" : "全市场主力合约 · 近30日大数综合评估看板";
-        scopeBadge.textContent = isHistoryMode ? `测试基准日: ${ev.trade_date} → 实测兑现日: ${ev.next_date || '--'}` : "全市场 70 品种累计评测";
-        scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-indigo-50 text-indigo-700 border border-indigo-200";
-        evalDesc.textContent = "布里尔均方误差 (Brier Score) · 期望校准度 (ECE) · 概率倾角方向胜率 · 综合健康度 PQS";
+        evalTitle.textContent = isHistoryMode ? "全市场主力合约 · 本期实盘兑现报告" : "全市场主力合约 · 历史回测大数战绩基准";
+        if (isHistoryMode) {
+          scopeBadge.textContent = `实盘已兑现 · 基准日: ${ev.trade_date} → 实测兑现日: ${ev.next_date || '--'}`;
+          scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-50 text-purple-700 border border-purple-200";
+          evalDesc.textContent = "已与次日实盘真实走势完全逐笔对照检验（展示布里尔均方误差、高低档位触及分布与神预测 Top 3）";
+        } else {
+          scopeBadge.textContent = "⏳ 今日实盘未结算 · 近30日历史回测战绩 (2239笔样本)";
+          scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-amber-50 text-amber-900 border border-amber-200 shadow-xs";
+          evalDesc.textContent = "💡 今日预测次日实盘走势正在进行中（明日盘后自动回测对齐）；当前看板为您展示该模型在过去 30 个交易日（累计 2239 笔逐日实盘预测）的长期历史大数体检表现。如需核验已闭盘的真实兑现，请点击上方「⏮️ 昨日测试」。";
+        }
 
         if (isHistoryMode) {
           if (strip) strip.classList.remove("hidden");
