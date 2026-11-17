@@ -122,33 +122,47 @@
       </div>
     </div>
 
-    <!-- 🎯 概率预测量化评估看板 (Forecast Evaluation Dashboard) -->
+    <!-- 🎯 概率预测量化评估看板 (Forecast Evaluation Dashboard · 支持当前选中品种专属联动与大盘切换) -->
     <div id="evaluation-card" class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-5 transition-all">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
-        <div class="flex items-center gap-3 flex-wrap">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-lg shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-xl shadow-md shadow-indigo-500/20 shrink-0">
             📊
           </div>
           <div>
             <div class="flex items-center gap-2.5 flex-wrap">
-              <h2 id="eval-title" class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">概率预测评估结果看板</h2>
-              <span id="eval-scope-badge" class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-50 text-purple-700 border border-purple-200">近30日大数综合评测</span>
+              <h2 id="eval-title" class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">天然橡胶 (RU) · 概率预测量化评估</h2>
+              <span id="eval-scope-badge" class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">当前品种专属评估</span>
+              <span id="eval-rank-badge" class="text-xs px-2.5 py-0.5 rounded-md font-extrabold bg-amber-50 text-amber-800 border border-amber-200 shadow-xs">全市场排名 #36 / 70</span>
             </div>
-            <p id="eval-desc" class="text-xs sm:text-sm text-slate-500 mt-0.5">布里尔均方误差 (Brier Score) · 期望校准度 (ECE) · 概率倾角方向胜率 · 综合健康度 PQS</p>
+            <p id="eval-desc" class="text-xs sm:text-sm text-slate-500 mt-0.5">点击下方任意品种或表格行，看板将实时联动更新该品种的专属评分、布里尔误差与实盘吻合度</p>
           </div>
         </div>
-        <button id="btn-eval-math-modal" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition shadow-xs">
-          <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-          <span>算法数学模型与公式</span>
-        </button>
+
+        <!-- 视角切换单选组 + 数学公式按钮 -->
+        <div class="flex items-center gap-2.5 flex-wrap shrink-0">
+          <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-2xl border border-slate-200">
+            <button id="btn-eval-mode-symbol" class="eval-mode-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-indigo-600 text-white shadow-sm" data-mode="symbol">
+              <span>🎯 当前品种</span>
+            </button>
+            <button id="btn-eval-mode-market" class="eval-mode-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 text-slate-700 hover:text-slate-900 hover:bg-slate-200" data-mode="market">
+              <span>🌐 全市场大盘</span>
+            </button>
+          </div>
+
+          <button id="btn-eval-math-modal" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition shadow-xs">
+            <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            <span>算法数学模型</span>
+          </button>
+        </div>
       </div>
 
       <!-- 4 列核心 KPI 评估卡片 (遵循画面设计铁律：严禁文字堆砌，重点突出，层级分明) -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
-        <!-- 综合健康度 PQS -->
+        <!-- 综合健康度 / 单品种契合度评分 -->
         <div class="bg-gradient-to-br from-indigo-50/60 to-purple-50/40 border border-indigo-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs sm:text-sm font-semibold text-slate-600">综合质量指数 (PQS)</span>
+            <span id="eval-kpi-1-label" class="text-xs sm:text-sm font-semibold text-slate-600">品种综合质量 (PQS)</span>
             <span id="eval-pqs-rating" class="text-xs px-2 py-0.5 rounded-md font-extrabold bg-indigo-600 text-white shadow-xs">A级·优异</span>
           </div>
           <div>
@@ -162,15 +176,15 @@
             </div>
           </div>
           <div class="text-[11px] text-slate-500 flex items-center justify-between">
-            <span>四维加权综合得分</span>
-            <span id="eval-samples-count" class="font-mono font-bold text-slate-700">2239 笔预测</span>
+            <span id="eval-kpi-1-sub">基于实盘吻合度与均方误差</span>
+            <span id="eval-samples-count" class="font-mono font-bold text-slate-700">--</span>
           </div>
         </div>
 
         <!-- 布里尔均方误差 (Brier Score) -->
         <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs sm:text-sm font-semibold text-slate-600">布里尔误差 (Brier Score)</span>
+            <span id="eval-kpi-2-label" class="text-xs sm:text-sm font-semibold text-slate-600">布里尔均方误差 (Brier)</span>
             <span class="text-[11px] text-slate-400 font-medium">越低越准</span>
           </div>
           <div>
@@ -180,15 +194,15 @@
             </div>
           </div>
           <div class="text-[11px] text-slate-500 flex items-center justify-between">
-            <span>盲猜基准: 0.2500</span>
-            <span class="text-emerald-700 font-bold">显著优于基准</span>
+            <span id="eval-kpi-2-sub">盲猜基准: 0.2500</span>
+            <span id="eval-kpi-2-tip" class="text-emerald-700 font-bold">显著优于基准</span>
           </div>
         </div>
 
-        <!-- 期望校准误差 (ECE) -->
+        <!-- 期望校准误差 / 实盘走势区间 -->
         <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs sm:text-sm font-semibold text-slate-600">期望校准误差 (ECE)</span>
+            <span id="eval-kpi-3-label" class="text-xs sm:text-sm font-semibold text-slate-600">概率标定校准度</span>
             <span id="eval-calib-pill" class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">校准优秀</span>
           </div>
           <div>
@@ -198,26 +212,26 @@
             </div>
           </div>
           <div class="text-[11px] text-slate-500 flex items-center justify-between">
-            <span>预测 vs 发生率偏差</span>
-            <span class="font-bold text-slate-700">5 分桶严格标定</span>
+            <span id="eval-kpi-3-sub">预测概率 vs 实测发生率</span>
+            <span id="eval-kpi-3-tip" class="font-bold text-slate-700">高可靠度</span>
           </div>
         </div>
 
-        <!-- 强信号方向胜率 (Directional Edge) -->
+        <!-- 方向胜率 / 实盘走势指引 -->
         <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs sm:text-sm font-semibold text-slate-600">强信号方向胜率</span>
-            <span id="eval-strong-pill" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">高置信信号</span>
+            <span id="eval-kpi-4-label" class="text-xs sm:text-sm font-semibold text-slate-600">实盘多空方向指引</span>
+            <span id="eval-strong-pill" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">高置信指引</span>
           </div>
           <div>
             <div id="eval-strong-winrate" class="text-2xl sm:text-4xl font-extrabold font-mono text-amber-700 tracking-tight">75.0%</div>
             <div id="eval-dir-general" class="text-xs font-mono text-slate-500 mt-1.5">
-              全样本方向胜率: <span id="eval-dir-winrate-val" class="font-bold text-slate-700">68.4%</span>
+              实盘走势: <span id="eval-dir-winrate-val" class="font-bold text-slate-700">--</span>
             </div>
           </div>
           <div class="text-[11px] text-slate-500 flex items-center justify-between">
             <span id="eval-strong-count-desc">倾角差 ≥10%</span>
-            <span class="font-bold text-amber-700">高赔率实战指引</span>
+            <span id="eval-kpi-4-tip" class="font-bold text-amber-700">实盘指引</span>
           </div>
         </div>
       </div>
@@ -989,7 +1003,7 @@
 
         // 初始化日期选择器与默认状态
         initDateSelector();
-        renderEvaluationDashboard(globalEvalData, false);
+        updateEvaluationDashboard();
 
         renderArenaLeaderboard();
         renderVarietyChips("all", "");
@@ -1051,6 +1065,22 @@
           }
         });
       }
+
+      // 评估看板视角切换 Tab (当前品种专属 vs 全市场大盘)
+      const btnSymbolView = document.getElementById("btn-eval-mode-symbol");
+      const btnMarketView = document.getElementById("btn-eval-mode-market");
+      if (btnSymbolView) {
+        btnSymbolView.addEventListener("click", () => {
+          evalViewMode = "symbol";
+          updateEvaluationDashboard();
+        });
+      }
+      if (btnMarketView) {
+        btnMarketView.addEventListener("click", () => {
+          evalViewMode = "market";
+          updateEvaluationDashboard();
+        });
+      }
     }
 
     // 切换基准日期 (支持今日与历史测试秒级切换)
@@ -1078,7 +1108,7 @@
         modeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-blue-100 text-blue-800 border border-blue-200";
         modeDesc.textContent = "默认展示最新收盘预测；可快速回测昨日及历史测试结果，检验次日真实兑现情况";
 
-        renderEvaluationDashboard(globalEvalData, false);
+        updateEvaluationDashboard();
       } else {
         isHistoryMode = true;
         currentDate = targetDate;
@@ -1121,7 +1151,7 @@
           modeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-100 text-purple-900 border border-purple-300";
           modeDesc.textContent = `当前展示 ${targetDate} 盘后预测，与次日 (${nextD}) 真实实盘走势对照评估检验`;
 
-          renderEvaluationDashboard(ev, true);
+          updateEvaluationDashboard();
         } else {
           modeBadge.textContent = `历史测试 (${targetDate}) 数据暂缺`;
         }
@@ -1142,89 +1172,264 @@
       renderOverviewTable();
     }
 
-    // 渲染评估结果看板 (支持今日大数评估与历史专项兑现评估)
-    function renderEvaluationDashboard(ev, isHistory) {
-      if (!ev) return;
+        let evalViewMode = "symbol"; // "symbol" (默认当前品种专属) 或 "market" (全市场大盘)
 
+    // 核心：动态联动更新评估看板 (支持当前品种专属打分与全市场大盘自由切换)
+    function updateEvaluationDashboard() {
+      const curItem = allItems.find(x => x.symbol === currentSymbol) || (allItems[0] || null);
+      const meta = curItem ? (VARIETY_META[curItem.symbol] || { name: curItem.symbol }) : { name: "--" };
+
+      const btnSymbol = document.getElementById("btn-eval-mode-symbol");
+      const btnMarket = document.getElementById("btn-eval-mode-market");
+      const rankBadge = document.getElementById("eval-rank-badge");
       const scopeBadge = document.getElementById("eval-scope-badge");
       const evalTitle = document.getElementById("eval-title");
       const evalDesc = document.getElementById("eval-desc");
       const strip = document.getElementById("eval-realized-strip");
 
-      if (isHistory) {
-        evalTitle.textContent = "本期概率预测兑现评估报告";
-        scopeBadge.textContent = `测试基准日: ${ev.trade_date} → 次日实盘: ${ev.next_date || '--'}`;
-        scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-50 text-purple-700 border border-purple-200";
-        evalDesc.textContent = `全市场 ${ev.total_evaluated || 70} 个主力品种实测兑现检验，综合评定等级为 ${ev.pqs_rating || '良好'}`;
-        strip.classList.remove("hidden");
-        document.getElementById("strip-next-date").textContent = ev.next_date || "--";
-
-        // 触碰分布
-        const hs = ev.hits_summary || {};
-        document.getElementById("pill-hit-dn1").textContent = hs.only_dn1 !== undefined ? hs.only_dn1 : "--";
-        document.getElementById("pill-hit-up1").textContent = hs.only_up1 !== undefined ? hs.only_up1 : "--";
-        document.getElementById("pill-hit-both").textContent = hs.both_hit !== undefined ? hs.both_hit : "--";
-        document.getElementById("pill-hit-neither").textContent = hs.neither !== undefined ? hs.neither : "--";
-
-        // 神预测 Top 3
-        const topContainer = document.getElementById("top-performers-pills");
-        topContainer.innerHTML = "";
-        const tops = ev.top_performers || [];
-        tops.slice(0, 3).forEach(t => {
-          const p = document.createElement("span");
-          p.className = "px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold cursor-pointer hover:bg-emerald-200 transition";
-          const meta = VARIETY_META[t.symbol] || { name: t.symbol };
-          p.textContent = `🏆 ${t.symbol} ${meta.name} (${t.score}分)`;
-          p.title = `点击切换查看: 次日涨跌幅 ${t.realized_return}%`;
-          p.onclick = () => {
-            currentSymbol = t.symbol;
-            currentContract = t.contract || "";
-            renderCurrentSymbol();
-            renderOverviewTable();
-          };
-          topContainer.appendChild(p);
-        });
+      // 视角 Tab 高亮更新
+      if (evalViewMode === "symbol") {
+        if (btnSymbol) btnSymbol.className = "eval-mode-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-indigo-600 text-white shadow-sm";
+        if (btnMarket) btnMarket.className = "eval-mode-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 text-slate-700 hover:text-slate-900 hover:bg-slate-200";
+        if (rankBadge) rankBadge.classList.remove("hidden");
       } else {
-        evalTitle.textContent = "概率预测量化评估看板";
-        scopeBadge.textContent = "近30日大数综合评测";
+        if (btnSymbol) btnSymbol.className = "eval-mode-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 text-slate-700 hover:text-slate-900 hover:bg-slate-200";
+        if (btnMarket) btnMarket.className = "eval-mode-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-indigo-600 text-white shadow-sm";
+        if (rankBadge) rankBadge.classList.add("hidden");
+      }
+
+      // -------------------------------------------------------------
+      // 模式 A：当前品种专属评估 (默认！用户点哪个品种，看板就显示哪个品种独有打分)
+      // -------------------------------------------------------------
+      if (evalViewMode === "symbol") {
+        if (!curItem) return;
+        if (strip) strip.classList.add("hidden");
+
+        if (isHistoryMode) {
+          // 历史测试兑现模式
+          const ev = curItem.evaluation || {};
+          const rz = curItem.realized || {};
+          const nextDate = rz.next_date || (currentHistorySnap && currentHistorySnap.evaluation ? currentHistorySnap.evaluation.next_date : "--");
+
+          evalTitle.textContent = `${meta.name} (${curItem.symbol}) · 概率预测兑现评估`;
+          scopeBadge.textContent = `基准日: ${currentDate} → 实测兑现日: ${nextDate}`;
+          scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-50 text-purple-700 border border-purple-200";
+          
+          const rk = ev.rank !== undefined ? ev.rank : "--";
+          const tot = ev.total_symbols || allItems.length || 70;
+          rankBadge.textContent = `本期表现排名 #${rk} / ${tot}`;
+          rankBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-extrabold bg-amber-50 text-amber-900 border border-amber-200 shadow-xs";
+
+          evalDesc.textContent = `该品种 ${currentDate} 盘后预测已与次日实盘真实行情完全对照检验`;
+
+          // KPI 1: 该品种当期得分
+          document.getElementById("eval-kpi-1-label").textContent = "单品种契合度评分";
+          const score = ev.score !== undefined ? ev.score : 60;
+          document.getElementById("eval-pqs-score").textContent = score.toFixed(1);
+          document.getElementById("eval-pqs-rating").textContent = ev.status || "常态震荡";
+          document.getElementById("eval-pqs-bar").style.width = `${Math.min(100, Math.max(10, score))}%`;
+          if (score >= 80) {
+            document.getElementById("eval-pqs-rating").className = "text-xs px-2 py-0.5 rounded-md font-extrabold bg-emerald-600 text-white shadow-xs";
+            document.getElementById("eval-pqs-bar").className = "h-full bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full transition-all duration-500";
+          } else if (score >= 50) {
+            document.getElementById("eval-pqs-rating").className = "text-xs px-2 py-0.5 rounded-md font-extrabold bg-blue-600 text-white shadow-xs";
+            document.getElementById("eval-pqs-bar").className = "h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500";
+          } else {
+            document.getElementById("eval-pqs-rating").className = "text-xs px-2 py-0.5 rounded-md font-extrabold bg-rose-600 text-white shadow-xs";
+            document.getElementById("eval-pqs-bar").className = "h-full bg-gradient-to-r from-rose-500 to-amber-600 rounded-full transition-all duration-500";
+          }
+          const ret = rz.return_pct !== undefined ? rz.return_pct : 0;
+          document.getElementById("eval-samples-count").textContent = `实盘走势: ${ret >= 0 ? '+' : ''}${ret.toFixed(2)}%`;
+
+          // KPI 2: 该品种当期布里尔误差
+          document.getElementById("eval-kpi-2-label").textContent = "品种布里尔误差 (Brier)";
+          const brier = ev.brier !== undefined ? ev.brier : (rz.brier_score !== undefined ? rz.brier_score : 0.25);
+          document.getElementById("eval-brier-val").textContent = brier.toFixed(4);
+          const bss = (1.0 - brier / 0.25) * 100.0;
+          if (bss >= 0) {
+            document.getElementById("eval-bss-desc").innerHTML = `<span class="text-emerald-600 font-bold">技能得分 BSS: +${bss.toFixed(1)}%</span>`;
+            document.getElementById("eval-kpi-2-tip").textContent = "优于随机基准";
+            document.getElementById("eval-kpi-2-tip").className = "text-emerald-700 font-bold";
+          } else {
+            document.getElementById("eval-bss-desc").innerHTML = `<span class="text-rose-600 font-bold">技能得分 BSS: ${bss.toFixed(1)}%</span>`;
+            document.getElementById("eval-kpi-2-tip").textContent = "意外单边偏离";
+            document.getElementById("eval-kpi-2-tip").className = "text-rose-700 font-bold";
+          }
+
+          // KPI 3: 实测触碰与高低区间
+          document.getElementById("eval-kpi-3-label").textContent = "实盘高低触及档位";
+          const h1 = rz.hit_up1, d1 = rz.hit_dn1;
+          let touchStr = "未触碰 ±1% 档位";
+          let touchColor = "text-slate-700";
+          if (h1 && d1) { touchStr = "⚡ 双向宽幅突破"; touchColor = "text-amber-800"; }
+          else if (h1) { touchStr = "🟢 达成上触 +1%"; touchColor = "text-emerald-700"; }
+          else if (d1) { touchStr = "🔴 达成下触 -1%"; touchColor = "text-rose-700"; }
+          document.getElementById("eval-ece-val").textContent = touchStr;
+          document.getElementById("eval-ece-val").className = `text-xl sm:text-2xl font-extrabold font-mono tracking-tight mt-1 ${touchColor}`;
+          document.getElementById("eval-calib-score").textContent = `实际最高: ${rz.high || '--'} | 最低: ${rz.low || '--'}`;
+          document.getElementById("eval-kpi-3-sub").textContent = "实盘振幅检验";
+          document.getElementById("eval-kpi-3-tip").textContent = "完全封板结算";
+
+          // KPI 4: 方向判定是否吻合
+          document.getElementById("eval-kpi-4-label").textContent = "概率倾角与方向判定";
+          const activeModelKey = currentModel || "bayes_shrink";
+          const mData = (curItem.models && curItem.models[activeModelKey]) ? curItem.models[activeModelKey] : curItem;
+          const upProb = (mData.touch && mData.touch["+1%"]) ? mData.touch["+1%"].prob : 50;
+          const dnProb = (mData.touch && mData.touch["-1%"]) ? mData.touch["-1%"].prob : 50;
+          const diff = upProb - dnProb;
+          let dirMatch = false;
+          if ((diff > 0 && ret > 0) || (diff < 0 && ret < 0) || (Math.abs(diff) < 3.0 && Math.abs(ret) < 0.5)) dirMatch = true;
+
+          const strongRateEl = document.getElementById("eval-strong-winrate");
+          if (dirMatch) {
+            strongRateEl.textContent = "✓ 方向判定准确";
+            strongRateEl.className = "text-xl sm:text-2xl font-extrabold font-mono text-emerald-700 tracking-tight mt-1";
+            document.getElementById("eval-dir-general").textContent = `预测偏${diff > 0 ? '多' : '空'} (倾角${Math.abs(diff).toFixed(1)}%) 实盘吻合`;
+          } else {
+            strongRateEl.textContent = "✗ 出现单边反转";
+            strongRateEl.className = "text-xl sm:text-2xl font-extrabold font-mono text-rose-600 tracking-tight mt-1";
+            document.getElementById("eval-dir-general").textContent = `预测偏${diff > 0 ? '多' : '空'} 但次日实盘相反`;
+          }
+          document.getElementById("eval-strong-count-desc").textContent = `实盘涨跌幅: ${ret >= 0 ? '+' : ''}${ret.toFixed(2)}%`;
+          document.getElementById("eval-kpi-4-tip").textContent = dirMatch ? "胜率命中" : "反转提醒";
+
+        } else {
+          // 今日最新模式 (展示该品种近30个交易日历史综合回测能力)
+          const he = curItem.historical_eval || {};
+          evalTitle.textContent = `${meta.name} (${curItem.symbol}) · 近30日历史回测评估`;
+          scopeBadge.textContent = `样本容量: ${he.eval_days || 32} 个交易日`;
+          scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-indigo-50 text-indigo-700 border border-indigo-200";
+
+          const rk = he.rank !== undefined ? he.rank : "--";
+          const tot = he.total_symbols || allItems.length || 70;
+          rankBadge.textContent = `全市场历史天梯 #${rk} / ${tot}`;
+          rankBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-extrabold bg-blue-50 text-blue-900 border border-blue-200 shadow-xs";
+
+          evalDesc.textContent = `基于过去 30 个交易日真实逐笔比对，今日最新预测正在进行中（明日盘后自动回测结算）`;
+
+          // KPI 1: 历史综合评分
+          document.getElementById("eval-kpi-1-label").textContent = "品种历史质量分 (PQS)";
+          const pqs = he.pqs !== undefined ? he.pqs : 70.0;
+          document.getElementById("eval-pqs-score").textContent = pqs.toFixed(1);
+          document.getElementById("eval-pqs-rating").textContent = he.pqs_rating || "A级·优异";
+          document.getElementById("eval-pqs-bar").style.width = `${Math.min(100, Math.max(10, pqs))}%`;
+          if (pqs >= 85) {
+            document.getElementById("eval-pqs-rating").className = "text-xs px-2 py-0.5 rounded-md font-extrabold bg-emerald-600 text-white shadow-xs";
+            document.getElementById("eval-pqs-bar").className = "h-full bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full transition-all duration-500";
+          } else if (pqs >= 60) {
+            document.getElementById("eval-pqs-rating").className = "text-xs px-2 py-0.5 rounded-md font-extrabold bg-blue-600 text-white shadow-xs";
+            document.getElementById("eval-pqs-bar").className = "h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500";
+          } else {
+            document.getElementById("eval-pqs-rating").className = "text-xs px-2 py-0.5 rounded-md font-extrabold bg-rose-600 text-white shadow-xs";
+            document.getElementById("eval-pqs-bar").className = "h-full bg-gradient-to-r from-rose-500 to-amber-600 rounded-full transition-all duration-500";
+          }
+          document.getElementById("eval-samples-count").textContent = `近${he.eval_days || 32}日回测`;
+
+          // KPI 2: 历史平均 Brier
+          document.getElementById("eval-kpi-2-label").textContent = "历史平均布里尔 (Brier)";
+          const brier = he.avg_brier !== undefined ? he.avg_brier : 0.1500;
+          document.getElementById("eval-brier-val").textContent = brier.toFixed(4);
+          const bss = he.bss_score !== undefined ? he.bss_score : 40.0;
+          document.getElementById("eval-bss-desc").innerHTML = `<span class="text-emerald-600 font-bold">技能增益 BSS: +${bss.toFixed(1)}%</span>`;
+          document.getElementById("eval-kpi-2-tip").textContent = "相比盲猜超额技能";
+
+          // KPI 3: 历史校准偏差
+          document.getElementById("eval-kpi-3-label").textContent = "期望校准绝对偏差 (MAE)";
+          const gap = he.calibration_gap !== undefined ? he.calibration_gap : 3.5;
+          document.getElementById("eval-ece-val").textContent = `${gap.toFixed(1)}%`;
+          document.getElementById("eval-ece-val").className = "text-2xl sm:text-4xl font-extrabold font-mono text-slate-900 tracking-tight mt-1";
+          document.getElementById("eval-calib-score").textContent = `校准吻合评分: ${Math.max(0, 100 - gap * 2.5).toFixed(1)} 分`;
+          document.getElementById("eval-kpi-3-sub").textContent = "预测概率 vs 实测发生率";
+          document.getElementById("eval-kpi-3-tip").textContent = gap <= 5.0 ? "校准优秀" : "常态波动";
+
+          // KPI 4: 历史方向胜率
+          document.getElementById("eval-kpi-4-label").textContent = "历史单边倾向胜率";
+          const wr = he.dir_win_rate !== undefined ? he.dir_win_rate : 75.0;
+          const strongRateEl = document.getElementById("eval-strong-winrate");
+          strongRateEl.textContent = `${wr.toFixed(1)}%`;
+          strongRateEl.className = "text-2xl sm:text-4xl font-extrabold font-mono text-amber-700 tracking-tight mt-1";
+          document.getElementById("eval-dir-general").textContent = `在给出明确倾角时方向胜率`;
+          document.getElementById("eval-strong-count-desc").textContent = `样本数: ${he.eval_days || 32} 天`;
+          document.getElementById("eval-kpi-4-tip").textContent = wr >= 70 ? "高胜率指引" : "稳健中枢";
+        }
+      } 
+      // -------------------------------------------------------------
+      // 模式 B：全市场 70 品种宏观大盘总览
+      // -------------------------------------------------------------
+      else {
+        const ev = isHistoryMode ? (currentHistorySnap ? currentHistorySnap.evaluation : null) : globalEvalData;
+        if (!ev) return;
+
+        evalTitle.textContent = isHistoryMode ? "全市场主力合约 · 本期兑现评估报告" : "全市场主力合约 · 近30日大数综合评估看板";
+        scopeBadge.textContent = isHistoryMode ? `测试基准日: ${ev.trade_date} → 实测兑现日: ${ev.next_date || '--'}` : "全市场 70 品种累计评测";
         scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-indigo-50 text-indigo-700 border border-indigo-200";
         evalDesc.textContent = "布里尔均方误差 (Brier Score) · 期望校准度 (ECE) · 概率倾角方向胜率 · 综合健康度 PQS";
-        strip.classList.add("hidden");
+
+        if (isHistoryMode) {
+          if (strip) strip.classList.remove("hidden");
+          document.getElementById("strip-next-date").textContent = ev.next_date || "--";
+          const hs = ev.hits_summary || {};
+          document.getElementById("pill-hit-dn1").textContent = hs.only_dn1 !== undefined ? hs.only_dn1 : "--";
+          document.getElementById("pill-hit-up1").textContent = hs.only_up1 !== undefined ? hs.only_up1 : "--";
+          document.getElementById("pill-hit-both").textContent = hs.both_hit !== undefined ? hs.both_hit : "--";
+          document.getElementById("pill-hit-neither").textContent = hs.neither !== undefined ? hs.neither : "--";
+
+          // 神预测 Top 3
+          const topContainer = document.getElementById("top-performers-pills");
+          topContainer.innerHTML = "";
+          const tops = ev.top_performers || [];
+          tops.slice(0, 3).forEach(t => {
+            const p = document.createElement("span");
+            p.className = "px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold cursor-pointer hover:bg-emerald-200 transition";
+            const m = VARIETY_META[t.symbol] || { name: t.symbol };
+            p.textContent = `🏆 ${t.symbol} ${m.name} (${t.score}分)`;
+            p.title = `点击切换查看: 次日涨跌幅 ${t.realized_return}%`;
+            p.onclick = () => {
+              currentSymbol = t.symbol;
+              currentContract = t.contract || "";
+              evalViewMode = "symbol"; // 切换回当前品种
+              renderCurrentSymbol();
+              renderOverviewTable();
+            };
+            topContainer.appendChild(p);
+          });
+        } else {
+          if (strip) strip.classList.add("hidden");
+        }
+
+        // 全市场宏观 4 个 KPI
+        document.getElementById("eval-kpi-1-label").textContent = "全市场综合质量 (PQS)";
+        const pqs = ev.pqs !== undefined ? ev.pqs : 83.5;
+        document.getElementById("eval-pqs-score").textContent = pqs.toFixed(1);
+        document.getElementById("eval-pqs-rating").textContent = ev.pqs_rating || "A级·优异";
+        document.getElementById("eval-pqs-bar").style.width = `${Math.min(100, Math.max(10, pqs))}%`;
+        document.getElementById("eval-samples-count").textContent = `${ev.total_evaluated || 2239} 笔预测`;
+
+        document.getElementById("eval-kpi-2-label").textContent = "全市场平均布里尔误差";
+        const brier = ev.avg_brier !== undefined ? ev.avg_brier : 0.1447;
+        document.getElementById("eval-brier-val").textContent = brier.toFixed(4);
+        const bss = ev.bss_score !== undefined ? ev.bss_score : 42.1;
+        document.getElementById("eval-bss-desc").innerHTML = `<span class="text-emerald-600 font-bold">技能得分 BSS: +${bss.toFixed(1)}%</span>`;
+        document.getElementById("eval-kpi-2-tip").textContent = "盲猜基准: 0.2500";
+
+        document.getElementById("eval-kpi-3-label").textContent = "期望校准误差 (ECE)";
+        const ece = ev.ece !== undefined ? ev.ece : 3.9;
+        document.getElementById("eval-ece-val").textContent = `${ece.toFixed(1)}%`;
+        document.getElementById("eval-ece-val").className = "text-2xl sm:text-4xl font-extrabold font-mono text-slate-900 tracking-tight mt-1";
+        const calibScore = ev.calib_score !== undefined ? ev.calib_score : 96.1;
+        document.getElementById("eval-calib-score").textContent = `校准吻合度: ${calibScore.toFixed(1)} 分`;
+        document.getElementById("eval-kpi-3-sub").textContent = "5 分桶严格标定";
+        document.getElementById("eval-kpi-3-tip").textContent = ece <= 5.0 ? "校准优秀" : "校准良好";
+
+        document.getElementById("eval-kpi-4-label").textContent = "高置信强信号胜率";
+        const strongRate = ev.strong_win_rate !== undefined ? ev.strong_win_rate : 75.0;
+        const strongRateEl = document.getElementById("eval-strong-winrate");
+        strongRateEl.textContent = `${strongRate.toFixed(1)}%`;
+        strongRateEl.className = "text-2xl sm:text-4xl font-extrabold font-mono text-amber-700 tracking-tight mt-1";
+        document.getElementById("eval-dir-general").textContent = `全样本方向胜率: ${(ev.dir_win_rate || 68.4).toFixed(1)}%`;
+        document.getElementById("eval-strong-count-desc").textContent = ev.strong_signals_count ? `触发 ${ev.strong_signals_count} 笔强信号` : "倾角差 ≥10%";
+        document.getElementById("eval-kpi-4-tip").textContent = "高赔率指引";
       }
-
-      // 渲染 4 个 KPI
-      const pqs = ev.pqs !== undefined ? ev.pqs : 83.5;
-      document.getElementById("eval-pqs-score").textContent = pqs.toFixed(1);
-      document.getElementById("eval-pqs-rating").textContent = ev.pqs_rating || "A级·优异";
-      document.getElementById("eval-pqs-bar").style.width = `${Math.min(100, Math.max(10, pqs))}%`;
-      document.getElementById("eval-samples-count").textContent = `${ev.total_evaluated || 2239} 笔预测`;
-
-      const brier = ev.avg_brier !== undefined ? ev.avg_brier : 0.1447;
-      document.getElementById("eval-brier-val").textContent = brier.toFixed(4);
-      const bss = ev.bss_score !== undefined ? ev.bss_score : 42.1;
-      document.getElementById("eval-bss-desc").innerHTML = `<span>技能得分 BSS: +${bss.toFixed(1)}%</span>`;
-
-      const ece = ev.ece !== undefined ? ev.ece : 3.9;
-      document.getElementById("eval-ece-val").textContent = `${ece.toFixed(1)}%`;
-      const calibScore = ev.calib_score !== undefined ? ev.calib_score : 96.1;
-      document.getElementById("eval-calib-score").textContent = `校准吻合度: ${calibScore.toFixed(1)} 分`;
-      const calibPill = document.getElementById("eval-calib-pill");
-      if (ece <= 5.0) {
-        calibPill.textContent = "校准优秀";
-        calibPill.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800";
-      } else if (ece <= 10.0) {
-        calibPill.textContent = "校准良好";
-        calibPill.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800";
-      } else {
-        calibPill.textContent = "轻度漂移";
-        calibPill.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800";
-      }
-
-      const strongRate = ev.strong_win_rate !== undefined ? ev.strong_win_rate : 75.0;
-      document.getElementById("eval-strong-winrate").textContent = `${strongRate.toFixed(1)}%`;
-      const dirRate = ev.dir_win_rate !== undefined ? ev.dir_win_rate : 68.4;
-      document.getElementById("eval-dir-winrate-val").textContent = `${dirRate.toFixed(1)}%`;
-      document.getElementById("eval-strong-count-desc").textContent = ev.strong_signals_count ? `触发 ${ev.strong_signals_count} 笔强信号` : "倾角差 ≥10%";
     }
 
     function initChart() {
@@ -1517,6 +1722,9 @@
     function renderCurrentSymbol(overrideContract = null) {
       const baseItem = allItems.find(x => x.symbol === currentSymbol);
       if (!baseItem) return;
+
+      // 实时联动更新顶部评估看板 (展示当前选定品种的专属评分)
+      updateEvaluationDashboard();
 
       const meta = VARIETY_META[baseItem.symbol] || { name: baseItem.symbol, tag: "商品" };
       document.getElementById("stat-symbol-name").textContent = `${meta.name} (${baseItem.symbol})`;

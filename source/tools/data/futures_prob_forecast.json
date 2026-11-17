@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-17 13:45:58",
+  "generated_at": "2026-11-17 14:07:26",
   "current_date": "2026-11-17",
   "method": "FHS + EWMA(λ=0.94) + Multi-Model Arena (Bayes Shrinkage / FHS Base / Regime Momentum)",
   "disclaimer": "基于历史波动率的条件概率分布，非方向性投资建议。",
@@ -237,7 +237,9 @@
         "realized_close": 109.535,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0
+        "brier": 0.0,
+        "rank": 1,
+        "total_symbols": 2239
       },
       {
         "symbol": "TF",
@@ -250,7 +252,9 @@
         "realized_close": 106.53,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0
+        "brier": 0.0,
+        "rank": 2,
+        "total_symbols": 2239
       },
       {
         "symbol": "TL",
@@ -263,7 +267,9 @@
         "realized_close": 117.06,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0002
+        "brier": 0.0002,
+        "rank": 3,
+        "total_symbols": 2239
       },
       {
         "symbol": "TS",
@@ -276,7 +282,9 @@
         "realized_close": 102.57,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0
+        "brier": 0.0,
+        "rank": 4,
+        "total_symbols": 2239
       },
       {
         "symbol": "T",
@@ -289,7 +297,9 @@
         "realized_close": 109.66,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0
+        "brier": 0.0,
+        "rank": 5,
+        "total_symbols": 2239
       }
     ],
     "bottom_performers": [
@@ -304,7 +314,9 @@
         "realized_close": 5557.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.6254
+        "brier": 0.6254,
+        "rank": 2235,
+        "total_symbols": 2239
       },
       {
         "symbol": "RM",
@@ -317,7 +329,9 @@
         "realized_close": 2340.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.6506
+        "brier": 0.6506,
+        "rank": 2236,
+        "total_symbols": 2239
       },
       {
         "symbol": "AP",
@@ -330,7 +344,9 @@
         "realized_close": 5984.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.6137
+        "brier": 0.6137,
+        "rank": 2237,
+        "total_symbols": 2239
       },
       {
         "symbol": "LH",
@@ -343,7 +359,9 @@
         "realized_close": 9860.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.546
+        "brier": 0.546,
+        "rank": 2238,
+        "total_symbols": 2239
       },
       {
         "symbol": "PG",
@@ -356,7 +374,9 @@
         "realized_close": 7392.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.6863
+        "brier": 0.6863,
+        "rank": 2239,
+        "total_symbols": 2239
       }
     ],
     "symbol_evals": {
@@ -371,7 +391,9 @@
         "realized_close": 109.59,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0
+        "brier": 0.0,
+        "rank": 1016,
+        "total_symbols": 2239
       },
       "TF": {
         "symbol": "TF",
@@ -384,7 +406,9 @@
         "realized_close": 106.59,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0
+        "brier": 0.0,
+        "rank": 1017,
+        "total_symbols": 2239
       },
       "TL": {
         "symbol": "TL",
@@ -397,7 +421,9 @@
         "realized_close": 117.42,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.2382
+        "brier": 0.2382,
+        "rank": 1078,
+        "total_symbols": 2239
       },
       "TS": {
         "symbol": "TS",
@@ -410,7 +436,9 @@
         "realized_close": 102.646,
         "hit_up1": 0,
         "hit_dn1": 0,
-        "brier": 0.0
+        "brier": 0.0,
+        "rank": 114,
+        "total_symbols": 2239
       },
       "RR": {
         "symbol": "RR",
@@ -423,7 +451,9 @@
         "realized_close": 3474.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.4554
+        "brier": 0.4554,
+        "rank": 2231,
+        "total_symbols": 2239
       },
       "SH": {
         "symbol": "SH",
@@ -436,7 +466,9 @@
         "realized_close": 1495.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.3651
+        "brier": 0.3651,
+        "rank": 2189,
+        "total_symbols": 2239
       },
       "SR": {
         "symbol": "SR",
@@ -449,7 +481,9 @@
         "realized_close": 5100.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.4057
+        "brier": 0.4057,
+        "rank": 1853,
+        "total_symbols": 2239
       },
       "C": {
         "symbol": "C",
@@ -462,7 +496,9 @@
         "realized_close": 2204.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.399
+        "brier": 0.399,
+        "rank": 1835,
+        "total_symbols": 2239
       },
       "AU": {
         "symbol": "AU",
@@ -475,7 +511,9 @@
         "realized_close": 852.5,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.4041
+        "brier": 0.4041,
+        "rank": 2218,
+        "total_symbols": 2239
       },
       "EC": {
         "symbol": "EC",
@@ -488,7 +526,9 @@
         "realized_close": 2700.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3178
+        "brier": 0.3178,
+        "rank": 2088,
+        "total_symbols": 2239
       },
       "JM": {
         "symbol": "JM",
@@ -501,7 +541,9 @@
         "realized_close": 1457.5,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.2793
+        "brier": 0.2793,
+        "rank": 1955,
+        "total_symbols": 2239
       },
       "WR": {
         "symbol": "WR",
@@ -514,7 +556,9 @@
         "realized_close": 3257.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3857
+        "brier": 0.3857,
+        "rank": 2203,
+        "total_symbols": 2239
       },
       "LC": {
         "symbol": "LC",
@@ -527,7 +571,9 @@
         "realized_close": 100900.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.423
+        "brier": 0.423,
+        "rank": 2224,
+        "total_symbols": 2239
       },
       "CS": {
         "symbol": "CS",
@@ -540,7 +586,9 @@
         "realized_close": 2452.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.3903
+        "brier": 0.3903,
+        "rank": 1811,
+        "total_symbols": 2239
       },
       "PG": {
         "symbol": "PG",
@@ -553,7 +601,9 @@
         "realized_close": 7392.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.6863
+        "brier": 0.6863,
+        "rank": 2239,
+        "total_symbols": 2239
       },
       "PK": {
         "symbol": "PK",
@@ -566,7 +616,9 @@
         "realized_close": 7910.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.1667
+        "brier": 0.1667,
+        "rank": 1777,
+        "total_symbols": 2239
       },
       "A": {
         "symbol": "A",
@@ -579,7 +631,9 @@
         "realized_close": 5286.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3643
+        "brier": 0.3643,
+        "rank": 2184,
+        "total_symbols": 2239
       },
       "PB": {
         "symbol": "PB",
@@ -592,7 +646,9 @@
         "realized_close": 15765.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3797
+        "brier": 0.3797,
+        "rank": 2200,
+        "total_symbols": 2239
       },
       "BR": {
         "symbol": "BR",
@@ -605,7 +661,9 @@
         "realized_close": 15455.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.3665
+        "brier": 0.3665,
+        "rank": 2193,
+        "total_symbols": 2239
       },
       "AL": {
         "symbol": "AL",
@@ -618,7 +676,9 @@
         "realized_close": 22420.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.394
+        "brier": 0.394,
+        "rank": 2210,
+        "total_symbols": 2239
       },
       "J": {
         "symbol": "J",
@@ -631,7 +691,9 @@
         "realized_close": 1928.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.2973
+        "brier": 0.2973,
+        "rank": 2016,
+        "total_symbols": 2239
       },
       "SA": {
         "symbol": "SA",
@@ -644,7 +706,9 @@
         "realized_close": 990.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.2917
+        "brier": 0.2917,
+        "rank": 1986,
+        "total_symbols": 2239
       },
       "CU": {
         "symbol": "CU",
@@ -657,7 +721,9 @@
         "realized_close": 104260.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3406
+        "brier": 0.3406,
+        "rank": 2155,
+        "total_symbols": 2239
       },
       "CF": {
         "symbol": "CF",
@@ -670,7 +736,9 @@
         "realized_close": 15780.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3604
+        "brier": 0.3604,
+        "rank": 2177,
+        "total_symbols": 2239
       },
       "EG": {
         "symbol": "EG",
@@ -683,7 +751,9 @@
         "realized_close": 5185.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.3401
+        "brier": 0.3401,
+        "rank": 2150,
+        "total_symbols": 2239
       },
       "Y": {
         "symbol": "Y",
@@ -696,7 +766,9 @@
         "realized_close": 9006.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.3862
+        "brier": 0.3862,
+        "rank": 2204,
+        "total_symbols": 2239
       },
       "NR": {
         "symbol": "NR",
@@ -709,7 +781,9 @@
         "realized_close": 16270.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3297
+        "brier": 0.3297,
+        "rank": 2124,
+        "total_symbols": 2239
       },
       "FG": {
         "symbol": "FG",
@@ -722,7 +796,9 @@
         "realized_close": 878.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.3499
+        "brier": 0.3499,
+        "rank": 2171,
+        "total_symbols": 2239
       },
       "IH": {
         "symbol": "IH",
@@ -735,7 +811,9 @@
         "realized_close": 2718.6,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3646
+        "brier": 0.3646,
+        "rank": 2183,
+        "total_symbols": 2239
       },
       "MA": {
         "symbol": "MA",
@@ -748,7 +826,9 @@
         "realized_close": 3402.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.4384
+        "brier": 0.4384,
+        "rank": 2228,
+        "total_symbols": 2239
       },
       "CY": {
         "symbol": "CY",
@@ -761,7 +841,9 @@
         "realized_close": 22105.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.1729
+        "brier": 0.1729,
+        "rank": 1805,
+        "total_symbols": 2239
       },
       "NI": {
         "symbol": "NI",
@@ -774,7 +856,9 @@
         "realized_close": 120410.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3167
+        "brier": 0.3167,
+        "rank": 2083,
+        "total_symbols": 2239
       },
       "IF": {
         "symbol": "IF",
@@ -787,7 +871,9 @@
         "realized_close": 4055.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.39
+        "brier": 0.39,
+        "rank": 2205,
+        "total_symbols": 2239
       },
       "SP": {
         "symbol": "SP",
@@ -800,7 +886,9 @@
         "realized_close": 4532.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3388
+        "brier": 0.3388,
+        "rank": 2147,
+        "total_symbols": 2239
       },
       "SF": {
         "symbol": "SF",
@@ -813,7 +901,9 @@
         "realized_close": 6032.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.3105
+        "brier": 0.3105,
+        "rank": 2064,
+        "total_symbols": 2239
       },
       "BU": {
         "symbol": "BU",
@@ -826,7 +916,9 @@
         "realized_close": 5557.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.6254
+        "brier": 0.6254,
+        "rank": 2235,
+        "total_symbols": 2239
       },
       "BC": {
         "symbol": "BC",
@@ -839,7 +931,9 @@
         "realized_close": 97250.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3756
+        "brier": 0.3756,
+        "rank": 2197,
+        "total_symbols": 2239
       },
       "JD": {
         "symbol": "JD",
@@ -852,7 +946,9 @@
         "realized_close": 3341.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.4074
+        "brier": 0.4074,
+        "rank": 2219,
+        "total_symbols": 2239
       },
       "TA": {
         "symbol": "TA",
@@ -865,7 +961,9 @@
         "realized_close": 6588.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3008
+        "brier": 0.3008,
+        "rank": 2027,
+        "total_symbols": 2239
       },
       "RB": {
         "symbol": "RB",
@@ -878,7 +976,9 @@
         "realized_close": 2965.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3284
+        "brier": 0.3284,
+        "rank": 2123,
+        "total_symbols": 2239
       },
       "AP": {
         "symbol": "AP",
@@ -891,7 +991,9 @@
         "realized_close": 5984.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.6137
+        "brier": 0.6137,
+        "rank": 2237,
+        "total_symbols": 2239
       },
       "EB": {
         "symbol": "EB",
@@ -904,7 +1006,9 @@
         "realized_close": 9829.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3059
+        "brier": 0.3059,
+        "rank": 2048,
+        "total_symbols": 2239
       },
       "ZN": {
         "symbol": "ZN",
@@ -917,7 +1021,9 @@
         "realized_close": 25930.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3498
+        "brier": 0.3498,
+        "rank": 2169,
+        "total_symbols": 2239
       },
       "I": {
         "symbol": "I",
@@ -930,7 +1036,9 @@
         "realized_close": 671.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3282
+        "brier": 0.3282,
+        "rank": 2121,
+        "total_symbols": 2239
       },
       "RM": {
         "symbol": "RM",
@@ -943,7 +1051,9 @@
         "realized_close": 2340.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.6506
+        "brier": 0.6506,
+        "rank": 2236,
+        "total_symbols": 2239
       },
       "RU": {
         "symbol": "RU",
@@ -956,7 +1066,9 @@
         "realized_close": 19155.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3012
+        "brier": 0.3012,
+        "rank": 2036,
+        "total_symbols": 2239
       },
       "L": {
         "symbol": "L",
@@ -969,7 +1081,9 @@
         "realized_close": 8697.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.3403
+        "brier": 0.3403,
+        "rank": 2149,
+        "total_symbols": 2239
       },
       "P": {
         "symbol": "P",
@@ -982,7 +1096,9 @@
         "realized_close": 9090.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3085
+        "brier": 0.3085,
+        "rank": 2055,
+        "total_symbols": 2239
       },
       "AO": {
         "symbol": "AO",
@@ -995,7 +1111,9 @@
         "realized_close": 2723.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.2958
+        "brier": 0.2958,
+        "rank": 2008,
+        "total_symbols": 2239
       },
       "HC": {
         "symbol": "HC",
@@ -1008,7 +1126,9 @@
         "realized_close": 3109.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3298
+        "brier": 0.3298,
+        "rank": 2126,
+        "total_symbols": 2239
       },
       "SS": {
         "symbol": "SS",
@@ -1021,7 +1141,9 @@
         "realized_close": 13455.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3482
+        "brier": 0.3482,
+        "rank": 2168,
+        "total_symbols": 2239
       },
       "IC": {
         "symbol": "IC",
@@ -1034,7 +1156,9 @@
         "realized_close": 6637.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.385
+        "brier": 0.385,
+        "rank": 2202,
+        "total_symbols": 2239
       },
       "SN": {
         "symbol": "SN",
@@ -1047,7 +1171,9 @@
         "realized_close": 343230.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.4552
+        "brier": 0.4552,
+        "rank": 2230,
+        "total_symbols": 2239
       },
       "UR": {
         "symbol": "UR",
@@ -1060,7 +1186,9 @@
         "realized_close": 1709.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.294
+        "brier": 0.294,
+        "rank": 2001,
+        "total_symbols": 2239
       },
       "PR": {
         "symbol": "PR",
@@ -1073,7 +1201,9 @@
         "realized_close": 7910.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3643
+        "brier": 0.3643,
+        "rank": 2185,
+        "total_symbols": 2239
       },
       "M": {
         "symbol": "M",
@@ -1086,7 +1216,9 @@
         "realized_close": 3200.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3465
+        "brier": 0.3465,
+        "rank": 2163,
+        "total_symbols": 2239
       },
       "CJ": {
         "symbol": "CJ",
@@ -1099,7 +1231,9 @@
         "realized_close": 6525.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.3463
+        "brier": 0.3463,
+        "rank": 2165,
+        "total_symbols": 2239
       },
       "AG": {
         "symbol": "AG",
@@ -1112,7 +1246,9 @@
         "realized_close": 12632.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.3948
+        "brier": 0.3948,
+        "rank": 2211,
+        "total_symbols": 2239
       },
       "LH": {
         "symbol": "LH",
@@ -1125,7 +1261,9 @@
         "realized_close": 9860.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.546
+        "brier": 0.546,
+        "rank": 2238,
+        "total_symbols": 2239
       },
       "V": {
         "symbol": "V",
@@ -1138,7 +1276,9 @@
         "realized_close": 4994.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.325
+        "brier": 0.325,
+        "rank": 2112,
+        "total_symbols": 2239
       },
       "PP": {
         "symbol": "PP",
@@ -1151,7 +1291,9 @@
         "realized_close": 10158.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.4564
+        "brier": 0.4564,
+        "rank": 2232,
+        "total_symbols": 2239
       },
       "SM": {
         "symbol": "SM",
@@ -1164,7 +1306,9 @@
         "realized_close": 5862.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3936
+        "brier": 0.3936,
+        "rank": 2208,
+        "total_symbols": 2239
       },
       "IM": {
         "symbol": "IM",
@@ -1177,7 +1321,9 @@
         "realized_close": 6516.6,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.3326
+        "brier": 0.3326,
+        "rank": 2131,
+        "total_symbols": 2239
       },
       "OI": {
         "symbol": "OI",
@@ -1190,7 +1336,9 @@
         "realized_close": 9962.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.327
+        "brier": 0.327,
+        "rank": 2120,
+        "total_symbols": 2239
       },
       "SI": {
         "symbol": "SI",
@@ -1203,7 +1351,9 @@
         "realized_close": 8775.0,
         "hit_up1": 1,
         "hit_dn1": 0,
-        "brier": 0.359
+        "brier": 0.359,
+        "rank": 2176,
+        "total_symbols": 2239
       },
       "FU": {
         "symbol": "FU",
@@ -1216,7 +1366,9 @@
         "realized_close": 4815.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.4234
+        "brier": 0.4234,
+        "rank": 2225,
+        "total_symbols": 2239
       },
       "B": {
         "symbol": "B",
@@ -1229,7 +1381,9 @@
         "realized_close": 4021.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3388
+        "brier": 0.3388,
+        "rank": 2145,
+        "total_symbols": 2239
       },
       "LU": {
         "symbol": "LU",
@@ -1242,7 +1396,9 @@
         "realized_close": 4809.0,
         "hit_up1": 0,
         "hit_dn1": 1,
-        "brier": 0.3342
+        "brier": 0.3342,
+        "rank": 2136,
+        "total_symbols": 2239
       },
       "PF": {
         "symbol": "PF",
@@ -1255,7 +1411,9 @@
         "realized_close": 8162.0,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.3624
+        "brier": 0.3624,
+        "rank": 2179,
+        "total_symbols": 2239
       },
       "SC": {
         "symbol": "SC",
@@ -1268,7 +1426,9 @@
         "realized_close": 713.6,
         "hit_up1": 1,
         "hit_dn1": 1,
-        "brier": 0.3428
+        "brier": 0.3428,
+        "rank": 2158,
+        "total_symbols": 2239
       }
     },
     "models_eval": {
@@ -1484,7 +1644,7 @@
     ]
   },
   "yesterday_test": {
-    "generated_at": "2026-11-17 13:45:58",
+    "generated_at": "2026-11-17 14:07:26",
     "date": "2026-11-16",
     "is_history": true,
     "evaluation": {
@@ -1519,7 +1679,9 @@
           "realized_close": 110.01,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 1,
+          "total_symbols": 70
         },
         {
           "symbol": "TF",
@@ -1532,7 +1694,9 @@
           "realized_close": 106.78,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 2,
+          "total_symbols": 70
         },
         {
           "symbol": "TS",
@@ -1545,7 +1709,9 @@
           "realized_close": 102.646,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 3,
+          "total_symbols": 70
         },
         {
           "symbol": "RR",
@@ -1558,7 +1724,9 @@
           "realized_close": 3615.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.005
+          "brier": 0.005,
+          "rank": 4,
+          "total_symbols": 70
         },
         {
           "symbol": "C",
@@ -1571,7 +1739,9 @@
           "realized_close": 2177.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0184
+          "brier": 0.0184,
+          "rank": 5,
+          "total_symbols": 70
         }
       ],
       "bottom_performers": [
@@ -1586,7 +1756,9 @@
           "realized_close": 3894.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3299
+          "brier": 0.3299,
+          "rank": 66,
+          "total_symbols": 70
         },
         {
           "symbol": "HC",
@@ -1599,7 +1771,9 @@
           "realized_close": 3109.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3298
+          "brier": 0.3298,
+          "rank": 67,
+          "total_symbols": 70
         },
         {
           "symbol": "LU",
@@ -1612,7 +1786,9 @@
           "realized_close": 4809.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3342
+          "brier": 0.3342,
+          "rank": 68,
+          "total_symbols": 70
         },
         {
           "symbol": "Y",
@@ -1625,7 +1801,9 @@
           "realized_close": 8591.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3462
+          "brier": 0.3462,
+          "rank": 69,
+          "total_symbols": 70
         },
         {
           "symbol": "WR",
@@ -1638,7 +1816,9 @@
           "realized_close": 3257.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3857
+          "brier": 0.3857,
+          "rank": 70,
+          "total_symbols": 70
         }
       ],
       "symbol_evals": {
@@ -1653,7 +1833,9 @@
           "realized_close": 110.01,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 1,
+          "total_symbols": 70
         },
         "TF": {
           "symbol": "TF",
@@ -1666,7 +1848,9 @@
           "realized_close": 106.78,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 2,
+          "total_symbols": 70
         },
         "TS": {
           "symbol": "TS",
@@ -1679,7 +1863,9 @@
           "realized_close": 102.646,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 3,
+          "total_symbols": 70
         },
         "RR": {
           "symbol": "RR",
@@ -1692,7 +1878,9 @@
           "realized_close": 3615.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.005
+          "brier": 0.005,
+          "rank": 4,
+          "total_symbols": 70
         },
         "C": {
           "symbol": "C",
@@ -1705,7 +1893,9 @@
           "realized_close": 2177.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0184
+          "brier": 0.0184,
+          "rank": 5,
+          "total_symbols": 70
         },
         "AU": {
           "symbol": "AU",
@@ -1718,7 +1908,9 @@
           "realized_close": 834.66,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0205
+          "brier": 0.0205,
+          "rank": 6,
+          "total_symbols": 70
         },
         "CS": {
           "symbol": "CS",
@@ -1731,7 +1923,9 @@
           "realized_close": 2447.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0276
+          "brier": 0.0276,
+          "rank": 7,
+          "total_symbols": 70
         },
         "A": {
           "symbol": "A",
@@ -1744,7 +1938,9 @@
           "realized_close": 5023.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.0359
+          "brier": 0.0359,
+          "rank": 8,
+          "total_symbols": 70
         },
         "CF": {
           "symbol": "CF",
@@ -1757,7 +1953,9 @@
           "realized_close": 15565.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0449
+          "brier": 0.0449,
+          "rank": 9,
+          "total_symbols": 70
         },
         "I": {
           "symbol": "I",
@@ -1770,7 +1968,9 @@
           "realized_close": 640.5,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.0555
+          "brier": 0.0555,
+          "rank": 10,
+          "total_symbols": 70
         },
         "PK": {
           "symbol": "PK",
@@ -1783,7 +1983,9 @@
           "realized_close": 7734.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.0632
+          "brier": 0.0632,
+          "rank": 11,
+          "total_symbols": 70
         },
         "SS": {
           "symbol": "SS",
@@ -1796,7 +1998,9 @@
           "realized_close": 13930.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0665
+          "brier": 0.0665,
+          "rank": 12,
+          "total_symbols": 70
         },
         "SI": {
           "symbol": "SI",
@@ -1809,7 +2013,9 @@
           "realized_close": 8605.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0907
+          "brier": 0.0907,
+          "rank": 13,
+          "total_symbols": 70
         },
         "AG": {
           "symbol": "AG",
@@ -1822,7 +2028,9 @@
           "realized_close": 11360.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1095
+          "brier": 0.1095,
+          "rank": 14,
+          "total_symbols": 70
         },
         "RM": {
           "symbol": "RM",
@@ -1835,7 +2043,9 @@
           "realized_close": 2254.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1306
+          "brier": 0.1306,
+          "rank": 15,
+          "total_symbols": 70
         },
         "BC": {
           "symbol": "BC",
@@ -1848,7 +2058,9 @@
           "realized_close": 92720.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1353
+          "brier": 0.1353,
+          "rank": 16,
+          "total_symbols": 70
         },
         "SP": {
           "symbol": "SP",
@@ -1861,7 +2073,9 @@
           "realized_close": 4628.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1365
+          "brier": 0.1365,
+          "rank": 17,
+          "total_symbols": 70
         },
         "CY": {
           "symbol": "CY",
@@ -1874,7 +2088,9 @@
           "realized_close": 21100.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1386
+          "brier": 0.1386,
+          "rank": 18,
+          "total_symbols": 70
         },
         "SM": {
           "symbol": "SM",
@@ -1887,7 +2103,9 @@
           "realized_close": 5776.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.14
+          "brier": 0.14,
+          "rank": 19,
+          "total_symbols": 70
         },
         "SN": {
           "symbol": "SN",
@@ -1900,7 +2118,9 @@
           "realized_close": 349020.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1424
+          "brier": 0.1424,
+          "rank": 20,
+          "total_symbols": 70
         },
         "IC": {
           "symbol": "IC",
@@ -1913,7 +2133,9 @@
           "realized_close": 6194.8,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1432
+          "brier": 0.1432,
+          "rank": 21,
+          "total_symbols": 70
         },
         "AL": {
           "symbol": "AL",
@@ -1926,7 +2148,9 @@
           "realized_close": 22080.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1437
+          "brier": 0.1437,
+          "rank": 22,
+          "total_symbols": 70
         },
         "IH": {
           "symbol": "IH",
@@ -1939,7 +2163,9 @@
           "realized_close": 2729.6,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.151
+          "brier": 0.151,
+          "rank": 23,
+          "total_symbols": 70
         },
         "EC": {
           "symbol": "EC",
@@ -1952,7 +2178,9 @@
           "realized_close": 2557.5,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.1639
+          "brier": 0.1639,
+          "rank": 24,
+          "total_symbols": 70
         },
         "IM": {
           "symbol": "IM",
@@ -1965,7 +2193,9 @@
           "realized_close": 6023.0,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.1921
+          "brier": 0.1921,
+          "rank": 25,
+          "total_symbols": 70
         },
         "TL": {
           "symbol": "TL",
@@ -1978,7 +2208,9 @@
           "realized_close": 117.71,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0002
+          "brier": 0.0002,
+          "rank": 26,
+          "total_symbols": 70
         },
         "PG": {
           "symbol": "PG",
@@ -1991,7 +2223,9 @@
           "realized_close": 5837.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.249
+          "brier": 0.249,
+          "rank": 27,
+          "total_symbols": 70
         },
         "SA": {
           "symbol": "SA",
@@ -2004,7 +2238,9 @@
           "realized_close": 959.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2493
+          "brier": 0.2493,
+          "rank": 28,
+          "total_symbols": 70
         },
         "FG": {
           "symbol": "FG",
@@ -2017,7 +2253,9 @@
           "realized_close": 883.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2497
+          "brier": 0.2497,
+          "rank": 29,
+          "total_symbols": 70
         },
         "JM": {
           "symbol": "JM",
@@ -2030,7 +2268,9 @@
           "realized_close": 1416.5,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2562
+          "brier": 0.2562,
+          "rank": 30,
+          "total_symbols": 70
         },
         "CJ": {
           "symbol": "CJ",
@@ -2043,7 +2283,9 @@
           "realized_close": 6030.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.262
+          "brier": 0.262,
+          "rank": 31,
+          "total_symbols": 70
         },
         "IF": {
           "symbol": "IF",
@@ -2056,7 +2298,9 @@
           "realized_close": 3918.2,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0478
+          "brier": 0.0478,
+          "rank": 32,
+          "total_symbols": 70
         },
         "LH": {
           "symbol": "LH",
@@ -2069,7 +2313,9 @@
           "realized_close": 9280.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2653
+          "brier": 0.2653,
+          "rank": 33,
+          "total_symbols": 70
         },
         "MA": {
           "symbol": "MA",
@@ -2082,7 +2328,9 @@
           "realized_close": 3129.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2661
+          "brier": 0.2661,
+          "rank": 34,
+          "total_symbols": 70
         },
         "ZN": {
           "symbol": "ZN",
@@ -2095,7 +2343,9 @@
           "realized_close": 24880.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0708
+          "brier": 0.0708,
+          "rank": 35,
+          "total_symbols": 70
         },
         "EG": {
           "symbol": "EG",
@@ -2108,7 +2358,9 @@
           "realized_close": 5052.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2906
+          "brier": 0.2906,
+          "rank": 36,
+          "total_symbols": 70
         },
         "TA": {
           "symbol": "TA",
@@ -2121,7 +2373,9 @@
           "realized_close": 5946.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2904
+          "brier": 0.2904,
+          "rank": 37,
+          "total_symbols": 70
         },
         "PR": {
           "symbol": "PR",
@@ -2134,7 +2388,9 @@
           "realized_close": 7528.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3028
+          "brier": 0.3028,
+          "rank": 38,
+          "total_symbols": 70
         },
         "B": {
           "symbol": "B",
@@ -2147,7 +2403,9 @@
           "realized_close": 3797.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3079
+          "brier": 0.3079,
+          "rank": 39,
+          "total_symbols": 70
         },
         "V": {
           "symbol": "V",
@@ -2160,7 +2418,9 @@
           "realized_close": 4887.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3097
+          "brier": 0.3097,
+          "rank": 40,
+          "total_symbols": 70
         },
         "L": {
           "symbol": "L",
@@ -2173,7 +2433,9 @@
           "realized_close": 8125.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3284
+          "brier": 0.3284,
+          "rank": 41,
+          "total_symbols": 70
         },
         "PP": {
           "symbol": "PP",
@@ -2186,7 +2448,9 @@
           "realized_close": 8964.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3323
+          "brier": 0.3323,
+          "rank": 42,
+          "total_symbols": 70
         },
         "OI": {
           "symbol": "OI",
@@ -2199,7 +2463,9 @@
           "realized_close": 9968.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1407
+          "brier": 0.1407,
+          "rank": 43,
+          "total_symbols": 70
         },
         "M": {
           "symbol": "M",
@@ -2212,7 +2478,9 @@
           "realized_close": 3081.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1426
+          "brier": 0.1426,
+          "rank": 44,
+          "total_symbols": 70
         },
         "SF": {
           "symbol": "SF",
@@ -2225,7 +2493,9 @@
           "realized_close": 5808.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1468
+          "brier": 0.1468,
+          "rank": 45,
+          "total_symbols": 70
         },
         "SH": {
           "symbol": "SH",
@@ -2238,7 +2508,9 @@
           "realized_close": 1516.0,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.1508
+          "brier": 0.1508,
+          "rank": 46,
+          "total_symbols": 70
         },
         "JD": {
           "symbol": "JD",
@@ -2251,7 +2523,9 @@
           "realized_close": 3263.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1567
+          "brier": 0.1567,
+          "rank": 47,
+          "total_symbols": 70
         },
         "PB": {
           "symbol": "PB",
@@ -2264,7 +2538,9 @@
           "realized_close": 15800.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1581
+          "brier": 0.1581,
+          "rank": 48,
+          "total_symbols": 70
         },
         "NI": {
           "symbol": "NI",
@@ -2277,7 +2553,9 @@
           "realized_close": 120110.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1615
+          "brier": 0.1615,
+          "rank": 49,
+          "total_symbols": 70
         },
         "AO": {
           "symbol": "AO",
@@ -2290,7 +2568,9 @@
           "realized_close": 2603.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.167
+          "brier": 0.167,
+          "rank": 50,
+          "total_symbols": 70
         },
         "SR": {
           "symbol": "SR",
@@ -2303,7 +2583,9 @@
           "realized_close": 5100.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.4057
+          "brier": 0.4057,
+          "rank": 51,
+          "total_symbols": 70
         },
         "CU": {
           "symbol": "CU",
@@ -2316,7 +2598,9 @@
           "realized_close": 104030.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": null
+          "brier": null,
+          "rank": 52,
+          "total_symbols": 70
         },
         "SC": {
           "symbol": "SC",
@@ -2329,7 +2613,9 @@
           "realized_close": 581.4,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2784
+          "brier": 0.2784,
+          "rank": 53,
+          "total_symbols": 70
         },
         "LC": {
           "symbol": "LC",
@@ -2342,7 +2628,9 @@
           "realized_close": 93180.0,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.2863
+          "brier": 0.2863,
+          "rank": 54,
+          "total_symbols": 70
         },
         "UR": {
           "symbol": "UR",
@@ -2355,7 +2643,9 @@
           "realized_close": 1709.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.294
+          "brier": 0.294,
+          "rank": 55,
+          "total_symbols": 70
         },
         "J": {
           "symbol": "J",
@@ -2368,7 +2658,9 @@
           "realized_close": 1928.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2973
+          "brier": 0.2973,
+          "rank": 56,
+          "total_symbols": 70
         },
         "P": {
           "symbol": "P",
@@ -2381,7 +2673,9 @@
           "realized_close": 8794.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.298
+          "brier": 0.298,
+          "rank": 57,
+          "total_symbols": 70
         },
         "RU": {
           "symbol": "RU",
@@ -2394,7 +2688,9 @@
           "realized_close": 19345.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2983
+          "brier": 0.2983,
+          "rank": 58,
+          "total_symbols": 70
         },
         "EB": {
           "symbol": "EB",
@@ -2407,7 +2703,9 @@
           "realized_close": 8538.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3005
+          "brier": 0.3005,
+          "rank": 59,
+          "total_symbols": 70
         },
         "BU": {
           "symbol": "BU",
@@ -2420,7 +2718,9 @@
           "realized_close": 4155.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3082
+          "brier": 0.3082,
+          "rank": 60,
+          "total_symbols": 70
         },
         "NR": {
           "symbol": "NR",
@@ -2433,7 +2733,9 @@
           "realized_close": 16440.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3075
+          "brier": 0.3075,
+          "rank": 61,
+          "total_symbols": 70
         },
         "BR": {
           "symbol": "BR",
@@ -2446,7 +2748,9 @@
           "realized_close": 15605.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3164
+          "brier": 0.3164,
+          "rank": 62,
+          "total_symbols": 70
         },
         "AP": {
           "symbol": "AP",
@@ -2459,7 +2763,9 @@
           "realized_close": 6116.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3174
+          "brier": 0.3174,
+          "rank": 63,
+          "total_symbols": 70
         },
         "PF": {
           "symbol": "PF",
@@ -2472,7 +2778,9 @@
           "realized_close": 7668.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3211
+          "brier": 0.3211,
+          "rank": 64,
+          "total_symbols": 70
         },
         "RB": {
           "symbol": "RB",
@@ -2485,7 +2793,9 @@
           "realized_close": 2965.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3284
+          "brier": 0.3284,
+          "rank": 65,
+          "total_symbols": 70
         },
         "FU": {
           "symbol": "FU",
@@ -2498,7 +2808,9 @@
           "realized_close": 3894.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3299
+          "brier": 0.3299,
+          "rank": 66,
+          "total_symbols": 70
         },
         "HC": {
           "symbol": "HC",
@@ -2511,7 +2823,9 @@
           "realized_close": 3109.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3298
+          "brier": 0.3298,
+          "rank": 67,
+          "total_symbols": 70
         },
         "LU": {
           "symbol": "LU",
@@ -2524,7 +2838,9 @@
           "realized_close": 4809.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3342
+          "brier": 0.3342,
+          "rank": 68,
+          "total_symbols": 70
         },
         "Y": {
           "symbol": "Y",
@@ -2537,7 +2853,9 @@
           "realized_close": 8591.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3462
+          "brier": 0.3462,
+          "rank": 69,
+          "total_symbols": 70
         },
         "WR": {
           "symbol": "WR",
@@ -2550,7 +2868,9 @@
           "realized_close": 3257.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3857
+          "brier": 0.3857,
+          "rank": 70,
+          "total_symbols": 70
         }
       }
     },
@@ -2901,7 +3221,9 @@
           "realized_close": 5023.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.0359
+          "brier": 0.0359,
+          "rank": 8,
+          "total_symbols": 70
         }
       },
       {
@@ -3274,7 +3596,9 @@
           "realized_close": 11360.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1095
+          "brier": 0.1095,
+          "rank": 14,
+          "total_symbols": 70
         }
       },
       {
@@ -3623,7 +3947,9 @@
           "realized_close": 22080.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1437
+          "brier": 0.1437,
+          "rank": 22,
+          "total_symbols": 70
         }
       },
       {
@@ -3996,7 +4322,9 @@
           "realized_close": 2603.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.167
+          "brier": 0.167,
+          "rank": 50,
+          "total_symbols": 70
         }
       },
       {
@@ -4361,7 +4689,9 @@
           "realized_close": 6116.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3174
+          "brier": 0.3174,
+          "rank": 63,
+          "total_symbols": 70
         }
       },
       {
@@ -4734,7 +5064,9 @@
           "realized_close": 834.66,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0205
+          "brier": 0.0205,
+          "rank": 6,
+          "total_symbols": 70
         }
       },
       {
@@ -5083,7 +5415,9 @@
           "realized_close": 3797.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3079
+          "brier": 0.3079,
+          "rank": 39,
+          "total_symbols": 70
         }
       },
       {
@@ -5440,7 +5774,9 @@
           "realized_close": 92720.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1353
+          "brier": 0.1353,
+          "rank": 16,
+          "total_symbols": 70
         }
       },
       {
@@ -5797,7 +6133,9 @@
           "realized_close": 15605.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3164
+          "brier": 0.3164,
+          "rank": 62,
+          "total_symbols": 70
         }
       },
       {
@@ -6162,7 +6500,9 @@
           "realized_close": 4155.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3082
+          "brier": 0.3082,
+          "rank": 60,
+          "total_symbols": 70
         }
       },
       {
@@ -6511,7 +6851,9 @@
           "realized_close": 2177.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0184
+          "brier": 0.0184,
+          "rank": 5,
+          "total_symbols": 70
         }
       },
       {
@@ -6860,7 +7202,9 @@
           "realized_close": 15565.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0449
+          "brier": 0.0449,
+          "rank": 9,
+          "total_symbols": 70
         }
       },
       {
@@ -7225,7 +7569,9 @@
           "realized_close": 6030.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.262
+          "brier": 0.262,
+          "rank": 31,
+          "total_symbols": 70
         }
       },
       {
@@ -7574,7 +7920,9 @@
           "realized_close": 2447.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0276
+          "brier": 0.0276,
+          "rank": 7,
+          "total_symbols": 70
         }
       },
       {
@@ -7923,7 +8271,9 @@
           "realized_close": 104030.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": null
+          "brier": null,
+          "rank": 52,
+          "total_symbols": 70
         }
       },
       {
@@ -8272,7 +8622,9 @@
           "realized_close": 21100.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1386
+          "brier": 0.1386,
+          "rank": 18,
+          "total_symbols": 70
         }
       },
       {
@@ -8637,7 +8989,9 @@
           "realized_close": 8538.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3005
+          "brier": 0.3005,
+          "rank": 59,
+          "total_symbols": 70
         }
       },
       {
@@ -9026,7 +9380,9 @@
           "realized_close": 2557.5,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.1639
+          "brier": 0.1639,
+          "rank": 24,
+          "total_symbols": 70
         }
       },
       {
@@ -9391,7 +9747,9 @@
           "realized_close": 5052.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2906
+          "brier": 0.2906,
+          "rank": 36,
+          "total_symbols": 70
         }
       },
       {
@@ -9748,7 +10106,9 @@
           "realized_close": 883.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2497
+          "brier": 0.2497,
+          "rank": 29,
+          "total_symbols": 70
         }
       },
       {
@@ -10113,7 +10473,9 @@
           "realized_close": 3894.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3299
+          "brier": 0.3299,
+          "rank": 66,
+          "total_symbols": 70
         }
       },
       {
@@ -10478,7 +10840,9 @@
           "realized_close": 3109.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3298
+          "brier": 0.3298,
+          "rank": 67,
+          "total_symbols": 70
         }
       },
       {
@@ -10851,7 +11215,9 @@
           "realized_close": 640.5,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.0555
+          "brier": 0.0555,
+          "rank": 10,
+          "total_symbols": 70
         }
       },
       {
@@ -11240,7 +11606,9 @@
           "realized_close": 6194.8,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1432
+          "brier": 0.1432,
+          "rank": 21,
+          "total_symbols": 70
         }
       },
       {
@@ -11629,7 +11997,9 @@
           "realized_close": 3918.2,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0478
+          "brier": 0.0478,
+          "rank": 32,
+          "total_symbols": 70
         }
       },
       {
@@ -12018,7 +12388,9 @@
           "realized_close": 2729.6,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.151
+          "brier": 0.151,
+          "rank": 23,
+          "total_symbols": 70
         }
       },
       {
@@ -12407,7 +12779,9 @@
           "realized_close": 6023.0,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.1921
+          "brier": 0.1921,
+          "rank": 25,
+          "total_symbols": 70
         }
       },
       {
@@ -12780,7 +13154,9 @@
           "realized_close": 1928.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2973
+          "brier": 0.2973,
+          "rank": 56,
+          "total_symbols": 70
         }
       },
       {
@@ -13137,7 +13513,9 @@
           "realized_close": 3263.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1567
+          "brier": 0.1567,
+          "rank": 47,
+          "total_symbols": 70
         }
       },
       {
@@ -13510,7 +13888,9 @@
           "realized_close": 1416.5,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2562
+          "brier": 0.2562,
+          "rank": 30,
+          "total_symbols": 70
         }
       },
       {
@@ -13867,7 +14247,9 @@
           "realized_close": 8125.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3284
+          "brier": 0.3284,
+          "rank": 41,
+          "total_symbols": 70
         }
       },
       {
@@ -14248,7 +14630,9 @@
           "realized_close": 93180.0,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.2863
+          "brier": 0.2863,
+          "rank": 54,
+          "total_symbols": 70
         }
       },
       {
@@ -14621,7 +15005,9 @@
           "realized_close": 9280.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2653
+          "brier": 0.2653,
+          "rank": 33,
+          "total_symbols": 70
         }
       },
       {
@@ -14986,7 +15372,9 @@
           "realized_close": 4809.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3342
+          "brier": 0.3342,
+          "rank": 68,
+          "total_symbols": 70
         }
       },
       {
@@ -15343,7 +15731,9 @@
           "realized_close": 3081.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1426
+          "brier": 0.1426,
+          "rank": 44,
+          "total_symbols": 70
         }
       },
       {
@@ -15708,7 +16098,9 @@
           "realized_close": 3129.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2661
+          "brier": 0.2661,
+          "rank": 34,
+          "total_symbols": 70
         }
       },
       {
@@ -16065,7 +16457,9 @@
           "realized_close": 120110.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1615
+          "brier": 0.1615,
+          "rank": 49,
+          "total_symbols": 70
         }
       },
       {
@@ -16422,7 +16816,9 @@
           "realized_close": 16440.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3075
+          "brier": 0.3075,
+          "rank": 61,
+          "total_symbols": 70
         }
       },
       {
@@ -16779,7 +17175,9 @@
           "realized_close": 9968.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1407
+          "brier": 0.1407,
+          "rank": 43,
+          "total_symbols": 70
         }
       },
       {
@@ -17144,7 +17542,9 @@
           "realized_close": 8794.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.298
+          "brier": 0.298,
+          "rank": 57,
+          "total_symbols": 70
         }
       },
       {
@@ -17493,7 +17893,9 @@
           "realized_close": 15800.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1581
+          "brier": 0.1581,
+          "rank": 48,
+          "total_symbols": 70
         }
       },
       {
@@ -17850,7 +18252,9 @@
           "realized_close": 7668.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3211
+          "brier": 0.3211,
+          "rank": 64,
+          "total_symbols": 70
         }
       },
       {
@@ -18215,7 +18619,9 @@
           "realized_close": 5837.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.249
+          "brier": 0.249,
+          "rank": 27,
+          "total_symbols": 70
         }
       },
       {
@@ -18564,7 +18970,9 @@
           "realized_close": 7734.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.0632
+          "brier": 0.0632,
+          "rank": 11,
+          "total_symbols": 70
         }
       },
       {
@@ -18921,7 +19329,9 @@
           "realized_close": 8964.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3323
+          "brier": 0.3323,
+          "rank": 42,
+          "total_symbols": 70
         }
       },
       {
@@ -19278,7 +19688,9 @@
           "realized_close": 7528.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3028
+          "brier": 0.3028,
+          "rank": 38,
+          "total_symbols": 70
         }
       },
       {
@@ -19643,7 +20055,9 @@
           "realized_close": 2965.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3284
+          "brier": 0.3284,
+          "rank": 65,
+          "total_symbols": 70
         }
       },
       {
@@ -20000,7 +20414,9 @@
           "realized_close": 2254.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1306
+          "brier": 0.1306,
+          "rank": 15,
+          "total_symbols": 70
         }
       },
       {
@@ -20349,7 +20765,9 @@
           "realized_close": 3615.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.005
+          "brier": 0.005,
+          "rank": 4,
+          "total_symbols": 70
         }
       },
       {
@@ -20706,7 +21124,9 @@
           "realized_close": 19345.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2983
+          "brier": 0.2983,
+          "rank": 58,
+          "total_symbols": 70
         }
       },
       {
@@ -21071,7 +21491,9 @@
           "realized_close": 959.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2493
+          "brier": 0.2493,
+          "rank": 28,
+          "total_symbols": 70
         }
       },
       {
@@ -21444,7 +21866,9 @@
           "realized_close": 581.4,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2784
+          "brier": 0.2784,
+          "rank": 53,
+          "total_symbols": 70
         }
       },
       {
@@ -21809,7 +22233,9 @@
           "realized_close": 5808.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.1468
+          "brier": 0.1468,
+          "rank": 45,
+          "total_symbols": 70
         }
       },
       {
@@ -22174,7 +22600,9 @@
           "realized_close": 1516.0,
           "hit_up1": 1,
           "hit_dn1": 1,
-          "brier": 0.1508
+          "brier": 0.1508,
+          "rank": 46,
+          "total_symbols": 70
         }
       },
       {
@@ -22547,7 +22975,9 @@
           "realized_close": 8605.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0907
+          "brier": 0.0907,
+          "rank": 13,
+          "total_symbols": 70
         }
       },
       {
@@ -22912,7 +23342,9 @@
           "realized_close": 5776.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.14
+          "brier": 0.14,
+          "rank": 19,
+          "total_symbols": 70
         }
       },
       {
@@ -23261,7 +23693,9 @@
           "realized_close": 349020.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1424
+          "brier": 0.1424,
+          "rank": 20,
+          "total_symbols": 70
         }
       },
       {
@@ -23618,7 +24052,9 @@
           "realized_close": 4628.0,
           "hit_up1": 1,
           "hit_dn1": 0,
-          "brier": 0.1365
+          "brier": 0.1365,
+          "rank": 17,
+          "total_symbols": 70
         }
       },
       {
@@ -23967,7 +24403,9 @@
           "realized_close": 5100.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.4057
+          "brier": 0.4057,
+          "rank": 51,
+          "total_symbols": 70
         }
       },
       {
@@ -24324,7 +24762,9 @@
           "realized_close": 13930.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0665
+          "brier": 0.0665,
+          "rank": 12,
+          "total_symbols": 70
         }
       },
       {
@@ -24649,7 +25089,9 @@
           "realized_close": 110.01,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 1,
+          "total_symbols": 70
         }
       },
       {
@@ -25006,7 +25448,9 @@
           "realized_close": 5946.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.2904
+          "brier": 0.2904,
+          "rank": 37,
+          "total_symbols": 70
         }
       },
       {
@@ -25323,7 +25767,9 @@
           "realized_close": 106.78,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 2,
+          "total_symbols": 70
         }
       },
       {
@@ -25656,7 +26102,9 @@
           "realized_close": 117.71,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0002
+          "brier": 0.0002,
+          "rank": 26,
+          "total_symbols": 70
         }
       },
       {
@@ -25965,7 +26413,9 @@
           "realized_close": 102.646,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0
+          "brier": 0.0,
+          "rank": 3,
+          "total_symbols": 70
         }
       },
       {
@@ -26322,7 +26772,9 @@
           "realized_close": 1709.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.294
+          "brier": 0.294,
+          "rank": 55,
+          "total_symbols": 70
         }
       },
       {
@@ -26679,7 +27131,9 @@
           "realized_close": 4887.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3097
+          "brier": 0.3097,
+          "rank": 40,
+          "total_symbols": 70
         }
       },
       {
@@ -27028,7 +27482,9 @@
           "realized_close": 3257.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3857
+          "brier": 0.3857,
+          "rank": 70,
+          "total_symbols": 70
         }
       },
       {
@@ -27385,7 +27841,9 @@
           "realized_close": 8591.0,
           "hit_up1": 0,
           "hit_dn1": 1,
-          "brier": 0.3462
+          "brier": 0.3462,
+          "rank": 69,
+          "total_symbols": 70
         }
       },
       {
@@ -27734,7 +28192,9 @@
           "realized_close": 24880.0,
           "hit_up1": 0,
           "hit_dn1": 0,
-          "brier": 0.0708
+          "brier": 0.0708,
+          "rank": 35,
+          "total_symbols": 70
         }
       }
     ]
@@ -28064,7 +28524,18 @@
       },
       "symbol": "A",
       "contract": "A(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 30,
+        "total_symbols": 70,
+        "pqs": 62.4,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.1606,
+        "bss_score": 35.8,
+        "calibration_gap": 4.9,
+        "dir_win_rate": 80.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 11262,
@@ -28414,7 +28885,18 @@
       },
       "symbol": "AG",
       "contract": "AG2702",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 57,
+        "total_symbols": 70,
+        "pqs": 33.5,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2432,
+        "bss_score": 2.7,
+        "calibration_gap": 15.8,
+        "dir_win_rate": 77.8,
+        "eval_days": 32
+      }
     },
     {
       "settle": 22130,
@@ -28740,7 +29222,18 @@
       },
       "symbol": "AL",
       "contract": "AL2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 18,
+        "total_symbols": 70,
+        "pqs": 60.7,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.1174,
+        "bss_score": 53.0,
+        "calibration_gap": 5.2,
+        "dir_win_rate": 46.7,
+        "eval_days": 32
+      }
     },
     {
       "settle": 2597,
@@ -29090,7 +29583,18 @@
       },
       "symbol": "AO",
       "contract": "AO2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 33,
+        "total_symbols": 70,
+        "pqs": 53.3,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1695,
+        "bss_score": 32.2,
+        "calibration_gap": 9.2,
+        "dir_win_rate": 73.3,
+        "eval_days": 32
+      }
     },
     {
       "settle": 6095,
@@ -29432,7 +29936,18 @@
       },
       "symbol": "AP",
       "contract": "AP(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 56,
+        "total_symbols": 70,
+        "pqs": 28.8,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2401,
+        "bss_score": 4.0,
+        "calibration_gap": 15.2,
+        "dir_win_rate": 53.8,
+        "eval_days": 32
+      }
     },
     {
       "settle": 834,
@@ -29782,7 +30297,18 @@
       },
       "symbol": "AU",
       "contract": "AU2702",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 43,
+        "total_symbols": 70,
+        "pqs": 30.6,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2112,
+        "bss_score": 15.5,
+        "calibration_gap": 21.3,
+        "dir_win_rate": 76.9,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3825,
@@ -30108,7 +30634,18 @@
       },
       "symbol": "B",
       "contract": "B(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 31,
+        "total_symbols": 70,
+        "pqs": 51.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1669,
+        "bss_score": 33.2,
+        "calibration_gap": 10.4,
+        "dir_win_rate": 72.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 93200,
@@ -30442,7 +30979,18 @@
       },
       "symbol": "BC",
       "contract": "BC2612",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 22,
+        "total_symbols": 70,
+        "pqs": 52.2,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1397,
+        "bss_score": 44.1,
+        "calibration_gap": 9.8,
+        "dir_win_rate": 53.1,
+        "eval_days": 32
+      }
     },
     {
       "settle": 15685,
@@ -30776,7 +31324,18 @@
       },
       "symbol": "BR",
       "contract": "BR2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 45,
+        "total_symbols": 70,
+        "pqs": 47.2,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2123,
+        "bss_score": 15.1,
+        "calibration_gap": 11.0,
+        "dir_win_rate": 86.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 4225,
@@ -31118,7 +31677,18 @@
       },
       "symbol": "BU",
       "contract": "BU2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 69,
+        "total_symbols": 70,
+        "pqs": 20.1,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.286,
+        "bss_score": 0.0,
+        "calibration_gap": 19.1,
+        "dir_win_rate": 46.9,
+        "eval_days": 32
+      }
     },
     {
       "settle": 2178,
@@ -31444,7 +32014,18 @@
       },
       "symbol": "C",
       "contract": "C(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 5,
+        "total_symbols": 70,
+        "pqs": 76.0,
+        "pqs_rating": "A级·优异",
+        "avg_brier": 0.0705,
+        "bss_score": 71.8,
+        "calibration_gap": 6.2,
+        "dir_win_rate": 84.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 15480,
@@ -31770,7 +32351,18 @@
       },
       "symbol": "CF",
       "contract": "CF(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 17,
+        "total_symbols": 70,
+        "pqs": 75.8,
+        "pqs_rating": "A级·优异",
+        "avg_brier": 0.1172,
+        "bss_score": 53.1,
+        "calibration_gap": 2.1,
+        "dir_win_rate": 89.5,
+        "eval_days": 32
+      }
     },
     {
       "settle": 6085,
@@ -32112,7 +32704,18 @@
       },
       "symbol": "CJ",
       "contract": "CJ(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 50,
+        "total_symbols": 70,
+        "pqs": 40.8,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2241,
+        "bss_score": 10.4,
+        "calibration_gap": 11.8,
+        "dir_win_rate": 72.4,
+        "eval_days": 32
+      }
     },
     {
       "settle": 2449,
@@ -32438,7 +33041,18 @@
       },
       "symbol": "CS",
       "contract": "CS(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 7,
+        "total_symbols": 70,
+        "pqs": 77.2,
+        "pqs_rating": "A级·优异",
+        "avg_brier": 0.0764,
+        "bss_score": 69.4,
+        "calibration_gap": 6.6,
+        "dir_win_rate": 94.4,
+        "eval_days": 32
+      }
     },
     {
       "settle": 104030,
@@ -32764,7 +33378,18 @@
       },
       "symbol": "CU",
       "contract": "CU2612",
-      "as_of": "2026-11-16"
+      "as_of": "2026-11-16",
+      "historical_eval": {
+        "rank": 13,
+        "total_symbols": 70,
+        "pqs": 53.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1012,
+        "bss_score": 59.5,
+        "calibration_gap": 12.8,
+        "dir_win_rate": 52.0,
+        "eval_days": 31
+      }
     },
     {
       "settle": 21065,
@@ -33090,7 +33715,18 @@
       },
       "symbol": "CY",
       "contract": "CY(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 8,
+        "total_symbols": 70,
+        "pqs": 63.0,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.081,
+        "bss_score": 67.6,
+        "calibration_gap": 9.2,
+        "dir_win_rate": 55.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 8672,
@@ -33432,7 +34068,18 @@
       },
       "symbol": "EB",
       "contract": "EB(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 60,
+        "total_symbols": 70,
+        "pqs": 36.6,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2528,
+        "bss_score": 0.0,
+        "calibration_gap": 9.5,
+        "dir_win_rate": 60.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 2638,
@@ -33798,7 +34445,18 @@
       },
       "symbol": "EC",
       "contract": "EC2612",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 47,
+        "total_symbols": 70,
+        "pqs": 48.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2146,
+        "bss_score": 14.2,
+        "calibration_gap": 6.4,
+        "dir_win_rate": 68.4,
+        "eval_days": 32
+      }
     },
     {
       "settle": 5124,
@@ -34140,7 +34798,18 @@
       },
       "symbol": "EG",
       "contract": "EG(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 66,
+        "total_symbols": 70,
+        "pqs": 24.5,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2679,
+        "bss_score": 0.0,
+        "calibration_gap": 19.7,
+        "dir_win_rate": 68.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 889,
@@ -34474,7 +35143,18 @@
       },
       "symbol": "FG",
       "contract": "FG(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 39,
+        "total_symbols": 70,
+        "pqs": 58.3,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2039,
+        "bss_score": 18.4,
+        "calibration_gap": 2.0,
+        "dir_win_rate": 75.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3976,
@@ -34816,7 +35496,18 @@
       },
       "symbol": "FU",
       "contract": "FU2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 70,
+        "total_symbols": 70,
+        "pqs": 17.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.3159,
+        "bss_score": 0.0,
+        "calibration_gap": 27.6,
+        "dir_win_rate": 71.4,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3116,
@@ -35158,7 +35849,18 @@
       },
       "symbol": "HC",
       "contract": "HC2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 14,
+        "total_symbols": 70,
+        "pqs": 32.6,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1051,
+        "bss_score": 58.0,
+        "calibration_gap": 29.9,
+        "dir_win_rate": 37.5,
+        "eval_days": 32
+      }
     },
     {
       "settle": 646,
@@ -35508,7 +36210,18 @@
       },
       "symbol": "I",
       "contract": "I(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 38,
+        "total_symbols": 70,
+        "pqs": 31.8,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1936,
+        "bss_score": 22.6,
+        "calibration_gap": 15.9,
+        "dir_win_rate": 40.6,
+        "eval_days": 32
+      }
     },
     {
       "settle": 6195,
@@ -35874,7 +36587,18 @@
       },
       "symbol": "IC",
       "contract": "IC(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 68,
+        "total_symbols": 70,
+        "pqs": 28.1,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2723,
+        "bss_score": 0.0,
+        "calibration_gap": 15.3,
+        "dir_win_rate": 57.9,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3918,
@@ -36240,7 +36964,18 @@
       },
       "symbol": "IF",
       "contract": "IF(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 32,
+        "total_symbols": 70,
+        "pqs": 44.0,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.169,
+        "bss_score": 32.4,
+        "calibration_gap": 17.1,
+        "dir_win_rate": 80.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 2730,
@@ -36606,7 +37341,18 @@
       },
       "symbol": "IH",
       "contract": "IH(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 16,
+        "total_symbols": 70,
+        "pqs": 66.6,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.1148,
+        "bss_score": 54.1,
+        "calibration_gap": 9.9,
+        "dir_win_rate": 95.5,
+        "eval_days": 32
+      }
     },
     {
       "settle": 6023,
@@ -36972,7 +37718,18 @@
       },
       "symbol": "IM",
       "contract": "IM(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 67,
+        "total_symbols": 70,
+        "pqs": 30.3,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2708,
+        "bss_score": 0.0,
+        "calibration_gap": 15.7,
+        "dir_win_rate": 69.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 1930,
@@ -37322,7 +38079,18 @@
       },
       "symbol": "J",
       "contract": "J(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 42,
+        "total_symbols": 70,
+        "pqs": 58.4,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2083,
+        "bss_score": 16.7,
+        "calibration_gap": 2.4,
+        "dir_win_rate": 80.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3257,
@@ -37656,7 +38424,18 @@
       },
       "symbol": "JD",
       "contract": "JD(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 52,
+        "total_symbols": 70,
+        "pqs": 34.0,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2281,
+        "bss_score": 8.8,
+        "calibration_gap": 16.2,
+        "dir_win_rate": 73.1,
+        "eval_days": 32
+      }
     },
     {
       "settle": 1420,
@@ -38006,7 +38785,18 @@
       },
       "symbol": "JM",
       "contract": "JM(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 53,
+        "total_symbols": 70,
+        "pqs": 56.4,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2321,
+        "bss_score": 7.2,
+        "calibration_gap": 4.6,
+        "dir_win_rate": 100.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 8221,
@@ -38340,7 +39130,18 @@
       },
       "symbol": "L",
       "contract": "L(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 65,
+        "total_symbols": 70,
+        "pqs": 25.2,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2658,
+        "bss_score": 0.0,
+        "calibration_gap": 20.7,
+        "dir_win_rate": 76.9,
+        "eval_days": 32
+      }
     },
     {
       "settle": 89980,
@@ -38698,7 +39499,18 @@
       },
       "symbol": "LC",
       "contract": "LC(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 44,
+        "total_symbols": 70,
+        "pqs": 37.8,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2118,
+        "bss_score": 15.3,
+        "calibration_gap": 15.0,
+        "dir_win_rate": 70.8,
+        "eval_days": 32
+      }
     },
     {
       "settle": 9355,
@@ -39048,7 +39860,18 @@
       },
       "symbol": "LH",
       "contract": "LH(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 58,
+        "total_symbols": 70,
+        "pqs": 29.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2447,
+        "bss_score": 2.1,
+        "calibration_gap": 15.4,
+        "dir_win_rate": 62.5,
+        "eval_days": 32
+      }
     },
     {
       "settle": 4925,
@@ -39390,7 +40213,18 @@
       },
       "symbol": "LU",
       "contract": "LU2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 62,
+        "total_symbols": 70,
+        "pqs": 33.4,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2546,
+        "bss_score": 0.0,
+        "calibration_gap": 10.6,
+        "dir_win_rate": 53.1,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3089,
@@ -39724,7 +40558,18 @@
       },
       "symbol": "M",
       "contract": "M(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 23,
+        "total_symbols": 70,
+        "pqs": 39.1,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.14,
+        "bss_score": 44.0,
+        "calibration_gap": 20.0,
+        "dir_win_rate": 58.3,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3140,
@@ -40066,7 +40911,18 @@
       },
       "symbol": "MA",
       "contract": "MA(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 51,
+        "total_symbols": 70,
+        "pqs": 40.2,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2257,
+        "bss_score": 9.7,
+        "calibration_gap": 11.0,
+        "dir_win_rate": 66.7,
+        "eval_days": 32
+      }
     },
     {
       "settle": 120320,
@@ -40400,7 +41256,18 @@
       },
       "symbol": "NI",
       "contract": "NI2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 34,
+        "total_symbols": 70,
+        "pqs": 44.7,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1708,
+        "bss_score": 31.7,
+        "calibration_gap": 15.3,
+        "dir_win_rate": 73.9,
+        "eval_days": 32
+      }
     },
     {
       "settle": 16500,
@@ -40734,7 +41601,18 @@
       },
       "symbol": "NR",
       "contract": "NR2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 41,
+        "total_symbols": 70,
+        "pqs": 52.4,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2067,
+        "bss_score": 17.3,
+        "calibration_gap": 4.0,
+        "dir_win_rate": 64.5,
+        "eval_days": 32
+      }
     },
     {
       "settle": 9989,
@@ -41068,7 +41946,18 @@
       },
       "symbol": "OI",
       "contract": "OI(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 27,
+        "total_symbols": 70,
+        "pqs": 53.4,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1465,
+        "bss_score": 41.4,
+        "calibration_gap": 9.5,
+        "dir_win_rate": 60.7,
+        "eval_days": 32
+      }
     },
     {
       "settle": 8874,
@@ -41410,7 +42299,18 @@
       },
       "symbol": "P",
       "contract": "P(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 40,
+        "total_symbols": 70,
+        "pqs": 39.1,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2059,
+        "bss_score": 17.6,
+        "calibration_gap": 11.3,
+        "dir_win_rate": 51.9,
+        "eval_days": 32
+      }
     },
     {
       "settle": 15810,
@@ -41736,7 +42636,18 @@
       },
       "symbol": "PB",
       "contract": "PB2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 15,
+        "total_symbols": 70,
+        "pqs": 71.3,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.1102,
+        "bss_score": 55.9,
+        "calibration_gap": 4.6,
+        "dir_win_rate": 81.3,
+        "eval_days": 32
+      }
     },
     {
       "settle": 7702,
@@ -42070,7 +42981,18 @@
       },
       "symbol": "PF",
       "contract": "PF(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 63,
+        "total_symbols": 70,
+        "pqs": 19.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2547,
+        "bss_score": 0.0,
+        "calibration_gap": 22.4,
+        "dir_win_rate": 65.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 5879,
@@ -42412,7 +43334,18 @@
       },
       "symbol": "PG",
       "contract": "PG(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 61,
+        "total_symbols": 70,
+        "pqs": 39.6,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2533,
+        "bss_score": 0.0,
+        "calibration_gap": 9.4,
+        "dir_win_rate": 71.4,
+        "eval_days": 32
+      }
     },
     {
       "settle": 7680,
@@ -42738,7 +43671,18 @@
       },
       "symbol": "PK",
       "contract": "PK(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 9,
+        "total_symbols": 70,
+        "pqs": 63.6,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.0812,
+        "bss_score": 67.5,
+        "calibration_gap": 8.5,
+        "dir_win_rate": 53.8,
+        "eval_days": 32
+      }
     },
     {
       "settle": 9055,
@@ -43072,7 +44016,18 @@
       },
       "symbol": "PP",
       "contract": "PP(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 59,
+        "total_symbols": 70,
+        "pqs": 27.7,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2481,
+        "bss_score": 0.8,
+        "calibration_gap": 21.8,
+        "dir_win_rate": 91.7,
+        "eval_days": 32
+      }
     },
     {
       "settle": 7578,
@@ -43406,7 +44361,18 @@
       },
       "symbol": "PR",
       "contract": "PR(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 55,
+        "total_symbols": 70,
+        "pqs": 30.3,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2352,
+        "bss_score": 5.9,
+        "calibration_gap": 18.9,
+        "dir_win_rate": 77.8,
+        "eval_days": 32
+      }
     },
     {
       "settle": 2978,
@@ -43748,7 +44714,18 @@
       },
       "symbol": "RB",
       "contract": "RB2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 12,
+        "total_symbols": 70,
+        "pqs": 49.0,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.0998,
+        "bss_score": 60.1,
+        "calibration_gap": 25.9,
+        "dir_win_rate": 100.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 2254,
@@ -44082,7 +45059,18 @@
       },
       "symbol": "RM",
       "contract": "RM(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 37,
+        "total_symbols": 70,
+        "pqs": 60.7,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.1802,
+        "bss_score": 27.9,
+        "calibration_gap": 3.9,
+        "dir_win_rate": 80.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3618,
@@ -44408,7 +45396,18 @@
       },
       "symbol": "RR",
       "contract": "RR(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 6,
+        "total_symbols": 70,
+        "pqs": 80.7,
+        "pqs_rating": "A级·优异",
+        "avg_brier": 0.0746,
+        "bss_score": 70.2,
+        "calibration_gap": 2.4,
+        "dir_win_rate": 84.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 19390,
@@ -44742,7 +45741,18 @@
       },
       "symbol": "RU",
       "contract": "RU2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 36,
+        "total_symbols": 70,
+        "pqs": 62.1,
+        "pqs_rating": "B级·良好",
+        "avg_brier": 0.1773,
+        "bss_score": 29.1,
+        "calibration_gap": 4.4,
+        "dir_win_rate": 86.7,
+        "eval_days": 32
+      }
     },
     {
       "settle": 969,
@@ -45084,7 +46094,18 @@
       },
       "symbol": "SA",
       "contract": "SA(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 48,
+        "total_symbols": 70,
+        "pqs": 53.5,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2201,
+        "bss_score": 12.0,
+        "calibration_gap": 2.3,
+        "dir_win_rate": 68.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 594,
@@ -45434,7 +46455,18 @@
       },
       "symbol": "SC",
       "contract": "SC2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 64,
+        "total_symbols": 70,
+        "pqs": 35.1,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2657,
+        "bss_score": 0.0,
+        "calibration_gap": 11.5,
+        "dir_win_rate": 65.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 5800,
@@ -45776,7 +46808,18 @@
       },
       "symbol": "SF",
       "contract": "SF(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 28,
+        "total_symbols": 70,
+        "pqs": 52.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1475,
+        "bss_score": 41.0,
+        "calibration_gap": 9.5,
+        "dir_win_rate": 59.1,
+        "eval_days": 32
+      }
     },
     {
       "settle": 1527,
@@ -46118,7 +47161,18 @@
       },
       "symbol": "SH",
       "contract": "SH(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 35,
+        "total_symbols": 70,
+        "pqs": 45.7,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1709,
+        "bss_score": 31.6,
+        "calibration_gap": 14.4,
+        "dir_win_rate": 72.4,
+        "eval_days": 32
+      }
     },
     {
       "settle": 8600,
@@ -46468,7 +47522,18 @@
       },
       "symbol": "SI",
       "contract": "SI(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 24,
+        "total_symbols": 70,
+        "pqs": 36.8,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1408,
+        "bss_score": 43.7,
+        "calibration_gap": 19.3,
+        "dir_win_rate": 45.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 5788,
@@ -46810,7 +47875,18 @@
       },
       "symbol": "SM",
       "contract": "SM(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 20,
+        "total_symbols": 70,
+        "pqs": 47.7,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1336,
+        "bss_score": 46.6,
+        "calibration_gap": 16.2,
+        "dir_win_rate": 66.7,
+        "eval_days": 32
+      }
     },
     {
       "settle": 349050,
@@ -47136,7 +48212,18 @@
       },
       "symbol": "SN",
       "contract": "SN2612",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 54,
+        "total_symbols": 70,
+        "pqs": 28.5,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2334,
+        "bss_score": 6.6,
+        "calibration_gap": 16.6,
+        "dir_win_rate": 56.5,
+        "eval_days": 32
+      }
     },
     {
       "settle": 4644,
@@ -47470,7 +48557,18 @@
       },
       "symbol": "SP",
       "contract": "SP2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 26,
+        "total_symbols": 70,
+        "pqs": 45.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.144,
+        "bss_score": 42.4,
+        "calibration_gap": 20.1,
+        "dir_win_rate": 88.2,
+        "eval_days": 32
+      }
     },
     {
       "settle": 5060,
@@ -47796,7 +48894,18 @@
       },
       "symbol": "SR",
       "contract": "SR(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 10,
+        "total_symbols": 70,
+        "pqs": 75.1,
+        "pqs_rating": "A级·优异",
+        "avg_brier": 0.0881,
+        "bss_score": 64.8,
+        "calibration_gap": 6.8,
+        "dir_win_rate": 95.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 13945,
@@ -48130,7 +49239,18 @@
       },
       "symbol": "SS",
       "contract": "SS2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 25,
+        "total_symbols": 70,
+        "pqs": 59.8,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1433,
+        "bss_score": 42.7,
+        "calibration_gap": 9.7,
+        "dir_win_rate": 85.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 110,
@@ -48432,7 +49552,18 @@
       },
       "symbol": "T",
       "contract": "T(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 3,
+        "total_symbols": 70,
+        "pqs": 99.7,
+        "pqs_rating": "S级·卓越",
+        "avg_brier": 0.0,
+        "bss_score": 100.0,
+        "calibration_gap": 0.2,
+        "dir_win_rate": 100.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 5962,
@@ -48766,7 +49897,18 @@
       },
       "symbol": "TA",
       "contract": "TA(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 49,
+        "total_symbols": 70,
+        "pqs": 31.7,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2216,
+        "bss_score": 11.4,
+        "calibration_gap": 18.6,
+        "dir_win_rate": 72.7,
+        "eval_days": 32
+      }
     },
     {
       "settle": 107,
@@ -49060,7 +50202,18 @@
       },
       "symbol": "TF",
       "contract": "TF(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 2,
+        "total_symbols": 70,
+        "pqs": 99.9,
+        "pqs_rating": "S级·卓越",
+        "avg_brier": 0.0,
+        "bss_score": 100.0,
+        "calibration_gap": 0.1,
+        "dir_win_rate": 100.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 118,
@@ -49370,7 +50523,18 @@
       },
       "symbol": "TL",
       "contract": "TL(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 4,
+        "total_symbols": 70,
+        "pqs": 91.6,
+        "pqs_rating": "S级·卓越",
+        "avg_brier": 0.0152,
+        "bss_score": 93.9,
+        "calibration_gap": 2.2,
+        "dir_win_rate": 88.5,
+        "eval_days": 32
+      }
     },
     {
       "settle": 103,
@@ -49656,7 +50820,18 @@
       },
       "symbol": "TS",
       "contract": "TS(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 1,
+        "total_symbols": 70,
+        "pqs": 100.0,
+        "pqs_rating": "S级·卓越",
+        "avg_brier": 0.0,
+        "bss_score": 100.0,
+        "calibration_gap": 0.0,
+        "dir_win_rate": 100.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 1712,
@@ -49990,7 +51165,18 @@
       },
       "symbol": "UR",
       "contract": "UR(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 29,
+        "total_symbols": 70,
+        "pqs": 57.4,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1574,
+        "bss_score": 37.0,
+        "calibration_gap": 12.4,
+        "dir_win_rate": 100.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 4938,
@@ -50324,7 +51510,18 @@
       },
       "symbol": "V",
       "contract": "V(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 46,
+        "total_symbols": 70,
+        "pqs": 46.9,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.2144,
+        "bss_score": 14.2,
+        "calibration_gap": 9.4,
+        "dir_win_rate": 77.8,
+        "eval_days": 32
+      }
     },
     {
       "settle": 3250,
@@ -50650,7 +51847,18 @@
       },
       "symbol": "WR",
       "contract": "WR2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 11,
+        "total_symbols": 70,
+        "pqs": 77.3,
+        "pqs_rating": "A级·优异",
+        "avg_brier": 0.0901,
+        "bss_score": 64.0,
+        "calibration_gap": 5.9,
+        "dir_win_rate": 100.0,
+        "eval_days": 32
+      }
     },
     {
       "settle": 8663,
@@ -50984,7 +52192,18 @@
       },
       "symbol": "Y",
       "contract": "Y(主连)",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 21,
+        "total_symbols": 70,
+        "pqs": 50.0,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1395,
+        "bss_score": 44.2,
+        "calibration_gap": 12.8,
+        "dir_win_rate": 60.9,
+        "eval_days": 32
+      }
     },
     {
       "settle": 24900,
@@ -51310,7 +52529,18 @@
       },
       "symbol": "ZN",
       "contract": "ZN2701",
-      "as_of": "2026-11-17"
+      "as_of": "2026-11-17",
+      "historical_eval": {
+        "rank": 19,
+        "total_symbols": 70,
+        "pqs": 51.5,
+        "pqs_rating": "C级·待优化",
+        "avg_brier": 0.1201,
+        "bss_score": 52.0,
+        "calibration_gap": 12.6,
+        "dir_win_rate": 53.3,
+        "eval_days": 32
+      }
     }
   ]
 }
