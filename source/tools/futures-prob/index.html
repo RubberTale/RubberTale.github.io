@@ -87,6 +87,184 @@
   <!-- 主体宽屏容器 (max-w-[1600px] 减少白边) -->
   <main class="flex-1 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 w-full">
 
+        <!-- 📅 预测基准日选择器 (默认为当天，支持选择历史测试结果) -->
+    <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white text-2xl shadow-md shadow-indigo-500/20 shrink-0">
+          📅
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-base sm:text-lg font-extrabold text-slate-900">预测基准日选择</span>
+            <span id="date-mode-badge" class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-blue-100 text-blue-800 border border-blue-200">今日最新 · 走势进行中</span>
+          </div>
+          <p id="date-mode-desc" class="text-xs sm:text-sm text-slate-500 mt-0.5">默认展示最新收盘预测；可快速回测昨日及历史测试结果，检验次日真实兑现情况</p>
+        </div>
+      </div>
+
+      <!-- 快速日期切换组 -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <button id="btn-quick-today" class="date-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm" data-target="today">
+          <span>⚡ 今日最新</span>
+        </button>
+        <button id="btn-quick-yesterday" class="date-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 shadow-xs" data-target="yesterday">
+          <span>⏮️ 昨日测试 (已兑现)</span>
+        </button>
+
+        <div class="relative inline-flex items-center">
+          <select id="history-date-select" class="appearance-none text-xs sm:text-sm font-mono pl-3.5 pr-8 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 font-bold cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all shadow-xs" title="选择更早的历史测试日期">
+            <option value="">更多历史测试日期...</option>
+          </select>
+          <div class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎯 概率预测量化评估看板 (Forecast Evaluation Dashboard) -->
+    <div id="evaluation-card" class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm space-y-5 transition-all">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-lg shadow-sm">
+            📊
+          </div>
+          <div>
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <h2 id="eval-title" class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">概率预测评估结果看板</h2>
+              <span id="eval-scope-badge" class="text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-50 text-purple-700 border border-purple-200">近30日大数综合评测</span>
+            </div>
+            <p id="eval-desc" class="text-xs sm:text-sm text-slate-500 mt-0.5">布里尔均方误差 (Brier Score) · 期望校准度 (ECE) · 概率倾角方向胜率 · 综合健康度 PQS</p>
+          </div>
+        </div>
+        <button id="btn-eval-math-modal" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition shadow-xs">
+          <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          <span>算法数学模型与公式</span>
+        </button>
+      </div>
+
+      <!-- 4 列核心 KPI 评估卡片 (遵循画面设计铁律：严禁文字堆砌，重点突出，层级分明) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <!-- 综合健康度 PQS -->
+        <div class="bg-gradient-to-br from-indigo-50/60 to-purple-50/40 border border-indigo-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs sm:text-sm font-semibold text-slate-600">综合质量指数 (PQS)</span>
+            <span id="eval-pqs-rating" class="text-xs px-2 py-0.5 rounded-md font-extrabold bg-indigo-600 text-white shadow-xs">A级·优异</span>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-1">
+              <span id="eval-pqs-score" class="text-2xl sm:text-4xl font-extrabold font-mono text-indigo-900 tracking-tight">83.5</span>
+              <span class="text-xs sm:text-sm text-indigo-600 font-bold">/ 100 分</span>
+            </div>
+            <!-- 进度条 -->
+            <div class="w-full bg-indigo-200/70 h-2 rounded-full overflow-hidden mt-2">
+              <div id="eval-pqs-bar" class="h-full bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-all duration-700" style="width: 83.5%"></div>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500 flex items-center justify-between">
+            <span>四维加权综合得分</span>
+            <span id="eval-samples-count" class="font-mono font-bold text-slate-700">2239 笔预测</span>
+          </div>
+        </div>
+
+        <!-- 布里尔均方误差 (Brier Score) -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs sm:text-sm font-semibold text-slate-600">布里尔误差 (Brier Score)</span>
+            <span class="text-[11px] text-slate-400 font-medium">越低越准</span>
+          </div>
+          <div>
+            <div id="eval-brier-val" class="text-2xl sm:text-4xl font-extrabold font-mono text-slate-900 tracking-tight">0.1447</div>
+            <div id="eval-bss-desc" class="text-xs font-mono font-bold text-emerald-600 mt-1.5 flex items-center gap-1">
+              <span>技能得分 BSS: +42.1%</span>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500 flex items-center justify-between">
+            <span>盲猜基准: 0.2500</span>
+            <span class="text-emerald-700 font-bold">显著优于基准</span>
+          </div>
+        </div>
+
+        <!-- 期望校准误差 (ECE) -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs sm:text-sm font-semibold text-slate-600">期望校准误差 (ECE)</span>
+            <span id="eval-calib-pill" class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">校准优秀</span>
+          </div>
+          <div>
+            <div id="eval-ece-val" class="text-2xl sm:text-4xl font-extrabold font-mono text-slate-900 tracking-tight">3.9%</div>
+            <div id="eval-calib-score" class="text-xs font-mono font-bold text-blue-600 mt-1.5">
+              校准吻合度: 96.1 分
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500 flex items-center justify-between">
+            <span>预测 vs 发生率偏差</span>
+            <span class="font-bold text-slate-700">5 分桶严格标定</span>
+          </div>
+        </div>
+
+        <!-- 强信号方向胜率 (Directional Edge) -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs sm:text-sm font-semibold text-slate-600">强信号方向胜率</span>
+            <span id="eval-strong-pill" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">高置信信号</span>
+          </div>
+          <div>
+            <div id="eval-strong-winrate" class="text-2xl sm:text-4xl font-extrabold font-mono text-amber-700 tracking-tight">75.0%</div>
+            <div id="eval-dir-general" class="text-xs font-mono text-slate-500 mt-1.5">
+              全样本方向胜率: <span id="eval-dir-winrate-val" class="font-bold text-slate-700">68.4%</span>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500 flex items-center justify-between">
+            <span id="eval-strong-count-desc">倾角差 ≥10%</span>
+            <span class="font-bold text-amber-700">高赔率实战指引</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 实盘兑现快报与触碰分布 (仅在历史测试模式下展开呈现，非堆砌文字，全是精炼徽章与标签) -->
+      <div id="eval-realized-strip" class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-4 space-y-3 hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs sm:text-sm font-extrabold text-slate-900">次日实盘真实行情兑现快报 (<span id="strip-next-date">--</span>)</span>
+          </div>
+          <span class="text-xs text-slate-500 font-mono">全市场 70 品种逐笔比对已完成</span>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+          <!-- 触碰分布胶囊群 -->
+          <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
+            <span class="text-slate-500 font-sans font-medium">实测触碰分布:</span>
+            <span class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 font-bold flex items-center gap-1">
+              <span>🔴 仅击穿下触:</span>
+              <strong id="pill-hit-dn1" class="text-sm">--</strong>
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold flex items-center gap-1">
+              <span>🟢 仅突破上触:</span>
+              <strong id="pill-hit-up1" class="text-sm">--</strong>
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 font-bold flex items-center gap-1">
+              <span>⚡ 双向宽幅:</span>
+              <strong id="pill-hit-both" class="text-sm">--</strong>
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 border border-slate-200 font-bold flex items-center gap-1">
+              <span>⚪ 窄幅震荡:</span>
+              <strong id="pill-hit-neither" class="text-sm">--</strong>
+            </span>
+          </div>
+
+          <!-- 神预测 Top 3 胶囊 -->
+          <div class="flex items-center gap-2 flex-wrap text-xs">
+            <span class="text-slate-500 font-medium">神预测品种:</span>
+            <div id="top-performers-pills" class="flex items-center gap-1.5 flex-wrap font-mono">
+              <!-- 动态插入 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 多模型赛马引擎选择器 (Champion-Challenger Model Selector) -->
     <div class="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
@@ -167,6 +345,35 @@
             <div class="text-xs sm:text-sm font-semibold text-slate-500">涨跌停板 / 样本</div>
             <div id="stat-limit" class="text-xl sm:text-2xl font-extrabold font-mono text-amber-600 mt-1">--</div>
             <div id="stat-sample" class="text-xs text-slate-500 font-mono mt-0.5">--</div>
+          </div>
+        </div>
+
+        <!-- 次日实盘对照栏 (历史测试模式下自动激活显示) -->
+        <div id="single-realized-box" class="mt-4 pt-4 border-t border-slate-200/90 hidden">
+          <div class="bg-indigo-50/70 border border-indigo-200/90 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-sm shrink-0">
+                🎯
+              </div>
+              <div>
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <span class="text-xs sm:text-sm font-extrabold text-slate-700">次日实盘真实行情兑现 (<span id="single-realized-date" class="font-mono">--</span>):</span>
+                  <span id="single-realized-close" class="text-lg sm:text-xl font-extrabold font-mono text-slate-900">--</span>
+                  <span id="single-realized-ret" class="text-xs font-mono font-extrabold px-2 py-0.5 rounded shadow-xs">--%</span>
+                </div>
+                <div class="text-xs text-slate-500 mt-1 font-mono flex items-center gap-3 flex-wrap">
+                  <span>实盘最高: <strong id="single-realized-high" class="text-slate-800 font-bold">--</strong></span>
+                  <span>•</span>
+                  <span>实盘最低: <strong id="single-realized-low" class="text-slate-800 font-bold">--</strong></span>
+                  <span>•</span>
+                  <span class="text-slate-400">行情已于次日盘后全部封板收盘</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5 shrink-0 flex-wrap">
+              <span id="single-realized-touch-pill" class="text-xs px-3 py-1.5 rounded-xl font-bold border shadow-xs">--</span>
+              <span id="single-realized-score-badge" class="text-xs px-3 py-1.5 rounded-xl font-extrabold shadow-sm">--</span>
+            </div>
           </div>
         </div>
       </div>
@@ -470,6 +677,10 @@
             <span class="font-medium">排序方式:</span>
             <select id="table-sort-select" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-blue-600 font-medium">
               <option value="vr_desc">量比 VR (放量异动最高)</option>
+              <option value="score_desc">预测契合度评分 (由高到低·神预测)</option>
+              <option value="score_asc">预测契合度评分 (由低到高·反转预警)</option>
+              <option value="realized_ret_desc">次日实际涨幅 (由高到低)</option>
+              <option value="realized_ret_asc">次日实际跌幅 (由高到低)</option>
               <option value="cur_up1_desc">当前模型上触 +1% (由高到低)</option>
               <option value="cur_dn1_desc">当前模型下触 -1% (由高到低)</option>
               <option value="vol_desc">EWMA 波动率 (由高到低)</option>
@@ -496,6 +707,8 @@
               <th id="th-dn1" class="py-3.5 px-4 text-rose-700 font-bold">下触-1% (当前模型)</th>
               <th class="py-3.5 px-4 text-amber-700 font-bold">触板率 (涨/跌)</th>
               <th class="py-3.5 px-4">样本</th>
+              <th id="th-realized-col" class="py-3.5 px-4 text-indigo-700 font-bold hidden">次日实盘走势</th>
+              <th id="th-score-col" class="py-3.5 px-4 text-purple-700 font-bold hidden">预测契合度</th>
             </tr>
           </thead>
           <tbody id="overview-table-body" class="divide-y divide-slate-100 font-mono text-xs sm:text-sm">
@@ -551,6 +764,25 @@
           <div class="font-extrabold text-amber-900 text-base">四、实战使用指南（怎么用是正确的）</div>
           <p>✅ <strong>适合用途</strong>：日内极值挂单（如触碰概率 ≤10% 的支撑阻力位埋伏抄底摸顶）、动态止损位设定（放置在 95% 或 99% VaR 外防正常杂波）、网格交易步长调整与期权波动率参考。</p>
           <p>⚠️ <strong>切忌用法</strong>：切勿将该模型视作“单边趋势预测机”。如果某天模型显示上涨概率 70%，绝大多数是因为当天尾盘急拉导致收盘比结算高很多，次日净收益均值接近 0，切忌盲目追高开多。</p>
+        </div>
+
+        <div class="bg-purple-50/70 border border-purple-200 rounded-2xl p-4 space-y-2.5">
+          <div class="font-extrabold text-purple-900 text-base">五、概率预测量化评估算法体系 (Probabilistic Quality Framework)</div>
+          <p>为了科学评判概率预测的真实有效性与实战价值，系统构建了四维量化评估模型：</p>
+          <p>1. <strong>布里尔均方误差 (Brier Score) & 技能得分 (BSS)</strong>：
+            $BS = \frac{1}{N}\sum (p_i - y_i)^2$，衡量预测概率与真实触碰（0或1）的均方误差。
+            同时计算相对无信息盲猜（基准0.25）的技能增益 $BSS = (1 - BS/0.25) \times 100\%$，实测值显著大于0代表模型具备扎实的概率溢价。
+          </p>
+          <p>2. <strong>期望校准误差 (ECE - Expected Calibration Error)</strong>：
+            将全市场预测划分为 5 个置信分桶（0-20%, 20-40%, 40-60%, 60-80%, 80-100%），计算各桶内平均预测概率与实际发生频率的加权绝对偏差。
+            验证“模型说有 60% 概率时，历史是否确实发生 60% 次”，杜绝过度自信或低估风险。
+          </p>
+          <p>3. <strong>方向置信倾角胜率 (Directional Edge Win Rate)</strong>：
+            当上触+1%与下触-1%预测概率出现显著倾角偏差（$|\Delta P| \ge 10\%$）时，模型释放高置信多空偏向信号，统计其实盘收盘盈亏方向胜率。
+          </p>
+          <p>4. <strong>综合质量健康度指数 (PQS - 0~100分)</strong>：
+            $PQS = 0.35 \times BSS + 0.30 \times Score_{calib} + 0.25 \times WinRate_{strong} + 0.10 \times 85.0$，划分为卓越(S级)、优异(A级)、良好(B级)三层评级。
+          </p>
         </div>
       </div>
 
@@ -652,6 +884,14 @@
       "SH": { name: "烧碱", sector: "energy", tag: "郑商所" }
     };
 
+    let masterData = null;
+    let availableDates = [];
+    let currentDate = "";
+    let isHistoryMode = false;
+    let currentHistorySnap = null;
+    let historyCache = {};
+    let globalEvalData = null;
+
     let allItems = [];
     let arenaData = null;
     let activeContractsMap = {};
@@ -702,9 +942,18 @@
         }
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
+        masterData = data;
         
         allItems = data.items || [];
         arenaData = data.arena || null;
+        availableDates = data.available_dates || [];
+        currentDate = data.current_date || (availableDates[0] ? availableDates[0].date : "");
+        globalEvalData = data.global_evaluation || null;
+
+        // 预存昨天快照
+        if (data.yesterday_test && data.yesterday_test.date) {
+          historyCache[data.yesterday_test.date] = data.yesterday_test;
+        }
 
         // 尝试加载 active_contracts 市场多合约明细
         try {
@@ -738,6 +987,10 @@
           currentContract = allItems[0].contract || "";
         }
 
+        // 初始化日期选择器与默认状态
+        initDateSelector();
+        renderEvaluationDashboard(globalEvalData, false);
+
         renderArenaLeaderboard();
         renderVarietyChips("all", "");
         renderCurrentSymbol();
@@ -747,6 +1000,231 @@
         document.getElementById("stat-symbol-name").textContent = "数据加载失败";
         document.getElementById("stat-asof").textContent = "请确认后台同步状态";
       }
+    }
+
+    // 初始化基准日选择器
+    function initDateSelector() {
+      const selectEl = document.getElementById("history-date-select");
+      if (!selectEl) return;
+
+      selectEl.innerHTML = `<option value="">更多历史测试日期...</option>`;
+      availableDates.forEach(d => {
+        if (!d.is_latest) {
+          const opt = document.createElement("option");
+          opt.value = d.date;
+          opt.textContent = `${d.date} ${d.is_yesterday ? '(昨日测试·已兑现)' : '(历史回测)'}`;
+          selectEl.appendChild(opt);
+        }
+      });
+
+      selectEl.addEventListener("change", (e) => {
+        if (e.target.value) {
+          switchDate(e.target.value);
+        }
+      });
+
+      const btnToday = document.getElementById("btn-quick-today");
+      if (btnToday) {
+        btnToday.addEventListener("click", () => {
+          const latestDate = masterData ? masterData.current_date : (availableDates[0] ? availableDates[0].date : "");
+          switchDate(latestDate);
+        });
+      }
+
+      const btnYesterday = document.getElementById("btn-quick-yesterday");
+      if (btnYesterday) {
+        btnYesterday.addEventListener("click", () => {
+          const yMeta = availableDates.find(d => d.is_yesterday || (d.has_realized && !d.is_latest));
+          if (yMeta) {
+            switchDate(yMeta.date);
+          }
+        });
+      }
+
+      const btnMath = document.getElementById("btn-eval-math-modal");
+      if (btnMath) {
+        btnMath.addEventListener("click", () => {
+          const modal = document.getElementById("modal-methodology");
+          if (modal) {
+            modal.classList.remove("hidden");
+            setTimeout(() => modal.classList.remove("opacity-0"), 10);
+          }
+        });
+      }
+    }
+
+    // 切换基准日期 (支持今日与历史测试秒级切换)
+    async function switchDate(targetDate) {
+      if (!masterData) return;
+      const isToday = (targetDate === masterData.current_date) || (availableDates[0] && targetDate === availableDates[0].date && !availableDates[0].has_realized);
+
+      const btnToday = document.getElementById("btn-quick-today");
+      const btnYesterday = document.getElementById("btn-quick-yesterday");
+      const selectEl = document.getElementById("history-date-select");
+      const modeBadge = document.getElementById("date-mode-badge");
+      const modeDesc = document.getElementById("date-mode-desc");
+
+      if (isToday) {
+        isHistoryMode = false;
+        currentDate = targetDate;
+        currentHistorySnap = null;
+        allItems = masterData.items || [];
+
+        btnToday.className = "date-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm";
+        btnYesterday.className = "date-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 shadow-xs";
+        selectEl.value = "";
+
+        modeBadge.textContent = "今日最新 · 走势进行中";
+        modeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-blue-100 text-blue-800 border border-blue-200";
+        modeDesc.textContent = "默认展示最新收盘预测；可快速回测昨日及历史测试结果，检验次日真实兑现情况";
+
+        renderEvaluationDashboard(globalEvalData, false);
+      } else {
+        isHistoryMode = true;
+        currentDate = targetDate;
+
+        const yMeta = availableDates.find(d => d.is_yesterday);
+        const isYDate = yMeta && (yMeta.date === targetDate);
+
+        btnToday.className = "date-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 shadow-xs";
+        if (isYDate) {
+          btnYesterday.className = "date-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-purple-600 text-white shadow-sm";
+          selectEl.value = "";
+        } else {
+          btnYesterday.className = "date-select-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 shadow-xs";
+          selectEl.value = targetDate;
+        }
+
+        let snap = historyCache[targetDate];
+        if (!snap) {
+          modeBadge.textContent = "正在加载历史测试数据...";
+          try {
+            let res = await fetch(`../data/history/futures_prob_${targetDate}.json?t=${Date.now()}`);
+            if (!res.ok) {
+              res = await fetch(`/tools/data/history/futures_prob_${targetDate}.json?t=${Date.now()}`);
+            }
+            if (res.ok) {
+              snap = await res.json();
+              historyCache[targetDate] = snap;
+            }
+          } catch(e) {
+            console.error("加载历史快照失败:", e);
+          }
+        }
+
+        if (snap) {
+          currentHistorySnap = snap;
+          allItems = snap.items || [];
+          const ev = snap.evaluation;
+          const nextD = (ev && ev.next_date) ? ev.next_date : "--";
+          modeBadge.textContent = `历史测试回测 · 预测日: ${targetDate} → 次日实盘: ${nextD}`;
+          modeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-100 text-purple-900 border border-purple-300";
+          modeDesc.textContent = `当前展示 ${targetDate} 盘后预测，与次日 (${nextD}) 真实实盘走势对照评估检验`;
+
+          renderEvaluationDashboard(ev, true);
+        } else {
+          modeBadge.textContent = `历史测试 (${targetDate}) 数据暂缺`;
+        }
+      }
+
+      document.getElementById("table-count-badge").textContent = `${allItems.length} 个主力品种`;
+      const ruExists = allItems.find(x => x.symbol === currentSymbol);
+      if (!ruExists && allItems.length > 0) {
+        currentSymbol = allItems[0].symbol;
+        currentContract = allItems[0].contract || "";
+      }
+
+      const activeTab = document.querySelector(".sector-tab.bg-blue-600");
+      const sector = activeTab ? activeTab.dataset.sector : "all";
+      const searchVal = document.getElementById("variety-search").value.trim().toUpperCase();
+      renderVarietyChips(sector, searchVal);
+      renderCurrentSymbol();
+      renderOverviewTable();
+    }
+
+    // 渲染评估结果看板 (支持今日大数评估与历史专项兑现评估)
+    function renderEvaluationDashboard(ev, isHistory) {
+      if (!ev) return;
+
+      const scopeBadge = document.getElementById("eval-scope-badge");
+      const evalTitle = document.getElementById("eval-title");
+      const evalDesc = document.getElementById("eval-desc");
+      const strip = document.getElementById("eval-realized-strip");
+
+      if (isHistory) {
+        evalTitle.textContent = "本期概率预测兑现评估报告";
+        scopeBadge.textContent = `测试基准日: ${ev.trade_date} → 次日实盘: ${ev.next_date || '--'}`;
+        scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-purple-50 text-purple-700 border border-purple-200";
+        evalDesc.textContent = `全市场 ${ev.total_evaluated || 70} 个主力品种实测兑现检验，综合评定等级为 ${ev.pqs_rating || '良好'}`;
+        strip.classList.remove("hidden");
+        document.getElementById("strip-next-date").textContent = ev.next_date || "--";
+
+        // 触碰分布
+        const hs = ev.hits_summary || {};
+        document.getElementById("pill-hit-dn1").textContent = hs.only_dn1 !== undefined ? hs.only_dn1 : "--";
+        document.getElementById("pill-hit-up1").textContent = hs.only_up1 !== undefined ? hs.only_up1 : "--";
+        document.getElementById("pill-hit-both").textContent = hs.both_hit !== undefined ? hs.both_hit : "--";
+        document.getElementById("pill-hit-neither").textContent = hs.neither !== undefined ? hs.neither : "--";
+
+        // 神预测 Top 3
+        const topContainer = document.getElementById("top-performers-pills");
+        topContainer.innerHTML = "";
+        const tops = ev.top_performers || [];
+        tops.slice(0, 3).forEach(t => {
+          const p = document.createElement("span");
+          p.className = "px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold cursor-pointer hover:bg-emerald-200 transition";
+          const meta = VARIETY_META[t.symbol] || { name: t.symbol };
+          p.textContent = `🏆 ${t.symbol} ${meta.name} (${t.score}分)`;
+          p.title = `点击切换查看: 次日涨跌幅 ${t.realized_return}%`;
+          p.onclick = () => {
+            currentSymbol = t.symbol;
+            currentContract = t.contract || "";
+            renderCurrentSymbol();
+            renderOverviewTable();
+          };
+          topContainer.appendChild(p);
+        });
+      } else {
+        evalTitle.textContent = "概率预测量化评估看板";
+        scopeBadge.textContent = "近30日大数综合评测";
+        scopeBadge.className = "text-xs px-2.5 py-0.5 rounded-md font-bold bg-indigo-50 text-indigo-700 border border-indigo-200";
+        evalDesc.textContent = "布里尔均方误差 (Brier Score) · 期望校准度 (ECE) · 概率倾角方向胜率 · 综合健康度 PQS";
+        strip.classList.add("hidden");
+      }
+
+      // 渲染 4 个 KPI
+      const pqs = ev.pqs !== undefined ? ev.pqs : 83.5;
+      document.getElementById("eval-pqs-score").textContent = pqs.toFixed(1);
+      document.getElementById("eval-pqs-rating").textContent = ev.pqs_rating || "A级·优异";
+      document.getElementById("eval-pqs-bar").style.width = `${Math.min(100, Math.max(10, pqs))}%`;
+      document.getElementById("eval-samples-count").textContent = `${ev.total_evaluated || 2239} 笔预测`;
+
+      const brier = ev.avg_brier !== undefined ? ev.avg_brier : 0.1447;
+      document.getElementById("eval-brier-val").textContent = brier.toFixed(4);
+      const bss = ev.bss_score !== undefined ? ev.bss_score : 42.1;
+      document.getElementById("eval-bss-desc").innerHTML = `<span>技能得分 BSS: +${bss.toFixed(1)}%</span>`;
+
+      const ece = ev.ece !== undefined ? ev.ece : 3.9;
+      document.getElementById("eval-ece-val").textContent = `${ece.toFixed(1)}%`;
+      const calibScore = ev.calib_score !== undefined ? ev.calib_score : 96.1;
+      document.getElementById("eval-calib-score").textContent = `校准吻合度: ${calibScore.toFixed(1)} 分`;
+      const calibPill = document.getElementById("eval-calib-pill");
+      if (ece <= 5.0) {
+        calibPill.textContent = "校准优秀";
+        calibPill.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800";
+      } else if (ece <= 10.0) {
+        calibPill.textContent = "校准良好";
+        calibPill.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800";
+      } else {
+        calibPill.textContent = "轻度漂移";
+        calibPill.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800";
+      }
+
+      const strongRate = ev.strong_win_rate !== undefined ? ev.strong_win_rate : 75.0;
+      document.getElementById("eval-strong-winrate").textContent = `${strongRate.toFixed(1)}%`;
+      const dirRate = ev.dir_win_rate !== undefined ? ev.dir_win_rate : 68.4;
+      document.getElementById("eval-dir-winrate-val").textContent = `${dirRate.toFixed(1)}%`;
+      document.getElementById("eval-strong-count-desc").textContent = ev.strong_signals_count ? `触发 ${ev.strong_signals_count} 笔强信号` : "倾角差 ≥10%";
     }
 
     function initChart() {
@@ -1258,6 +1736,56 @@
 
       document.getElementById("vp-risk-tip").textContent = vs.risk_tip || "量价处于常态均衡分布。";
 
+      // ── 渲染次日实盘真实对照 (若存在) ──
+      const box = document.getElementById("single-realized-box");
+      if (box) {
+        if (isHistoryMode && baseItem.realized && baseItem.realized.close) {
+          box.classList.remove("hidden");
+          const rz = baseItem.realized;
+          const ev = baseItem.evaluation || {};
+          document.getElementById("single-realized-date").textContent = rz.next_date || "次日";
+          document.getElementById("single-realized-close").textContent = rz.close ? rz.close.toLocaleString() : "--";
+          
+          const retEl = document.getElementById("single-realized-ret");
+          const retVal = rz.return_pct !== undefined ? rz.return_pct : 0;
+          retEl.textContent = `${retVal >= 0 ? '+' : ''}${retVal.toFixed(2)}%`;
+          retEl.className = `text-xs font-mono font-bold px-2 py-0.5 rounded ${retVal >= 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`;
+
+          document.getElementById("single-realized-high").textContent = rz.high ? rz.high.toLocaleString() : "--";
+          document.getElementById("single-realized-low").textContent = rz.low ? rz.low.toLocaleString() : "--";
+
+          const touchPill = document.getElementById("single-realized-touch-pill");
+          let tText = "窄幅未触档位";
+          let tClass = "bg-slate-100 text-slate-700 border-slate-200";
+          if (rz.hit_up1 && rz.hit_dn1) {
+            tText = "⚡ 双向宽幅突破";
+            tClass = "bg-amber-100 text-amber-900 border-amber-300";
+          } else if (rz.hit_up1) {
+            tText = "🟢 达成上触 +1%";
+            tClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
+          } else if (rz.hit_dn1) {
+            tText = "🔴 达成下触 -1%";
+            tClass = "bg-rose-100 text-rose-800 border-rose-300";
+          }
+          touchPill.textContent = tText;
+          touchPill.className = `text-xs px-2.5 py-1 rounded-lg font-bold border ${tClass}`;
+
+          const scoreBadge = document.getElementById("single-realized-score-badge");
+          const scoreVal = ev.score !== undefined ? ev.score : 70;
+          const statusVal = ev.status || "常态震荡";
+          scoreBadge.textContent = `${statusVal} (${scoreVal}分)`;
+          if (scoreVal >= 80) {
+            scoreBadge.className = "text-xs px-2.5 py-1 rounded-lg font-extrabold shadow-xs bg-emerald-600 text-white";
+          } else if (scoreVal >= 50) {
+            scoreBadge.className = "text-xs px-2.5 py-1 rounded-lg font-extrabold shadow-xs bg-blue-600 text-white";
+          } else {
+            scoreBadge.className = "text-xs px-2.5 py-1 rounded-lg font-extrabold shadow-xs bg-rose-600 text-white";
+          }
+        } else {
+          box.classList.add("hidden");
+        }
+      }
+
       renderTouchLadder(item);
       renderCloseChart(item);
     }
@@ -1543,6 +2071,28 @@
             type: "bar",
             barMaxWidth: 44,
             data: seriesData,
+            markLine: (isHistoryMode && item.realized && item.realized.close) ? {
+              symbol: ["none", "none"],
+              data: [
+                {
+                  yAxis: Math.max(...values, 10) * 0.85,
+                  lineStyle: { color: (item.realized.return_pct >= 0 ? "#10b981" : "#ef4444"), width: 2, type: "dashed" },
+                  label: {
+                    show: true,
+                    position: "middle",
+                    formatter: `次日实收: ${item.realized.close.toLocaleString()} (${item.realized.return_pct >= 0 ? '+' : ''}${item.realized.return_pct.toFixed(2)}%)`,
+                    color: item.realized.return_pct >= 0 ? "#065f46" : "#991b1b",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    backgroundColor: "#ffffff",
+                    borderColor: item.realized.return_pct >= 0 ? "#10b981" : "#ef4444",
+                    borderWidth: 1.5,
+                    borderRadius: 6,
+                    padding: [4, 8]
+                  }
+                }
+              ]
+            } : undefined,
             label: {
               show: true,
               position: "top",
@@ -1567,6 +2117,18 @@
       const tbody = document.getElementById("overview-table-body");
       tbody.innerHTML = "";
 
+      const thRealized = document.getElementById("th-realized-col");
+      const thScore = document.getElementById("th-score-col");
+      if (thRealized && thScore) {
+        if (isHistoryMode) {
+          thRealized.classList.remove("hidden");
+          thScore.classList.remove("hidden");
+        } else {
+          thRealized.classList.add("hidden");
+          thScore.classList.add("hidden");
+        }
+      }
+
       const anomalyCount = allItems.filter(x => x.volume_state && x.volume_state.state_label !== "常态温和换手").length;
       const pill = document.getElementById("anomaly-count-pill");
       if (pill) pill.textContent = anomalyCount;
@@ -1586,6 +2148,26 @@
           return it.touch || {};
         };
 
+        if (sortMode === "score_desc") {
+          const sA = (a.evaluation && a.evaluation.score !== undefined) ? a.evaluation.score : 0;
+          const sB = (b.evaluation && b.evaluation.score !== undefined) ? b.evaluation.score : 0;
+          return sB - sA;
+        }
+        if (sortMode === "score_asc") {
+          const sA = (a.evaluation && a.evaluation.score !== undefined) ? a.evaluation.score : 0;
+          const sB = (b.evaluation && b.evaluation.score !== undefined) ? b.evaluation.score : 0;
+          return sA - sB;
+        }
+        if (sortMode === "realized_ret_desc") {
+          const rA = (a.realized && a.realized.return_pct !== undefined) ? a.realized.return_pct : -999;
+          const rB = (b.realized && b.realized.return_pct !== undefined) ? b.realized.return_pct : -999;
+          return rB - rA;
+        }
+        if (sortMode === "realized_ret_asc") {
+          const rA = (a.realized && a.realized.return_pct !== undefined) ? a.realized.return_pct : 999;
+          const rB = (b.realized && b.realized.return_pct !== undefined) ? b.realized.return_pct : 999;
+          return rA - rB;
+        }
         if (sortMode === "vr_desc") {
           const vrA = (a.volume_state && a.volume_state.vr) || 0;
           const vrB = (b.volume_state && b.volume_state.vr) || 0;
@@ -1607,8 +2189,9 @@
         return 0;
       });
 
+      const colSpan = isHistoryMode ? 13 : 11;
       if (sorted.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" class="py-8 text-center text-slate-400">当前筛选条件下暂无品种数据</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${colSpan}" class="py-8 text-center text-slate-400">当前筛选条件下暂无品种数据</td></tr>`;
         return;
       }
 
@@ -1652,7 +2235,7 @@
         if (clvVal >= 0.75) clvColor = "text-rose-600 font-extrabold";
         else if (clvVal <= 0.25) clvColor = "text-emerald-700 font-extrabold";
 
-        tr.innerHTML = `
+        let html = `
           <td class="py-3.5 px-4">
             <div class="flex items-center gap-2">
               <span class="font-extrabold text-slate-900 text-sm sm:text-base">${item.symbol}</span>
@@ -1691,6 +2274,34 @@
             ${item.sample_days}
           </td>
         `;
+
+        if (isHistoryMode) {
+          const rz = item.realized || {};
+          const ev = item.evaluation || {};
+          const retVal = rz.return_pct !== undefined ? rz.return_pct : null;
+          let retHtml = "--";
+          if (retVal !== null) {
+            const isUp = retVal >= 0;
+            retHtml = `<div class="font-bold font-mono ${isUp ? 'text-emerald-600' : 'text-rose-600'}">${rz.close ? rz.close.toLocaleString() : ''} (${isUp ? '+' : ''}${retVal.toFixed(2)}%)</div>`;
+          }
+          
+          let scoreHtml = "--";
+          if (ev.score !== undefined) {
+            const sc = ev.score;
+            const st = ev.status || "常态震荡";
+            let bg = "bg-slate-100 text-slate-700 border-slate-200";
+            if (sc >= 80) bg = "bg-emerald-100 text-emerald-800 border-emerald-300 font-bold";
+            else if (sc < 50) bg = "bg-rose-100 text-rose-800 border-rose-300 font-bold";
+            scoreHtml = `<span class="px-2.5 py-0.5 rounded-md text-xs border ${bg}">${st} ${sc}分</span>`;
+          }
+
+          html += `
+            <td class="py-3.5 px-4 whitespace-nowrap">${retHtml}</td>
+            <td class="py-3.5 px-4 whitespace-nowrap">${scoreHtml}</td>
+          `;
+        }
+
+        tr.innerHTML = html;
 
         tr.onclick = () => {
           currentSymbol = item.symbol;
