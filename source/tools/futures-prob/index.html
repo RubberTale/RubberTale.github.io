@@ -159,10 +159,15 @@
 
       <!-- 4 列核心 KPI 评估卡片 (遵循画面设计铁律：严禁文字堆砌，重点突出，层级分明) -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
-        <!-- 综合健康度 / 单品种契合度评分 -->
-        <div class="bg-gradient-to-br from-indigo-50/60 to-purple-50/40 border border-indigo-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+        <!-- 卡片 1: 综合健康度 / 单品种契合度评分 -->
+        <div data-eval-kpi="pqs" class="eval-kpi-card bg-gradient-to-br from-indigo-50/60 to-purple-50/40 border border-indigo-100 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2 relative cursor-help transition-all duration-200 hover:border-indigo-400 hover:shadow-md group">
           <div class="flex items-center justify-between">
-            <span id="eval-kpi-1-label" class="text-xs sm:text-sm font-semibold text-slate-600">品种综合质量 (PQS)</span>
+            <div class="flex items-center gap-1.5">
+              <span id="eval-kpi-1-label" class="text-xs sm:text-sm font-semibold text-slate-700">品种综合质量 (PQS)</span>
+              <span class="inline-flex items-center text-slate-400 group-hover:text-indigo-600 transition-colors" title="悬停查看指标解释">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"></path></svg>
+              </span>
+            </div>
             <span id="eval-pqs-rating" class="text-xs px-2 py-0.5 rounded-md font-extrabold bg-indigo-600 text-white shadow-xs">A级·优异</span>
           </div>
           <div>
@@ -181,10 +186,15 @@
           </div>
         </div>
 
-        <!-- 布里尔均方误差 (Brier Score) -->
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+        <!-- 卡片 2: 布里尔均方误差 (Brier Score) -->
+        <div data-eval-kpi="brier" class="eval-kpi-card bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2 relative cursor-help transition-all duration-200 hover:border-indigo-400 hover:shadow-md group">
           <div class="flex items-center justify-between">
-            <span id="eval-kpi-2-label" class="text-xs sm:text-sm font-semibold text-slate-600">布里尔均方误差 (Brier)</span>
+            <div class="flex items-center gap-1.5">
+              <span id="eval-kpi-2-label" class="text-xs sm:text-sm font-semibold text-slate-700">布里尔均方误差 (Brier)</span>
+              <span class="inline-flex items-center text-slate-400 group-hover:text-indigo-600 transition-colors" title="悬停查看指标解释">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"></path></svg>
+              </span>
+            </div>
             <span class="text-[11px] text-slate-400 font-medium">越低越准</span>
           </div>
           <div>
@@ -199,10 +209,15 @@
           </div>
         </div>
 
-        <!-- 期望校准误差 / 实盘走势区间 -->
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+        <!-- 卡片 3: 期望校准误差 / 实盘走势区间 -->
+        <div data-eval-kpi="ece" class="eval-kpi-card bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2 relative cursor-help transition-all duration-200 hover:border-indigo-400 hover:shadow-md group">
           <div class="flex items-center justify-between">
-            <span id="eval-kpi-3-label" class="text-xs sm:text-sm font-semibold text-slate-600">概率标定校准度</span>
+            <div class="flex items-center gap-1.5">
+              <span id="eval-kpi-3-label" class="text-xs sm:text-sm font-semibold text-slate-700">概率标定校准度</span>
+              <span class="inline-flex items-center text-slate-400 group-hover:text-indigo-600 transition-colors" title="悬停查看指标解释">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"></path></svg>
+              </span>
+            </div>
             <span id="eval-calib-pill" class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">校准优秀</span>
           </div>
           <div>
@@ -217,10 +232,15 @@
           </div>
         </div>
 
-        <!-- 方向胜率 / 实盘走势指引 -->
-        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2">
+        <!-- 卡片 4: 方向胜率 / 实盘走势指引 -->
+        <div data-eval-kpi="dir_winrate" class="eval-kpi-card bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-2 relative cursor-help transition-all duration-200 hover:border-indigo-400 hover:shadow-md group">
           <div class="flex items-center justify-between">
-            <span id="eval-kpi-4-label" class="text-xs sm:text-sm font-semibold text-slate-600">实盘多空方向指引</span>
+            <div class="flex items-center gap-1.5">
+              <span id="eval-kpi-4-label" class="text-xs sm:text-sm font-semibold text-slate-700">实盘多空方向指引</span>
+              <span class="inline-flex items-center text-slate-400 group-hover:text-indigo-600 transition-colors" title="悬停查看指标解释">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-4m0-4h.01"></path></svg>
+              </span>
+            </div>
             <span id="eval-strong-pill" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">高置信指引</span>
           </div>
           <div>
@@ -735,6 +755,13 @@
   </main>
 
   <!-- 算法与12年回测介绍 Modal 弹窗 (浅色精致卡片) -->
+  
+  <!-- 🎯 评估看板 KPI 鼠标悬停文字解释浮层 (全局单例，智能防截断、自适应翻转) -->
+  <div id="eval-kpi-popover" class="fixed z-[9999] pointer-events-none opacity-0 scale-95 transition-all duration-200 ease-out max-w-sm sm:max-w-md w-[330px] sm:w-[380px] bg-slate-900/95 backdrop-blur-md text-white rounded-2xl p-4 shadow-2xl border border-slate-700/80 text-xs leading-relaxed space-y-2.5 hidden">
+    <div id="eval-kpi-popover-content"></div>
+    <div id="eval-kpi-popover-arrow" class="absolute w-3 h-3 bg-slate-900 border-slate-700/80 rotate-45 pointer-events-none"></div>
+  </div>
+
   <div id="modal-methodology" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200">
     <div class="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar space-y-6">
       <div class="flex items-center justify-between border-b border-slate-200 pb-4">
@@ -1004,6 +1031,7 @@
         // 初始化日期选择器与默认状态
         initDateSelector();
         updateEvaluationDashboard();
+        initKpiPopovers();
 
         renderArenaLeaderboard();
         renderVarietyChips("all", "");
@@ -1017,6 +1045,208 @@
     }
 
     // 初始化基准日选择器
+    
+    // =============================================================
+    // 🎯 评估指标鼠标悬停文字解释系统 (KPI Hover Explanations)
+    // =============================================================
+    const KPI_EXPLANATIONS = {
+      pqs: {
+        title: "🎯 概率质量综合指数 (PQS)",
+        tag: "满分 100 分 · 核心总分",
+        tagColor: "bg-indigo-500/20 text-indigo-300 border-indigo-500/30",
+        getSummary: (isHist) => isHist 
+          ? "该品种在所选基准日盘后预测与次日实盘真实行情之间的契合度总得分。分值越高，说明该期预测对次日走势的捕获越精准。"
+          : "全景衡量预测模型对该品种的预测能力与实盘契合度。分值越高，模型概率信号在实盘中的置信度与指导价值越高。",
+        formula: "综合得分 = 40% × BSS(布里尔技能得分) + 30% × ECE(期望校准吻合度) + 30% × 多空倾角胜率",
+        levels: [
+          { badge: "🟢 85 ~ 100 分 (A级·优异)", desc: "模型与该品种高度契合，胜率高且校准严密，概率信号具备极高实盘参考价值。" },
+          { badge: "🔵 60 ~ 84 分 (B级·良好)", desc: "常态稳健运行，符合大数正态分布，可作为客观价格中枢与波动指引。" },
+          { badge: "🔴 < 60 分 (C级·待优化)", desc: "该品种近期受突发消息冲击较大或频发单边反转，建议收窄仓位防守。" }
+        ],
+        getTip: (isHist) => isHist
+          ? "💡 历史测试模式：反映次日实盘真实兑现打分与全市场排名天梯。"
+          : "💡 今日最新模式：反映过去 30 个交易日真实行情逐笔比对的回测总分。"
+      },
+      brier: {
+        title: "📉 布里尔均方误差 (Brier Score)",
+        tag: "越低越准 · 国际黄金标准",
+        tagColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+        getSummary: (isHist) => isHist
+          ? "检验本次预测概率与次日真实涨跌结果之间的均方误差。0.0000 为完全精准命中，超过 0.2500 为单边反转偏离。"
+          : "国际气象学与对冲基金检验概率预测精准度的黄金标准（Strictly Proper Scoring Rule），计算预测概率分布与真实行情之间的均方差偏离。",
+        formula: "Brier = (预测概率 - 真实结果)² 均值； 技能增益 BSS = (1 - Brier / 0.25) × 100%",
+        levels: [
+          { badge: "🟢 0.0000 ~ 0.1200 (卓越)", desc: "预测概率与实盘走势高度拟合，BSS 技能得分 > +50%，具备强大的超额预测技能。" },
+          { badge: "🔵 0.1200 ~ 0.2200 (常态)", desc: "预测稳健，显著战胜 0.2500 盲猜基准线。" },
+          { badge: "🔴 > 0.2500 (盲猜基准线)", desc: "抛硬币盲猜理论值为 0.2500；超过 0.25 说明次日发生意外单边偏离（如给出高概率上涨但次日大跌）。" }
+        ],
+        getTip: (isHist) => "💡 Brier 越接近 0，说明模型输出的“高概率档位”越真实、越无水分。"
+      },
+      ece: {
+        title: "📐 期望校准绝对偏差 (MAE / ECE)",
+        tag: "越小越好 · 真实诚实度",
+        tagColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+        getSummary: (isHist) => isHist
+          ? "检验次日实盘真实波动区间是否实际触碰或击穿预测的 ±1% 核心档位（含真实最高价与最低价）。"
+          : "检验概率模型是否“言行一致、客观诚实”，杜绝过度自负或虚假自信。衡量预测概率值与实测发生频率的绝对差距。",
+        formula: "校准绝对偏差 = |预测概率值 - 历史实际发生频率|",
+        levels: [
+          { badge: "🟢 ≤ 5.0% (校准优秀)", desc: "言行高度一致！给出 80% 概率，实盘发生率就约为 80%，可直接当做实盘胜率参照。" },
+          { badge: "🟡 5.0% ~ 15.0% (常态波动)", desc: "处于金融市场常态噪音范围内，概率梯度具备良好排序与区分度。" },
+          { badge: "🔴 > 15.0% (偏差偏大)", desc: "模型存在过度自负（虚高胜率）或保守迟钝，需结合技术形态综合二次确认。" }
+        ],
+        getTip: (isHist) => isHist
+          ? "💡 历史测试模式：展示实盘最高与最低价，直观核验是否突破 ±1% 核心线。"
+          : "💡 今日最新模式：偏差越小，代表模型所报出的概率百分比越客观可信。"
+      },
+      dir_winrate: {
+        title: "⚡ 概率倾角方向胜率 (Directional Edge)",
+        tag: "实战指引 · 趋势判定",
+        tagColor: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+        getSummary: (isHist) => isHist
+          ? "比对模型预测的多空倾角偏向（看多或看空）与次日实盘实际收盘涨跌是否完全吻合。"
+          : "当模型给出明确多空倾向（例如上触概率与下触概率出现显著倾角差）时，次日实盘真实顺应走出该方向的命中胜率。",
+        formula: "自动过滤 50% vs 50% 震荡样本，专门统计 |上触概率 - 下触概率| ≥ 10% 的高置信样本",
+        levels: [
+          { badge: "🟢 ≥ 70.0% (高胜率指引)", desc: "当模型给出明确看多或看空偏向时，具备强烈的日内单边指引性，顺势开仓安全边际高。" },
+          { badge: "🟡 55.0% ~ 70.0% (稳健中枢)", desc: "多空偏向具有相对优势，建议配合成交量与持仓异动综合入场。" },
+          { badge: "🔴 出现单边反转", desc: "实盘受外部突发事件逆风冲击反杀，需严守日内止损底线。" }
+        ],
+        getTip: (isHist) => isHist
+          ? "💡 历史测试模式：绿标“✓ 方向判定准确”代表倾角命中，红标代表发生单边反转。"
+          : "💡 倾角差越大（如 65% vs 35%）且历史胜率越高的品种，次日顺向交易的成功率越大。"
+      }
+    };
+
+    let kpiPopoversInited = false;
+    function initKpiPopovers() {
+      if (kpiPopoversInited) return;
+      kpiPopoversInited = true;
+      const popover = document.getElementById("eval-kpi-popover");
+      const content = document.getElementById("eval-kpi-popover-content");
+      const arrow = document.getElementById("eval-kpi-popover-arrow");
+      if (!popover || !content) return;
+
+      const cards = document.querySelectorAll(".eval-kpi-card");
+      let activeCard = null;
+      let hideTimeout = null;
+
+      function show(card) {
+        clearTimeout(hideTimeout);
+        activeCard = card;
+        const kpiKey = card.dataset.evalKpi;
+        const info = KPI_EXPLANATIONS[kpiKey];
+        if (!info) return;
+
+        const isHist = typeof isHistoryMode !== "undefined" && isHistoryMode;
+
+        // 组装富文本 HTML
+        let html = `
+          <div class="flex items-center justify-between pb-2 border-b border-slate-700/80">
+            <span class="font-bold text-sm text-white flex items-center gap-1.5">${info.title}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold border ${info.tagColor}">${info.tag}</span>
+          </div>
+          <p class="text-slate-300 font-sans leading-relaxed pt-1">${info.getSummary(isHist)}</p>
+          <div class="bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/60 font-mono text-[11px] text-indigo-300 leading-normal">
+            <span class="text-slate-400 font-sans font-semibold">📐 测算逻辑：</span>${info.formula}
+          </div>
+          <div class="space-y-1.5 pt-0.5">
+            <span class="text-slate-400 font-semibold text-[11px]">📊 判读标准：</span>
+            ${info.levels.map(lvl => `
+              <div class="flex items-start gap-1.5 text-[11px]">
+                <span class="font-bold shrink-0 text-slate-200">${lvl.badge}</span>
+                <span class="text-slate-400 leading-tight">${lvl.desc}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="pt-1.5 border-t border-slate-700/60 text-[11px] text-amber-300/90 flex items-start gap-1">
+            <span>${info.getTip(isHist)}</span>
+          </div>
+        `;
+
+        content.innerHTML = html;
+        popover.classList.remove("hidden");
+
+        // 定位计算
+        requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const popRect = popover.getBoundingClientRect();
+          const screenW = window.innerWidth;
+          const padding = 12;
+
+          let left = rect.left + rect.width / 2 - popRect.width / 2;
+          if (left < padding) left = padding;
+          if (left + popRect.width > screenW - padding) {
+            left = screenW - padding - popRect.width;
+          }
+
+          const spaceAbove = rect.top;
+          let top;
+          let isAbove = true;
+
+          // 若卡片上方有充足空间 (至少 popRect.height + 14px)，置于上方；否则翻转至下方
+          if (spaceAbove >= popRect.height + 14) {
+            top = rect.top - popRect.height - 10;
+            isAbove = true;
+            if (arrow) {
+              arrow.className = "absolute -bottom-1.5 w-3 h-3 bg-slate-900 border-b border-r border-slate-700/80 rotate-45 pointer-events-none";
+            }
+          } else {
+            top = rect.bottom + 10;
+            isAbove = false;
+            if (arrow) {
+              arrow.className = "absolute -top-1.5 w-3 h-3 bg-slate-900 border-t border-l border-slate-700/80 rotate-45 pointer-events-none";
+            }
+          }
+
+          if (arrow) {
+            const arrowLeft = Math.max(16, Math.min(popRect.width - 16, rect.left + rect.width / 2 - left));
+            arrow.style.left = `${arrowLeft}px`;
+          }
+
+          popover.style.left = `${left}px`;
+          popover.style.top = `${top}px`;
+
+          popover.classList.remove("opacity-0", "scale-95");
+          popover.classList.add("opacity-100", "scale-100");
+        });
+      }
+
+      function hide() {
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+          popover.classList.remove("opacity-100", "scale-100");
+          popover.classList.add("opacity-0", "scale-95");
+          setTimeout(() => {
+            if (popover.classList.contains("opacity-0")) {
+              popover.classList.add("hidden");
+            }
+          }, 200);
+          activeCard = null;
+        }, 80);
+      }
+
+      cards.forEach(card => {
+        card.addEventListener("mouseenter", () => show(card));
+        card.addEventListener("mouseleave", hide);
+        // 移动端/触摸屏点击切换
+        card.addEventListener("click", (e) => {
+          if (activeCard === card) {
+            hide();
+          } else {
+            show(card);
+          }
+        });
+      });
+
+      // 点击页面其他区域自动隐藏
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".eval-kpi-card") && !e.target.closest("#eval-kpi-popover")) {
+          hide();
+        }
+      });
+    }
+
     function initDateSelector() {
       const selectEl = document.getElementById("history-date-select");
       if (!selectEl) return;
@@ -1445,6 +1675,7 @@
     }
 
     function initEvents() {
+      initKpiPopovers();
       // 模型切换按钮
       document.querySelectorAll(".model-select-btn").forEach(btn => {
         btn.addEventListener("click", () => {
