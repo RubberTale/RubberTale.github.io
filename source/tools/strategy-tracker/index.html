@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>多品种次日触发量化跟踪器 · Alpha Radar | 橡胶童话</title>
+  <title>策略甲 · 多品种次日触发量化跟踪器 · Alpha Radar | 橡胶童话</title>
   <link rel="icon" type="image/png" href="/img/favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
@@ -73,20 +73,33 @@
         </a>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">多品种次日触发量化跟踪器</h1>
-            <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">Alpha Radar v1.0</span>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">策略甲 · 多品种次日触发量化跟踪器</h1>
+            <span id="branch-subtitle-badge" class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">策略甲a · 均线动态跟踪</span>
           </div>
           <p class="text-xs text-gray-400 hidden sm:block">基本面动量共振 · 次日波动突破 · 逐日盯市盈亏跟踪</p>
         </div>
       </div>
-      <div class="flex items-center space-x-3 text-xs">
+      <div class="flex items-center space-x-2 sm:space-x-3 text-xs">
         <div class="hidden md:flex items-center space-x-2 text-gray-400 bg-gray-900/80 px-3 py-1.5 rounded-lg border border-gray-800">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>最新交易日: <strong id="header-updated-date" class="text-gray-200 font-mono">--</strong></span>
         </div>
-        <a href="/tools/strategy-backtest-2026/" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-400 hover:bg-amber-500/25 border border-amber-500/30 transition font-semibold">
+
+        <!-- 策略分叉切换按钮 (策略甲a vs 策略甲b) -->
+        <div class="inline-flex p-0.5 rounded-xl bg-gray-900/90 border border-gray-800 shadow-inner" role="tablist">
+          <button id="btn-branch-jia-a" onclick="switchStrategyBranch('jia_a')" title="切换至策略甲a（均线动态跟踪止盈）" class="px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 bg-blue-600 text-white shadow-sm cursor-pointer">
+            <span>策略甲a</span>
+            <span class="text-[10px] px-1.5 py-0.2 rounded bg-black/25 text-blue-100 font-normal hidden lg:inline">均线跟踪</span>
+          </button>
+          <button id="btn-branch-jia-b" onclick="switchStrategyBranch('jia_b')" title="切换至策略甲b（最高回撤止盈）" class="px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer">
+            <span>策略甲b</span>
+            <span class="text-[10px] px-1.5 py-0.2 rounded bg-gray-800 text-gray-400 font-normal hidden lg:inline">回撤止盈</span>
+          </button>
+        </div>
+
+        <a href="/tools/strategy-backtest-2026/" class="hidden xl:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-400 hover:bg-amber-500/25 border border-amber-500/30 transition font-semibold">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-          <span>2026历史回测报告</span>
+          <span>2026历史回测</span>
         </a>
         <a href="/tools/" class="text-gray-300 hover:text-white px-3 py-1.5 rounded-lg bg-gray-900 hover:bg-gray-800 border border-gray-800 transition flex items-center space-x-1">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -379,13 +392,56 @@
       return num.toString();
     }
 
+    // 策略分叉状态管理 (策略甲a: 均线动态跟踪 / 策略甲b: 最高回撤止盈)
+    let currentBranch = 'jia_a';
+
+    function switchStrategyBranch(branchKey) {
+      currentBranch = branchKey;
+      updateBranchButtonsUI();
+      const branchData = (globalData && globalData.branches && globalData.branches[branchKey]) 
+                         ? globalData.branches[branchKey] 
+                         : globalData;
+      renderDashboard(branchData);
+    }
+
+    function updateBranchButtonsUI() {
+      const btnA = document.getElementById('btn-branch-jia-a');
+      const btnB = document.getElementById('btn-branch-jia-b');
+      const badge = document.getElementById('branch-subtitle-badge');
+      if (!btnA || !btnB) return;
+      
+      if (currentBranch === 'jia_a') {
+        btnA.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 bg-blue-600 text-white shadow-sm cursor-pointer';
+        btnB.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer';
+        if (badge) {
+          badge.textContent = '策略甲a · 均线动态跟踪';
+          badge.className = 'text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium';
+        }
+      } else {
+        btnB.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 bg-emerald-600 text-white shadow-sm cursor-pointer';
+        btnA.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer';
+        if (badge) {
+          badge.textContent = '策略甲b · 最高回撤止盈';
+          badge.className = 'text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium';
+        }
+      }
+    }
+
     // 页面加载时抓取数据
     document.addEventListener('DOMContentLoaded', async () => {
       try {
         const res = await fetch('strategy_data.json?t=' + Date.now());
         if (!res.ok) throw new Error('网络响应异常或数据文件未生成');
         globalData = await res.json();
-        renderDashboard(globalData);
+
+        if (globalData.active_branch) {
+          currentBranch = globalData.active_branch;
+        }
+        updateBranchButtonsUI();
+        const initialData = (globalData.branches && globalData.branches[currentBranch]) 
+                            ? globalData.branches[currentBranch] 
+                            : globalData;
+        renderDashboard(initialData);
       } catch (err) {
         console.error('加载数据失败:', err);
         document.getElementById('signals-container').innerHTML = `
