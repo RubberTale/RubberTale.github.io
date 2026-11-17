@@ -1,7 +1,8 @@
 {
   "mode": "FORWARD_PAPER_TRADING",
   "updated_at": "2026-11-17",
-  "generated_time": "2026-11-17 11:40:07",
+  "generated_time": "2026-11-17 16:52:18",
+  "active_branch": "jia_a",
   "summary": {
     "initial_capital": 1000000.0,
     "final_equity": 1074635.0,
@@ -1928,13 +1929,12 @@
       "sector": "化工品"
     }
   ],
-  "active_branch": "jia_a",
   "branches": {
     "jia_a": {
       "id": "jia_a",
       "name": "策略甲a",
       "title": "策略甲a · 均线动态止盈",
-      "desc": "以 MA10 为生命线动态跟踪，未破均线绝不提前离场，彻底放开单边大主浪盈利空间",
+      "desc": "从 2026-11-18 起生效：以 MA10 为生命线动态跟踪，未破均线绝不提前离场，彻底放开单边大主浪盈利空间",
       "tag": "均线动态跟踪",
       "summary": {
         "initial_capital": 1000000.0,
@@ -3048,6 +3048,368 @@
           "exit_reason": "均线跌破/到期"
         }
       ],
+      "equity_curve": [
+        {
+          "date": "2026-09-07",
+          "net_value": 1.0,
+          "equity": 1000000.0,
+          "daily_pnl": 0.0,
+          "drawdown": 0.0,
+          "open_positions": 0
+        },
+        {
+          "date": "2026-09-08",
+          "net_value": 1.0067,
+          "equity": 1006690.0,
+          "daily_pnl": 6690.0,
+          "drawdown": 0.0,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-09",
+          "net_value": 1.0044,
+          "equity": 1004380.0,
+          "daily_pnl": -2310.0,
+          "drawdown": -0.23,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-10",
+          "net_value": 1.0306,
+          "equity": 1030560.0,
+          "daily_pnl": 26180.0,
+          "drawdown": 0.0,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-11",
+          "net_value": 1.0104,
+          "equity": 1010385.0,
+          "daily_pnl": -20175.0,
+          "drawdown": -1.96,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-14",
+          "net_value": 1.0245,
+          "equity": 1024455.0,
+          "daily_pnl": 14070.0,
+          "drawdown": -0.59,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-15",
+          "net_value": 1.0283,
+          "equity": 1028320.0,
+          "daily_pnl": 3865.0,
+          "drawdown": -0.22,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-17",
+          "net_value": 1.0308,
+          "equity": 1030810.0,
+          "daily_pnl": 2490.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-09-18",
+          "net_value": 1.0254,
+          "equity": 1025420.0,
+          "daily_pnl": -5390.0,
+          "drawdown": -0.52,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-21",
+          "net_value": 1.0296,
+          "equity": 1029620.0,
+          "daily_pnl": 4200.0,
+          "drawdown": -0.12,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-22",
+          "net_value": 1.0183,
+          "equity": 1018280.0,
+          "daily_pnl": -11340.0,
+          "drawdown": -1.22,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-23",
+          "net_value": 1.0275,
+          "equity": 1027510.0,
+          "daily_pnl": 9230.0,
+          "drawdown": -0.32,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-24",
+          "net_value": 1.0264,
+          "equity": 1026440.0,
+          "daily_pnl": -1070.0,
+          "drawdown": -0.42,
+          "open_positions": 1
+        },
+        {
+          "date": "2026-09-28",
+          "net_value": 1.0301,
+          "equity": 1030090.0,
+          "daily_pnl": 3650.0,
+          "drawdown": -0.07,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-29",
+          "net_value": 1.0279,
+          "equity": 1027940.0,
+          "daily_pnl": -2150.0,
+          "drawdown": -0.28,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-30",
+          "net_value": 1.0229,
+          "equity": 1022915.0,
+          "daily_pnl": -5025.0,
+          "drawdown": -0.77,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-08",
+          "net_value": 1.0381,
+          "equity": 1038090.0,
+          "daily_pnl": 15175.0,
+          "drawdown": 0.0,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-09",
+          "net_value": 1.0345,
+          "equity": 1034450.0,
+          "daily_pnl": -3640.0,
+          "drawdown": -0.35,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-12",
+          "net_value": 1.0338,
+          "equity": 1033775.0,
+          "daily_pnl": -675.0,
+          "drawdown": -0.42,
+          "open_positions": 1
+        },
+        {
+          "date": "2026-10-13",
+          "net_value": 1.0318,
+          "equity": 1031825.0,
+          "daily_pnl": -1950.0,
+          "drawdown": -0.6,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-14",
+          "net_value": 1.0731,
+          "equity": 1073100.0,
+          "daily_pnl": 41275.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-10-15",
+          "net_value": 1.0836,
+          "equity": 1083550.0,
+          "daily_pnl": 10450.0,
+          "drawdown": 0.0,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-10-16",
+          "net_value": 1.0928,
+          "equity": 1092775.0,
+          "daily_pnl": 9225.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-19",
+          "net_value": 1.1149,
+          "equity": 1114945.0,
+          "daily_pnl": 22170.0,
+          "drawdown": 0.0,
+          "open_positions": 5
+        },
+        {
+          "date": "2026-10-20",
+          "net_value": 1.1237,
+          "equity": 1123650.0,
+          "daily_pnl": 8705.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-21",
+          "net_value": 1.0897,
+          "equity": 1089750.0,
+          "daily_pnl": -33900.0,
+          "drawdown": -3.02,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-22",
+          "net_value": 1.1032,
+          "equity": 1103200.0,
+          "daily_pnl": 13450.0,
+          "drawdown": -1.82,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-23",
+          "net_value": 1.0829,
+          "equity": 1082930.0,
+          "daily_pnl": -20270.0,
+          "drawdown": -3.62,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-26",
+          "net_value": 1.0682,
+          "equity": 1068160.0,
+          "daily_pnl": -14770.0,
+          "drawdown": -4.94,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-27",
+          "net_value": 1.0747,
+          "equity": 1074730.0,
+          "daily_pnl": 6570.0,
+          "drawdown": -4.35,
+          "open_positions": 5
+        },
+        {
+          "date": "2026-10-28",
+          "net_value": 1.0715,
+          "equity": 1071480.0,
+          "daily_pnl": -3250.0,
+          "drawdown": -4.64,
+          "open_positions": 5
+        },
+        {
+          "date": "2026-10-29",
+          "net_value": 1.0813,
+          "equity": 1081265.0,
+          "daily_pnl": 9785.0,
+          "drawdown": -3.77,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-10-30",
+          "net_value": 1.1058,
+          "equity": 1105850.0,
+          "daily_pnl": 24585.0,
+          "drawdown": -1.58,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-02",
+          "net_value": 1.1226,
+          "equity": 1122645.0,
+          "daily_pnl": 16795.0,
+          "drawdown": -0.09,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-03",
+          "net_value": 1.1075,
+          "equity": 1107545.0,
+          "daily_pnl": -15100.0,
+          "drawdown": -1.43,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-04",
+          "net_value": 1.1027,
+          "equity": 1102715.0,
+          "daily_pnl": -4830.0,
+          "drawdown": -1.86,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-11-05",
+          "net_value": 1.1289,
+          "equity": 1128905.0,
+          "daily_pnl": 26190.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-06",
+          "net_value": 1.1494,
+          "equity": 1149435.0,
+          "daily_pnl": 20530.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-09",
+          "net_value": 1.1607,
+          "equity": 1160675.0,
+          "daily_pnl": 11240.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-10",
+          "net_value": 1.1651,
+          "equity": 1165145.0,
+          "daily_pnl": 4470.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-11-11",
+          "net_value": 1.1453,
+          "equity": 1145325.0,
+          "daily_pnl": -19820.0,
+          "drawdown": -1.7,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-12",
+          "net_value": 1.1416,
+          "equity": 1141615.0,
+          "daily_pnl": -3710.0,
+          "drawdown": -2.02,
+          "open_positions": 1
+        },
+        {
+          "date": "2026-11-13",
+          "net_value": 1.1446,
+          "equity": 1144605.0,
+          "daily_pnl": 2990.0,
+          "drawdown": -1.76,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-16",
+          "net_value": 1.1166,
+          "equity": 1116575.0,
+          "daily_pnl": -28030.0,
+          "drawdown": -4.17,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-11-17",
+          "net_value": 1.0746,
+          "equity": 1074635.0,
+          "daily_pnl": -11040.0,
+          "drawdown": 0.0,
+          "open_positions": 5
+        }
+      ],
       "recent_trades": [
         {
           "symbol": "P",
@@ -3499,375 +3861,13 @@
           "return_pct": -31.75,
           "sector": "化工品"
         }
-      ],
-      "equity_curve": [
-        {
-          "date": "2026-09-07",
-          "net_value": 1.0,
-          "equity": 1000000.0,
-          "daily_pnl": 0.0,
-          "drawdown": 0.0,
-          "open_positions": 0
-        },
-        {
-          "date": "2026-09-08",
-          "net_value": 1.0067,
-          "equity": 1006690.0,
-          "daily_pnl": 6690.0,
-          "drawdown": 0.0,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-09",
-          "net_value": 1.0044,
-          "equity": 1004380.0,
-          "daily_pnl": -2310.0,
-          "drawdown": -0.23,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-10",
-          "net_value": 1.0306,
-          "equity": 1030560.0,
-          "daily_pnl": 26180.0,
-          "drawdown": 0.0,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-11",
-          "net_value": 1.0104,
-          "equity": 1010385.0,
-          "daily_pnl": -20175.0,
-          "drawdown": -1.96,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-14",
-          "net_value": 1.0245,
-          "equity": 1024455.0,
-          "daily_pnl": 14070.0,
-          "drawdown": -0.59,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-15",
-          "net_value": 1.0283,
-          "equity": 1028320.0,
-          "daily_pnl": 3865.0,
-          "drawdown": -0.22,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-17",
-          "net_value": 1.0308,
-          "equity": 1030810.0,
-          "daily_pnl": 2490.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-09-18",
-          "net_value": 1.0254,
-          "equity": 1025420.0,
-          "daily_pnl": -5390.0,
-          "drawdown": -0.52,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-21",
-          "net_value": 1.0296,
-          "equity": 1029620.0,
-          "daily_pnl": 4200.0,
-          "drawdown": -0.12,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-22",
-          "net_value": 1.0183,
-          "equity": 1018280.0,
-          "daily_pnl": -11340.0,
-          "drawdown": -1.22,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-23",
-          "net_value": 1.0275,
-          "equity": 1027510.0,
-          "daily_pnl": 9230.0,
-          "drawdown": -0.32,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-24",
-          "net_value": 1.0264,
-          "equity": 1026440.0,
-          "daily_pnl": -1070.0,
-          "drawdown": -0.42,
-          "open_positions": 1
-        },
-        {
-          "date": "2026-09-28",
-          "net_value": 1.0301,
-          "equity": 1030090.0,
-          "daily_pnl": 3650.0,
-          "drawdown": -0.07,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-29",
-          "net_value": 1.0279,
-          "equity": 1027940.0,
-          "daily_pnl": -2150.0,
-          "drawdown": -0.28,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-30",
-          "net_value": 1.0229,
-          "equity": 1022915.0,
-          "daily_pnl": -5025.0,
-          "drawdown": -0.77,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-08",
-          "net_value": 1.0381,
-          "equity": 1038090.0,
-          "daily_pnl": 15175.0,
-          "drawdown": 0.0,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-09",
-          "net_value": 1.0345,
-          "equity": 1034450.0,
-          "daily_pnl": -3640.0,
-          "drawdown": -0.35,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-12",
-          "net_value": 1.0338,
-          "equity": 1033775.0,
-          "daily_pnl": -675.0,
-          "drawdown": -0.42,
-          "open_positions": 1
-        },
-        {
-          "date": "2026-10-13",
-          "net_value": 1.0318,
-          "equity": 1031825.0,
-          "daily_pnl": -1950.0,
-          "drawdown": -0.6,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-14",
-          "net_value": 1.0731,
-          "equity": 1073100.0,
-          "daily_pnl": 41275.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-10-15",
-          "net_value": 1.0836,
-          "equity": 1083550.0,
-          "daily_pnl": 10450.0,
-          "drawdown": 0.0,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-10-16",
-          "net_value": 1.0928,
-          "equity": 1092775.0,
-          "daily_pnl": 9225.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-19",
-          "net_value": 1.1149,
-          "equity": 1114945.0,
-          "daily_pnl": 22170.0,
-          "drawdown": 0.0,
-          "open_positions": 5
-        },
-        {
-          "date": "2026-10-20",
-          "net_value": 1.1237,
-          "equity": 1123650.0,
-          "daily_pnl": 8705.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-21",
-          "net_value": 1.0897,
-          "equity": 1089750.0,
-          "daily_pnl": -33900.0,
-          "drawdown": -3.02,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-22",
-          "net_value": 1.1032,
-          "equity": 1103200.0,
-          "daily_pnl": 13450.0,
-          "drawdown": -1.82,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-23",
-          "net_value": 1.0829,
-          "equity": 1082930.0,
-          "daily_pnl": -20270.0,
-          "drawdown": -3.62,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-26",
-          "net_value": 1.0682,
-          "equity": 1068160.0,
-          "daily_pnl": -14770.0,
-          "drawdown": -4.94,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-27",
-          "net_value": 1.0747,
-          "equity": 1074730.0,
-          "daily_pnl": 6570.0,
-          "drawdown": -4.35,
-          "open_positions": 5
-        },
-        {
-          "date": "2026-10-28",
-          "net_value": 1.0715,
-          "equity": 1071480.0,
-          "daily_pnl": -3250.0,
-          "drawdown": -4.64,
-          "open_positions": 5
-        },
-        {
-          "date": "2026-10-29",
-          "net_value": 1.0813,
-          "equity": 1081265.0,
-          "daily_pnl": 9785.0,
-          "drawdown": -3.77,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-10-30",
-          "net_value": 1.1058,
-          "equity": 1105850.0,
-          "daily_pnl": 24585.0,
-          "drawdown": -1.58,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-02",
-          "net_value": 1.1226,
-          "equity": 1122645.0,
-          "daily_pnl": 16795.0,
-          "drawdown": -0.09,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-03",
-          "net_value": 1.1075,
-          "equity": 1107545.0,
-          "daily_pnl": -15100.0,
-          "drawdown": -1.43,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-04",
-          "net_value": 1.1027,
-          "equity": 1102715.0,
-          "daily_pnl": -4830.0,
-          "drawdown": -1.86,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-11-05",
-          "net_value": 1.1289,
-          "equity": 1128905.0,
-          "daily_pnl": 26190.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-06",
-          "net_value": 1.1494,
-          "equity": 1149435.0,
-          "daily_pnl": 20530.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-09",
-          "net_value": 1.1607,
-          "equity": 1160675.0,
-          "daily_pnl": 11240.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-10",
-          "net_value": 1.1651,
-          "equity": 1165145.0,
-          "daily_pnl": 4470.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-11-11",
-          "net_value": 1.1453,
-          "equity": 1145325.0,
-          "daily_pnl": -19820.0,
-          "drawdown": -1.7,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-12",
-          "net_value": 1.1416,
-          "equity": 1141615.0,
-          "daily_pnl": -3710.0,
-          "drawdown": -2.02,
-          "open_positions": 1
-        },
-        {
-          "date": "2026-11-13",
-          "net_value": 1.1446,
-          "equity": 1144605.0,
-          "daily_pnl": 2990.0,
-          "drawdown": -1.76,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-16",
-          "net_value": 1.1166,
-          "equity": 1116575.0,
-          "daily_pnl": -28030.0,
-          "drawdown": -4.17,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-11-17",
-          "net_value": 1.0746,
-          "equity": 1074635.0,
-          "daily_pnl": -11040.0,
-          "drawdown": 0.0,
-          "open_positions": 5
-        }
       ]
     },
     "jia_b": {
       "id": "jia_b",
       "name": "策略甲b",
       "title": "策略甲b · 最高回撤止盈",
-      "desc": "浮盈达到 1.5 ATR 激活保本锁死，自最高浮盈回撤 25%~30%（或 1.2 ATR）收割落袋",
+      "desc": "从 2026-11-18 起生效：浮盈触及 +1.5 ATR 立即将止损线上移至 +1.0 ATR，绝对锁定 1 ATR 确定性利润",
       "tag": "最高回撤止盈",
       "summary": {
         "initial_capital": 1000000.0,
@@ -4981,6 +4981,368 @@
           "exit_reason": "均线跌破/到期"
         }
       ],
+      "equity_curve": [
+        {
+          "date": "2026-09-07",
+          "net_value": 1.0,
+          "equity": 1000000.0,
+          "daily_pnl": 0.0,
+          "drawdown": 0.0,
+          "open_positions": 0
+        },
+        {
+          "date": "2026-09-08",
+          "net_value": 1.0067,
+          "equity": 1006690.0,
+          "daily_pnl": 6690.0,
+          "drawdown": 0.0,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-09",
+          "net_value": 1.0044,
+          "equity": 1004380.0,
+          "daily_pnl": -2310.0,
+          "drawdown": -0.23,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-10",
+          "net_value": 1.0306,
+          "equity": 1030560.0,
+          "daily_pnl": 26180.0,
+          "drawdown": 0.0,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-11",
+          "net_value": 1.0104,
+          "equity": 1010385.0,
+          "daily_pnl": -20175.0,
+          "drawdown": -1.96,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-14",
+          "net_value": 1.0245,
+          "equity": 1024455.0,
+          "daily_pnl": 14070.0,
+          "drawdown": -0.59,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-15",
+          "net_value": 1.0283,
+          "equity": 1028320.0,
+          "daily_pnl": 3865.0,
+          "drawdown": -0.22,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-17",
+          "net_value": 1.0308,
+          "equity": 1030810.0,
+          "daily_pnl": 2490.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-09-18",
+          "net_value": 1.0254,
+          "equity": 1025420.0,
+          "daily_pnl": -5390.0,
+          "drawdown": -0.52,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-21",
+          "net_value": 1.0296,
+          "equity": 1029620.0,
+          "daily_pnl": 4200.0,
+          "drawdown": -0.12,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-22",
+          "net_value": 1.0183,
+          "equity": 1018280.0,
+          "daily_pnl": -11340.0,
+          "drawdown": -1.22,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-23",
+          "net_value": 1.0275,
+          "equity": 1027510.0,
+          "daily_pnl": 9230.0,
+          "drawdown": -0.32,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-24",
+          "net_value": 1.0264,
+          "equity": 1026440.0,
+          "daily_pnl": -1070.0,
+          "drawdown": -0.42,
+          "open_positions": 1
+        },
+        {
+          "date": "2026-09-28",
+          "net_value": 1.0301,
+          "equity": 1030090.0,
+          "daily_pnl": 3650.0,
+          "drawdown": -0.07,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-09-29",
+          "net_value": 1.0279,
+          "equity": 1027940.0,
+          "daily_pnl": -2150.0,
+          "drawdown": -0.28,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-09-30",
+          "net_value": 1.0229,
+          "equity": 1022915.0,
+          "daily_pnl": -5025.0,
+          "drawdown": -0.77,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-08",
+          "net_value": 1.0381,
+          "equity": 1038090.0,
+          "daily_pnl": 15175.0,
+          "drawdown": 0.0,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-09",
+          "net_value": 1.0345,
+          "equity": 1034450.0,
+          "daily_pnl": -3640.0,
+          "drawdown": -0.35,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-12",
+          "net_value": 1.0338,
+          "equity": 1033775.0,
+          "daily_pnl": -675.0,
+          "drawdown": -0.42,
+          "open_positions": 1
+        },
+        {
+          "date": "2026-10-13",
+          "net_value": 1.0318,
+          "equity": 1031825.0,
+          "daily_pnl": -1950.0,
+          "drawdown": -0.6,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-14",
+          "net_value": 1.0731,
+          "equity": 1073100.0,
+          "daily_pnl": 41275.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-10-15",
+          "net_value": 1.0836,
+          "equity": 1083550.0,
+          "daily_pnl": 10450.0,
+          "drawdown": 0.0,
+          "open_positions": 3
+        },
+        {
+          "date": "2026-10-16",
+          "net_value": 1.0928,
+          "equity": 1092775.0,
+          "daily_pnl": 9225.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-19",
+          "net_value": 1.1149,
+          "equity": 1114945.0,
+          "daily_pnl": 22170.0,
+          "drawdown": 0.0,
+          "open_positions": 5
+        },
+        {
+          "date": "2026-10-20",
+          "net_value": 1.1237,
+          "equity": 1123650.0,
+          "daily_pnl": 8705.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-21",
+          "net_value": 1.0897,
+          "equity": 1089750.0,
+          "daily_pnl": -33900.0,
+          "drawdown": -3.02,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-22",
+          "net_value": 1.1032,
+          "equity": 1103200.0,
+          "daily_pnl": 13450.0,
+          "drawdown": -1.82,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-23",
+          "net_value": 1.0829,
+          "equity": 1082930.0,
+          "daily_pnl": -20270.0,
+          "drawdown": -3.62,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-10-26",
+          "net_value": 1.0682,
+          "equity": 1068160.0,
+          "daily_pnl": -14770.0,
+          "drawdown": -4.94,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-10-27",
+          "net_value": 1.0747,
+          "equity": 1074730.0,
+          "daily_pnl": 6570.0,
+          "drawdown": -4.35,
+          "open_positions": 5
+        },
+        {
+          "date": "2026-10-28",
+          "net_value": 1.0715,
+          "equity": 1071480.0,
+          "daily_pnl": -3250.0,
+          "drawdown": -4.64,
+          "open_positions": 5
+        },
+        {
+          "date": "2026-10-29",
+          "net_value": 1.0813,
+          "equity": 1081265.0,
+          "daily_pnl": 9785.0,
+          "drawdown": -3.77,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-10-30",
+          "net_value": 1.1058,
+          "equity": 1105850.0,
+          "daily_pnl": 24585.0,
+          "drawdown": -1.58,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-02",
+          "net_value": 1.1226,
+          "equity": 1122645.0,
+          "daily_pnl": 16795.0,
+          "drawdown": -0.09,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-03",
+          "net_value": 1.1075,
+          "equity": 1107545.0,
+          "daily_pnl": -15100.0,
+          "drawdown": -1.43,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-04",
+          "net_value": 1.1027,
+          "equity": 1102715.0,
+          "daily_pnl": -4830.0,
+          "drawdown": -1.86,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-11-05",
+          "net_value": 1.1289,
+          "equity": 1128905.0,
+          "daily_pnl": 26190.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-06",
+          "net_value": 1.1494,
+          "equity": 1149435.0,
+          "daily_pnl": 20530.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-09",
+          "net_value": 1.1607,
+          "equity": 1160675.0,
+          "daily_pnl": 11240.0,
+          "drawdown": 0.0,
+          "open_positions": 6
+        },
+        {
+          "date": "2026-11-10",
+          "net_value": 1.1651,
+          "equity": 1165145.0,
+          "daily_pnl": 4470.0,
+          "drawdown": 0.0,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-11-11",
+          "net_value": 1.1453,
+          "equity": 1145325.0,
+          "daily_pnl": -19820.0,
+          "drawdown": -1.7,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-12",
+          "net_value": 1.1416,
+          "equity": 1141615.0,
+          "daily_pnl": -3710.0,
+          "drawdown": -2.02,
+          "open_positions": 1
+        },
+        {
+          "date": "2026-11-13",
+          "net_value": 1.1446,
+          "equity": 1144605.0,
+          "daily_pnl": 2990.0,
+          "drawdown": -1.76,
+          "open_positions": 2
+        },
+        {
+          "date": "2026-11-16",
+          "net_value": 1.1166,
+          "equity": 1116575.0,
+          "daily_pnl": -28030.0,
+          "drawdown": -4.17,
+          "open_positions": 4
+        },
+        {
+          "date": "2026-11-17",
+          "net_value": 1.0746,
+          "equity": 1074635.0,
+          "daily_pnl": -11040.0,
+          "drawdown": 0.0,
+          "open_positions": 5
+        }
+      ],
       "recent_trades": [
         {
           "symbol": "P",
@@ -5431,368 +5793,6 @@
           "pnl": -4560.0,
           "return_pct": -31.75,
           "sector": "化工品"
-        }
-      ],
-      "equity_curve": [
-        {
-          "date": "2026-09-07",
-          "net_value": 1.0,
-          "equity": 1000000.0,
-          "daily_pnl": 0.0,
-          "drawdown": 0.0,
-          "open_positions": 0
-        },
-        {
-          "date": "2026-09-08",
-          "net_value": 1.0067,
-          "equity": 1006690.0,
-          "daily_pnl": 6690.0,
-          "drawdown": 0.0,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-09",
-          "net_value": 1.0044,
-          "equity": 1004380.0,
-          "daily_pnl": -2310.0,
-          "drawdown": -0.23,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-10",
-          "net_value": 1.0306,
-          "equity": 1030560.0,
-          "daily_pnl": 26180.0,
-          "drawdown": 0.0,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-11",
-          "net_value": 1.0104,
-          "equity": 1010385.0,
-          "daily_pnl": -20175.0,
-          "drawdown": -1.96,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-14",
-          "net_value": 1.0245,
-          "equity": 1024455.0,
-          "daily_pnl": 14070.0,
-          "drawdown": -0.59,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-15",
-          "net_value": 1.0283,
-          "equity": 1028320.0,
-          "daily_pnl": 3865.0,
-          "drawdown": -0.22,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-17",
-          "net_value": 1.0308,
-          "equity": 1030810.0,
-          "daily_pnl": 2490.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-09-18",
-          "net_value": 1.0254,
-          "equity": 1025420.0,
-          "daily_pnl": -5390.0,
-          "drawdown": -0.52,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-21",
-          "net_value": 1.0296,
-          "equity": 1029620.0,
-          "daily_pnl": 4200.0,
-          "drawdown": -0.12,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-22",
-          "net_value": 1.0183,
-          "equity": 1018280.0,
-          "daily_pnl": -11340.0,
-          "drawdown": -1.22,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-23",
-          "net_value": 1.0275,
-          "equity": 1027510.0,
-          "daily_pnl": 9230.0,
-          "drawdown": -0.32,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-24",
-          "net_value": 1.0264,
-          "equity": 1026440.0,
-          "daily_pnl": -1070.0,
-          "drawdown": -0.42,
-          "open_positions": 1
-        },
-        {
-          "date": "2026-09-28",
-          "net_value": 1.0301,
-          "equity": 1030090.0,
-          "daily_pnl": 3650.0,
-          "drawdown": -0.07,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-09-29",
-          "net_value": 1.0279,
-          "equity": 1027940.0,
-          "daily_pnl": -2150.0,
-          "drawdown": -0.28,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-09-30",
-          "net_value": 1.0229,
-          "equity": 1022915.0,
-          "daily_pnl": -5025.0,
-          "drawdown": -0.77,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-08",
-          "net_value": 1.0381,
-          "equity": 1038090.0,
-          "daily_pnl": 15175.0,
-          "drawdown": 0.0,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-09",
-          "net_value": 1.0345,
-          "equity": 1034450.0,
-          "daily_pnl": -3640.0,
-          "drawdown": -0.35,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-12",
-          "net_value": 1.0338,
-          "equity": 1033775.0,
-          "daily_pnl": -675.0,
-          "drawdown": -0.42,
-          "open_positions": 1
-        },
-        {
-          "date": "2026-10-13",
-          "net_value": 1.0318,
-          "equity": 1031825.0,
-          "daily_pnl": -1950.0,
-          "drawdown": -0.6,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-14",
-          "net_value": 1.0731,
-          "equity": 1073100.0,
-          "daily_pnl": 41275.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-10-15",
-          "net_value": 1.0836,
-          "equity": 1083550.0,
-          "daily_pnl": 10450.0,
-          "drawdown": 0.0,
-          "open_positions": 3
-        },
-        {
-          "date": "2026-10-16",
-          "net_value": 1.0928,
-          "equity": 1092775.0,
-          "daily_pnl": 9225.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-19",
-          "net_value": 1.1149,
-          "equity": 1114945.0,
-          "daily_pnl": 22170.0,
-          "drawdown": 0.0,
-          "open_positions": 5
-        },
-        {
-          "date": "2026-10-20",
-          "net_value": 1.1237,
-          "equity": 1123650.0,
-          "daily_pnl": 8705.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-21",
-          "net_value": 1.0897,
-          "equity": 1089750.0,
-          "daily_pnl": -33900.0,
-          "drawdown": -3.02,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-22",
-          "net_value": 1.1032,
-          "equity": 1103200.0,
-          "daily_pnl": 13450.0,
-          "drawdown": -1.82,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-23",
-          "net_value": 1.0829,
-          "equity": 1082930.0,
-          "daily_pnl": -20270.0,
-          "drawdown": -3.62,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-10-26",
-          "net_value": 1.0682,
-          "equity": 1068160.0,
-          "daily_pnl": -14770.0,
-          "drawdown": -4.94,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-10-27",
-          "net_value": 1.0747,
-          "equity": 1074730.0,
-          "daily_pnl": 6570.0,
-          "drawdown": -4.35,
-          "open_positions": 5
-        },
-        {
-          "date": "2026-10-28",
-          "net_value": 1.0715,
-          "equity": 1071480.0,
-          "daily_pnl": -3250.0,
-          "drawdown": -4.64,
-          "open_positions": 5
-        },
-        {
-          "date": "2026-10-29",
-          "net_value": 1.0813,
-          "equity": 1081265.0,
-          "daily_pnl": 9785.0,
-          "drawdown": -3.77,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-10-30",
-          "net_value": 1.1058,
-          "equity": 1105850.0,
-          "daily_pnl": 24585.0,
-          "drawdown": -1.58,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-02",
-          "net_value": 1.1226,
-          "equity": 1122645.0,
-          "daily_pnl": 16795.0,
-          "drawdown": -0.09,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-03",
-          "net_value": 1.1075,
-          "equity": 1107545.0,
-          "daily_pnl": -15100.0,
-          "drawdown": -1.43,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-04",
-          "net_value": 1.1027,
-          "equity": 1102715.0,
-          "daily_pnl": -4830.0,
-          "drawdown": -1.86,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-11-05",
-          "net_value": 1.1289,
-          "equity": 1128905.0,
-          "daily_pnl": 26190.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-06",
-          "net_value": 1.1494,
-          "equity": 1149435.0,
-          "daily_pnl": 20530.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-09",
-          "net_value": 1.1607,
-          "equity": 1160675.0,
-          "daily_pnl": 11240.0,
-          "drawdown": 0.0,
-          "open_positions": 6
-        },
-        {
-          "date": "2026-11-10",
-          "net_value": 1.1651,
-          "equity": 1165145.0,
-          "daily_pnl": 4470.0,
-          "drawdown": 0.0,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-11-11",
-          "net_value": 1.1453,
-          "equity": 1145325.0,
-          "daily_pnl": -19820.0,
-          "drawdown": -1.7,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-12",
-          "net_value": 1.1416,
-          "equity": 1141615.0,
-          "daily_pnl": -3710.0,
-          "drawdown": -2.02,
-          "open_positions": 1
-        },
-        {
-          "date": "2026-11-13",
-          "net_value": 1.1446,
-          "equity": 1144605.0,
-          "daily_pnl": 2990.0,
-          "drawdown": -1.76,
-          "open_positions": 2
-        },
-        {
-          "date": "2026-11-16",
-          "net_value": 1.1166,
-          "equity": 1116575.0,
-          "daily_pnl": -28030.0,
-          "drawdown": -4.17,
-          "open_positions": 4
-        },
-        {
-          "date": "2026-11-17",
-          "net_value": 1.0746,
-          "equity": 1074635.0,
-          "daily_pnl": -11040.0,
-          "drawdown": 0.0,
-          "open_positions": 5
         }
       ]
     }
