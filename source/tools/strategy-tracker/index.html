@@ -85,7 +85,7 @@
           <span>最新交易日: <strong id="header-updated-date" class="text-gray-200 font-mono">--</strong></span>
         </div>
 
-        <!-- 策略分叉切换按钮 (策略甲a vs 策略甲b) -->
+        <!-- 策略分叉切换按钮 (策略甲a vs 策略甲b vs 策略甲c) -->
         <div class="inline-flex p-0.5 rounded-xl bg-gray-900/90 border border-gray-800 shadow-inner" role="tablist">
           <button id="btn-branch-jia-a" onclick="switchStrategyBranch('jia_a')" title="切换至策略甲a（均线动态跟踪止盈）" class="px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 bg-blue-600 text-white shadow-sm cursor-pointer">
             <span>策略甲a</span>
@@ -94,6 +94,10 @@
           <button id="btn-branch-jia-b" onclick="switchStrategyBranch('jia_b')" title="切换至策略甲b（最高回撤止盈）" class="px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer">
             <span>策略甲b</span>
             <span class="text-[10px] px-1.5 py-0.2 rounded bg-gray-800 text-gray-400 font-normal hidden lg:inline">回撤止盈</span>
+          </button>
+          <button id="btn-branch-jia-c" onclick="switchStrategyBranch('jia_c')" title="切换至策略甲c（目标硬止盈）" class="px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer">
+            <span>策略甲c</span>
+            <span class="text-[10px] px-1.5 py-0.2 rounded bg-gray-800 text-gray-400 font-normal hidden lg:inline">目标硬止盈</span>
           </button>
         </div>
 
@@ -407,22 +411,32 @@
     function updateBranchButtonsUI() {
       const btnA = document.getElementById('btn-branch-jia-a');
       const btnB = document.getElementById('btn-branch-jia-b');
+      const btnC = document.getElementById('btn-branch-jia-c');
       const badge = document.getElementById('branch-subtitle-badge');
       if (!btnA || !btnB) return;
       
+      const inactiveClass = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer';
+      btnA.className = inactiveClass;
+      btnB.className = inactiveClass;
+      if (btnC) btnC.className = inactiveClass;
+
       if (currentBranch === 'jia_a') {
         btnA.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 bg-blue-600 text-white shadow-sm cursor-pointer';
-        btnB.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer';
         if (badge) {
           badge.textContent = '策略甲a · 均线动态跟踪';
           badge.className = 'text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium';
         }
-      } else {
+      } else if (currentBranch === 'jia_b') {
         btnB.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 bg-emerald-600 text-white shadow-sm cursor-pointer';
-        btnA.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800/60 cursor-pointer';
         if (badge) {
           badge.textContent = '策略甲b · 最高回撤止盈';
           badge.className = 'text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium';
+        }
+      } else if (currentBranch === 'jia_c') {
+        if (btnC) btnC.className = 'px-3 py-1.5 rounded-lg font-semibold transition flex items-center space-x-1.5 bg-purple-600 text-white shadow-sm cursor-pointer';
+        if (badge) {
+          badge.textContent = '策略甲c · 目标硬止盈';
+          badge.className = 'text-xs px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-medium';
         }
       }
     }
