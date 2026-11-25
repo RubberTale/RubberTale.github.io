@@ -1,0 +1,597 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大夏四百年十七王全景世系",
+    "subtitle": "华夏王统肇始 · 大禹治水开夏至少康中兴与鸣条易代全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "治水肇基与受禅始祖",
+          "visible": true
+        },
+        "frontend": {
+          "label": "立国英主与中兴名君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "先贤重臣与禅让名君",
+          "visible": true
+        },
+        "security": {
+          "label": "失国篡立与乱政失德",
+          "visible": true
+        },
+        "external": {
+          "label": "末代暴虐与鸣条易代",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "gun",
+      "type": "cloud",
+      "label": "鲧 (崇伯鲧)",
+      "sublabel": "禹之父息壤堙水九年不成 · 殛于羽山奠治水序幕",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "禹父 · 息壤堙水"
+    },
+    {
+      "id": "dayu",
+      "type": "cloud",
+      "label": "夏后大禹 (姒文命)",
+      "sublabel": "导九川划九州建夏邦 · 涂山之会大会诸侯铸九鼎",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "华夏始祖 · 受禅开夏"
+    },
+    {
+      "id": "boyi",
+      "type": "database",
+      "label": "伯益 (大费)",
+      "sublabel": "辅佐大禹治水掌山泽 · 禹举为嗣后益让启于箕山",
+      "pos": [
+        40,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "大禹禅嗣 · 避居箕山"
+    },
+    {
+      "id": "xiaqi",
+      "type": "frontend",
+      "label": "1. 夏后启",
+      "sublabel": "废禅让开世袭家天下 · 钧台之享甘之战灭有扈氏",
+      "pos": [
+        40,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "夏代首王 · 家天下始"
+    },
+    {
+      "id": "taikang",
+      "type": "security",
+      "label": "2. 太康",
+      "sublabel": "不恤民事盘于游田 · 东夷后羿拒于洛汭太康失国",
+      "pos": [
+        40,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "太康失国 · 播迁洛汭"
+    },
+    {
+      "id": "zhongkang",
+      "type": "backend",
+      "label": "3. 仲康",
+      "sublabel": "太康之弟后羿立为傀儡 · 日食羲和废厥职胤征出伐",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "后羿傀儡 · 居斟寻"
+    },
+    {
+      "id": "houyi_hanzhuo",
+      "type": "security",
+      "label": "后羿 · 寒浞 (代夏政权)",
+      "sublabel": "后羿恃射乱政为寒浞所弑 · 寒浞夺国杀相代夏四十载",
+      "pos": [
+        320,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "无王代夏 · 夺权四十载"
+    },
+    {
+      "id": "xiaxiang",
+      "type": "backend",
+      "label": "4. 相 (xiàng)",
+      "sublabel": "仲康之子依斟灌斟寻 · 遭寒浞之子过浇弑杀夏祀绝",
+      "pos": [
+        320,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "避乱斟灌 · 为浇所弑"
+    },
+    {
+      "id": "shaokang",
+      "type": "frontend",
+      "label": "5. 少康",
+      "sublabel": "相遗腹子有虞积一成一旅 · 诛浇灭浞少康中兴复禹祀",
+      "pos": [
+        320,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "少康中兴 · 绝处复禹"
+    },
+    {
+      "id": "xiazhu",
+      "type": "frontend",
+      "label": "6. 杼 (予 zhù)",
+      "sublabel": "少康之子作杼甲甲胄 · 东征九夷平定海岱夏朝武功极盛",
+      "pos": [
+        320,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "作杼甲 · 征服九夷"
+    },
+    {
+      "id": "xiahuai",
+      "type": "backend",
+      "label": "7. 槐 (芬 fēn)",
+      "sublabel": "杼之子居斟寻 · 九夷来宾向风慕化 · 夏朝极盛期",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "九夷来宾 · 盛世守成"
+    },
+    {
+      "id": "xiamang",
+      "type": "backend",
+      "label": "8. 芒 (荒 huāng)",
+      "sublabel": "槐之子以玄圭沉河祭水神 · 获大鱼诸侯宾服黄河安澜",
+      "pos": [
+        600,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "沉圭祭水 · 守成治世"
+    },
+    {
+      "id": "xiaxie",
+      "type": "backend",
+      "label": "9. 泄 (xiè)",
+      "sublabel": "芒之子加封九夷方国诸侯 · 夷夏交好华夏疆域巩固",
+      "pos": [
+        600,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "加封九夷 · 边疆抚定"
+    },
+    {
+      "id": "bujiang",
+      "type": "database",
+      "label": "10. 不降 (bù xiáng)",
+      "sublabel": "泄之子在位五十九载最久 · 亲征九苑明德内禅于弟扃",
+      "pos": [
+        600,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "在位五十九年 · 明德禅位"
+    },
+    {
+      "id": "xiajiong",
+      "type": "backend",
+      "label": "11. 扃 (jiōng)",
+      "sublabel": "泄之子不降之弟兄终弟及 · 守承祖德平稳守业在位廿一载",
+      "pos": [
+        600,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "兄终弟及 · 守成平稳"
+    },
+    {
+      "id": "xiajin",
+      "type": "security",
+      "label": "12. 廑 (胤甲 jǐn)",
+      "sublabel": "扃之子继统迁都西河 · 天现十日异象夏道由盛转衰",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "迁都西河 · 异象渐衰"
+    },
+    {
+      "id": "kongjia",
+      "type": "security",
+      "label": "13. 孔甲",
+      "sublabel": "不降子堂弟继立 · 好方鬼神蓄龙失德诸侯叛夏道衰",
+      "pos": [
+        880,
+        180
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "孔甲乱夏 · 蓄龙失德"
+    },
+    {
+      "id": "xiagao",
+      "type": "backend",
+      "label": "14. 皋 (gāo)",
+      "sublabel": "孔甲之子居斟寻 · 恢复平稳守成为期短暂",
+      "pos": [
+        880,
+        300
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "皋帝守位 · 短暂平缓"
+    },
+    {
+      "id": "xiafa",
+      "type": "backend",
+      "label": "15. 发 (敬 jìng)",
+      "sublabel": "皋之子即位泰山地震 · 诸侯来朝已生异心王室日衰",
+      "pos": [
+        880,
+        420
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "泰山地震 · 诸侯生隙"
+    },
+    {
+      "id": "xiajie",
+      "type": "external",
+      "label": "16. 夏桀 (履癸 guǐ)",
+      "sublabel": "发之子暴虐荒淫宠妹喜 · 筑倾宫酒池肉林杀关龙逢",
+      "pos": [
+        880,
+        540
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "夏末暴虐 · 鸣条覆亡"
+    },
+    {
+      "id": "guanlongfeng",
+      "type": "database",
+      "label": "关龙逢 (忠谏殉国)",
+      "sublabel": "夏朝大夫立进谏图苦诤肉林 · 为桀割胸剖心商汤哭祭",
+      "pos": [
+        880,
+        660
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "华夏首位谏难忠臣"
+    },
+    {
+      "id": "mingtiao",
+      "type": "external",
+      "label": "鸣条之战 · 商汤灭夏",
+      "sublabel": "前1600年商汤誓师伐夏桀 · 战于鸣条夏溃桀奔南巢而死",
+      "pos": [
+        880,
+        780
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前1600 · 享国470年"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "大禹立夏 · 治水开基与家天下建立 (约前2070-前2000年)",
+      "wraps": [
+        "gun",
+        "dayu",
+        "boyi",
+        "xiaqi",
+        "taikang"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "太康失国 · 后羿代夏与少康中兴 (约前2000-前1850年)",
+      "wraps": [
+        "zhongkang",
+        "houyi_hanzhuo",
+        "xiaxiang",
+        "shaokang",
+        "xiazhu"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "杼槐全盛 · 九夷来宾与明德内禅 (约前1850-前1700年)",
+      "wraps": [
+        "xiahuai",
+        "xiamang",
+        "xiaxie",
+        "bujiang",
+        "xiajiong"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "孔甲乱政 · 诸侯离叛与鸣条易代 (约前1700-前1600年)",
+      "wraps": [
+        "xiajin",
+        "kongjia",
+        "xiagao",
+        "xiafa",
+        "xiajie",
+        "guanlongfeng",
+        "mingtiao"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-gun-dayu",
+      "from": "gun",
+      "to": "dayu",
+      "label": "父死子继·克成治水",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-dayu-boyi",
+      "from": "dayu",
+      "to": "boyi",
+      "label": "大禹举益为嗣",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-dayu-xiaqi",
+      "from": "dayu",
+      "to": "xiaqi",
+      "label": "诸侯归启·废禅开家天下",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiaqi-taikang",
+      "from": "xiaqi",
+      "to": "taikang",
+      "label": "嫡长子即位荒耽"
+    },
+    {
+      "id": "c-taikang-zhongkang",
+      "from": "taikang",
+      "to": "zhongkang",
+      "label": "后羿逐太康立其弟",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-zhongkang-houyi",
+      "from": "zhongkang",
+      "to": "houyi_hanzhuo",
+      "label": "后羿专政代夏",
+      "variant": "security"
+    },
+    {
+      "id": "c-zhongkang-xiaxiang",
+      "from": "zhongkang",
+      "to": "xiaxiang",
+      "label": "子相出奔斟灌"
+    },
+    {
+      "id": "c-houyi-xiaxiang",
+      "from": "houyi_hanzhuo",
+      "to": "xiaxiang",
+      "label": "寒浞命浇弑相",
+      "variant": "security"
+    },
+    {
+      "id": "c-xiaxiang-shaokang",
+      "from": "xiaxiang",
+      "to": "shaokang",
+      "label": "遗腹子少康绝地中兴",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shaokang-xiazhu",
+      "from": "shaokang",
+      "to": "xiazhu",
+      "label": "作杼甲·拓疆至海",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-xiazhu-xiahuai",
+      "from": "xiazhu",
+      "to": "xiahuai",
+      "label": "父终子继·九夷来宾"
+    },
+    {
+      "id": "c-xiahuai-xiamang",
+      "from": "xiahuai",
+      "to": "xiamang",
+      "label": "玄圭沉河·安澜治世"
+    },
+    {
+      "id": "c-xiamang-xiaxie",
+      "from": "xiamang",
+      "to": "xiaxie",
+      "label": "封抚四夷·中夏安泰"
+    },
+    {
+      "id": "c-xiaxie-bujiang",
+      "from": "xiaxie",
+      "to": "bujiang",
+      "label": "在位五十九载最久",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-bujiang-xiajiong",
+      "from": "bujiang",
+      "to": "xiajiong",
+      "label": "明德不传子而禅弟",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-xiajiong-xiajin",
+      "from": "xiajiong",
+      "to": "xiajin",
+      "label": "父终子继·迁居西河"
+    },
+    {
+      "id": "c-xiajin-kongjia",
+      "from": "xiajin",
+      "to": "kongjia",
+      "label": "廑崩堂兄孔甲继立",
+      "variant": "security"
+    },
+    {
+      "id": "c-kongjia-xiagao",
+      "from": "kongjia",
+      "to": "xiagao",
+      "label": "子皋即位稍缓"
+    },
+    {
+      "id": "c-xiagao-xiafa",
+      "from": "xiagao",
+      "to": "xiafa",
+      "label": "泰山震·王纲解纽"
+    },
+    {
+      "id": "c-xiafa-xiajie",
+      "from": "xiafa",
+      "to": "xiajie",
+      "label": "末主暴虐宠妹喜",
+      "variant": "security"
+    },
+    {
+      "id": "c-xiajie-guanlongfeng",
+      "from": "xiajie",
+      "to": "guanlongfeng",
+      "label": "进谏图遭剖心",
+      "variant": "security"
+    },
+    {
+      "id": "c-xiajie-mingtiao",
+      "from": "xiajie",
+      "to": "mingtiao",
+      "label": "鸣条惨败·亡于商汤",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "大禹立夏与家天下制度的确立",
+      "items": [
+        "大禹平定滔天洪水划分九州，涂山会盟大会天下诸侯，会稽计功铸造九鼎，确立华夏早期的天下秩序雏形",
+        "禹崩后益让启于箕山之阳，启在钧台之享确立诸侯认同，甘之战击溃有扈氏，终结原始部落禅让制，正式开启世袭家天下",
+        "夏代建立起以二里头文化为代表的早期青铜文明、城市形态、贡赋制度与军队刑法（禹刑），奠定夏后氏四百年王统基石"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "太康失国、后羿代夏与少康中兴",
+      "items": [
+        "启崩后长子太康荒耽田猎不恤民事，东夷有穷氏首领后羿趁虚据洛汭，史称太康失国，其后寒浞弑羿篡位，代夏乱政四十载",
+        "帝相避难亦遭寒浞之子过浇弑杀，夏朝宗祀几乎灭绝，王妃后缗逃奔母家有仍氏诞下遗腹子少康，避难有虞氏积蓄实力",
+        "少康得田一成、众一旅，联络旧臣靡与斟灌遗民，诛寒浞杀过浇，光复大邑恢复禹祀，史称少康中兴，成就华夏复国典范"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "杼槐全盛、孔甲乱夏与鸣条易代",
+      "items": [
+        "少康之子杼发明杼甲甲胄，率师东征平定九夷，拓疆至海；其后槐、芒、泄、不降诸帝承平守成，四夷宾服，不降内禅传弟",
+        "第14任君主孔甲笃信鬼神、蓄龙失德，引发诸侯离心叛乱，夏道从此衰落，至末帝夏桀暴虐无度宠妹喜，大兴肉林酒池虐杀直臣关龙逢",
+        "公元前1600年商汤顺应天人誓师鸣条，夏军倒戈大溃，桀逃奔南巢而死，夏朝四百七十年国祚终结，殷商受天命而立"
+      ]
+    }
+  ]
+}

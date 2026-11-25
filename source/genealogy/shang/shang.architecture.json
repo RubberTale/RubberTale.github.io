@@ -1,0 +1,981 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "大商六百年三十一王全景世系",
+    "subtitle": "青铜甲骨极盛 · 玄王肇基商汤灭夏至盘庚迁殷与牧野易代全录",
+    "output": "index.html",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "all",
+      "entries": {
+        "cloud": {
+          "label": "玄王受姓与巾帼贤相",
+          "visible": true
+        },
+        "frontend": {
+          "label": "立国英主与中兴名君",
+          "visible": true
+        },
+        "backend": {
+          "label": "正统承继与守成天子",
+          "visible": true
+        },
+        "database": {
+          "label": "未立先王与分封重臣",
+          "visible": true
+        },
+        "security": {
+          "label": "九世之乱与失德暴慢",
+          "visible": true
+        },
+        "external": {
+          "label": "末代鹿台与牧野易代",
+          "visible": true
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "qie",
+      "type": "cloud",
+      "label": "契 (玄王 · 子姓商祖)",
+      "sublabel": "简狄吞玄鸟卵而生 · 助大禹治水封于商 · 商人受姓始祖",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "天命玄鸟 · 降而生商"
+    },
+    {
+      "id": "xiangtu",
+      "type": "cloud",
+      "label": "相土 (乘马伐狄)",
+      "sublabel": "契之孙作乘马迁于商丘 · 威震东海海岱诸侯咸服",
+      "pos": [
+        40,
+        175
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "作乘马 · 拓境海岱"
+    },
+    {
+      "id": "shangtang",
+      "type": "frontend",
+      "label": "1. 商汤 (大乙 / 子履)",
+      "sublabel": "景亳会盟鸣条灭夏 · 定都于亳仁德化民 · 殷商立国始祖",
+      "pos": [
+        40,
+        290
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前1600 · 殷商开国"
+    },
+    {
+      "id": "yiyin",
+      "type": "cloud",
+      "label": "伊尹 (元圣阿衡)",
+      "sublabel": "开国名相五朝元老 · 放太甲于桐宫悔过 · 开权臣摄政先河",
+      "pos": [
+        40,
+        405
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代元圣 · 阿衡辅政"
+    },
+    {
+      "id": "da_ting",
+      "type": "database",
+      "label": "大丁 (太丁 · 享周祭)",
+      "sublabel": "商汤嫡长太子未立而卒 · 甲骨卜辞享大宗直系大祭",
+      "pos": [
+        40,
+        520
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商汤太子 · 甲骨大宗"
+    },
+    {
+      "id": "waibing",
+      "type": "backend",
+      "label": "2. 外丙 (卜丙)",
+      "sublabel": "商汤次子大丁早卒后继位 · 居亳伊尹佐政治理在位二年",
+      "pos": [
+        40,
+        635
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代二任 · 居亳守统"
+    },
+    {
+      "id": "zhongren",
+      "type": "backend",
+      "label": "3. 仲壬 (卜壬)",
+      "sublabel": "商汤幼子外丙之弟兄终弟及 · 在位四年崩伊尹立太甲",
+      "pos": [
+        40,
+        750
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代三任 · 兄终弟及"
+    },
+    {
+      "id": "taijia",
+      "type": "frontend",
+      "label": "4. 太甲 (商太宗 / 大甲)",
+      "sublabel": "大丁长子即位不遵法度 · 桐宫思过三年返亳成明君称太宗",
+      "pos": [
+        40,
+        865
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "桐宫悔过 · 尊称太宗"
+    },
+    {
+      "id": "woding",
+      "type": "backend",
+      "label": "5. 沃丁",
+      "sublabel": "太甲之子守承祖业 · 在位八载伊尹卒以天子之礼葬于亳",
+      "pos": [
+        40,
+        980
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "天子礼葬伊尹"
+    },
+    {
+      "id": "taigeng",
+      "type": "backend",
+      "label": "6. 太庚 (大庚)",
+      "sublabel": "太甲之子沃丁之弟兄终弟及 · 遵遵守礼商道平稳在位廿五载",
+      "pos": [
+        40,
+        1095
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代六任 · 守德承平"
+    },
+    {
+      "id": "xiaojia",
+      "type": "backend",
+      "label": "7. 小甲 (高甲)",
+      "sublabel": "太庚之子即位居亳 · 守承基业在位十七载",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "商代七任 · 居亳守业"
+    },
+    {
+      "id": "yongji",
+      "type": "security",
+      "label": "8. 雍己",
+      "sublabel": "太庚之子小甲之弟 · 殷道初衰诸侯或不朝",
+      "pos": [
+        320,
+        175
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "殷道初衰 · 诸侯或不朝"
+    },
+    {
+      "id": "taiwu",
+      "type": "frontend",
+      "label": "9. 太戊 (商中宗 / 大戊)",
+      "sublabel": "雍己之弟桑谷生朝恐修德 · 任伊陟巫咸殷道复兴在位75年",
+      "pos": [
+        320,
+        290
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "在位七十五年 · 尊中宗"
+    },
+    {
+      "id": "zhongding",
+      "type": "security",
+      "label": "10. 仲丁 (中丁)",
+      "sublabel": "太戊之子迁都于隞 · 兄弟争立引发九世之乱商道衰",
+      "pos": [
+        320,
+        405
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "迁都于隞 · 九世之乱始"
+    },
+    {
+      "id": "wairen",
+      "type": "security",
+      "label": "11. 外壬 (卜壬)",
+      "sublabel": "太戊之子仲丁之弟 · 诸侯邳人邳叛争夺继嗣商政不靖",
+      "pos": [
+        320,
+        520
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "邳人反叛 · 兄弟夺嫡"
+    },
+    {
+      "id": "hedanji",
+      "type": "security",
+      "label": "12. 河亶甲 (戋甲)",
+      "sublabel": "外壬之弟自隞迁都于相 · 征伐蓝夷商道再度复衰",
+      "pos": [
+        320,
+        635
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "迁都于相 · 征伐蓝夷"
+    },
+    {
+      "id": "zuyi",
+      "type": "frontend",
+      "label": "13. 祖乙 (且乙 / 中宗)",
+      "sublabel": "仲丁之子自相迁耿复迁邢 · 任用名相巫贤殷道复兴",
+      "pos": [
+        320,
+        750
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "迁邢中兴 · 卜辞中宗"
+    },
+    {
+      "id": "zuxin",
+      "type": "backend",
+      "label": "14. 祖辛 (且辛)",
+      "sublabel": "祖乙之子即位居邢 · 守成祖乙中兴基业十六载",
+      "pos": [
+        320,
+        865
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "居邢守统 · 平稳治国"
+    },
+    {
+      "id": "wojia",
+      "type": "backend",
+      "label": "15. 沃甲 (开甲)",
+      "sublabel": "祖乙之子祖辛之弟兄终弟及 · 居邢在位五年崩",
+      "pos": [
+        320,
+        980
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "兄终弟及 · 守承邢都"
+    },
+    {
+      "id": "zuding",
+      "type": "security",
+      "label": "16. 祖丁 (且丁)",
+      "sublabel": "祖辛之子沃甲崩后继立 · 堂兄弟夺权更迭频繁",
+      "pos": [
+        320,
+        1095
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "九世之乱 · 继嗣纷争"
+    },
+    {
+      "id": "nangeng",
+      "type": "security",
+      "label": "17. 南庚",
+      "sublabel": "沃甲之子自邢迁都于奄 · 堂弟继立王位承继混乱",
+      "pos": [
+        320,
+        1210
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "迁都于奄 · 争位动荡"
+    },
+    {
+      "id": "yangjia",
+      "type": "security",
+      "label": "18. 阳甲 (象甲)",
+      "sublabel": "祖丁之子继南庚立居奄 · 九世之乱末期诸侯不朝国势危殆",
+      "pos": [
+        320,
+        1325
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "九世之乱终 · 危殆待振"
+    },
+    {
+      "id": "pangeng",
+      "type": "frontend",
+      "label": "19. 盘庚 (商世祖 / 般庚)",
+      "sublabel": "力排众议迁都于殷 · 终结九世之乱遵商汤之德从此称殷商",
+      "pos": [
+        600,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "盘庚迁殷 · 殷商定鼎"
+    },
+    {
+      "id": "xiaoxin",
+      "type": "backend",
+      "label": "20. 小辛",
+      "sublabel": "祖丁之子盘庚之弟 · 居殷墟商民思盘庚在位三年",
+      "pos": [
+        600,
+        175
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "居殷守成 · 承盘庚基"
+    },
+    {
+      "id": "xiaoyi",
+      "type": "backend",
+      "label": "21. 小乙",
+      "sublabel": "小辛之弟命子武丁居民间 · 稼穑知民艰培育中兴明主",
+      "pos": [
+        600,
+        290
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "武丁生父 · 培育明君"
+    },
+    {
+      "id": "wuding",
+      "type": "frontend",
+      "label": "22. 武丁 (商高宗)",
+      "sublabel": "得傅说克荆楚辟鬼方 · 妇好挂帅开疆拓土甲骨文全盛极盛",
+      "pos": [
+        600,
+        405
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "武丁盛世 · 殷商极盛"
+    },
+    {
+      "id": "fushuo",
+      "type": "database",
+      "label": "傅说 (傅岩贤相)",
+      "sublabel": "武丁梦得圣人求于傅岩 · 版筑刑徒拜相致中兴盛世",
+      "pos": [
+        600,
+        520
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "傅岩拜相 · 佐定天下"
+    },
+    {
+      "id": "fuhao",
+      "type": "cloud",
+      "label": "妇好 (司母辛)",
+      "sublabel": "武丁王后兼军事统帅 · 领兵万三千大破羌方鬼方 · 妇好鸮尊",
+      "pos": [
+        600,
+        635
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "中华首位女统帅"
+    },
+    {
+      "id": "zugeng",
+      "type": "backend",
+      "label": "23. 祖庚 (且庚)",
+      "sublabel": "武丁次子仁孝守德 · 铸后母戊大方鼎祭母司母戊",
+      "pos": [
+        600,
+        750
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "后母戊鼎 · 承平守孝"
+    },
+    {
+      "id": "zujia",
+      "type": "database",
+      "label": "24. 祖甲 (且甲)",
+      "sublabel": "武丁幼子推行周祭制度革新 · 创立五祀规制强化中央王权",
+      "pos": [
+        600,
+        865
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "周祭改制 · 礼制大备"
+    },
+    {
+      "id": "linxin",
+      "type": "backend",
+      "label": "25. 廪辛",
+      "sublabel": "祖甲之子继位居殷 · 恪遵周祭旧规在位四年",
+      "pos": [
+        880,
+        60
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "周祭守成 · 居殷承统"
+    },
+    {
+      "id": "kangding",
+      "type": "backend",
+      "label": "26. 康丁 (庚丁)",
+      "sublabel": "祖甲之子廪辛之弟兄终弟及 · 在位八年商道渐缓",
+      "pos": [
+        880,
+        175
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "兄终弟及 · 守承殷都"
+    },
+    {
+      "id": "wuyi",
+      "type": "security",
+      "label": "27. 武乙",
+      "sublabel": "康丁之子暴慢侮神囊血射天 · 猎于河渭遭暴雷震死国运衰",
+      "pos": [
+        880,
+        290
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "囊血射天 · 震死河渭"
+    },
+    {
+      "id": "wenting",
+      "type": "security",
+      "label": "28. 文丁 (太丁)",
+      "sublabel": "武乙之子杀西伯周季历 · 周商由修好结仇埋下伐商宿怨",
+      "pos": [
+        880,
+        405
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "杀周季历 · 商周交恶"
+    },
+    {
+      "id": "diyi",
+      "type": "backend",
+      "label": "29. 帝乙",
+      "sublabel": "文丁之子归妹嫁女于周文王 · 征伐东夷淮夷耗损大商元气",
+      "pos": [
+        880,
+        520
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "帝乙归妹 · 征伐淮夷"
+    },
+    {
+      "id": "dixin",
+      "type": "external",
+      "label": "30. 帝辛 (商纣王)",
+      "sublabel": "资辩捷疾神力格猛兽 · 宠妲己杀比干牧野大溃鹿台自焚",
+      "pos": [
+        880,
+        635
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "末代暴君 · 鹿台自焚"
+    },
+    {
+      "id": "bigan",
+      "type": "database",
+      "label": "少师比干 (剖心殉道)",
+      "sublabel": "纣王叔父忠谏社稷三日不去 · 纣怒剖其心观七窍千古谏圣",
+      "pos": [
+        880,
+        750
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "千古谏圣 · 剖心殉国"
+    },
+    {
+      "id": "weiziqi",
+      "type": "database",
+      "label": "微子启 (抱祭器封宋)",
+      "sublabel": "纣王庶兄抱殷商宗庙祭器归周 · 武王封于商丘宋国续殷祀",
+      "pos": [
+        880,
+        865
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "宋国始祖 · 殷祀不绝"
+    },
+    {
+      "id": "muye",
+      "type": "external",
+      "label": "牧野之战 · 武王克商",
+      "sublabel": "前1046年武王誓师孟津 · 商军前徒倒戈大商覆亡享国554年",
+      "pos": [
+        880,
+        980
+      ],
+      "size": [
+        210,
+        74
+      ],
+      "tag": "前1046 · 周代天命立"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "玄王受姓 · 成汤伐夏与伊尹辅政 (约前1600-前1450年)",
+      "wraps": [
+        "qie",
+        "xiangtu",
+        "shangtang",
+        "yiyin",
+        "da_ting",
+        "waibing",
+        "zhongren",
+        "taijia",
+        "woding",
+        "taigeng"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "中宗太戊 · 屡迁诸都与九世之乱 (约前1450-前1300年)",
+      "wraps": [
+        "xiaojia",
+        "yongji",
+        "taiwu",
+        "zhongding",
+        "wairen",
+        "hedanji",
+        "zuyi",
+        "zuxin",
+        "wojia",
+        "zuding",
+        "nangeng",
+        "yangjia"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "盘庚迁殷 · 武丁中兴与甲骨极盛 (约前1300-前1150年)",
+      "wraps": [
+        "pangeng",
+        "xiaoxin",
+        "xiaoyi",
+        "wuding",
+        "fushuo",
+        "fuhao",
+        "zugeng",
+        "zujia"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "周祭晚期 · 囊血射天与牧野易代 (约前1150-前1046年)",
+      "wraps": [
+        "linxin",
+        "kangding",
+        "wuyi",
+        "wenting",
+        "diyi",
+        "dixin",
+        "bigan",
+        "weiziqi",
+        "muye"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c-qie-xiangtu",
+      "from": "qie",
+      "to": "xiangtu",
+      "label": "契传相土·商道肇兴"
+    },
+    {
+      "id": "c-xiangtu-shangtang",
+      "from": "xiangtu",
+      "to": "shangtang",
+      "label": "十四世至成汤灭夏建国",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-shangtang-yiyin",
+      "from": "shangtang",
+      "to": "yiyin",
+      "label": "拜伊尹为阿衡",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shangtang-dating",
+      "from": "shangtang",
+      "to": "da_ting",
+      "label": "立太子太丁早卒",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-shangtang-waibing",
+      "from": "shangtang",
+      "to": "waibing",
+      "label": "立次子外丙即位"
+    },
+    {
+      "id": "c-waibing-zhongren",
+      "from": "waibing",
+      "to": "zhongren",
+      "label": "外丙崩兄终弟及"
+    },
+    {
+      "id": "c-zhongren-taijia",
+      "from": "zhongren",
+      "to": "taijia",
+      "label": "伊尹立大丁之子太甲",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-yiyin-taijia",
+      "from": "yiyin",
+      "to": "taijia",
+      "label": "放太甲于桐宫悔过",
+      "variant": "security"
+    },
+    {
+      "id": "c-taijia-woding",
+      "from": "taijia",
+      "to": "woding",
+      "label": "子沃丁即位礼葬伊尹"
+    },
+    {
+      "id": "c-woding-taigeng",
+      "from": "woding",
+      "to": "taigeng",
+      "label": "沃丁崩弟太庚继"
+    },
+    {
+      "id": "c-taigeng-xiaojia",
+      "from": "taigeng",
+      "to": "xiaojia",
+      "label": "子小甲即位居亳"
+    },
+    {
+      "id": "c-xiaojia-yongji",
+      "from": "xiaojia",
+      "to": "yongji",
+      "label": "小甲崩弟雍己立殷道衰",
+      "variant": "security"
+    },
+    {
+      "id": "c-yongji-taiwu",
+      "from": "yongji",
+      "to": "taiwu",
+      "label": "弟太戊即位修德在位75载",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-taiwu-zhongding",
+      "from": "taiwu",
+      "to": "zhongding",
+      "label": "子仲丁迁都引发九世之乱",
+      "variant": "security"
+    },
+    {
+      "id": "c-zhongding-wairen",
+      "from": "zhongding",
+      "to": "wairen",
+      "label": "弟外壬继立邳人叛乱",
+      "variant": "security"
+    },
+    {
+      "id": "c-wairen-hedanji",
+      "from": "wairen",
+      "to": "hedanji",
+      "label": "弟河亶甲立迁都于相",
+      "variant": "security"
+    },
+    {
+      "id": "c-hedanji-zuyi",
+      "from": "hedanji",
+      "to": "zuyi",
+      "label": "仲丁之子祖乙立迁邢中兴",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zuyi-zuxin",
+      "from": "zuyi",
+      "to": "zuxin",
+      "label": "子祖辛即位居邢"
+    },
+    {
+      "id": "c-zuxin-wojia",
+      "from": "zuxin",
+      "to": "wojia",
+      "label": "弟沃甲即位守承邢都"
+    },
+    {
+      "id": "c-wojia-zuding",
+      "from": "wojia",
+      "to": "zuding",
+      "label": "祖辛子祖丁立争位"
+    },
+    {
+      "id": "c-zuding-nangeng",
+      "from": "zuding",
+      "to": "nangeng",
+      "label": "沃甲子南庚立迁都于奄",
+      "variant": "security"
+    },
+    {
+      "id": "c-nangeng-yangjia",
+      "from": "nangeng",
+      "to": "yangjia",
+      "label": "祖丁子阳甲立商道日衰",
+      "variant": "security"
+    },
+    {
+      "id": "c-yangjia-pangeng",
+      "from": "yangjia",
+      "to": "pangeng",
+      "label": "弟盘庚立力排众议迁殷",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-pangeng-xiaoxin",
+      "from": "pangeng",
+      "to": "xiaoxin",
+      "label": "弟小辛立殷民怀思"
+    },
+    {
+      "id": "c-xiaoxin-xiaoyi",
+      "from": "xiaoxin",
+      "to": "xiaoyi",
+      "label": "弟小乙立命子武丁稼穑"
+    },
+    {
+      "id": "c-xiaoyi-wuding",
+      "from": "xiaoyi",
+      "to": "wuding",
+      "label": "子武丁立开创武丁盛世",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wuding-fushuo",
+      "from": "wuding",
+      "to": "fushuo",
+      "label": "傅岩筑路拜相辅佐",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-wuding-fuhao",
+      "from": "wuding",
+      "to": "fuhao",
+      "label": "王后妇好统兵万三千征羌",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-wuding-zugeng",
+      "from": "wuding",
+      "to": "zugeng",
+      "label": "次子祖庚立铸后母戊鼎"
+    },
+    {
+      "id": "c-zugeng-zujia",
+      "from": "zugeng",
+      "to": "zujia",
+      "label": "幼弟祖甲立革新周祭法度",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c-zujia-linxin",
+      "from": "zujia",
+      "to": "linxin",
+      "label": "子廪辛立恪遵周祭"
+    },
+    {
+      "id": "c-linxin-kangding",
+      "from": "linxin",
+      "to": "kangding",
+      "label": "弟康丁立兄终弟及"
+    },
+    {
+      "id": "c-kangding-wuyi",
+      "from": "kangding",
+      "to": "wuyi",
+      "label": "子武乙立暴慢囊血射天",
+      "variant": "security"
+    },
+    {
+      "id": "c-wuyi-wenting",
+      "from": "wuyi",
+      "to": "wenting",
+      "label": "子文丁立诱杀周季历",
+      "variant": "security"
+    },
+    {
+      "id": "c-wenting-diyi",
+      "from": "wenting",
+      "to": "diyi",
+      "label": "子帝乙立归妹征淮"
+    },
+    {
+      "id": "c-diyi-dixin",
+      "from": "diyi",
+      "to": "dixin",
+      "label": "幼子辛立神力残虐宠妲己",
+      "variant": "security"
+    },
+    {
+      "id": "c-dixin-bigan",
+      "from": "dixin",
+      "to": "bigan",
+      "label": "苦谏社稷被剖心观七窍",
+      "variant": "security"
+    },
+    {
+      "id": "c-dixin-weiziqi",
+      "from": "dixin",
+      "to": "weiziqi",
+      "label": "庶兄抱祭器归周封于宋",
+      "variant": "dashed"
+    },
+    {
+      "id": "c-dixin-muye",
+      "from": "dixin",
+      "to": "muye",
+      "label": "牧野前徒倒戈自焚鹿台",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "玄鸟生商、鸣条灭夏与伊尹桐宫辅政",
+      "items": [
+        "简狄吞玄鸟卵生契，契佐禹治水受封于商；传十四世至成汤，大会诸侯鸣条伐桀灭夏，定都于亳建立大商",
+        "商汤任用元圣伊尹辅政，汤崩后太子大丁早卒，次子外丙、幼子仲壬相继即位，太甲继位暴虐，伊尹放之桐宫思过三年，成一代令主称太宗",
+        "商代早期确立了王权与神权并立、兄终弟及与父死子继交替的宗法制度，奠定殷商早期五百年基业"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "太戊七十五年极盛与九世之乱频迁都",
+      "items": [
+        "商中宗太戊即位时朝廷桑谷共生，太戊惧而修德修政，任伊陟巫咸辅政，诸侯重朝，在位七十五载创商代治世极盛",
+        "仲丁迁都于隞引发王室兄弟夺嫡争立，历经外壬、河亶甲、祖乙、祖辛、沃甲、祖丁、南庚、阳甲九代，史称九世之乱",
+        "商朝五次迁都（隞、相、邢、奄），宗族内讧国力虚耗，诸侯方国乘机离心反叛，商道中衰亟待巨擘重振"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "盘庚迁殷、武丁盛世与牧野鹿台易代",
+      "items": [
+        "盘庚力排众议迁都于殷（安阳殷墟），遵商汤德政终结九世之乱，商从此称殷商；武丁起用傅说、王后妇好开疆辟地，青铜甲骨极盛",
+        "祖甲改革周祭法度确立宗法严密秩序；商晚期武乙囊血射天震死河渭，文丁杀周季历种下世仇，帝乙征淮耗尽国力",
+        "商纣王帝辛刚愎自用宠爱妲己，杀比干囚文王，公元前1046年周武王牧野之战誓师伐纣，商军前徒倒戈，纣王自焚鹿台，殷商554年享国终"
+      ]
+    }
+  ]
+}

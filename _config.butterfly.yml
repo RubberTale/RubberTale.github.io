@@ -54,7 +54,8 @@ menu:
     文本倒序转换: /tools/reverse-app/ || fas fa-repeat
   探索与更多 || fas fa-compass:
     🏛️ 华夏帝系全景总览: /genealogy/ || fas fa-landmark
-    夏商早期世系: /genealogy/xia-shang/ || fas fa-sun
+    大夏十七王世系: /genealogy/xia/ || fas fa-water
+    大商三十一王系: /genealogy/shang/ || fas fa-sun
     周朝天子世系: /genealogy/zhou/ || fas fa-chess-king
     大秦帝国全景: /genealogy/qin/ || fas fa-shield-alt
     大汉二十九帝: /genealogy/han/ || fas fa-monument
