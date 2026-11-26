@@ -42,7 +42,7 @@
       "id": "gun",
       "type": "cloud",
       "label": "鲧 (崇伯鲧)",
-      "sublabel": "禹之父息壤堙水九年不成 · 殛于羽山奠治水序幕",
+      "sublabel": "禹之父息壤堙水九年 · 殛于羽山奠治水序",
       "pos": [
         40,
         60
@@ -57,7 +57,7 @@
       "id": "dayu",
       "type": "cloud",
       "label": "夏后大禹 (姒文命)",
-      "sublabel": "导九川划九州建夏邦 · 涂山之会大会诸侯铸九鼎",
+      "sublabel": "导九川划九州建夏邦 · 涂山会盟铸九鼎",
       "pos": [
         40,
         180
@@ -72,7 +72,7 @@
       "id": "boyi",
       "type": "database",
       "label": "伯益 (大费)",
-      "sublabel": "辅佐大禹治水掌山泽 · 禹举为嗣后益让启于箕山",
+      "sublabel": "辅禹治水掌山泽 · 益让启于箕山之阳",
       "pos": [
         40,
         300
@@ -87,7 +87,7 @@
       "id": "xiaqi",
       "type": "frontend",
       "label": "1. 夏后启",
-      "sublabel": "废禅让开世袭家天下 · 钧台之享甘之战灭有扈氏",
+      "sublabel": "废禅让开家天下 · 钧台享诸侯甘之战",
       "pos": [
         40,
         420
@@ -102,7 +102,7 @@
       "id": "taikang",
       "type": "security",
       "label": "2. 太康",
-      "sublabel": "不恤民事盘于游田 · 东夷后羿拒于洛汭太康失国",
+      "sublabel": "荒耽田猎不恤民事 · 后羿拒于洛汭失国",
       "pos": [
         40,
         540
@@ -117,7 +117,7 @@
       "id": "zhongkang",
       "type": "backend",
       "label": "3. 仲康",
-      "sublabel": "太康之弟后羿立为傀儡 · 日食羲和废厥职胤征出伐",
+      "sublabel": "太康弟后羿立为傀儡 · 日食胤征讨羲和",
       "pos": [
         320,
         60
@@ -132,7 +132,7 @@
       "id": "houyi_hanzhuo",
       "type": "security",
       "label": "后羿 · 寒浞 (代夏政权)",
-      "sublabel": "后羿恃射乱政为寒浞所弑 · 寒浞夺国杀相代夏四十载",
+      "sublabel": "后羿恃射乱政遭弑 · 寒浞夺国代夏四十载",
       "pos": [
         320,
         180
@@ -147,7 +147,7 @@
       "id": "xiaxiang",
       "type": "backend",
       "label": "4. 相 (xiàng)",
-      "sublabel": "仲康之子依斟灌斟寻 · 遭寒浞之子过浇弑杀夏祀绝",
+      "sublabel": "仲康子依斟灌斟寻 · 寒浞子浇弑杀夏祀绝",
       "pos": [
         320,
         300
@@ -162,7 +162,7 @@
       "id": "shaokang",
       "type": "frontend",
       "label": "5. 少康",
-      "sublabel": "相遗腹子有虞积一成一旅 · 诛浇灭浞少康中兴复禹祀",
+      "sublabel": "相遗腹子积一成一旅 · 诛浇灭浞少康中兴",
       "pos": [
         320,
         420
@@ -177,7 +177,7 @@
       "id": "xiazhu",
       "type": "frontend",
       "label": "6. 杼 (予 zhù)",
-      "sublabel": "少康之子作杼甲甲胄 · 东征九夷平定海岱夏朝武功极盛",
+      "sublabel": "少康子作杼甲甲胄 · 东征九夷武功极盛",
       "pos": [
         320,
         540
@@ -192,7 +192,7 @@
       "id": "xiahuai",
       "type": "backend",
       "label": "7. 槐 (芬 fēn)",
-      "sublabel": "杼之子居斟寻 · 九夷来宾向风慕化 · 夏朝极盛期",
+      "sublabel": "杼之子居斟寻 · 九夷来宾夏朝极盛",
       "pos": [
         600,
         60
@@ -207,7 +207,7 @@
       "id": "xiamang",
       "type": "backend",
       "label": "8. 芒 (荒 huāng)",
-      "sublabel": "槐之子以玄圭沉河祭水神 · 获大鱼诸侯宾服黄河安澜",
+      "sublabel": "槐之子沉玄圭祭水神 · 诸侯宾服黄河安澜",
       "pos": [
         600,
         180
@@ -222,7 +222,7 @@
       "id": "xiaxie",
       "type": "backend",
       "label": "9. 泄 (xiè)",
-      "sublabel": "芒之子加封九夷方国诸侯 · 夷夏交好华夏疆域巩固",
+      "sublabel": "芒之子加封九夷方国 · 夷夏交好疆域巩固",
       "pos": [
         600,
         300
@@ -237,7 +237,7 @@
       "id": "bujiang",
       "type": "database",
       "label": "10. 不降 (bù xiáng)",
-      "sublabel": "泄之子在位五十九载最久 · 亲征九苑明德内禅于弟扃",
+      "sublabel": "在位五十九载最久 · 明德内禅于弟扃",
       "pos": [
         600,
         420
@@ -252,7 +252,7 @@
       "id": "xiajiong",
       "type": "backend",
       "label": "11. 扃 (jiōng)",
-      "sublabel": "泄之子不降之弟兄终弟及 · 守承祖德平稳守业在位廿一载",
+      "sublabel": "泄子不降弟兄终弟及 · 守承祖德在位廿一载",
       "pos": [
         600,
         540
@@ -267,7 +267,7 @@
       "id": "xiajin",
       "type": "security",
       "label": "12. 廑 (胤甲 jǐn)",
-      "sublabel": "扃之子继统迁都西河 · 天现十日异象夏道由盛转衰",
+      "sublabel": "扃之子继统迁都西河 · 天现十日夏道由衰",
       "pos": [
         880,
         60
@@ -282,7 +282,7 @@
       "id": "kongjia",
       "type": "security",
       "label": "13. 孔甲",
-      "sublabel": "不降子堂弟继立 · 好方鬼神蓄龙失德诸侯叛夏道衰",
+      "sublabel": "好方鬼神蓄龙失德 · 诸侯叛离夏道衰",
       "pos": [
         880,
         180
@@ -297,7 +297,7 @@
       "id": "xiagao",
       "type": "backend",
       "label": "14. 皋 (gāo)",
-      "sublabel": "孔甲之子居斟寻 · 恢复平稳守成为期短暂",
+      "sublabel": "孔甲之子居斟寻 · 恢复平稳守成短暂",
       "pos": [
         880,
         300
@@ -312,7 +312,7 @@
       "id": "xiafa",
       "type": "backend",
       "label": "15. 发 (敬 jìng)",
-      "sublabel": "皋之子即位泰山地震 · 诸侯来朝已生异心王室日衰",
+      "sublabel": "皋之子即位泰山地震 · 诸侯离心王室日衰",
       "pos": [
         880,
         420
@@ -327,7 +327,7 @@
       "id": "xiajie",
       "type": "external",
       "label": "16. 夏桀 (履癸 guǐ)",
-      "sublabel": "发之子暴虐荒淫宠妹喜 · 筑倾宫酒池肉林杀关龙逢",
+      "sublabel": "发子暴虐宠妹喜 · 酒池肉林杀关龙逢",
       "pos": [
         880,
         540
@@ -342,7 +342,7 @@
       "id": "guanlongfeng",
       "type": "database",
       "label": "关龙逢 (忠谏殉国)",
-      "sublabel": "夏朝大夫立进谏图苦诤肉林 · 为桀割胸剖心商汤哭祭",
+      "sublabel": "苦谏暴桀肉林之耻 · 为桀剖心商汤哭祭",
       "pos": [
         880,
         660
@@ -357,7 +357,7 @@
       "id": "mingtiao",
       "type": "external",
       "label": "鸣条之战 · 商汤灭夏",
-      "sublabel": "前1600年商汤誓师伐夏桀 · 战于鸣条夏溃桀奔南巢而死",
+      "sublabel": "前1600商汤誓师伐夏 · 鸣条夏溃桀奔南巢",
       "pos": [
         880,
         780
